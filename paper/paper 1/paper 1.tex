@@ -1,0 +1,316 @@
+% This is LLNCS.DEM the demonstration file of
+% the LaTeX macro package from Springer-Verlag
+% for Lecture Notes in Computer Science,
+% version 2.4 for LaTeX2e as of 16. April 2010
+%
+\documentclass{llncs}
+
+% allows for temporary adjustment of side margins
+\usepackage{chngpage}
+
+% just makes the table prettier (see \toprule, \bottomrule, etc. commands below)
+\usepackage{booktabs}
+
+\usepackage[utf8]{inputenc}
+
+% URL handling
+\usepackage{url}
+\urlstyle{same}
+
+% Todos
+%\usepackage[colorinlistoftodos]{todonotes}
+%\newcommand{\ke}[1]{\todo[size=\small, color=orange!40]{\textbf{Kai:} #1}}
+%\newcommand{\tb}[1]{\todo[size=\small, color=green!40]{\textbf{Thomas:} #1}}
+
+
+%\usepackage{makeidx}  % allows for indexgeneration
+
+%\usepackage{amsmath}
+\usepackage{amsmath, amssymb}
+\usepackage{mathabx}
+
+% monospace within text
+\newcommand{\ms}[1]{\texttt{#1}}
+
+% examples
+\usepackage{fancyvrb}
+\DefineVerbatimEnvironment{ex}{Verbatim}{numbers=left,numbersep=2mm,frame=single,fontsize=\scriptsize}
+
+\usepackage{xspace}
+% Einfache und doppelte Anfuehrungszeichen
+\newcommand{\qs}{``} 
+\newcommand{\qe}{''\xspace} 
+\newcommand{\sqs}{`} 
+\newcommand{\sqe}{'\xspace} 
+
+% checkmark
+\usepackage{tikz}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+
+% Xs
+\usepackage{pifont}
+
+% Tabellenabstände kleiner
+\setlength{\intextsep}{10pt} % Vertical space above & below [h] floats
+\setlength{\textfloatsep}{10pt} % Vertical space below (above) [t] ([b]) floats
+% \setlength{\abovecaptionskip}{0pt}
+% \setlength{\belowcaptionskip}{0pt}
+
+\usepackage{tabularx}
+\newcommand{\hr}{\hline\noalign{\smallskip}} % für die horizontalen linien in tabellen
+
+% Todos
+\usepackage[colorinlistoftodos]{todonotes}
+\newcommand{\ke}[1]{\todo[size=\small, color=orange!40]{\textbf{Kai:} #1}}
+\newcommand{\tb}[1]{\todo[size=\small, color=green!40]{\textbf{Thomas:} #1}}
+
+\newenvironment{table-1cols}{
+  \scriptsize
+  \sffamily
+  \vspace{0.3cm}
+  \begin{tabular}{l}
+  \hline
+  \textbf{Requirements} \\
+  \hline
+
+}{
+  \hline
+  \end{tabular}
+  \linebreak
+}
+
+\newenvironment{table-2cols}{
+  \scriptsize
+  \sffamily
+  \vspace{0.3cm}
+  \begin{tabular}{l|l}
+  \hline
+  \textbf{Requirements} & \textbf{Covering DSCLs} \\
+  \hline
+
+}{
+  \hline
+  \end{tabular}
+  \linebreak
+}
+
+\newenvironment{DL}{
+  \scriptsize
+  \sffamily
+  \vspace{0.3cm}
+  \begin{tabular}{l}
+	\textbf{DL:} \\
+
+}{
+  \end{tabular}
+  \linebreak
+}
+
+\setcounter{secnumdepth}{5}
+
+\begin{document}
+
+%
+%
+\title{XXXXX}
+%
+\titlerunning{XXXXX}  % abbreviated title (for running head)
+%                                     also used for the TOC unless
+%                                     \toctitle is used
+%
+\author{XXXXX\inst{1} \and XXXXX\inst{2}}
+%
+\authorrunning{XXXXX} % abbreviated author list (for running head)
+%
+%%%% list of authors for the TOC (use if author list has to be modified)
+\institute{XXXXX\\
+\email{XXXXX},\\ 
+\and
+XXXXX \\
+\email{XXXXX} 
+}
+
+\maketitle              % typeset the title of the contribution
+
+\begin{abstract}
+
+
+\keywords{..}
+\end{abstract}
+%
+
+\section{Motivation}
+
+For many RDF applications, the formulation of constraints and the automatic validation of data according to these constraints is a much sought-after feature. 
+In 2013, the W3C invited experts from industry, government, and academia to the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/rdf-val/}}, 
+where first use cases have been presented and discussed. 
+Two WGs, that follow up on this workshop and address RDF constraint formulation and validation, are established in 2014: 
+the W3C RDF Data Shapes WG\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles WG\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
+
+There are long and controversial discussions in these WGs if or if not OWL should be used RDF validation when assuming closed world semantics.
+OWL is an instantiation of a DSCL which is high-level, human-friendly (human-readable and human-understandable), fairly concise, and very expressive.
+There are lots of benefits but also a huge amount of drawbacks when using OWL for the purpose to formulate and to validate RDF constraints.
+
+\begin{itemize}
+	\item explain why specific OWL 2 constructs could be used for RDF validation 
+	\item explain why specific OWL 2 constructs should not be used for RDF validation
+\end{itemize}
+
+For RDF, SPARQL is generally seen as the method of choice to validate data according to certain constraints, although it is not ideal for their formulation. 
+In contrast, OWL 2 DL constraints are comparatively easy to understand, but lack an implementation to validate RDF data.
+Within our developed SPIN\footnote{\url{http://spinrdf.org/}} validation environment, we fully implemented an automatic validation of all OWL 2 DL constructs. 
+The implementation can be tested at \url{http://purl.org/net/rdfval-demo} and
+the OWL 2 SPIN mapping is maintained at \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}.
+
+\textbf{Constraint Validation with Reasoning}
+
+Constraint validation does not appear to be part of the services provided by
+OWL.  This has lead to claims that OWL cannot be used for constraint
+validation.  However inference, which is the core service provided by OWL,
+and constraint validation are indeed very closely related.
+
+Inference is the process of determining what follows from what has been
+stated.  Inference ranges from simple (students are people, John is a
+student, therefore John is a person) to the very complex.  Inference can
+also recognize impossibilities (students are people, John is a student, John
+is not a person, therefore there is a contradiction).  In the presence of
+complete information, nothing new can be inferred, so inference only checks
+for impossibilities, i.e., constraint violations.  So the way do constraints
+in OWL is to first set up complete information, and then just perform inference.
+
+\begin{itemize}
+	\item effects of reasoning for RDF validation 
+	\item inferencing as a pre/post validation step
+	\item both should be possible: (1) constraint validation with reasoning and (2) constraint validation without reasoning 
+\end{itemize}
+
+\textbf{Expressivity and Effects on Complexity of Constraint Languages}
+
+\textbf{Research questions} are:
+\begin{itemize}
+	\item Are all RDF constraints expressible by DL?
+	\item Are all RDF constraints expressible using a query language such as Datalog or SPARQL?
+	\item For which RDF validation requirements the expressivity of DL-Lite$_A$ respectively OWL 2 QL is sufficient?
+	\item For which RDF validation requirements additional constraint languages are needed to express related constraints?
+	\item Which constraint languages are suitable to express these remaining requirements?
+	\item What are the effects of these constraints regarding complexity?
+	\item What effects does reasoning have?
+\end{itemize}
+
+\begin{itemize}
+	\item underlying semantics: CWA
+\end{itemize}
+
+Nehmen wir nun an, dass dein Framework welches entsprechende SPARQL Queries generiert diese auf einem SPARQL Endpoint evaluiert der zu der vorliegenden Ontologie bzw. des darin verwendeten OWL 2 Profils das entsprechende Entailment Regime realisiert, wären die zurückgegebenen Resultsets vollständig. Wie das Entailment Regime im Endpoint realisiert ist, also durch Query Rewriting oder durch Vervollständigung der ABox, ist dabei irrelevant.
+
+Wie allerdings bspw. in 
+\url{https://www.uni-ulm.de/fileadmin/website_uni_ulm/iui.inst.090/Lehre/WS_2011-2012/SemWebGrundlagen/LectureNotes.pdf}
+auf Seite 51 veranschaulicht, ist die Komplexität des Reasoning abhängig von der zugrunde gelegten Sprache und kann daher nur in bestimmten Fällen effizient durchgeführt werden. Wie in unserem letzten Paper beschrieben zielt unter anderem die Definition von DL-Lite gerade darauf ab Reasoning Aufgaben und Query Answering effizient zu ermöglichen und ist Grundlage des OWL 2 QL Profils. Nun ist allgemein bekannt, dass die logische Konsistenz für diese Art von Sprachen effizient geprüft werden kann. 
+
+Allerding wäre wie bspw. in 
+\url{http://www.aifb.kit.edu/images/d/d2/2005_925_Haase_Consistent_Evol_1.pdf} beschrieben auch eine sogenannte 'User-defined Consistency' denkbar. Genau an dieser Stelle könnten wir ansetzen.
+
+\section{Ideas}
+
+\begin{itemize}
+	\item RDF validation using OWL 2 QL reasoning by SPARQL query expansion
+	\item validation with mappings to SPARQL
+	\item if using OWL 2 DL as constraint language or using constraints equivalent to OWL 2 QL you can use reasoning 
+	\item reasoning can also be executed using SPARQL query expansion.
+	\item reasoning not executing using reasoner
+	\item limitations of this approach
+	\item expressivity of SPARQL? (Erman) what can not be done with SPARQL?
+\end{itemize}
+
+\begin{itemize}
+	\item complete with reasoning | OW
+	\item complete without reasoning | CW
+	\item there is no query rewriting mechanism for OWL 2, just for OWL 2 QL
+	\item show that OWL 2 QL and further constraint languages together are complete
+\end{itemize}
+
+\section{OWL 2 QL}
+
+OWL 2 profiles specification: \cite{owl2profiles2008}
+
+\begin{itemize}
+  \item OWL 2 QL constructs
+	\item Difference between OWL 2 DL and OWL 2 QL
+\end{itemize}
+
+\textbf{Logical Underpinning for OWL 2 QL.}
+OWL 2 QL is based on the DL-Lite family of description logics. Several variants of DL-Lite have been described in the literature, and DL-Lite$_R$ provides the logical underpinning for OWL 2 QL. DL-Lite$_R$ does not require the unique name assumption (UNA), since making this assumption would have no impact on the semantic consequences of a DL-Lite$_R$ ontology. More expressive variants of DL-Lite, such as DL-Lite$_A$, extend DL-Lite$_R$ with functional properties, and these can also be extended with keys; however, for query answering to remain in LOGSPACE, these extensions require UNA and need to impose certain global restrictions on the interaction between properties used in different types of axiom. Basing OWL 2 QL on DL-Lite$_R$ avoids practical problems involved in the explicit axiomatization of UNA \cite{owl2profiles2008}. 
+
+\section{Related Work}
+
+\section{Evaluation}
+
+\begin{itemize}
+	\item Evaluation Using Practical Data Set
+\end{itemize}
+
+\section{Conclusion and Future Work}
+
+\section{Appendix}
+
+\subsection{Allowed Usage of Constructs in Class Expressions in OWL 2 QL}
+
+\textbf{Subclass Expressions}
+
+\begin{ex}
+subClassExpression :=
+    Class |
+    subObjectSomeValuesFrom | DataSomeValuesFrom
+subObjectSomeValuesFrom := 'ObjectSomeValuesFrom' '(' ObjectPropertyExpression owl:Thing ')'
+\end{ex}
+
+\textbf{Superclass Expressions}
+
+\begin{ex}
+superClassExpression :=
+    Class |
+    superObjectIntersectionOf | superObjectComplementOf |
+    superObjectSomeValuesFrom | DataSomeValuesFrom
+\end{ex}
+ 
+\subsection{Supported Constructs in OWL 2 QL}
+
+\begin{itemize}
+	\item subclass axioms (SubClassOf)
+  \item class expression equivalence (EquivalentClasses)
+  \item class expression disjointness (DisjointClasses)
+  \item inverse object properties (InverseObjectProperties)
+  \item property inclusion (SubObjectPropertyOf not involving property chains and SubDataPropertyOf)
+  \item property equivalence (EquivalentObjectProperties and EquivalentDataProperties)
+  \item property domain (ObjectPropertyDomain and DataPropertyDomain)
+  \item property range (ObjectPropertyRange and DataPropertyRange)
+  \item disjoint properties (DisjointObjectProperties and DisjointDataProperties)
+  \item symmetric properties (SymmetricObjectProperty)
+  \item reflexive properties (ReflexiveObjectProperty)
+  \item irreflexive properties (IrreflexiveObjectProperty)
+  \item asymmetric properties (AsymmetricObjectProperty)
+  \item assertions: DifferentIndividuals, ClassAssertion, ObjectPropertyAssertion, and DataPropertyAssertion
+\end{itemize}
+
+\subsection{Not Supported Constructs in OWL 2 QL}
+
+\begin{itemize}
+	\item existential quantification to a class expression or a data range (ObjectSomeValuesFrom and DataSomeValuesFrom) in the subclass position
+  \item self-restriction (ObjectHasSelf)
+  \item existential quantification to an individual or a literal (ObjectHasValue, DataHasValue)
+  \item enumeration of individuals and literals (ObjectOneOf, DataOneOf)
+  \item universal quantification to a class expression or a data range (ObjectAllValuesFrom, DataAllValuesFrom)
+  \item cardinality restrictions (ObjectMaxCardinality, ObjectMinCardinality, ObjectExactCardinality, DataMaxCardinality, DataMinCardinality, DataExactCardinality)
+  \item disjunction (ObjectUnionOf, DisjointUnion, and DataUnionOf)
+  \item property inclusions (SubObjectPropertyOf) involving property chains
+  \item functional and inverse-functional properties (FunctionalObjectProperty, InverseFunctionalObjectProperty, and FunctionalDataProperty)
+  \item transitive properties (TransitiveObjectProperty)
+  \item keys (HasKey)
+  \item individual equality assertions and negative property assertions (SameIndividual, NegativeObjectPropertyAssertion, NegativeDataPropertyAssertion)
+\end{itemize}
+
+\bibliography{../../literature/literature}{}
+\bibliographystyle{plain}
+\setcounter{tocdepth}{1}
+%\listoftodos
+\end{document}

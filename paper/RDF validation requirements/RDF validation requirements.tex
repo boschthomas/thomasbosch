@@ -1,0 +1,3514 @@
+% This is LLNCS.DEM the demonstration file of
+% the LaTeX macro package from Springer-Verlag
+% for Lecture Notes in Computer Science,
+% version 2.4 for LaTeX2e as of 16. April 2010
+%
+\documentclass{llncs}
+
+% allows for temporary adjustment of side margins
+\usepackage{chngpage}
+
+% just makes the table prettier (see \toprule, \bottomrule, etc. commands below)
+\usepackage{booktabs}
+
+\usepackage[utf8]{inputenc}
+
+% URL handling
+\usepackage{url}
+\urlstyle{same}
+
+% Todos
+%\usepackage[colorinlistoftodos]{todonotes}
+%\newcommand{\ke}[1]{\todo[size=\small, color=orange!40]{\textbf{Kai:} #1}}
+%\newcommand{\tb}[1]{\todo[size=\small, color=green!40]{\textbf{Thomas:} #1}}
+
+
+%\usepackage{makeidx}  % allows for indexgeneration
+
+%\usepackage{amsmath}
+\usepackage{amsmath, amssymb}
+\usepackage{mathabx}
+
+% monospace within text
+\newcommand{\ms}[1]{\texttt{#1}}
+
+% examples
+\usepackage{fancyvrb}
+\DefineVerbatimEnvironment{ex}{Verbatim}{numbers=left,numbersep=2mm,frame=single,fontsize=\scriptsize}
+\DefineVerbatimEnvironment{dl}{}{fontsize=\scriptsize}
+
+\newenvironment{gcotable-old}{
+  \scriptsize
+  \sffamily
+  \vspace{0.3cm}\linebreak
+  \begin{tabular}{l|l|l|l|l|l}
+  \hline
+  \textbf{c. type} & \textbf{context concept} & \textbf{p. list} & \textbf{concepts} & \textbf{c. element} & \textbf{c. value} \\
+  \hline
+
+}{
+  \hline
+  \end{tabular}
+  \linebreak
+}
+
+\newenvironment{gcotable}{
+  \scriptsize
+  \sffamily
+  \vspace{0.3cm}
+  \begin{tabular}{l|l|l|l|l|l|l}
+  \hline
+  \textbf{c. type} & \textbf{context concept} & \textbf{left p. list} & \textbf{right p. list} & \textbf{concepts} & \textbf{c. element} & \textbf{c. value} \\
+  \hline
+
+}{
+  \hline
+  \end{tabular}
+  \linebreak
+}
+
+\newenvironment{DL}{
+  \scriptsize
+  \sffamily
+  \vspace{0.3cm}
+  \begin{tabular}{l}
+	\textbf{DL:} \\
+
+}{
+  \end{tabular}
+  \linebreak
+}
+
+\newenvironment{evaluation}{
+  \scriptsize
+  \sffamily
+  \vspace{0.3cm}
+  \begin{tabular}{l|c|c|c|c|c}
+  \hline
+  \textbf{constraint} & \textbf{OWL2-DL} & \textbf{OWL2-QL} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\
+  \hline
+
+}{
+  \hline
+  \end{tabular}
+  \linebreak
+}
+
+\usepackage{xspace}
+% Einfache und doppelte Anfuehrungszeichen
+\newcommand{\qs}{``} 
+\newcommand{\qe}{''\xspace} 
+\newcommand{\sqs}{`} 
+\newcommand{\sqe}{'\xspace} 
+
+% checkmark
+\usepackage{tikz}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+
+% Xs
+\usepackage{pifont}
+
+% Tabellenabstände kleiner
+\setlength{\intextsep}{10pt} % Vertical space above & below [h] floats
+\setlength{\textfloatsep}{10pt} % Vertical space below (above) [t] ([b]) floats
+% \setlength{\abovecaptionskip}{0pt}
+% \setlength{\belowcaptionskip}{0pt}
+
+\usepackage{tabularx}
+\newcommand{\hr}{\hline\noalign{\smallskip}} % für die horizontalen linien in tabellen
+
+% pipe
+%\usepackage[T1]{fontenc}
+
+% Todos
+\usepackage[colorinlistoftodos]{todonotes}
+\newcommand{\tb}[1]{\todo[size=\small, color=blue!40]{\textbf{Thomas:} #1}}
+\newcommand{\ke}[1]{\todo[size=\small, color=orange!40]{\textbf{Kai:} #1}}
+\newcommand{\an}[1]{\todo[size=\small, color=green!40]{\textbf{Andreas:} #1}}
+\newcommand{\er}[1]{\todo[size=\small, color=red!40]{\textbf{Erman:} #1}}
+
+\setcounter{secnumdepth}{5}
+
+\begin{document}
+
+%
+%
+\title{XXXXX}
+%
+\titlerunning{XXXXX}  % abbreviated title (for running head)
+%                                     also used for the TOC unless
+%                                     \toctitle is used
+%
+\author{XXXXX\inst{1} \and XXXXX\inst{2}}
+%
+\authorrunning{XXXXX} % abbreviated author list (for running head)
+%
+%%%% list of authors for the TOC (use if author list has to be modified)
+\institute{XXXXX\\
+\email{XXXXX},\\ 
+\and
+XXXXX \\
+\email{XXXXX} 
+}
+
+\maketitle              % typeset the title of the contribution
+
+\begin{abstract}
+
+
+\keywords{..}
+\end{abstract}
+%
+
+% ---------------
+
+\section{Motivation}
+
+\begin{itemize}
+	\item mappings from RDF validation requirements (more specifically RDF constraint formulation requirements) to DL
+	\item mappings from RDF validation requirements (more specifically RDF constraint formulation requirements) to generic constraints (expressed by generic constraint language)
+\end{itemize}
+
+\tb{I think we should provide mappings to DL directly in the requirements chapters and not just in 1 table at the end of the paper}
+
+\section{Subsumption}
+
+requirement:
+
+\begin{itemize}
+	\item R-100-SUBSUMPTION
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item DL terminology: concept inclusion
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{DL}
+Mother $\sqsubseteq$ Parent 
+\end{DL}
+
+\begin{itemize}
+	\item all mothers are parents
+  \item the concept Mother is subsumed by the concept Parent
+\end{itemize}
+
+\begin{gcotable}
+class & Mother & - & - & Parent & $\sqsubseteq$ \\
+\end{gcotable}
+
+\subsection{Simple Example}
+
+\begin{itemize}
+	\item Jedis feel the force 
+\end{itemize}
+
+\begin{ex}
+# DSP
+# ---
+-
+\end{ex}
+
+\begin{ex}
+# OWL2
+# ----
+:Jedi rdfs:subClassOf :FeelingForce .
+\end{ex}
+
+\begin{ex}
+# ReSh
+# ----
+the extension ext:extendsShape may be used
+\end{ex}
+
+\begin{ex}
+# ShEx
+# ----
+:FeelingForce {
+    :feelingForce (true) }
+:Jedi {
+    & :FeelingForce ,
+    :attitute ('good') }
+\end{ex}
+
+\begin{ex}
+# data
+# ----
+:Yoda 
+    :feelingForce true ;
+    :attitute 'good' .
+\end{ex}
+
+\begin{DL}
+:Jedi $\sqsubseteq$ :FeelingForce
+\end{DL}
+
+\subsection{Complex Example}
+
+\begin{DL}
+Rich $\sqsubseteq$ $\neg$ Poor 
+\end{DL}
+
+\begin{gcotable}
+class & $\neg$ Poor & - & - & Poor & $\neg$ \\
+class & Rich & - & - & $\neg$ Poor & $\sqsubseteq$ \\
+\end{gcotable}
+
+\section{Class Equivalence}
+
+requirement:
+
+\begin{itemize}
+	\item R-3-EQUIVALENT-CLASSES
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item Concept equivalence asserts that two concepts have the same instances \cite{Kroetzsch2012}
+  \item While synonyms are an obvious example of equivalent concepts, in practice one more
+often uses concept equivalence to give a name to complex expression  \cite{Kroetzsch2012}
+\item Concept equivalence is indeed subsumption  from left and right. ($A \sqsubseteq B$ and $B \sqsubseteq A$ implies $A \equiv B$ )
+
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{DL}
+Person $\equiv$ Human
+\end{DL}
+
+\begin{gcotable}
+class & Person & - & - & Human & $\equiv$ \\
+class & Human & - & - & Person & $\equiv$ \\
+\end{gcotable}
+
+maybe better:
+\er{It is not better since we should stick to what we use as syntax.}
+
+\begin{gcotable}
+class & Person & - & - & Human & $\sqsubseteq$ \\
+class & Human & - & - & Person & $\sqsubseteq$ \\
+\end{gcotable}
+\section{Sub Object Properties}
+
+requirements:
+
+\begin{itemize}
+
+	\item R-54-SUB-OBJECT-PROPERTIES
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item DL terminology: role inclusion 
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{DL}
+parentOf $\sqsubseteq$ ancestorOf 
+\end{DL}
+
+\begin{itemize}
+	\item states that parentOf is a subrole of ancestorOf , i.e., every pair of individuals related by parentOf is also related by ancestorOf
+\end{itemize}
+
+\begin{gcotable}
+property & parentOf & ancestorOf & - & - & $\sqsubseteq$ \\
+\end{gcotable}
+
+better:
+
+\begin{gcotable}
+property & $\top$ & parentOf & ancestorOf & $\top$ & $\sqsubseteq$ \\
+\end{gcotable}
+
+%\subsection{Simple Example}
+
+%\begin{DL}
+%sitsOn $\sqsubseteq$ touches 
+%\end{DL}
+
+\subsection{Simple Example}
+
+\begin{DL}
+hasDog $\sqsubseteq$ hasPet 
+\end{DL}
+
+
+\section{Sub Data Properties}
+
+requirements:
+
+\begin{itemize}
+
+	\item R-54-SUB-DATA-PROPERTIES
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item DL terminology: concrete domains functional roles  
+\end{itemize}
+
+\subsection{Simple Example}
+\begin{DL}
+ $Person \sqcap  \forall hasAge. \leq_{10} \sqsubseteq Person \sqcap \forall hasEvenAge. \leq_{10}$ 
+\end{DL}
+
+\section{Object Property Paths / Object Property Chains}
+
+requirement:
+
+\begin{itemize}
+	\item R-55-OBJECT-PROPERTY-PATHS
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+  \item DL terminology: complex role inclusion axiom / role composition
+	\item role composition can only appear on the left-hand side of complex role inclusions \cite{Kroetzsch2012}
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{DL}
+brotherOf $\circ$ parentOf $\sqsubseteq$ uncleOf 
+\end{DL}
+
+\begin{ex}
+# OWL2
+# ----
+:uncleOf owl:propertyChainAxiom ( :brotherOf :parentOf ) . 
+\end{ex}
+
+\begin{gcotable}
+property & $\top$ & brotherOf, parentOf & uncleOf & $\top$ & $\sqsubseteq$ & -  \\
+\end{gcotable}
+
+old mapping: 
+
+\begin{gcotable}
+property & uncleOf & brotherOf, parentOf & - & $\top$ & $\sqsubseteq$ \\
+\end{gcotable}
+
+\section{Disjoint Properties}
+
+requirements:
+
+\begin{itemize}
+	\item R-9-DISJOINT-PROPERTIES
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item 
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{DL}
+Disjoint(parentOf, childOf)
+\end{DL}
+
+\begin{gcotable}
+property & $\top$ & parentOf & childOf & $\top$ & $\ne$ \\
+\end{gcotable}
+
+\section{Intersection}
+
+requirements:
+
+\begin{itemize}
+  \item R-15-CONJUNCTION-OF-CLASS-EXPRESSIONS
+	\item R-16-CONJUNCTION-OF-DATA-RANGES
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item composition / conjunction
+\end{itemize}
+
+DLs allow new concepts and roles to be
+built using a variety of different constructors. We distinguish concept and role 
+constructors depending on whether concept or role expressions are constructed. In the case of
+concepts, one can further separate basic Boolean constructors, role restrictions and nominals/enumerations \cite{Kroetzsch2012}.
+
+Boolean concept constructors provide basic boolean operations that are closely related to
+the familiar operations of intersection, union and complement of sets, or to conjunction,
+disjunction and negation of logical expressions \cite{Kroetzsch2012}.
+
+\begin{DL}
+Mother $\equiv$ Female $\sqcap$ Parent
+\end{DL}
+
+concept inclusions allow us to state that all mothers are female and that
+all mothers are parents, but what we really mean is that mothers are exactly the female
+parents. DLs support such statements by allowing us to form complex concepts such as
+the intersection (also called conjunction)
+which denotes the set of individuals that are both female and parents. A complex concept
+can be used in axioms in exactly the same way as an atomic concept, e.g., in the
+equivalence Mother $\equiv$ Female $\sqcap$ Parent .
+
+\subsection{Simple Example}
+
+\begin{DL}
+Female $\sqcap$ Parent
+\end{DL}
+
+\begin{itemize}
+	\item complex concept of all individuals which are of the concept Female and of the concept Parent
+\end{itemize}
+
+\begin{gcotable}
+class & Female $\sqcap$ Parent & - & - & Female, Parent & $\sqcap$ \\
+\end{gcotable}
+
+\begin{DL}
+Mother $\equiv$ Female $\sqcap$ Parent
+\end{DL}
+
+\begin{gcotable}
+class & Mother & - & - & Female, Parent & $\sqcap$ \\
+\end{gcotable}
+
+\section{Disjunction}
+
+requirements:
+
+\begin{itemize}
+	\item R-17-DISJUNCTION-OF-CLASS-EXPRESSIONS
+	\item R-18-DISJUNCTION-OF-DATA-RANGES
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item union / inclusive OR
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{DL}
+Father $\sqcup$ Mother $\sqcup$ Child
+\end{DL}
+
+\begin{gcotable}
+class & complex concept & - & - & Father, Mother, Child & $\sqcup$ \\
+\end{gcotable}
+
+\subsection{Simple Example}
+
+\begin{DL}
+Parent $\equiv$ Father $\sqcup$ Mother
+\end{DL}
+
+\begin{gcotable}
+class & Parent & - & - & Father, Mother & $\sqcup$ \\
+\end{gcotable}
+
+\section{Negation}
+
+requirements:
+
+\begin{itemize}
+  \item R-19-NEGATION-OF-CLASS-EXPRESSIONS
+	\item R-20-NEGATION-OF-DATA-RANGES
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item complement
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{DL}
+$ \neg Married $ \\ 
+\end{DL}
+
+\begin{itemize}
+	\item set of all individuals that are not married
+\end{itemize}
+
+\begin{gcotable}
+class & $\neg$ Married & - & - & Married & $\neg$ \\
+\end{gcotable}
+
+\subsection{Complex Example}
+
+\begin{DL}
+Female $\sqcap$ $\neg$ Married \\
+\end{DL}
+
+\begin{gcotable}
+class & $\neg$ Married & - & - & Married & $\neg$ \\
+class & Female $\sqcap$ $\neg$ Married & - & - & Female, $\neg$ Married & $\sqcap$ \\
+\end{gcotable}
+
+\section{Disjoint Classes}
+
+requirements:
+
+\begin{itemize}
+	\item R-7-DISJOINT-CLASSES
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item 
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{DL}
+Male $\sqcap$ Female $\sqsubseteq$ $\perp$
+\end{DL}
+
+\begin{gcotable}
+class & Male $\sqcap$ Female & - & - & Male, Female & $\sqcap$  \\
+class & $\top$ & - & - & Male $\sqcap$ Female, $\perp$ & $\sqsubseteq$ \\
+\end{gcotable}
+
+syntactic sugar:
+
+\begin{gcotable}
+class & Male & - & - & Female & $\ne$ \\
+class & Female & - & - & Male & $\ne$ \\
+\end{gcotable}
+
+\section{Existential Quantification on Properties}
+
+requirements:
+
+\begin{itemize}
+	\item R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item DL termonology: existential restriction
+	\item An existential class expression ObjectSomeValuesFrom( OPE CE ) consists of an object property expression OPE and a class expression CE, and it contains all those individuals that are connected by OPE to an individual that is an instance of CE. Such a class expression can be seen as a syntactic shortcut for the class expression ObjectMinCardinality( 1 OPE CE ).
+	\item An existential class expression DataSomeValuesFrom( DPE1 ... DPEn DR ) consists of n data property expressions DPEi, 1 $\leq$ i $\leq$ n, and a data range DR whose arity MUST be n. Such a class expression contains all those individuals that are connected by DPEi to literals lti, 1 $\leq$ i $\leq$ n, such that the tuple ( lt1 , ..., ltn ) is in DR. A class expression of the form DataSomeValuesFrom( DPE DR ) can be seen as a syntactic shortcut for the class expression DataMinCardinality( 1 DPE DR ). 
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{DL}
+$\exists$ parentOf . $\top$
+\end{DL}
+
+complex concept that describes the set
+of individuals that are parents of at least one individual (instance of $\top$). 
+
+\begin{gcotable}
+property & $\exists$ parentOf . $\top$ & parentOf & - & $\top$ & $\exists$ \\
+\end{gcotable}
+
+\subsection{Simple Example}
+
+\begin{DL}
+$\exists$ parentOf . Female
+\end{DL}
+
+the complex concept describes those individuals that are parents of at least one
+female individual, i.e., those that have a daughter.
+
+\begin{gcotable}
+property & $\exists$ parentOf . Female & parentOf & - & Female & $\exists$ \\
+\end{gcotable}
+
+\subsection{Simple Example}
+
+\begin{DL}
+Parent $\equiv$ $\exists$ parentOf . $\top$
+\end{DL}
+
+\begin{gcotable}
+property & Parent & parentOf & - & $\top$ & $\exists$ \\
+\end{gcotable}
+
+\section{Universal Quantification on Properties}
+
+requirements:
+
+\begin{itemize}
+	\item R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item DL termonology: universal restriction
+\end{itemize}
+
+\tb{definition}
+
+\subsection{Simple Example}
+
+\begin{DL}
+$\forall$ parentOf . Female
+\end{DL}
+
+\begin{itemize}
+	\item set of individuals all of whose children are female
+  \item also includes those that have no children at all
+\end{itemize}
+
+\begin{gcotable}
+property & $\forall$ parentOf . Female & parentOf & - & Female & $\forall$ \\
+\end{gcotable}
+
+\section{Property Domain}
+
+requirements:
+
+\begin{itemize}
+	\item R-25-OBJECT-PROPERTY-DOMAIN
+	\item R-26-DATA-PROPERTY-DOMAIN
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item restrict domain of object and data properties
+	\item DL terminology: domain restrictions on roles
+	\item The language needs to include an easy-to-use vocabulary to declare that a given property is associated with a class, e.g. to populate input forms with appropriate widgets but also constraint checking. In OO terms this is the declaration of a member, field, attribute or association. 
+\end{itemize}
+
+\tb{definition}
+
+\subsection{Simple Example}
+
+\begin{DL}
+$\exists$ sonOf . $\top$ $\sqsubseteq$ Male 
+\end{DL}
+
+\begin{itemize}
+	\item restrict the domain of sonOf to male individual
+\end{itemize}
+
+\begin{gcotable}
+property & $\top$ & sonOf & - & Male & domain \\
+\end{gcotable}
+
+\section{Property Range}
+
+requirements:
+
+\begin{itemize}
+	\item R-28-OBJECT-PROPERTY-RANGE
+	\item R-35-DATA-PROPERTY-RANGE
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item restrict range of object and data properties
+	\item DL terminology: range restrictions on roles
+\end{itemize}
+
+\tb{definition}
+
+\subsection{Simple Example}
+
+\begin{DL}
+$\top$ $\sqsubseteq$ $\forall$ sonOf . Parent 
+\end{DL}
+
+\begin{itemize}
+	\item restrict the range of sonOf to parents
+\end{itemize}
+
+\begin{ex}
+# OWL 2
+# -----
+sonOf rdfs:range Parent . 
+\end{ex}
+
+\begin{ex}
+# DSP
+# ---
+:hasDogRange
+        a dsp:DescriptionTemplate ; 
+        dsp:resourceClass owl:Thing ; 
+        dsp:statementTemplate [
+            a dsp:NonLiteralStatementTemplate ;
+            dsp:property sonOf ; 
+            dsp:nonLiteralConstraint [ 
+                a dsp:NonLiteralConstraint ;
+                dsp:valueClass Parent ] ] .
+\end{ex}
+
+\begin{gcotable}
+property & $\top$ & sonOf & - & Parent & range \\
+\end{gcotable}
+
+\section{Class-Specific Property Range}
+
+requirements:
+
+\begin{itemize}
+	\item R-29-CLASS-SPECIFIC-RANGE-OF-RDF-OBJECTS
+	\item R-36-CLASS-SPECIFIC-RANGE-OF-RDF-LITERALS
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+  \item restrict range of object and data properties for individuals within specific context
+	\item context: e.g. class
+	\item The values of each member property of a class may be limited by their value type, such as xsd:string or ex:Person. 
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{itemize}
+	\item property 'sonOf'
+	\item context: class 'Man'
+	\item range: class 'Parent'
+	\item $\rightarrow$ individuals of the class 'Man' can only have 'sonOf' relationships to indivuduals of the class 'Parent'
+\end{itemize}
+
+\section{Minimum Unqualified Cardinality Restrictions on Properties}
+
+requirements:
+
+\begin{itemize}
+	\item R-81-MINIMUM-UNQUALIFIED-CARDINALITY-ON-PROPERTIES
+	\item R-211-CARDINALITY-CONSTRAINTS
+\end{itemize}
+
+description:
+
+\begin{itemize}
+	\item A minimum cardinality expression ObjectMinCardinality( n OPE CE ) consists of a nonnegative integer n, an object property expression OPE, and a class expression CE, and it contains all those individuals that are connected by OPE to at least n different individuals that are instances of CE. If CE is missing, it is taken to be owl:Thing.
+	\item A minimum cardinality expression DataMinCardinality( n DPE DR ) consists of a nonnegative integer n, a data property expression DPE, and a unary data range DR, and it contains all those individuals that are connected by DPE to at least n different literals in DR. If DR is not present, it is taken to be rdfs:Literal. 
+	\item unqualified: CE respective DR is NOT stated. 
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{ex}
+# ShEx
+# ----
+:Jedi {
+    :attitude ('good') }
+:JediStudent {
+    & :Jedi ,
+    :studentOf {}{1} }
+:JediMaster {
+    & :Jedi ,
+    :mentorOf {}{1,2} }
+:SuperJediMaster {
+    & :Jedi ,
+    :mentorOf {}{3,} }
+\end{ex}
+
+\begin{itemize}
+	\item Jedis have the attitude 'good'
+	\item Jedi students are students of exactly 1 resource
+	\item Jedi masters are mentoring at least 1 and at most 2 resources
+	\item Super Jedi masters are mentoring at least 3 resources  
+\end{itemize}
+
+\begin{ex}
+# data
+# ----
+:Yoda 
+    :attitude 'good' ;
+    :mentorOf :MaceWindu , :Obi-Wan , :Luke .
+:MaceWindu
+    :attitude 'good' ;
+    :studentOf :Yoda .
+:Obi-Wan 
+    :attitude 'good' ;
+    :studentOf :Yoda ;
+    :mentorOf :Anakin .
+:Anakin
+    :attitude 'good' ; 
+    :studentOf :Obi-Wan .
+:Luke
+    :attitude 'good' ;
+    :studentOf :Yoda .
+\end{ex}
+
+\begin{ex}
+# Individuals matching the ’:SuperJediMaster’ data shape
+# ------------------------------------------------------
+:Yoda 
+\end{ex}
+
+\tb{ToDO: add DL}
+
+\section{Minimum Qualified Cardinality Restrictions on Properties}
+
+requirements:
+
+\begin{itemize}
+	\item R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES
+  \item R-211-CARDINALITY-CONSTRAINTS
+\end{itemize}
+
+description:
+
+\begin{itemize}
+	\item A minimum cardinality expression ObjectMinCardinality( n OPE CE ) consists of a nonnegative integer n, an object property expression OPE, and a class expression CE, and it contains all those individuals that are connected by OPE to at least n different individuals that are instances of CE. If CE is missing, it is taken to be owl:Thing.
+	\item A minimum cardinality expression DataMinCardinality( n DPE DR ) consists of a nonnegative integer n, a data property expression DPE, and a unary data range DR, and it contains all those individuals that are connected by DPE to at least n different literals in DR. If DR is not present, it is taken to be rdfs:Literal. 
+	\item qualified: CE respective DR is stated.
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{DL}
+$\geq$ 2 childOf . Parent
+\end{DL}
+
+\tb{ToDO: check DL}
+
+\begin{itemize}
+	\item set of individuals that are children of at least two parents
+\end{itemize}
+
+\begin{ex}
+# OWL 2
+# -----
+owl:Thing
+    a owl:Restriction ;
+    owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+    owl:onProperty childOf ;
+    owl:onClass Parent .
+\end{ex}
+
+\begin{gcotable}
+property & $\geq$ 2 childOf . Parent & childOf & -  & Parent & $\geq$ & 2 \\
+\end{gcotable}
+
+\subsection{Simple Example}
+
+\begin{DL}
+foaf:Person $\equiv$ $\geq$ 2 hasName.xsd:string
+\end{DL}
+
+\tb{ToDO: check DL}
+
+\begin{gcotable}
+property & foaf:Person & hasName & - & xsd:string & $\geq$ & 2 \\
+\end{gcotable}
+
+\subsection{Simple Example}
+
+\tb{ToDO: OWL 2 DL}
+
+\begin{ex}
+# ShEx
+# ----
+:Jedi {
+    :attitude ('good') }
+:JediStudent {
+    & :Jedi ,
+    :studentOf @:Jedi{1} }
+:JediMaster {
+    & :Jedi ,
+    :mentorOf @:Jedi{1,2} }
+:SuperJediMaster {
+    & :Jedi ,
+    :mentorOf @:Jedi{3,} }
+\end{ex}
+
+\begin{itemize}
+	\item Jedis have the attitude 'good'
+	\item Jedi students are students of exactly 1 Jedi
+	\item Jedi masters are mentoring at least 1 and at most 2 Jedis
+	\item Super Jedi masters are mentoring at least 3 Jedis
+\end{itemize}
+
+\begin{ex}
+# data
+# ----
+:Yoda 
+    :attitude 'good' ;
+    :mentorOf :MaceWindu , :Obi-Wan , :Luke .
+:MaceWindu
+    :attitude 'good' ;
+    :studentOf :Yoda .
+:Obi-Wan 
+    :attitude 'good' ;
+    :studentOf :Yoda ;
+    :mentorOf :Anakin .
+:Anakin
+    :attitude 'good' ; 
+    :studentOf :Obi-Wan .
+:Luke
+    :attitude 'good' ;
+    :studentOf :Yoda .
+\end{ex}
+
+\begin{ex}
+# Individuals matching the ’:SuperJediMaster’ data shape
+# ------------------------------------------------------
+:Yoda 
+
+# Individuals matching the ’:JediMaster’ data shape
+# -------------------------------------------------
+:Obi-Wan
+\end{ex}
+
+\tb{ToDO: add DL}
+
+\subsection{Complex Example}
+
+\begin{DL}
+Father2Daughters $\equiv$ Man $\sqcap$ ($\geq$ 2 hasChild.Woman)
+\end{DL}
+
+\tb{ToDO: check DL}
+
+\begin{gcotable}
+property & $\geq$ 2 hasChild.Woman & hasChild & - & Woman & $\geq$ & 2 \\
+class & Father2Daughters & - & - & Man, $\geq$ 2 hasChild.Woman & $\sqcap$ & - \\
+\end{gcotable}
+
+\section{Maximum Unqualified Cardinality Restrictions on Properties}
+
+requirements:
+
+\begin{itemize}
+	\item R-82-MAXIMUM-UNQUALIFIED-CARDINALITY-ON-PROPERTIES
+	\item R-211-CARDINALITY-CONSTRAINTS
+\end{itemize}
+
+description:
+
+\begin{itemize}
+	\item A maximum cardinality expression ObjectMaxCardinality( n OPE CE ) consists of a nonnegative integer n, an object property expression OPE, and a class expression CE, and it contains all those individuals that are connected by OPE to at most n different individuals that are instances of CE. If CE is missing, it is taken to be owl:Thing.
+	\item A maximum cardinality expression DataMaxCardinality( n DPE DR ) consists of a nonnegative integer n, a data property expression DPE, and a unary data range DR, and it contains all those individuals that are connected by DPE to at most n different literals in DR. If DR is not present, it is taken to be rdfs:Literal. 
+	\item unqualified: CE respective DR is NOT stated. 
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{ex}
+# ShEx
+# ----
+:Jedi {
+    :attitude ('good') }
+:JediStudent {
+    & :Jedi ,
+    :studentOf {}{1} }
+:JediMaster {
+    & :Jedi ,
+    :mentorOf {}{1,2} }
+:SuperJediMaster {
+    & :Jedi ,
+    :mentorOf {}{3,} }
+\end{ex}
+
+\begin{itemize}
+	\item Jedis have the attitude 'good'
+	\item Jedi students are students of exactly 1 resource
+	\item Jedi masters are mentoring at least 1 and at most 2 resources
+	\item Super Jedi masters are mentoring at least 3 resources  
+\end{itemize}
+
+\begin{ex}
+# data
+# ----
+:Yoda 
+    :attitude 'good' ;
+    :mentorOf :MaceWindu , :Obi-Wan , :Luke .
+:MaceWindu
+    :attitude 'good' ;
+    :studentOf :Yoda .
+:Obi-Wan 
+    :attitude 'good' ;
+    :studentOf :Yoda ;
+    :mentorOf :Anakin .
+:Anakin
+    :attitude 'good' ; 
+    :studentOf :Obi-Wan .
+:Luke
+    :attitude 'good' ;
+    :studentOf :Yoda .
+\end{ex}
+
+\begin{ex}
+# Individuals matching the ’:JediMaster’ data shape
+# -------------------------------------------------
+:Obi-Wan
+\end{ex}
+
+\tb{ToDO: add DL}
+
+\section{Maximum Qualified Cardinality Restrictions on Properties}
+
+requirements:
+
+\begin{itemize}
+	\item R-76-MAXIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES
+	\item R-211-CARDINALITY-CONSTRAINTS
+\end{itemize}
+
+description:
+
+\begin{itemize}
+	\item A maximum cardinality expression ObjectMaxCardinality( n OPE CE ) consists of a nonnegative integer n, an object property expression OPE, and a class expression CE, and it contains all those individuals that are connected by OPE to at most n different individuals that are instances of CE. If CE is missing, it is taken to be owl:Thing.
+	\item A maximum cardinality expression DataMaxCardinality( n DPE DR ) consists of a nonnegative integer n, a data property expression DPE, and a unary data range DR, and it contains all those individuals that are connected by DPE to at most n different literals in DR. If DR is not present, it is taken to be rdfs:Literal. 
+	\item qualified: CE respective DR is stated. 
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{DL}
+$\leq$  2 childOf . Parent
+\end{DL}
+
+\tb{ToDO: check DL}
+
+\begin{itemize}
+	\item set of individuals that are children of at most two parents
+\end{itemize}
+
+\begin{gcotable}
+property & $\leq$  2 childOf . Parent & childOf & - & Parent & $\leq$ & 2 \\
+\end{gcotable}
+
+\subsection{Simple Example}
+
+\tb{ToDO: OWL 2 DL}
+
+\begin{ex}
+# ShEx
+# ----
+:Jedi {
+    :attitude ('good') }
+:JediStudent {
+    & :Jedi ,
+    :studentOf @:Jedi{1} }
+:JediMaster {
+    & :Jedi ,
+    :mentorOf @:Jedi{1,2} }
+:SuperJediMaster {
+    & :Jedi ,
+    :mentorOf @:Jedi{3,} }
+\end{ex}
+
+\begin{itemize}
+	\item Jedis have the attitude 'good'
+	\item Jedi students are students of exactly 1 Jedi
+	\item Jedi masters are mentoring at least 1 and at most 2 Jedis
+	\item Super Jedi masters are mentoring at least 3 Jedis
+\end{itemize}
+
+\begin{ex}
+# data
+# ----
+:Yoda 
+    :attitude 'good' ;
+    :mentorOf :MaceWindu , :Obi-Wan , :Luke .
+:MaceWindu
+    :attitude 'good' ;
+    :studentOf :Yoda .
+:Obi-Wan 
+    :attitude 'good' ;
+    :studentOf :Yoda ;
+    :mentorOf :Anakin .
+:Anakin
+    :attitude 'good' ; 
+    :studentOf :Obi-Wan .
+:Luke
+    :attitude 'good' ;
+    :studentOf :Yoda .
+\end{ex}
+
+\begin{ex}
+# Individuals matching the ’:JediMaster’ data shape
+# -------------------------------------------------
+:Obi-Wan
+\end{ex}
+
+\tb{ToDO: add DL}
+
+\section{Exact Unqualified Cardinality Restrictions on Properties}
+
+requirements:
+
+\begin{itemize}
+	\item R-80-EXACT-UNQUALIFIED-CARDINALITY-ON-PROPERTIES
+	\item R-211-CARDINALITY-CONSTRAINTS
+\end{itemize}
+
+description:
+
+\begin{itemize}
+	\item An exact cardinality expression ObjectExactCardinality( n OPE CE ) consists of a nonnegative integer n, an object property expression OPE, and a class expression CE, and it contains all those individuals that are connected by OPE to exactly n different individuals that are instances of CE. If CE is missing, it is taken to be owl:Thing. Such an expression is actually equivalent to the expression ObjectIntersectionOf( ObjectMinCardinality( n OPE CE ) ObjectMaxCardinality( n OPE CE ) ).
+	\item An exact cardinality expression DataExactCardinality( n DPE DR ) consists of a nonnegative integer n, a data property expression DPE, and a unary data range DR, and it contains all those individuals that are connected by DPE to exactly n different literals in DR. If DR is not present, it is taken to be rdfs:Literal. 
+	\item unqualified: CE respective DR is NOT stated. 
+\end{itemize}
+
+\subsection{Simple Example}
+
+\tb{ToDo. OWL 2 DL}
+
+\begin{ex}
+# ShEx
+# ----
+:JediStudent {
+    :studentOf {}{1} }
+\end{ex}
+
+\begin{ex}
+# ReSh
+# ----
+:JediStudent a rs:ResourceShape ;
+    rs:property [
+        rs:name "studentOf" ;
+        rs:propertyDefinition :studentOf ;
+        rs:valueShape [ a rs:ResourceShape] ;
+        rs:occurs rs:Exactly-one ; ] .
+\end{ex}
+
+\begin{itemize}
+	\item Jedis have the attitude 'good'
+	\item Jedi students are students of exactly 1 resource
+\end{itemize}
+
+\begin{ex}
+# data
+# ----
+:Yoda 
+    :attitude 'good' ;
+    :mentorOf :MaceWindu , :Obi-Wan , :Luke .
+:MaceWindu
+    :attitude 'good' ;
+    :studentOf :Yoda .
+:Obi-Wan 
+    :attitude 'good' ;
+    :studentOf :Yoda ;
+    :mentorOf :Anakin .
+:Anakin
+    :attitude 'good' ; 
+    :studentOf :Obi-Wan .
+:Luke
+    :attitude 'good' ;
+    :studentOf :Yoda .
+\end{ex}
+
+\begin{ex}
+# Individuals matching the ’:JediStudent’ data shape
+# --------------------------------------------------
+:MaceWindu :Obi-Wan :Anakin :Luke
+\end{ex}
+
+\tb{ToDO: add DL}
+
+\section{Exact Qualified Cardinality Restrictions on Properties}
+
+requirements:
+
+\begin{itemize}
+	\item R-74-EXACT-QUALIFIED-CARDINALITY-ON-PROPERTIES
+	\item R-211-CARDINALITY-CONSTRAINTS
+\end{itemize}
+
+description:
+
+\begin{itemize}
+	\item An exact cardinality expression ObjectExactCardinality( n OPE CE ) consists of a nonnegative integer n, an object property expression OPE, and a class expression CE, and it contains all those individuals that are connected by OPE to exactly n different individuals that are instances of CE. If CE is missing, it is taken to be owl:Thing. Such an expression is actually equivalent to the expression ObjectIntersectionOf( ObjectMinCardinality( n OPE CE ) ObjectMaxCardinality( n OPE CE ) ).
+	\item An exact cardinality expression DataExactCardinality( n DPE DR ) consists of a nonnegative integer n, a data property expression DPE, and a unary data range DR, and it contains all those individuals that are connected by DPE to exactly n different literals in DR. If DR is not present, it is taken to be rdfs:Literal. 
+	\item qualified: CE respective DR is stated. 
+\end{itemize}
+
+\subsection{Simple Example}
+
+\tb{ToDO: OWL 2 DL}
+
+\begin{ex}
+# ShEx
+# ----
+:Jedi {
+    :attitude ('good') }
+:JediStudent {
+    :studentOf @:Jedi{1} }
+\end{ex}
+
+\begin{ex}
+# ReSh
+# ----
+:Jedi a rs:ResourceShape ;
+    rs:property [
+        rs:name "attitude" ;
+        rs:propertyDefinition :attitude ;
+        rs:allowedValue "good" ;
+        rs:occurs rs:Exactly-one ;
+    ] .
+:JediStudent a rs:ResourceShape ;
+    rs:property [
+        rs:name "studentOf" ;
+        rs:propertyDefinition :studentOf ;
+        rs:valueShape :Jedi ;
+        rs:occurs rs:Exactly-one ;
+    ] .
+\end{ex}
+
+\begin{itemize}
+	\item Jedis have the attitude 'good'
+	\item Jedi students are students of exactly 1 Jedi
+\end{itemize}
+
+\begin{ex}
+# data
+# ----
+:Yoda 
+    :attitude 'good' ;
+    :mentorOf :MaceWindu , :Obi-Wan , :Luke .
+:MaceWindu
+    :attitude 'good' ;
+    :studentOf :Yoda .
+:Obi-Wan 
+    :attitude 'good' ;
+    :studentOf :Yoda ;
+    :mentorOf :Anakin .
+:Anakin
+    :attitude 'good' ; 
+    :studentOf :Obi-Wan .
+:Luke
+    :attitude 'good' ;
+    :studentOf :Yoda .
+\end{ex}
+
+\begin{ex}
+# Individuals matching the ’:JediStudent’ data shape
+# --------------------------------------------------
+:MaceWindu :Obi-Wan :Anakin :Luke
+\end{ex}
+
+\tb{ToDO: add DL}
+
+\subsection{Complex Example}
+
+\begin{DL}
+Person $\sqsubseteq$ $\geq$ 2 childOf . Parent $\sqcap$ $\leq$  2 childOf . Parent \\
+\end{DL}
+
+\tb{ToDO: check DL}
+
+\begin{itemize}
+	\item every person is a child of exactly two parents
+\end{itemize}
+
+\begin{gcotable}
+property & $\geq$ 2 childOf . Parent & childOf & - & Parent & $\geq$ & 2 \\
+property & $\leq$ 2 childOf . Parent & childOf & - & Parent & $\leq$ & 2 \\
+class & Person & - & - & $\geq$ 2 childOf . Parent, $\leq$ 2 childOf . Parent & $\sqcap$ & - \\
+\end{gcotable}
+
+syntactic sugar:
+
+\begin{gcotable}
+property & Person & childOf & - & Parent & = & 2 \\
+\end{gcotable}
+
+\section{Inverse Object Properties}
+
+requirement:
+
+\begin{itemize}
+	\item R-56-INVERSE-OBJECT-PROPERTIES
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item In many cases properties are used bi-directionally and then accessed in the inverse direction, e.g. parent $\equiv$ child$^{-}$. There should be a way to declare value type, cardinality etc of those inverse relations without having to declare a new property URI. 
+	\item The object property expression OPE1 is an inverse of the object property expression OPE2. Thus, if an individual x is connected by OPE1 to an individual y, then y is also connected by OPE2 to x, and vice versa.
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{DL}
+parentOf $\equiv$ $childOf^{-}$ \\
+\end{DL}
+
+\begin{gcotable}
+property & parentOf & childOf & - & $\top$ & $inverse role (^{-})$ \\
+\end{gcotable}
+
+consistent with ontology:
+
+\begin{gcotable}
+property & $\top$ & parentOf & childOf & $\top$ & $inverse role (^{-})$ \\
+\end{gcotable}
+
+\section{Transitive Object Properties}
+
+requirements:
+
+\begin{itemize}
+	\item R-63-TRANSITIVE-OBJECT-PROPERTIES
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item Transitivity is a special form of complex role inclusion
+	\item An object property transitivity axiom TransitiveObjectProperty( OPE ) states that the object property expression OPE is transitive — that is, if an individual x is connected by OPE to an individual y that is connected by OPE to an individual z, then x is also connected by OPE to z.
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{DL}
+ancestorOf $\circ$ ancestorOf $\sqsubseteq$ ancestorOf
+\end{DL}
+
+syntactic sugar:
+
+\begin{gcotable}
+property & ancesterOf & ancestorOf, ancestorOf & - & $\top$ & transitive role \\
+\end{gcotable}
+
+syntactic sugar (ontology conform):
+
+\begin{gcotable}
+property & $\top$ & ancestorOf, ancestorOf & ancestorOf & $\top$ & transitive role \\
+\end{gcotable}
+
+without syntactic sugar (ontology conform):
+
+\begin{gcotable}
+property & $\top$ & ancestorOf, ancestorOf & ancestorOf & $\top$ & $\sqsubseteq$ \\
+\end{gcotable}
+
+\section{Symmetric Object Properties}
+
+requirement:
+
+\begin{itemize}
+	\item R-61-SYMMETRIC-OBJECT-PROPERTIES
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item A role is symmetric if it is equivalent to its own inverse \cite{Kroetzsch2012}
+  \item An object property symmetry axiom SymmetricObjectProperty( OPE ) states that the object property expression OPE is symmetric — that is, if an individual x is connected by OPE to an individual y, then y is also connected by OPE to x. 	
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{DL}
+marriedTo $\equiv$ $marriedTo^{-}$ \\
+\end{DL}
+
+\begin{gcotable}
+property & marriedTo & marriedTo & - & $\top$ & $inverse role (^{-})$ \\
+\end{gcotable}
+
+ontology conform:
+
+\begin{gcotable}
+property & $\top$ & marriedTo & marriedTo & $\top$ & $inverse role (^{-})$ \\
+\end{gcotable}
+
+syntactic sugar:
+
+\begin{gcotable}
+property & $\top$ & marriedTo & - & $\top$ & symmetric role \\
+\end{gcotable}
+
+\subsubsection{Asymmetric Object Properties}
+
+requirement:
+
+\begin{itemize}
+	\item R-62-ASYMMETRIC-OBJECT-PROPERTIES
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item A role is asymmetric if it is disjoint from its own inverse \cite{Kroetzsch2012}
+	\item An object property asymmetry axiom AsymmetricObjectProperty( OPE ) states that the object property expression OPE is asymmetric — that is, if an individual x is connected by OPE to an individual y, then y cannot be connected by OPE to x. 
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{DL}
+Disjoint( parentOf , $parentOf^{-}$ )
+\end{DL}
+
+\begin{gcotable}
+property & $parentOf^{-}$ & parentOf & - & $\top$ & inverse role $(^{-})$ \\
+property & parentOf & parentOf, $parentOf^{-}$ & - & $\top$ & disjoint role ($\ne$) \\
+\end{gcotable}
+
+ontology conform:
+
+\begin{gcotable}
+property & $\top$ & parentOf & - & $\top$ & inverse role $(^{-})$ \\
+property & $\top$ & parentOf, $parentOf^{-}$ & - & $\top$ & disjoint role ($\ne$) \\
+\end{gcotable}
+
+syntactic sugar:
+
+\begin{gcotable}
+property & $\top$ & parentOf & - & $\top$ & asymmetric role \\
+\end{gcotable}
+
+\subsection{Simple Example}
+
+\begin{itemize}
+	\item child parent relations (dbo:child) cannot be symmetric
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{itemize}
+	\item person birth place relations (dbo:birthPlace) cannot be symmetric
+\end{itemize}
+
+\section{Class-Specific Reflexive Object Properties / Local Reflexivity}
+
+requirement:
+
+\begin{itemize}
+	\item 
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+  \item DL terminology: local reflexivity
+	\item set of individuals that are related to themselves via a given role \cite{Kroetzsch2012}.
+	\item set of individuals (of a specific class) that are related to themselves via a given object property
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{DL}
+$\exists$ talksTo .Self. 
+\end{DL}
+
+\begin{itemize}
+	\item set of individuals that are talking to themselves
+\end{itemize}
+
+\begin{gcotable}
+property & $\exists$ talksTo .Self.  & talksTo & - & Self & $\exists$ \\
+\end{gcotable}
+
+syntactic sugar:
+
+\begin{gcotable}
+property & $\exists$ talksTo .Self. & talksTo & - & - & reflexive role \\
+\end{gcotable}
+
+
+\section{Reflexive Object Properties / Global Reflexivity}
+
+requirement:
+
+\begin{itemize}
+	\item R-59-REFLEXIVE-OBJECT-PROPERTIES
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+  \item DL terminology: reflexive roles, global reflexivity
+	\item global reflexivity can be expressed by imposing local reflexivity on the top concept \cite{Kroetzsch2012}
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{DL}
+$\top$ $\sqsubseteq$ $\exists$ knows . Self
+\end{DL}
+
+syntactic sugar:
+
+\begin{gcotable}
+property & $\top$ & knows & - & $\top$ & reflexive role \\
+\end{gcotable}
+
+\begin{gcotable}
+property & $\top$ & knows & - & Self & $\exists$ \\
+\end{gcotable}
+
+\section{Irreflexive Object Properties}
+
+requirement:
+
+\begin{itemize}
+	\item R-60-IRREFLEXIVE-OBJECT-PROPERTIES
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item DL terminology: irreflexive roles
+  \item A role is irreflexive if it is never locally reflexive \cite{Kroetzsch2012}
+	\item An object property irreflexivity axiom IrreflexiveObjectProperty( OPE ) states that the object property expression OPE is irreflexive — that is, no individual is connected by OPE to itself. 
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{DL}
+$\top$ $\sqsubseteq$ $\neg$ $\exists$ marriedTo . Self
+\end{DL}
+
+syntactic sugar:
+
+\begin{gcotable}
+property & $\top$ & marriedTo & - & $\top$ & irreflexive role \\
+\end{gcotable}
+
+\begin{gcotable}
+property & $\exists$ marriedTo . Self & marriedTo & - & Self & $\exists$ \\
+class & $\top$ & - & - & $\exists$ marriedTo . Self & $\neg$ \\
+\end{gcotable}
+
+\subsection{Simple Example}
+
+\begin{itemize}
+	\item a resource cannot be its own parent (dbo:parent)
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{itemize}
+	\item a resource cannot be its own child (dbo:child)
+\end{itemize}
+
+\section{Context-Specific Property Groups}
+
+requirement:
+
+\begin{itemize}
+	\item R-66-PROPERTY-GROUPS
+\end{itemize}
+
+\subsection{Description}
+
+\subsection{Simple Example}
+
+DSCL (ShEx):
+\begin{ex}
+<Human> { 
+    (  
+        foaf:name xsd:string ,
+        foaf:givenName xsd:string 
+    ) ,
+    (
+        foaf:mbox IRI ,
+        foaf:homepage foaf:Document
+    ) }
+\end{ex}
+
+\begin{itemize}
+	\item 1. group: 1 foaf:name (range: xsd:string) and 1 foaf:givenName (range: xsd:string) and (,)
+	\item 2. group: 1 foaf:mbox (range: IRI) and 1 foaf:homepage (range: foaf:Document) 
+\end{itemize}
+
+\begin{DL}
+$A \equiv \forall foaf:name . xsd:string$ \\
+$B \equiv \forall foaf:givenName . xsd:string$ \\
+$C \equiv A XOR B$ \\
+$D \equiv \forall foaf:mbox . xsd:string$ \\
+$Human \equiv C \sqcap D$ \\
+\end{DL}
+
+\section{Context-Specific Exclusive OR of Properties}
+
+requirements:
+
+\begin{itemize}
+	\item R-11-CONTEXT-SPECIFIC-EXCLUSIVE-OR-OF-PROPERTIES
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+  \item exclusive or: logical operation that outputs true whenever both inputs differ (one is true, the other is false).
+	\item in OWL 2, inclusive OR of properties would be possible to express, but not exclusive OR of data properties
+\end{itemize}
+
+DL (general):
+
+\begin{DL}
+$C \sqsubseteq (\neg A \sqcap B) \sqcup (A \sqcap \neg B)$ \\
+\end{DL}
+
+DL (general) (alternative):
+
+\begin{DL}
+$C \sqsubseteq (A \sqcup B) \sqcap \neg(A \sqcap B)$ \\
+\end{DL}
+
+\subsection{Simple Example}
+
+DSCL (ShEx):
+\begin{ex}
+<Human> { (  
+    foaf:name xsd:string | 
+    foaf:givenName xsd:string ) }
+\end{ex}
+
+DSCL (OWL 2):
+\begin{ex}
+:Human owl:disjointUnionOf ( :CC1 :CC2 ) . 
+
+:CC1 rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty foaf:name ;
+    owl:allValuesFrom xsd:string ] .
+:CC2 rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty foaf:givenNme ;
+    owl:allValuesFrom xsd:string ] .
+\end{ex}
+
+\begin{itemize}
+	\item 1 foaf:name (range xsd:string) XOR 1 foaf:givenName (range xsd:string)
+\end{itemize}
+
+\begin{DL}
+A $\equiv$ $\forall$ foaf:name . xsd:string \\
+B $\equiv$ $\forall$ foaf:givenName . xsd:string \\ 
+Human $\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
+\end{DL}
+
+\begin{gcotable}
+property & A & foaf:name & - & xsd:string & $\forall$ \\
+property & B & foaf:givenName & - & xsd:string & $\forall$ \\
+class & $\neg$ A & - & - & A & $\neg$ \\
+class & $\neg$ B & - & - & B & $\neg$ \\
+class & $\neg$ A $\sqcap$ B & - & - & $\neg$ A, B & $\sqcap$ \\
+class & A $\sqcap$ $\neg$ B & - & - & A, $\neg$ B & $\sqcap$ \\
+class & Human & - & - & $\neg$ A $\sqcap$ B, A $\sqcap$ $\neg$ B & $\sqcup$ \\
+\end{gcotable}
+
+syntactic sugar:
+
+\begin{gcotable}
+property & A & foaf:name & - & xsd:string & $\forall$ \\
+property & B & foaf:givenName & - & xsd:string & $\forall$ \\
+class & Human & - & - & A, B & XOR \\
+\end{gcotable}
+
+
+\subsection{Complex Example}
+
+DSCL (ShEx):
+
+\begin{ex}
+<Human> { (  
+    foaf:name xsd:string | foaf:givenName xsd:string+ , 
+    foaf:familyName xsd:string ) }
+\end{ex}
+
+\begin{itemize}
+	\item 1 foaf:name (range xsd:string) XOR 1-n foaf:givenName (range xsd:string)
+	\item and
+	\item 1 foaf:familyName (range xsd:string)
+\end{itemize}
+
+\tb{ToDo: DL}
+
+Individuals matching the 'Human' data shape:
+
+\begin{ex}
+:Han
+    foaf:name "Han Solo" ;
+    foaf:familyName "Solo" .
+:Anakin
+    foaf:givenName "Anakin" ;
+    foaf:givenName "Darth" ;
+    foaf:familyName "Skywalker" .
+\end{ex}
+
+Individual not matching the 'Human' data shape:
+
+\begin{ex}
+:Anakin
+    foaf:name "Anakin Skywalker" ;
+    foaf:givenName "Anakin" ;
+    foaf:familyName "Skywalker" .
+\end{ex}
+
+\section{Context-Specific Inclusive OR of Properties}
+
+requirements:
+
+\begin{itemize}
+	\item R-202-CONTEXT-SPECIFIC-INCLUSIVE-OR-OF-PROPERTIES
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item inclusive or: A logical connective joining two or more predicates that yields the logical value "true" when at least one of the predicates is true.
+	\item context can be a class $\rightarrow$ constraint applies for individuals of this specific class 
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{itemize}
+	\item 1 foaf:name (range: xsd:string) OR 1 foaf:givenName (range: xsd:string)
+	\item it is also possible that both 1 foaf:name and 1 foaf:givenName are stated
+	\item context: class Human
+\end{itemize}
+
+\section{Context-Specific Exclusive OR of Property Groups}
+
+requirement:
+
+\begin{itemize}
+	\item R-13-DISJOINT-GROUP-OF-PROPERTIES-CLASS-SPECIFIC
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item exclusive or: logical operation that outputs true whenever both inputs differ (one is true, the other is false).
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{ex}
+# DSCL (ShEx)
+# -----------
+<Human> { 
+    (  
+        foaf:name xsd:string ,
+        foaf:givenName xsd:string ) 
+    |
+    (
+        foaf:mbox IRI ,
+        foaf:homepage foaf:Document ) }
+\end{ex}
+
+\begin{itemize}
+  \item 1. group XOR 2. group
+	\item 1. group: 1 foaf:name (range: xsd:string) and 1 foaf:givenName (range: xsd:string)
+	\item 2. group: 1 foaf:mbox (range: IRI) and 1 foaf:homepage (range: foaf:Document) 
+	\item context: class Human
+\end{itemize}
+
+\begin{ex}
+# valid data
+# ----------
+:Thomas
+    a :Human ;
+    foaf:mbox <thomas.bosch@gesis.org> ;
+    foaf:homepage <http://purl.org/net/thomasbosch> .
+\end{ex}
+
+\begin{ex}
+# invalid data
+# ----------
+:Thomas
+    a :Human ;
+    foaf:name 'Thomas Bosch' ;
+    foaf:givenName 'Thomas' ;
+    foaf:mbox <thomas.bosch@gesis.org> ;
+    foaf:homepage <http://purl.org/net/thomasbosch> .
+\end{ex}
+
+\begin{DL}
+Human $\sqsubseteq$ ($\neg$ E $\sqcap$ F) $\sqcup$ (E $\sqcap$ $\neg$ F) \\ 
+E $\equiv$ A $\sqcap$ B \\
+F $\equiv$ C $\sqcap$ D \\
+A $\equiv$ $\forall$ foaf:name . xsd:string \\
+B $\equiv$ $\forall$ foaf:givenName . xsd:string \\ 
+C $\equiv$ $\forall$ foaf:mbox . IRI \\
+D $\equiv$ $\forall$ foaf:homepage . foaf:Document \\
+\end{DL}
+
+\subsection{Complex Example}
+
+\begin{ex}
+# ShExC
+# -----
+[[
+  <UserShape> {                          # A User has
+    (foaf:name xsd:string                #  either a foaf:name
+     | foaf:givenName xsd:string+,       #   or 1+ givenNames
+       foaf:familyName xsd:string),      #   and a family name
+    foaf:mbox IRI                        # and an mbox.
+  }
+]]
+\end{ex}
+
+\begin{ex}
+# ReSh
+# ----
+
+[[
+  PREFIX rs:<http://open-services.net/ns/core#>
+  PREFIX se:<http://www.w3.org/2013/ShEx/Definition#>
+
+  <UserShape> a rs:ResourceShape ;       # A User has
+    se:choice [
+      rs:property [                      #  either a foaf:name
+        rs:name "name" ;
+        rs:propertyDefinition foaf:name ;
+        rs:valueType xsd:string ;
+        rs:occurs rs:Exactly-one ;
+      ] ;
+      se:ruleGroup [
+        rs:property [                    #   or 1+ givenNames
+          rs:name "givenName" ;
+          rs:propertyDefinition foaf:givenName ;
+          rs:valueType xsd:string ;
+          rs:occurs rs:One-or-many ;
+        ] ;
+        rs:property [                    #   and a family name
+          rs:name "familyName" ;
+          rs:propertyDefinition foaf:familyName ;
+          rs:valueType xsd:string ;
+          rs:occurs rs:Exactly-one ;
+        ] ;
+      ] ;
+    ] ;
+    rs:property [                        # and an mbox.
+      rs:name "mbox" ;
+      rs:propertyDefinition foaf:mbox ;
+      rs:valueType rs:Resource ;
+      rs:occurs rs:Exactly-one ;
+    ] .
+]]
+\end{ex}
+
+\section{Context-Specific Inclusive OR of Property Groups}
+
+requirements:
+
+\begin{itemize}
+	\item 
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+  \item at least one property group must match for individuals of a specific context 
+	\item context: may be a class
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{itemize}
+  \item 1. group OR 2. group
+	\item 1. group: 1 foaf:firstName (range: xsd:string) and 1 foaf:lastName (range: xsd:string)
+	\item 2. group: 1 foaf:givenName (range: xsd:string) and 1 foaf:familyName (range: xsd:string)
+	\item context: class Person
+\end{itemize}
+
+\begin{ex}
+# valid data
+# ----------
+:Anakin
+    a :Person ;
+    foaf:firstName 'Anakin' ;
+    foaf:lastName 'Skywalker' ;
+    foaf:givenName 'Anakin' ;
+    foaf:familyName 'Skywalker' .
+\end{ex}
+
+\begin{ex}
+# invalid data
+# ----------
+:Anakin
+    a :Person .
+\end{ex}
+
+\section{Allowed Values}
+
+requirements:
+
+\begin{itemize}
+	\item R-30-ALLOWED-VALUES-FOR-RDF-OBJECTS
+  \item R-37-ALLOWED-VALUES-FOR-RDF-LITERALS
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+  \item It is a common requirement to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resource). This is often rendered in drop down boxes or radio buttons in user interfaces. 
+	\item define a concept by simply enumerating its instances
+	\item A DL nominal is a concept that has exactly one instance
+	\item DL enumeration: combining nominals with union
+\end{itemize}
+
+allowed values for properties
+
+\begin{itemize}
+	\item must be an IRI
+  \item must be an IRI matching this pattern (e.g. http://id.loc.gov/authorities/names/)
+  \item must be an IRI matching one of these patterns
+  \item must be a (any) literal
+  \item must be one of these literals ("red" "blue" "green")
+  \item must be a typed literal of this type (e.g. XML dataType)
+\end{itemize}
+
+\subsection{Example}
+
+\begin{ex}
+# DSP
+# ----------
+:descriptionTemplate 
+    a dsp:DescriptionTemplate ;
+    dsp:minOccur "0"^^xsd:nonNegativeInteger ; 
+    dsp:maxOccur "infinity"^^xsd:string ; 
+    dsp:resourceClass swrc:Book ; 
+    dsp:statementTemplate [
+        a dsp:NonLiteralStatementTemplate ;
+        dsp:minOccur "0"^^xsd:nonNegativeInteger ; 
+        dsp:maxOccur "infinity"^^xsd:string ; 
+        dsp:property dcterms:subject ; 
+        dsp:nonLiteralConstraint [ 
+            a dsp:NonLiteralConstraint ;
+            dsp:valueClass skos:Concept ;
+            dsp:valueURI :ComputerScience, :SocialScience, :Librarianship ] ] .
+\end{ex}
+
+\begin{ex}
+# OWL2
+# ----
+dcterms:subject rdfs:range :ObjectOneOf . 
+# EquivalentClasses( :ObjectOneOf ObjectOneOf( :ComputerScience :SocialScience :Librarianship ) )
+:ObjectOneOf owl:equivalentClass [ 
+    a owl:Class ;
+    owl:oneOf ( :ComputerScience :SocialScience :Librarianship ) ] .
+\end{ex}
+
+\begin{itemize}
+	\item the range of the object property dcterms:subject must consist of the individuals :ComputerScience :SocialScience :Librarianship which are of the class skos:Concept
+\end{itemize}
+
+\begin{DL}
+$\top$ $\sqsubseteq$ $\forall$ dcterms:subject . skos:Concept $\sqcap$ ( $\{ComputerScience\}$ $\sqcup$ \{SocialScience\} $\sqcup$ \{Librarianship\} ) \\
+\end{DL}
+
+\subsection{Simple Example}
+
+\begin{DL}
+Beatle $\equiv$ \{john\} $\sqcup$ \{paul\} $\sqcup$ \{george\} $\sqcup$ \{ringo\} \\
+\end{DL}
+
+\begin{gcotable}
+class & Beatle & - & - & $\{john\}$, $\{paul\}$, $\{george\}$, $\{ringo\}$ & $\sqcup$ \\
+\end{gcotable}
+
+\subsection{Simple Example}
+
+\begin{DL}
+\{ComputerScience\} $\sqcup$ \{SocialScience\} $\sqcup$ \{Librarianship\} \\
+\end{DL}
+
+\begin{gcotable}
+class & complex concept & - & - & \{ComputerScience\}, \{SocialScience\}, \{Librarianship\} & $\sqcup$ & - \\
+\end{gcotable}
+
+\subsection{Simple Example}
+
+\begin{itemize}
+	\item Jedis have blue, green, or white laser swords
+\end{itemize}
+
+\begin{ex}
+# DSP
+# ---
+:personDescriptionTemplate
+    a dsp:DescriptionTemplate ;
+    dsp:resourceClass :Jedi ;
+    dsp:statementTemplate [
+        a dsp:LiteralStatementTemplate ;
+        dsp:property :laserSwordColor ;
+        dsp:literalConstraint [
+            a dsp:LiteralConstraint ;
+            dsp:literal "blue" ;
+            dsp:literal "green" ;
+            dsp:literal "white"] ] .
+\end{ex}
+
+\begin{ex}
+# OWL2
+# ----
+:laserSwordColor rdfs:range :laserSwordColors . 
+:laserSwordColors
+    a rdfs:Datatype .
+    owl:oneOf ( "blue" "green" "white" ) .
+\end{ex}
+
+\begin{ex}
+# ReSh
+# ----
+:Jedi a rs:ResourceShape ;
+    rs:property [
+        rs:name "laserSwordColor" ;
+        rs:propertyDefinition :laserSwordColor ;
+        rs:allowedValue "blue" , "green" , "white" ;
+        rs:occurs rs:Exactly-one ;
+    ] .
+\end{ex}
+
+\begin{ex}
+# ShEx
+# ----
+:Jedi {
+    :laserSwordColor ('blue' 'green' 'white') }
+\end{ex}
+
+\begin{ex}
+# Jedi individuals
+# ----------------
+:Yoda 
+    :laserSwordColor 'blue' .
+\end{ex}
+
+\begin{DL}
+Jedi $\equiv$ $\exists$ laserSwordColor . \{'blue'\} $\sqcup$ \{'green'\} $\sqcup$ \{'white'\} \\
+\end{DL}
+
+\tb{ToDo: check DL}
+
+\section{Not Allowed Values}
+
+requirements:
+
+\begin{itemize}
+	\item R-33-NEGATIVE-OBJECT-CONSTRAINTS
+	\item R-200-NEGATIVE-LITERAL-CONSTRAINTS
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item not allowed objects
+	\item not allowed literals
+	\item definition: A matching triple has any literal / object except those explicitly excluded
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{itemize}
+	\item Siths do not have blue, green, or white laser swords
+\end{itemize}
+
+\begin{ex}
+# DSP
+# ---
+-
+\end{ex}
+
+\begin{ex}
+# OWL2
+# ----
+:laserSwordColor rdfs:range :negativeLaserSwordColors . 
+:NegativeLaserSwordColors
+    a rdfs:Datatype .
+    owl:complementOf :laserSwordColors .
+:laserSwordColors
+    a rdfs:Datatype .
+    owl:oneOf ( "blue" "green" "white" ) .
+\end{ex}
+
+\begin{ex}
+# ReSh
+# ----
+-
+\end{ex}
+
+\begin{ex}
+# ShEx
+# ----
+:Sith {
+    ! :laserSwordColor ('blue' 'green' 'white') }
+\end{ex}
+
+\begin{ex}
+# Sith individuals
+# ----------------
+:DarthSidious
+    :laserSwordColor 'red' .
+\end{ex}
+
+\begin{DL}
+Sith $\equiv$ $\neg$( $\exists$ laserSwordColor . \{'blue'\} $\sqcup$ \{'green'\} $\sqcup$ \{'white'\} ) \\
+\end{DL}
+
+\tb{ToDo: check DL}
+
+\section{Membership in Controlled Vocabularies}
+
+requirements:
+
+\begin{itemize}
+	\item R-32-MEMBERSHIP-OF-RDF-OBJECTS-IN-CONTROLLED-VOCABULARIES
+	\item R-39-MEMBERSHIP-OF-RDF-LITERALS-IN-CONTROLLED-VOCABULARIES
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item resources can only be members of listed controlled vocabularies
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{ex}
+# DSCL (DSP)
+# ----------
+:bookDescriptionTemplate 
+    a dsp:DescriptionTemplate ;
+    dsp:resourceClass swrc:Book ; 
+    dsp:statementTemplate [
+        a dsp:NonLiteralStatementTemplate ;
+        dsp:property dcterms:subject ; 
+        dsp:nonLiteralConstraint [ 
+            a dsp:NonLiteralConstraint ;
+            dsp:valueClass skos:Concept ; 
+            dsp:vocabularyEncodingScheme :BookSubjects, :BookTopics, :BookCategories ] ] .
+\end{ex}
+
+\begin{itemize}
+	\item \ms{skos:Concept} resources can only be members of the listed controlled vocabularies
+\end{itemize}
+
+\begin{DL}
+$A \equiv skos:Concept \sqcap B$ \\
+$B \equiv \forall skos:inScheme . C$ \\
+$C \equiv skos:ConceptScheme \sqcap ( \{:BookSubjects\} \sqcup \{:BookTopics\} \sqcup \{:BookCategories\} )$ \\
+\end{DL}
+
+\begin{ex}
+# valid data
+# ----------
+:ArtficialIntelligence
+    a swrc:Book ;
+    dcterms:subject :ComputerScience .
+:ComputerScience
+    a skos:Concept ;
+    dcam:memberOf :BookSubjects ;
+    skos:inScheme :BookSubjects .
+:BookSubjects
+    a skos:ConceptScheme .
+\end{ex}
+
+\begin{ex}
+# invalid data
+# ------------
+:ArtficialIntelligence
+    a swrc:Book ;
+    dcterms:subject :ComputerScience .
+:ComputerScience
+    a skos:Concept ;
+    dcam:memberOf :BooksAboutBirds ;
+    skos:inScheme :BooksAboutBirds ;
+    dcam:memberOf :BookSubjects ;
+    skos:inScheme :BookSubjects .
+:BookSubjects
+    a skos:ConceptScheme .
+\end{ex}
+
+\begin{itemize}
+	\item The related subject (\ms{:ComputerScience}) is a member of a controlled vocabulary (\ms{:BooksAboutBirds}) 
+which is not part of the list of allowed controlled vocabularies.
+\end{itemize}
+
+\section{IRI Pattern Matching}
+
+requirements:
+
+\begin{itemize}
+	\item R-21-IRI-PATTERN-MATCHING-ON-RDF-SUBJECTS
+  \item R-22-IRI-PATTERN-MATCHING-ON-RDF-OBJECTS
+  \item R-23-IRI-PATTERN-MATCHING-ON-RDF-PROPERTIES
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item IRI pattern matching on subjects, properties, and objects
+\end{itemize}
+
+\section{Literal Pattern Matching}
+
+requirements:
+
+\begin{itemize}
+  \item R-44-PATTERN-MATCHING-ON-RDF-LITERALS
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item pattern matching on literals
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{ex}
+# OWL 2 QL (functional-style syntax)
+# ----------------------------------
+Declaration( Datatype( :SSN ) ) 
+DatatypeDefinition( 
+    :SSN
+    DatatypeRestriction( xsd:string xsd:pattern "[0-9]{3}-[0-9]{2}-[0-9]{4}" ) )     
+DataPropertyRange( :hasSSN :SSN ) 
+\end{ex}
+
+\begin{ex}
+# OWL 2 QL (turtle syntax)
+# ------------------------
+:SSN 
+    a rdfs:Datatype ;
+    owl:equivalentClass [
+        a rdfs:Datatype ;
+        owl:onDatatype xsd:string ;
+        owl:withRestrictions ( 
+            [ xsd:pattern "[0-9]{3}-[0-9]{2}-[0-9]{4}" ] ) ] .
+:hasSSN rdfs:range :SSN .
+\end{ex}
+
+\begin{itemize}
+	\item A social security number is a string that matches the given regular expression. 
+The second axiom defines :SSN as an abbreviation for a datatype restriction on xsd:string. 
+The first axiom explicitly declares :SSN to be a datatype. 
+The datatype :SSN can be used just like any other datatype; 
+for example, it is used in the third axiom to define the range of the :hasSSN property. 
+\end{itemize}
+
+\begin{ex}
+# valid data
+# ----------
+:TimBernersLee
+    :hasSSN "123-45-6789"^^:SSN .
+\end{ex}
+
+\begin{ex}
+# invalid data
+# ------------
+:TimBernersLee
+    :hasSSN "123456789"^^:SSN .
+\end{ex}
+
+\begin{gcotable}
+class & SSN & - & - & xsd:string & xsd:pattern & '[0-9]{3}-[0-9]{2}-[0-9]{4}' \\
+\end{gcotable}
+
+\section{Negative Literal Pattern Matching}
+
+requirements:
+
+\begin{itemize}
+  \item R-44-PATTERN-MATCHING-ON-RDF-LITERALS
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item negative pattern matching on literals
+\end{itemize}
+
+\begin{ex}
+# examples
+# --------
+1. dbo:isbn format is different ’!’ from '^([iIsSbBnN 0-9-])*$'
+2. dbo:postCode format is different ‘!’ from 'ˆ[0-9]{5}$'
+3. foaf:phone contains any letters ('[A-Za-z]')
+\end{ex}
+
+\subsection{Example}
+
+\begin{ex}
+# test binding (DQTP)
+# -------------------
+dbo:isbn format is different ’!’ from '^([iIsSbBnN 0-9-])*$'
+
+P1 => dbo:isbn
+NOP => !
+REGEX => 'ˆ([iIsSbBnN 0-9-])*$'
+\end{ex}
+
+\begin{ex}
+# DQTP
+# ----
+SELECT DISTINCT ?s WHERE { ?s %%P1%% ?value .
+    FILTER ( %%NOP%% regex(str(?value), %%REGEX%) ) }
+\end{ex}
+
+\begin{itemize}
+	\item MATCH Pattern \cite{Kontokostas2014} 
+  \item P1 is the property we need to check against REGEX and
+NOP can be a not operator (!) or empty.
+\end{itemize}
+
+\begin{ex}
+# valid data
+# ----------
+:FoundationsOfSWTechnologies
+    dbo:isbn 'ISBN-13 978-1420090505' .
+\end{ex}
+
+\begin{ex}
+# invalid data
+# ------------
+:HandbookOfSWTechnologies
+    dbo:isbn 'DOI 10.1007/978-3-540-92913-0' .
+\end{ex}
+
+\begin{gcotable}
+property & $\top$ & dbo:isbn & - & $\neg$ A & domain & - \\
+class & $\neg$ A & - & - & A & $\neg$ & - \\
+class & A & - & - & xsd:string & regex & 'ˆ([iIsSbBnN 0-9-])*$' $ \\
+\end{gcotable}
+
+\section{Literal Value Comparison}
+
+requirement:
+
+\begin{itemize}
+	\item R-43-LITERAL-VALUE-COMPARISON
+\end{itemize}
+
+\subsection{Description}
+
+examples:
+
+\begin{ex}
+# examples
+# --------
+1. dbo:deathDate before ‘<’ dbo:birthDate
+2. dbo:releaseDate after ‘>’ dbo:latestReleaseDate
+3. dbo:demolitionDate before ‘<’ dbo:buildingStartDate
+\end{ex}
+
+\subsection{Simple Example}
+
+\begin{ex}
+# DSCL (DQTP)
+# -----------
+SELECT ?s WHERE { 
+    ?s %%P1%% ?v1 .
+    ?s %%P2%% ?v2 .
+    FILTER ( ?v1 %%OP%% ?v2 ) }
+\end{ex}
+
+COMP Pattern \cite{Kontokostas2014} 
+
+Depending on the property semantics,
+there are cases where two different literal values must have
+a specific ordering with respect to an operator. 
+P1 and P2 are the datatype properties we need to compare and 
+OP is the comparison operator (\textless, \textless=, \textgreater, \textgreater=, =, !=). 
+
+\begin{ex}
+# test binding (DQTP)
+# -------------------
+dbo:deathDate before ‘<’ dbo:birthDate
+
+P1 => dbo:deathDate
+P2 => dbo:birthDate
+OP => <
+\end{ex}
+
+\begin{ex}
+# valid data
+# ----------
+:AlbertEinstein
+    dbo:birthDate '1879-03-14'^^xsd:date ;
+    dbo:deathDate '1955-04-18'^^xsd:date .
+\end{ex}
+
+\begin{ex}
+# invalid data
+# ------------
+:NeilArmstrong
+    dbo:birthDate '2012-08-25'^^xsd:date ;
+    dbo:deathDate '1930-08-05'^^xsd:date .
+\end{ex}
+
+\begin{gcotable}
+property & $\top$ & dbo:birthDate & dbo:deathDate & xsd:date & \textgreater & - \\
+\end{gcotable}
+
+\section{Negative Literal Ranges}
+
+requirements:
+
+\begin{itemize}
+	\item R-142-NEGATIVE-RANGES-OF-RDF-LITERAL-VALUES
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item The literal value of a resource (having a certain type) must (not) be within a specific range
+  \item P1 is a data property of an instance of class T1 and its literal value must be between the range of [Vmin,Vmax] or outside ( ‘!' ).
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{itemize}
+	\item dbo:height of a dbo:Person is not within [0.4,2.5]
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{itemize}
+	\item geo:lat of a spatial:Feature is not within [-90,90]
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{itemize}
+	\item geo:long of a gml:Feature must be in range [-180,180]
+\end{itemize}
+
+
+
+\section{Literal Ranges}
+
+requirement:
+
+\begin{itemize}
+	\item R-45-RANGES-OF-RDF-LITERAL-VALUES
+\end{itemize}
+
+\subsection{Description}
+
+\subsection{Example}
+
+\begin{ex}
+# OWL 2 DL (functional-style syntax)
+# ----------------------------------
+Declaration( Datatype( :NumberPlayersPerWorldCupTeam ) ) 
+DatatypeDefinition( 
+    :NumberPlayersPerWorldCupTeam
+    DatatypeRestriction( 
+        xsd:nonNegativeInteger 
+        xsd:minInclusive "1"^^xsd:nonNegativeInteger 
+        xsd:maxInclusive "23"^^xsd:nonNegativeInteger ) )     
+DataPropertyRange( :position :NumberPlayersPerWorldCupTeam ) 
+\end{ex}
+
+\begin{ex}
+# OWL 2 DL (turtle syntax)
+# ------------------------
+:NumberPlayersPerWorldCupTeam
+    a rdfs:Datatype ;
+    owl:equivalentClass [
+        a rdfs:Datatype ;
+        owl:onDatatype xsd:nonNegativeInteger ;
+        owl:withRestrictions ( 
+            [ xsd:minInclusive "1"^^xsd:nonNegativeInteger ]
+            [ xsd:maxInclusive "23"^^xsd:nonNegativeInteger ] ) ] .
+:position rdfs:range :NumberPlayersPerWorldCupTeam .
+\end{ex}
+
+\begin{itemize}
+	\item The data range 'NumberPlayersPerWorldCupTeam' contains the non negative integers 1 to 23, as each world cup team can only have 23 football players at most
+\end{itemize}
+
+\begin{ex}
+# valid data
+# ----------
+:MarioGoetze
+    :position "19"^^:NumberPlayersPerWorldCupTeam .
+\end{ex}
+
+\begin{ex}
+# invalid data
+# ------------
+:MarioGoetze
+    :position "99"^^:NumberPlayersPerWorldCupTeam .
+\end{ex}
+
+\begin{itemize}
+	\item range of position is the datatype 1-23
+  \item constraints are stated on this datatype
+\end{itemize}
+
+\begin{DL}
+1-23 $\equiv$ \{'1'\} $\sqcup$ \{'2'\} $\sqcup$ ... $\sqcup$ \{'23'\} \\
+$\top$ $\sqsubseteq$ $\forall$ position . 1-23 \\
+\end{DL}
+
+\begin{gcotable}
+class & AtLeast1 & - & - & xsd:nonNegativeInteger & $\geq$ & 1 \\
+class & AtMost23 & - & - & xsd:nonNegativeInteger & $\leq$ & 23 \\
+class & NumberPlayers... & - & - & AtLeast1, AtMost23 & $\sqcap$ & - \\
+property & $\top$ & position & - & NumberPlayers... & range & - \\
+\end{gcotable}
+
+or:
+
+\begin{gcotable}
+property & $\top$ & position & - & 1-23 & range & - \\
+class & 1-23 & - & - & xsd:nonNegativeInteger & $\geq$ & 1 \\
+class & 1-23 & - & - & xsd:nonNegativeInteger & $\leq$ & 23 \\
+\end{gcotable}
+
+or:
+
+\begin{gcotable}
+class & 1-23 & - & - & \{'1'\}, \{'2'\}, ..., \{'23'\} & $\sqcup$ & - \\
+property & $\top$ & position & - & 1-23 & range& - \\
+\end{gcotable}
+
+\section{Define Order}
+
+requirements:
+
+\begin{itemize}
+  \item R-121-SPECIFY-ORDER-OF-RDF-RESOURCES
+	\item R-217-DEFINE-ORDER-FOR-FORMS/DISPLAY
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item order properties
+	\item order objects of object properties
+	\item order literal of data properties
+\end{itemize}
+
+\subsection{Simple Example}
+
+
+
+\section{Validation Levels}
+
+requirements:
+
+\begin{itemize}
+	\item R-205-VARYING-LEVELS-OF-ERROR
+	\item R-135-CONSTRAINT-LEVELS
+	\item R-158-SEVERITY-LEVELS-OF-CONSTRAINT-VIOLATIONS
+	\item R-193-MULTIPLE-CONSTRAINT-VALIDATION-EXECUTION-LEVELS
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+  \item Different levels of severity, priority
+	\item validation levels: informational, warning, error, fail, should, recommended, must, may, optional, closed (only this) constraints, open (at least this) constraints
+\end{itemize}
+
+\subsection{Simple Example}
+
+
+
+\section{String Operations}
+
+requirement:
+
+\begin{itemize}
+	\item R-194-PROVIDE-STRING-FUNCTIONS-FOR-RDF-LITERALS
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item Some constraints require building new strings out of other strings
+\end{itemize}
+
+examples:
+
+\begin{itemize}
+	\item string length
+\end{itemize}
+
+\subsection{Simple Example}
+
+
+
+
+
+\section{Context-Specific Valid Classes}
+
+requirements:
+
+\begin{itemize}
+	\item R-209-VALID-CLASSES
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item What types of resources (rdf:type) are valid in this context? Context can be an input stream, a data creation function, or an API.
+\end{itemize}
+
+\subsection{Simple Example}
+
+
+
+\section{Context-Specific Valid Properties}
+
+requirements:
+
+\begin{itemize}
+	\item R-210-VALID-PROPERTIES
+\end{itemize}
+
+\begin{itemize}
+	\item What properties can be used within this context? Context can be an data receipt function, data creation function, API, etc.
+\end{itemize}
+
+\subsection{Simple Example}
+
+
+
+\section{Default Values}
+
+requirements:
+
+\begin{itemize}
+	\item R-31-DEFAULT-VALUES-OF-RDF-OBJECTS
+  \item R-38-DEFAULT-VALUES-OF-RDF-LITERALS
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item default values for RDF literals
+	\item default values for RDF objects
+	\item default values are inferred automatically
+	\item It should be possible to declare the default value for a given property, e.g. so that input forms can be pre-populated and to insert a required property that is missing in a web service call. 
+\end{itemize}
+
+\subsection{Simple Example}
+
+Jedis have only 1 blue laser sword per default.
+Siths, in contrast, normally have 2 red laser swords.
+
+\begin{ex}
+# rule (SPIN)
+# -----------
+owl:Thing
+    spin:rule [
+        a sp:Construct ;
+            sp:text """
+                CONSTRUCT {            
+                    ?this :laserSwordColor "blue"^^xsd:string ;
+                    ?this :numberLaserSwords "1"^^xsd:nonNegativeInteger . 
+                }
+                WHERE {             
+                    ?this a :Jedi .            
+                } """ ; ] .
+owl:Thing
+    spin:rule [
+        a sp:Construct ;
+            sp:text """
+                CONSTRUCT {
+                    ?this :laserSwordColor "red"^^xsd:string ;
+                    ?this :numberLaserSwords "2"^^xsd:nonNegativeInteger . 
+                }
+                WHERE {             
+                    ?this a :Sith .            
+                } """ ; ] .
+\end{ex}
+
+\begin{ex}
+# data
+# ----
+:Joda a :Jedi .
+:DarthSidious a :Sith .
+\end{ex}
+
+\begin{ex}
+# inferred triples
+# ----------------
+:Joda 
+    :laserSwordColor "blue"^^xsd:string ;
+    :numberLaserSwords "1"^^xsd:nonNegativeInteger .
+:DarthSidious 
+    :laserSwordColor "red"^^xsd:string ;
+    :numberLaserSwords "2"^^xsd:nonNegativeInteger .
+\end{ex}
+
+\section{Mathematical Operations}
+
+requirements:
+
+\begin{itemize}
+	\item R-42-MATHEMATICAL-OPERATIONS
+	\item R-41-STATISTICAL-COMPUTATIONS
+\end{itemize}
+
+\subsection{Description}
+
+examples:
+
+\begin{itemize}
+	\item adding 2 dates
+	\item add number of days to start date
+	\item area = width * height
+	\item Statistical Computations: average, mean, sum
+\end{itemize}
+
+\subsection{Simple Example}
+
+
+
+\section{Language Tag Matching}
+
+requirement:
+
+\begin{itemize}
+	\item R-47-LANGUAGE-TAG-MATCHING
+\end{itemize}
+
+\section{Cardinality on Literal Language Tags}
+
+requirements:
+
+\begin{itemize}
+	\item R-49-RDF-LITERALS-HAVING-AT-MOST-ONE-LANGUAGE-TAG
+	\item R-48-MISSING-LANGUAGE-TAGS
+\end{itemize}
+ 
+\subsection{Description}
+
+\subsection{Example}
+
+check that no language is used more than once per property
+
+\begin{ex}
+# DQTP
+# ----
+SELECT DISTINCT ?s WHERE { ?s %%P1%% ?c
+    BIND ( lang(?c) AS ?l )
+    FILTER (isLiteral (?c) && lang(?c) = %%V1%%)}
+GROUP BY ?s HAVING COUNT (?l) > 1
+\end{ex}
+
+\begin{itemize}
+	\item ONELANGPattern \cite{Kontokostas2014} 
+  \item A literal value should contain at most 1 literal for a language. 
+  \item P1 is the property containing the literal and V1 is the language we want to check.
+\end{itemize}
+
+\begin{ex}
+# test binding (DQTP)
+---------------------
+P1 => foaf:name
+V1 => en
+\end{ex}
+
+\begin{itemize}
+	\item a single English (“en”) foaf:name
+\end{itemize}
+
+\begin{ex}
+# valid data
+# ----------
+:LeiaSkywalker
+    foaf:name 'Leia Skywalker'@en .
+\end{ex}
+
+\begin{ex}
+# invalid data
+# ------------
+:LeiaSkywalker
+    foaf:name 'Leia Skywalker'@en ;
+    foaf:name 'Leia'@en .
+\end{ex}
+
+\section{Whitespace Handling}
+
+requirement:
+
+\begin{itemize}
+	\item R-50-WHITESPACE-HANDLING-OF-RDF-LITERALS
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item avoid whitespaces in literals neither leading nor trailing white spaces
+\end{itemize}
+
+\subsection{Simple Example}
+
+\section{HTML Handling}
+
+requirement:
+
+\begin{itemize}
+	\item R-51-HTML-HANDLING-OF-RDF-LITERALS
+\end{itemize}
+
+description:
+
+\begin{itemize}
+	\item check if there are no html tags included in literals (of specific data properties within the context of specific classes)
+\end{itemize}
+
+\subsection{Simple Example}
+
+\section{Required Properties}
+
+requirements:
+
+\begin{itemize}
+	\item R-68-REQUIRED-PROPERTIES
+\end{itemize}
+
+\subsection{Description}
+
+\subsection{Simple Example}
+
+\section{Optional Properties}
+
+requirements:
+
+\begin{itemize}
+	\item R-69-OPTIONAL-PROPERTIES
+\end{itemize}
+
+\subsection{Description}
+
+\subsection{Simple Example}
+
+\section{Repeatable Properties}
+
+requirements:
+
+\begin{itemize}
+	\item R-70-REPEATABLE-PROPERTIES
+\end{itemize}
+
+\subsection{Description}
+
+\subsection{Simple Example}
+
+\section{Conditional Properties}
+
+requirements:
+
+\begin{itemize}
+	\item R-71-CONDITIONAL-PROPERTIES
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item various conditions possible
+  \item condition: universal quantification on object and data properties
+  \item condition: existential quantification on object and data properties
+  \item condition: if specific properties are present, then specific other properties also have to be present
+\end{itemize}
+
+\subsection{Simple Example}
+
+\section{Recommended Properties}
+
+requirements:
+
+\begin{itemize}
+	\item R-72-RECOMMENDED-PROPERTIES
+\end{itemize}
+
+\subsection{Description}
+
+\subsection{Simple Example}
+
+\section{Negative Property Constraints}
+
+requirements:
+
+\begin{itemize}
+	\item R-52-NEGATIVE-OBJECT-PROPERTY-CONSTRAINTS
+	\item R-53-NEGATIVE-DATA-PROPERTY-CONSTRAINTS
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item instances of a specific class must not have some object property
+  \item OWL 2 DL: ObjectComplementOf ( ObjectSomeValuesFrom ( ObjectPropertyExpression owl:Thing ) )
+\end{itemize}
+
+\subsection{Example}
+
+\begin{ex}
+# ShEx
+# ----
+<FeelingForce> {
+    :feelingForce (true) ,
+    :attitute xsd:string }
+<JediMentor> {
+    :feelingForce (true) ,
+    :attitute ('good') ,
+    :laserSwordColor xsd:string ,
+    :numberLaserSwords xsd:nonNegativeInteger ,
+    :mentorOf @<JediStudent> ,
+   !:studentOf @<JediMentor> }
+<JediStudent> {
+    :feelingForce (true) ,
+    :attitute ('good') ,
+    :laserSwordColor xsd:string ,
+    :numberLaserSwords xsd:nonNegativeInteger ,
+   !:mentorOf @<JediStudent> ,
+    :studentOf @<JediMentor> }
+\end{ex}
+
+\begin{itemize}
+	\item A matching triple has any predicate except those excluded by the '!' operator.
+  \item \url{http://w3.org/brief/Mzk0}
+\end{itemize}
+
+\begin{ex}
+# individuals matching 'FeelingForce' and 'JediMentor' data shapes
+# ----------------------------------------------------------------
+:Obi-Wan 
+    :feelingForce true ;
+    :attitute 'good' ;
+    :laserSwordColor 'blue' ;
+    :numberLaserSwords '1'^^xsd:nonNegativeInteger ;
+    :mentorOf :Anakin .
+\end{ex}
+
+\begin{ex}
+# individuals matching 'FeelingForce' and 'JediStudent' data shapes
+# -----------------------------------------------------------------
+:Anakin 
+    :feelingForce true ;
+    :attitute 'good' ;
+    :laserSwordColor 'blue' ;
+    :numberLaserSwords '1'^^xsd:nonNegativeInteger ;
+    :studentOf :Obi-Wan .
+\end{ex}
+
+\section{Handle RDF Collections}
+
+requirement:
+
+\begin{itemize}
+	\item R-120-HANDLE-RDF-COLLECTIONS
+\end{itemize}
+
+\subsection{Description}
+
+examples:
+
+\begin{itemize}
+	\item size of collection
+	\item first / last element of list must be a specific literal
+	\item compare elements of collection
+	\item are collections identical?
+	\item actions on RDF lists: \url{http://www.snee.com/bobdc.blog/2014/04/rdf-lists-and-sparql.html}
+	\item 2. list element equals ''
+	\item Does the list have more than 10 elements?
+\end{itemize}
+
+\subsection{Example}
+
+\begin{itemize}
+	\item get 2. list element
+\end{itemize}
+
+\begin{ex}
+# SPIN
+# ----
+:getListItem
+    a spin:Function ; rdfs:subClassOf spin:Functions ;
+    spin:constraint [
+        rdf:type spl:Argument ;
+        spl:predicate sp:arg1 ;
+        spl:valueType rdf:List ;
+        rdfs:comment "list" ; ] ;
+    spin:constraint [
+        rdf:type spl:Argument ;
+        spl:predicate sp:arg2 ;
+        spl:valueType xsd:nonNegativeInteger ;
+        rdfs:comment "item position (starting with 0)" ; ] ;
+    spin:body [
+        a sp:SELECT ;
+        sp:text """
+            SELECT ?item
+            WHERE {
+                ?arg1 :contents/rdf:rest{?arg2}/rdf:first ?item } """ ; ] ;
+    spin:returnType rdfs:Resource .
+\end{ex}
+
+\begin{ex}
+# data
+# ----
+:Jinn :students 
+     ( :Xanatos :Kenobi ) . 
+\end{ex}
+
+\begin{ex}
+# SPIN
+# ----
+BIND ( :getListItem( ?list, "1"xsd:nonNegativeInteger ) AS ?listItem ) .
+\end{ex}
+
+\begin{itemize}
+  \item SPIN function call
+	\item retrieves the 2. item from the list (2. student of Jedi mentor Jinn)
+\end{itemize}
+
+\begin{ex}
+# result
+# ------
+:Kenobi
+\end{ex}
+
+\section{Recursive Queries}
+
+requirements:
+
+\begin{itemize}
+	\item R-222-RECURSIVE-QUERIES
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item If we want to define Resource Shapes, remember that it is a recursive
+language (the valueShape of a Resource Shape is in turn another
+Resource Shape). There is no way to express that in SPARQL without
+hand-waving "and then you call the function again here" or "and then
+you embed this operation here" text.  The embedding trick doesn't work
+in the general case because SPARQL can't express recursive queries,
+e.g. "test that this Issue is valid and all of the Issues that
+references, recursively".
+  \item Most SPARQL engines already have
+functions that go beyond the official SPARQL 1.1 spec. The cost of that
+sounds manageable to me.
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{ex}
+# ShEx
+# ----
+<IssueShape> {
+    :state (:unassigned :assigned),
+    :reportedBy @<UserShape>,
+    :related @<IssueShape>*
+}
+\end{ex}
+
+\section{Value is Valid for Datatype}
+
+requirements:
+
+\begin{itemize}
+	\item 
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item make sure that a value is valid for its datatype
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{itemize}
+	\item a date is really a date
+  \item SPARQL regex can be used
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{ex}
+# SPIN
+# ----
+FILTER ( datatype( ?shoeSize ) = xsd:nonNegativeInteger )
+isNumeric ( ?shoeSize )
+\end{ex}
+
+\begin{itemize}
+	\item datatype of ?showSize id xsd:nonNegativeInteger
+	\item datatype is really numeric
+\end{itemize}
+
+\section{Individual Equality}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item states that two different names are known to refer to the same individual \cite{Kroetzsch2012}
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{DL}
+julia = john \\
+\end{DL}
+
+\begin{gcotable}
+class & \{julia\} & - & - & \{john\} & = \\
+class & \{john\} & - & - & \{julia\} & = \\
+\end{gcotable}
+
+\section{Individual Inequality}
+
+\subsection{Description}
+
+\subsection{Simple Example}
+
+\begin{DL}
+julia $\ne$ john
+\end{DL}
+
+\begin{itemize}
+	\item asserts that Julia and John are actually different individuals
+\end{itemize}
+
+\begin{gcotable}
+class & \{julia\} & - & - & \{john\} & $\ne$ \\
+class & \{john\} & - & - & \{julia\} & $\ne$ \\
+\end{gcotable}
+
+\section{Equivalent Properties}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item An equivalent object properties axiom EquivalentObjectProperties( OPE1 ... OPEn ) states that all of the object property expressions OPEi, 1 $\leq$ i $\leq$ n, are semantically equivalent to each other. This axiom allows one to use each OPEi as a synonym for each OPEj — that is, in any expression in the ontology containing such an axiom, OPEi can be replaced with OPEj without affecting the meaning of the ontology. The axiom EquivalentObjectProperties( OPE1 OPE2 ) is equivalent to the following two axioms SubObjectPropertyOf( OPE1 OPE2 ) and SubObjectPropertyOf( OPE2 OPE1 ).
+	\item An equivalent data properties axiom EquivalentDataProperties( DPE1 ... DPEn ) states that all the data property expressions DPEi, 1 $\leq$ i $\leq$ n, are semantically equivalent to each other. This axiom allows one to use each DPEi as a synonym for each DPEj — that is, in any expression in the ontology containing such an axiom, DPEi can be replaced with DPEj without affecting the meaning of the ontology. The axiom EquivalentDataProperties( DPE1 DPE2 ) can be seen as a syntactic shortcut for the following axiom SubDataPropertyOf( DPE1 DPE2 ) and SubDataPropertyOf( DPE2 DPE1 ).
+
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{ex}
+# OWL 2
+# -----
+:hasBrother owl:equivalentProperty :hasMaleSibling . 
+:Chris :hasBrother :Stewie . 
+:Stewie :hasMaleSibling :Chris .
+\end{ex}
+
+entailments:
+
+\begin{ex}
+:Chris :hasMaleSibling a:Stewie . 
+:Stewie :hasBrother a:Chris .
+\end{ex}
+
+\begin{DL}
+:hasBrother $\sqsubseteq$ :hasMaleSibling $\sqcap$ :hasMaleSibling $\sqsubseteq$ :hasBrother \\
+\end{DL}
+
+\section{Property Assertions}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item positive property assertions
+  \item negative property assertions
+	\item A positive object property assertion ObjectPropertyAssertion( OPE a1 a2 ) states that the individual a1 is connected by the object property expression OPE to the individual a2. 
+	\item A negative object property assertion NegativeObjectPropertyAssertion( OPE a1 a2 ) states that the individual a1 is not connected by the object property expression OPE to the individual a2. 
+	\item A positive data property assertion DataPropertyAssertion( DPE a lt ) states that the individual a is connected by the data property expression DPE to the literal lt. 
+	\item A negative data property assertion NegativeDataPropertyAssertion( DPE a lt ) states that the individual a is not connected by the data property expression DPE to the literal lt.
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{ex}
+# OWL 2
+# -----
+NegativeObjectPropertyAssertion( :hasSon :Peter :Meg )
+\end{ex}
+
+\begin{itemize}
+	\item Meg is not a son of Peter.
+\end{itemize}
+
+\begin{DL}
+
+\end{DL}
+
+\tb{ToDo: DL}
+
+\subsection{Simple Example}
+
+\begin{ex}
+# OWL 2
+# -----
+DataPropertyAssertion( :hasAge :Meg "17"^^xsd:integer )
+\end{ex}
+
+\begin{itemize}
+	\item Meg is seventeen years old. 
+\end{itemize}
+
+\begin{DL}
+:hasAge ( :Meg , "17"^^xsd:integer ) \\
+\end{DL}
+
+\section{Functional Properties}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item An object property functionality axiom FunctionalObjectProperty( OPE ) states that the object property expression OPE is functional — that is, for each individual x, there can be at most one distinct individual y such that x is connected by OPE to y. Each such axiom can be seen as a syntactic shortcut for the following axiom: SubClassOf( owl:Thing ObjectMaxCardinality( 1 OPE ) ).
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{ex}
+# OWL 2
+# -----
+:hasFather rdf:type owl:FunctionalProperty . 	
+:Stewie :hasFather :Peter . 	
+:Stewie :hasFather :Peter_Griffin . 
+\end{ex}
+
+\begin{itemize}
+	\item Each object can have at most one father. 
+\end{itemize}
+
+entailment:
+
+\begin{ex}
+:Peter_Griffin owl:sameAs :Peter .  
+\end{ex}
+
+\begin{DL}
+owl:Thing $\sqsubseteq$ $\leq$ 1 :hasFather
+\end{DL}
+
+\section{Inverse-Functional Properties}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item An object property inverse functionality axiom InverseFunctionalObjectProperty( OPE ) states that the object property expression OPE is inverse-functional — that is, for each individual x, there can be at most one individual y such that y is connected by OPE with x. Each such axiom can be seen as a syntactic shortcut for the following axiom: SubClassOf( owl:Thing ObjectMaxCardinality( 1 ObjectInverseOf( OPE ) ) ).
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{ex}
+# OWL 2
+# -----
+:fatherOf rdf:type owl:InverseFunctionalProperty . 	
+:Peter :fatherOf :Stewie .
+:Peter_Griffin :fatherOf :Stewie .
+\end{ex}
+
+\begin{itemize}
+	\item Each object can have at most one father. 
+\end{itemize}
+
+entailment:
+
+\begin{ex}
+:Peter owl:sameAs :Peter_Griffin . 
+\end{ex}
+
+\begin{DL}
+
+\end{DL}
+
+\tb{ToDo: DL}
+
+\section{Value Restrictions}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item Individual Value Restrictions: A has-value class expression ObjectHasValue( OPE a ) consists of an object property expression OPE and an individual a, and it contains all those individuals that are connected by OPE to a. Each such class expression can be seen as a syntactic shortcut for the class expression ObjectSomeValuesFrom( OPE ObjectOneOf( a ) ). 
+	\item Literal Value Restrictions: A has-value class expression DataHasValue( DPE lt ) consists of a data property expression DPE and a literal lt, and it contains all those individuals that are connected by DPE to lt. Each such class expression can be seen as a syntactic shortcut for the class expression DataSomeValuesFrom( DPE DataOneOf( lt ) ).
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{ex}
+:Peter :fatherOf :Stewie . 
+ObjectHasValue( :fatherOf :Stewie )
+\end{ex}
+
+\begin{itemize}
+	\item The has-value class expression contains those individuals that are connected through the :fatherOf property with the individual :Stewie
+  \item :Peter is classified as its instance
+\end{itemize}
+
+\begin{DL}
+
+\end{DL}
+
+\tb{ToDo: DL}
+
+\section{Self Restrictions}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item A self-restriction ObjectHasSelf( OPE ) consists of an object property expression OPE, and it contains all those individuals that are connected by OPE to themselves. 
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{ex}
+:Peter :likes :Peter . 
+ObjectHasSelf( :likes ) 
+\end{ex}
+
+\begin{itemize}
+	\item The self-restriction contains those individuals that like themselves
+  \item :Peter is classified as its instance
+\end{itemize}
+
+\section{Data Property Facets}
+
+requirement:
+
+\begin{itemize}
+	\item R-46-CONSTRAINING-FACETS
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+  \item For datatype properties it should be possible to declare frequently needed "facets" to drive user interfaces and validate input against simple conditions, including min/max value, regular expressions, string length etc. similar to XSD datatypes. 
+	\item constraining facets to restrict datatypes of RDF literals
+  \item constraining facets: xsd:length, xsd:minLength, xsd:maxLength, xsd:pattern, xsd:enumeration, xsd:whiteSpace, xsd:maxInclusive, xsd:maxExclusive, xsd:minExclusive, xsd:minInclusive, xsd:totalDigits, xsd:fractionDigits
+
+\end{itemize}
+
+\subsection{Simple Example}
+
+\textbf{string matches regular expression}
+
+\begin{ex}
+# OWL 2 QL (functional-style syntax)
+# ----------------------------------
+Declaration( Datatype( :SSN ) ) 
+DatatypeDefinition( 
+    :SSN
+    DatatypeRestriction( xsd:string xsd:pattern "[0-9]{3}-[0-9]{2}-[0-9]{4}" ) )     
+DataPropertyRange( :hasSSN :SSN ) 
+\end{ex}
+
+\begin{ex}
+# OWL 2 QL (turtle syntax)
+# ------------------------
+:SSN 
+    a rdfs:Datatype ;
+    owl:equivalentClass [
+        a rdfs:Datatype ;
+        owl:onDatatype xsd:string ;
+        owl:withRestrictions ( 
+            [ xsd:pattern "[0-9]{3}-[0-9]{2}-[0-9]{4}" ] ) ] .
+:hasSSN rdfs:range :SSN .
+\end{ex}
+
+\begin{itemize}
+	\item A social security number is a string that matches the given regular expression. 
+The second axiom defines :SSN as an abbreviation for a datatype restriction on xsd:string. 
+The first axiom explicitly declares :SSN to be a datatype. 
+The datatype :SSN can be used just like any other datatype; 
+for example, it is used in the third axiom to define the range of the :hasSSN property. 
+\end{itemize}
+
+\begin{ex}
+# valid data
+# ----------
+:TimBernersLee
+    :hasSSN "123-45-6789"^^:SSN .
+\end{ex}
+
+\begin{ex}
+# invalid data
+# ------------
+:TimBernersLee
+    :hasSSN "123456789"^^:SSN .
+\end{ex}
+
+\begin{gcotable}
+class & SSN & - & - & xsd:string & xsd:pattern & '[0-9]{3}-[0-9]{2}-[0-9]{4}' \\
+\end{gcotable}
+
+\section{Primary Key Properties}
+
+requirement:
+
+\begin{itemize}
+	\item 
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+  \item It is often useful to declare a given (datatype) property as the "primary key" of a class, so that the system can enforce uniqueness and also automatically build URIs from user input and data imported from relational databases or spreadsheets. 
+\end{itemize}
+
+\subsection{Simple Example}
+
+\begin{itemize}
+	\item Each object is uniquely identified by its social security number.
+\end{itemize}
+
+\begin{ex}
+# DSP
+# ---
+-
+\end{ex}
+
+\begin{ex}
+# OWL2 DL
+# -------
+owl:Thing owl:hasKey ( :hasSSN ) . 	
+\end{ex}
+
+\begin{ex}
+# ReSh
+# ----
+-
+\end{ex}
+
+\begin{ex}
+# ShEx
+# ----
+-
+\end{ex}
+
+\begin{itemize}
+	\item The first axiom makes :hasSSN the key for instances of the owl:Thing class; thus, only one individual can have a particular value for :hasSSN. 
+\end{itemize}
+
+\begin{ex}
+# data
+# ----
+:Peter :hasSSN "123-45-6789" . 
+:PeterGriffin :hasSSN "123-45-6789" . 
+\end{ex}
+
+\begin{itemize}
+	\item Since the values of :hasSSN are the same for the individuals a:Peter and a:PeterGriffin, these two individuals are equal - that is, this ontology entails the following assertion :Peter owl:sameAs :PeterGriffin . 
+\end{itemize}
+
+\begin{DL}
+
+\end{DL}
+
+\tb{ToDo: DL}
+
+\input{DL-Check}
+
+\bibliography{../../literature/literature}{}
+\bibliographystyle{plain}
+\setcounter{tocdepth}{1}
+%\listoftodos
+\end{document}

@@ -1,0 +1,53 @@
+\section{Constraint Language Mapping into DL}
+
+The following table shows the mapping between constraint language and DL:
+
+\begin{table*}[htb]
+\caption{Constraint Language Mapping into DL}
+\label{tab:dlmapping}
+\centering
+%\scriptsize
+\renewcommand{\arraystretch}{1.45}
+\begin{tabular}{>{\centering\arraybackslash}p{25mm}!{\vrule width 0.5pt}>{\centering\arraybackslash}p{50mm}|>{\centering\arraybackslash}p{60mm}|>{\centering\arraybackslash}p{15mm}}\toprule
+\textbf{Constraint Type} & \textbf{Constraint Language Expression} & \textbf{DL Expression} & \textit{DL-Lite}$_{\mathcal{A}}$ \\ \bottomrule
+\textit{property groups}
+& \begin{verbatim}<Human> { 
+  (
+    foaf:name xsd:string | 
+    foaf:givenName xsd:string 
+  ),
+  foaf:mbox IRI }\end{verbatim}
+& \flushleft $\textit{Human} \sqsubseteq \exists \textsf{foaf:name} \sqcup \exists \textsf{foaf:givenName} \linebreak \textit{Human} \sqsubseteq  \exists \textit{foaf:mbox} \linebreak \exists \textsf{foaf:name} \sqsubseteq \neg \exists \textsf{foaf:givenName} \linebreak \rho(\textsf{foaf:name}) \sqsubseteq \verb|xsd:string| \linebreak \rho(\textsf{foaf:givenName}) \sqsubseteq \verb|xsd:string| \linebreak \exists \textit{foaf:name}\sp{\overline{\ }} \sqsubseteq \textit{IRI}$
+& false \\ \midrule
+\textit{enumeration / value set}
+& & & \\ \hline
+\textit{R30 - Subject}
+& \begin{verbatim}...\end{verbatim}
+& \flushleft $\exists \textit{dcterms} \sqsubseteq \textit{ComputerScience} \sqcup \textit{SocialScience} \sqcup \textit{Librarianship}$
+& false \\ \hline
+\textit{R30 - Object}
+& \begin{verbatim}...\end{verbatim}
+& \flushleft $\exists \textit{dcterms}\sp{\overline{\ }} \sqsubseteq \textit{ComputerScience} \sqcup \textit{SocialScience} \sqcup \textit{Librarianship}$
+& false \\ \hline
+\textit{R37}
+& \begin{verbatim}...\end{verbatim}
+& \flushleft $???$
+&  \\ \hline
+\textit{200}
+& \begin{verbatim}...\end{verbatim}
+& \flushleft $\rho(\textsf{foaf:givenName}) \sqsubseteq \neg\verb|xsd:integer|$
+& true \\ \hline
+\textit{R33}
+& \begin{verbatim}...\end{verbatim}
+& \flushleft $\exists \textit{attitude}\sp{\overline{\ }} \sqsubseteq \neg\textit{Color}$
+& true \\ \midrule
+\textit{exclusive OR}
+& \begin{verbatim}?\end{verbatim}
+& \flushleft $\textit{Human} \sqsubseteq \textit{Man} \sqcup \textit{Woman} \linebreak \textit{Man} \sqsubseteq \neg\textit{Woman}$
+& false \\ \hline
+\textit{exclusive OR \linebreak (variant)}
+& \begin{verbatim}?\end{verbatim}
+& \flushleft $\textit{Man} \sqcup \textit{Woman} \sqsubseteq \textit{Human} \linebreak \textit{Man} \sqsubseteq \neg\textit{Woman}$
+& true \\ \bottomrule
+\end{tabular}
+\end{table*}
