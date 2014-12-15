@@ -175,8 +175,7 @@ student, therefore John is a person) to the very complex.  Inference can
 also recognize impossibilities (students are people, John is a student, John
 is not a person, therefore there is a contradiction).  In the presence of
 complete information, nothing new can be inferred, so inference only checks
-for impossibilities, i.e., constraint violations.  So the way do constraints
-in OWL is to first set up complete information, and then just perform inference.
+for impossibilities, i.e., constraint violations.  
 
 \begin{itemize}
 	\item effects of reasoning for RDF validation 
@@ -195,8 +194,8 @@ Allerding wäre wie bspw. in
 
 We answer the following \textbf{research questions}:
 \begin{enumerate}
-	\item which constraints are and which constraints are not expressible by DL?
-	\item are all constraints expressible by a query language such as Datalog or SPARQL?
+	\item which constraints are expressible by DL?
+	\item which constraints are not expressible by DL but by a query language such as Datalog or SPARQL?
 	\item for which requirements formulating RDF constraints the expressivity of DL-Lite$_A$ respectively OWL 2 QL is sufficient?
 	\item for which requirements additional constraint languages are needed to express related constraints?
 	\item which constraint languages are suitable to express these constraints?
@@ -248,6 +247,7 @@ OWL 2 QL is based on the DL-Lite family of description logics. Several variants 
 We evaluated to which extend the 5 possible standard constraint languages fulfill each requirement to formulate RDF constraints.
 Tilde means that this constraint may be fulfilled by that particular constraint language - either by limitations, workarounds, or extensions.
 We also evaluated if a specific constraint is fulfilled by OWL 2 QL or if the more expressive OWL 2 DL is needed. 
+Inferencing may be performed for constraints marked with an asterisk. 
 
 \tb{ToDO: insert evaluation table}
 
