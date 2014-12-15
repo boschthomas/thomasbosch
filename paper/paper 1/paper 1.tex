@@ -112,7 +112,7 @@
 
 %
 %
-\title{XXXXX}
+\title{Expressivity and Effects on Complexity of RDF Constraint Languages}
 %
 \titlerunning{XXXXX}  % abbreviated title (for running head)
 %                                     also used for the TOC unless
@@ -184,21 +184,14 @@ in OWL is to first set up complete information, and then just perform inference.
 	\item both should be possible: (1) constraint validation with reasoning and (2) constraint validation without reasoning 
 \end{itemize}
 
-\textbf{Expressivity and Effects on Complexity of Constraint Languages}
-
-\textbf{Research questions} are:
+We answer the following \textbf{research questions}:
 \begin{itemize}
-	\item Are all RDF constraints expressible by DL?
-	\item Are all RDF constraints expressible using a query language such as Datalog or SPARQL?
-	\item For which RDF validation requirements the expressivity of DL-Lite$_A$ respectively OWL 2 QL is sufficient?
-	\item For which RDF validation requirements additional constraint languages are needed to express related constraints?
-	\item Which constraint languages are suitable to express these remaining requirements?
-	\item What are the effects of these constraints regarding complexity?
-	\item What effects does reasoning have?
-\end{itemize}
-
-\begin{itemize}
-	\item underlying semantics: CWA
+	\item which constraints are and which constraints are not expressible by DL?
+	\item are all constraints expressible by a query language such as Datalog or SPARQL?
+	\item for which requirements formulating RDF constraints the expressivity of DL-Lite$_A$ respectively OWL 2 QL is sufficient?
+	\item for which requirements additional constraint languages are needed to express related constraints?
+	\item which constraint languages are suitable to express these constraints?
+	\item what are the effects regarding complexity to express these constraints with and without taking into account inferencing?
 \end{itemize}
 
 Nehmen wir nun an, dass dein Framework welches entsprechende SPARQL Queries generiert diese auf einem SPARQL Endpoint evaluiert der zu der vorliegenden Ontologie bzw. des darin verwendeten OWL 2 Profils das entsprechende Entailment Regime realisiert, wären die zurückgegebenen Resultsets vollständig. Wie das Entailment Regime im Endpoint realisiert ist, also durch Query Rewriting oder durch Vervollständigung der ABox, ist dabei irrelevant.
