@@ -178,10 +178,18 @@ complete information, nothing new can be inferred, so inference only checks
 for impossibilities, i.e., constraint violations.  
 
 \begin{itemize}
-	\item effects of reasoning for RDF validation 
 	\item inferencing as a pre/post validation step
 	\item both should be possible: (1) constraint validation with reasoning and (2) constraint validation without reasoning 
 \end{itemize}
+
+With regard to typing, W3C is assuming (AFAIK) that all types will be
+explicit in the instance data - for the purposes of validation. There is
+nothing, however, to prevent an application from running reasoning prior
+to validation to add inferred triples to the data being validated. But
+the general feeling right now is that validation acts on instance data
+without requiring that the validator apply reasoning in order to do so.
+
+Then I wonder what would be the situation if we recommend that reasoning should happen prior to validation. Reasoning will 'fix' the data in some case (R-25 and R-28) but it would make the data more 'redundant' in others (R-224).
 
 Nehmen wir nun an, dass dein Framework welches entsprechende SPARQL Queries generiert diese auf einem SPARQL Endpoint evaluiert der zu der vorliegenden Ontologie bzw. des darin verwendeten OWL 2 Profils das entsprechende Entailment Regime realisiert, wären die zurückgegebenen Resultsets vollständig. Wie das Entailment Regime im Endpoint realisiert ist, also durch Query Rewriting oder durch Vervollständigung der ABox, ist dabei irrelevant.
 
@@ -199,7 +207,9 @@ We answer the following \textbf{research questions}:
 	\item for which requirements formulating RDF constraints the expressivity of DL-Lite$_A$ respectively OWL 2 QL is sufficient?
 	\item for which requirements additional constraint languages are needed to express related constraints?
 	\item which constraint languages are suitable to express these constraints?
-	\item what are the effects regarding complexity to express these constraints with and without taking into account inferencing?
+	\item what are the effects on complexity to express these constraints with and without OWL 2 QL and OWL 2 DL inferencing?
+	\item what are the effects on complexity of constraints expressible by DL?
+	\item what are the effects on complexity of constraints not expressible by DL but by a query language?
 \end{enumerate}
 
 \textbf{Contributions} of this paper are:
@@ -213,7 +223,6 @@ We answer the following \textbf{research questions}:
 
 \begin{itemize}
 	\item RDF validation using OWL 2 QL reasoning by SPARQL query expansion
-	\item validation with mappings to SPARQL
 	\item if using OWL 2 DL as constraint language or using constraints equivalent to OWL 2 QL you can use reasoning 
 	\item reasoning can also be executed using SPARQL query expansion.
 	\item reasoning not executing using reasoner
@@ -240,8 +249,6 @@ OWL 2 profiles specification: \cite{owl2profiles2008}
 \textbf{Logical Underpinning for OWL 2 QL.}
 OWL 2 QL is based on the DL-Lite family of description logics. Several variants of DL-Lite have been described in the literature, and DL-Lite$_R$ provides the logical underpinning for OWL 2 QL. DL-Lite$_R$ does not require the unique name assumption (UNA), since making this assumption would have no impact on the semantic consequences of a DL-Lite$_R$ ontology. More expressive variants of DL-Lite, such as DL-Lite$_A$, extend DL-Lite$_R$ with functional properties, and these can also be extended with keys; however, for query answering to remain in LOGSPACE, these extensions require UNA and need to impose certain global restrictions on the interaction between properties used in different types of axiom. Basing OWL 2 QL on DL-Lite$_R$ avoids practical problems involved in the explicit axiomatization of UNA \cite{owl2profiles2008}. 
 
-\section{Related Work}
-
 \section{Evaluation}
 
 We evaluated to which extend the 5 possible standard constraint languages fulfill each requirement to formulate RDF constraints.
@@ -250,6 +257,10 @@ We also evaluated if a specific constraint is fulfilled by OWL 2 QL or if the mo
 Inferencing may be performed for constraints marked with an asterisk. 
 
 \tb{ToDO: insert evaluation table}
+
+\section{Related Work}
+
+\section{Conclusion and Future Work}
 
 \bibliography{../../literature/literature}{}
 \bibliographystyle{plain}
