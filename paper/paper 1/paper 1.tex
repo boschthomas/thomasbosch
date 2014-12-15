@@ -249,66 +249,6 @@ OWL 2 QL is based on the DL-Lite family of description logics. Several variants 
 	\item Evaluation Using Practical Data Set
 \end{itemize}
 
-\section{Conclusion and Future Work}
-
-\section{Appendix}
-
-\subsection{Allowed Usage of Constructs in Class Expressions in OWL 2 QL}
-
-\textbf{Subclass Expressions}
-
-\begin{ex}
-subClassExpression :=
-    Class |
-    subObjectSomeValuesFrom | DataSomeValuesFrom
-subObjectSomeValuesFrom := 'ObjectSomeValuesFrom' '(' ObjectPropertyExpression owl:Thing ')'
-\end{ex}
-
-\textbf{Superclass Expressions}
-
-\begin{ex}
-superClassExpression :=
-    Class |
-    superObjectIntersectionOf | superObjectComplementOf |
-    superObjectSomeValuesFrom | DataSomeValuesFrom
-\end{ex}
- 
-\subsection{Supported Constructs in OWL 2 QL}
-
-\begin{itemize}
-	\item subclass axioms (SubClassOf)
-  \item class expression equivalence (EquivalentClasses)
-  \item class expression disjointness (DisjointClasses)
-  \item inverse object properties (InverseObjectProperties)
-  \item property inclusion (SubObjectPropertyOf not involving property chains and SubDataPropertyOf)
-  \item property equivalence (EquivalentObjectProperties and EquivalentDataProperties)
-  \item property domain (ObjectPropertyDomain and DataPropertyDomain)
-  \item property range (ObjectPropertyRange and DataPropertyRange)
-  \item disjoint properties (DisjointObjectProperties and DisjointDataProperties)
-  \item symmetric properties (SymmetricObjectProperty)
-  \item reflexive properties (ReflexiveObjectProperty)
-  \item irreflexive properties (IrreflexiveObjectProperty)
-  \item asymmetric properties (AsymmetricObjectProperty)
-  \item assertions: DifferentIndividuals, ClassAssertion, ObjectPropertyAssertion, and DataPropertyAssertion
-\end{itemize}
-
-\subsection{Not Supported Constructs in OWL 2 QL}
-
-\begin{itemize}
-	\item existential quantification to a class expression or a data range (ObjectSomeValuesFrom and DataSomeValuesFrom) in the subclass position
-  \item self-restriction (ObjectHasSelf)
-  \item existential quantification to an individual or a literal (ObjectHasValue, DataHasValue)
-  \item enumeration of individuals and literals (ObjectOneOf, DataOneOf)
-  \item universal quantification to a class expression or a data range (ObjectAllValuesFrom, DataAllValuesFrom)
-  \item cardinality restrictions (ObjectMaxCardinality, ObjectMinCardinality, ObjectExactCardinality, DataMaxCardinality, DataMinCardinality, DataExactCardinality)
-  \item disjunction (ObjectUnionOf, DisjointUnion, and DataUnionOf)
-  \item property inclusions (SubObjectPropertyOf) involving property chains
-  \item functional and inverse-functional properties (FunctionalObjectProperty, InverseFunctionalObjectProperty, and FunctionalDataProperty)
-  \item transitive properties (TransitiveObjectProperty)
-  \item keys (HasKey)
-  \item individual equality assertions and negative property assertions (SameIndividual, NegativeObjectPropertyAssertion, NegativeDataPropertyAssertion)
-\end{itemize}
-
 \bibliography{../../literature/literature}{}
 \bibliographystyle{plain}
 \setcounter{tocdepth}{1}
