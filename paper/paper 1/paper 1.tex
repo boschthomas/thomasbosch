@@ -184,16 +184,6 @@ in OWL is to first set up complete information, and then just perform inference.
 	\item both should be possible: (1) constraint validation with reasoning and (2) constraint validation without reasoning 
 \end{itemize}
 
-We answer the following \textbf{research questions}:
-\begin{itemize}
-	\item which constraints are and which constraints are not expressible by DL?
-	\item are all constraints expressible by a query language such as Datalog or SPARQL?
-	\item for which requirements formulating RDF constraints the expressivity of DL-Lite$_A$ respectively OWL 2 QL is sufficient?
-	\item for which requirements additional constraint languages are needed to express related constraints?
-	\item which constraint languages are suitable to express these constraints?
-	\item what are the effects regarding complexity to express these constraints with and without taking into account inferencing?
-\end{itemize}
-
 Nehmen wir nun an, dass dein Framework welches entsprechende SPARQL Queries generiert diese auf einem SPARQL Endpoint evaluiert der zu der vorliegenden Ontologie bzw. des darin verwendeten OWL 2 Profils das entsprechende Entailment Regime realisiert, wären die zurückgegebenen Resultsets vollständig. Wie das Entailment Regime im Endpoint realisiert ist, also durch Query Rewriting oder durch Vervollständigung der ABox, ist dabei irrelevant.
 
 Wie allerdings bspw. in 
@@ -203,7 +193,24 @@ auf Seite 51 veranschaulicht, ist die Komplexität des Reasoning abhängig von d
 Allerding wäre wie bspw. in 
 \url{http://www.aifb.kit.edu/images/d/d2/2005_925_Haase_Consistent_Evol_1.pdf} beschrieben auch eine sogenannte 'User-defined Consistency' denkbar. Genau an dieser Stelle könnten wir ansetzen.
 
-\section{Ideas}
+We answer the following \textbf{research questions}:
+\begin{enumerate}
+	\item which constraints are and which constraints are not expressible by DL?
+	\item are all constraints expressible by a query language such as Datalog or SPARQL?
+	\item for which requirements formulating RDF constraints the expressivity of DL-Lite$_A$ respectively OWL 2 QL is sufficient?
+	\item for which requirements additional constraint languages are needed to express related constraints?
+	\item which constraint languages are suitable to express these constraints?
+	\item what are the effects regarding complexity to express these constraints with and without taking into account inferencing?
+\end{enumerate}
+
+\textbf{Contributions} of this paper are:
+\begin{enumerate}
+  \item
+	\item
+	\item We evaluated to which extend the 5 possible standard constraint languages fulfill each requirement.
+\end{enumerate}
+
+\textbf{Ideas}
 
 \begin{itemize}
 	\item RDF validation using OWL 2 QL reasoning by SPARQL query expansion
