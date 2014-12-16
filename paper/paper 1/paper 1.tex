@@ -63,6 +63,7 @@
 \usepackage[colorinlistoftodos]{todonotes}
 \newcommand{\ke}[1]{\todo[size=\small, color=orange!40]{\textbf{Kai:} #1}}
 \newcommand{\tb}[1]{\todo[size=\small, color=green!40]{\textbf{Thomas:} #1}}
+\newcommand{\er}[1]{\todo[size=\small, color=red!40]{\textbf{Erman:} #1}}
 
 \newenvironment{table-1cols}{
   \scriptsize
@@ -359,7 +360,7 @@ We divide these constraints into 3 classes:
 
 \section{Computational Complexity of RDF Constraints}
 
-According to our evaluation of requirements to formulate RDF constraints, we identified 3 classes how to validate constraints:
+According to our evaluation of requirements to formulate RDF constraints, we identified three main ways of validating constraints.
 
 \begin{enumerate}
 	\item validation by query answering without reasoning
@@ -367,20 +368,17 @@ According to our evaluation of requirements to formulate RDF constraints, we ide
 	\item validation by query answering with OWL 2 DL reasoning
 \end{enumerate}
 
-The next table gives an overview over the computational complexity for RDF validation when inferencing is performed and when inferencing is not performed. 
+The next table gives an overview of the computational complexity for RDF validation when it is performed -with and without inferencing. 
+\er{As side comment: for clarity paper better adopt either the word "inference" or "reasoning".}\\
 
 \begin{complexity}
-validation by query answering without reasoning & PSPACE-Complete \\
-validation by query answering with OWL 2 QL reasoning & PTIME \\
-validation by query answering with OWL 2 DL reasoning & N2EXPTIME \\
+validation by query answering without reasoning & \textsc{Pspace}-Complete \\
+validation by query answering with OWL 2 QL reasoning & \textsc{Ptime} \\
+validation by query answering with OWL 2 DL reasoning & \textsc{N2exptime} \\
 \end{complexity}
 
-\begin{itemize}
-	\item Query answering in OWL 2 QL is in LOGSPACE (or rather in AC$^2$ ), so constraint validation by queries without reasoning should be in the same complexity.
-  \item (TBox) Reasoning in OWL 2 QL is in PTIME, so rewriting of queries to receive “complete“ results is in this complexity \cite{Artale2009,Calvanese2007}.
-  \item The combined complexity is probably still LOGSPACE, but I’m not sure about that.
-	\item Perhaps, I better pronounce it. Roughly, the famous paper by Guiterrez (http://dl.acm.org/citation.cfm?id=1567278) says that evaluating SPARQL queries  are of computational complexity PSPACE-Complete. So now, notice that N2EXPTIME (OWL 2 DL reasoning) refers to (a lot) harder class than PSPACE.
-\end{itemize}
+What is considered by rdf validation w/o reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on DL-$Lite$ family and query answering in OWL 2 QL is in \textsc{Logspace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009}, \cite{Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
+
 
 \tb{ToDO for Andy and Erman: please include references}
 
@@ -388,7 +386,7 @@ validation by query answering with OWL 2 DL reasoning & N2EXPTIME \\
 
 \section{Conclusion and Future Work}
 
-\bibliography{../../literature/literature}{}
+\bibliography{paper1.bb}{}
 \bibliographystyle{plain}
 \setcounter{tocdepth}{1}
 %\listoftodos
