@@ -94,6 +94,21 @@
   \linebreak
 }
 
+\newenvironment{complexity}{
+  \scriptsize
+  \sffamily
+  \vspace{0.3cm}
+  \begin{tabular}{l|l}
+  \hline
+  \textbf{Validation Type} & \textbf{Complexity} \\
+  \hline
+
+}{
+  \hline
+  \end{tabular}
+  \linebreak
+}
+
 \newenvironment{DL}{
   \scriptsize
   \sffamily
@@ -256,7 +271,53 @@ Tilde means that this constraint may be fulfilled by that particular constraint 
 We also evaluated if a specific constraint is fulfilled by OWL 2 QL or if the more expressive OWL 2 DL is needed. 
 Inferencing may be performed for constraints marked with an asterisk. 
 
-\tb{ToDO: insert evaluation table}
+We divide these constraints into 3 classes:
+
+\begin{itemize}
+	\item constraints expressible by OWL 2 QL
+	\item constraints not expressible by OWL 2 QL but by OWL 2 DL
+	\item constraints only expressible by other DSCLs
+\end{itemize}
+ 
+\subsection{constraints expressible by OWL 2 QL}
+
+\tb{ToDo Thomas: insert table}
+
+\subsection{constraints not expressible by OWL 2 QL but by OWL 2 DL}
+
+\tb{ToDo Thomas: insert table}
+
+\subsection{constraints only expressible by other DSCLs}
+
+\tb{ToDo Thomas: insert table}
+
+\section{Computational Complexity of RDF Constraints}
+
+According to our evaluation of requirements to formulate RDF constraints, we identified 3 classes how to validate constraints:
+
+\begin{enumerate}
+	\item validation by query answering without reasoning
+	\item validation by query answering with OWL 2 QL reasoning
+	\item validation by query answering with OWL 2 DL reasoning
+\end{enumerate}
+
+The next table gives an overview over the computational complexity for RDF validation when inferencing is performed and when inferencing is not performed. 
+
+\begin{complexity}
+validation by query answering without reasoning & LOGSPACE (or rather in AC$^0$ ) \\
+OWL 2 QL reasoning & PTIME \\
+OWL 2 DL reasoning & \\
+validation by query answering with OWL 2 QL reasoning & PTIME \\
+validation by query answering with OWL 2 DL reasoning & \\
+\end{complexity}
+
+\begin{itemize}
+	\item Query answering in OWL 2 QL is in LOGSPACE (or rather in AC$^2$ ), so constraint validation by queries without reasoning should be in the same complexity.
+  \item (TBox) Reasoning in OWL 2 QL is in PTIME, so rewriting of queries to receive “complete“ results is in this complexity.
+  \item The combined complexity is probably still LOGSPACE, but I’m not sure about that.
+\end{itemize}
+
+\tb{ToDO for Andy and Erman: please include references}
 
 \section{Related Work}
 
