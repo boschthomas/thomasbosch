@@ -267,11 +267,23 @@ OWL 2 QL is based on the DL-Lite family of description logics. Several variants 
 :JediMaster $\sqsubseteq$ :Jedi \\
 \end{DL}
 
+Jedi masters are also Jedis which are also feeling the force.
+These sub-class relationships can also be expressed by OWL 2 QL:
+
 \begin{ex}
-# OWL 2 QL
 :Jedi rdfs:subClassOf :FeelingForce . 
 :JediMaster rdfs:subClassOf :Jedi . 
 \end{ex}
+
+Valid data must contain the 3 class assignments:
+
+\begin{ex}
+:Yoda a :JediMaster . 
+:Yoda a :Jedi . 
+:Yoda a :FeelingForce .
+\end{ex}
+
+These class assignments can be either explicitly stated or implicitly inferred when inferencing is performed before validating the data.
 
 :Yoda a :JediMaster . 
 
@@ -280,7 +292,9 @@ inferred triples:
 :Yoda a :Jedi . 
 :Yoda a :FeelingForce . 
 
-\subsection{Property Domain}
+\tb{ToDo Thomas: Sub Properties}
+
+\subsection{Property Axioms}
 
 The property domain constraint
 
@@ -297,6 +311,12 @@ This property domain constraint can also be expressed by OWL 2 QL:
 
 Without reasoning, the data \ms{:Anakin :studentOf :Obi-Wan} is invalid and causes a constraint violation, as it is not explicitly stated that \ms{:Anakin} is assigned to the class \ms{:Jedi}. 
 When inferencing is performed before validating, the class assignment \ms{:Anakin rdf:type :Jedi} is inferred which prevents the constraint violation to be raised.
+
+\subsection{Property Restrictions}
+
+Qualified and Unqualified Cardinality Restrictions
+
+\subsection{Equivalence}
 
 \section{Evaluation}
 
