@@ -1696,6 +1696,7 @@ $D \equiv \forall foaf:mbox . xsd:string$ \\
 $Human \equiv C \sqcap D$ \\
 \end{DL}
 \er{Where does this using $foaf:$ in DL come from? We need a description.}
+
 \section{Context-Specific Exclusive OR of Properties}
 
 requirements:
@@ -1742,7 +1743,7 @@ DSCL (OWL 2):
     owl:allValuesFrom xsd:string ] .
 :CC2 rdfs:subClassOf [
     a owl:Restriction ;
-    owl:onProperty foaf:givenNme ;
+    owl:onProperty foaf:givenName ;
     owl:allValuesFrom xsd:string ] .
 \end{ex}
 
@@ -1778,6 +1779,39 @@ class & Human & - & - & A, B & XOR \\
 
 \er{Unsure what is meant in this example.}
 
+\subsection{Simple Example}
+
+\begin{ex}
+# ShEx
+# ----
+<FeelingForce> { (  
+    :attackingBySword xsd:boolean | 
+    :attackingByForce xsd:boolean ) }
+\end{ex}
+
+\begin{ex}
+# OWL 2 DL
+# --------
+:FeelingForce owl:disjointUnionOf ( :CC1 :CC2 ) . 
+:CC1 rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty :attackingBySword ;
+    owl:allValuesFrom xsd:boolean ] .
+:CC2 rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty :attackingByForce ;
+    owl:allValuesFrom xsd:boolean ] .
+\end{ex}
+
+\begin{itemize}
+	\item :FeelingForce $\equiv$ 1 :attackingBySword (range xsd:boolean) XOR 1 :attackingByForce (range xsd:boolean)
+\end{itemize}
+
+\begin{DL}
+A $\equiv$ $\forall$ :attackingBySword . xsd:boolean \\
+B $\equiv$ $\forall$ :attackingByForce . xsd:boolean \\ 
+:FeelingForce $\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
+\end{DL}
 
 \subsection{Complex Example}
 
@@ -3603,6 +3637,26 @@ examples:
   \item Check if dc:rights has the same value than edm:rights either as rdf:resource or literal, if yes dc:rights is redundant
   \item If one or more dc:coverage are present, suggest the use of one of its sub-properties, dcterms spatial or dcterms:temporal.
 \end{itemize}
+
+\section{Cardinality Shortcuts}
+
+requirement:
+
+\begin{itemize}
+	\item 
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+  \item In most Library applications, these tend to appear in pairs, with repeatable / non-repeatable establishing max cardinality and optional / mandatory establishing min cardinality.
+	\item Optional \& Non-Repeatable = [0,1]
+  \item Optional \& Repeatable = [0,*]
+  \item Mandatory \& Non-Repeatable = [1,1]
+  \item Mandatory \& Repatable = [1,*]
+\end{itemize}
+
+
 
 \end{document}
 
