@@ -310,7 +310,23 @@ When inferencing is performed before validating, the class assignment \ms{:Anaki
 
 \subsection{Property Restrictions}
 
-Qualified and Unqualified Cardinality Restrictions
+\begin{DL}
+$\exists$ :hasLaserSword . :LaserSword
+\end{DL}
+
+This existential quantification contains all those individuals that are connected by :hasLaserSword to an individual that is an instance of the class :LaserSword.
+In OWL 2 DL, this existential quantification can also be expressed:
+
+\begin{ex}
+[ a owl:Restriction ;
+  owl:onProperty :hasLaserSword ;
+  owl:someValuesFrom :LaserSword ;
+  rdfs:subClassOf :Jedi ] .
+\end{ex}
+
+When our data contains the triple \ms{:Luke :hasLaserSword :BlueLaserSword} and we perform reasoning, we can infer that \ms{:Luke} is a :Jedi, as he has a laser sword.
+As the individual \ms{:Luke} is assigned to the class :Jedi, all constraint associated with this class are also validated, for example that Jedis must have blue laser swords.
+Without reasoning, these constraints won't be validated as \ms{:Luke} is not within the class extension of \ms{:Jedi}.
 
 \subsection{Equivalence}
 
