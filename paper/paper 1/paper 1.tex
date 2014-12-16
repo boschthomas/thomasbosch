@@ -328,6 +328,55 @@ When our data contains the triple \ms{:Luke :hasLaserSword :BlueLaserSword} and 
 As the individual \ms{:Luke} is assigned to the class :Jedi, all constraint associated with this class are also validated, for example that Jedis must have blue laser swords.
 Without reasoning, these constraints won't be validated as \ms{:Luke} is not within the class extension of \ms{:Jedi}.
 
+\section{RDF Validation Requirements}
+
+\subsection{Expressible by OWL 2 QL}
+
+\subsection{Not Expressible by OWL 2 QL but by OWL 2 DL}
+
+\subsection{Not Intuitively Expressible by OWL 2 DL}
+
+\begin{itemize}
+	\item OWL 2 DL Workarounds
+  \item more intuitively expressible by other constraint languages
+\end{itemize}
+
+\textbf{Context-Specific Exclusive OR of Properties}
+
+\begin{ex}
+# ShEx
+# ----
+<FeelingForce> { (  
+    :attackingBySword xsd:boolean | 
+    :attackingByForce xsd:boolean ) }
+\end{ex}
+
+\begin{ex}
+# OWL 2 DL
+# --------
+:FeelingForce owl:disjointUnionOf ( :CC1 :CC2 ) . 
+:CC1 rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty :attackingBySword ;
+    owl:allValuesFrom xsd:boolean ] .
+:CC2 rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty :attackingByForce ;
+    owl:allValuesFrom xsd:boolean ] .
+\end{ex}
+
+\begin{itemize}
+	\item :FeelingForce $\equiv$ 1 :attackingBySword (range xsd:boolean) XOR 1 :attackingByForce (range xsd:boolean)
+\end{itemize}
+
+\begin{DL}
+A $\equiv$ $\forall$ :attackingBySword . xsd:boolean \\
+B $\equiv$ $\forall$ :attackingByForce . xsd:boolean \\ 
+:FeelingForce $\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
+\end{DL}
+
+\subsection{Not Expressible by OWL 2 DL But by Other Constraint Languages}
+
 \section{Evaluation}
 
 We evaluated to which extend the 5 possible standard constraint languages fulfill each requirement to formulate RDF constraints.
