@@ -114,7 +114,6 @@
   \sffamily
   \vspace{0.3cm}
   \begin{tabular}{l}
-	\textbf{DL:} \\
 
 }{
   \end{tabular}
@@ -261,12 +260,32 @@ OWL 2 QL is aimed at applications that use very large volumes of instance data, 
 \textbf{Logical Underpinning for OWL 2 QL.}
 OWL 2 QL is based on the DL-Lite family of description logics. Several variants of DL-Lite have been described in the literature, and DL-Lite$_R$ provides the logical underpinning for OWL 2 QL. DL-Lite$_R$ does not require the unique name assumption (UNA), since making this assumption would have no impact on the semantic consequences of a DL-Lite$_R$ ontology. More expressive variants of DL-Lite, such as DL-Lite$_A$, extend DL-Lite$_R$ with functional properties, and these can also be extended with keys; however, for query answering to remain in LOGSPACE, these extensions require UNA and need to impose certain global restrictions on the interaction between properties used in different types of axiom. Basing OWL 2 QL on DL-Lite$_R$ avoids practical problems involved in the explicit axiomatization of UNA \cite{owl2profiles2008}. 
 
+\subsection{Subsumption}
+
+\begin{DL}
+:Jedi $\sqsubseteq$ :FeelingForce \\
+:JediMaster $\sqsubseteq$ :Jedi \\
+\end{DL}
+
+\begin{ex}
+# OWL 2 QL
+:Jedi rdfs:subClassOf :FeelingForce . 
+:JediMaster rdfs:subClassOf :Jedi . 
+\end{ex}
+
+:Yoda a :JediMaster . 
+
+inferred triples:
+
+:Yoda a :Jedi . 
+:Yoda a :FeelingForce . 
+
 \subsection{Property Domain}
 
 The property domain constraint
 
 \begin{DL}
-$\exists$ :studentOf . $\top$ $\sqsubseteq$ :JediStudent 
+$\exists$ :studentOf . $\top$ $\sqsubseteq$ :JediStudent \\
 \end{DL}
 
 restricts that individuals having :studentOf relationships must be Jedi students.
@@ -319,7 +338,7 @@ According to our evaluation of requirements to formulate RDF constraints, we ide
 The next table gives an overview over the computational complexity for RDF validation when inferencing is performed and when inferencing is not performed. 
 
 \begin{complexity}
-validation by query answering without reasoning & LOGSPACE (or rather in AC$^0$ ) \\
+validation by query answering without reasoning & PSPACE-Complete \\
 validation by query answering with OWL 2 QL reasoning & PTIME \\
 validation by query answering with OWL 2 DL reasoning & N2EXPTIME \\
 \end{complexity}
@@ -328,6 +347,7 @@ validation by query answering with OWL 2 DL reasoning & N2EXPTIME \\
 	\item Query answering in OWL 2 QL is in LOGSPACE (or rather in AC$^2$ ), so constraint validation by queries without reasoning should be in the same complexity.
   \item (TBox) Reasoning in OWL 2 QL is in PTIME, so rewriting of queries to receive “complete“ results is in this complexity.
   \item The combined complexity is probably still LOGSPACE, but I’m not sure about that.
+	\item Perhaps, I better pronounce it. Roughly, the famous paper by Guiterrez (http://dl.acm.org/citation.cfm?id=1567278) says that evaluating SPARQL queries  are of computational complexity PSPACE-Complete. So now, notice that N2EXPTIME (OWL 2 DL reasoning) refers to (a lot) harder class than PSPACE.
 \end{itemize}
 
 \tb{ToDO for Andy and Erman: please include references}
