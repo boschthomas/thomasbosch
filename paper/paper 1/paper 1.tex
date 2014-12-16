@@ -262,12 +262,14 @@ OWL 2 QL is based on the DL-Lite family of description logics. Several variants 
 
 \subsection{Subsumption}
 
+Subsumption relationships of both classes and properties are part of basic inferencing.
+
 \begin{DL}
 :Jedi $\sqsubseteq$ :FeelingForce \\
 :JediMaster $\sqsubseteq$ :Jedi \\
 \end{DL}
 
-Jedi masters are also Jedis which are also feeling the force.
+All Jedi masters are Jedis feeling the force.
 These sub-class relationships can also be expressed by OWL 2 QL:
 
 \begin{ex}
@@ -283,16 +285,10 @@ Valid data must contain the 3 class assignments:
 :Yoda a :FeelingForce .
 \end{ex}
 
-These class assignments can be either explicitly stated or implicitly inferred when inferencing is performed before validating the data.
+These class assignments can be either explicitly stated or implicitly inferred when reasoning is performed before actually validating the data.
 
-:Yoda a :JediMaster . 
-
-inferred triples:
-
-:Yoda a :Jedi . 
-:Yoda a :FeelingForce . 
-
-\tb{ToDo Thomas: Sub Properties}
+When only the triple \ms{:Yoda a :JediMaster} is given and inferencing is not executed, then a constraint violation is raised.
+After reasoning, however, the triples \ms{:Yoda a :Jedi , :FeelingForce} are inferred resulting in valid data. 
 
 \subsection{Property Axioms}
 
