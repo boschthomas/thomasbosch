@@ -1742,7 +1742,7 @@ DSCL (OWL 2):
     owl:allValuesFrom xsd:string ] .
 :CC2 rdfs:subClassOf [
     a owl:Restriction ;
-    owl:onProperty foaf:givenNme ;
+    owl:onProperty foaf:givenName ;
     owl:allValuesFrom xsd:string ] .
 \end{ex}
 
@@ -1778,6 +1778,39 @@ class & Human & - & - & A, B & XOR \\
 
 \er{Unsure what is meant in this example.}
 
+\subsection{Simple Example}
+
+\begin{ex}
+# ShEx
+# ----
+<FeelingForce> { (  
+    :attackingBySword xsd:boolean | 
+    :attackingByForce xsd:boolean ) }
+\end{ex}
+
+\begin{ex}
+# OWL 2 DL
+# --------
+:FeelingForce owl:disjointUnionOf ( :CC1 :CC2 ) . 
+:CC1 rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty :attackingBySword ;
+    owl:allValuesFrom xsd:boolean ] .
+:CC2 rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty :attackingByForce ;
+    owl:allValuesFrom xsd:boolean ] .
+\end{ex}
+
+\begin{itemize}
+	\item :FeelingForce $\equiv$ 1 :attackingBySword (range xsd:boolean) XOR 1 :attackingByForce (range xsd:boolean)
+\end{itemize}
+
+\begin{DL}
+A $\equiv$ $\forall$ :attackingBySword . xsd:boolean \\
+B $\equiv$ $\forall$ :attackingByForce . xsd:boolean \\ 
+:FeelingForce $\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
+\end{DL}
 
 \subsection{Complex Example}
 
