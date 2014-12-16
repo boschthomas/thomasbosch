@@ -241,8 +241,6 @@ We answer the following \textbf{research questions}:
 	\item if using OWL 2 DL as constraint language or using constraints equivalent to OWL 2 QL you can use reasoning 
 	\item reasoning can also be executed using SPARQL query expansion.
 	\item reasoning not executing using reasoner
-	\item limitations of this approach
-	\item expressivity of SPARQL? (Erman) what can not be done with SPARQL?
 \end{itemize}
 
 \begin{itemize}
@@ -252,17 +250,34 @@ We answer the following \textbf{research questions}:
 	\item show that OWL 2 QL and further constraint languages together are complete
 \end{itemize}
 
-\section{OWL 2 QL}
+\section{RDF Validation and Inferencing}
 
-OWL 2 profiles specification: \cite{owl2profiles2008}
+\subsection{OWL 2 QL Reasoning}
 
-\begin{itemize}
-  \item OWL 2 QL constructs
-	\item Difference between OWL 2 DL and OWL 2 QL
-\end{itemize}
+An OWL 2 profile (commonly called a fragment or a sublanguage in computational logic) is a trimmed down version of OWL 2 that trades some expressive power for the efficiency of reasoning. This document describes three profiles of OWL 2, each of which achieves efficiency in a different way and is useful in different application scenarios. The profiles are independent of each other, so (prospective) users can skip over the descriptions of profiles that are not of interest to them. The choice of which profile to use in practice will depend on the structure of the ontologies and the reasoning tasks at hand (see Section 10 of the OWL 2 Primer [OWL 2 Primer] for more help in understanding and selecting profiles) \cite{owl2profiles2008}. 
+
+OWL 2 QL is aimed at applications that use very large volumes of instance data, and where query answering is the most important reasoning task. In OWL 2 QL, conjunctive query answering can be implemented using conventional relational database systems. Using a suitable reasoning technique, sound and complete conjunctive query answering can be performed in LOGSPACE with respect to the size of the data (assertions). As in OWL 2 EL, polynomial time algorithms can be used to implement the ontology consistency and class expression subsumption reasoning problems. The expressive power of the profile is necessarily quite limited, although it does include most of the main features of conceptual models such as UML class diagrams and ER diagrams. The QL acronym reflects the fact that query answering in this profile can be implemented by rewriting queries into a standard relational Query Language \cite{owl2profiles2008}. 
 
 \textbf{Logical Underpinning for OWL 2 QL.}
 OWL 2 QL is based on the DL-Lite family of description logics. Several variants of DL-Lite have been described in the literature, and DL-Lite$_R$ provides the logical underpinning for OWL 2 QL. DL-Lite$_R$ does not require the unique name assumption (UNA), since making this assumption would have no impact on the semantic consequences of a DL-Lite$_R$ ontology. More expressive variants of DL-Lite, such as DL-Lite$_A$, extend DL-Lite$_R$ with functional properties, and these can also be extended with keys; however, for query answering to remain in LOGSPACE, these extensions require UNA and need to impose certain global restrictions on the interaction between properties used in different types of axiom. Basing OWL 2 QL on DL-Lite$_R$ avoids practical problems involved in the explicit axiomatization of UNA \cite{owl2profiles2008}. 
+
+\subsection{Property Domain}
+
+The property domain constraint
+
+\begin{DL}
+$\exists$ :studentOf . $\top$ $\sqsubseteq$ :JediStudent 
+\end{DL}
+
+restricts that individuals having :studentOf relationships must be Jedi students.
+This property domain constraint can also be expressed by OWL 2 QL:
+
+\begin{ex}
+:studentOf rdfs:domain :JediStudent .
+\end{ex}
+
+Without reasoning, the data \ms{:Anakin :studentOf :Obi-Wan} is invalid and causes a constraint violation, as it is not explicitly stated that \ms{:Anakin} is assigned to the class \ms{:Jedi}. 
+When inferencing is performed before validating, the class assignment \ms{:Anakin rdf:type :Jedi} is inferred which prevents the constraint violation to be raised.
 
 \section{Evaluation}
 
@@ -305,10 +320,8 @@ The next table gives an overview over the computational complexity for RDF valid
 
 \begin{complexity}
 validation by query answering without reasoning & LOGSPACE (or rather in AC$^0$ ) \\
-OWL 2 QL reasoning & PTIME \\
-OWL 2 DL reasoning & \\
 validation by query answering with OWL 2 QL reasoning & PTIME \\
-validation by query answering with OWL 2 DL reasoning & \\
+validation by query answering with OWL 2 DL reasoning & N2EXPTIME \\
 \end{complexity}
 
 \begin{itemize}

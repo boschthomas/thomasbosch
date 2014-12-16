@@ -3503,6 +3503,31 @@ owl:Thing owl:hasKey ( :hasSSN ) .
 
 \tb{ToDo: DL}
 
+\section{Exploiting Class/Property Specialization Ontology Axioms}
+
+requirement:
+
+\begin{itemize}
+	\item R-224-instance-level-data-validation-exploitingclass/property-specialization-axioms-in-ontologies
+\end{itemize}
+
+\subsection{Description}
+
+\begin{itemize}
+  \item Validation of instances data (direct or indirect) exploiting the subclass or sub-property link in a given ontology.
+  \item This validation can indicate when the data is verbose (redundant) or expressed at a too general level, and could be improved.
+\end{itemize}
+
+examples:
+
+\begin{itemize}
+	\item If dc:date and one of its sub-properties dcterms:created or dcterms:issued are present, check that the value in dc:date is not redundant with dcterms:created or dcterms:issued for ingestion
+  \item Check if dc:rights has the same value than edm:rights either as rdf:resource or literal, if yes dc:rights is redundant
+  \item If one or more dc:coverage are present, suggest the use of one of its sub-properties, dcterms spatial or dcterms:temporal.
+\end{itemize}
+
+\end{itemize}
+
 \input{DL-Check}
 
 \bibliography{../../literature/literature}{}
