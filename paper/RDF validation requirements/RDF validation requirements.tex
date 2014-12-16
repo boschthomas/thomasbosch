@@ -650,10 +650,11 @@ requirements:
 \subsection{Description}
 
 \begin{itemize}
-	\item DL termonology: universal restriction
+	\item DL terminology: value restriction
 \end{itemize}
 
-\tb{definition}
+
+$(\forall R.C)^\mathcal{I}= \{a \in \Delta^\mathcal{I}\mid (a,b) \in R^\mathcal{I} \rightarrow b \in C^\mathcal{I} \}$ where $\cdot^\mathcal{I}$ is an interpretation function, $\Delta^I$ is the domain, $a,b \in \Delta^\mathcal{I}$ are individuals $C$ is a concept, $R$ is a role. 
 
 \subsection{Simple Example}
 
@@ -687,7 +688,7 @@ requirements:
 	\item The language needs to include an easy-to-use vocabulary to declare that a given property is associated with a class, e.g. to populate input forms with appropriate widgets but also constraint checking. In OO terms this is the declaration of a member, field, attribute or association. 
 \end{itemize}
 
-\tb{definition}
+$\exists R. \top \sqsubseteq C$ is the object property restriction where $R$ is the object property (role) whose domain is restricted to concept $C$.
 
 \subsection{Simple Example}
 
@@ -719,7 +720,9 @@ requirements:
 	\item DL terminology: range restrictions on roles
 \end{itemize}
 
-\tb{definition}
+$\top \sqsubseteq \forall R . C$ is the range restriction to object property $R$ (restricted by concept $C$).  
+
+
 
 \subsection{Simple Example}
 
@@ -790,6 +793,10 @@ requirements:
 	\item R-211-CARDINALITY-CONSTRAINTS
 \end{itemize}
 
+Definition:\\
+
+$\leq n R. \top$ is minimum unqualified cardinality restriction where $n \in \mathbb{N}$ (written $\leq  n R$ in short).
+
 description:
 
 \begin{itemize}
@@ -797,6 +804,7 @@ description:
 	\item A minimum cardinality expression DataMinCardinality( n DPE DR ) consists of a nonnegative integer n, a data property expression DPE, and a unary data range DR, and it contains all those individuals that are connected by DPE to at least n different literals in DR. If DR is not present, it is taken to be rdfs:Literal. 
 	\item unqualified: CE respective DR is NOT stated. 
 \end{itemize}
+
 
 \subsection{Simple Example}
 
@@ -849,8 +857,15 @@ description:
 # ------------------------------------------------------
 :Yoda 
 \end{ex}
+\er{Note that this example includes also has at-most restriction.}\\
 
-\tb{ToDO: add DL}
+Assume that  mentorOf and studentOf are inverse properties.\\
+\begin{DL}
+$Jedi \sqsubseteq \exists attitude.\{good\} $\\
+$JediStudent \sqsubseteq Jedi \sqcap 1\geq studentOf.\top \sqcap 1\leq studentOf.\top$ \\
+$JediMasters \sqsubseteq Jedi \sqcap 1\leq studentOf^{-}.\top \sqcap 2\geq studentOf^{-}.\top $\\
+$SuperJediMaster \sqsubseteq Jedi \sqcap  3\leq studentOf^{-}.\top $
+\end{DL}
 
 \section{Minimum Qualified Cardinality Restrictions on Properties}
 
@@ -868,6 +883,9 @@ description:
 	\item A minimum cardinality expression DataMinCardinality( n DPE DR ) consists of a nonnegative integer n, a data property expression DPE, and a unary data range DR, and it contains all those individuals that are connected by DPE to at least n different literals in DR. If DR is not present, it is taken to be rdfs:Literal. 
 	\item qualified: CE respective DR is stated.
 \end{itemize}
+Definition:\\
+
+$\leq n R. C$ is minimum qualified cardinality restriction where $n \in \mathbb{N}$.
 
 \subsection{Simple Example}
 
@@ -875,7 +893,7 @@ description:
 $\geq$ 2 childOf . Parent
 \end{DL}
 
-\tb{ToDO: check DL}
+
 
 \begin{itemize}
 	\item set of individuals that are children of at least two parents
@@ -902,14 +920,14 @@ foaf:Person $\equiv$ $\geq$ 2 hasName.xsd:string
 \end{DL}
 
 \tb{ToDO: check DL}
-
+\er{foaf: or xsd:string is no DL syntax. So you can delete 18.2 if you are fine.}
 \begin{gcotable}
 property & foaf:Person & hasName & - & xsd:string & $\geq$ & 2 \\
 \end{gcotable}
 
 \subsection{Simple Example}
 
-\tb{ToDO: OWL 2 DL}
+%\tb{ToDO: OWL 2 DL}
 
 \begin{ex}
 # ShEx
@@ -965,15 +983,21 @@ property & foaf:Person & hasName & - & xsd:string & $\geq$ & 2 \\
 :Obi-Wan
 \end{ex}
 
-\tb{ToDO: add DL}
+\noindent $mentorOf$ and $studentOf$ are taken to be inverse properties:\\
 
+\begin{DL}
+$Jedi \sqsubseteq \exists attitude.\{good\} $\\
+$JediStudent \sqsubseteq Jedi \sqcap 1\geq studentOf.Jedi \sqcap 1\leq studentOf.Jedi$ \\
+$JediMasters \sqsubseteq Jedi \sqcap 1\leq studentOf^{-}.Jedi\sqcap 2\geq studentOf^{-}.Jedi $\\
+$SuperJediMaster \sqsubseteq Jedi \sqcap  3\leq studentOf^{-}.Jedi $
+\end{DL}
 \subsection{Complex Example}
 
 \begin{DL}
 Father2Daughters $\equiv$ Man $\sqcap$ ($\geq$ 2 hasChild.Woman)
 \end{DL}
 
-\tb{ToDO: check DL}
+%\tb{ToDO: check DL}
 
 \begin{gcotable}
 property & $\geq$ 2 hasChild.Woman & hasChild & - & Woman & $\geq$ & 2 \\
@@ -997,6 +1021,9 @@ description:
 	\item unqualified: CE respective DR is NOT stated. 
 \end{itemize}
 
+Definition:\\
+
+$\geq n R. \top$ is maximum unqualified cardinality restriction where $n \in \mathbb{N}$ (written $\geq  n R$ in short).
 \subsection{Simple Example}
 
 \begin{ex}
@@ -1021,7 +1048,7 @@ description:
 	\item Jedi masters are mentoring at least 1 and at most 2 resources
 	\item Super Jedi masters are mentoring at least 3 resources  
 \end{itemize}
-
+\er{Notice that this example includes minimum restriction.}
 \begin{ex}
 # data
 # ----
@@ -1049,7 +1076,14 @@ description:
 :Obi-Wan
 \end{ex}
 
-\tb{ToDO: add DL}
+%\tb{ToDO: add DL}
+\noindent Taking mentorOf and studentOf as inverse properties. \\
+\begin{DL}
+$Jedi \sqsubseteq \exists attitude.\{good\} $\\
+$JediStudent \sqsubseteq Jedi \sqcap 1\geq studentOf.\top \sqcap 1\leq studentOf.\top$ \\
+$JediMasters \sqsubseteq Jedi \sqcap 1\leq studentOf^{-}.\top \sqcap 2\geq studentOf^{-}.\top $\\
+$SuperJediMaster \sqsubseteq Jedi \sqcap  3\leq studentOf^{-}.\top $
+\end{DL}
 
 \section{Maximum Qualified Cardinality Restrictions on Properties}
 
@@ -1067,6 +1101,9 @@ description:
 	\item A maximum cardinality expression DataMaxCardinality( n DPE DR ) consists of a nonnegative integer n, a data property expression DPE, and a unary data range DR, and it contains all those individuals that are connected by DPE to at most n different literals in DR. If DR is not present, it is taken to be rdfs:Literal. 
 	\item qualified: CE respective DR is stated. 
 \end{itemize}
+Definition:\\
+
+$\leq n R. C$ is maximum qualified cardinality restriction where $n \in \mathbb{N}$.
 
 \subsection{Simple Example}
 
@@ -1074,7 +1111,9 @@ description:
 $\leq$  2 childOf . Parent
 \end{DL}
 
-\tb{ToDO: check DL}
+%\tb{ToDO: check DL}
+
+
 
 \begin{itemize}
 	\item set of individuals that are children of at most two parents
@@ -1087,7 +1126,7 @@ property & $\leq$  2 childOf . Parent & childOf & - & Parent & $\leq$ & 2 \\
 \subsection{Simple Example}
 
 \tb{ToDO: OWL 2 DL}
-
+\er{why OWL 2 DL?}
 \begin{ex}
 # ShEx
 # ----
@@ -1138,7 +1177,16 @@ property & $\leq$  2 childOf . Parent & childOf & - & Parent & $\leq$ & 2 \\
 :Obi-Wan
 \end{ex}
 
-\tb{ToDO: add DL}
+%\tb{ToDO: add DL}
+
+\noindent $mentorOf$ and $studentOf$ are taken to be inverse properties:\\
+
+\begin{DL}
+$Jedi \sqsubseteq \exists attitude.\{good\} $\\
+$JediStudent \sqsubseteq Jedi \sqcap 1\geq studentOf.Jedi \sqcap 1\leq studentOf.Jedi$ \\
+$JediMasters \sqsubseteq Jedi \sqcap 1\leq studentOf^{-}.Jedi\sqcap 2\geq studentOf^{-}.Jedi $\\
+$SuperJediMaster \sqsubseteq Jedi \sqcap  3\leq studentOf^{-}.Jedi $
+\end{DL}
 
 \section{Exact Unqualified Cardinality Restrictions on Properties}
 
@@ -1157,6 +1205,9 @@ description:
 	\item unqualified: CE respective DR is NOT stated. 
 \end{itemize}
 
+Definition:\\
+
+$\geq n R. \top \sqcap \leq n R. \top $ is exact unqualified cardinality restriction where $n \in \mathbb{N}$. ($\top$ can be dropped in short writing.)
 \subsection{Simple Example}
 
 \tb{ToDo. OWL 2 DL}
@@ -1211,8 +1262,11 @@ description:
 :MaceWindu :Obi-Wan :Anakin :Luke
 \end{ex}
 
-\tb{ToDO: add DL}
-
+%\tb{ToDO: add DL}
+\begin{DL}
+$Jedi \sqsubseteq \exists attitude.\{good\} $\\
+$JediStudent \sqsubseteq Jedi \sqcap 1\geq studentOf.\top \sqcap 1\leq studentOf.\top$ \\
+\end{DL}
 \section{Exact Qualified Cardinality Restrictions on Properties}
 
 requirements:
@@ -1230,9 +1284,12 @@ description:
 	\item qualified: CE respective DR is stated. 
 \end{itemize}
 
+Definition:\\
+
+$\geq n R. C \sqcap \leq n R. C $ is exact unqualified cardinality restriction where $n \in \mathbb{N}$.
 \subsection{Simple Example}
 
-\tb{ToDO: OWL 2 DL}
+%\tb{ToDO: OWL 2 DL}
 
 \begin{ex}
 # ShEx
@@ -1294,7 +1351,12 @@ description:
 :MaceWindu :Obi-Wan :Anakin :Luke
 \end{ex}
 
-\tb{ToDO: add DL}
+
+
+\begin{DL}
+$Jedi \sqsubseteq \exists attitude.\{good\} $\\
+$JediStudent \sqsubseteq Jedi \sqcap 1\geq studentOf.Jedi \sqcap 1\leq studentOf.Jedi$ \\
+\end{DL}
 
 \subsection{Complex Example}
 
@@ -1302,7 +1364,7 @@ description:
 Person $\sqsubseteq$ $\geq$ 2 childOf . Parent $\sqcap$ $\leq$  2 childOf . Parent \\
 \end{DL}
 
-\tb{ToDO: check DL}
+%\tb{ToDO: check DL}
 
 \begin{itemize}
 	\item every person is a child of exactly two parents
@@ -1408,7 +1470,7 @@ requirement:
 \subsection{Simple Example}
 
 \begin{DL}
-marriedTo $\equiv$ $marriedTo^{-}$ \\
+$marriedTo \sqsubseteq marriedTo^{-}$ \\
 \end{DL}
 
 \begin{gcotable}
@@ -1445,8 +1507,11 @@ requirement:
 \subsection{Simple Example}
 
 \begin{DL}
-Disjoint( parentOf , $parentOf^{-}$ )
+$parentOf \sqsubseteq \neg parentOf^{-}$ or\\
+$parentOf \sqcap parentOf^{-} \sqsubseteq \bot$
 \end{DL}
+
+
 
 \begin{gcotable}
 property & $parentOf^{-}$ & parentOf & - & $\top$ & inverse role $(^{-})$ \\
@@ -1565,7 +1630,9 @@ requirement:
 \subsection{Simple Example}
 
 \begin{DL}
-$\top$ $\sqsubseteq$ $\neg$ $\exists$ marriedTo . Self
+$\top$ $\sqsubseteq$ $\neg$ $\exists  marriedTo . Self$   OR\\
+$\exists marriedTo . Self \sqsubseteq \bot$  OR\\
+$marriedTo \sqcap marriedTo^{-} \sqsubseteq \bot$ (without special self-concept Self)
 \end{DL}
 
 syntactic sugar:
@@ -1628,7 +1695,7 @@ $C \equiv A XOR B$ \\
 $D \equiv \forall foaf:mbox . xsd:string$ \\
 $Human \equiv C \sqcap D$ \\
 \end{DL}
-
+\er{Where does this using $foaf:$ in DL come from? We need a description.}
 \section{Context-Specific Exclusive OR of Properties}
 
 requirements:
@@ -1689,6 +1756,8 @@ B $\equiv$ $\forall$ foaf:givenName . xsd:string \\
 Human $\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
 \end{DL}
 
+\er{Let us mark that $foaf:$ occurs here.}
+
 \begin{gcotable}
 property & A & foaf:name & - & xsd:string & $\forall$ \\
 property & B & foaf:givenName & - & xsd:string & $\forall$ \\
@@ -1707,6 +1776,8 @@ property & B & foaf:givenName & - & xsd:string & $\forall$ \\
 class & Human & - & - & A, B & XOR \\
 \end{gcotable}
 
+\er{Unsure what is meant in this example.}
+
 
 \subsection{Complex Example}
 
@@ -1724,7 +1795,14 @@ DSCL (ShEx):
 	\item 1 foaf:familyName (range xsd:string)
 \end{itemize}
 
-\tb{ToDo: DL}
+%\tb{ToDo: DL}
+
+
+\er{Unsure what is meant in this example. Could be instead:}
+
+\begin{DL}
+$Person \sqsubseteq ((Male \sqcap \neg Female) \sqcup (\neg Male \sqcap  Female)) $ 
+\end{DL}
 
 Individuals matching the 'Human' data shape:
 
@@ -2079,10 +2157,10 @@ class & complex concept & - & - & \{ComputerScience\}, \{SocialScience\}, \{Libr
 \end{ex}
 
 \begin{DL}
-Jedi $\equiv$ $\exists$ laserSwordColor . \{'blue'\} $\sqcup$ \{'green'\} $\sqcup$ \{'white'\} \\
+Jedi $\equiv$ $\exists$ laserSwordColor . \{blue, green, white\} \\
 \end{DL}
 
-\tb{ToDo: check DL}
+%\tb{ToDo: check DL}
 
 \section{Not Allowed Values}
 
@@ -2146,10 +2224,10 @@ requirements:
 \end{ex}
 
 \begin{DL}
-Sith $\equiv$ $\neg$( $\exists$ laserSwordColor . \{'blue'\} $\sqcup$ \{'green'\} $\sqcup$ \{'white'\} ) \\
+Sith $\equiv$ $\neg$ $\exists$ laserSwordColor . \{blue, green, white\} \\
 \end{DL}
 
-\tb{ToDo: check DL}
+%\tb{ToDo: check DL}
 
 \section{Membership in Controlled Vocabularies}
 
@@ -2186,7 +2264,7 @@ requirements:
 \begin{itemize}
 	\item \ms{skos:Concept} resources can only be members of the listed controlled vocabularies
 \end{itemize}
-
+\er{This sort of DL-syntax (with semicolon) must be rechecked. Note that in DL, it does not have to correspond directly to names of things in machine-readable syntax. It is fine to say BookSubjects rather than :BookSubjects for the sake of simplicity }
 \begin{DL}
 $A \equiv skos:Concept \sqcap B$ \\
 $B \equiv \forall skos:inScheme . C$ \\
