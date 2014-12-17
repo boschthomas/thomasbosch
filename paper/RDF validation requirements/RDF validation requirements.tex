@@ -27,6 +27,7 @@
 
 %\usepackage{amsmath}
 \usepackage{amsmath, amssymb}
+\usepackage{examplep}
 \usepackage{mathabx}
 
 % monospace within text
@@ -124,7 +125,7 @@
 \usepackage[colorinlistoftodos]{todonotes}
 \newcommand{\tb}[1]{\todo[size=\small, color=blue!40]{\textbf{Thomas:} #1}}
 \newcommand{\ke}[1]{\todo[size=\small, color=orange!40]{\textbf{Kai:} #1}}
-\newcommand{\an}[1]{\todo[size=\small, color=green!40]{\textbf{Andreas:} #1}}
+\newcommand{\an}[1]{\todo[size=\small, color=green!40]{\textbf{Andy:} #1}}
 \newcommand{\er}[1]{\todo[size=\small, color=red!40]{\textbf{Erman:} #1}}
 
 \setcounter{secnumdepth}{5}
@@ -415,7 +416,9 @@ requirements:
 \subsection{Simple Example}
 
 \begin{DL}
-Disjoint(parentOf, childOf)
+Disjoint(parentOf, childOf)\\
+Alternative:\\
+$parentOf \sqsubseteq \neg childOf$
 \end{DL}
 
 \begin{gcotable}
@@ -572,7 +575,9 @@ requirements:
 \subsection{Simple Example}
 
 \begin{DL}
-Male $\sqcap$ Female $\sqsubseteq$ $\perp$
+Male $\sqcap$ Female $\sqsubseteq$ $\perp$\\
+Alternative:\\
+$Male \sqsubseteq \neg Female$
 \end{DL}
 
 \begin{gcotable}
@@ -727,7 +732,9 @@ $\top \sqsubseteq \forall R . C$ is the range restriction to object property $R$
 \subsection{Simple Example}
 
 \begin{DL}
-$\top$ $\sqsubseteq$ $\forall$ sonOf . Parent 
+$\top$ $\sqsubseteq$ $\forall$ sonOf . Parent \\
+Equivalent to:\\
+$\exists sonOf\sp{\overline{\ }}.\top \sqsubseteq Person$
 \end{DL}
 
 \begin{itemize}
@@ -1401,7 +1408,11 @@ requirement:
 
 \begin{DL}
 parentOf $\equiv$ $childOf^{-}$ \\
+not sure if this should be rather\\
+$parentOf \sqsubseteq childOf^{-}$ \\
 \end{DL}
+
+\an{not sure!}
 
 \begin{gcotable}
 property & parentOf & childOf & - & $\top$ & $inverse role (^{-})$ \\
@@ -1696,6 +1707,14 @@ $D \equiv \forall foaf:mbox . xsd:string$ \\
 $Human \equiv C \sqcap D$ \\
 \end{DL}
 \er{Where does this using $foaf:$ in DL come from? We need a description.}
+
+\an{I think we should use the existential quantifier instead of the universal quantifier!?}
+\begin{DL}
+$A \sqsubseteq \exists name.xsd:string$ \\
+$B \sqsubseteq \exists givenName.xsd:string$ \\
+$D \sqsubseteq \exists mbox.xsd:string$ \\
+$Human \sqsubseteq C \sqcap D$ \\
+\end{DL}
 
 \section{Context-Specific Exclusive OR of Properties}
 
@@ -2417,6 +2436,10 @@ for example, it is used in the third axiom to define the range of the :hasSSN pr
     :hasSSN "123456789"^^:SSN .
 \end{ex}
 
+\begin{DL}
+NOT EXPRESSIBLE IN DL!!!
+\end{DL}
+
 \begin{gcotable}
 class & SSN & - & - & xsd:string & xsd:pattern & '[0-9]{3}-[0-9]{2}-[0-9]{4}' \\
 \end{gcotable}
@@ -2481,6 +2504,10 @@ NOP can be a not operator (!) or empty.
 :HandbookOfSWTechnologies
     dbo:isbn 'DOI 10.1007/978-3-540-92913-0' .
 \end{ex}
+
+\begin{DL}
+NOT EXPRESSIBLE IN DL!!!
+\end{DL}
 
 \begin{gcotable}
 property & $\top$ & dbo:isbn & - & $\neg$ A & domain & - \\
@@ -2552,6 +2579,10 @@ OP => <
     dbo:birthDate '2012-08-25'^^xsd:date ;
     dbo:deathDate '1930-08-05'^^xsd:date .
 \end{ex}
+
+\begin{DL}
+NOT EXPRESSIBLE IN DL!!!
+\end{DL}
 
 \begin{gcotable}
 property & $\top$ & dbo:birthDate & dbo:deathDate & xsd:date & \textgreater & - \\
@@ -2657,6 +2688,7 @@ DataPropertyRange( :position :NumberPlayersPerWorldCupTeam )
 \begin{DL}
 1-23 $\equiv$ \{'1'\} $\sqcup$ \{'2'\} $\sqcup$ ... $\sqcup$ \{'23'\} \\
 $\top$ $\sqsubseteq$ $\forall$ position . 1-23 \\
+This is just an auxiliary construction and is not sufficient for general cases, so: NOT EXPRESSIBLE IN DL!!!
 \end{DL}
 
 \begin{gcotable}
@@ -2700,7 +2732,9 @@ requirements:
 
 \subsection{Simple Example}
 
-
+\begin{DL}
+NOT EXPRESSIBLE IN DL!!!
+\end{DL}
 
 \section{Validation Levels}
 
@@ -2722,7 +2756,9 @@ requirements:
 
 \subsection{Simple Example}
 
-
+\begin{DL}
+NOT EXPRESSIBLE IN DL!!!
+\end{DL}
 
 \section{String Operations}
 
@@ -2746,7 +2782,9 @@ examples:
 
 \subsection{Simple Example}
 
-
+\begin{DL}
+NOT EXPRESSIBLE IN DL!!!
+\end{DL}
 
 
 
@@ -2766,7 +2804,11 @@ requirements:
 
 \subsection{Simple Example}
 
+\begin{DL}
+I'm not sure about the meaning of this constraint, but for me this seams like e.g. the range of a role... but if this is the case, take into account the consequences of reasoning with OWA...
+\end{DL}
 
+\an{not sure!}
 
 \section{Context-Specific Valid Properties}
 
@@ -2782,7 +2824,11 @@ requirements:
 
 \subsection{Simple Example}
 
+\begin{DL}
+I'm not sure about the meaning of this constraint, but for me this seams like e.g. the domain of a role... but if this is the case, take into account the consequences of reasoning with OWA...
+\end{DL}
 
+\an{not sure!}
 
 \section{Default Values}
 
@@ -2852,6 +2898,10 @@ owl:Thing
     :numberLaserSwords "2"^^xsd:nonNegativeInteger .
 \end{ex}
 
+\begin{DL}
+NOT EXPRESSIBLE IN DL!!!
+\end{DL}
+
 \section{Mathematical Operations}
 
 requirements:
@@ -2874,6 +2924,10 @@ examples:
 
 \subsection{Simple Example}
 
+\begin{DL}
+NOT EXPRESSIBLE IN DL!!!
+\end{DL}
+
 \section{Language Tag Matching}
 
 requirement:
@@ -2881,6 +2935,10 @@ requirement:
 \begin{itemize}
 	\item R-47-LANGUAGE-TAG-MATCHING
 \end{itemize}
+
+\begin{DL}
+NOT EXPRESSIBLE IN DL!!!
+\end{DL}
 
 \section{Language Tag Cardinality}
 
@@ -2938,6 +2996,10 @@ V1 => en
     foaf:name 'Leia'@en .
 \end{ex}
 
+\begin{DL}
+NOT EXPRESSIBLE IN DL!!!
+\end{DL}
+
 \section{Whitespace Handling}
 
 requirement:
@@ -2953,6 +3015,10 @@ requirement:
 \end{itemize}
 
 \subsection{Simple Example}
+
+\begin{DL}
+NOT EXPRESSIBLE IN DL!!!
+\end{DL}
 
 \section{HTML Handling}
 
@@ -2970,6 +3036,10 @@ description:
 
 \subsection{Simple Example}
 
+\begin{DL}
+NOT EXPRESSIBLE IN DL!!!
+\end{DL}
+
 \section{Required Properties}
 
 requirements:
@@ -2981,6 +3051,10 @@ requirements:
 \subsection{Description}
 
 \subsection{Simple Example}
+
+\begin{DL}
+$Person \sqsubseteq \exists hasAncestor.Person$
+\end{DL}
 
 \section{Optional Properties}
 
@@ -2994,6 +3068,12 @@ requirements:
 
 \subsection{Simple Example}
 
+\begin{DL}
+$\exists hasAncestor.Person \sqsubseteq Person$ \\
+(same as the definition of domains)
+\end{DL}
+
+
 \section{Repeatable Properties}
 
 requirements:
@@ -3005,6 +3085,12 @@ requirements:
 \subsection{Description}
 
 \subsection{Simple Example}
+
+\begin{DL}
+Not sure about the meaning of this constraint...
+\end{DL}
+
+\an{not sure!}
 
 \section{Conditional Properties}
 
@@ -3025,6 +3111,15 @@ requirements:
 
 \subsection{Simple Example}
 
+\begin{DL}
+- condition: universal quantification on object and data properties\\
+\ \ \ \ same as above!?\\
+- condition: existential quantification on object and data properties\\
+\ \ \ \ same as above!?\\
+- condition: if specific properties are present, then specific other properties also have to be present
+\ \ \ \ same as super properties, so if a property (role or attribute) is used, all super properties are also present
+\end{DL}
+
 \section{Recommended Properties}
 
 requirements:
@@ -3036,6 +3131,12 @@ requirements:
 \subsection{Description}
 
 \subsection{Simple Example}
+
+\begin{DL}
+Not sure about the meaning of this constraint...
+\end{DL}
+
+\an{not sure!}
 
 \section{Negative Property Constraints}
 
@@ -3103,6 +3204,10 @@ requirements:
     :numberLaserSwords '1'^^xsd:nonNegativeInteger ;
     :studentOf :Obi-Wan .
 \end{ex}
+
+\begin{DL}
+$JediMentor \sqsubseteq \neg(\exists studentOf.JediMentor)$
+\end{DL}
 
 \section{Handle RDF Collections}
 
@@ -3180,6 +3285,10 @@ BIND ( :getListItem( ?list, "1"xsd:nonNegativeInteger ) AS ?listItem ) .
 :Kenobi
 \end{ex}
 
+\begin{DL}
+NOT EXPRESSIBLE IN DL!!!
+\end{DL}
+
 \section{Recursive Queries}
 
 requirements:
@@ -3216,6 +3325,10 @@ sounds manageable to me.
 }
 \end{ex}
 
+\begin{DL}
+NOT EXPRESSIBLE IN DL!!!
+\end{DL}
+
 \section{Value is Valid for Datatype}
 
 requirements:
@@ -3246,6 +3359,11 @@ FILTER ( datatype( ?shoeSize ) = xsd:nonNegativeInteger )
 isNumeric ( ?shoeSize )
 \end{ex}
 
+\begin{DL} 
+$\rho(\textsf{hasBirthday}) \sqsubseteq \PVerb{xsd:dateTime}$\\
+(equal to the definition of an attribute (data property) range)
+\end{DL}
+
 \begin{itemize}
 	\item datatype of ?showSize id xsd:nonNegativeInteger
 	\item datatype is really numeric
@@ -3262,7 +3380,7 @@ isNumeric ( ?shoeSize )
 \subsection{Simple Example}
 
 \begin{DL}
-julia = john \\
+$\{julia\} = \{john\} $\\
 \end{DL}
 
 \begin{gcotable}
@@ -3277,7 +3395,8 @@ class & \{john\} & - & - & \{julia\} & = \\
 \subsection{Simple Example}
 
 \begin{DL}
-julia $\ne$ john
+$\{julia\} \ne \{john\} $\\
+(this is by default because of the UNA)
 \end{DL}
 
 \begin{itemize}
@@ -3318,6 +3437,7 @@ entailments:
 
 \begin{DL}
 :hasBrother $\sqsubseteq$ :hasMaleSibling $\sqcap$ :hasMaleSibling $\sqsubseteq$ :hasBrother \\
+equivalent to: $hasBrother = hasMaleSibling$
 \end{DL}
 
 \section{Property Assertions}
@@ -3346,10 +3466,9 @@ NegativeObjectPropertyAssertion( :hasSon :Peter :Meg )
 \end{itemize}
 
 \begin{DL}
-
+$hasSon(\textbf{Peter},\textbf{Meg})$\\
+(negation of such an assertion is not necessary / meaningless!)
 \end{DL}
-
-\tb{ToDo: DL}
 
 \subsection{Simple Example}
 
@@ -3364,7 +3483,7 @@ DataPropertyAssertion( :hasAge :Meg "17"^^xsd:integer )
 \end{itemize}
 
 \begin{DL}
-:hasAge ( :Meg , "17"^^xsd:integer ) \\
+$hasAge ( \textbf{Meg} ,\textbf{ "17"}\hat{\ } \hat{\ } xsd:integer ) $\\
 \end{DL}
 
 \section{Functional Properties}
@@ -3396,7 +3515,7 @@ entailment:
 \end{ex}
 
 \begin{DL}
-owl:Thing $\sqsubseteq$ $\leq$ 1 :hasFather
+$(\textsf{funct } \textsf{hasFather})$
 \end{DL}
 
 \section{Inverse-Functional Properties}
@@ -3428,10 +3547,8 @@ entailment:
 \end{ex}
 
 \begin{DL}
-
+$(\textsf{funct } \textsf{hasFather}\sp{\overline{\ }})$
 \end{DL}
-
-\tb{ToDo: DL}
 
 \section{Value Restrictions}
 
@@ -3455,10 +3572,12 @@ ObjectHasValue( :fatherOf :Stewie )
 \end{itemize}
 
 \begin{DL}
-
+Not sure about the meaning of this constraint...\\
+May be it is:\\
+$Shortcut \sqsubseteq \exists fatherOf.\{\textbf{Stewie}\}$
 \end{DL}
 
-\tb{ToDo: DL}
+\an{not sure!}
 
 \section{Self Restrictions}
 
@@ -3474,6 +3593,12 @@ ObjectHasValue( :fatherOf :Stewie )
 :Peter :likes :Peter . 
 ObjectHasSelf( :likes ) 
 \end{ex}
+
+\begin{DL}
+Not sure about if this constraint is expressible in DL, I think not!
+\end{DL}
+
+\an{not sure!}
 
 \begin{itemize}
 	\item The self-restriction contains those individuals that like themselves
@@ -3546,6 +3671,10 @@ for example, it is used in the third axiom to define the range of the :hasSSN pr
     :hasSSN "123456789"^^:SSN .
 \end{ex}
 
+\begin{DL}
+NOT EXPRESSIBLE IN DL!!!
+\end{DL}
+
 \begin{gcotable}
 class & SSN & - & - & xsd:string & xsd:pattern & '[0-9]{3}-[0-9]{2}-[0-9]{4}' \\
 \end{gcotable}
@@ -3610,10 +3739,11 @@ owl:Thing owl:hasKey ( :hasSSN ) .
 \end{itemize}
 
 \begin{DL}
-
+Not sure if this is expressible in DL, may be we should have a detailed look to \textit{DL-Lite}$_{\mathcal{A},id}$ \\
+(see \url{http://www.dis.uniroma1.it/~lembo/papers/calv-etal-RW-2009.pdf})
 \end{DL}
 
-\tb{ToDo: DL}
+\an{not sure!}
 
 \section{Exploiting Class/Property Specialization Ontology Axioms}
 
@@ -3638,6 +3768,12 @@ examples:
   \item If one or more dc:coverage are present, suggest the use of one of its sub-properties, dcterms spatial or dcterms:temporal.
 \end{itemize}
 
+\begin{DL}
+Not sure if this is expressible in DL, I think not!
+\end{DL}
+
+\an{not sure!}
+
 \section{Cardinality Shortcuts}
 
 requirement:
@@ -3656,7 +3792,11 @@ requirement:
   \item Mandatory \& Repatable = [1,*]
 \end{itemize}
 
+\begin{DL}
+Not sure if the meaning of this constraint, probably it is the same as for cardinality restrictions?
+\end{DL}
 
+\an{not sure!}
 
 \end{document}
 
