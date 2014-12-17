@@ -143,19 +143,23 @@
 
 %
 %
-\title{Effects on Complexity of RDF Validation with and without Reasoning}
+\title{RDF Validation}
+\subtitle{Effects on Complexity with and without Reasoning}
 %
 \titlerunning{XXXXX}  % abbreviated title (for running head)
 %                                     also used for the TOC unless
 %                                     \toctitle is used
 %
-\author{XXXXX\inst{1} \and XXXXX\inst{2}}
+\author{XXXXX\inst{1} \and XXXXX\inst{2} \and XXXXX\inst{4} \and XXXXX\inst{3}}
 %
 \authorrunning{XXXXX} % abbreviated author list (for running head)
 %
 %%%% list of authors for the TOC (use if author list has to be modified)
 \institute{XXXXX\\
 \email{XXXXX},\\ 
+\and
+XXXXX \\
+\email{XXXXX}
 \and
 XXXXX \\
 \email{XXXXX} 
@@ -178,6 +182,18 @@ where first use cases have been presented and discussed.
 Two WGs, that follow up on this workshop and address RDF constraint formulation and validation, are established in 2014: 
 the W3C RDF Data Shapes WG\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles WG\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
 
+The database on RDF validation requirements is intended to be a way to collect case studies, use cases and especially requirements regarding RDF validation collaboratively and in a structured form.
+I initiated this comprehensive database obtained from various sources, including the use cases presented at the W3C RDF validation workshop as well as discussions in the W3C and DCMI WGs. 
+The database, which is openly available at \url{http://purl.org/net/rdf-validation}, is used to evaluate and to compare several existing solutions for RDF constraint formulation and validation. 
+We classify the requirements to provide a high-level view on different solutions and to facilitate a better understanding of the problem domain \cite{BoschEckert2014}.  
+Members of the DCMI RDF-AP WG published a deliverable on RDF validation case studies, use cases, and requirements collected within the Dublin Core community
+\cite{DroegeBoschCharlesClayphanMatienzoRuehlePohlAlonenSvenssonCoyle2014}.
+The RDF validation database with its case studies, use cases, requirements, and solutions is continuously maintained and extended by the members of the W3C RDF Data Shapes WG and the DCMI RDF-AP WG. 
+
+There are multiple domain-specific constraint languages (DSCLs) (the most important ones are OWL 2, DSP, ShEx, and ReSh) having different syntaxes and semantics which can be used to express constraints (like at-least restrictions), 
+but there is no single standard DSCL which can be used to express any constraint for each purpose.
+The choice depends on the individual use case.
+
 \tb{ToDo for Thomas: RDF validation requirements database}
 
 There are long and controversial discussions in these WGs if or if not OWL should be used RDF validation when assuming closed world semantics.
@@ -189,18 +205,23 @@ There are lots of benefits but also a huge amount of drawbacks when using OWL fo
 	\item explain why specific OWL 2 constructs should not be used for RDF validation
 \end{itemize}
 
+\textbf{ToDo Thomas: Automatic Validation of RDF Constraints Expressed by any DSCL}
+
 For RDF, SPARQL is generally seen as the method of choice to validate data according to certain constraints, although it is not ideal for their formulation. 
 In contrast, OWL 2 DL constraints are comparatively easy to understand, but lack an implementation to validate RDF data. \an{IMHO this should be decribed more precisely because validation in terms of inconsistency detection is still available, not sure about the completeness for OWL 2 DL}
 Within our developed SPIN\footnote{\url{http://spinrdf.org/}} validation environment, we fully implemented an automatic validation of all OWL 2 DL constructs. \an{you should mention at this point that this validation is in terms of RDF validation, because inconsistency can't be done completely}
 The implementation can be tested at \url{http://purl.org/net/rdfval-demo} and
 the OWL 2 SPIN mapping is maintained at \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}.
 
-\tb{ToDo Thomas: constraint languages}
-
 Constraint validation does not appear to be part of the services provided by
 OWL.  This has lead to claims that OWL cannot be used for constraint
 validation.  However reasoning, which is the core service provided by OWL,
-and constraint validation are indeed very closely related. \an{maybe we can use also the term 'User-defined Consistency' described in \url{http://www.aifb.kit.edu/images/d/d2/2005_925_Haase_Consistent_Evol_1.pdf} as a further 'hook' to establish our approach?}
+and constraint validation are indeed very closely related. 
+\an{maybe we can use also the term 'User-defined Consistency' described in 'see below' as a further 'hook' to establish our approach?}
+
+\url{http://www.aifb.kit.edu/images/d/d2/2005_925_Haase_Consistent_Evol_1.pdf}
+
+\tb{I'm not aware of this, but if you think it is worth - go ahead!}
 
 \an{a more formal example would be nice! ;)}
 Reasoning is the process of determining what follows from what has been
@@ -339,7 +360,7 @@ When inferencing is performed before validating, the class assignment \ms{:Anaki
 
 %\tb{ToDO for Erman and Andy: can you please write a short paragraph about OWL 2 DL reasoning?}
 
-The Semantic Web ontology language OWL 2 DL \footnote{See \url{http://www.w3.org/TR/owl2-direct-semantics/}.} was standardized by
+The Semantic Web ontology language OWL 2 DL\footnote{See \url{http://www.w3.org/TR/owl2-direct-semantics/}.} was standardized by
 the World Wide Web Consortium (W3C) in 2009 (and updated in 2012) as a
 description logic-like formalism.  OWL 2 DL has high expressivity, yet maintains  decidability for main reasoning tasks e.g., ontology satisability, 
 entailment checking. The drawback of its expressive power results as a lack of computational efficiency in performance. In general, reasoning in OWL 2 DL is in \textsc{N2exptime} \cite{owl2profiles2008}. 
@@ -371,7 +392,10 @@ Without reasoning, these constraints won't be validated as \ms{:Luke} is not wit
 \section{RDF Validation Requirements without Reasoning}
 
 For the majority of the requirements to formulate RDF constraints, reasoning is not related to the constraints and is therefore not needed to be performed prior to validation. 
-If we do reasoning by query rewriting in terms of backward chaining we don't need to distinguish between them, because if you run a constraint validation query through an engine like --ontop-- (OBDA tool) or ELITE (federated query engine), the engine will only do some rewritings if it is possible, and if you just check e.g. pattern matching there will be no rewriting...
+It is also possible, however, to reason before validating constraints for which reasoning does not affect validation results.
+If we do reasoning by query rewriting in terms of backward chaining and if we run a constraint validation query through an engine like --ontop-- (OBDA tool) or ELITE (federated query engine), the engine will only do some rewritings if it is possible, and if you just check e.g. pattern matching there will be no rewriting.
+
+\tb{Andy, I inserted your comments here. may you have a look at it?}
 
 %\an{If we do reasoning by query rewriting in terms of backward chaining we don't need to distinguish between them, because if you run a constraint validation query through an engine like --ontop-- (OBDA tool) or ELITE (federated query engine), the engine will only do some rewritings if it is possible, and if you just check e.g. pattern matching there will be no rewriting...}
 
@@ -562,7 +586,7 @@ We divide these constraints into three classes:
 	\item constraints only expressible by other DSCLs
 \end{itemize}
 
-Bosch et al. explained each requirement and associated constraint in detail and give at least one example for each of them\cite{BoschNolleAcarEckert2015}.
+Bosch et al.\footnote{\url{https://github.com/boschthomas/rdf-validation-research/paper}} explained each requirement and associated constraint in detail and give at least one example for each of them\cite{BoschNolleAcarEckert2015}.
 In order to logically underpin each requirement, we added mappings to DL.  
 
 \tb{How should we publish this? ordering of author not determined so far}
