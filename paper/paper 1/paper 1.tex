@@ -376,11 +376,11 @@ Without reasoning, these constraints won't be validated as \ms{:Luke} is not wit
 
 \section{RDF Validation Requirements}
 
-For the majority of the requirements to formulate RDF constraints reasoning is not related to the constraints and is therefore not performed prior to the validation.
+For the majority of the requirements to formulate RDF constraints reasoning is not related to the constraints and is therefore not performed prior to the validation. \an{If we do reasoning by query rewriting in terms of backward chaining we don't need to distinguish between them, because if you run a constraint validation query through an engine like --ontop-- (OBDA tool) or ELITE (federated query engine), the engine will only do some rewritings if it is possible, and if you just check e.g. pattern matching there will be no rewriting...}
 
 \subsection{Expressible by OWL 2 QL}
 
-\textbf{Literal Pattern Matching.}
+\textbf{Literal Pattern Matching.} \an{IMHO literal pattern matching is not expressible in DL!}
 There are multiple use cases associated with the requirement to match literals according to given patterns\footnote{corresponds to R-44-PATTERN-MATCHING-ON-RDF-LITERALS}.
 A social security number, for example, is a string that matches a given regular expression - which can be expressed by OWL 2 QL: 
 
@@ -426,7 +426,7 @@ personDescriptionTemplate
             dsp:literal "blue" ;
             dsp:literal "green" ;
             dsp:literal "white"] ] .
-\end{ex}
+\end{ex} \an{One constraint language is IMHO enought... Maybe not!?}
 
 When representing the constraint by OWL2 DL a new datatype is defined by simply enumerating its literals:
 
@@ -467,7 +467,7 @@ To take an example, a Jedi is either attacking by sword or by force but not both
 :Jedi $\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
 A $\equiv$ $\forall$ :attackingBySword . xsd:boolean \\
 B $\equiv$ $\forall$ :attackingByForce . xsd:boolean \\ 
-\end{DL}
+\end{DL} \an{IMHO: If you use the universal quantifier it is also valid that a Jedi neither have attackingBySword nor attackingByForce, so it should be an existential quantifier...}
 
 Context-specific exclusive OR of properties can be expressed by ShEx. 
 In this case, the constraint context is the class \ms{:Jedi}.
@@ -478,7 +478,7 @@ In this case, the constraint context is the class \ms{:Jedi}.
     :attackingByForce xsd:boolean ) }
 \end{ex}
 
-The same constraint may be expressed by OWL 2 DL, but not very intuitively and concisely.
+The same constraint may be expressed by OWL 2 DL \an{Do you mean DL or QL at this point?}, but not very intuitively and concisely.
 This can rather be seen as a workaround, as anonymous classes are built for each of the exclusive properties.
 
 \begin{ex}
@@ -491,7 +491,7 @@ This can rather be seen as a workaround, as anonymous classes are built for each
     a owl:Restriction ;
     owl:onProperty :attackingByForce ;
     owl:allValuesFrom xsd:boolean ] .
-\end{ex}
+\end{ex} \an{Formulars in DL would be nice... ;)}
 
 Considering the following data, Luke as well as Darth Sidious are associated with the class \ms{:Jedi}.
 As Darth Sidious has both relationships, a constraint Violation is raised.
