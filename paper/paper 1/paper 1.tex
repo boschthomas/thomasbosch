@@ -337,25 +337,30 @@ Without reasoning, these constraints won't be validated as \ms{:Luke} is not wit
 
 \subsection{Not Intuitively Expressible by OWL 2 DL}
 
-\begin{itemize}
-	\item OWL 2 DL Workarounds
-  \item more intuitively expressible by other constraint languages
-\end{itemize}
+\textbf{Context-Specific Exclusive OR of Properties.}
+An individual can either have a relationship via property A or via property B, but not both.
+To take an example, a Jedi is either attacking by sword or by force but not both (such a fight won't be fair):
 
-\textbf{Context-Specific Exclusive OR of Properties}
+\begin{DL}
+:Jedi $\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
+A $\equiv$ $\forall$ :attackingBySword . xsd:boolean \\
+B $\equiv$ $\forall$ :attackingByForce . xsd:boolean \\ 
+\end{DL}
+
+Context-specific exclusive OR of properties can be expressed by ShEx. 
+In this case, the constraint context is the class \ms{:Jedi}.
 
 \begin{ex}
-# ShEx
-# ----
 :Jedi { (  
     :attackingBySword xsd:boolean | 
     :attackingByForce xsd:boolean ) }
 \end{ex}
 
+The same constraint may be expressed by OWL 2 DL, but not very intuitively and concisely.
+This can rather be seen as a workaround, as anonymous classes are built for each of the exclusive properties.
+
 \begin{ex}
-# OWL 2 DL
-# --------
-:FeelingForce owl:disjointUnionOf ( :CC1 :CC2 ) . 
+:Jedi owl:disjointUnionOf ( :CC1 :CC2 ) . 
 :CC1 rdfs:subClassOf [
     a owl:Restriction ;
     owl:onProperty :attackingBySword ;
@@ -366,22 +371,18 @@ Without reasoning, these constraints won't be validated as \ms{:Luke} is not wit
     owl:allValuesFrom xsd:boolean ] .
 \end{ex}
 
-A Jedi is either attacking by sword or attacking by force but not both, as such a fight won't be a fair one.
-
-\begin{DL}
-A $\equiv$ $\forall$ :attackingBySword . xsd:boolean \\
-B $\equiv$ $\forall$ :attackingByForce . xsd:boolean \\ 
-:FeelingForce $\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
-\end{DL}
+Considering the following data, Luke as well as Darth Sidious are associated with the class \ms{:Jedi}.
+As Darth Sidious has both relationships, a constraint Violation is raised.
 
 \begin{ex}
-:Luke :attackingBySword true .
-:DarthSidious 
+:Luke
+    a :Jedi ; 
+    :attackingBySword true .
+:DarthSidious
+    a :Jedi ; 
     :attackingByForce true ;
     :attackingBySword true ;
 \end{ex}
-
-Luke is a Jedi, but Darth Sidious is not. 
 
 \subsection{Not Expressible by OWL 2 DL But by Other Constraint Languages}
 
