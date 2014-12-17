@@ -456,12 +456,10 @@ Jedi {
     laserSwordColor ('blue' 'green' 'white') }
 \end{ex}
 
-Data containing the triples \ms{Yoda a Jedi ; laserSwordColor 'blue'} is valid.
-Data including the triples \ms{DarthMaul a Jedi ; laserSwordColor 'red'} is invalid.
+Data containing the triples \ms{Yoda a Jedi ; laserSwordColor 'blue'} is valid, 
+whereas data including the triples \ms{DarthMaul a Jedi ; laserSwordColor 'red'} is invalid.
 
-\subsection{Not Intuitively Expressible by OWL 2 DL}
-
-\textbf{Context-Specific Exclusive OR of Properties.}
+\textbf{Context-Specific Exclusive OR of Properties}\footnote{corresponds to  R-11-CONTEXT-SPECIFIC-EXCLUSIVE-OR-OF-PROPERTIES}\textbf{.}
 An individual can either have a relationship via property A or via property B, but not both.
 To take an example, a Jedi is either attacking by sword or by force but not both (such a fight would not be fair):
 
@@ -549,8 +547,6 @@ ReSh can also be used to express default values:
         rs:defaultValue "red"^^xsd:string
         rs:occurs rs:Exactly-one ; ] .
 \end{ex}
-
-\tb{ToDo Thomas: explain 1 more constraint here, maybe membership in controlled vocabularies to present a DSP constraint}
 
 \section{Evaluation}
 
@@ -680,7 +676,7 @@ validation by query answering with OWL 2 DL reasoning & \textsc{N2exptime} \\
 \end{complexity}
 
 
-What is considered by rdf validation w/o reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on DL-Lite family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009, Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
+What is considered by rdf validation w/o reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on DL-Lite family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
 
 
 \section{Related Work}
