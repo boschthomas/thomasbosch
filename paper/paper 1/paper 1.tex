@@ -273,7 +273,7 @@ We answer the following \textbf{research questions}:
 
 \subsection{OWL 2 QL Reasoning}
 
-\tb{ToDo for Andy and Erman: I did just copy and paste for the next 3 paragraphs. Can you please formulate these paragraphs?}
+%\tb{ToDo for Andy and Erman: I did just copy and paste for the next 3 paragraphs. Can you please formulate these paragraphs?}
 \er{Now it is completely rewritten. Feel free to touch and change anything.}
 
  OWL 2 profiles (or fragments in logic literature) are restricted (sublanguage) versions of OWL 2 that offers different trade-offs regarding expressivity  vs. efficiency in reasoning. There are three main  profiles of OWL 2, which are OWL 2 QL, OWL 2 RL and OWL 2 EL namely, each designed to  be useful for different purposes and application scenarios. The choice of which profile to use is purpose-specific on what to express and to perform the reasoning about. We refer reader to \cite{owl2profiles2008} for a comprehensive treatment of those profiles. 
@@ -335,7 +335,14 @@ When inferencing is performed before validating, the class assignment \ms{:Anaki
 
 \subsection{OWL 2 DL Reasoning}
 
-\tb{ToDO for Erman and Andy: can you please write a short paragraph about OWL 2 DL reasoning?}
+%\tb{ToDO for Erman and Andy: can you please write a short paragraph about OWL 2 DL reasoning?}
+
+The Semantic Web ontology language OWL 2 DL \footnote{See \url{http://www.w3.org/TR/owl2-direct-semantics/}.} was standardized by
+the World Wide Web Consortium (W3C) in 2009 (and updated in 2012) as a
+description logic-like formalism.  OWL 2 DL has high expressivity, yet maintains  decidability for main reasoning tasks e.g., ontology satisability, 
+entailment checking. As a result of its expressive power, Owl 2 DL allows a large variety of sophisticated modeling capabilities for many application domains. On the other hand, to maintain the decidability, OWL 2 DL has a numerous ways of syntactic restrictions. For instance, OWL 2 DL allows for defining transitive properties as well as asymmetric properties, yet a property to be both transitive and asymmetric (just as ancestor relation) is not allowed. 
+
+
 
 \textbf{Existential Quantification.}
 
