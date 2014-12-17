@@ -2527,13 +2527,11 @@ requirement:
 
 examples:
 
-\begin{ex}
-# examples
-# --------
-1. dbo:deathDate before ‘<’ dbo:birthDate
-2. dbo:releaseDate after ‘>’ dbo:latestReleaseDate
-3. dbo:demolitionDate before ‘<’ dbo:buildingStartDate
-\end{ex}
+\begin{itemize}
+	\item dbo:deathDate before ‘<’ dbo:birthDate
+  \item dbo:releaseDate after ‘>’ dbo:latestReleaseDate
+  \item dbo:demolitionDate before ‘<’ dbo:buildingStartDate
+\end{itemize}
 
 \subsection{Simple Example}
 
@@ -2587,6 +2585,19 @@ NOT EXPRESSIBLE IN DL!!!
 \begin{gcotable}
 property & $\top$ & dbo:birthDate & dbo:deathDate & xsd:date & \textgreater & - \\
 \end{gcotable}
+
+\subsection{Simple Example}
+
+duplicate strings are not allowed:
+
+\begin{ex}
+dc:subject "foo"@en
+dc:subject "foo"@fr
+dc:subject "bar"@fr
+dc:subject "foo"
+\end{ex}
+
+There are no identical strings.
 
 \section{Negative Literal Ranges}
 
