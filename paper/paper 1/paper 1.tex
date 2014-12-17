@@ -342,7 +342,9 @@ When inferencing is performed before validating, the class assignment \ms{:Anaki
 The Semantic Web ontology language OWL 2 DL \footnote{See \url{http://www.w3.org/TR/owl2-direct-semantics/}.} was standardized by
 the World Wide Web Consortium (W3C) in 2009 (and updated in 2012) as a
 description logic-like formalism.  OWL 2 DL has high expressivity, yet maintains  decidability for main reasoning tasks e.g., ontology satisability, 
-entailment checking. As a result of its expressive power, Owl 2 DL allows a large variety of sophisticated modeling capabilities for many application domains. On the other hand, to maintain the decidability, OWL 2 DL has a numerous ways of syntactic restrictions. For instance, OWL 2 DL allows for defining transitive properties as well as asymmetric properties, yet a property to be both transitive and asymmetric (just as ancestor relation) is not allowed. 
+entailment checking. The drawback of its expressive power results as a lack of computational efficiency in performance. In general, reasoning in OWL 2 DL is in \textsc{N2exptime} \cite{owl2profiles2008}. 
+
+As a result of its expressive power, Owl 2 DL allows a large variety of sophisticated modeling capabilities for many application domains.  On the other hand, to maintain the decidability, OWL 2 DL has a numerous ways of syntactic restrictions. One example is that OWL 2 DL allows  expressing transitive properties as well as asymmetric properties, yet a property to be both transitive and asymmetric (just as ancestor relation) is not allowed. In the sequel, from RDF validation perspective, we will give some examples of constraints that remains at the outside of its scope. 
 
 
 
