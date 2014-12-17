@@ -177,6 +177,8 @@ where first use cases have been presented and discussed.
 Two WGs, that follow up on this workshop and address RDF constraint formulation and validation, are established in 2014: 
 the W3C RDF Data Shapes WG\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles WG\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
 
+\tb{ToDo for Thomas: RDF validation requirements database}
+
 There are long and controversial discussions in these WGs if or if not OWL should be used RDF validation when assuming closed world semantics.
 OWL is an instantiation of a DSCL which is high-level, human-friendly (human-readable and human-understandable), fairly concise, and very expressive.
 There are lots of benefits but also a huge amount of drawbacks when using OWL for the purpose to formulate and to validate RDF constraints.
@@ -362,6 +364,28 @@ For the majority of the requirements to formulate RDF constraints reasoning is n
 
 \subsection{Expressible by OWL 2 QL}
 
+\textbf{Literal Pattern Matching.}
+There are multiple use cases associated with the requirement to match literals according to given patterns\footnote{corresponds to R-44-PATTERN-MATCHING-ON-RDF-LITERALS}.
+A social security number, for example, is a string that matches a given regular expression - which can be expressed by OWL 2 QL: 
+
+\begin{ex}
+SSN 
+    a rdfs:Datatype ;
+    owl:equivalentClass [
+        a rdfs:Datatype ;
+        owl:onDatatype xsd:string ;
+        owl:withRestrictions ( 
+            [ xsd:pattern "[0-9]{3}-[0-9]{2}-[0-9]{4}" ] ) ] .
+hasSSN rdfs:range SSN .
+\end{ex}
+
+The second axiom defines \ms{SSN} as an abbreviation for a datatype restriction on \ms{xsd:string}. 
+The first axiom explicitly declares \ms{SSN} to be a datatype. 
+The datatype \ms{SSN} can be used just like any other datatype like in the third axiom to define the range of the \ms{hasSSN} property.
+The literal pattern matching constraint above validates \ms{hasSSN} literals according to the stated regular expression causing a constraint violation for the triple 
+\ms{TimBernersLee hasSSN "123456789"\textasciicircum{}\textasciicircum{}SSN}, 
+but not for the triple \ms{TimBernersLee hasSSN "123-45-6789"\textasciicircum{}\textasciicircum{}SSN}.
+
 \subsection{Not Expressible by OWL 2 QL but by OWL 2 DL}
 
 \subsection{Not Intuitively Expressible by OWL 2 DL}
@@ -442,7 +466,8 @@ owl:Thing spin:rule [ a sp:Construct ; sp:text """
         ?this a :Sith . } """ ; ] .
 \end{ex}
 
-\tb{ReSh}
+For each resource, the SPARQL CONSTRUCT query within the rule is executed creating the default triples.
+ReSh can also be used to express default values:
 
 \begin{ex}
 :Sith a rs:ResourceShape ;
@@ -453,8 +478,6 @@ owl:Thing spin:rule [ a sp:Construct ; sp:text """
         rs:defaultValue "red"^^xsd:string
         rs:occurs rs:Exactly-one ; ] .
 \end{ex}
-
-For each resource, the SPARQL CONSTRUCT query within the rule is executed creating the default triples.
 
 \tb{ToDo Thomas: explain 1 more constraint here, maybe membership in controlled vocabularies to present a DSP constraint}
 
@@ -501,6 +524,8 @@ Individual Inequality & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \d
 \textcolor{blue}{*Equivalent Properties} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
 Property Assertions & \ding{55} & $\checkmark$ & $\sim$ & \ding{55} & \ding{55} & $\checkmark$ \\
 Data Property Facets & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+Literal Pattern Matching & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+Negative Literal Pattern Matching & \ding{55} & $\checkmark$ & $\checkmark$ & & & $\checkmark$ \\
 \end{evaluation}
 
 \textbf{Constraints not Expressible by OWL 2 QL but by OWL 2 DL.}
@@ -523,8 +548,6 @@ Context-Sp. Exclusive OR of P. & \ding{55} & $\checkmark$ & \ding{55} & & $\chec
 Context-Sp. Exclusive OR of P. Groups & \ding{55} & $\sim$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
 Allowed Values & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$& $\checkmark$ \\
 Not Allowed Values & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ \\
-Literal Pattern Matching & \ding{55} & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
-Negative Literal Pattern Matching & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
 Literal Ranges & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Negative Literal Ranges & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Required Properties & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
