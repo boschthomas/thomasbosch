@@ -463,7 +463,7 @@ For each resource, the SPARQL CONSTRUCT query within the rule is executed creati
 We evaluated to which extend the 5 possible standard constraint languages fulfill each requirement to formulate RDF constraints.
 Tilde means that this constraint may be fulfilled by that particular constraint language - either by limitations, workarounds, or extensions.
 We also evaluated if a specific constraint is fulfilled by OWL 2 QL or if the more expressive OWL 2 DL is needed. 
-Inferencing may be performed for constraints marked with an asterisk. 
+Inferencing may be performed prior to validating constraints. This is marked with an asterisk. 
 
 We divide these constraints into 3 classes:
 
@@ -472,8 +472,13 @@ We divide these constraints into 3 classes:
 	\item constraints not expressible by OWL 2 QL but by OWL 2 DL
 	\item constraints only expressible by other DSCLs
 \end{itemize}
+
+Bosch et al. explained each requirement and associated constraint in detail and give at least one example for each of them\cite{BoschNolleAcarEckert2015}.
+In order to logically underpin each requirement, we added mappings to DL.  
+
+\tb{How should we publish this? ordering of author not determined so far}
  
-\subsection{constraints expressible by OWL 2 QL}
+\textbf{Constraints Expressible by OWL 2 QL.}
 
 \begin{evaluation}
 \textcolor{blue}{*Subsumption} & \ding{55} & $\checkmark$ & $\checkmark$ & $\sim$ & $\checkmark$ & $\checkmark$ \\
@@ -498,7 +503,7 @@ Property Assertions & \ding{55} & $\checkmark$ & $\sim$ & \ding{55} & \ding{55} 
 Data Property Facets & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
 \end{evaluation}
 
-\subsection{constraints not expressible by OWL 2 QL but by OWL 2 DL}
+\textbf{Constraints not Expressible by OWL 2 QL but by OWL 2 DL.}
 
 \begin{evaluation}
 \textcolor{blue}{*Object Property Paths} & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
@@ -534,7 +539,7 @@ Negative Property Constraints & \ding{55} & $\checkmark$ & \ding{55} & & $\check
 Primary Key Properties & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 \end{evaluation}
 
-\subsection{constraints only expressible by other DSCLs}
+\textbf{Constraints Only Expressible by Other DSCLs.}
 
 \begin{evaluation}
 \textcolor{blue}{*Class-Specific Property Range} & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
