@@ -394,6 +394,35 @@ As Darth Sidious has both relationships, a constraint Violation is raised.
 
 \subsection{Not Expressible by OWL 2 DL But by Other Constraint Languages}
 
+\textbf{Default Values.}
+It should be possible to declare the default value for a given object and data property, e.g. so that input forms can be pre-populated and to insert a required property that is missing in a web service call. 
+Siths have per default two red laser swords.
+
+rule (SPIN)
+
+\begin{ex}
+owl:Thing spin:rule [ a sp:Construct ; sp:text """
+    CONSTRUCT {
+        ?this :laserSwordColor "red"^^xsd:string ;
+              :numberLaserSwords "2"^^xsd:nonNegativeInteger . }
+    WHERE {             
+        ?this a :Sith . } """ ; ] .
+\end{ex}
+
+data:
+
+\begin{ex}
+:DarthMaul a :Sith .
+\end{ex}
+
+inferred triples
+
+\begin{ex}
+:DarthMaul 
+    :laserSwordColor "red"^^xsd:string ;
+    :numberLaserSwords "2"^^xsd:nonNegativeInteger .
+\end{ex}
+
 \section{Evaluation}
 
 We evaluated to which extend the 5 possible standard constraint languages fulfill each requirement to formulate RDF constraints.
