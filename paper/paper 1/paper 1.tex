@@ -250,9 +250,13 @@ We answer the following \textbf{research questions}:
 	\item show that OWL 2 QL and further constraint languages together are complete
 \end{itemize}
 
-\section{RDF Validation and Inferencing}
+\section{RDF Validation Requirements and Inferencing}
+
+\tb{ToDO Thomas: RDF Validation Requirements and Inferencing}
 
 \subsection{OWL 2 QL Reasoning}
+
+\tb{ToDo for Andy and Erman: I did just copy and paste for the next 3 paragraphs. Can you please formulate these paragraphs?}
 
 An OWL 2 profile (commonly called a fragment or a sublanguage in computational logic) is a trimmed down version of OWL 2 that trades some expressive power for the efficiency of reasoning. This document describes three profiles of OWL 2, each of which achieves efficiency in a different way and is useful in different application scenarios. The profiles are independent of each other, so (prospective) users can skip over the descriptions of profiles that are not of interest to them. The choice of which profile to use in practice will depend on the structure of the ontologies and the reasoning tasks at hand (see Section 10 of the OWL 2 Primer [OWL 2 Primer] for more help in understanding and selecting profiles) \cite{owl2profiles2008}. 
 
@@ -261,8 +265,7 @@ OWL 2 QL is aimed at applications that use very large volumes of instance data, 
 \textbf{Logical Underpinning for OWL 2 QL.}
 OWL 2 QL is based on the DL-Lite family of description logics. Several variants of DL-Lite have been described in the literature, and DL-Lite$_R$ provides the logical underpinning for OWL 2 QL. DL-Lite$_R$ does not require the unique name assumption (UNA), since making this assumption would have no impact on the semantic consequences of a DL-Lite$_R$ ontology. More expressive variants of DL-Lite, such as DL-Lite$_A$, extend DL-Lite$_R$ with functional properties, and these can also be extended with keys; however, for query answering to remain in LOGSPACE, these extensions require UNA and need to impose certain global restrictions on the interaction between properties used in different types of axiom. Basing OWL 2 QL on DL-Lite$_R$ avoids practical problems involved in the explicit axiomatization of UNA \cite{owl2profiles2008}. 
 
-\subsection{Subsumption}
-
+\textbf{Subsumption.}
 Subsumption relationships of both classes and properties are part of basic inferencing.
 
 \begin{DL}
@@ -291,8 +294,7 @@ These class assignments can be either explicitly stated or implicitly inferred w
 When only the triple \ms{:Yoda a :JediMaster} is given and inferencing is not executed, then a constraint violation is raised.
 After reasoning, however, the triples \ms{:Yoda a :Jedi , :FeelingForce} are inferred resulting in valid data. 
 
-\subsection{Property Axioms}
-
+\textbf{Property Domain.}
 The property domain constraint
 
 \begin{DL}
@@ -309,7 +311,11 @@ This property domain constraint can also be expressed by OWL 2 QL:
 Without reasoning, the data \ms{:Anakin :studentOf :Obi-Wan} is invalid and causes a constraint violation, as it is not explicitly stated that \ms{:Anakin} is assigned to the class \ms{:Jedi}. 
 When inferencing is performed before validating, the class assignment \ms{:Anakin rdf:type :Jedi} is inferred which prevents the constraint violation to be raised.
 
-\subsection{Property Restrictions}
+\subsection{OWL 2 DL Reasoning}
+
+\tb{ToDO for Erman and Andy: can you please write a short paragraph about OWL 2 DL reasoning?}
+
+\textbf{Existential Quantification.}
 
 \begin{DL}
 $\exists$ :hasLaserSword . :LaserSword
@@ -330,6 +336,8 @@ As the individual \ms{:Luke} is assigned to the class :Jedi, all constraint asso
 Without reasoning, these constraints won't be validated as \ms{:Luke} is not within the class extension of \ms{:Jedi}.
 
 \section{RDF Validation Requirements}
+
+For the majority of the requirements to formulate RDF constraints reasoning is not related to the constraints and is therefore not performed prior to the validation.
 
 \subsection{Expressible by OWL 2 QL}
 
