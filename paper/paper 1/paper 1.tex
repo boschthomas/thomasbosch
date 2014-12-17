@@ -143,7 +143,7 @@
 
 %
 %
-\title{Expressivity and Effects on Complexity of RDF Constraint Languages}
+\title{Effects on Complexity of RDF Validation with and without Reasoning}
 %
 \titlerunning{XXXXX}  % abbreviated title (for running head)
 %                                     also used for the TOC unless
@@ -197,8 +197,6 @@ the OWL 2 SPIN mapping is maintained at \url{https://github.com/boschthomas/OWL2
 
 \tb{ToDo Thomas: constraint languages}
 
-\textbf{Constraint Validation with Reasoning}
-
 Constraint validation does not appear to be part of the services provided by
 OWL.  This has lead to claims that OWL cannot be used for constraint
 validation.  However reasoning, which is the core service provided by OWL,
@@ -216,12 +214,12 @@ is not a person, therefore there is a contradiction).
 	\item both should be possible: (1) constraint validation with reasoning and (2) constraint validation without reasoning \an{we should mention a reason why we need this...}
 \end{itemize}
 
-With regard to typing, W3C is assuming (AFAIK) that all types will be
-explicit in the instance data - for the purposes of validation. There is
-nothing, however, to prevent an application from running reasoning prior
-to validation to add inferred triples to the data being validated. But
-the general feeling right now is that validation acts on instance data
-without requiring that the validator apply reasoning in order to do so.
+%With regard to typing, W3C is assuming (AFAIK) that all types will be
+%explicit in the instance data - for the purposes of validation. There is
+%nothing, however, to prevent an application from running reasoning prior
+%to validation to add inferred triples to the data being validated. But
+%the general feeling right now is that validation acts on instance data
+%without requiring that the validator apply reasoning in order to do so.
 
 %Nehmen wir nun an, dass dein Framework welches entsprechende SPARQL Queries generiert diese auf einem SPARQL Endpoint evaluiert der zu der vorliegenden Ontologie bzw. des darin verwendeten OWL 2 Profils das entsprechende Entailment Regime realisiert, wären die zurückgegebenen Resultsets vollständig. Wie das Entailment Regime im Endpoint realisiert ist, also durch Query Rewriting oder durch Vervollständigung der ABox, ist dabei irrelevant.
 %
@@ -371,7 +369,7 @@ When our data contains the triple \ms{:Luke :hasLaserSword :BlueLaserSword} and 
 As the individual \ms{:Luke} is assigned to the class :Jedi, all constraint associated with this class are also validated, for example that Jedis must have blue laser swords.
 Without reasoning, these constraints won't be validated as \ms{:Luke} is not within the class extension of \ms{:Jedi}.
 
-\section{RDF Validation Requirements}
+\section{RDF Validation Requirements without Reasoning}
 
 For the majority of the requirements to formulate RDF constraints reasoning is not related to the constraints and is therefore not performed prior to the validation.
 
