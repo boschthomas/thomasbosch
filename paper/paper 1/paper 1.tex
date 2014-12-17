@@ -144,7 +144,7 @@
 %
 %
 \title{RDF Validation}
-\subtitle{Effects on Complexity with and without Reasoning}
+\subtitle{Effects on Complexity with and without OWL 2 Reasoning}
 %
 \titlerunning{XXXXX}  % abbreviated title (for running head)
 %                                     also used for the TOC unless
@@ -170,11 +170,11 @@ XXXXX \\
 \begin{abstract}
 
 
-\keywords{..}
+\keywords{RDF Validation, RDF Constraints, OWL 2 QL, OWL 2 DL, Reasoning, RDF Validation Requirements, Linked Data, Semantic Web}
 \end{abstract}
 %
 
-\section{Motivation}
+\section{Introduction}
 
 For many RDF applications, the formulation of constraints and the automatic validation of data according to these constraints is a much sought-after feature. 
 In 2013, the W3C invited experts from industry, government, and academia to the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/rdf-val/}}, 
@@ -182,19 +182,35 @@ where first use cases have been presented and discussed.
 Two WGs, that follow up on this workshop and address RDF constraint formulation and validation, are established in 2014: 
 the W3C RDF Data Shapes WG\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles WG\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
 
-The database on RDF validation requirements is intended to be a way to collect case studies, use cases and especially requirements regarding RDF validation collaboratively and in a structured form.
-I initiated this comprehensive database obtained from various sources, including the use cases presented at the W3C RDF validation workshop as well as discussions in the W3C and DCMI WGs. 
-The database, which is openly available at \url{http://purl.org/net/rdf-validation}, is used to evaluate and to compare several existing solutions for RDF constraint formulation and validation. 
-We classify the requirements to provide a high-level view on different solutions and to facilitate a better understanding of the problem domain \cite{BoschEckert2014}.  
-Members of the DCMI RDF-AP WG published a deliverable on RDF validation case studies, use cases, and requirements collected within the Dublin Core community
-\cite{DroegeBoschCharlesClayphanMatienzoRuehlePohlAlonenSvenssonCoyle2014}.
-The RDF validation database with its case studies, use cases, requirements, and solutions is continuously maintained and extended by the members of the W3C RDF Data Shapes WG and the DCMI RDF-AP WG. 
+Bosch and Eckert \cite{BoschEckert2014} initiated a database on RDF validation requirements, which is intended to be a way to collect case studies, use cases and especially requirements regarding RDF validation collaboratively and in a structured form \cite{DroegeBoschCharlesClayphanMatienzoRuehlePohlAlonenSvenssonCoyle2014}.
+The comprehensive, continuously maintained and extended database, which is openly available at \url{http://purl.org/net/rdf-validation}, is used to evaluate and to compare several existing solutions for RDF constraint formulation and validation. 
+The requirements are classified to provide a high-level view on different solutions and to facilitate a better understanding of the problem domain \cite{BoschEckert2014}.  
 
-There are multiple domain-specific constraint languages (DSCLs) (the most important ones are OWL 2, DSP, ShEx, and ReSh) having different syntaxes and semantics which can be used to express constraints (like at-least restrictions), 
-but there is no single standard DSCL which can be used to express any constraint for each purpose.
+There are multiple domain-specific constraint languages (DSCLs) having different syntaxes and semantics which can be used to express RDF constraints like at-least restrictions.
+The most promising DSCLs are 
+the SPARQL Inferencing Notation (SPIN)\footnote{\url{http://spinrdf.org/}}, 
+the Web Ontology Language (OWL 2)\footnote{\url{http://www.w3.org/TR/owl2-syntax/}}, 
+Shape Expressions (ShEx)\footnote{\url{http://www.w3.org/Submission/shex-primer/}}, 
+Resource Shapes (ReSh)\footnote{\url{http://www.w3.org/Submission/shapes/}}, 
+and Description Set Profiles (DSP)\footnote{\url{http://dublincore.org/documents/2008/03/31/dc-dsp/}}.
+However, there is no single standard DSCL to express any constraint for each purpose.
 The choice depends on the individual use case.
 
-\tb{ToDo for Thomas: RDF validation requirements database}
+SPARQL is generally seen as the method of choice to validate RDF data according to certain constraints, although it is not ideal for their formulation. 
+In contrast, OWL 2 DL constraints are comparatively easy to understand, but lack an implementation to validate RDF data. 
+\an{IMHO this should be decribed more precisely because validation in terms of inconsistency detection is still available, not sure about the completeness for OWL 2 DL}
+\tb{Andy, can you write a short paragraph about inconsistency detection? Sounds interesting!}
+Bosch and Eckert\cite{BoschEckert2014-2} use SPIN as basis to define a
+validation environment in which DSCLs can be implemented by representing them in SPARQL. 
+The implementation of the DSCLs is fully declarative,
+consisting of a SPIN mapping in RDF in form of SPARQL
+CONSTRUCT queries – which can also be represented in RDF using SPIN. 
+Within the SPIN validation environment, we fully implemented an automatic validation of all OWL 2 DL constructs. 
+\an{you should mention at this point that this validation is in terms of RDF validation, because inconsistency can't be done completely}
+The implementation can be tested at \url{http://purl.org/net/rdfval-demo} and
+the OWL 2 SPIN mapping is maintained at \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}.
+
+\section{Motivation}
 
 There are long and controversial discussions in these WGs if or if not OWL should be used RDF validation when assuming closed world semantics.
 OWL is an instantiation of a DSCL which is high-level, human-friendly (human-readable and human-understandable), fairly concise, and very expressive.
@@ -204,14 +220,6 @@ There are lots of benefits but also a huge amount of drawbacks when using OWL fo
 	\item explain why specific OWL 2 constructs could be used for RDF validation 
 	\item explain why specific OWL 2 constructs should not be used for RDF validation
 \end{itemize}
-
-\textbf{ToDo Thomas: Automatic Validation of RDF Constraints Expressed by any DSCL}
-
-For RDF, SPARQL is generally seen as the method of choice to validate data according to certain constraints, although it is not ideal for their formulation. 
-In contrast, OWL 2 DL constraints are comparatively easy to understand, but lack an implementation to validate RDF data. \an{IMHO this should be decribed more precisely because validation in terms of inconsistency detection is still available, not sure about the completeness for OWL 2 DL}
-Within our developed SPIN\footnote{\url{http://spinrdf.org/}} validation environment, we fully implemented an automatic validation of all OWL 2 DL constructs. \an{you should mention at this point that this validation is in terms of RDF validation, because inconsistency can't be done completely}
-The implementation can be tested at \url{http://purl.org/net/rdfval-demo} and
-the OWL 2 SPIN mapping is maintained at \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}.
 
 Constraint validation does not appear to be part of the services provided by
 OWL.  This has lead to claims that OWL cannot be used for constraint
