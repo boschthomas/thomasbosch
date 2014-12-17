@@ -233,7 +233,7 @@ We answer the following \textbf{research questions}:
 \begin{enumerate}
   \item
 	\item
-	\item We evaluated to which extend the 5 possible standard constraint languages fulfill each requirement.
+	\item We evaluated to which extend the five possible standard constraint languages fulfill each requirement.
 \end{enumerate}
 
 \textbf{Ideas}
@@ -259,8 +259,9 @@ We answer the following \textbf{research questions}:
 \subsection{OWL 2 QL Reasoning}
 
 \tb{ToDo for Andy and Erman: I did just copy and paste for the next 3 paragraphs. Can you please formulate these paragraphs?}
+\er{Now it is completely rewritten. Feel free to touch and change anything.}
 
- OWL 2 profiles (or fragments in logic literature) are restricted (sublanguage) versions of OWL 2 that offers different trade-offs regarding expressivity  vs. efficiency in reasoning. There are three main  profiles of OWL 2, which are OWL 2 QL, OWL 2 RL and OWL 2 EL namely, each designed to to be useful for different purposes and application scenarios. The choice of which profile to use is purpose-specific on what to express and to perform the reasoning about. We refer reader to \cite{owl2profiles2008} for a comprehensive treatment of those profiles. 
+ OWL 2 profiles (or fragments in logic literature) are restricted (sublanguage) versions of OWL 2 that offers different trade-offs regarding expressivity  vs. efficiency in reasoning. There are three main  profiles of OWL 2, which are OWL 2 QL, OWL 2 RL and OWL 2 EL namely, each designed to  be useful for different purposes and application scenarios. The choice of which profile to use is purpose-specific on what to express and to perform the reasoning about. We refer reader to \cite{owl2profiles2008} for a comprehensive treatment of those profiles. 
 
 OWL 2 QL is a OWL 2 profile which focuses on reasoning on query answering with very large size of instance data. The acronym QL stands for query language as query answering in this profile is done by rewriting queries into a standard relational query language. Also,  conjunctive query answering can be done by using conventional relational database systems. Aiming at efficiency on working with large size data, the expressive power of the profile is quite limited as expected. As a result of this, reasoning in OWL 2 QL is highly efficient so that sound and complete conjunctive query answering can be performed in \textsc{LogSpace} in the size of the data assertions as well as  the ontology consistency and class expression subsumption can be performed in polynomial time.
 
@@ -287,7 +288,7 @@ These sub-class relationships can also be expressed by OWL 2 QL:
 :JediMaster rdfs:subClassOf :Jedi . 
 \end{ex}
 
-Valid data must contain the 3 class assignments:
+Valid data must contain the three class assignments:
 
 \begin{ex}
 :Yoda a :JediMaster . 
@@ -353,7 +354,7 @@ For the majority of the requirements to formulate RDF constraints reasoning is n
 
 \textbf{Context-Specific Exclusive OR of Properties.}
 An individual can either have a relationship via property A or via property B, but not both.
-To take an example, a Jedi is either attacking by sword or by force but not both (such a fight won't be fair):
+To take an example, a Jedi is either attacking by sword or by force but not both (such a fight would not be fair):
 
 \begin{DL}
 :Jedi $\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
@@ -435,12 +436,12 @@ For each resource, the SPARQL CONSTRUCT query within the rule is executed creati
 
 \section{Evaluation}
 
-We evaluated to which extend the 5 possible standard constraint languages fulfill each requirement to formulate RDF constraints.
+We evaluated to which extend the five possible standard constraint languages fulfill each requirement to formulate RDF constraints.
 Tilde means that this constraint may be fulfilled by that particular constraint language - either by limitations, workarounds, or extensions.
 We also evaluated if a specific constraint is fulfilled by OWL 2 QL or if the more expressive OWL 2 DL is needed. 
 Inferencing may be performed for constraints marked with an asterisk. 
 
-We divide these constraints into 3 classes:
+We divide these constraints into three classes:
 
 \begin{itemize}
 	\item constraints expressible by OWL 2 QL
@@ -479,7 +480,7 @@ validation by query answering with OWL 2 QL reasoning & \textsc{Ptime} \\
 validation by query answering with OWL 2 DL reasoning & \textsc{N2exptime} \\
 \end{complexity}
 
-What is considered by rdf validation w/o reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on DL-$Lite$ family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009, Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
+What is considered by rdf validation w/o reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on DL-Lite family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009, Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
 
 \section{Related Work}
 
