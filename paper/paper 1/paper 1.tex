@@ -260,15 +260,19 @@ We answer the following \textbf{research questions}:
 
 \tb{ToDo for Andy and Erman: I did just copy and paste for the next 3 paragraphs. Can you please formulate these paragraphs?}
 
-An OWL 2 profile (commonly called a fragment or a sublanguage in computational logic) is a trimmed down version of OWL 2 that trades some expressive power for the efficiency of reasoning. This document describes three profiles of OWL 2, each of which achieves efficiency in a different way and is useful in different application scenarios. The profiles are independent of each other, so (prospective) users can skip over the descriptions of profiles that are not of interest to them. The choice of which profile to use in practice will depend on the structure of the ontologies and the reasoning tasks at hand (see Section 10 of the OWL 2 Primer [OWL 2 Primer] for more help in understanding and selecting profiles) \cite{owl2profiles2008}. 
+ OWL 2 profiles (or fragments in logic literature) are restricted (sublanguage) versions of OWL 2 that offers different trade-offs regarding expressivity  vs. efficiency in reasoning. There are three main  profiles of OWL 2, which are OWL 2 QL, OWL 2 RL and OWL 2 EL namely, each designed to to be useful for different purposes and application scenarios. The choice of which profile to use is purpose-specific on what to express and to perform the reasoning about. We refer reader to \cite{owl2profiles2008} for a comprehensive treatment of those profiles. 
 
-OWL 2 QL is aimed at applications that use very large volumes of instance data, and where query answering is the most important reasoning task. In OWL 2 QL, conjunctive query answering can be implemented using conventional relational database systems. Using a suitable reasoning technique, sound and complete conjunctive query answering can be performed in \textsc{Logspace} with respect to the size of the data (assertions). As in OWL 2 EL, polynomial time algorithms can be used to implement the ontology consistency and class expression subsumption reasoning problems. The expressive power of the profile is necessarily quite limited, although it does include most of the main features of conceptual models such as UML class diagrams and ER diagrams. The QL acronym reflects the fact that query answering in this profile can be implemented by rewriting queries into a standard relational Query Language \cite{owl2profiles2008}. 
+OWL 2 QL is a OWL 2 profile which focuses on reasoning on query answering with very large size of instance data. The acronym QL stands for query language as query answering in this profile is done by rewriting queries into a standard relational query language. Also,  conjunctive query answering can be done by using conventional relational database systems. Aiming at efficiency on working with large size data, the expressive power of the profile is quite limited as expected. As a result of this, reasoning in OWL 2 QL is highly efficient so that sound and complete conjunctive query answering can be performed in \textsc{LogSpace} in the size of the data assertions as well as  the ontology consistency and class expression subsumption can be performed in polynomial time.
 
-\textbf{Logical Underpinning for OWL 2 QL.}
-OWL 2 QL is based on the DL-Lite family of description logics. Several variants of DL-Lite have been described in the literature, and DL-Lite$_R$ provides the logical underpinning for OWL 2 QL. DL-Lite$_R$ does not require the unique name assumption (UNA), since making this assumption would have no impact on the semantic consequences of a DL-Lite$_R$ ontology. More expressive variants of DL-Lite, such as DL-Lite$_A$, extend DL-Lite$_R$ with functional properties, and these can also be extended with keys; however, for query answering to remain in \textsc{Logspace}, these extensions require UNA and need to impose certain global restrictions on the interaction between properties used in different types of axiom. Basing OWL 2 QL on DL-Lite$_R$ avoids practical problems involved in the explicit axiomatization of UNA \cite{owl2profiles2008}. 
+OWL 2 QL is based on the DL-Lite family of description logics, a tractable family of fragments of first order logic \cite{Artale2009, Calvanese2007}. 
+However, an important difference between the DL-Lite family and OWL is the
+unique name assumption (UNA). UNA is common in data management, therefore it is adopted in the DL-Lite family whereas not adopted in OWL. In OWL, one uses constructs \textbf{sameAs} or \textbf{differentFrom} explicitly to state that two individuals, say  $a$ and $b$, are the \emph{same} or {different} respectively. For that reason in OWL 2 QL, any construct e.g., number restrictions or functionality constraints which can interfere with UNA and also which can cause higher complexity without the UNA, has been avoided.
+
+
+Among the members of DL-Lite family, DL-Lite$_R$ is the one that OWL 2 QL is based on. The reason is to avoid any problematic issue which might appear in the explicit axiomatization of UNA, since  DL-Lite$_R$ in general does not require the UNA, because making this assumption has no semantic affect on a DL-Lite$_R$ ontology. 
 
 \textbf{Subsumption.}
-Subsumption relationships of both classes and properties are part of basic inferencing.
+Subsumption relationships of both classes and properties are part of basic reasoning.
 
 \begin{DL}
 :Jedi $\sqsubseteq$ :FeelingForce \\
@@ -293,7 +297,7 @@ Valid data must contain the 3 class assignments:
 
 These class assignments can be either explicitly stated or implicitly inferred when reasoning is performed before actually validating the data.
 
-When only the triple \ms{:Yoda a :JediMaster} is given and inferencing is not executed, then a constraint violation is raised.
+When only the triple \ms{:Yoda a :JediMaster} is given and reasoning is not executed, then a constraint violation is raised.
 After reasoning, however, the triples \ms{:Yoda a :Jedi , :FeelingForce} are inferred resulting in valid data. 
 
 \textbf{Property Domain.}
@@ -466,7 +470,7 @@ According to our evaluation of requirements to formulate RDF constraints, we ide
 	\item validation by query answering with OWL 2 DL reasoning
 \end{enumerate}
 
-The next table gives an overview of the computational complexity for RDF validation when it is performed -with and without inferencing. 
+The next table gives an overview of the computational complexity for RDF validation when it is performed -with and without reasoning. 
 \er{As side comment: for clarity paper better adopt either the word "inference" or "reasoning".}\\
 
 \begin{complexity}
@@ -475,7 +479,7 @@ validation by query answering with OWL 2 QL reasoning & \textsc{Ptime} \\
 validation by query answering with OWL 2 DL reasoning & \textsc{N2exptime} \\
 \end{complexity}
 
-What is considered by rdf validation w/o reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on DL-$Lite$ family and query answering in OWL 2 QL is in \textsc{Logspace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009}, \cite{Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
+What is considered by rdf validation w/o reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on DL-$Lite$ family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009, Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
 
 \section{Related Work}
 
