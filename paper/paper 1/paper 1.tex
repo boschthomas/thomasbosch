@@ -370,11 +370,14 @@ Without reasoning, these constraints won't be validated as \ms{:Luke} is not wit
 
 \section{RDF Validation Requirements without Reasoning}
 
-For the majority of the requirements to formulate RDF constraints reasoning is not related to the constraints and is therefore not performed prior to the validation. \an{If we do reasoning by query rewriting in terms of backward chaining we don't need to distinguish between them, because if you run a constraint validation query through an engine like --ontop-- (OBDA tool) or ELITE (federated query engine), the engine will only do some rewritings if it is possible, and if you just check e.g. pattern matching there will be no rewriting...}
+For the majority of the requirements to formulate RDF constraints, reasoning is not related to the constraints and is therefore not needed to be performed prior to validation. 
+If we do reasoning by query rewriting in terms of backward chaining we don't need to distinguish between them, because if you run a constraint validation query through an engine like --ontop-- (OBDA tool) or ELITE (federated query engine), the engine will only do some rewritings if it is possible, and if you just check e.g. pattern matching there will be no rewriting...
+
+%\an{If we do reasoning by query rewriting in terms of backward chaining we don't need to distinguish between them, because if you run a constraint validation query through an engine like --ontop-- (OBDA tool) or ELITE (federated query engine), the engine will only do some rewritings if it is possible, and if you just check e.g. pattern matching there will be no rewriting...}
 
 \subsection{Expressible by OWL 2 QL}
 
-\textbf{Literal Pattern Matching.} \an{IMHO literal pattern matching is not expressible in DL!}
+\textbf{Literal Pattern Matching.} \an{IMHO literal pattern matching is not expressible in DL!}\tb{but we can express it using OWL 2 DL as it is shown in the OWL 2 spec}
 There are multiple use cases associated with the requirement to match literals according to given patterns\footnote{corresponds to R-44-PATTERN-MATCHING-ON-RDF-LITERALS}.
 A social security number, for example, is a string that matches a given regular expression - which can be expressed by OWL 2 QL: 
 
