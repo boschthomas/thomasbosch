@@ -177,6 +177,8 @@ Within our developed SPIN\footnote{\url{http://spinrdf.org/}} validation environ
 The implementation can be tested at \url{http://purl.org/net/rdfval-demo} and
 the OWL 2 SPIN mapping is maintained at \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}.
 
+\tb{ToDo Thomas: constraint languages}
+
 \textbf{Constraint Validation with Reasoning}
 
 Constraint validation does not appear to be part of the services provided by
@@ -394,11 +396,23 @@ As Darth Sidious has both relationships, a constraint Violation is raised.
 
 \subsection{Not Expressible by OWL 2 DL But by Other Constraint Languages}
 
+The majority of constraints can neither be expressed by OWL 2 QL nor by OWL 2 DL. 
+In such cases, these constraints are represented by other constraint languages like DSP, ShEx, ReSh, or SPIN.
+
 \textbf{Default Values.}
 It should be possible to declare the default value for a given object and data property, e.g. so that input forms can be pre-populated and to insert a required property that is missing in a web service call. 
 Siths have per default two red laser swords.
+If there is only stated that Darth Maul is a Sith (\ms{:DarthMaul a :Sith .}), then additional default triples should be inferred automatically: 
 
-rule (SPIN)
+\begin{ex}
+:DarthMaul 
+    :laserSwordColor "red"^^xsd:string ;
+    :numberLaserSwords "2"^^xsd:nonNegativeInteger .
+\end{ex}
+
+The default values constraint can only be expressed by ReSh, SPIN, and SPARQL.
+In SPIN, we can define a rule associated with the class \ms{owl:Thing}.
+This rule is applicable for each resource, as each resource is implicitly of the type \ms{owl:Thing}. 
 
 \begin{ex}
 owl:Thing spin:rule [ a sp:Construct ; sp:text """
@@ -409,19 +423,11 @@ owl:Thing spin:rule [ a sp:Construct ; sp:text """
         ?this a :Sith . } """ ; ] .
 \end{ex}
 
-data:
+\tb{ReSh}
 
-\begin{ex}
-:DarthMaul a :Sith .
-\end{ex}
+For each resource, the SPARQL CONSTRUCT query within the rule is executed creating the default triples.
 
-inferred triples
-
-\begin{ex}
-:DarthMaul 
-    :laserSwordColor "red"^^xsd:string ;
-    :numberLaserSwords "2"^^xsd:nonNegativeInteger .
-\end{ex}
+\tb{ToDo Thomas: explain 1 more constraint here, maybe membership in controlled vocabularies to present a DSP constraint}
 
 \section{Evaluation}
 
