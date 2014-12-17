@@ -259,50 +259,49 @@ is not a person, therefore there is a contradiction).
 %Allerding wäre wie bspw. in 
 %\url{http://www.aifb.kit.edu/images/d/d2/2005_925_Haase_Consistent_Evol_1.pdf} beschrieben auch eine sogenannte 'User-defined Consistency' denkbar. Genau an dieser Stelle könnten wir ansetzen.
 
-We answer the following \textbf{research questions}:
+We answer five \textbf{research questions}:
 \begin{enumerate}
-	\item which constraints are expressible by DL?
-	\item which constraints are not expressible by DL but by a query language such as Datalog or SPARQL?
-	\item for which requirements formulating RDF constraints the expressivity of \textit{DL-Lite}$_\mathcal{A}$ respectively OWL 2 QL is sufficient?
-	\item for which requirements additional constraint languages are needed to express related constraints?
-	\item which constraint languages are suitable to express these constraints?
-	\item what are the effects on complexity to express these constraints with and without OWL 2 QL and OWL 2 DL inferencing?
-	\item what are the effects on complexity of constraints expressible by DL?
-	\item what are the effects on complexity of constraints not expressible by DL but by a query language?
+	\item Which constraints are expressible by DL and which are only expressible by a query language (e.g Datalog or SPARQL)?
+	\item For which requirements formulating constraints the expressivity of \textit{DL-Lite}$_\mathcal{A}$ (respectively OWL 2 QL) is sufficient
+	and for which requirements additional DSCLs are needed?
+	\item For which constraints a priori reasoning makes sense and how does reasoning affect their validation?  
+	\item What are the effects on complexity to express these constraints with and without OWL 2 QL and OWL 2 DL reasoning?
+	\item What are the effects on complexity of constraints not expressible by DL but by a query language?
 \end{enumerate}
 
-\textbf{Contributions} of this paper are:
+The three \textbf{main contributions} of this paper are:
 \begin{enumerate}
-  \item
-	\item
-	\item We evaluated to which extend the five possible standard constraint languages fulfill each requirement.
+  \item We investigate the effects on complexity expressing each constraint
+	\item We show that OWL 2 QL together with additional DSCLs completely satisfy all RDF validation requirements.
+	\item We evaluated to which extend the five possible standard DSCLs fulfill each requirement.
 \end{enumerate}
 
-\textbf{Ideas}
+\tb{ToDo Thomas: paper organization}
 
-\begin{itemize}
-	\item RDF validation using OWL 2 QL reasoning by SPARQL query expansion
-	\item if using OWL 2 DL as constraint language or using constraints equivalent to OWL 2 QL you can use reasoning 
-	\item reasoning can also be executed using SPARQL query expansion.
-	\item reasoning not executing using reasoner
-\end{itemize}
+%\textbf{Ideas}
+%
+%\begin{itemize}
+	%\item RDF validation using OWL 2 QL reasoning by SPARQL query expansion
+	%\item if using OWL 2 DL as constraint language or using constraints equivalent to OWL 2 QL you can use reasoning 
+	%\item reasoning can also be executed using SPARQL query expansion.
+	%\item reasoning not executing using reasoner
+%\end{itemize}
 
-\begin{itemize}
-	\item complete with reasoning | OW
-	\item complete without reasoning | CW
-	\item there is no query rewriting mechanism for OWL 2, just for OWL 2 QL
-	\item show that OWL 2 QL and further constraint languages together are complete
-\end{itemize}
+%\begin{itemize}
+	%\item complete with reasoning | OW
+	%\item complete without reasoning | CW
+	%\item there is no query rewriting mechanism for OWL 2, just for OWL 2 QL
+%\end{itemize}
 
 \section{RDF Validation Requirements and Reasoning}
+
+\tb{ToDO Thomas: RDF Validation Requirements and Inferencing}
 
 I would explain the addressed problem by an example, like the following:\\
 consider the KB $\mathcal{K} = \{Person \sqsubseteq \exists hasAncestor.Person, Person(\textbf{Thomas})\}$, using the OWA we know that \textbf{Thomas} has some Ancestor, but we do not know them, so $\mathcal{K}$ is consistent. In CWA the constraint needs to be satisfied only by named individuals, so there are some validation errors.\\
 A more complex example could be: \\
 Assume $\mathcal{K} = \{Person \sqsubseteq \exists hasAncestor.Person, (\textsf{funct } hasAncestor), Person(\textbf{Thomas}), hasAncestor(\textbf{Thomas}, \textbf{Erman}), hasAncestor(\textbf{Thomas}, \textbf{Andy})\}$, in CWA there is a clash because of the functional role \textit{hasAncestor} and the UNA, but in OWA there is no UNA by default so the reasoner will produce that $\textbf{Erman} \equiv \textbf{Andy}$. But this is not a problem if we add UNA to the OWA, like in the \textit{DL-Lite} family.
 Another point would be that if we perform RDF validation with no reasoning, we will get a further clash \textbf{Erman} is not defined to be a \textit{Person}, but if we do the validation after some reasoning, there will be no clash, because by definition the following definition will be inferred: $Person(\textbf{Erman})$. So in my understanding it would be more useful/reasonable to perform the validation task after reasoning.
-
-\tb{ToDO Thomas: RDF Validation Requirements and Inferencing}
 
 \subsection{OWL 2 QL Reasoning}
 
@@ -456,7 +455,6 @@ personDescriptionTemplate
             dsp:literal "green" ;
             dsp:literal "white"] ] .
 \end{ex}
-\an{One constraint language is IMHO enought... Maybe not!?}
 
 When representing the constraint by OWL2 DL a new datatype is defined by simply enumerating its literals:
 
@@ -465,25 +463,6 @@ laserSwordColor rdfs:range laserSwordColors .
 laserSwordColors
     a rdfs:Datatype .
     owl:oneOf ( "blue" "green" "white" ) .
-\end{ex}
-
-ReSh can also be used for this purpose:
-
-\begin{ex}
-Jedi a rs:ResourceShape ;
-    rs:property [
-        rs:name "laserSwordColor" ;
-        rs:propertyDefinition laserSwordColor ;
-        rs:allowedValue "blue" , "green" , "white" ;
-        rs:occurs rs:Exactly-one ;
-    ] .
-\end{ex}
-
-ShEx is the most intuitive and concise means representing the allowed values constraint:
-
-\begin{ex}
-Jedi {
-    laserSwordColor ('blue' 'green' 'white') }
 \end{ex}
 
 Data containing the triples \ms{Yoda a Jedi ; laserSwordColor 'blue'} is valid, 
