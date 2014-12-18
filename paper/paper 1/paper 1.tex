@@ -286,9 +286,13 @@ student, therefore John is a person) to the very complex. Reasoning can
 also recognize impossibilities (students are people, John is a student, John
 is not a person, therefore there is a contradiction). 
 It both should be possible: (1) constraint validation with reasoning and (2) constraint validation without reasoning. 
-Reasoning may be a pre validation step, in order to infer triples resolving constraint violations.
+Reasoning may be a pre validation step, either in order to infer triples resolving constraint violations 
+or in order to infer triples for which constraints are violated.
+The existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword} forces Jedis to have at least one laser sword.
+The existential restriction is not checked for the triple \ms{YediMaster(Yoda)}, as \ms{Yoda} is a \ms{JediMaster} and not a \ms{Jedi} as well.
+If, however, our knowledge base contains the axiom \ms{JediMaster $\sqsubseteq$ Jedi}, the triple \ms{Yedi(Yoda)} is inferred and the existential restrictions is validated for the individual \ms{Yoda}, raising a constraint violation if a triple such as \ms{hasLaserSword(Yoda, GreenLaserSword)} is not included in the knowledge base. 
 
-\tb{ToDO Thomas: example}
+\textcolor{red}{example}
 
 %With regard to typing, W3C is assuming (AFAIK) that all types will be
 %explicit in the instance data - for the purposes of validation. There is
@@ -421,47 +425,47 @@ Among the members of \textit{DL-Lite} family, \textit{DL-Lite}$_\mathcal{R}$ is 
 Subsumption relationships of both classes and properties are part of basic reasoning.
 
 \begin{DL}
-:Jedi $\sqsubseteq$ :FeelingForce \\
-:JediMaster $\sqsubseteq$ :Jedi \\
+Jedi $\sqsubseteq$ FeelingForce \\
+JediMaster $\sqsubseteq$ Jedi \\
 \end{DL}
 
 All Jedi masters are Jedis feeling the force.
 These sub-class relationships can also be expressed by OWL 2 QL:
 
 \begin{ex}
-:Jedi rdfs:subClassOf :FeelingForce . 
-:JediMaster rdfs:subClassOf :Jedi . 
+Jedi rdfs:subClassOf FeelingForce . 
+JediMaster rdfs:subClassOf Jedi . 
 \end{ex}
 
 Valid data must contain the three class assignments:
 
 \begin{ex}
-:Yoda a :JediMaster . 
-:Yoda a :Jedi . 
-:Yoda a :FeelingForce .
+Yoda a JediMaster . 
+Yoda a Jedi . 
+Yoda a FeelingForce .
 \end{ex}
 
 These class assignments can be either explicitly stated or implicitly inferred when reasoning is performed before actually validating the data.
 
-When only the triple \ms{:Yoda a :JediMaster} is given and reasoning is not executed, then a constraint violation is raised.
-After reasoning, however, the triples \ms{:Yoda a :Jedi , :FeelingForce} are inferred resulting in valid data. 
+When only the triple \ms{Yoda a JediMaster} is given and reasoning is not executed, then a constraint violation is raised.
+After reasoning, however, the triples \ms{Yoda a Jedi , FeelingForce} are inferred resulting in valid data. 
 
 \textbf{Property Domain.}
 The property domain constraint
 
 \begin{DL}
-$\exists$ :studentOf . $\top$ $\sqsubseteq$ :JediStudent \\
+$\exists$ studentOf . $\top$ $\sqsubseteq$ JediStudent \\
 \end{DL}
 
-restricts that individuals having :studentOf relationships must be Jedi students.
+restricts that individuals having studentOf relationships must be Jedi students.
 This property domain constraint can also be expressed by OWL 2 QL:
 
 \begin{ex}
-:studentOf rdfs:domain :JediStudent .
+studentOf rdfs:domain JediStudent .
 \end{ex}
 
-Without reasoning, the data \ms{:Anakin :studentOf :Obi-Wan} is invalid and causes a constraint violation, as it is not explicitly stated that \ms{:Anakin} is assigned to the class \ms{:Jedi}. 
-When inferencing is performed before validating, the class assignment \ms{:Anakin rdf:type :Jedi} is inferred which prevents the constraint violation to be raised.
+Without reasoning, the data \ms{Anakin studentOf Obi-Wan} is invalid and causes a constraint violation, as it is not explicitly stated that \ms{Anakin} is assigned to the class \ms{Jedi}. 
+When inferencing is performed before validating, the class assignment \ms{Anakin rdf:type Jedi} is inferred which prevents the constraint violation to be raised.
 
 \subsection{OWL 2 DL Reasoning}
 
@@ -479,22 +483,22 @@ As a result of its expressive power, OWL 2 DL allows a large variety of sophisti
 \textbf{Existential Quantification.}
 
 \begin{DL}
-$\exists$ :hasLaserSword . :LaserSword
+Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword
 \end{DL}
 
-This existential quantification contains all those individuals that are connected by :hasLaserSword to an individual that is an instance of the class :LaserSword.
+This existential quantification contains all those individuals that are connected by \ms{hasLaserSword} to an individual that is an instance of the class \ms{LaserSword}.
 In OWL 2 DL, this existential quantification can also be expressed:
 
 \begin{ex}
 [ a owl:Restriction ;
-  owl:onProperty :hasLaserSword ;
-  owl:someValuesFrom :LaserSword ;
-  rdfs:subClassOf :Jedi ] .
+  owl:onProperty hasLaserSword ;
+  owl:someValuesFrom LaserSword ;
+  rdfs:subClassOf Jedi ] .
 \end{ex}
 
-When our data contains the triple \ms{:Luke :hasLaserSword :BlueLaserSword} and we perform reasoning, we can infer that \ms{:Luke} is a :Jedi, as he has a laser sword.
-As the individual \ms{:Luke} is assigned to the class :Jedi, all constraint associated with this class are also validated, for example that Jedis must have blue laser swords.
-Without reasoning, these constraints won't be validated as \ms{:Luke} is not within the class extension of \ms{:Jedi}.
+When our data contains the triple \ms{Luke hasLaserSword BlueLaserSword} and we perform reasoning, we can infer that \ms{Luke} is a \ms{Jedi}, as he has a laser sword.
+As the individual \ms{Luke} is assigned to the class \ms{Jedi}, all constraint associated with this class are also validated, for example that Jedis must have blue laser swords.
+Without reasoning, these constraints won't be validated as \ms{Luke} is not within the class extension of \ms{Jedi}.
 
 \section{RDF Validation Requirements without Reasoning}
 
