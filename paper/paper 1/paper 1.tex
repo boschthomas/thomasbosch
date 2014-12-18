@@ -217,18 +217,10 @@ This has lead to claims that OWL cannot be used for constraint validation.
 There are long and controversial discussions\footnote{\url{http://lists.w3.org/Archives/Public/public-data-shapes-wg/}, \url{https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=dc-architecture}} in the W3C and DCMI WGs if OWL should be used for RDF validation.
 There are lots of pros and cons using OWL in order to formulate and to validate RDF constraints.
 OWL is an instantiation of a high-level and very expressive DSCL with a compact human-readable syntax.
-
-
-Normally, the RDF has already an OWL / RDFS. Thus, part of those declarations will be defined anyway
-
-In most cases reusing existing OWL schemas for validation is enough
-
-language that many people already know
-
-In practice that most people out there make use of RDFS and OWL constructs to tell other people and applications about how valid instances should
-be created.Whether this is good or bad is another question, but that’s the
-reality.
-
+OWL is a language that many people already know.
+In practice, many people use RDFS and OWL constructs to tell other people and applications about how valid instances should be created.
+Normally, RDF documents follow the structure of RDFS/OWL ontologies. 
+Thus, part of those declarations will be defined anyway and can therefore be reused for validating these RDF documents.
 The standard semantics of OWL is:
 
 \begin{itemize}
