@@ -426,7 +426,7 @@ unique name assumption (UNA). UNA is common in data management, therefore it is 
 
 Among the members of \textit{DL-Lite} family, \textit{DL-Lite}$_\mathcal{R}$ is the one that OWL 2 QL is based on. The reason is to avoid any problematic issue which might appear in the explicit axiomatization of UNA, since  \textit{DL-Lite}$_\mathcal{R}$ in general does not require the UNA, because making this assumption has no semantic affect on a \textit{DL-Lite}$_\mathcal{R}$ ontology.
 
-\textbf{Subsumption.}
+\textbf{Subsumption}\footnote{corresponds to R-100-SUBSUMPTION}\textbf{.}
 Subsumption relationships of both classes and properties are part of basic reasoning.
 
 \begin{DL}
@@ -455,7 +455,7 @@ These class assignments can be either explicitly stated or implicitly inferred w
 When only the triple \ms{Yoda a JediMaster} is given and reasoning is not executed, then a constraint violation is raised.
 After reasoning, however, the triples \ms{Yoda a Jedi , FeelingForce} are inferred resulting in valid data. 
 
-\textbf{Property Domain.}
+\textbf{Property Domain}\footnote{corresponds to R-25-PROPERTY-DOMAIN}\textbf{.}
 The property domain constraint
 
 \begin{DL}
@@ -485,7 +485,7 @@ As a result of its expressive power, OWL 2 DL allows a large variety of sophisti
 
 
 
-\textbf{Existential Quantification.}
+\textbf{Existential Quantification}\footnote{corresponds to R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}\textbf{.}
 
 \begin{DL}
 Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword
@@ -517,8 +517,10 @@ If we do reasoning by query rewriting in terms of backward chaining and if we ru
 
 \subsection{Expressible by OWL 2 QL}
 
-\textbf{Literal Pattern Matching.} \an{IMHO literal pattern matching is not expressible in DL!}\tb{but we can express it using OWL 2 DL as it is shown in the OWL 2 spec}
-There are multiple use cases associated with the requirement to match literals according to given patterns\footnote{corresponds to R-44-PATTERN-MATCHING-ON-RDF-LITERALS}.
+\textbf{Literal Pattern Matching}\footnote{corresponds to R-44-PATTERN-MATCHING-ON-RDF-LITERALS}\textbf{.} 
+\an{IMHO literal pattern matching is not expressible in DL!}\tb{but we can express it using OWL 2 DL as it is shown in the OWL 2 spec}
+There are multiple use cases associated with the requirement to match literals according to given patterns.
+
 %A social security number, for example, is a string that matches a given regular expression - which can be expressed by OWL 2 QL: 
 %
 %\begin{ex}
@@ -652,7 +654,7 @@ As Darth Sidious has both relationships, a constraint Violation is raised.
 The majority of constraints can neither be expressed by OWL 2 QL nor by OWL 2 DL. 
 In such cases, these constraints are represented by other constraint languages like DSP, ShEx, ReSh, or SPIN.
 
-\textbf{Default Values.}
+\textbf{Default Values}\footnote{corresponds to R-31-DEFAULT-VALUES-OF-RDF-OBJECTS and R-38-DEFAULT-VALUES-OF-RDF-LITERALS}\textbf{.}
 It should be possible to declare the default value for a given object and data property, e.g. so that input forms can be pre-populated and to insert a required property that is missing in a web service call. 
 Siths have per default two red laser swords.
 If there is only stated that Darth Maul is a Sith (\ms{:DarthMaul a :Sith .}), then additional default triples should be inferred automatically: 
