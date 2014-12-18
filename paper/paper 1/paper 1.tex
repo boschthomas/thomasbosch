@@ -212,18 +212,75 @@ the OWL 2 SPIN mapping is maintained at \url{https://github.com/boschthomas/OWL2
 
 \section{Motivation}
 
-There are long and controversial discussions in these WGs if or if not OWL should be used RDF validation when assuming closed world semantics.
-OWL is an instantiation of a DSCL which is high-level, human-friendly (human-readable and human-understandable), fairly concise, and very expressive.
-There are lots of benefits but also a huge amount of drawbacks when using OWL for the purpose to formulate and to validate RDF constraints.
+Constraint validation does not appear to be part of the services provided by OWL.  
+This has lead to claims that OWL cannot be used for constraint validation. 
+There are long and controversial discussions\footnote{\url{http://lists.w3.org/Archives/Public/public-data-shapes-wg/}, \url{https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=dc-architecture}} in the W3C and DCMI WGs if OWL should be used for RDF validation.
+%There are lots of benefits but also a huge amount of drawbacks when using OWL for the purpose to formulate and to validate RDF constraints.
+OWL is an instantiation of a high-level and very expressive DSCL with a compact human-readable syntax.
+
+
+Normally, the RDF has already an OWL / RDFS. Thus, part of those declarations will be defined anyway
+
+In most cases reusing existing OWL schemas for validation is enough
+
+language that many people already know
+
+In practice that most people out there make use of RDFS and OWL constructs to tell other people and applications about how valid instances should
+be created.Whether this is good or bad is another question, but that’s the
+reality.
+
+OWL semantics: Most people don’t care about open world semantics, but of
+course nobody would admit that because it’s against the specs and thousands
+of academic papers.
+
+could be interpreted either with the open world assumption to support open
+world reasoning, and (exactly the same piece) interpreted in closed world
+applications as a constraint for interfaces or a validation rule
+
+Ambiguousness is one of the main reasons why OWL has not been adopted (yet) as standard DSCL for RDF validation.
+As OWL and RDF validation 
+When OWL would be used assuming both OWA (for reasoning) and CWA (for constraint validation). 
+It would be somewhat confusing to have two completely different semantics for OWL.
+
+The standard semantics of OWL is:
+
+\begin{itemize}
+	\item Open World Assumptions (OWA): a statement cannot be inferred to be false on the basis of failures to prove it.
+  \item non-Unique Name Assumptions (nUNA): two different names may refer to the same object.
+\end{itemize}
+
+This semantics is suitable for the distributed knowledge representation scenarios on the Semantic Web, 
+where usually the knowledge about the domain comes from distributed
+sources and a complete knowledge about the domain cannot be assumed, 
+but makes it difficult to use OWL for RDF validation.
+
+You can't easily use OWL to even do cardinality checking. 
+For example, suppose you assert that \ms{hasFather} is a functional property, and you have the triples \ms{Luke hasFather Anakin} and \ms{Luke hasFather Darth}.
+An OWL reasoner will invoke the nUNA to infer that \ms{Anakin owl:sameAs Darth}.
+
+Therefore, the semantics for RDF validation is Closed World Assumption and the Unique Name Assumption.
+ 
+
+
+
+As for an area where OWA is problematic, one need look no further than
+FRBRer ontology is clearly designed using OWL constraints
+(which I prefer to call "axioms" to avoid confusion) in a closed world
+way. The definitions are quite strict, with all classes disjoint each
+other, such that, using reasoning in the OWL, any FRBRer data will be
+inconsistent with data not using that exact set of axioms. 
+http://svn.aksw.org/papers/2014/WWW\_Databugger/public.pdf
+
+
+
+
 
 \begin{itemize}
 	\item explain why specific OWL 2 constructs could be used for RDF validation 
 	\item explain why specific OWL 2 constructs should not be used for RDF validation
 \end{itemize}
 
-Constraint validation does not appear to be part of the services provided by
-OWL.  This has lead to claims that OWL cannot be used for constraint
-validation.  However reasoning, which is the core service provided by OWL,
+However reasoning, which is the core service provided by OWL,
 and constraint validation are indeed very closely related. 
 \an{maybe we can use also the term 'User-defined Consistency' described in 'see below' as a further 'hook' to establish our approach?}
 
@@ -691,6 +748,22 @@ What is considered by rdf validation w/o reasoning, corresponds to performing SP
 
 
 \section{Related Work}
+
+\begin{itemize}
+	\item See e.g. chapter 6 of Jiao Tao's dissertation - http://tw.rpi.edu/web/doc/JiaoTaoDissertation .
+\end{itemize}
+
+\textbf{CWA.}
+
+alternate semantics for OWL (using CWA):
+
+Several years ago Evren Siren et al proposed an alternate semantics for OWL (using CWA) so that it could be used for integrity constraint (IC) checking and this is implemented in the Stardog database. 
+
+However, this OWL IC semantics was never submitted to a standards organization.
+
+\begin{itemize}
+	\item Clark Parsia had previously proposed the ICV semantics for OWL, but this was not submitted to W3C.
+\end{itemize}
 
 \section{Conclusion and Future Work}
 
