@@ -346,6 +346,10 @@ but the complexity of query languages is less than the complexity of OWL 2 QL an
 For many constraints reasoning can be done, but when reasoning is not needed for validation this constraint can be reformulated as a query by a query language
 leading to a lower complexity class. 
 \textcolor{red}{example}
+Such a complexity aware RDF validator could help people writing constraints that can be efficiently computed.
+For DL, there is a web application allowing you to select the needed DL constructs in order to determine the complexity of DL reasoning\footnote{\url{http://www.cs.man.ac.uk/~ezolin/dl/}}.
+
+\textcolor{red}{venn diagram}
 
 As we evaluated to which extend each constraint can be expressed by the most promising five DSCLs, 
 we can determine the complexity of these DSCLs as well. 
@@ -371,6 +375,29 @@ The three \textbf{main contributions} of this paper are:
 \end{enumerate}
 
 \textcolor{red}{paper organization}
+
+\section{Computational Complexity of RDF Constraints}
+
+According to our evaluation of requirements to formulate RDF constraints, we identified three main ways of validating constraints.
+
+\begin{enumerate}
+	\item validation by query answering without reasoning
+	\item validation by query answering with OWL 2 QL reasoning
+	\item validation by query answering with OWL 2 DL reasoning
+\end{enumerate}
+
+The next table gives an overview of the computational complexity for RDF validation when it is performed -with and without reasoning. 
+
+\begin{complexity}
+validation by query answering without reasoning & \textsc{Pspace}-Complete \\
+validation by query answering with OWL 2 QL reasoning & \textsc{Ptime} \\
+validation by query answering with OWL 2 DL reasoning & \textsc{N2exptime} \\
+\end{complexity}
+
+
+What is considered by rdf validation w/o reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on \textit{DL-Lite} family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
+
+\textcolor{red}{at least 1 example for each class}
 
 \section{RDF Validation Requirements and Reasoning}
 
@@ -647,6 +674,8 @@ We divide these constraints into three classes:
 Bosch et al.\footnote{\url{https://github.com/boschthomas/rdf-validation-research/paper}} explained each requirement and associated constraint in detail and give at least one example for each of them\cite{BoschNolleAcarEckert2015}.
 In order to logically underpin each requirement, we added mappings to DL.  
 
+\textcolor{red}{tables maybe not needed}
+
 \tb{How should we publish this? ordering of author not determined so far}
 
 \an{coloring still to be checked!}
@@ -738,28 +767,6 @@ Value is Valid for Datatype & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \d
 \textcolor{blue}{*Exploiting Class/Property Specialization Ontology Axioms} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 \textcolor{blue}{*Cardinality Shortcuts} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
 \end{evaluation}
-
-\section{Computational Complexity of RDF Constraints}
-
-According to our evaluation of requirements to formulate RDF constraints, we identified three main ways of validating constraints.
-
-\begin{enumerate}
-	\item validation by query answering without reasoning
-	\item validation by query answering with OWL 2 QL reasoning
-	\item validation by query answering with OWL 2 DL reasoning
-\end{enumerate}
-
-The next table gives an overview of the computational complexity for RDF validation when it is performed -with and without reasoning. 
-
-\begin{complexity}
-validation by query answering without reasoning & \textsc{Pspace}-Complete \\
-validation by query answering with OWL 2 QL reasoning & \textsc{Ptime} \\
-validation by query answering with OWL 2 DL reasoning & \textsc{N2exptime} \\
-\end{complexity}
-
-
-What is considered by rdf validation w/o reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on \textit{DL-Lite} family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
-
 
 \section{Related Work}
 
