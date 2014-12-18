@@ -175,7 +175,6 @@ XXXXX \\
 %
 
 \tb{only star wars examples / best: 1 running example}
-\tb{how to bring expressivity into play? Erman writes something about expressivity}
 
 \section{Introduction}
 
@@ -303,6 +302,50 @@ Reasoning may be a pre validation step, in order to infer triples resolving cons
 %Allerding wäre wie bspw. in 
 %\url{http://www.aifb.kit.edu/images/d/d2/2005_925_Haase_Consistent_Evol_1.pdf} beschrieben auch eine sogenannte 'User-defined Consistency' denkbar. Genau an dieser Stelle könnten wir ansetzen.
 
+%\textbf{Ideas}
+%
+%\begin{itemize}
+	%\item RDF validation using OWL 2 QL reasoning by SPARQL query expansion
+	%\item if using OWL 2 DL as constraint language or using constraints equivalent to OWL 2 QL you can use reasoning 
+	%\item reasoning can also be executed using SPARQL query expansion.
+	%\item reasoning not executing using reasoner
+%\end{itemize}
+
+%\begin{itemize}
+	%\item complete with reasoning | OW
+	%\item complete without reasoning | CW
+	%\item there is no query rewriting mechanism for OWL 2, just for OWL 2 QL
+%\end{itemize}
+
+
+
+\textcolor{red}{high-level description of expressivity}
+
+\textcolor{red}{
+\begin{itemize}
+  \item why is expressivity important for the paper?
+	\item expressivity of query languages like SPARQL?
+	\iten expressivity of OWL 2 QL and OWL 2 DL?
+	\item how is expressivity and complexity related?
+\end{itemize}
+}
+
+\textcolor{red}{high-level description of complexity}
+
+We group each RDF requirement into three complexity classes.
+As case studies are linked to use cases and use cases to requirements, it is known how complex the task is to fulfill use cases and case studies.
+For specific use cases, it can also be determined which of the associated requirements lead to a higher complexity class.
+Imaginable is a system in which use cases can be selected which should be met for particular applications.
+Then, the system determines the complexity class, can point to requirements and constraints causing a higher complexity class,
+and can give hints how to rewrite the constraint in order to stay in a lower complexity class.   
+
+Query languages such as SPARQL or Datalog are more expressive than OWL 2 QL and DL,
+but the complexity of query languages is less than the complexity of OWL 2 QL and DL, because of the reasoning calculations.
+For many constraints reasoning can be done, but when reasoning is not needed for validation this constraint can be reformulated as a query by a query language
+leading to a lower complexity class. 
+
+\textcolor{red}{example}
+
 If we want to use OWL 2 for RDF validation, we have to ensure that as many requirements for formulating RDF constraints are fulfilled
 and that the computational complexity to formulate these constraints is satisfying.  
 
@@ -323,32 +366,7 @@ The three \textbf{main contributions} of this paper are:
 	\item We evaluated to which extend the five possible standard DSCLs fulfill each requirement.
 \end{enumerate}
 
-%\textbf{Ideas}
-%
-%\begin{itemize}
-	%\item RDF validation using OWL 2 QL reasoning by SPARQL query expansion
-	%\item if using OWL 2 DL as constraint language or using constraints equivalent to OWL 2 QL you can use reasoning 
-	%\item reasoning can also be executed using SPARQL query expansion.
-	%\item reasoning not executing using reasoner
-%\end{itemize}
-
-%\begin{itemize}
-	%\item complete with reasoning | OW
-	%\item complete without reasoning | CW
-	%\item there is no query rewriting mechanism for OWL 2, just for OWL 2 QL
-%\end{itemize}
-
-\textcolor{red}{\textless high-level description of complexity\textgreater}
-
-
-We group each RDF requirement into three complexity classes.
-As case studies are linked to use cases and use cases to requirements, it is known how complex the task is to fulfill use cases and case studies.
-For specific use cases, it can also be determined which of the associated requirements lead to a higher complexity class.
-Imaginable is a system in which use cases can be selected which should be met for particular applications.
-Then, the system determines the complexity class, can point to requirements and constraints causing a higher complexity class,
-and can give hints how to rewrite the constraint in order to stay in a lower complexity class.   
-
-\textcolor{red}{\textless ToDo Thomas: paper organization\textgreater}
+\textcolor{red}{paper organization}
 
 \section{RDF Validation Requirements and Reasoning}
 
