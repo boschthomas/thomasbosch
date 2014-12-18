@@ -215,7 +215,7 @@ the OWL 2 SPIN mapping is maintained at \url{https://github.com/boschthomas/OWL2
 Constraint validation does not appear to be part of the services provided by OWL.  
 This has lead to claims that OWL cannot be used for constraint validation. 
 There are long and controversial discussions\footnote{\url{http://lists.w3.org/Archives/Public/public-data-shapes-wg/}, \url{https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=dc-architecture}} in the W3C and DCMI WGs if OWL should be used for RDF validation.
-%There are lots of benefits but also a huge amount of drawbacks when using OWL for the purpose to formulate and to validate RDF constraints.
+There are lots of pros and cons using OWL in order to formulate and to validate RDF constraints.
 OWL is an instantiation of a high-level and very expressive DSCL with a compact human-readable syntax.
 
 
@@ -229,18 +229,16 @@ In practice that most people out there make use of RDFS and OWL constructs to te
 be created.Whether this is good or bad is another question, but that’s the
 reality.
 
-OWL semantics: Most people don’t care about open world semantics, but of
-course nobody would admit that because it’s against the specs and thousands
-of academic papers.
+
 
 could be interpreted either with the open world assumption to support open
 world reasoning, and (exactly the same piece) interpreted in closed world
 applications as a constraint for interfaces or a validation rule
 
-Ambiguousness is one of the main reasons why OWL has not been adopted (yet) as standard DSCL for RDF validation.
-As OWL and RDF validation 
-When OWL would be used assuming both OWA (for reasoning) and CWA (for constraint validation). 
-It would be somewhat confusing to have two completely different semantics for OWL.
+Although, most people don’t care about open world semantics, 
+ambiguousness is one of the main reasons why OWL has not been adopted as standard DSCL for RDF validation in the past. 
+When OWL would be used assuming both OWA (for reasoning) and CWA (for constraint validation),
+it would be somewhat confusing to have two completely different semantics for OWL.
 
 The standard semantics of OWL is:
 
@@ -275,17 +273,17 @@ http://svn.aksw.org/papers/2014/WWW\_Databugger/public.pdf
 
 
 
-\begin{itemize}
-	\item explain why specific OWL 2 constructs could be used for RDF validation 
-	\item explain why specific OWL 2 constructs should not be used for RDF validation
-\end{itemize}
+%\begin{itemize}
+	%\item explain why specific OWL 2 constructs could be used for RDF validation 
+	%\item explain why specific OWL 2 constructs should not be used for RDF validation
+%\end{itemize}
 
-However reasoning, which is the core service provided by OWL,
-and constraint validation are indeed very closely related. 
+
+
+Reasoning, which is the core service provided by OWL,
+and constraint validation are very closely related. 
 \an{maybe we can use also the term 'User-defined Consistency' described in 'see below' as a further 'hook' to establish our approach?}
-
 \url{http://www.aifb.kit.edu/images/d/d2/2005_925_Haase_Consistent_Evol_1.pdf}
-
 \tb{I'm not aware of this, but if you think it is worth - go ahead!}
 
 \an{a more formal example would be nice! ;)}
@@ -316,7 +314,10 @@ is not a person, therefore there is a contradiction).
 %Allerding wäre wie bspw. in 
 %\url{http://www.aifb.kit.edu/images/d/d2/2005_925_Haase_Consistent_Evol_1.pdf} beschrieben auch eine sogenannte 'User-defined Consistency' denkbar. Genau an dieser Stelle könnten wir ansetzen.
 
-We answer five \textbf{research questions}:
+If we want to use OWL 2 for RDF validation, we have to ensure that as many requirements for formulating RDF constraints are fulfilled
+and that the computational complexity to formulate these constraints is satisfying.  
+
+Therefore, we answer five \textbf{research questions}:
 \begin{enumerate}
 	\item Which constraints are expressible by DL and which are only expressible by a query language (e.g Datalog or SPARQL)?
 	\item For which requirements formulating constraints the expressivity of \textit{DL-Lite}$_\mathcal{A}$ (respectively OWL 2 QL) is sufficient
