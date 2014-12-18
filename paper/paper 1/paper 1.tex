@@ -360,8 +360,6 @@ leading to a lower complexity class.
 Such a complexity aware RDF validator could help people writing constraints that can be efficiently computed.
 For DL, there is a web application allowing you to select the needed DL constructs in order to determine the complexity of DL reasoning\footnote{\url{http://www.cs.man.ac.uk/~ezolin/dl/}}.
 
-\textcolor{red}{venn diagram}
-
 As we evaluated to which extend each constraint can be expressed by the most promising five DSCLs, 
 we can determine the complexity of these DSCLs as well. 
 
@@ -405,10 +403,19 @@ validation by query answering with OWL 2 QL reasoning & \textsc{Ptime} \\
 validation by query answering with OWL 2 DL reasoning & \textsc{N2exptime} \\
 \end{complexity}
 
-
 What is considered by rdf validation w/o reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on \textit{DL-Lite} family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
 
 \textcolor{red}{at least 1 example for each class}
+
+\tb{ToDo: venn diagram: expressivity classes missing / associate DSCLs with classes}
+
+Figure~\ref{fig:VennDiagram}.  
+\begin{figure}
+	\centering
+		\includegraphics[width=0.60\textwidth]{venn-diagram.jpg}
+	\caption{Complexity and Expressivity Classes}
+	\label{fig:VennDiagram}
+\end{figure}
 
 \section{RDF Validation Requirements and Reasoning}
 
