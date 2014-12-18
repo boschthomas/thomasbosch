@@ -286,11 +286,18 @@ student, therefore John is a person) to the very complex. Reasoning can
 also recognize impossibilities (students are people, John is a student, John
 is not a person, therefore there is a contradiction). 
 It both should be possible: (1) constraint validation with reasoning and (2) constraint validation without reasoning. 
-Reasoning may be a pre validation step, either in order to infer triples resolving constraint violations 
-or in order to infer triples for which constraints are violated.
+
+Reasoning may be a pre validation step to infer triples resolving constraint violations.
+According to the existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasJediWaepon . JediWeapon} every Jedi has at least one Jedi weapon.
+Luke is a Jedi (\ms{Jedi(Luke)}) having a blue laser sword (\ms{hasLaserSword(Luke, BlueLaserSword)}.
+As it is not defined that laser swords are Jedi weapons and as Luke is a Jedi, the existential restriction causes a constraint violation. 
+This constraint violation is not raised when we define that laser swords are Jedi weapons (\ms{hasLaserSword $\sqsubseteq$ hasJediWaepon} ) 
+and \ms{hasLaserSword} is a sub-property of \ms{hasJediWeapon} (\ms{LaserSword $\sqsubseteq$ JediWeapon}).
+
+It makes also sense to perform reasoning to infer triples for which constraints are validated.
 The existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword} forces Jedis to have at least one laser sword.
 The existential restriction is not checked for the triple \ms{YediMaster(Yoda)}, as \ms{Yoda} is a \ms{JediMaster} and not a \ms{Jedi} as well.
-If, however, our knowledge base contains the axiom \ms{JediMaster $\sqsubseteq$ Jedi}, the triple \ms{Yedi(Yoda)} is inferred and the existential restrictions is validated for the individual \ms{Yoda}, raising a constraint violation if a triple such as \ms{hasLaserSword(Yoda, GreenLaserSword)} is not included in the knowledge base. 
+If, however, our knowledge base contains the axiom \ms{JediMaster $\sqsubseteq$ Jedi}, the triple \ms{Jedi(Yoda)} is inferred and the existential restrictions is validated for the individual \ms{Yoda}, raising a constraint violation if a triple such as \ms{hasLaserSword(Yoda, GreenLaserSword)} is not included in the knowledge base. 
 
 \textcolor{red}{example}
 
@@ -324,8 +331,6 @@ If, however, our knowledge base contains the axiom \ms{JediMaster $\sqsubseteq$ 
 	%\item complete without reasoning | CW
 	%\item there is no query rewriting mechanism for OWL 2, just for OWL 2 QL
 %\end{itemize}
-
-
 
 \textcolor{red}{high-level description of expressivity}
 
@@ -533,6 +538,8 @@ The datatype \ms{SSN} can be used just like any other datatype like in the third
 The literal pattern matching constraint above validates \ms{hasSSN} literals according to the stated regular expression causing a constraint violation for the triple 
 \ms{TimBernersLee hasSSN "123456789"\textasciicircum{}\textasciicircum{}SSN}, 
 but not for the triple \ms{TimBernersLee hasSSN "123-45-6789"\textasciicircum{}\textasciicircum{}SSN}.
+
+\textcolor{red}{convert to star wars example}
 
 \subsection{Not Expressible by OWL 2 QL but by OWL 2 DL}
 
