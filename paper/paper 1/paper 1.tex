@@ -325,7 +325,7 @@ Reasoning may be a pre validation step, in order to infer triples resolving cons
 \begin{itemize}
   \item why is expressivity important for the paper?
 	\item expressivity of query languages like SPARQL?
-	\iten expressivity of OWL 2 QL and OWL 2 DL?
+	\item expressivity of OWL 2 QL and OWL 2 DL?
 	\item how is expressivity and complexity related?
 \end{itemize}
 }
@@ -343,8 +343,10 @@ Query languages such as SPARQL or Datalog are more expressive than OWL 2 QL and 
 but the complexity of query languages is less than the complexity of OWL 2 QL and DL, because of the reasoning calculations.
 For many constraints reasoning can be done, but when reasoning is not needed for validation this constraint can be reformulated as a query by a query language
 leading to a lower complexity class. 
-
 \textcolor{red}{example}
+
+As we evaluated to which extend each constraint can be expressed by the most promising five DSCLs, 
+we can determine the complexity of these DSCLs as well. 
 
 If we want to use OWL 2 for RDF validation, we have to ensure that as many requirements for formulating RDF constraints are fulfilled
 and that the computational complexity to formulate these constraints is satisfying.  
