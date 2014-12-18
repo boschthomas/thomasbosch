@@ -259,6 +259,8 @@ other, such that, using reasoning in the OWL, any FRBRer data will be
 inconsistent with data not using that exact set of axioms. 
 http://svn.aksw.org/papers/2014/WWW\_Databugger/public.pdf
 
+\tb{Andy, we want to use only star wars examples in our paper. We need 1 example showing the differences between OWA / CWA and /UNA / nUNA. You may reuse star wars examples which are already in the paper.}
+
 I would explain the addressed problem by an example, like the following:\\
 consider the KB $\mathcal{K} = \{Person \sqsubseteq \exists hasAncestor.Person, Person(\textbf{Thomas})\}$, using the OWA we know that \textbf{Thomas} has some Ancestor, but we do not know them, so $\mathcal{K}$ is consistent. In CWA the constraint needs to be satisfied only by named individuals, so there are some validation errors.\\
 A more complex example could be: \\
