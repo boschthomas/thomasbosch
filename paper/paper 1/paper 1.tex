@@ -278,7 +278,7 @@ Reasoning, which is the core service provided by OWL,
 and constraint validation are very closely related. 
 \an{maybe we can use also the term 'User-defined Consistency' described in 'see below' as a further 'hook' to establish our approach?}
 \url{http://www.aifb.kit.edu/images/d/d2/2005_925_Haase_Consistent_Evol_1.pdf}
-\tb{Andy, can you describe thin in the paper?}
+\tb{Andy, can you describe this in the paper?}
 \an{a more formal example would be nice! ;)}
 Reasoning is the process of determining what follows from what has been
 stated.  Reasoning ranges from simple (students are people, John is a
@@ -442,14 +442,7 @@ Jedi rdfs:subClassOf FeelingForce .
 JediMaster rdfs:subClassOf Jedi . 
 \end{ex}
 
-Valid data must contain the three class assignments:
-
-\begin{ex}
-Yoda a JediMaster . 
-Yoda a Jedi . 
-Yoda a FeelingForce .
-\end{ex}
-
+Valid data must contain the three class assignments \ms{JediMaster(Yoda)}, \ms{Jedi(Yoda)}, and \ms{FeelingForce(Yoda)}.
 These class assignments can be either explicitly stated or implicitly inferred when reasoning is performed before actually validating the data.
 
 When only the triple \ms{Yoda a JediMaster} is given and reasoning is not executed, then a constraint violation is raised.
@@ -470,7 +463,7 @@ studentOf rdfs:domain JediStudent .
 \end{ex}
 
 Without reasoning, the data \ms{Anakin studentOf Obi-Wan} is invalid and causes a constraint violation, as it is not explicitly stated that \ms{Anakin} is assigned to the class \ms{Jedi}. 
-When inferencing is performed before validating, the class assignment \ms{Anakin rdf:type Jedi} is inferred which prevents the constraint violation to be raised.
+When inferencing is performed before validating, the class assignment \ms{Anakin a Jedi} is inferred which prevents the constraint violation to be raised.
 
 \subsection{OWL 2 DL Reasoning}
 
@@ -606,48 +599,39 @@ An individual can either have a relationship via property A or via property B, b
 To take an example, a Jedi is either attacking by sword or by force but not both (such a fight would not be fair):
 
 \begin{DL}
-:Jedi $\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
-A $\equiv$ $\forall$ :attackingBySword . xsd:boolean \\
-B $\equiv$ $\forall$ :attackingByForce . xsd:boolean \\ 
-\end{DL} \an{IMHO: If you use the universal quantifier it is also valid that a Jedi neither have attackingBySword nor attackingByForce, so it should be an existential quantifier...}
+Jedi $\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
+A $\equiv$ $\exists$ attackingBySword . xsd:boolean \\
+B $\equiv$ $\exists$ attackingByForce . xsd:boolean \\ 
+\end{DL} 
 
 Context-specific exclusive OR of properties can be expressed by ShEx. 
-In this case, the constraint context is the class \ms{:Jedi}.
+In this case, the constraint context is the class \ms{Jedi}.
 
 \begin{ex}
-:Jedi { (  
-    :attackingBySword xsd:boolean | 
-    :attackingByForce xsd:boolean ) }
+Jedi { (  
+    attackingBySword xsd:boolean | 
+    attackingByForce xsd:boolean ) }
 \end{ex}
 
-The same constraint may be expressed by OWL 2 DL \an{Do you mean DL or QL at this point?}, but not very intuitively and concisely.
+The same constraint may be expressed by OWL 2 DL \an{Do you mean DL or QL at this point?}\tb{DisjointUnion is only supported by DL, see OWL 2 Profile spec}, but not very intuitively and concisely.
 This can rather be seen as a workaround, as anonymous classes are built for each of the exclusive properties.
 
 \begin{ex}
-:Jedi owl:disjointUnionOf ( :CC1 :CC2 ) . 
-:CC1 rdfs:subClassOf [
+Jedi owl:disjointUnionOf ( CC1 CC2 ) . 
+CC1 rdfs:subClassOf [
     a owl:Restriction ;
-    owl:onProperty :attackingBySword ;
-    owl:allValuesFrom xsd:boolean ] .
-:CC2 rdfs:subClassOf [
+    owl:onProperty attackingBySword ;
+    owl:someValuesFrom xsd:boolean ] .
+CC2 rdfs:subClassOf [
     a owl:Restriction ;
-    owl:onProperty :attackingByForce ;
-    owl:allValuesFrom xsd:boolean ] .
+    owl:onProperty attackingByForce ;
+    owl:someValuesFrom xsd:boolean ] .
 \end{ex}
-\an{Formulars in DL would be nice... ;)}
 
-Considering the following data, Luke as well as Darth Sidious are associated with the class \ms{:Jedi}.
+Consider the triples \ms{Jedi(Luke)}, \ms{attackingBySword(Luke,true)}, \ms{Jedi(DarthSidious)},
+\ms{attackingByForce(DarthSidious,true)}, and \ms{attackingBySword(DarthSidious,true)}
+Luke as well as Darth Sidious are associated with the class \ms{Jedi}.
 As Darth Sidious has both relationships, a constraint Violation is raised.
-
-\begin{ex}
-:Luke
-    a :Jedi ; 
-    :attackingBySword true .
-:DarthSidious
-    a :Jedi ; 
-    :attackingByForce true ;
-    :attackingBySword true ;
-\end{ex}
 
 \subsection{Not Expressible by OWL 2 DL But by Other Constraint Languages}
 
@@ -657,13 +641,8 @@ In such cases, these constraints are represented by other constraint languages l
 \textbf{Default Values}\footnote{corresponds to R-31-DEFAULT-VALUES-OF-RDF-OBJECTS and R-38-DEFAULT-VALUES-OF-RDF-LITERALS}\textbf{.}
 It should be possible to declare the default value for a given object and data property, e.g. so that input forms can be pre-populated and to insert a required property that is missing in a web service call. 
 Siths have per default two red laser swords.
-If there is only stated that Darth Maul is a Sith (\ms{:DarthMaul a :Sith .}), then additional default triples should be inferred automatically: 
-
-\begin{ex}
-:DarthMaul 
-    :laserSwordColor "red"^^xsd:string ;
-    :numberLaserSwords "2"^^xsd:nonNegativeInteger .
-\end{ex}
+If there is only stated that Darth Maul is a Sith (\ms{DarthMaul a Sith .}), then additional default triples should be inferred: 
+\ms{laserSwordColor(DarthMaul,"red")} and \ms{numberLaserSwords(DarthMaul,2)}.
 
 The default values constraint can only be expressed by ReSh, SPIN, and SPARQL.
 In SPIN, we can define a rule associated with the class \ms{owl:Thing}.
@@ -672,23 +651,23 @@ This rule is applicable for each resource, as each resource is implicitly of the
 \begin{ex}
 owl:Thing spin:rule [ a sp:Construct ; sp:text """
     CONSTRUCT {
-        ?this :laserSwordColor "red"^^xsd:string ;
-              :numberLaserSwords "2"^^xsd:nonNegativeInteger . }
+        ?this laserSwordColor "red" ;
+              numberLaserSwords 2 . }
     WHERE {             
-        ?this a :Sith . } """ ; ] .
+        ?this a Sith . } """ ; ] .
 \end{ex}
 
 For each resource, the SPARQL CONSTRUCT query within the rule is executed creating the default triples.
 ReSh can also be used to express default values:
 
 \begin{ex}
-:Sith a rs:ResourceShape ;
-    rs:property [
-        rs:name "laserSwordColor" ;
-        rs:propertyDefinition :laserSwordColor ;
-        rs:valueType xsd:string ;
-        rs:defaultValue "red"^^xsd:string
-        rs:occurs rs:Exactly-one ; ] .
+Sith a ResourceShape ;
+    property [
+        name "laserSwordColor" ;
+        propertyDefinition laserSwordColor ;
+        valueType xsd:string ;
+        defaultValue "red"'
+        occurs Exactly-one ; ] .
 \end{ex}
 
 \section{Evaluation}
@@ -699,7 +678,6 @@ We also evaluated if a specific constraint is fulfilled by OWL 2 QL or if the mo
 Inferencing may be performed prior to validating constraints. This is marked with an asterisk. 
 
 We divide these constraints into three classes:
-
 \begin{itemize}
 	\item constraints expressible by OWL 2 QL
 	\item constraints not expressible by OWL 2 QL but by OWL 2 DL
@@ -712,22 +690,20 @@ In order to logically underpin each requirement, we added mappings to DL.
 \textcolor{red}{tables maybe not needed}
 
 \tb{How should we publish this? ordering of author not determined so far}
-
-\an{coloring still to be checked!}
  
 \textbf{Constraints Expressible by OWL 2 QL.}
 
 \begin{evaluation}
-\textcolor{blue}{*Subsumption} & \ding{55} & $\checkmark$ & $\checkmark$ & $\sim$ & $\checkmark$ & $\checkmark$ \\
-\textcolor{blue}{*Class Equivalence} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Sub Properties} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Property Domain} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Property Range} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Inverse Object Properties} & \ding{55} & $\checkmark$ & $\checkmark$ & $\sim$ & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Symmetric Object Properties} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Asymmetric Object Properties} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Reflexive Object Properties} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Irreflexive Object Properties} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+*Subsumption & \ding{55} & $\checkmark$ & $\checkmark$ & $\sim$ & $\checkmark$ & $\checkmark$ \\
+*Class Equivalence & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+*Sub Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+*Property Domain & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+*Property Range & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+*Inverse Object Properties & \ding{55} & $\checkmark$ & $\checkmark$ & $\sim$ & \ding{55} & $\checkmark$ \\
+*Symmetric Object Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+*Asymmetric Object Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+*Reflexive Object Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+*Irreflexive Object Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
 Disjoint Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
 Disjoint Classes & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
 Context-Sp. Property Groups & \ding{55} & $\sim$ & $\sim$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
@@ -735,7 +711,7 @@ Context-Sp. Inclusive OR of P. & \ding{55} & $\sim$ & $\sim$ & & \ding{55} & $\c
 Context-Sp. Inclusive OR of P. Groups & \ding{55} & $\sim$ & $\sim$ & & \ding{55} & $\checkmark$ \\
 Recursive Queries & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\sim$ \\
 Individual Inequality & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Equivalent Properties} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+*Equivalent Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
 Property Assertions & \ding{55} & $\checkmark$ & $\sim$ & \ding{55} & \ding{55} & $\checkmark$ \\
 Data Property Facets & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
 Literal Pattern Matching & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
@@ -745,19 +721,19 @@ Negative Literal Pattern Matching & \ding{55} & $\checkmark$ & $\checkmark$ & & 
 \textbf{Constraints not Expressible by OWL 2 QL but by OWL 2 DL.}
 
 \begin{evaluation}
-\textcolor{blue}{*Object Property Paths} & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Intersection} & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
-\textcolor{blue}{*Disjunction} & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
-\textcolor{blue}{*Negation} & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
-\textcolor{blue}{*Existential Quantification} & \ding{55} & $\checkmark$ & \ding{55} & $\sim$ & $\sim$ & $\checkmark$ \\
-\textcolor{blue}{*Universal Quantification} & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
-\textcolor{blue}{*Minimum Unqualified Cardinality} & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
-\textcolor{blue}{*Minimum Qualified Cardinality} & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
-\textcolor{blue}{*Maximum Unqualified Cardinality} & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
-\textcolor{blue}{*Maximum Qualified Cardinality} & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
-\textcolor{blue}{*Exact Unqualified Cardinality} & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
-\textcolor{blue}{*Exact Qualified Cardinality} & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
-\textcolor{blue}{*Transitive Object Properties} & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+*Object Property Paths & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+*Intersection & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
+*Disjunction & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
+*Negation & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
+*Existential Quantification & \ding{55} & $\checkmark$ & \ding{55} & $\sim$ & $\sim$ & $\checkmark$ \\
+*Universal Quantification & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
+*Minimum Unqualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
+*Minimum Qualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
+*Maximum Unqualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
+*Maximum Qualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
+*Exact Unqualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
+*Exact Qualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
+*Transitive Object Properties & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Context-Sp. Exclusive OR of P. & \ding{55} & $\checkmark$ & \ding{55} & & $\checkmark$ & $\checkmark$ \\
 Context-Sp. Exclusive OR of P. Groups & \ding{55} & $\sim$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
 Allowed Values & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$& $\checkmark$ \\
@@ -768,19 +744,19 @@ Required Properties & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $
 Optional Properties & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
 Repeatable Properties & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
 Negative Property Constraints & \ding{55} & $\checkmark$ & \ding{55} & & $\checkmark$ & $\checkmark$ \\
-\textcolor{blue}{*Individual Equality} & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Functional Properties} & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Inverse-Functional Properties} & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Value Restrictions} & & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
-\textcolor{blue}{*Self Restrictions} & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+*Individual Equality & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+*Functional Properties & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+*Inverse-Functional Properties & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+*Value Restrictions & & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
+*Self Restrictions & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Primary Key Properties & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 \end{evaluation}
 
 \textbf{Constraints Only Expressible by Other DSCLs.}
 
 \begin{evaluation}
-\textcolor{blue}{*Class-Specific Property Range} & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
-\textcolor{blue}{*Class-Sp. Reflexive Object P.} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+*Class-Specific Property Range & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+*Class-Sp. Reflexive Object P. & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Membership in Controlled Vocabularies & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 IRI Pattern Matching & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ \\
 Literal Value Comparison & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ \\
@@ -799,8 +775,8 @@ Conditional Properties & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{5
 Recommended Properties & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Handle RDF Collections & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Value is Valid for Datatype & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Exploiting Class/Property Specialization Ontology Axioms} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Cardinality Shortcuts} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+*Exploiting Class/Property Specialization Ontology Axioms & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+*Cardinality Shortcuts & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
 \end{evaluation}
 
 \section{Related Work}

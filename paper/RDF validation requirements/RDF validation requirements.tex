@@ -1759,11 +1759,11 @@ DSCL (OWL 2):
 :CC1 rdfs:subClassOf [
     a owl:Restriction ;
     owl:onProperty foaf:name ;
-    owl:allValuesFrom xsd:string ] .
+    owl:someValuesFrom xsd:string ] .
 :CC2 rdfs:subClassOf [
     a owl:Restriction ;
     owl:onProperty foaf:givenName ;
-    owl:allValuesFrom xsd:string ] .
+    owl:someValuesFrom xsd:string ] .
 \end{ex}
 
 \begin{itemize}
@@ -1771,8 +1771,8 @@ DSCL (OWL 2):
 \end{itemize}
 
 \begin{DL}
-A $\equiv$ $\forall$ foaf:name . xsd:string \\
-B $\equiv$ $\forall$ foaf:givenName . xsd:string \\ 
+A $\equiv$ $\exists$ foaf:name . xsd:string \\
+B $\equiv$ $\exists$ foaf:givenName . xsd:string \\ 
 Human $\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
 \end{DL}
 
@@ -1815,11 +1815,11 @@ class & Human & - & - & A, B & XOR \\
 :CC1 rdfs:subClassOf [
     a owl:Restriction ;
     owl:onProperty :attackingBySword ;
-    owl:allValuesFrom xsd:boolean ] .
+    owl:someValuesFrom xsd:boolean ] .
 :CC2 rdfs:subClassOf [
     a owl:Restriction ;
     owl:onProperty :attackingByForce ;
-    owl:allValuesFrom xsd:boolean ] .
+    owl:someValuesFrom xsd:boolean ] .
 \end{ex}
 
 \begin{itemize}
@@ -1827,8 +1827,8 @@ class & Human & - & - & A, B & XOR \\
 \end{itemize}
 
 \begin{DL}
-A $\equiv$ $\forall$ :attackingBySword . xsd:boolean \\
-B $\equiv$ $\forall$ :attackingByForce . xsd:boolean \\ 
+A $\equiv$ $\exists$ :attackingBySword . xsd:boolean \\
+B $\equiv$ $\exists$ :attackingByForce . xsd:boolean \\ 
 :FeelingForce $\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
 \end{DL}
 
