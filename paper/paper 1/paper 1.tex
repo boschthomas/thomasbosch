@@ -323,8 +323,6 @@ The three \textbf{main contributions} of this paper are:
 	\item We evaluated to which extend the five possible standard DSCLs fulfill each requirement.
 \end{enumerate}
 
-\tb{ToDo Thomas: paper organization?}
-
 %\textbf{Ideas}
 %
 %\begin{itemize}
@@ -340,7 +338,17 @@ The three \textbf{main contributions} of this paper are:
 	%\item there is no query rewriting mechanism for OWL 2, just for OWL 2 QL
 %\end{itemize}
 
+\textcolor{red}{\textless high-level description of complexity\textgreater}
 
+
+We group each RDF requirement into three complexity classes.
+As case studies are linked to use cases and use cases to requirements, it is known how complex the task is to fulfill use cases and case studies.
+For specific use cases, it can also be determined which of the associated requirements lead to a higher complexity class.
+Imaginable is a system in which use cases can be selected which should be met for particular applications.
+Then, the system determines the complexity class, can point to requirements and constraints causing a higher complexity class,
+and can give hints how to rewrite the constraint in order to stay in a lower complexity class.   
+
+\textcolor{red}{\textless ToDo Thomas: paper organization\textgreater}
 
 \section{RDF Validation Requirements and Reasoning}
 
