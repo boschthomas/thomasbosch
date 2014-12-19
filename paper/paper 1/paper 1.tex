@@ -418,35 +418,7 @@ As a result of its expressive power, OWL 2 DL allows a large variety of sophisti
 \end{itemize}
 }
 
-According to our evaluation of requirements to formulate RDF constraints, we identified three main ways of validating constraints.
-
-\begin{enumerate}
-	\item validation by query answering without reasoning
-	\item validation by query answering with OWL 2 QL reasoning
-	\item validation by query answering with OWL 2 DL reasoning
-\end{enumerate}
-
-The next table gives an overview of the computational complexity for RDF validation when it is performed -with and without reasoning. 
-
-\begin{complexity}
-validation by query answering without reasoning & \textsc{Pspace}-Complete \\
-validation by query answering with OWL 2 QL reasoning & \textsc{Ptime} \\
-validation by query answering with OWL 2 DL reasoning & \textsc{N2exptime} \\
-\end{complexity}
-
-What is considered by rdf validation w/o reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on \textit{DL-Lite} family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
-
-\textcolor{red}{at least 1 example for each class}
-
-\tb{ToDo: venn diagram: expressivity classes missing / associate DSCLs with classes}
-
-Figure~\ref{fig:VennDiagram}.  
-\begin{figure}
-	\centering
-		\includegraphics[width=0.60\textwidth]{venn-diagram.jpg}
-	\caption{Complexity and Expressivity Classes}
-	\label{fig:VennDiagram}
-\end{figure}
+\subsection{Classification Dimension Expressivity}
 
 We evaluated to which extend the five possible standard constraint languages fulfill each requirement to formulate RDF constraints.
 Tilde means that this constraint may be fulfilled by that particular constraint language - either by limitations, workarounds, or extensions.
@@ -462,8 +434,6 @@ We divide these constraints into three classes:
 
 Bosch et al.\footnote{\url{https://github.com/boschthomas/rdf-validation-research/paper}} explained each requirement and associated constraint in detail and give at least one example for each of them\cite{BoschNolleAcarEckert2015}.
 In order to logically underpin each requirement, we added mappings to DL.  
-
-\textcolor{red}{tables maybe not needed}
 
 \tb{How should we publish this? ordering of author not determined so far}
  
@@ -554,6 +524,46 @@ Value is Valid for Datatype & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \d
 *Exploiting Class/Property Specialization Ontology Axioms & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 *Cardinality Shortcuts & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
 \end{evaluation}
+
+\subsection{Classification Dimension Complexity}
+
+According to our evaluation of requirements to formulate RDF constraints, we identified three main ways of validating constraints.
+
+\begin{enumerate}
+	\item validation by query answering without reasoning
+	\item validation by query answering with OWL 2 QL reasoning
+	\item validation by query answering with OWL 2 DL reasoning
+\end{enumerate}
+
+The next table gives an overview of the computational complexity for RDF validation when it is performed -with and without reasoning. 
+
+\begin{complexity}
+validation by query answering without reasoning & \textsc{Pspace}-Complete \\
+validation by query answering with OWL 2 QL reasoning & \textsc{Ptime} \\
+validation by query answering with OWL 2 DL reasoning & \textsc{N2exptime} \\
+\end{complexity}
+
+What is considered by rdf validation w/o reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on \textit{DL-Lite} family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
+
+\subsection{Classification Dimension User-Friendliness}
+
+as we cannot measure  user-friendliness we could divide the DSCLs into 2 classes:
+high-level
+low-level
+
+You cannot formally measure user-friendliness as in the case of expressivity and complexity. However I mentioned it, since when Kai had introduced me the idea of this collaboration, it was the first thing he had mentioned : ``Sparql is cumbersome or not friendly while languages like SPIN, DSP, Shex are from validation point of view". I don't mean that this must come forward as one of the main points in the paper, but in one of those introductory paragraphs it can be told. We can also informally, time to time, touch this the paper, e.g., "In the case of rather user friendly languages like blabla etc.", since this is also something that ppl might care about. (If this is not too obvious or verbose to  RDF validating guys or some other guys)
+
+\subsection{Overall Classification}
+
+\tb{ToDo: venn diagram: expressivity classes missing / associate DSCLs with classes}
+
+Figure~\ref{fig:VennDiagram}.  
+\begin{figure}
+	\centering
+		\includegraphics[width=0.60\textwidth]{venn-diagram.jpg}
+	\caption{Complexity and Expressivity Classes}
+	\label{fig:VennDiagram}
+\end{figure}
 
 \section{RDF validation requirements}
 
