@@ -165,7 +165,7 @@
 %                                     also used for the TOC unless
 %                                     \toctitle is used
 %
-\author{Thomas Bosch\inst{1} \and XXXXX\inst{2} \and XXXXX\inst{2} \and Kai Eckert\inst{3}}
+\author{Thomas Bosch\inst{1} \and Erman Acar\inst{2} \and XXXXX\inst{3} \and Kai Eckert\inst{2}}
 %
 \authorrunning{XXXXX} % abbreviated author list (for running head)
 %
@@ -173,11 +173,11 @@
 \institute{GESIS – Leibniz Institute for the Social Sciences, Germany\\
 \email{thomas.bosch@gesis.org},\\ 
 \and
+University of Mannheim, Germany \\
+\email{\{erman,kai\}@informatik.uni-mannheim.de} 
+\and
 XXXXX \\
 \email{XXXXX}
-\and
-University of Mannheim, Germany \\
-\email{kai@informatik.uni-mannheim.de} 
 }
 
 \maketitle              % typeset the title of the contribution
@@ -433,7 +433,37 @@ As a result of its expressive power, OWL 2 DL allows a large variety of sophisti
 \end{itemize}
 }
 
-\subsection{Classification Dimension Expressivity}
+
+According to our evaluation of requirements to formulate RDF constraints, we identified three main ways of validating constraints.
+
+\begin{enumerate}
+	\item validation by query answering without reasoning
+	\item validation by query answering with OWL 2 QL reasoning
+	\item validation by query answering with OWL 2 DL reasoning
+\end{enumerate}
+
+The next table gives an overview of the computational complexity for RDF validation when it is performed -with and without reasoning. 
+
+\begin{complexity}
+validation by query answering without reasoning & \textsc{Pspace}-Complete \\
+validation by query answering with OWL 2 QL reasoning & \textsc{Ptime} \\
+validation by query answering with OWL 2 DL reasoning & \textsc{N2exptime} \\
+\end{complexity}
+
+What is considered by rdf validation w/o reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on \textit{DL-Lite} family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
+
+\textcolor{red}{at least 1 example for each class}
+
+\tb{ToDo: venn diagram: expressivity classes missing / associate DSCLs with classes}
+
+Figure~\ref{fig:VennDiagram}.  
+\begin{figure}
+	\centering
+		\includegraphics[width=0.80\textwidth]{complexiity_and_expressivity.png}
+	\caption{Complexity and Expressivity Classes}
+	\label{fig:VennDiagram}
+\end{figure}
+
 
 We evaluated to which extend the five possible standard constraint languages fulfill each requirement to formulate RDF constraints.
 Tilde means that this constraint may be fulfilled by that particular constraint language - either by limitations, workarounds, or extensions.
