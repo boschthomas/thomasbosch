@@ -150,19 +150,19 @@
 %                                     also used for the TOC unless
 %                                     \toctitle is used
 %
-\author{XXXXX\inst{1} \and XXXXX\inst{2} \and XXXXX\inst{4} \and XXXXX\inst{3}}
+\author{Thomas Bosch\inst{1} \and XXXXX\inst{2} \and XXXXX\inst{2} \and Kai Eckert\inst{3}}
 %
 \authorrunning{XXXXX} % abbreviated author list (for running head)
 %
 %%%% list of authors for the TOC (use if author list has to be modified)
-\institute{XXXXX\\
-\email{XXXXX},\\ 
+\institute{GESIS – Leibniz Institute for the Social Sciences, Germany\\
+\email{thomas.bosch@gesis.org},\\ 
 \and
 XXXXX \\
 \email{XXXXX}
 \and
-XXXXX \\
-\email{XXXXX} 
+University of Mannheim, Germany \\
+\email{kai@informatik.uni-mannheim.de} 
 }
 
 \maketitle              % typeset the title of the contribution
@@ -173,8 +173,6 @@ XXXXX \\
 \keywords{RDF Validation, RDF Constraints, OWL 2 QL, OWL 2 DL, Reasoning, RDF Validation Requirements, Linked Data, Semantic Web}
 \end{abstract}
 %
-
-\tb{only star wars examples / best: 1 running example}
 
 \section{Introduction}
 
@@ -197,20 +195,6 @@ Resource Shapes (ReSh)\footnote{\url{http://www.w3.org/Submission/shapes/}},
 and Description Set Profiles (DSP)\footnote{\url{http://dublincore.org/documents/2008/03/31/dc-dsp/}}.
 However, there is no single standard DSCL to express any constraint for each purpose.
 The choice depends on the individual use case.
-
-SPARQL is generally seen as the method of choice to validate RDF data according to certain constraints, although it is not ideal for their formulation. 
-In contrast, OWL 2 DL constraints are comparatively easy to understand, but lack an implementation to validate RDF data. 
-\an{IMHO this should be decribed more precisely because validation in terms of inconsistency detection is still available, not sure about the completeness for OWL 2 DL}
-\tb{Andy, can you write a short paragraph about inconsistency detection? Sounds interesting!}
-Bosch and Eckert\cite{BoschEckert2014-2} use SPIN as basis to define a
-validation environment in which DSCLs can be implemented by representing them in SPARQL. 
-The implementation of the DSCLs is fully declarative,
-consisting of a SPIN mapping in RDF in form of SPARQL
-CONSTRUCT queries – which can also be represented in RDF using SPIN. 
-Within the SPIN validation environment, we fully implemented an automatic validation of all OWL 2 DL constructs. 
-\an{you should mention at this point that this validation is in terms of RDF validation, because inconsistency can't be done completely}
-The implementation can be tested at \url{http://purl.org/net/rdfval-demo} and
-the OWL 2 SPIN mapping is maintained at \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}.
 
 \section{Motivation}
 
@@ -423,7 +407,7 @@ Figure~\ref{fig:VennDiagram}.
 
 \subsection{OWL 2 QL Reasoning}
 
-OWL 2 profiles (or fragments in logic literature) are restricted (sublanguage) versions of OWL 2 that offers different trade-offs regarding expressivity  vs. efficiency in reasoning. There are three main  profiles of OWL 2, which are OWL 2 QL, OWL 2 RL and OWL 2 EL namely, each designed to  be useful for different purposes and application scenarios. The choice of which profile to use is purpose-specific on what to express and to perform the reasoning about. We refer reader to \cite{owl2profiles2008} for a comprehensive treatment of those profiles. 
+OWL 2 profiles (or fragments in logic literature) are restricted (sublanguage) versions of OWL 2 that offer different trade-offs regarding expressivity  vs. efficiency in reasoning. There are three main  profiles of OWL 2, which are OWL 2 QL, OWL 2 RL and OWL 2 EL namely, each designed to  be useful for different purposes and application scenarios. The choice of which profile to use is purpose-specific on what to express and to perform the reasoning about. We refer reader to \cite{owl2profiles2008} for a comprehensive treatment of those profiles. 
 
 OWL 2 QL is an OWL 2 profile which focuses on reasoning on query answering with very large size of instance data. The acronym QL stands for query language as query answering in this profile can be done by rewriting queries into a standard relational query language (also known as First-Order Rewritability). Also, conjunctive query answering can be done by using conventional relational database systems. Aiming at efficiency on working with large size data, the expressive power of the profile is quite limited as expected. As a result of this, reasoning in OWL 2 QL is highly efficient so that sound and complete conjunctive query answering can be performed in \textsc{LogSpace} in the size of the data assertions as well as  the ontology consistency and class expression subsumption can be performed in polynomial time.
 
@@ -481,9 +465,7 @@ the World Wide Web Consortium (W3C) in 2009 (and updated in 2012) as a
 description logic-like formalism.  OWL 2 DL has high expressivity, yet maintains  decidability for main reasoning tasks e.g., ontology satisability, 
 entailment checking. The drawback of its expressive power results as a lack of computational efficiency in performance. In general, reasoning in OWL 2 DL is in \textsc{N2exptime} \cite{owl2profiles2008}. 
 
-As a result of its expressive power, OWL 2 DL allows a large variety of sophisticated modeling capabilities for many application domains.  On the other hand, to maintain the decidability, OWL 2 DL has a numerous ways of syntactic restrictions. One example is that OWL 2 DL allows  expressing transitive properties as well as asymmetric properties, yet a property to be both transitive and asymmetric (just as ancestor relation) is not allowed. In the sequel, from RDF validation perspective, we will give some examples of constraints that remains at the outside of its scope. 
-
-
+As a result of its expressive power, OWL 2 DL allows a large variety of sophisticated modeling capabilities for many application domains.  On the other hand, to maintain the decidability, OWL 2 DL has a numerous ways of syntactic restrictions. One example is that OWL 2 DL allows  expressing transitive properties as well as asymmetric properties, yet a property to be both transitive and asymmetric (just as ancestor relation) is not allowed. In the sequel, from RDF validation perspective, we will give some examples of constraints that remain at the outside of its scope. 
 
 \textbf{Existential Quantification}\footnote{corresponds to R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}\textbf{.}
 
@@ -785,6 +767,24 @@ Value is Valid for Datatype & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \d
 *Exploiting Class/Property Specialization Ontology Axioms & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 *Cardinality Shortcuts & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
 \end{evaluation}
+
+\section{Implementation}
+
+SPARQL is generally seen as the method of choice to validate RDF data according to certain constraints, although it is not ideal for their formulation. 
+In contrast, OWL 2 DL constraints are comparatively easy to understand, but lack an implementation to validate RDF data. 
+\an{IMHO this should be described more precisely because validation in terms of inconsistency detection is still available, not sure about the completeness for OWL 2 DL}
+\tb{Andy, can you write a short paragraph about inconsistency detection? Sounds interesting!}
+Bosch and Eckert\cite{BoschEckert2014-2} use SPIN as basis to define a
+validation environment in which DSCLs can be implemented by representing them in SPARQL. 
+The implementation of the DSCLs is fully declarative,
+consisting of a SPIN mapping in RDF in form of SPARQL
+CONSTRUCT queries – which can also be represented in RDF using SPIN. 
+Within the SPIN validation environment, we fully implemented an automatic validation of all OWL 2 DL constructs. 
+\an{you should mention at this point that this validation is in terms of RDF validation, because inconsistency can't be done completely}
+The implementation can be tested at \url{http://purl.org/net/rdfval-demo} and
+the OWL 2 SPIN mapping is maintained at \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}.
+
+\textcolor{red}{extensions to validator}
 
 \section{Related Work}
 
