@@ -246,15 +246,15 @@ http://svn.aksw.org/papers/2014/WWW\_Databugger/public.pdf
 
 %\tb{Andy, we want to use only star wars examples in our paper. We need 1 example showing the differences between OWA / CWA and /UNA / nUNA. You may reuse star wars examples which are already in the paper.}
 
-Let us address the CWA vs. OWA via an example. Consider the knowledge base  $\mathcal{K} = \{Person \sqsubseteq \exists hasAncestor.Person, Person(Luke)\}$. In case of OWA, we know that $Luke$ has $Ancestor$, but we do not know all of them. Notice that $\mathcal{K}$ is consistent. In CWA however, the constraint needs to be satisfied only by named individuals which yields in return some validation errors.\\
+Let us address the CWA vs. OWA via an example. Consider the knowledge base  $\mathcal{K} = \{\ms{Person} \sqsubseteq \exists \ms{hasAncestor.Person}, \ms{Person(Luke)}\}$. In case of OWA, we know that $\ms{Luke}$ has $\ms{Ancestor}$, but we do not know all of them. Notice that $\mathcal{K}$ is consistent. In CWA however, the constraint needs to be satisfied only by named individuals which yields in return some validation errors.\\
 Consider the following case in CWA. 
 \begin{eqnarray*}
-\mathcal{K} &=  & \{Person \sqsubseteq \exists hasAncestor.Person, \\
- &&(\textbf{funct }  hasAncestor),\\  && Person(Luke),\\ && hasAncestor(Luke, Anakin),\\  && hasAncestor(Anakin, Shmi)\}
+\mathcal{K} &=  & \{\ms{Person} \sqsubseteq \exists \ms{hasAncestor.Person}, \\
+ &&(\ms{funct }  \ms{hasAncestor}),\\  && \ms{Person(Luke)},\\ && \ms{hasAncestor(Luke, Anakin)},\\  && \ms{hasAncestor(Anakin, Shmi)}\}
 \end{eqnarray*}
 
-\noindent Now, observe that there is a clash because of the functional role $hasAncestor$ and the UNA. However, in OWA there is no UNA by default, therefore the reasoning will conclude that  $Anakin$ to be the same individual with $Shmi$ ($Anakin \equiv Shmi$). Notice that this is not a problem if we add UNA to the OWA, like in the \textit{DL-Lite} family.
-Another point is that, if we perform RDF validation without reasoning, we will get a further clash: $Anakin$ is not defined to be a $Person$. On the other hand, if we do the validation after the reasoning, then there is no clash since $Person(Anakin)$ is inferred. 
+\noindent Now, observe that there is a clash because of the functional role $\ms{hasAncestor}$ and the UNA. However, in OWA there is no UNA by default, therefore the reasoning will conclude that  $\ms{Anakin}$ to be the same individual with $\ms{Shmi (Anakin} \equiv \ms{Shmi}$). Notice that this is not a problem if we add UNA to the OWA, like in the \textit{DL-Lite} family.
+Another point is that, if we perform RDF validation without reasoning, we will get a further clash: $\ms{Anakin}$ is not defined to be a $\ms{Person}$. On the other hand, if we do the validation after the reasoning, then there is no clash since $\ms{Person(Anakin)}$ is inferred. 
 
 %\begin{itemize}
 	%\item explain why specific OWL 2 constructs could be used for RDF validation 
