@@ -779,10 +779,10 @@ In contrast, OWL 2 DL constraints are comparatively easy to understand, but lack
 \an{IMHO this should be described more precisely because validation in terms of inconsistency detection is still available, not sure about the completeness for OWL 2 DL}
 \tb{Andy, can you write a short paragraph about inconsistency detection? Sounds interesting!}
 Bosch and Eckert\cite{BoschEckert2014-2} use SPIN as basis to define a
-validation environment in which DSCLs can be implemented by representing them in SPARQL. 
-The implementation of the DSCLs is fully declarative,
-consisting of a SPIN mapping in RDF in form of SPARQL
-CONSTRUCT queries – which can also be represented in RDF using SPIN. 
+validation environment in which the validation of any DSCL\footnote{the only limitation is that DSCLs must be represented in RDF} can be implemented by representing them in SPARQL. 
+The validation implementation of DSCLs is fully declarative,
+consisting of a mapping from a DSCL to SPIN in form of SPARQL CONSTRUCT queries.
+SPIN represents both the SPIN mappings and the SPARQL queries in RDF. 
 Within the SPIN validation environment, we fully implemented an automatic validation of all OWL 2 DL constructs. 
 \an{you should mention at this point that this validation is in terms of RDF validation, because inconsistency can't be done completely}
 The implementation can be tested at \url{http://purl.org/net/rdfval-demo} and
