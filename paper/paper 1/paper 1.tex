@@ -137,6 +137,21 @@
   \linebreak
 }
 
+\newenvironment{user-fiendliness}{
+  \scriptsize
+  \sffamily
+  \vspace{0.3cm}
+  \begin{tabular}{l|c|c|c|c|c}
+  \hline
+  \textbf{criterion} & \textbf{DSP} & \textbf{OWL2} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\
+  \hline
+
+}{
+  \hline
+  \end{tabular}
+  \linebreak
+}
+
 \setcounter{secnumdepth}{5}
 
 \begin{document}
@@ -577,11 +592,23 @@ What is considered by rdf validation w/o reasoning, corresponds to performing SP
 
 \subsection{Classification Dimension User-Friendliness}
 
-as we cannot measure  user-friendliness we could divide the DSCLs into 2 classes:
-high-level
-low-level
+We cannot formally measure the user-friendliness of DSCLs as in the case of expressivity and complexity. 
 
-You cannot formally measure user-friendliness as in the case of expressivity and complexity. However I mentioned it, since when Kai had introduced me the idea of this collaboration, it was the first thing he had mentioned : ``Sparql is cumbersome or not friendly while languages like SPIN, DSP, Shex are from validation point of view". I don't mean that this must come forward as one of the main points in the paper, but in one of those introductory paragraphs it can be told. We can also informally, time to time, touch this the paper, e.g., "In the case of rather user friendly languages like blabla etc.", since this is also something that ppl might care about. (If this is not too obvious or verbose to  RDF validating guys or some other guys)
+Rather subjective criteria to determine if a DSCL is user-friendliness are:
+
+\begin{itemize}
+	\item constraint formulation level: low-level vs. high-level
+	\item intuitiveness: not intuitive $<$ less intuitive $<$ intuitive
+	\item conciseness: not concise $<$ less concise $<$ concise
+\end{itemize}
+
+\begin{user-fiendliness}
+level & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & \ding{55} \\
+intuitiveness & $\sim$ & $\sim$ & $\sim$ & $\checkmark$ & \ding{55} \\
+conciseness & $\sim$ & $\checkmark$ & $\sim$ & $\checkmark$ & \ding{55} \\
+\end{user-fiendliness}
+
+\textcolor{red}{examples for each criterion}
 
 \subsection{Overall Classification}
 
