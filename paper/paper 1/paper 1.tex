@@ -437,6 +437,33 @@ As a result of its expressive power, OWL 2 DL allows a large variety of sophisti
 
 \subsection{Classification Dimension Expressivity}
 
+There are no reserved words for expressivity like LOGSPACE for complexity in computational logic.
+For expressivity, we need to define our own reserved words.
+
+SPARQL is the most (without reasoning) expressive DSCL
+
+we also want to take reasoning capabilities into account
+
+2 expressivity classes: Expressivity 1 (need to name expressivity classes)
+one with reasoning let's say constraints and 1 without
+
+OWL 2 DL is more expressive for the first class
+
+as we have all relevant RDF constraints in our evaluation considered
+we have here the full expressive power
+
+one can use it as functional style like
+Expr(ShEx) $\subset$ Expr(SPIN)
+partial ordering, not necessarily total
+maybe two of such Expr. class are not comparable
+
+so this depends on the use case
+when i want to use reasoning I can use these DSCL when I need to express these constraints
+
+and this can be perfectly integrated in a tool
+
+---
+
 We evaluated to which extend the five possible standard constraint languages fulfill each requirement to formulate RDF constraints.
 Tilde means that this constraint may be fulfilled by that particular constraint language - either by limitations, workarounds, or extensions.
 We also evaluated if a specific constraint is fulfilled by OWL 2 QL or if the more expressive OWL 2 DL is needed. 
