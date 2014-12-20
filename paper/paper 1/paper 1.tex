@@ -479,40 +479,47 @@ We also evaluated if a specific requirement is covered by OWL 2 QL or if the mor
 
 \subsection{Classification Dimension Expressivity}
 
-There are no reserved words for expressivity like LOGSPACE for complexity in computational logic.
-For the expressivity of DSCLs, we need to define our own reserved words.
+There are no reserved words for expressivity of DSCLs like LOGSPACE for complexity in computational logic.
+As a consequence, for the expressivity of DSCLs, we need to define our own reserved words.
+As we want to be able to perform reasoning before actually validating the data, we identified four RDF validation expressivity classes, 
+which we define as follows: 
 
+\begin{itemize}
+	\item \ms{ExprR-OWL2QL}: OWL 2 QL reasoning axioms
+	\item \ms{ExprR-OWL2DL}: OWL 2 DL reasoning axioms
+	\item \ms{ExprR}: reasoning constraints not supported by OWL
+	\item \ms{ExprC}: constraints without reasoning
+\end{itemize}
 
+\ms{ExprR-OWL2QL} axioms can be expressed by other DSCLs than OWL 2, although, there is no reasoning implementation available yet.
 
 \begin{evaluation}
-OWL 2 QL reasoning axioms (11) & & & & & & \\
-OWL 2 DL reasoning axioms (18) & & & & & & \\
+OWL 2 QL reasoning axioms (11) & 0 & 11 & 11 & 0(2) & 1 & 11 \\
+OWL 2 DL reasoning axioms (18) & 7 & 18 & 0 & 9 & 8(1) & 18 \\
 reasoning constraints not supported by OWL 2 (4) & 1 & 0 & 0 & 2 & 2 & 4 \\ 
-constraints without reasoning (41) & & & & & \\
+constraints without reasoning (41) & 6 & 18(4) & 7(4) & 8 & 12 & 40(1)\\
 \end{evaluation}
 
-The total amount of constraints/axioms is indicated by numbers in round brackets. 
-OWL 2 DL reasoning axioms indicate additional reasoning axioms which cannot be expressed by OWL 2 QL. 
+The total amount of constraints/axioms is indicated by numbers in round brackets in the first column.
+Numbers in round brackets in the other columns indicate the number of constraints/axioms which may be expressed by that particular DSCL - either by limitations, workarounds, or extensions.  
+OWL 2 DL reasoning axioms are additional reasoning axioms which cannot be expressed by OWL 2 QL. 
 OWL 2 QL reasoning axioms are not included in the total amount of OWL 2 DL reasoning axioms.
-There are some reasoning constraints which cannot be expressed by OWL 2 such as class-specific property ranges and class-specific reflexive object properties.
+There are some reasoning axioms which cannot be expressed by OWL 2 such as class-specific property ranges and class-specific reflexive object properties.
 
-%SPARQL is the most (without reasoning) expressive DSCL
+Partial (not necessarily total) orderings are:
+
+\begin{itemize}
+	\item ExprC: DSP $\subset$ OWL2-QL $\subset$ ReSh $\subset$ ShEx $\subset$ OWL2-DL $\subset$ SPIN
+\end{itemize}
+
+\begin{itemize}
+	\item SPARQL is the most (without reasoning) expressive DSCL
+\end{itemize}
+
 %
 %we also want to take reasoning capabilities into account
 %
-%2 expressivity classes: Expressivity 1 (need to name expressivity classes)
-%one with reasoning let's say constraints and 1 without
-%
-%OWL 2 DL is more expressive for the first class
-%
-%as we have all relevant RDF constraints in our evaluation considered
-%we have here the full expressive power
-%
-%one can use it as functional style like
-%Expr(ShEx) $\subset$ Expr(SPIN)
-%partial ordering, not necessarily total
-%maybe two of such Expr. class are not comparable
-%
+
 %so this depends on the use case
 %when i want to use reasoning I can use these DSCL when I need to express these constraints
 %
