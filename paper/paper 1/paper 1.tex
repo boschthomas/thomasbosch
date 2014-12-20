@@ -189,6 +189,8 @@ The DBLP Computer Science Bibliography \\
 \end{abstract}
 %
 
+\tb{ToDo: we need table captions, to refer to tables, and tables centered}
+
 \section{Possible Titles}
 
 keywords as part of the title
@@ -465,7 +467,7 @@ The constraint \ms{Context-Specific Exclusive OR of Properties} (see section~\re
 \begin{eqnarray*}
 C \sqsubseteq (\neg A \sqcap B) \sqcup (A \sqcap \neg B) \\
 A \equiv \exists a . D \\
-B \equiv \exists b . E \\ 
+B \equiv \exists b . E  
 \end{eqnarray*}
 As this constraint is a complex constraint (constructed out of multiple complex and simple constraints), 
 the constraint's expressivity is calculated as the expressivity of the individual constraints used to express the complex constraint.
@@ -485,19 +487,24 @@ As we want to be able to perform reasoning before actually validating the data, 
 which we define as follows: 
 
 \begin{itemize}
-	\item \ms{ExprR-OWL2QL}: OWL 2 QL reasoning axioms
-	\item \ms{ExprR-OWL2DL}: OWL 2 DL reasoning axioms
-	\item \ms{ExprR}: reasoning constraints not supported by OWL
-	\item \ms{ExprC}: constraints without reasoning
+	\item \ms{Expr-R-OWL2-QL}: OWL 2 QL reasoning axioms
+	\item \ms{Expr-R-OWL2-DL}: OWL 2 DL reasoning axioms
+	\item \ms{Expr-R}: reasoning constraints not supported by OWL
+	\item \ms{Expr-C}: constraints without reasoning
 \end{itemize}
 
-\ms{ExprR-OWL2QL} axioms can be expressed by other DSCLs than OWL 2, although, there is no reasoning implementation available yet.
+Reasoning axioms can be used for its original purpose to infer new triples out of explicitly stated triples (see section \ref{sec:rdf-validation-requirements-and-reasoning}), but also to express constraints.
+If in our knowledge base it is stated that \ms{DarthVader} is a \ms{Sith} (\ms{Sith(DarthVader)}) and that Siths feel the force of the dark side (\ms{Sith $\sqsubseteq$ FeelingForceDarkSide}), it is either possible to infer that \ms{DarthVader} feels the force of the dark side (\ms{FeelingForceDarkSide(DarthVader)}) 
+or to check if this class assignment is explicitly stated in the data without reasoning.  
+
+Although, there are no reasoning implementations for other DSCLs than OWL 2 available yet, 
+reasoning axioms cannot only be expressed by OWL 2.
 
 \begin{evaluation}
-OWL 2 QL reasoning axioms (11) & 0 & 11 & 11 & 0(2) & 1 & 11 \\
-OWL 2 DL reasoning axioms (18) & 7 & 18 & 0 & 9 & 8(1) & 18 \\
-reasoning constraints not supported by OWL 2 (4) & 1 & 0 & 0 & 2 & 2 & 4 \\ 
-constraints without reasoning (41) & 6 & 18(4) & 7(4) & 8 & 12 & 40(1)\\
+\ms{Expr-R-OWL2-QL} (11) & 0 & 11 & 11 & 0(2) & 1 & 11 \\
+\ms{Expr-R-OWL2-DL} (18) & 7 & 18 & 0 & 9 & 8(1) & 18 \\
+\ms{Expr-R} (4) & 1 & 0 & 0 & 2 & 2 & 4 \\ 
+\ms{Expr-C} (41) & 6 & 18(4) & 7(4) & 8 & 12 & 40(1)\\
 \end{evaluation}
 
 The total amount of constraints/axioms is indicated by numbers in round brackets in the first column.
@@ -507,23 +514,14 @@ OWL 2 QL reasoning axioms are not included in the total amount of OWL 2 DL reaso
 There are some reasoning axioms which cannot be expressed by OWL 2 such as class-specific property ranges and class-specific reflexive object properties.
 
 Partial (not necessarily total) orderings are:
-
-\begin{itemize}
-	\item ExprC: DSP $\subset$ OWL2-QL $\subset$ ReSh $\subset$ ShEx $\subset$ OWL2-DL $\subset$ SPIN
-\end{itemize}
-
-\begin{itemize}
-	\item SPARQL is the most (without reasoning) expressive DSCL
-\end{itemize}
-
-%
-%we also want to take reasoning capabilities into account
-%
-
-%so this depends on the use case
-%when i want to use reasoning I can use these DSCL when I need to express these constraints
-%
-%and this can be perfectly integrated in a tool
+\begin{eqnarray*}
+\ms{Expr-R-OWL2-QL}: DSP \subset ReSh \subset ShEx \subset SPIN \subseteq OWL2-QL \subseteq OWL2-DL \\
+\ms{Expr-R-OWL2-DL}: OWL2-QL \subset DSP \subset ShEx \subset ReSh \subset SPIN \subseteq OWL2-DL \\
+\ms{Expr-R}: OWL2-QL \subseteq OWL2-DL \subset DSP \subset ReSh \subseteq ShEx \subset SPIN \\
+\ms{Expr-C}: DSP \subset OWL2-QL \subset ReSh \subset ShEx \subset OWL2-DL \subset SPIN
+\end{eqnarray*}
+It depends on the use case which DSCL to use to fulfill related requirements, i.e. to express associated constraints.
+If, for instance, OWL2-QL reasoning is needed the DSCLs OWL2-QL, OWL2-DL, or SPIN are the most expressive ones.
 
 \subsection{Classification Dimension Complexity}
 
@@ -555,12 +553,16 @@ Rather subjective criteria to determine if a DSCL is user-friendliness are:
 	\item constraint formulation level: low-level vs. high-level
 	\item intuitiveness: not intuitive $<$ less intuitive $<$ intuitive
 	\item conciseness: not concise $<$ less concise $<$ concise
+	\item adoption: less adopted $<$ well adopted 
 \end{itemize}
+
+\ms{Adoption} indicates if a DSCL is well known and adopted in practice.
 
 \begin{user-fiendliness}
 level & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & \ding{55} \\
 intuitiveness & $\sim$ & $\sim$ & $\sim$ & $\checkmark$ & \ding{55} \\
 conciseness & $\sim$ & $\checkmark$ & $\sim$ & $\checkmark$ & \ding{55} \\
+adoption & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
 \end{user-fiendliness}
 
 \textcolor{red}{examples for each criterion}
@@ -575,6 +577,8 @@ Figure~\ref{fig:VennDiagram}.
 	\label{fig:VennDiagram}
 \end{figure}
 
+\tb{adapt venn diagramm: expressivity classes, DSCL ordering, user-fiendliness}
+
 \section{RDF validation requirements}
 
 \textcolor{red}{
@@ -585,6 +589,7 @@ Figure~\ref{fig:VennDiagram}.
 }
 
 \subsection{RDF Validation Requirements and Reasoning}
+\label{sec:rdf-validation-requirements-and-reasoning}
 
 \tb{ToDO Thomas: RDF Validation Requirements and Inferencing}
 
@@ -840,7 +845,14 @@ Within the validation environment, we fully implemented an automatic validation 
 The implementation can be tested at \url{http://purl.org/net/rdfval-demo} and
 the OWL 2 SPIN mapping is maintained at \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}.
 
-\textcolor{red}{extensions to validator}
+The developed DSCL classification according to the three dimensions expressivity, complexity, and user-friendliness leads to many possible extensions of the RDF validator and similar validation systems.
+Users may choose if they wish to execute reasoning as a pre-validation step and which reasoning axioms they want to use to express their inference rules.
+They may also select which constraints they need for their use cases.
+
+As we defined an ordering of DSCLs for each expressivity class, we assigned reasoning axioms and constraints to complexity classes, we evaluated DSCLs regarding multiple user-friendliness criteria, the validator can provide a list of DSCLs for which the expressivity is enough to express the wished constraints and axioms.
+The validator can also recommend a DSCL of that list whose user-friendliness is evaluated to be the highest according to the user-friendliness criteria.
+As reasoning may cause high complexity, the validator may show which axioms from the user's selection cause the determined complexity class 
+and it may provide solutions how to get to the next lower complexity class.
 
 \section{Related Work}
 
@@ -859,6 +871,8 @@ However, this OWL IC semantics was never submitted to a standards organization.
 \begin{itemize}
 	\item Clark Parsia had previously proposed the ICV semantics for OWL, but this was not submitted to W3C.
 \end{itemize}
+
+\tb{ToDo for Andy: validation in terms of inconsistency detection}
 
 \section{Conclusion and Future Work}
 
