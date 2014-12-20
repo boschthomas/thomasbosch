@@ -439,7 +439,7 @@ entailment checking. The drawback of its expressive power results as a lack of c
 
 As a result of its expressive power, OWL 2 DL allows a large variety of sophisticated modeling capabilities for many application domains.  On the other hand, to maintain the decidability, OWL 2 DL has a numerous ways of syntactic restrictions. One example is that OWL 2 DL allows  expressing transitive properties as well as asymmetric properties, yet a property to be both transitive and asymmetric (just as ancestor relation) is not allowed. In the sequel, from RDF validation perspective, we will give some examples of constraints that remain at the outside of its scope. 
 
-\section{Classification of RDF Constraints and DSCLs according to Expressivity and Complexity}
+\section{Classification of RDF Constraints and DSCLs according to Expressivity, Complexity, and User-Friendliness}
 
 \textcolor{red}{
 \begin{itemize}
@@ -458,27 +458,22 @@ As a result of its expressive power, OWL 2 DL allows a large variety of sophisti
 %\end{itemize}
 
 The W3C and DCMI WGs identified in total 74 requirements to formulate RDF constraints\footnote{Two of this paper's authors are actively contributing to these WGs and the process deriving requirements from case studies and use cases is still ongoing.}.
-Bosch et al.\footnote{available at: \url{https://github.com/boschthomas/rdf-validation-research/paper}} explained each requirement in detail and give at least one example for each of them expressed by different DSCLs.
-We added mappings to DL in order to logically underpin each requirement and in order to determine which DL constructs are needed to express each associated constraint.
-When we know he DL constructs needed to express a particular constraint, we can determine the needed expressivity and the complexity. 
-
+Bosch et al.\footnote{available at: \url{https://github.com/boschthomas/rdf-validation-research/paper}} explained each requirement in detail and give at least one example for each of them represented by different DSCLs.
+We added mappings to DL in order to logically underpin each requirement and in order to determine which DL constructs are needed to express each constraint.
+When the DL constructs, needed to express a particular constraint, are known, the expressivity and the complexity of this constraint can be determined. 
 The constraint \ms{Context-Specific Exclusive OR of Properties} (see section~\ref{sec:rdf-validation-requirements-without-reasoning-2}), for example, can generically be expressed as follows:
 \begin{eqnarray*}
 C \sqsubseteq (\neg A \sqcap B) \sqcup (A \sqcap \neg B) \\
-A \equiv \exists <property A> . <range> \\
-B \equiv \exists <property A> . <range> \\ 
+A \equiv \exists a . D \\
+B \equiv \exists b . E \\ 
 \end{eqnarray*}
 As this constraint is a complex constraint (constructed out of multiple complex and simple constraints), 
 the constraint's expressivity is calculated as the expressivity of the individual constraints used to express the complex constraint.
-The DL constructs \ms{property inclusion}, \ms{complement}, \ms{intersection}, \ms{union}, \ms{existential restriction} are used to express this constraint.  
+The DL constructs \ms{property inclusion}, \ms{complement}, \ms{intersection}, \ms{union}, and \ms{existential restriction} are used to express this constraint.  
 As existential restrictions are part of OWL 2 DL reasoning, the constraint's complexity is \textsc{N2exptime}.
  
 We evaluated to which extend the most promising five DSCLs fulfill each requirement.
-Tilde means that this constraint may be fulfilled by that particular constraint language - either by limitations, workarounds, or extensions.
-We also evaluated if a specific constraint is fulfilled by OWL 2 QL or if the more expressive OWL 2 DL is needed. 
-Inferencing may be performed prior to validating constraints. This is marked with an asterisk.
-
-\cite{BoschNolleAcarEckert2015}
+We also evaluated if a specific requirement is covered by OWL 2 QL or if the more expressive and complex OWL 2 DL is needed \cite{BoschNolleAcarEckert2015}.
 
 \tb{How to publish the requirements evaluation? as technical report?}
 
