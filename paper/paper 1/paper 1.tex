@@ -189,6 +189,21 @@ The DBLP Computer Science Bibliography \\
 \end{abstract}
 %
 
+\section{Possible Titles}
+
+keywords as part of the title
+
+\begin{itemize}
+	\item Classification of Constraint Languages 
+	\item Expressivity
+	\item Complexity
+	\item user-friendliness
+	\item RDF Validation
+	\item reasoning
+	\item Choosing Your RDF Constraint Language According to Expressivity, Complexity, and User-Friendliness
+	\item OWL 2 as Constraint Language for RDF Validation
+\end{itemize}
+
 \section{Introduction}
 
 For many RDF applications, the formulation of constraints and the automatic validation of data according to these constraints is a much sought-after feature. 
@@ -435,16 +450,42 @@ As a result of its expressive power, OWL 2 DL allows a large variety of sophisti
 
 \textcolor{red}{at least 1 example for each class}
 
+ 
+
+We divide these constraints into three classes:
+\begin{itemize}
+	\item constraints expressible by OWL 2 QL
+	\item constraints not expressible by OWL 2 QL but by OWL 2 DL
+	\item constraints only expressible by other DSCLs
+\end{itemize}
+
+Bosch et al.\footnote{\url{https://github.com/boschthomas/rdf-validation-research/paper}} explained each requirement and associated constraint in detail and give at least one example for each of them\cite{BoschNolleAcarEckert2015}.
+In order to logically underpin each requirement, we added mappings to DL.  
+
+\tb{How should we publish this?}
+
 \subsection{Classification Dimension Expressivity}
 
 There are no reserved words for expressivity like LOGSPACE for complexity in computational logic.
 For the expressivity of DSCLs, we need to define our own reserved words.
 
+The W3C and DCMI WGs identified in total 74 requirements to formulate RDF constraints\footnote{Two of this paper's authors are actively contributing to these WGs and the process deriving requirements from case studies and use cases is still ongoing.}.
+We evaluated to which extend the five possible standard constraint languages fulfill each requirement to formulate RDF constraints.
+Tilde means that this constraint may be fulfilled by that particular constraint language - either by limitations, workarounds, or extensions.
+We also evaluated if a specific constraint is fulfilled by OWL 2 QL or if the more expressive OWL 2 DL is needed. 
+Inferencing may be performed prior to validating constraints. This is marked with an asterisk.
+
 \begin{evaluation}
-OWL 2 QL reasoning axioms & & & & & & \\
-OWL 2 DL reasoning axioms & & & & & & \\
-constraints without reasoning & & & & & \\
+OWL 2 QL reasoning axioms (11) & & & & & & \\
+OWL 2 DL reasoning axioms (18) & & & & & & \\
+reasoning constraints not supported by OWL 2 (4) & 1 & 0 & 0 & 2 & 2 & 4 \\ 
+constraints without reasoning (41) & & & & & \\
 \end{evaluation}
+
+The total amount of constraints/axioms is indicated by numbers in round brackets. 
+OWL 2 DL reasoning axioms indicate additional reasoning axioms which cannot be expressed by OWL 2 QL. 
+OWL 2 QL reasoning axioms are not included in the total amount of OWL 2 DL reasoning axioms.
+There are some reasoning constraints which cannot be expressed by OWL 2 such as class-specific property ranges and class-specific reflexive object properties.
 
 %SPARQL is the most (without reasoning) expressive DSCL
 %
@@ -467,25 +508,6 @@ constraints without reasoning & & & & & \\
 %when i want to use reasoning I can use these DSCL when I need to express these constraints
 %
 %and this can be perfectly integrated in a tool
-
----
-
-We evaluated to which extend the five possible standard constraint languages fulfill each requirement to formulate RDF constraints.
-Tilde means that this constraint may be fulfilled by that particular constraint language - either by limitations, workarounds, or extensions.
-We also evaluated if a specific constraint is fulfilled by OWL 2 QL or if the more expressive OWL 2 DL is needed. 
-Inferencing may be performed prior to validating constraints. This is marked with an asterisk. 
-
-We divide these constraints into three classes:
-\begin{itemize}
-	\item constraints expressible by OWL 2 QL
-	\item constraints not expressible by OWL 2 QL but by OWL 2 DL
-	\item constraints only expressible by other DSCLs
-\end{itemize}
-
-Bosch et al.\footnote{\url{https://github.com/boschthomas/rdf-validation-research/paper}} explained each requirement and associated constraint in detail and give at least one example for each of them\cite{BoschNolleAcarEckert2015}.
-In order to logically underpin each requirement, we added mappings to DL.  
-
-\tb{How should we publish this?}
 
 \subsection{Classification Dimension Complexity}
 
