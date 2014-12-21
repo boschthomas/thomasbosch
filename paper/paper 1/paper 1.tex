@@ -13,6 +13,9 @@
 
 \usepackage[utf8]{inputenc}
 
+% footnotes
+\usepackage{scrextend}
+
 % URL handling
 \usepackage{url}
 \urlstyle{same}
@@ -560,14 +563,19 @@ We evaluated the five most important DSCLs according to these criteria:
 \begin{user-fiendliness}
 level & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & \ding{55} \\
 intuitiveness & $\sim$ & $\sim$ & $\sim$ & $\checkmark$ & \ding{55} \\
-conciseness & $\sim$ & $\checkmark$ & $\sim$ & $\checkmark$ & \ding{55} \\
+conciseness & \ding{55} & $\checkmark$ & $\sim$ & $\checkmark$ & \ding{55} \\
 adoption & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
 \end{user-fiendliness}
 
 SPIN is in contrast to the other DSCLs a general-purpose low-level language, as it is the most expressive one.
 As SPARQL queries may be very long and complex, the purpose of constraints expressed in SPIN may not be immediately clear to human readers.
 On the other side, ShEx is the most intuitive DSCL, since it is based on regular expressions and since well-known constructs of other languages\footnote{e.g. numbers standing for min, max, and exact cardinality in UML} are part of the language definition.
-DSP, ReSh, as well as OWL 2 are not that intuitive than ShEx, but more intuitive to humans than SPIN\footnote{see the examples of the requirement \ms{allowed values} in the paper of Bosch et al. \cite{BoschNolleAcarEckert2015}}.
+DSP, ReSh, as well as OWL 2 are not that intuitive than ShEx, but more intuitive to humans than SPIN\footnote{see the examples of the requirement \ms{allowed values} in the paper of Bosch et al. \cite{BoschNolleAcarEckert2015}\label{footnoteIntuitivenessConciseness}}.
+In most cases, the same constraints can be expressed more concise in OWL 2 and ShEx than in DSP and SPIN\footref{footnoteIntuitivenessConciseness}.
+The only well adopted and therefore well known DSCLs are SPIN and most of all OWL 2.
+
+These criteria could also be evaluated more fine granular for each constraint (and not only for each DSCL).
+Tools could then recommend for each criterion or in total which DSCL to use in order to express a particular constraint or sets of constraints. 
 
 \subsection{Overall Classification}
 
