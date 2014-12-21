@@ -64,7 +64,7 @@
 \newcommand{\ke}[1]{\todo[size=\small, color=orange!40]{\textbf{Kai:} #1}}
 \newcommand{\tb}[1]{\todo[size=\small, color=green!40]{\textbf{Thomas:} #1}}
 \newcommand{\er}[1]{\todo[size=\small, color=red!40]{\textbf{Erman:} #1}}
-\newcommand{\an}[1]{\todo[size=\small, color=red!40]{\textbf{Andy:} #1}}
+\newcommand{\an}[1]{\todo[size=\small, color=blue!40]{\textbf{Andy:} #1}}
 
 \newenvironment{table-1cols}{
   \scriptsize
@@ -176,7 +176,7 @@
 University of Mannheim, Germany \\
 \email{\{christian,erman,kai\}@informatik.uni-mannheim.de} 
 \and
-The DBLP Computer Science Bibliography \\
+Albstadt-Sigmaringen University, Germany \\
 \email{nolle@hs-albsig.de}
 }
 
@@ -229,6 +229,26 @@ However, there is no single standard DSCL to express any constraint for each pur
 The choice depends on the individual use case.
 
 \section{Motivation}
+Despite the huge diversity to formulate constraints and validate them on RDF data, most of the DSCLs require the major shortcoming of redundancy. For illustration, consider e.g., the existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasJediWaepon . JediWeapon} that stated that every Jedi has at least one Jedi weapon. Furthermore, we know that Luke is a Jedi (\ms{Jedi(Luke)}) having a blue laser sword (\ms{hasLaserSword(Luke, BlueLaserSword)}. Since all of the DSCLs are based on the closed-world assumption (CWA) and as long as it isn't explicitly defined that a blue laser sword is a Jedi weapon (\ms{JediWeapon(BlueLaserSword)}), the existential restriction causes a constraint violation.
+
+But if we express the mentioned constraints in OWL and apply a reasoner before the proper constraint validation is performed, we won't get a constraint violation because all implicit statements like a blue laser sword is a Jedi weapon (\ms{JediWeapon(BlueLaserSword)}) will be inferred. At a first glance, using OWL as constraint language the shortcoming of redundancy is solved. However, on closer consideration OWL is by default an insufficient choice because OWL is in contrast based on the closed-world assumption (CWA). Additionally, in OWL we have the non-unique name assumption (nUNA) whereas RDF validation requires that different names represent different objects (also known as unique name assumption (UNA)).
+
+Let us address these opposites via an example. Consider e.g., the following definition of the knowledge base \mathcal{K}:
+\begin{eqnarray*}
+\mathcal{K} &=  & \{\ms{Person} \sqsubseteq \exists \ms{hasFather.Person}, \\
+ &&(\ms{funct (hasFather)}),\\
+ && \ms{Person(Anakin)},\\
+ && \ms{Person(Luke)},\\
+ && \ms{hasFather(Luke, Anakin)},\\ 
+ && \ms{hasFather(Luke, Shmi)}\}
+\end{eqnarray*}
+
+In case of the OWA, we infer that$\ms{Anakin}$ has a Father that is a $\ms{Person}$, but we do not know him, so$\mathcal{K}$ is consistent. In CWA however, the constraint needs to be satisfied only by named individuals which yields in return of a constraint violation. We can further observe that there is a clash caused the functional role $\ms{hasAncestor}$ and the UNA. However, in OWA there is no UNA by default, therefore the reasoning will conclude that $\ms{Anakin}$ is the same individual as $\ms{Anakin} \equiv \ms{Shmi}$). Notice that this is not a problem if we add UNA to the OWA, like in the \textit{DL-Lite} family \cite{Calvanese2007,Artale2009} which is the basis for OWL 2 QL.
+
+If we following the principle of adopting the UNA to OWL and performing contraint validation after some reasoning, the opposites of OWA in OWL and CWA in constraint validation doesn't affect each other, because missing assertions like in the example mentioned above will cause still some constraint violations but the implicit knowledge is even considered on constraint validation.
+
+
+
 
 \tb{1 simple example in motivation section}
 
