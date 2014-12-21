@@ -162,7 +162,7 @@
 %
 %
 \title{RDF Validation}
-\subtitle{Effects on Complexity with and without OWL 2 Reasoning}
+\subtitle{Classification of Constraint Languages According to Expressivity, Complexity, and User-Friendliness}
 %
 \titlerunning{XXXXX}  % abbreviated title (for running head)
 %                                     also used for the TOC unless
@@ -192,24 +192,23 @@ Albstadt-Sigmaringen University, Germany \\
 \end{abstract}
 %
 
-\tb{ToDo: we need table captions, to refer to tables, and tables centered}
-
-\section{Possible Titles}
-
-keywords as part of the title
-
-\begin{itemize}
-	\item Classification of Constraint Languages 
-	\item Expressivity
-	\item Complexity
-	\item user-friendliness
-	\item RDF Validation
-	\item reasoning
-	\item Choosing Your RDF Constraint Language According to Expressivity, Complexity, and User-Friendliness
-	\item OWL 2 as Constraint Language for RDF Validation
-	\item Classification of RDF Validation Constraint Languages According to Expressivity, Complexity, and User-Friendliness 
-	\item RDF Validation - Classification of Constraint Languages According to Expressivity, Complexity, and User-Friendliness 
-\end{itemize}
+%\section{Possible Titles}
+%
+%keywords as part of the title
+%
+%\begin{itemize}
+	%\item Classification of Constraint Languages 
+	%\item Expressivity
+	%\item Complexity
+	%\item user-friendliness
+	%\item RDF Validation
+	%\item reasoning
+	%\item Choosing Your RDF Constraint Language According to Expressivity, Complexity, and User-Friendliness
+	%\item OWL 2 as Constraint Language for RDF Validation
+	%\item Classification of RDF Validation Constraint Languages According to Expressivity, Complexity, and User-Friendliness 
+	%\item RDF Validation - Classification of Constraint Languages According to Expressivity, Complexity, and User-Friendliness 
+	%\item RDF Validation - Effects on Complexity with and without OWL 2 Reasoning
+%\end{itemize}
 
 \section{Introduction}
 
@@ -219,7 +218,7 @@ where first use cases have been presented and discussed.
 Two WGs, that follow up on this workshop and address RDF constraint formulation and validation, are established in 2014: 
 the W3C RDF Data Shapes WG\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles WG\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
 
-Bosch and Eckert \cite{BoschEckert2014} initiated a database on RDF validation requirements, which is intended to be a way to collect case studies, use cases and especially requirements regarding RDF validation collaboratively and in a structured form \cite{DroegeBoschCharlesClayphanMatienzoRuehlePohlAlonenSvenssonCoyle2014}.
+Bosch and Eckert \cite{BoschEckert2014} initiated a database on RDF validation requirements, which is intended to be a way to collect case studies, use cases and especially requirements regarding RDF validation collaboratively and in a structured form.
 The comprehensive, continuously maintained and extended database, which is openly available at \url{http://purl.org/net/rdf-validation}, is used to evaluate and to compare several existing solutions for RDF constraint formulation and validation. 
 The requirements are classified to provide a high-level view on different solutions and to facilitate a better understanding of the problem domain \cite{BoschEckert2014}.  
 
@@ -525,6 +524,8 @@ reasoning axioms cannot only be expressed by OWL 2.
 \ms{Expr-C} (41) & 6 & 18(4) & 7(4) & 8 & 12 & 40(1)\\
 \end{evaluation}
 
+\tb{ToDo Thomas: refer to table}
+
 The total amount of constraints/axioms is indicated by numbers in round brackets in the first column.
 Numbers in round brackets in the other columns indicate the number of constraints/axioms which may be expressed by that particular DSCL - either by limitations, workarounds, or extensions.  
 OWL 2 DL reasoning axioms are additional reasoning axioms which cannot be expressed by OWL 2 QL. 
@@ -602,24 +603,45 @@ These user-friendliness classes could also be evaluated more fine granular for e
 Tools could then recommend for each user-friendliness class or in total which DSCL to use in order to express a particular constraint or sets of constraints. 
 
 \subsection{Overall Classification}
-
-Figure~\ref{fig:VennDiagram}.  
+ 
 \begin{figure}
 	\centering
 		\includegraphics[width=0.95\textwidth]{complexiity_and_expressivity.png}
 	\caption{Complexity and Expressivity Classes}
 	\label{fig:VennDiagram}
 \end{figure}
-
-\tb{adapt venn diagramm: expressivity classes, DSCL ordering, user-fiendliness}
-
-Figure~\ref{fig:ExpressivityComplexity}.  
+  
 \begin{figure}
 	\centering
 		\includegraphics[width=1.00\textwidth]{expressivity-complexity-3.png}
 	\caption{Expressivity and Complexity}
-	\label{fig:ExpressivityComplexity}
+	\label{fig:expressivity-complexity}
 \end{figure}
+
+We assigned the five most promising DSCLs to four expressivity, four complexity, and four user-friendliness classes.
+Expressivity and complexity classes can be combined in a diagram (see figure Figure~\ref{fig:expressivity-complexity}).
+OWL2-DL and SPIN are the DSCLs with the highest \ms{Expr-R-OWL2-DL} to express OWL2-DL axioms in \ms{\textsc{N2exptime}}.
+The highest \ms{Expr-R-OWL2-QL} expressing OWL2-QL axioms in \ms{\textsc{Ptime}} can be achieved with OWL2-QL, OWL2-DL, and SPIN.
+If an application needs to cover the majority of constraints on which reasoning cannot be applied, SPIN should be used (\ms{Expr-C}) in \ms{\textsc{Pspace}-Complete}.
+
+It depends on the individual use case, which constrains are needed to express and therefore which DSCL to choose.
+As a consequence, you may select a DSCL which is not the most expressive one within one specific expressivity class, 
+but may be better evaluated according to one or multiple user-friendliness classes.
+If, for instance, reasoning should not be performed and three particular constraints should be covered by the DSCL.
+Even if the expressivity (\ms{Expr-C}) of SPIN is much higher than of ShEx  
+\begin{eqnarray*}
+\ms{Expr-C}(ShEx) \subset \ms{Expr-C}(SPIN)
+\end{eqnarray*}
+it could be quite beneficial to choose ShEx rather than SPIN (in case the three constraints are covered by both).
+Now, the user-friendliness classes comes into play:
+\begin{eqnarray*}
+\ms{UF-L}(SPIN) \subset \ms{UF-L}(ShEx) \\
+\ms{UF-I}(SPIN) \subset \ms{UF-I}(ShEx) \\
+\ms{UF-C}(SPIN) \subset \ms{UF-C}(ShEx) \\
+\ms{UF-L}(ShEx) \subset \ms{UF-L}(SPIN)
+\end{eqnarray*}
+Although, SPIN is more adopted than ShEx, ShEx is a high-level compared to a low-level language, ShEx is more intuitive and concise than SPIN.
+According to this evaluation, tools may recommend alternatives to the most expressive language SPIN.  
 
 \section{RDF validation requirements}
 
