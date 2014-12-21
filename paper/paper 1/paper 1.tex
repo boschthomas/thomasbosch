@@ -236,7 +236,7 @@ Despite the huge diversity to formulate constraints and validate them on RDF dat
 
 But if we express the mentioned constraints in OWL and apply a reasoner before the proper constraint validation is performed, we won't get a constraint violation because all implicit statements like a blue laser sword is a Jedi weapon (\ms{JediWeapon(BlueLaserSword)}) will be inferred. At a first glance, using OWL as constraint language the shortcoming of redundancy is solved. However, on closer consideration OWL is by default an insufficient choice because OWL is in contrast based on the closed-world assumption (CWA). Additionally, in OWL we have the non-unique name assumption (nUNA) whereas RDF validation requires that different names represent different objects (also known as unique name assumption (UNA)).
 
-Let us address these opposites via an example. Consider e.g., the following definition of the knowledge base \mathcal{K}:
+Let us address these opposites via an example. Consider e.g., the following definition of the knowledge base $\mathcal{K}$:
 \begin{eqnarray*}
 \mathcal{K} &=  & \{\ms{Person} \sqsubseteq \exists \ms{hasFather.Person}, \\
  &&(\ms{funct (hasFather)}),\\
