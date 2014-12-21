@@ -546,17 +546,16 @@ What is considered by rdf validation w/o reasoning, corresponds to performing SP
 \subsection{Classification Dimension User-Friendliness}
 
 We cannot formally measure the user-friendliness of DSCLs as in the case of expressivity and complexity. 
-
-Rather subjective criteria to determine if a DSCL is user-friendliness are:
+Rather subjective criteria to determine the degree of user-friendliness of DSCLs are:
 
 \begin{itemize}
-	\item constraint formulation level: low-level vs. high-level
-	\item intuitiveness: not intuitive $<$ less intuitive $<$ intuitive
-	\item conciseness: not concise $<$ less concise $<$ concise
-	\item adoption: less adopted $<$ well adopted 
+	\item \ms{constraint formulation level}: low-level (\ding{55}) vs. high-level ($\checkmark$)
+	\item \ms{intuitiveness}: not intuitive (\ding{55}) $<$ less intuitive ($\sim$) $<$ intuitive ($\checkmark$)
+	\item \ms{conciseness}: not concise (\ding{55}) $<$ less concise ($\sim$) $<$ concise ($\checkmark$)
+	\item \ms{adoption}: less adopted (\ding{55}) $<$ well adopted ($\checkmark$)
 \end{itemize}
 
-\ms{Adoption} indicates if a DSCL is well known and adopted in practice.
+We evaluated the five most important DSCLs according to these criteria:
 
 \begin{user-fiendliness}
 level & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & \ding{55} \\
@@ -565,7 +564,10 @@ conciseness & $\sim$ & $\checkmark$ & $\sim$ & $\checkmark$ & \ding{55} \\
 adoption & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
 \end{user-fiendliness}
 
-\textcolor{red}{examples for each criterion}
+SPIN is in contrast to the other DSCLs a general-purpose low-level language, as it is the most expressive one.
+As SPARQL queries may be very long and complex, the purpose of constraints expressed in SPIN may not be immediately clear to human readers.
+On the other side, ShEx is the most intuitive DSCL, since it is based on regular expressions and since well-known constructs of other languages\footnote{e.g. numbers standing for min, max, and exact cardinality in UML} are part of the language definition.
+DSP, ReSh, as well as OWL 2 are not that intuitive than ShEx, but more intuitive to humans than SPIN\footnote{see the examples of the requirement \ms{allowed values} in the paper of Bosch et al. \cite{BoschNolleAcarEckert2015}}.
 
 \subsection{Overall Classification}
 
