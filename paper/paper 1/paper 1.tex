@@ -428,14 +428,11 @@ The three \textbf{main contributions} of this paper are:
 
 \textcolor{red}{paper organization}
 
-\section{Expressivity and Complexity of OWL and SPARQL}
+\section{Expressivity and Complexity of OWL 2}
 
 \textcolor{red}{
 \begin{itemize}
 	\item OWL as a high-level language with reasoning capabilities which can be used for RDF validation
-  \item OWL 2 QL (what is now the beginning of 4.1)
-  \item OWL 2 DL (now beginning of 4.2)
-  \item SPARQL as a low-level general-purpose implementation language for RDf validation
 \end{itemize}
 }
 
@@ -546,23 +543,32 @@ If, for instance, OWL2-QL reasoning is needed the DSCLs OWL2-QL, OWL2-DL, or SPI
 
 \subsection{Classification Dimension Complexity}
 
-According to our evaluation of requirements to formulate RDF constraints, we identified three main ways of validating constraints.
+According to our evaluation of requirements to formulate RDF constraints, we identified four main ways of validating constraints assigned to four RDF validation complexity classes:
 
-\begin{enumerate}
-	\item validation by query answering without reasoning
-	\item validation by query answering with OWL 2 QL reasoning
-	\item validation by query answering with OWL 2 DL reasoning
-\end{enumerate}
+\begin{itemize}
+	\item \ms{C-C}: validation by query answering without reasoning
+	\item \ms{C-R-OWL2-QL}: validation by query answering with OWL 2 QL reasoning
+	\item \ms{C-R-OWL2-DL}: validation by query answering with OWL 2 DL reasoning
+	\item \ms{C-R}: validation by query answering with reasoning
+\end{itemize}
 
-The next table gives an overview of the computational complexity for RDF validation when it is performed -with and without reasoning. 
+The complexity class \ms{C-R} encompasses all axioms for which reasoning can be executed but cannot be expressed by OWL 2.  
+Table \textcolor{red}{XXX} gives an overview of the computational complexity for RDF validation when reasoning is performed and when reasoning is not performed. 
 
 \begin{complexity}
-validation by query answering without reasoning & \textsc{Pspace}-Complete \\
-validation by query answering with OWL 2 QL reasoning & \textsc{Ptime} \\
-validation by query answering with OWL 2 DL reasoning & \textsc{N2exptime} \\
+\ms{C-C} & \textsc{Pspace}-Complete \\
+\ms{C-R-OWL2-QL} & \textsc{Ptime} \\
+\ms{C-R-OWL2-DL} & \textsc{N2exptime} \\
+\ms{C-R} & \textsc{N2exptime} \\
 \end{complexity}
 
-What is considered by rdf validation w/o reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on \textit{DL-Lite} family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
+What is considered by RDF validation w/o reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on \textit{DL-Lite} family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
+As, for example, the constraint \ms{cardinality shortcuts} is associated with the complexity class \ms{C-R} and OWL2 DL reasoning can be done on cardinality restrictions,
+the complexity of \ms{C-R} is in \textsc{N2exptime} as well. 
+The complexity classes' partial ordering is:
+\begin{eqnarray*}
+\ms{C-C} \subset \ms{C-R-OWL2-QL} \subset \ms{C-R} \subseteq \ms{C-R-OWL2-DL}
+\end{eqnarray*}
 
 \subsection{Classification Dimension User-Friendliness}
 
