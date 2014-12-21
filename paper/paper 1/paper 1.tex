@@ -67,7 +67,7 @@
 \newcommand{\ke}[1]{\todo[size=\small, color=orange!40]{\textbf{Kai:} #1}}
 \newcommand{\tb}[1]{\todo[size=\small, color=green!40]{\textbf{Thomas:} #1}}
 \newcommand{\er}[1]{\todo[size=\small, color=red!40]{\textbf{Erman:} #1}}
-\newcommand{\an}[1]{\todo[size=\small, color=red!40]{\textbf{Andy:} #1}}
+\newcommand{\an}[1]{\todo[size=\small, color=blue!40]{\textbf{Andy:} #1}}
 
 \newenvironment{table-1cols}{
   \scriptsize
@@ -179,7 +179,7 @@
 University of Mannheim, Germany \\
 \email{\{christian,erman,kai\}@informatik.uni-mannheim.de} 
 \and
-The DBLP Computer Science Bibliography \\
+Albstadt-Sigmaringen University, Germany \\
 \email{nolle@hs-albsig.de}
 }
 
@@ -232,6 +232,26 @@ However, there is no single standard DSCL to express any constraint for each pur
 The choice depends on the individual use case.
 
 \section{Motivation}
+Despite the huge diversity to formulate constraints and validate them on RDF data, most of the DSCLs require the major shortcoming of redundancy. For illustration, consider e.g., the existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasJediWaepon . JediWeapon} that stated that every Jedi has at least one Jedi weapon. Furthermore, we know that Luke is a Jedi (\ms{Jedi(Luke)}) having a blue laser sword (\ms{hasLaserSword(Luke, BlueLaserSword)}. Since all of the DSCLs are based on the closed-world assumption (CWA) and as long as it isn't explicitly defined that a blue laser sword is a Jedi weapon (\ms{JediWeapon(BlueLaserSword)}), the existential restriction causes a constraint violation.
+
+But if we express the mentioned constraints in OWL and apply a reasoner before the proper constraint validation is performed, we won't get a constraint violation because all implicit statements like a blue laser sword is a Jedi weapon (\ms{JediWeapon(BlueLaserSword)}) will be inferred. At a first glance, using OWL as constraint language the shortcoming of redundancy is solved. However, on closer consideration OWL is by default an insufficient choice because OWL is in contrast based on the closed-world assumption (CWA). Additionally, in OWL we have the non-unique name assumption (nUNA) whereas RDF validation requires that different names represent different objects (also known as unique name assumption (UNA)).
+
+Let us address these opposites via an example. Consider e.g., the following definition of the knowledge base $\mathcal{K}$:
+\begin{eqnarray*}
+\mathcal{K} &=  & \{\ms{Person} \sqsubseteq \exists \ms{hasFather.Person}, \\
+ &&(\ms{funct (hasFather)}),\\
+ && \ms{Person(Anakin)},\\
+ && \ms{Person(Luke)},\\
+ && \ms{hasFather(Luke, Anakin)},\\ 
+ && \ms{hasFather(Luke, Shmi)}\}
+\end{eqnarray*}
+
+In case of the OWA, we infer that$\ms{Anakin}$ has a Father that is a $\ms{Person}$, but we do not know him, so$\mathcal{K}$ is consistent. In CWA however, the constraint needs to be satisfied only by named individuals which yields in return of a constraint violation. We can further observe that there is a clash caused the functional role $\ms{hasAncestor}$ and the UNA. However, in OWA there is no UNA by default, therefore the reasoning will conclude that $\ms{Anakin}$ is the same individual as $\ms{Anakin} \equiv \ms{Shmi}$). Notice that this is not a problem if we add UNA to the OWA, like in the \textit{DL-Lite} family \cite{Calvanese2007,Artale2009} which is the basis for OWL 2 QL.
+
+If we following the principle of adopting the UNA to OWL and performing contraint validation after some reasoning, the opposites of OWA in OWL and CWA in constraint validation doesn't affect each other, because missing assertions like in the example mentioned above will cause still some constraint violations but the implicit knowledge is even considered on constraint validation.
+
+
+
 
 \tb{1 simple example in motivation section}
 
@@ -299,10 +319,6 @@ Another point is that, if we perform RDF validation without reasoning, we will g
 Reasoning makes sense before actually validating constraints.
 Reasoning, which is the core service provided by OWL,
 and constraint validation are very closely related. 
-\an{maybe we can use also the term 'User-defined Consistency' described in 'see below' as a further 'hook' to establish our approach?}
-\url{http://www.aifb.kit.edu/images/d/d2/2005_925_Haase_Consistent_Evol_1.pdf}
-\tb{Andy, can you describe this in the paper?}
-\an{a more formal example would be nice! ;)}
 Reasoning is the process of determining what follows from what has been
 stated.  Reasoning ranges from simple (students are people, John is a
 student, therefore John is a person) to the very complex. Reasoning can
@@ -678,11 +694,7 @@ Without reasoning, these constraints won't be validated as \ms{Luke} is not with
 
 For the majority of the requirements to formulate RDF constraints, reasoning is not related to the constraints and is therefore not needed to be performed prior to validation. 
 It is also possible, however, to reason before validating constraints for which reasoning does not affect validation results.
-If we do reasoning by query rewriting in terms of backward chaining and if we run a constraint validation query through an engine like --ontop-- (OBDA tool) or ELITE (federated query engine), the engine will only do some rewritings if it is possible, and if you just check e.g. pattern matching there will be no rewriting.
-
-\tb{Andy, I inserted your comments here. may you have a look at it?}
-
-%\an{If we do reasoning by query rewriting in terms of backward chaining we don't need to distinguish between them, because if you run a constraint validation query through an engine like --ontop-- (OBDA tool) or ELITE (federated query engine), the engine will only do some rewritings if it is possible, and if you just check e.g. pattern matching there will be no rewriting...}
+If we do reasoning by query rewriting in terms of backward chaining and if we run a constraint validation query through an engine like the --ontop-- framework\footnote{\url{http://ontop.inf.unibz.it}} or ELITE (federated query engine) \cite{nolle2013elite}, the engine will only do some rewritings if it is possible, and if you just check e.g. pattern matching there will be no rewriting.
 
 \subsubsection{Expressible by OWL 2 QL}
 
@@ -858,7 +870,7 @@ validation environment in which the validation of any DSCL\footnote{the only lim
 The validation implementation of DSCLs is fully declarative,
 consisting of a mapping from a DSCL to SPIN in form of SPARQL CONSTRUCT queries.
 SPIN represents both the SPIN mappings and the SPARQL queries in RDF. 
-Within the validation environment, we fully implemented an automatic validation of all OWL 2 DL\footnote{and therefore all OWL 2 QL constructs} constructs. 
+Within the validation environment, we fully implemented an automatic RDF validation of all OWL 2 DL\footnote{and therefore all OWL 2 QL constructs} constructs. 
 \an{you should mention at this point that this validation is in terms of RDF validation, because inconsistency can't be done completely}
 The implementation can be tested at \url{http://purl.org/net/rdfval-demo} and
 the OWL 2 SPIN mapping is maintained at \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}.
@@ -890,7 +902,8 @@ However, this OWL IC semantics was never submitted to a standards organization.
 	\item Clark Parsia had previously proposed the ICV semantics for OWL, but this was not submitted to W3C.
 \end{itemize}
 
-\tb{ToDo for Andy: validation in terms of inconsistency detection}
+In description logics, reasoning tasks like query answering or detection of inconsistencies require the consideration of knowledge that is not only defined explicitly but also implicitly. To do so there are two different ways called forward- and backward-chaining. The first implies a materialized knowledge base, where the original knowledge base is extended by all assertions that can be inferred. State-of-the-art DL or OWL reasoners that following this approach are e.g. FaCT++ \cite{tsarkov2006fact++}, Pellet \cite{sirin2007pellet},  RacerPro \cite{haarslev2001racer}, or HermiT \cite{horrocks2012hermit}. On the second approach, the original knowledge base is kept in its original state and before queries are evaluated against the knowledge base, the queries will be rewritten such that its rewritings will consider also the implicit knowledge in the returned result set. Approaches following this way are e.g., \textsf{PerfectRef} given by Calvanese et al. \cite{Calvanese2007} or \textsf{TreeWitness} proposed by Kontchakov et al. \cite{kontchakov2011combined}. The choice between these two different ways depends on the specific application case. So the first kind is probably applied on local knowledge bases whereas the second is more appropriated for federative environments like in \cite{nolle2014efficient, nolle2013elite}.
+
 
 \section{Conclusion and Future Work}
 
