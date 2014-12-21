@@ -161,126 +161,261 @@
 
 \begin{document}
 
-%
-%
-\title{XXXXX}
-%
-\titlerunning{XXXXX}  % abbreviated title (for running head)
-%                                     also used for the TOC unless
-%                                     \toctitle is used
-%
-\author{XXXXX\inst{1} \and XXXXX\inst{2}}
-%
-\authorrunning{XXXXX} % abbreviated author list (for running head)
-%
-%%%% list of authors for the TOC (use if author list has to be modified)
-\institute{XXXXX\\
-\email{XXXXX},\\ 
-\and
-XXXXX \\
-\email{XXXXX} 
-}
-
-\maketitle              % typeset the title of the contribution
-
-\begin{abstract}
-
-
-\keywords{..}
-\end{abstract}
-
-
-
-\section{Evaluation}
-
 \begin{evaluation}
-\textcolor{blue}{*Subsumption} & \ding{55} & $\checkmark$ & $\checkmark$ & $\sim$ & $\checkmark$ & $\checkmark$ \\
-\textcolor{blue}{*Class Equivalence} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Sub Properties} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Object Property Paths} & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+*Subsumption & \ding{55} & $\checkmark$ & $\checkmark$ & $\sim$ & $\checkmark$ & $\checkmark$ \\
+*Class Equivalence & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+*Sub Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+*Property Domain & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+*Property Range & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+*Inverse Object Properties & \ding{55} & $\checkmark$ & $\checkmark$ & $\sim$ & \ding{55} & $\checkmark$ \\
+*Symmetric Object Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+*Asymmetric Object Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+*Reflexive Object Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+*Irreflexive Object Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
 Disjoint Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Intersection} & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
-\textcolor{blue}{*Disjunction} & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
-\textcolor{blue}{*Negation} & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
 Disjoint Classes & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Existential Quantification} & \ding{55} & $\checkmark$ & \ding{55} & $\sim$ & $\sim$ & $\checkmark$ \\
-\textcolor{blue}{*Universal Quantification} & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
-\textcolor{blue}{*Property Domain} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Property Range} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Class-Specific Property Range} & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
-\textcolor{blue}{*Minimum Unqualified Cardinality} & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
-\textcolor{blue}{*Minimum Qualified Cardinality} & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
-\textcolor{blue}{*Maximum Unqualified Cardinality} & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
-\textcolor{blue}{*Maximum Qualified Cardinality} & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
-\textcolor{blue}{*Exact Unqualified Cardinality} & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
-\textcolor{blue}{*Exact Qualified Cardinality} & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
-\textcolor{blue}{*Inverse Object Properties} & \ding{55} & $\checkmark$ & $\checkmark$ & $\sim$ & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Transitive Object Properties} & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Symmetric Object Properties} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Asymmetric Object Properties} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Class-Sp. Reflexive Object P.} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Reflexive Object Properties} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Irreflexive Object Properties} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
 Context-Sp. Property Groups & \ding{55} & $\sim$ & $\sim$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
-Context-Sp. Exclusive OR of P. & \ding{55} & $\checkmark$ & \ding{55} & & $\checkmark$ & $\checkmark$ \\
-Context-Sp. Inclusive OR of P. & \ding{55} & $\sim$ & $\sim$ & & \ding{55} & $\checkmark$ \\
-\end{evaluation}
-
-\begin{evaluation}
+Context-Sp. Inclusive OR of P. & \ding{55} & $\sim$ & $\sim$ & \ding{55} & \ding{55} & $\checkmark$ \\
+Context-Sp. Inclusive OR of P. Groups & \ding{55} & $\sim$ & $\sim$ & \ding{55} & \ding{55} & $\checkmark$ \\
+Recursive Queries & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\sim$ \\
+Individual Inequality & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+*Equivalent Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+Property Assertions & \ding{55} & $\checkmark$ & $\sim$ & \ding{55} & \ding{55} & $\checkmark$ \\
+Data Property Facets & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+Literal Pattern Matching & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+Negative Literal Pattern Matching & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+*Object Property Paths & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+*Intersection & \ding{55} & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+*Disjunction & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+*Negation & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+*Existential Quantification & \ding{55} & $\checkmark$ & \ding{55} & $\sim$ & $\sim$ & $\checkmark$ \\
+*Universal Quantification & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+*Minimum Unqualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
+*Minimum Qualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
+*Maximum Unqualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
+*Maximum Qualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
+*Exact Unqualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
+*Exact Qualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
+*Transitive Object Properties & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+Context-Sp. Exclusive OR of P. & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ \\
 Context-Sp. Exclusive OR of P. Groups & \ding{55} & $\sim$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
-Context-Sp. Inclusive OR of P. Groups & \ding{55} & $\sim$ & $\sim$ & & \ding{55} & $\checkmark$ \\
 Allowed Values & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$& $\checkmark$ \\
 Not Allowed Values & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ \\
-Membership in Controlled Vocabularies & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-IRI Pattern Matching & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ \\
-Literal Pattern Matching & \ding{55} & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
-Negative Literal Pattern Matching & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
-Literal Value Comparison & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ \\
 Literal Ranges & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Negative Literal Ranges & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+Required Properties & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+Optional Properties & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+Repeatable Properties & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+Negative Property Constraints & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ \\
+*Individual Equality & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+*Functional Properties & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+*Inverse-Functional Properties & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+*Value Restrictions & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+*Self Restrictions & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+Primary Key Properties & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+*Class-Specific Property Range & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+*Class-Sp. Reflexive Object P. & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+Membership in Controlled Vocabularies & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+IRI Pattern Matching & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ \\
+Literal Value Comparison & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ \\
 Define Order & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Validation Levels & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 String Operations & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Context-Specific Valid Classes & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Context-Specific Valid Properties & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Default Values & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & \ding{55} & $\checkmark$ \\
+\end{evaluation}
+
+\begin{evaluation}
 Mathematical Operations & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Language Tag Matching & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Language Tag Cardinality & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Whitespace Handling & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 HTML Handling & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-Required Properties & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
-Optional Properties & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
-Repeatable Properties & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
 Conditional Properties & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Recommended Properties & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-Negative Property Constraints & \ding{55} & $\checkmark$ & \ding{55} & & $\checkmark$ & $\checkmark$ \\
 Handle RDF Collections & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-Recursive Queries & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\sim$ \\
+Value is Valid for Datatype & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+*Exploiting Class/Property Specialization Ontology Axioms & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+*Cardinality Shortcuts & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+Aggregations & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 \end{evaluation}
 
-\begin{evaluation}
-\textcolor{blue}{*Individual Equality} & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-Individual Inequality & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Equivalent Properties} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-Property Assertions & \ding{55} & $\checkmark$ & $\sim$ & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Functional Properties} & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Inverse-Functional Properties} & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Value Restrictions} & & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
-\textcolor{blue}{*Self Restrictions} & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-Value is Valid for Datatype & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-Data Property Facets & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-Primary Key Properties & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Exploiting Class/Property Specialization Ontology Axioms} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-\textcolor{blue}{*Cardinality Shortcuts} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
-\end{evaluation}
+%\textbf{Constraints Expressible by OWL 2 QL.}
+%
+%\begin{evaluation}
+%*Subsumption & \ding{55} & $\checkmark$ & $\checkmark$ & $\sim$ & $\checkmark$ & $\checkmark$ \\
+%*Class Equivalence & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%*Sub Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%*Property Domain & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%*Property Range & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%*Inverse Object Properties & \ding{55} & $\checkmark$ & $\checkmark$ & $\sim$ & \ding{55} & $\checkmark$ \\
+%*Symmetric Object Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%*Asymmetric Object Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%*Reflexive Object Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%*Irreflexive Object Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%Disjoint Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%Disjoint Classes & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%Context-Sp. Property Groups & \ding{55} & $\sim$ & $\sim$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+%Context-Sp. Inclusive OR of P. & \ding{55} & $\sim$ & $\sim$ & & \ding{55} & $\checkmark$ \\
+%Context-Sp. Inclusive OR of P. Groups & \ding{55} & $\sim$ & $\sim$ & & \ding{55} & $\checkmark$ \\
+%Recursive Queries & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\sim$ \\
+%Individual Inequality & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%*Equivalent Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%Property Assertions & \ding{55} & $\checkmark$ & $\sim$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%Data Property Facets & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%Literal Pattern Matching & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+%Negative Literal Pattern Matching & \ding{55} & $\checkmark$ & $\checkmark$ & & & $\checkmark$ \\
+%\end{evaluation}
+%
+%\textbf{Constraints not Expressible by OWL 2 QL but by OWL 2 DL.}
+%
+%\begin{evaluation}
+%*Object Property Paths & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%*Intersection & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
+%*Disjunction & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
+%*Negation & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
+%*Existential Quantification & \ding{55} & $\checkmark$ & \ding{55} & $\sim$ & $\sim$ & $\checkmark$ \\
+%*Universal Quantification & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
+%*Minimum Unqualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
+%*Minimum Qualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
+%*Maximum Unqualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
+%*Maximum Qualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
+%*Exact Unqualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
+%*Exact Qualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
+%*Transitive Object Properties & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Context-Sp. Exclusive OR of P. & \ding{55} & $\checkmark$ & \ding{55} & & $\checkmark$ & $\checkmark$ \\
+%Context-Sp. Exclusive OR of P. Groups & \ding{55} & $\sim$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+%Allowed Values & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$& $\checkmark$ \\
+%Not Allowed Values & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ \\
+%Literal Ranges & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Negative Literal Ranges & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Required Properties & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+%Optional Properties & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+%Repeatable Properties & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+%Negative Property Constraints & \ding{55} & $\checkmark$ & \ding{55} & & $\checkmark$ & $\checkmark$ \\
+%*Individual Equality & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%*Functional Properties & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%*Inverse-Functional Properties & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%*Value Restrictions & & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
+%*Self Restrictions & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Primary Key Properties & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%\end{evaluation}
+%
+%\textbf{Constraints Only Expressible by Other DSCLs.}
+%
+%\begin{evaluation}
+%*Class-Specific Property Range & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+%*Class-Sp. Reflexive Object P. & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Membership in Controlled Vocabularies & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%IRI Pattern Matching & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ \\
+%Literal Value Comparison & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ \\
+%Define Order & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Validation Levels & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%String Operations & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Context-Specific Valid Classes & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Context-Specific Valid Properties & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Default Values & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & \ding{55} & $\checkmark$ \\
+%Mathematical Operations & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Language Tag Matching & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Language Tag Cardinality & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Whitespace Handling & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%HTML Handling & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Conditional Properties & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Recommended Properties & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Handle RDF Collections & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Value is Valid for Datatype & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%*Exploiting Class/Property Specialization Ontology Axioms & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%*Cardinality Shortcuts & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+%Aggregations & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%\end{evaluation}
+
+%\begin{evaluation}
+%\textcolor{blue}{*Subsumption} & \ding{55} & $\checkmark$ & $\checkmark$ & $\sim$ & $\checkmark$ & $\checkmark$ \\
+%\textcolor{blue}{*Class Equivalence} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%\textcolor{blue}{*Sub Properties} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%\textcolor{blue}{*Object Property Paths} & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Disjoint Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%\textcolor{blue}{*Intersection} & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
+%\textcolor{blue}{*Disjunction} & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
+%\textcolor{blue}{*Negation} & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
+%Disjoint Classes & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%\textcolor{blue}{*Existential Quantification} & \ding{55} & $\checkmark$ & \ding{55} & $\sim$ & $\sim$ & $\checkmark$ \\
+%\textcolor{blue}{*Universal Quantification} & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
+%\textcolor{blue}{*Property Domain} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%\textcolor{blue}{*Property Range} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%\textcolor{blue}{*Class-Specific Property Range} & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+%\textcolor{blue}{*Minimum Unqualified Cardinality} & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
+%\textcolor{blue}{*Minimum Qualified Cardinality} & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
+%\textcolor{blue}{*Maximum Unqualified Cardinality} & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
+%\textcolor{blue}{*Maximum Qualified Cardinality} & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
+%\textcolor{blue}{*Exact Unqualified Cardinality} & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
+%\textcolor{blue}{*Exact Qualified Cardinality} & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
+%\textcolor{blue}{*Inverse Object Properties} & \ding{55} & $\checkmark$ & $\checkmark$ & $\sim$ & \ding{55} & $\checkmark$ \\
+%\textcolor{blue}{*Transitive Object Properties} & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%\textcolor{blue}{*Symmetric Object Properties} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%\textcolor{blue}{*Asymmetric Object Properties} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%\textcolor{blue}{*Class-Sp. Reflexive Object P.} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%\textcolor{blue}{*Reflexive Object Properties} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%\textcolor{blue}{*Irreflexive Object Properties} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%Context-Sp. Property Groups & \ding{55} & $\sim$ & $\sim$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+%Context-Sp. Exclusive OR of P. & \ding{55} & $\checkmark$ & \ding{55} & & $\checkmark$ & $\checkmark$ \\
+%Context-Sp. Inclusive OR of P. & \ding{55} & $\sim$ & $\sim$ & & \ding{55} & $\checkmark$ \\
+%\end{evaluation}
+%
+%\begin{evaluation}
+%Context-Sp. Exclusive OR of P. Groups & \ding{55} & $\sim$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+%Context-Sp. Inclusive OR of P. Groups & \ding{55} & $\sim$ & $\sim$ & & \ding{55} & $\checkmark$ \\
+%Allowed Values & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$& $\checkmark$ \\
+%Not Allowed Values & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ \\
+%Membership in Controlled Vocabularies & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%IRI Pattern Matching & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ \\
+%Literal Pattern Matching & \ding{55} & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+%Negative Literal Pattern Matching & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
+%Literal Value Comparison & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ \\
+%Literal Ranges & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Negative Literal Ranges & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Define Order & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Validation Levels & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%String Operations & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Context-Specific Valid Classes & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Context-Specific Valid Properties & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Default Values & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & \ding{55} & $\checkmark$ \\
+%Mathematical Operations & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Language Tag Matching & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Language Tag Cardinality & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Whitespace Handling & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%HTML Handling & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Required Properties & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+%Optional Properties & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+%Repeatable Properties & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+%Conditional Properties & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Recommended Properties & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Negative Property Constraints & \ding{55} & $\checkmark$ & \ding{55} & & $\checkmark$ & $\checkmark$ \\
+%Handle RDF Collections & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Recursive Queries & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\sim$ \\
+%\end{evaluation}
+%
+%\begin{evaluation}
+%\textcolor{blue}{*Individual Equality} & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Individual Inequality & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%\textcolor{blue}{*Equivalent Properties} & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%Property Assertions & \ding{55} & $\checkmark$ & $\sim$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%\textcolor{blue}{*Functional Properties} & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%\textcolor{blue}{*Inverse-Functional Properties} & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%\textcolor{blue}{*Value Restrictions} & & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
+%\textcolor{blue}{*Self Restrictions} & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Value is Valid for Datatype & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%Data Property Facets & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%Primary Key Properties & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%\textcolor{blue}{*Exploiting Class/Property Specialization Ontology Axioms} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+%\textcolor{blue}{*Cardinality Shortcuts} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+%\end{evaluation}
 
 % $\checkmark$
 % \ding{55}
 % $\sim$
 
-\bibliography{../../literature/literature}{}
-\bibliographystyle{plain}
 \setcounter{tocdepth}{1}
 %\listoftodos
 \end{document}

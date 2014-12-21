@@ -189,6 +189,23 @@ The DBLP Computer Science Bibliography \\
 \end{abstract}
 %
 
+\tb{ToDo: we need table captions, to refer to tables, and tables centered}
+
+\section{Possible Titles}
+
+keywords as part of the title
+
+\begin{itemize}
+	\item Classification of Constraint Languages 
+	\item Expressivity
+	\item Complexity
+	\item user-friendliness
+	\item RDF Validation
+	\item reasoning
+	\item Choosing Your RDF Constraint Language According to Expressivity, Complexity, and User-Friendliness
+	\item OWL 2 as Constraint Language for RDF Validation
+\end{itemize}
+
 \section{Introduction}
 
 For many RDF applications, the formulation of constraints and the automatic validation of data according to these constraints is a much sought-after feature. 
@@ -424,7 +441,7 @@ entailment checking. The drawback of its expressive power results as a lack of c
 
 As a result of its expressive power, OWL 2 DL allows a large variety of sophisticated modeling capabilities for many application domains.  On the other hand, to maintain the decidability, OWL 2 DL has a numerous ways of syntactic restrictions. One example is that OWL 2 DL allows  expressing transitive properties as well as asymmetric properties, yet a property to be both transitive and asymmetric (just as ancestor relation) is not allowed. In the sequel, from RDF validation perspective, we will give some examples of constraints that remain at the outside of its scope. 
 
-\section{Classification of RDF Constraints and DSCLs according to Expressivity and Complexity}
+\section{Classification of RDF Constraints and DSCLs according to Expressivity, Complexity, and User-Friendliness}
 
 \textcolor{red}{
 \begin{itemize}
@@ -435,139 +452,76 @@ As a result of its expressive power, OWL 2 DL allows a large variety of sophisti
 
 \textcolor{red}{at least 1 example for each class}
 
+%We divide these constraints into three classes:
+%\begin{itemize}
+	%\item constraints expressible by OWL 2 QL
+	%\item constraints not expressible by OWL 2 QL but by OWL 2 DL
+	%\item constraints only expressible by other DSCLs
+%\end{itemize}
+
+The W3C and DCMI WGs identified in total 74 requirements to formulate RDF constraints\footnote{Two of this paper's authors are actively contributing to these WGs and the process deriving requirements from case studies and use cases is still ongoing.}.
+Bosch et al.\footnote{available at: \url{https://github.com/boschthomas/rdf-validation-research/paper}} explained each requirement in detail and give at least one example for each of them represented by different DSCLs.
+We added mappings to DL in order to logically underpin each requirement and in order to determine which DL constructs are needed to express each constraint.
+When the DL constructs, needed to express a particular constraint, are known, the expressivity and the complexity of this constraint can be determined. 
+The constraint \ms{Context-Specific Exclusive OR of Properties} (see section~\ref{sec:rdf-validation-requirements-without-reasoning-2}), for example, can generically be expressed as follows:
+\begin{eqnarray*}
+C \sqsubseteq (\neg A \sqcap B) \sqcup (A \sqcap \neg B) \\
+A \equiv \exists a . D \\
+B \equiv \exists b . E  
+\end{eqnarray*}
+As this constraint is a complex constraint (constructed out of multiple complex and simple constraints), 
+the constraint's expressivity is calculated as the expressivity of the individual constraints used to express the complex constraint.
+The DL constructs \ms{property inclusion}, \ms{complement}, \ms{intersection}, \ms{union}, and \ms{existential restriction} are used to express this constraint.  
+As existential restrictions are part of OWL 2 DL reasoning, the constraint's complexity is \textsc{N2exptime}.
+ 
+We evaluated to which extend the most promising five DSCLs fulfill each requirement.
+We also evaluated if a specific requirement is covered by OWL 2 QL or if the more expressive and complex OWL 2 DL is needed \cite{BoschNolleAcarEckert2015}.
+
+\tb{How to publish the requirements evaluation? as technical report?}
+
 \subsection{Classification Dimension Expressivity}
 
-There are no reserved words for expressivity like LOGSPACE for complexity in computational logic.
-For expressivity, we need to define our own reserved words.
+There are no reserved words for expressivity of DSCLs like LOGSPACE for complexity in computational logic.
+As a consequence, for the expressivity of DSCLs, we need to define our own reserved words.
+As we want to be able to perform reasoning before actually validating the data, we identified four RDF validation expressivity classes, 
+which we define as follows: 
 
-SPARQL is the most (without reasoning) expressive DSCL
-
-we also want to take reasoning capabilities into account
-
-2 expressivity classes: Expressivity 1 (need to name expressivity classes)
-one with reasoning let's say constraints and 1 without
-
-OWL 2 DL is more expressive for the first class
-
-as we have all relevant RDF constraints in our evaluation considered
-we have here the full expressive power
-
-one can use it as functional style like
-Expr(ShEx) $\subset$ Expr(SPIN)
-partial ordering, not necessarily total
-maybe two of such Expr. class are not comparable
-
-so this depends on the use case
-when i want to use reasoning I can use these DSCL when I need to express these constraints
-
-and this can be perfectly integrated in a tool
-
----
-
-We evaluated to which extend the five possible standard constraint languages fulfill each requirement to formulate RDF constraints.
-Tilde means that this constraint may be fulfilled by that particular constraint language - either by limitations, workarounds, or extensions.
-We also evaluated if a specific constraint is fulfilled by OWL 2 QL or if the more expressive OWL 2 DL is needed. 
-Inferencing may be performed prior to validating constraints. This is marked with an asterisk. 
-
-We divide these constraints into three classes:
 \begin{itemize}
-	\item constraints expressible by OWL 2 QL
-	\item constraints not expressible by OWL 2 QL but by OWL 2 DL
-	\item constraints only expressible by other DSCLs
+	\item \ms{Expr-R-OWL2-QL}: OWL 2 QL reasoning axioms
+	\item \ms{Expr-R-OWL2-DL}: OWL 2 DL reasoning axioms
+	\item \ms{Expr-R}: reasoning constraints not supported by OWL
+	\item \ms{Expr-C}: constraints without reasoning
 \end{itemize}
 
-Bosch et al.\footnote{\url{https://github.com/boschthomas/rdf-validation-research/paper}} explained each requirement and associated constraint in detail and give at least one example for each of them\cite{BoschNolleAcarEckert2015}.
-In order to logically underpin each requirement, we added mappings to DL.  
+Reasoning axioms can be used for its original purpose to infer new triples out of explicitly stated triples (see section \ref{sec:rdf-validation-requirements-and-reasoning}), but also to express constraints.
+If in our knowledge base it is stated that \ms{DarthVader} is a \ms{Sith} (\ms{Sith(DarthVader)}) and that Siths feel the force of the dark side (\ms{Sith $\sqsubseteq$ FeelingForceDarkSide}), it is either possible to infer that \ms{DarthVader} feels the force of the dark side (\ms{FeelingForceDarkSide(DarthVader)}) 
+or to check if this class assignment is explicitly stated in the data without reasoning.  
 
-\tb{How should we publish this? ordering of author not determined so far}
- 
-\textbf{Constraints Expressible by OWL 2 QL.}
-
-\begin{evaluation}
-*Subsumption & \ding{55} & $\checkmark$ & $\checkmark$ & $\sim$ & $\checkmark$ & $\checkmark$ \\
-*Class Equivalence & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-*Sub Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-*Property Domain & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-*Property Range & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-*Inverse Object Properties & \ding{55} & $\checkmark$ & $\checkmark$ & $\sim$ & \ding{55} & $\checkmark$ \\
-*Symmetric Object Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-*Asymmetric Object Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-*Reflexive Object Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-*Irreflexive Object Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-Disjoint Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-Disjoint Classes & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-Context-Sp. Property Groups & \ding{55} & $\sim$ & $\sim$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
-Context-Sp. Inclusive OR of P. & \ding{55} & $\sim$ & $\sim$ & & \ding{55} & $\checkmark$ \\
-Context-Sp. Inclusive OR of P. Groups & \ding{55} & $\sim$ & $\sim$ & & \ding{55} & $\checkmark$ \\
-Recursive Queries & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\sim$ \\
-Individual Inequality & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-*Equivalent Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-Property Assertions & \ding{55} & $\checkmark$ & $\sim$ & \ding{55} & \ding{55} & $\checkmark$ \\
-Data Property Facets & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-Literal Pattern Matching & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
-Negative Literal Pattern Matching & \ding{55} & $\checkmark$ & $\checkmark$ & & & $\checkmark$ \\
-\end{evaluation}
-
-\textbf{Constraints not Expressible by OWL 2 QL but by OWL 2 DL.}
+Although, there are no reasoning implementations for other DSCLs than OWL 2 available yet, 
+reasoning axioms cannot only be expressed by OWL 2.
 
 \begin{evaluation}
-*Object Property Paths & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-*Intersection & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
-*Disjunction & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
-*Negation & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
-*Existential Quantification & \ding{55} & $\checkmark$ & \ding{55} & $\sim$ & $\sim$ & $\checkmark$ \\
-*Universal Quantification & \ding{55} & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
-*Minimum Unqualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
-*Minimum Qualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
-*Maximum Unqualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
-*Maximum Qualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
-*Exact Unqualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
-*Exact Qualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
-*Transitive Object Properties & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-Context-Sp. Exclusive OR of P. & \ding{55} & $\checkmark$ & \ding{55} & & $\checkmark$ & $\checkmark$ \\
-Context-Sp. Exclusive OR of P. Groups & \ding{55} & $\sim$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
-Allowed Values & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$& $\checkmark$ \\
-Not Allowed Values & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ \\
-Literal Ranges & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-Negative Literal Ranges & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-Required Properties & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
-Optional Properties & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
-Repeatable Properties & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
-Negative Property Constraints & \ding{55} & $\checkmark$ & \ding{55} & & $\checkmark$ & $\checkmark$ \\
-*Individual Equality & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-*Functional Properties & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-*Inverse-Functional Properties & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-*Value Restrictions & & $\checkmark$ & \ding{55} & & & $\checkmark$ \\
-*Self Restrictions & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-Primary Key Properties & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+\ms{Expr-R-OWL2-QL} (11) & 0 & 11 & 11 & 0(2) & 1 & 11 \\
+\ms{Expr-R-OWL2-DL} (18) & 7 & 18 & 0 & 9 & 8(1) & 18 \\
+\ms{Expr-R} (4) & 1 & 0 & 0 & 2 & 2 & 4 \\ 
+\ms{Expr-C} (41) & 6 & 18(4) & 7(4) & 8 & 12 & 40(1)\\
 \end{evaluation}
 
-\textbf{Constraints Only Expressible by Other DSCLs.}
+The total amount of constraints/axioms is indicated by numbers in round brackets in the first column.
+Numbers in round brackets in the other columns indicate the number of constraints/axioms which may be expressed by that particular DSCL - either by limitations, workarounds, or extensions.  
+OWL 2 DL reasoning axioms are additional reasoning axioms which cannot be expressed by OWL 2 QL. 
+OWL 2 QL reasoning axioms are not included in the total amount of OWL 2 DL reasoning axioms.
+There are some reasoning axioms which cannot be expressed by OWL 2 such as class-specific property ranges and class-specific reflexive object properties.
 
-\begin{evaluation}
-*Class-Specific Property Range & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
-*Class-Sp. Reflexive Object P. & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-Membership in Controlled Vocabularies & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-IRI Pattern Matching & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ \\
-Literal Value Comparison & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ \\
-Define Order & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-Validation Levels & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-String Operations & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-Context-Specific Valid Classes & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-Context-Specific Valid Properties & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-Default Values & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & \ding{55} & $\checkmark$ \\
-Mathematical Operations & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-Language Tag Matching & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-Language Tag Cardinality & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-Whitespace Handling & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-HTML Handling & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-Conditional Properties & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-Recommended Properties & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-Handle RDF Collections & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-Value is Valid for Datatype & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-*Exploiting Class/Property Specialization Ontology Axioms & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-*Cardinality Shortcuts & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
-\end{evaluation}
+Partial (not necessarily total) orderings are:
+\begin{eqnarray*}
+\ms{Expr-R-OWL2-QL}: DSP \subset ReSh \subset ShEx \subset SPIN \subseteq OWL2-QL \subseteq OWL2-DL \\
+\ms{Expr-R-OWL2-DL}: OWL2-QL \subset DSP \subset ShEx \subset ReSh \subset SPIN \subseteq OWL2-DL \\
+\ms{Expr-R}: OWL2-QL \subseteq OWL2-DL \subset DSP \subset ReSh \subseteq ShEx \subset SPIN \\
+\ms{Expr-C}: DSP \subset OWL2-QL \subset ReSh \subset ShEx \subset OWL2-DL \subset SPIN
+\end{eqnarray*}
+It depends on the use case which DSCL to use to fulfill related requirements, i.e. to express associated constraints.
+If, for instance, OWL2-QL reasoning is needed the DSCLs OWL2-QL, OWL2-DL, or SPIN are the most expressive ones.
 
 \subsection{Classification Dimension Complexity}
 
@@ -592,22 +546,28 @@ What is considered by rdf validation w/o reasoning, corresponds to performing SP
 \subsection{Classification Dimension User-Friendliness}
 
 We cannot formally measure the user-friendliness of DSCLs as in the case of expressivity and complexity. 
-
-Rather subjective criteria to determine if a DSCL is user-friendliness are:
+Rather subjective criteria to determine the degree of user-friendliness of DSCLs are:
 
 \begin{itemize}
-	\item constraint formulation level: low-level vs. high-level
-	\item intuitiveness: not intuitive $<$ less intuitive $<$ intuitive
-	\item conciseness: not concise $<$ less concise $<$ concise
+	\item \ms{constraint formulation level}: low-level (\ding{55}) vs. high-level ($\checkmark$)
+	\item \ms{intuitiveness}: not intuitive (\ding{55}) $<$ less intuitive ($\sim$) $<$ intuitive ($\checkmark$)
+	\item \ms{conciseness}: not concise (\ding{55}) $<$ less concise ($\sim$) $<$ concise ($\checkmark$)
+	\item \ms{adoption}: less adopted (\ding{55}) $<$ well adopted ($\checkmark$)
 \end{itemize}
+
+We evaluated the five most important DSCLs according to these criteria:
 
 \begin{user-fiendliness}
 level & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & \ding{55} \\
 intuitiveness & $\sim$ & $\sim$ & $\sim$ & $\checkmark$ & \ding{55} \\
 conciseness & $\sim$ & $\checkmark$ & $\sim$ & $\checkmark$ & \ding{55} \\
+adoption & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
 \end{user-fiendliness}
 
-\textcolor{red}{examples for each criterion}
+SPIN is in contrast to the other DSCLs a general-purpose low-level language, as it is the most expressive one.
+As SPARQL queries may be very long and complex, the purpose of constraints expressed in SPIN may not be immediately clear to human readers.
+On the other side, ShEx is the most intuitive DSCL, since it is based on regular expressions and since well-known constructs of other languages\footnote{e.g. numbers standing for min, max, and exact cardinality in UML} are part of the language definition.
+DSP, ReSh, as well as OWL 2 are not that intuitive than ShEx, but more intuitive to humans than SPIN\footnote{see the examples of the requirement \ms{allowed values} in the paper of Bosch et al. \cite{BoschNolleAcarEckert2015}}.
 
 \subsection{Overall Classification}
 
@@ -619,6 +579,8 @@ Figure~\ref{fig:VennDiagram}.
 	\label{fig:VennDiagram}
 \end{figure}
 
+\tb{adapt venn diagramm: expressivity classes, DSCL ordering, user-fiendliness}
+
 \section{RDF validation requirements}
 
 \textcolor{red}{
@@ -629,6 +591,7 @@ Figure~\ref{fig:VennDiagram}.
 }
 
 \subsection{RDF Validation Requirements and Reasoning}
+\label{sec:rdf-validation-requirements-and-reasoning}
 
 \tb{ToDO Thomas: RDF Validation Requirements and Inferencing}
 
@@ -754,6 +717,7 @@ The literal pattern matching constraint validates \ms{DroidNumber} literals acco
 but not for the triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}.
 
 \subsubsection{Not Expressible by OWL 2 QL but by OWL 2 DL}
+\label{sec:rdf-validation-requirements-without-reasoning-2}
 
 \textbf{Allowed Values}\footnote{corresponds to R-30-ALLOWED-VALUES-FOR-RDF-OBJECTS and R-37-ALLOWED-VALUES-FOR-RDF-LITERALS}\textbf{.}
 It is a common requirement to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resources). This is often rendered in drop down boxes or radio buttons in user interfaces. 
@@ -883,7 +847,14 @@ Within the validation environment, we fully implemented an automatic validation 
 The implementation can be tested at \url{http://purl.org/net/rdfval-demo} and
 the OWL 2 SPIN mapping is maintained at \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}.
 
-\textcolor{red}{extensions to validator}
+The developed DSCL classification according to the three dimensions expressivity, complexity, and user-friendliness leads to many possible extensions of the RDF validator and similar validation systems.
+Users may choose if they wish to execute reasoning as a pre-validation step and which reasoning axioms they want to use to express their inference rules.
+They may also select which constraints they need for their use cases.
+
+As we defined an ordering of DSCLs for each expressivity class, we assigned reasoning axioms and constraints to complexity classes, we evaluated DSCLs regarding multiple user-friendliness criteria, the validator can provide a list of DSCLs for which the expressivity is enough to express the wished constraints and axioms.
+The validator can also recommend a DSCL of that list whose user-friendliness is evaluated to be the highest according to the user-friendliness criteria.
+As reasoning may cause high complexity, the validator may show which axioms from the user's selection cause the determined complexity class 
+and it may provide solutions how to get to the next lower complexity class.
 
 \section{Related Work}
 
@@ -902,6 +873,8 @@ However, this OWL IC semantics was never submitted to a standards organization.
 \begin{itemize}
 	\item Clark Parsia had previously proposed the ICV semantics for OWL, but this was not submitted to W3C.
 \end{itemize}
+
+\tb{ToDo for Andy: validation in terms of inconsistency detection}
 
 \section{Conclusion and Future Work}
 
