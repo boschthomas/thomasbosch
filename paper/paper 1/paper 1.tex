@@ -12,7 +12,7 @@
 \usepackage{booktabs}
 
 \usepackage[utf8]{inputenc}
-
+%\usepackage[font=small,skip=0pt]{caption}
 
 % footnotes
 \usepackage{scrextend}
@@ -119,12 +119,13 @@
   \scriptsize
   \sffamily
   \vspace{0.3cm}
-  \begin{tabular}{l}
+  \begin{tabular}{r l}
 
 }{
   \end{tabular}
   \linebreak
 }
+
 
 \newenvironment{evaluation}{
   \scriptsize
@@ -256,16 +257,18 @@ Additionally, in OWL we have the non-unique name assumption (nUNA) whereas RDF v
 This ambiguousness in semantics is one of the main reasons why OWL has not been adopted as standard DSCL for RDF validation in the past. 
 
 Let us address these opposites via an example. Consider e.g., the following definition of the knowledge base $\mathcal{K}$:
-\begin{eqnarray*} 
-\mathcal{K} &=  & \ms{Person} \sqsubseteq \exists \ms{hasFather.Person}, \\
- &&(\ms{funct (hasFather)}),\\
- && \ms{Person(Anakin)},\\
- && \ms{Person(Luke)},\\
- &&\ms{hasFather(Luke, Anakin)},\\ 
- &&\ms{hasFather(Luke, Shmi)}\}
-\end{eqnarray*}
 
-\tb{this takes too much place, we need to be more compact here - lower font size as first attempt}
+\begin{center}
+\begin{DL} 
+$\mathcal{K}=\{$ & Person $\sqsubseteq \exists$ hasFather.Person, \\
+ &(\ms{funct (hasFather)}),\\
+ &\ms{Person(Anakin)},\\
+  &\ms{Person(Luke)},\\
+ &\ms{hasFather(Luke, Anakin)},\\ 
+ &\ms{hasFather(Luke, Shmi)}$\}$
+\end{DL}
+\end{center}
+%\tb{this takes too much place, we need to be more compact here - lower font size as first attempt}
 
 In case of the OWA, we infer that $\ms{Anakin}$ has a father that is a $\ms{Person}$, but we do not know him, so $\mathcal{K}$ is consistent. In CWA however, the constraint needs to be satisfied only by named individuals which yields in return of a constraint violation. We can further observe that there is a clash caused by the functional role $\ms{hasAncestor}$ and the UNA. However, in OWA there is no UNA by default, therefore the reasoning will conclude that $\ms{Anakin}$ is the same individual as \ms{Shmi} ($\ms{Anakin} \equiv \ms{Shmi}$). Notice that this is not a problem if we add UNA to the OWA, like in the \textit{DL-Lite} family \cite{Calvanese2007,Artale2009} which is the basis for OWL 2 QL.
 
@@ -456,11 +459,13 @@ Bosch et al.\footnote{available at: \url{https://github.com/boschthomas/rdf-vali
 We added mappings to DL in order to logically underpin each requirement and in order to determine which DL constructs are needed to express each constraint.
 When the DL constructs, needed to express a particular constraint, are known, the expressivity and the complexity of this constraint can be determined. 
 The constraint \ms{Context-Specific Exclusive OR of Properties} (see section~\ref{sec:rdf-validation-requirements-without-reasoning-2}), for example, can generically be expressed as follows:
-\begin{eqnarray*}
-C \sqsubseteq (\neg A \sqcap B) \sqcup (A \sqcap \neg B) \\
-A \equiv \exists a . D \\
-B \equiv \exists b . E  
-\end{eqnarray*}
+\begin{center}
+\begin{DL}
+C &$\sqsubseteq (\neg$ A $\sqcap$ B$) \sqcup ($A $\sqcap \neg$ B$)$ \\
+A &$\equiv \exists$ a . D \\
+B &$\equiv \exists$ b . E  
+\end{DL}
+\end{center}
 As this constraint is a complex constraint (constructed out of multiple complex and simple constraints), 
 the constraint's expressivity is calculated as the expressivity of the individual constraints used to express the complex constraint.
 The DL constructs \ms{property inclusion}, \ms{complement}, \ms{intersection}, \ms{union}, and \ms{existential restriction} are used to express this constraint.  
@@ -492,17 +497,30 @@ or to check if this class assignment is explicitly stated in the data without re
 Although, there are no reasoning implementations for other DSCLs than OWL 2 available yet, 
 reasoning axioms cannot only be expressed by OWL 2.
 
-\begin{center}
-\begin{evaluation}
+  
+  \begin{table}
+  \begin{center}
+    \scriptsize
+  \sffamily
+  \vspace{0.3cm}
+\begin{tabular}{l|c|c|c|c|c|c} 
+  \hline
+
+  \textbf{constraint} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\
 \ms{Expr-R-OWL2-QL} (11) & 0 & 11 & 11 & 0(2) & 1 & 11 \\
 \ms{Expr-R-OWL2-DL} (18) & 7 & 18 & 0 & 9 & 8(1) & 18 \\
 \ms{Expr-R} (4) & 1 & 0 & 0 & 2 & 2 & 4 \\ 
 \ms{Expr-C} (41) & 6 & 18(4) & 7(4) & 8 & 12 & 40(1)\\
-\end{evaluation}
-\end{center}
-\tb{ToDo Thomas: refer to table}
+\end{tabular}
+\caption{\scriptsize Evaluation on Expressivity Classes}
 
-The total amount of constraints/axioms is indicated by numbers in round brackets in the first column.
+\label{table:evaluation}
+\end{center}
+  \end{table}
+
+%\tb{ToDo Thomas: refer to table}
+
+In Table \ref{table:evaluation}, the total amount of constraints/axioms is shown by numbers in round brackets in the first column.
 Numbers in round brackets in the other columns indicate the number of constraints/axioms which may be expressed by that particular DSCL - either by limitations, workarounds, or extensions.  
 OWL 2 DL reasoning axioms are additional reasoning axioms which cannot be expressed by OWL 2 QL. 
 OWL 2 QL reasoning axioms are not included in the total amount of OWL 2 DL reasoning axioms.
@@ -649,10 +667,12 @@ Reasoning may be a pre validation step to infer triples resolving constraint vio
 \textbf{Subsumption}\footnote{corresponds to R-100-SUBSUMPTION}\textbf{.}
 Subsumption relationships of both classes and properties are part of basic reasoning.
 
+\begin{center}
 \begin{DL}
-Jedi $\sqsubseteq$ FeelingForce \\
-JediMaster $\sqsubseteq$ Jedi \\
+Jedi &$\sqsubseteq$ FeelingForce \\
+JediMaster &$\sqsubseteq$ Jedi \\
 \end{DL}
+\end{center}
 
 All Jedi masters are Jedis feeling the force.
 These sub-class relationships can also be expressed by OWL 2 QL:
@@ -689,11 +709,13 @@ When inferencing is performed before validating, the class assignment \ms{Anakin
 
 \textbf{Existential Quantification}\footnote{corresponds to R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}\textbf{.}
 
+\begin{center}
 \begin{DL}
 Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword
 \end{DL}
+\end{center}
 
-This existential quantification contains all those individuals that are connected by \ms{hasLaserSword} to an individual that is an instance of the class \ms{LaserSword}.
+Here, existential quantification let us refer to all those individuals that are connected by \ms{hasLaserSword} to an individual that is an instance of the class \ms{LaserSword}.
 In OWL 2 DL, this existential quantification can also be expressed:
 
 
@@ -768,11 +790,11 @@ but not for the triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D
 \textbf{Allowed Values}\footnote{corresponds to R-30-ALLOWED-VALUES}\textbf{.}
 It is a common requirement to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resources). This is often rendered in drop down boxes or radio buttons in user interfaces. 
 The constraint 'Jedis can only have blue, green, or white laser swords' can be expressed by OWL 2 DL, DSP, ReSh, ShEx, SPIN, and SPARQL.
-
+\begin{center}
 \begin{DL}
 Jedi $\equiv$ $\exists$ laserSwordColor . \{blue, green, white\} \\
 \end{DL}
-
+\end{center}
 %In DSP, the constraint does not look that concise:
 %
 %\begin{ex}
@@ -805,11 +827,13 @@ whereas data including the triples \ms{DarthMaul a Jedi ; laserSwordColor 'red'}
 An individual can either have a relationship via property A or via property B, but not both.
 To take an example, a Jedi is either attacking by sword or by force but not both (such a fight would not be fair):
 
+\begin{center}
 \begin{DL}
-Jedi $\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
-A $\equiv$ $\exists$ attackingBySword . xsd:boolean \\
-B $\equiv$ $\exists$ attackingByForce . xsd:boolean \\ 
+Jedi &$\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
+A &$\equiv$ $\exists$ attackingBySword . xsd:boolean \\
+B &$\equiv$ $\exists$ attackingByForce . xsd:boolean \\ 
 \end{DL} 
+\end{center}
 
 Context-specific exclusive OR of properties can be expressed by ShEx. 
 In this case, the constraint context is the class \ms{Jedi}.
