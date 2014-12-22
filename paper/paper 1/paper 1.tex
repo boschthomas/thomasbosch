@@ -264,6 +264,8 @@ Let us address these opposites via an example. Consider e.g., the following defi
  && \ms{hasFather(Luke, Shmi)}\}
 \end{eqnarray*}
 
+\tb{this takes too much place, we need to be more compact here - lower font size as first attempt}
+
 In case of the OWA, we infer that $\ms{Anakin}$ has a father that is a $\ms{Person}$, but we do not know him, so $\mathcal{K}$ is consistent. In CWA however, the constraint needs to be satisfied only by named individuals which yields in return of a constraint violation. We can further observe that there is a clash caused by the functional role $\ms{hasAncestor}$ and the UNA. However, in OWA there is no UNA by default, therefore the reasoning will conclude that $\ms{Anakin}$ is the same individual as \ms{Shmi} ($\ms{Anakin} \equiv \ms{Shmi}$). Notice that this is not a problem if we add UNA to the OWA, like in the \textit{DL-Lite} family \cite{Calvanese2007,Artale2009} which is the basis for OWL 2 QL.
 
 If we follow the principle of adopting the UNA to OWL and performing contraint validation after some reasoning, the opposites of OWA in OWL and CWA in constraint validation doesn't affect each other, because missing assertions like in the example mentioned above will cause still some constraint violations but the implicit knowledge is even considered on constraint validation.
@@ -356,7 +358,7 @@ In case of reasoning, users of validation tools can define which axioms they wan
 The validator is then able to determine the complexity class, to show which axioms lead to a higher complexity class, and to recommend how to get to a lower complexity class.
 When reasoning is not needed for validation, axioms can be reformulated as constraints in queries leading to a lower complexity class. 
 Such a complexity aware validator could help people writing constraints that can be efficiently computed.
-For DL, there is a web application allowing to select the needed DL constructs in order to determine the complexity of DL reasoning\footnote{\url{http://www.cs.man.ac.uk/~ezolin/dl/}}.
+%For DL, there is a web application allowing to select the needed DL constructs in order to determine the complexity of DL reasoning\footnote{\url{http://www.cs.man.ac.uk/~ezolin/dl/}}.
 
 When stating axioms and constraints (without reasoning capabilities) needed for validation, 
 the validator is able to determine the expressivity class and thus can recommend constraint languages which can be used to express the wished axioms/constraints. 
@@ -384,29 +386,26 @@ As a consequence, the validator may recommend to express the stated axioms/const
 %If we want to use OWL 2 for RDF validation, we have to ensure that as many requirements for formulating RDF constraints are fulfilled
 %and that the computational complexity to formulate these constraints is satisfying.  
 
-This paper serves to answer five \textbf{research questions}:
-\begin{enumerate}
-	\item Which constraints are expressible by DL and which are only expressible by a query language (e.g Datalog or SPARQL)?
-	\item For which requirements formulating constraints the expressivity of \textit{DL-Lite}$_\mathcal{A}$ (respectively OWL 2 QL) is sufficient
-	and for which requirements additional DSCLs are needed?
-	\item For which constraints a priori reasoning makes sense and how does reasoning affect their validation?  
-	\item What are the effects on complexity to express these constraints with and without OWL 2 QL and OWL 2 DL reasoning?
-	\item What are the effects on complexity of constraints not expressible by DL but by a query language?
-	
+This paper serves to answer two \textbf{research questions}:
+\begin{itemize}
+	%\item Which constraints are expressible by DL and which are only expressible by a query language (e.g Datalog or SPARQL)?
+	%\item For which requirements formulating constraints the expressivity of \textit{DL-Lite}$_\mathcal{A}$ (respectively OWL 2 QL) is sufficient
+	%and for which requirements additional DSCLs are needed?
+	%\item For which constraints a priori reasoning makes sense and how does reasoning affect their validation?  
+	%\item What are the effects on complexity to express these constraints with and without OWL 2 QL and OWL 2 DL reasoning?
+	%\item What are the effects on complexity of constraints not expressible by DL but by a query language?
 	\item How does reasoning affect the complexity of axioms and constraint languages?
 	\item How to classify constraints and constraint languages according to expressivity, complexity, and user-friendliness?
-\end{enumerate}
+\end{itemize}
 
 The three \textbf{main contributions} of this paper are:
-\begin{enumerate}
+\begin{itemize}
   \item We explain why OWL can be used as constraint language
 	\item We explain why reasoning is beneficial for validation and how reasoning interacts with validation
   \item We investigate the effects on complexity expressing each constraint
 	\item We show that OWL 2 QL together with additional DSCLs completely satisfy all RDF validation requirements.
 	\item We evaluated to which extend the five possible standard DSCLs fulfill each requirement.
-\end{enumerate}
-
-\textcolor{red}{paper organization}
+\end{itemize}
 
 \section{Expressivity and Complexity in OWL 2 Reasoning}
 
