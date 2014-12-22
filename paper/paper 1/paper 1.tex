@@ -409,26 +409,6 @@ The \textbf{main contributions} of this paper are:
 
 \section{Expressivity and Complexity in OWL 2 Reasoning}
 
-Reasoning and validation are very closely related. 
-Reasoning is the process of determining what follows from what has been
-stated.  Reasoning ranges from simple (Jedi students are Jedis, Luke is a Jedi student, therefore Luke is a Jedi) to the very complex. Reasoning can
-also recognize impossibilities ( Jedi masters are Jedis, Yoda is a Jedi master, Yoda
-is not a Jedi, therefore there is a contradiction). 
-Both should be possible: (1) validation with reasoning and (2) validation without reasoning. 
-Reasoning may be a pre validation step to infer triples resolving constraint violations or to infer triples for which constraints are validated.
-
-%Reasoning may be a pre validation step to infer triples resolving constraint violations.
-%According to the existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasJediWaepon . JediWeapon} every Jedi has at least one Jedi weapon.
-%Luke is a Jedi (\ms{Jedi(Luke)}) having a blue laser sword (\ms{hasLaserSword(Luke, BlueLaserSword)}.
-%As it is not defined that laser swords are Jedi weapons and as Luke is a Jedi, the existential restriction causes a constraint violation. 
-%This constraint violation is not raised when we define that laser swords are Jedi weapons (\ms{hasLaserSword $\sqsubseteq$ hasJediWaepon} ) 
-%and \ms{hasLaserSword} is a sub-property of \ms{hasJediWeapon} (\ms{LaserSword $\sqsubseteq$ JediWeapon}).
-%
-%It makes also sense to perform reasoning to infer triples for which constraints are validated.
-%The existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword} forces Jedis to have at least one laser sword.
-%The existential restriction is not checked for the triple \ms{YediMaster(Yoda)}, as \ms{Yoda} is a \ms{JediMaster} and not a \ms{Jedi} as well.
-%If, however, our knowledge base contains the axiom \ms{JediMaster $\sqsubseteq$ Jedi}, the triple \ms{Jedi(Yoda)} is inferred and the existential restrictions is validated for the individual \ms{Yoda}, raising a constraint violation if a triple such as \ms{hasLaserSword(Yoda, GreenLaserSword)} is not included in the knowledge base. 
-
 \subsection{OWL 2 QL Reasoning}
 
 OWL 2 profiles (or fragments in logic literature) are restricted (sublanguage) versions of OWL 2 that offer different trade-offs regarding expressivity  vs. efficiency in reasoning. There are three main  profiles of OWL 2, which are OWL 2 QL, OWL 2 RL and OWL 2 EL namely, each designed to  be useful for different purposes and application scenarios. The choice of which profile to use is purpose-specific on what to express and to perform the reasoning about. We refer reader to \cite{owl2profiles2008} for a comprehensive treatment of those profiles. 
@@ -637,21 +617,30 @@ Now, the user-friendliness classes comes into play:
 Although, SPIN is more adopted than ShEx, ShEx is a high-level compared to a low-level language, ShEx is more intuitive and concise than SPIN.
 According to this evaluation, tools may recommend alternatives to the most expressive language SPIN.  
 
-\section{RDF validation requirements}
-
-\textcolor{red}{
-\begin{itemize}
-	\item organization according to developed classification system regarding expressivity and complexity
-	\item examples for rdf constraints for each class
-\end{itemize}
-}
-
-\subsection{RDF Validation Requirements and Reasoning}
+\section{RDF Validation Requirements and Reasoning}
 \label{sec:rdf-validation-requirements-and-reasoning}
 
-\tb{ToDO Thomas: RDF Validation Requirements and Inferencing}
+Reasoning and validation are very closely related. 
+Reasoning is the process of determining what follows from what has been
+stated.  Reasoning ranges from simple (Jedi students are Jedis, Luke is a Jedi student, therefore Luke is a Jedi) to the very complex. Reasoning can
+also recognize impossibilities ( Jedi masters are Jedis, Yoda is a Jedi master, Yoda
+is not a Jedi, therefore there is a contradiction). 
+Both should be possible: (1) validation with reasoning and (2) validation without reasoning. 
+Reasoning may be a pre validation step to infer triples resolving constraint violations or to infer triples for which constraints are validated.
 
-\subsubsection{OWL 2 QL Reasoning}
+%Reasoning may be a pre validation step to infer triples resolving constraint violations.
+%According to the existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasJediWaepon . JediWeapon} every Jedi has at least one Jedi weapon.
+%Luke is a Jedi (\ms{Jedi(Luke)}) having a blue laser sword (\ms{hasLaserSword(Luke, BlueLaserSword)}.
+%As it is not defined that laser swords are Jedi weapons and as Luke is a Jedi, the existential restriction causes a constraint violation. 
+%This constraint violation is not raised when we define that laser swords are Jedi weapons (\ms{hasLaserSword $\sqsubseteq$ hasJediWaepon} ) 
+%and \ms{hasLaserSword} is a sub-property of \ms{hasJediWeapon} (\ms{LaserSword $\sqsubseteq$ JediWeapon}).
+%
+%It makes also sense to perform reasoning to infer triples for which constraints are validated.
+%The existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword} forces Jedis to have at least one laser sword.
+%The existential restriction is not checked for the triple \ms{YediMaster(Yoda)}, as \ms{Yoda} is a \ms{JediMaster} and not a \ms{Jedi} as well.
+%If, however, our knowledge base contains the axiom \ms{JediMaster $\sqsubseteq$ Jedi}, the triple \ms{Jedi(Yoda)} is inferred and the existential restrictions is validated for the individual \ms{Yoda}, raising a constraint violation if a triple such as \ms{hasLaserSword(Yoda, GreenLaserSword)} is not included in the knowledge base. 
+
+\subsection{OWL 2 QL Reasoning}
 
 \textbf{Subsumption}\footnote{corresponds to R-100-SUBSUMPTION}\textbf{.}
 Subsumption relationships of both classes and properties are part of basic reasoning.
@@ -692,7 +681,7 @@ studentOf rdfs:domain JediStudent .
 Without reasoning, the data \ms{Anakin studentOf Obi-Wan} is invalid and causes a constraint violation, as it is not explicitly stated that \ms{Anakin} is assigned to the class \ms{Jedi}. 
 When inferencing is performed before validating, the class assignment \ms{Anakin a Jedi} is inferred which prevents the constraint violation to be raised.
 
-\subsubsection{OWL 2 DL Reasoning}
+\subsection{OWL 2 DL Reasoning}
 
 \textbf{Existential Quantification}\footnote{corresponds to R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}\textbf{.}
 
@@ -714,13 +703,13 @@ When our data contains the triple \ms{Luke hasLaserSword BlueLaserSword} and we 
 As the individual \ms{Luke} is assigned to the class \ms{Jedi}, all constraint associated with this class are also validated, for example that Jedis must have blue laser swords.
 Without reasoning, these constraints won't be validated as \ms{Luke} is not within the class extension of \ms{Jedi}.
 
-\subsection{RDF Validation Requirements without Reasoning}
+\section{RDF Validation Requirements without Reasoning}
 
 For the majority of the requirements to formulate RDF constraints, reasoning is not related to the constraints and is therefore not needed to be performed prior to validation. 
 It is also possible, however, to reason before validating constraints for which reasoning does not affect validation results.
 If we do reasoning by query rewriting in terms of backward chaining and if we run a constraint validation query through an engine like the --ontop-- framework\footnote{\url{http://ontop.inf.unibz.it}} or ELITE (federated query engine) \cite{nolle2013elite}, the engine will only do some rewritings if it is possible, and if you just check e.g. pattern matching there will be no rewriting.
 
-\subsubsection{Expressible by OWL 2 QL}
+\subsection{Expressible by OWL 2 QL}
 
 \textbf{Literal Pattern Matching}\footnote{corresponds to R-44-PATTERN-MATCHING-ON-RDF-LITERALS}\textbf{.} 
 \an{IMHO literal pattern matching is not expressible in DL!}\tb{but we can express it using OWL 2 DL as it is shown in the OWL 2 spec}
@@ -768,7 +757,7 @@ The literal pattern matching constraint validates \ms{DroidNumber} literals acco
 \ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber}, 
 but not for the triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}.
 
-\subsubsection{Not Expressible by OWL 2 QL but by OWL 2 DL}
+\subsection{Expressible by OWL 2 DL}
 \label{sec:rdf-validation-requirements-without-reasoning-2}
 
 \textbf{Allowed Values}\footnote{corresponds to R-30-ALLOWED-VALUES-FOR-RDF-OBJECTS and R-37-ALLOWED-VALUES-FOR-RDF-LITERALS}\textbf{.}
@@ -846,7 +835,7 @@ Consider the triples \ms{Jedi(Luke)}, \ms{attackingBySword(Luke,true)}, \ms{Jedi
 Luke as well as Darth Sidious are associated with the class \ms{Jedi}.
 As Darth Sidious has both relationships, a constraint Violation is raised.
 
-\subsubsection{Not Expressible by OWL 2 DL But by Other Constraint Languages}
+\subsection{Expressible by Other Constraint Languages}
 
 The majority of constraints can neither be expressed by OWL 2 QL nor by OWL 2 DL. 
 In such cases, these constraints are represented by other constraint languages like DSP, ShEx, ReSh, or SPIN.
