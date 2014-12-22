@@ -101,9 +101,9 @@
 }
 
 \newenvironment{complexity}{
-  \scriptsize
-  \sffamily
-  \vspace{0.3cm}
+  %\scriptsize
+  %\sffamily
+  %\vspace{0.3cm}
   \begin{tabular}{l|l}
   \hline
   \textbf{Validation Type} & \textbf{Complexity} \\
@@ -116,9 +116,9 @@
 }
 
 \newenvironment{DL}{
-  \scriptsize
-  \sffamily
-  \vspace{0.3cm}
+  %\scriptsize
+  %\sffamily
+  %\vspace{0.3cm}
   \begin{tabular}{r l}
 
 }{
@@ -128,9 +128,9 @@
 
 
 \newenvironment{evaluation}{
-  \scriptsize
-  \sffamily
-  \vspace{0.3cm}
+  %\scriptsize
+  %\sffamily
+  %\vspace{0.3cm}
   \begin{tabular}{l|c|c|c|c|c|c}
   \hline
   \textbf{constraint} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\
@@ -143,9 +143,9 @@
 }
 
 \newenvironment{user-fiendliness}{
-  \scriptsize
-  \sffamily
-  \vspace{0.3cm}
+  %\scriptsize
+  %\sffamily
+  %\vspace{0.3cm}
   \begin{tabular}{l|c|c|c|c|c}
   \hline
   \textbf{criterion} & \textbf{DSP} & \textbf{OWL2} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\
@@ -487,26 +487,34 @@ Although, there are no reasoning implementations for other constraint languages 
 reasoning axioms cannot only be expressed by OWL 2.
 
   
-  \begin{table}
-  \begin{center}
-%    \scriptsize
-%  \sffamily
-%  \vspace{0.3cm}
-\begin{tabular}{l|c|c|c|c|c|c} 
-  \hline
-
-  \textbf{constraint} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\
+  %\begin{table}
+  %\begin{center}
+%%    \scriptsize
+%%  \sffamily
+%%  \vspace{0.3cm}
+%\begin{tabular}{l|c|c|c|c|c|c} 
+  %\hline
+%
+  %\textbf{constraint} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\
+%\ms{Expr-R-OWL2-QL} (11) & 0 & 11 & 11 & 0(2) & 1 & 11 \\
+%\ms{Expr-R-OWL2-DL} (18) & 7 & 18 & 0 & 9 & 8(1) & 18 \\
+%\ms{Expr-R} (4) & 1 & 0 & 0 & 2 & 2 & 4 \\ 
+%\ms{Expr-C} (41) & 6 & 18(4) & 7(4) & 8 & 12 & 40(1)\\
+%\end{tabular}
+%
+%
+%\label{table:evaluation}
+%\end{center}
+  %\end{table}
+	
+\begin{center}
+\begin{evaluation}
 \ms{Expr-R-OWL2-QL} (11) & 0 & 11 & 11 & 0(2) & 1 & 11 \\
 \ms{Expr-R-OWL2-DL} (18) & 7 & 18 & 0 & 9 & 8(1) & 18 \\
 \ms{Expr-R} (4) & 1 & 0 & 0 & 2 & 2 & 4 \\ 
 \ms{Expr-C} (41) & 6 & 18(4) & 7(4) & 8 & 12 & 40(1)\\
-\end{tabular}
-
-
-\label{table:evaluation}
+\end{evaluation}
 \end{center}
-  \end{table}
-
 %\tb{ToDo Thomas: refer to table}
 
 
