@@ -354,6 +354,10 @@ In this paper, we investigate the expressivity, the complexity, and the user-fri
 We take OWL 2 reasoning into account as a possible pre-validation step leading to higher complexity.
 In case of reasoning, users of validation tools can define which axioms they want to use for inference rules.
 The validator is then able to determine the complexity class, to show which axioms lead to a higher complexity class, and to recommend how to get to a lower complexity class.
+When reasoning is not needed for validation, axioms can be reformulated as constraints in queries leading to a lower complexity class. 
+Such a complexity aware validator could help people writing constraints that can be efficiently computed.
+For DL, there is a web application allowing to select the needed DL constructs in order to determine the complexity of DL reasoning\footnote{\url{http://www.cs.man.ac.uk/~ezolin/dl/}}.
+
 When stating axioms and constraints (without reasoning capabilities) needed for validation, 
 the validator is able to determine the expressivity class and thus can recommend constraint languages which can be used to express the wished axioms/constraints. 
 Although, there is a partial ordering of constraint languages for particular expressivity classes, 
@@ -367,21 +371,20 @@ As a consequence, the validator may recommend to express the stated axioms/const
 %Then, the system determines the complexity class, can point to requirements and constraints causing a higher complexity class,
 %and can give hints how to rewrite the constraint in order to stay in a lower complexity class.   
 
-Query languages such as SPARQL or Datalog are more expressive than OWL 2 QL and DL,
-but the complexity of query languages is less than the complexity of OWL 2 QL and DL, because of the reasoning calculations.
-For many constraints reasoning can be done, but when reasoning is not needed for validation this constraint can be reformulated as a query by a query language
-leading to a lower complexity class. 
-\textcolor{red}{example}
-Such a complexity aware RDF validator could help people writing constraints that can be efficiently computed.
-For DL, there is a web application allowing you to select the needed DL constructs in order to determine the complexity of DL reasoning\footnote{\url{http://www.cs.man.ac.uk/~ezolin/dl/}}.
+%Query languages such as SPARQL or Datalog are more expressive than OWL 2,
+%but the complexity of query languages is less than the complexity of OWL 2, because of the reasoning calculations.
+%For many constraints, reasoning can be executed.
+%When reasoning is not needed for validation, axioms can be reformulated as constraints in queries leading to a lower complexity class. 
+%Such a complexity aware validator could help people writing constraints that can be efficiently computed.
+%For DL, there is a web application allowing to select the needed DL constructs in order to determine the complexity of DL reasoning\footnote{\url{http://www.cs.man.ac.uk/~ezolin/dl/}}.
 
-As we evaluated to which extend each constraint can be expressed by the most promising five DSCLs, 
-we can determine the complexity of these DSCLs as well. 
+%As we evaluated to which extend each constraint can be expressed by the most promising five DSCLs, 
+%we can determine the complexity of these DSCLs as well. 
+%
+%If we want to use OWL 2 for RDF validation, we have to ensure that as many requirements for formulating RDF constraints are fulfilled
+%and that the computational complexity to formulate these constraints is satisfying.  
 
-If we want to use OWL 2 for RDF validation, we have to ensure that as many requirements for formulating RDF constraints are fulfilled
-and that the computational complexity to formulate these constraints is satisfying.  
-
-Therefore, we answer five \textbf{research questions}:
+This paper serves to answer five \textbf{research questions}:
 \begin{enumerate}
 	\item Which constraints are expressible by DL and which are only expressible by a query language (e.g Datalog or SPARQL)?
 	\item For which requirements formulating constraints the expressivity of \textit{DL-Lite}$_\mathcal{A}$ (respectively OWL 2 QL) is sufficient
@@ -555,7 +558,7 @@ Table \textcolor{red}{XXX} gives an overview of the computational complexity for
 \ms{C-R} & \textsc{N2exptime} \\
 \end{complexity}
 
-What is considered by RDF validation w/o reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on \textit{DL-Lite} family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
+What is considered by validation w/o reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on \textit{DL-Lite} family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
 As, for example, the constraint \ms{cardinality shortcuts} is associated with the complexity class \ms{C-R} and OWL2 DL reasoning can be done on cardinality restrictions,
 the complexity of \ms{C-R} is in \textsc{N2exptime} as well. 
 The complexity classes' partial ordering is:
