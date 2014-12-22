@@ -321,30 +321,6 @@ If we follow the principle of adopting the UNA to OWL and performing contraint v
 	%\item explain why specific OWL 2 constructs should not be used for RDF validation
 %\end{itemize}
 
-Reasoning makes sense before actually validating constraints.
-Reasoning, which is the core service provided by OWL,
-and constraint validation are very closely related. 
-Reasoning is the process of determining what follows from what has been
-stated.  Reasoning ranges from simple (students are people, John is a
-student, therefore John is a person) to the very complex. Reasoning can
-also recognize impossibilities (students are people, John is a student, John
-is not a person, therefore there is a contradiction). 
-It both should be possible: (1) constraint validation with reasoning and (2) constraint validation without reasoning. 
-
-Reasoning may be a pre validation step to infer triples resolving constraint violations.
-According to the existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasJediWaepon . JediWeapon} every Jedi has at least one Jedi weapon.
-Luke is a Jedi (\ms{Jedi(Luke)}) having a blue laser sword (\ms{hasLaserSword(Luke, BlueLaserSword)}.
-As it is not defined that laser swords are Jedi weapons and as Luke is a Jedi, the existential restriction causes a constraint violation. 
-This constraint violation is not raised when we define that laser swords are Jedi weapons (\ms{hasLaserSword $\sqsubseteq$ hasJediWaepon} ) 
-and \ms{hasLaserSword} is a sub-property of \ms{hasJediWeapon} (\ms{LaserSword $\sqsubseteq$ JediWeapon}).
-
-It makes also sense to perform reasoning to infer triples for which constraints are validated.
-The existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword} forces Jedis to have at least one laser sword.
-The existential restriction is not checked for the triple \ms{YediMaster(Yoda)}, as \ms{Yoda} is a \ms{JediMaster} and not a \ms{Jedi} as well.
-If, however, our knowledge base contains the axiom \ms{JediMaster $\sqsubseteq$ Jedi}, the triple \ms{Jedi(Yoda)} is inferred and the existential restrictions is validated for the individual \ms{Yoda}, raising a constraint violation if a triple such as \ms{hasLaserSword(Yoda, GreenLaserSword)} is not included in the knowledge base. 
-
-\textcolor{red}{example}
-
 %With regard to typing, W3C is assuming (AFAIK) that all types will be
 %explicit in the instance data - for the purposes of validation. There is
 %nothing, however, to prevent an application from running reasoning prior
@@ -424,6 +400,8 @@ Therefore, we answer five \textbf{research questions}:
 
 The three \textbf{main contributions} of this paper are:
 \begin{enumerate}
+  \item We explain why OWL can be used as constraint language
+	\item We explain why reasoning is beneficial for validation and how reasoning interacts with validation
   \item We investigate the effects on complexity expressing each constraint
 	\item We show that OWL 2 QL together with additional DSCLs completely satisfy all RDF validation requirements.
 	\item We evaluated to which extend the five possible standard DSCLs fulfill each requirement.
@@ -431,13 +409,26 @@ The three \textbf{main contributions} of this paper are:
 
 \textcolor{red}{paper organization}
 
-\section{Expressivity and Complexity of OWL 2}
+\section{Expressivity and Complexity in OWL 2 Reasoning}
 
-\textcolor{red}{
-\begin{itemize}
-	\item OWL as a high-level language with reasoning capabilities which can be used for RDF validation
-\end{itemize}
-}
+Reasoning and validation are very closely related. 
+Reasoning is the process of determining what follows from what has been
+stated.  Reasoning ranges from simple (Jedi students are Jedis, Luke is a Jedi student, therefore Luke is a Jedi) to the very complex. Reasoning can
+also recognize impossibilities ( Jedi masters are Jedis, Yoda is a Jedi master, Yoda
+is not a Jedi, therefore there is a contradiction). 
+Both should be possible: (1) validation with reasoning and (2) validation without reasoning. 
+
+Reasoning may be a pre validation step to infer triples resolving constraint violations.
+According to the existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasJediWaepon . JediWeapon} every Jedi has at least one Jedi weapon.
+Luke is a Jedi (\ms{Jedi(Luke)}) having a blue laser sword (\ms{hasLaserSword(Luke, BlueLaserSword)}.
+As it is not defined that laser swords are Jedi weapons and as Luke is a Jedi, the existential restriction causes a constraint violation. 
+This constraint violation is not raised when we define that laser swords are Jedi weapons (\ms{hasLaserSword $\sqsubseteq$ hasJediWaepon} ) 
+and \ms{hasLaserSword} is a sub-property of \ms{hasJediWeapon} (\ms{LaserSword $\sqsubseteq$ JediWeapon}).
+
+It makes also sense to perform reasoning to infer triples for which constraints are validated.
+The existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword} forces Jedis to have at least one laser sword.
+The existential restriction is not checked for the triple \ms{YediMaster(Yoda)}, as \ms{Yoda} is a \ms{JediMaster} and not a \ms{Jedi} as well.
+If, however, our knowledge base contains the axiom \ms{JediMaster $\sqsubseteq$ Jedi}, the triple \ms{Jedi(Yoda)} is inferred and the existential restrictions is validated for the individual \ms{Yoda}, raising a constraint violation if a triple such as \ms{hasLaserSword(Yoda, GreenLaserSword)} is not included in the knowledge base. 
 
 \subsection{OWL 2 QL Reasoning}
 
