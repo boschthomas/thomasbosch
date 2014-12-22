@@ -211,8 +211,6 @@ Albstadt-Sigmaringen University, Germany \\
 	%\item RDF Validation - Effects on Complexity with and without OWL 2 Reasoning
 %\end{itemize}
 
-\tb{I think we should replace DSCL by constraint language. DSCL disturbs the flow of reading. What do you think?}
-
 \section{Introduction}
 
 For many RDF applications, the formulation of constraints and the automatic validation of data according to these constraints is a much sought-after feature. 
@@ -257,15 +255,10 @@ This ambiguousness in semantics is one of the main reasons why OWL has not been 
 
 Let us address these opposites via an example. Consider e.g., the following definition of the knowledge base $\mathcal{K}$:
 \begin{eqnarray*} 
-\mathcal{K} &=  & \ms{Person} \sqsubseteq \exists \ms{hasFather.Person}, \\
- &&(\ms{funct (hasFather)}),\\
- && \ms{Person(Anakin)},\\
- && \ms{Person(Luke)},\\
- &&\ms{hasFather(Luke, Anakin)},\\ 
- &&\ms{hasFather(Luke, Shmi)}\}
+\mathcal{K} &=  & \ms{Person} \sqsubseteq \exists \ms{hasFather.Person}, (\ms{funct (hasFather)}),\\
+ && \ms{Person(Anakin)}, \ms{Person(Luke)},\\
+ &&\ms{hasFather(Luke, Anakin)}, \ms{hasFather(Luke, Shmi)}\}
 \end{eqnarray*}
-
-\tb{this takes too much place, we need to be more compact here - lower font size as first attempt}
 
 In case of the OWA, we infer that $\ms{Anakin}$ has a father that is a $\ms{Person}$, but we do not know him, so $\mathcal{K}$ is consistent. In CWA however, the constraint needs to be satisfied only by named individuals which yields in return of a constraint violation. We can further observe that there is a clash caused by the functional role $\ms{hasAncestor}$ and the UNA. However, in OWA there is no UNA by default, therefore the reasoning will conclude that $\ms{Anakin}$ is the same individual as \ms{Shmi} ($\ms{Anakin} \equiv \ms{Shmi}$). Notice that this is not a problem if we add UNA to the OWA, like in the \textit{DL-Lite} family \cite{Calvanese2007,Artale2009} which is the basis for OWL 2 QL.
 
