@@ -237,14 +237,12 @@ The choice depends on the individual use case.
 \section{Motivation}
 
 OWL is based on a knowledge representation formalism with different complexity, but is created as a language which can be seen as a constraint language.
-Constraint validation does not appear to be part of the services provided by OWL.  
-This has lead to claims that OWL cannot be used for constraint validation. 
-and there are long and controversial discussions\footnote{\url{http://lists.w3.org/Archives/Public/public-data-shapes-wg/}, \url{https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=dc-architecture}} in the W3C and DCMI WGs if OWL should be used for RDF validation.
+Validation does not appear to be part of the services provided by OWL.  
+This has lead to claims that OWL cannot be used for validation. 
+There have been long and controversial discussions\footnote{\url{http://lists.w3.org/Archives/Public/public-data-shapes-wg/}, \url{https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=dc-architecture}} in the W3C and DCMI WGs if OWL should be used for RDF validation.
 OWL is an instantiation of a high-level and very expressive DSCL with a compact human-readable syntax.
-OWL is a language that many people already know.
-In practice, many people use RDFS and OWL constructs to tell other people and applications about how valid instances should be created.
-Normally, RDF documents follow the structure of RDFS/OWL ontologies. 
-Thus, part of those declarations will be defined anyway and can therefore be reused for validating these RDF documents.
+In practice, many people know OWL very well and use RDFS/OWL constructs to tell people and applications about how valid instances should be created.
+RDF documents follow the structure of RDFS/OWL ontologies which can therefore be reused for validation.
 
 Despite the huge diversity to formulate constraints and validate them on RDF data, most of the DSCLs require the major shortcoming of redundancy. For illustration, consider e.g., the existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasJediWaepon . JediWeapon} that stated that every Jedi has at least one Jedi weapon. Furthermore, we know that Luke is a Jedi (\ms{Jedi(Luke)}) having a blue laser sword (\ms{hasLaserSword(Luke, BlueLaserSword)}. Since all of the DSCLs are based on the closed-world assumption (CWA) and as long as it isn't explicitly defined that a blue laser sword is a Jedi weapon (\ms{JediWeapon(BlueLaserSword)}), the existential restriction causes a constraint violation.
 
