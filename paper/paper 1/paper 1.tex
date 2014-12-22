@@ -188,7 +188,19 @@ Albstadt-Sigmaringen University, Germany \\
 \maketitle              % typeset the title of the contribution
 
 \begin{abstract}
-\textcolor{red}{ToDo}
+There is no standard way to formulate RDF constraints and to validate data according to these constraints,
+although there are five promising constraint languages covering all requirements on RDF validation.
+OWL 2 is an instantiation of a high-level and very expressive constraint language with a compact human-readable syntax.
+We explain why OWL 2 reasoning is beneficial for validation and how reasoning interacts with validation.
+We take reasoning into account as a possible pre-validation step, 
+(1) to infer triples resolving constraint violations, 
+(2) to infer triples for which constraints can also be validated, and 
+(3) to solve the major shortcoming of RDF validation - redundancy. 
+We investigate the expressivity, the complexity, and the user-friendliness of constraint languages.
+Following this approach, validation environments can suggest which constraint language to use to express constraints for specific validation scenarios with and without reasoning.
+Validators can determine which axioms cause high complexity and which constraints can only be expressed within a more sophisticated expressivity class.
+As a next step, validators give some guidance how to get to lower expressivity and complexity classes.
+If validators propose multiple constraint languages for a particular validation use case, additional rather subjective criteria regarding user-friendliness may be evaluated.
 
 \keywords{RDF Validation, RDF Constraints, OWL 2 QL, OWL 2 DL, Reasoning, RDF Validation Requirements, Linked Data, Semantic Web}
 \end{abstract}
@@ -255,11 +267,9 @@ Additionally, in OWL we have the non-unique name assumption (nUNA) whereas RDF v
 This ambiguousness in semantics is one of the main reasons why OWL has not been adopted as standard constraint language for RDF validation in the past. 
 
 Let us address these opposites via an example. Consider e.g., the following definition of the knowledge base $\mathcal{K}$:
-
-
 \begin{center}
 \begin{DL} 
-$\mathcal{K}=\{$ & Person $\sqsubseteq \exists$ hasFather.Person, \\
+$\mathcal{K}=\{$ & \ms{Person $\sqsubseteq \exists$ hasFather.Person}, \\
  &(\ms{funct (hasFather)}),\\
  &\ms{Person(Anakin)},\\
   &\ms{Person(Luke)},\\
@@ -267,9 +277,6 @@ $\mathcal{K}=\{$ & Person $\sqsubseteq \exists$ hasFather.Person, \\
  &\ms{hasFather(Luke, Shmi)}$\}$
 \end{DL}
 \end{center}
-%\tb{this takes too much place, we need to be more compact here - lower font size as first attempt}
-
-
 In case of the OWA, we infer that $\ms{Anakin}$ has a father that is a $\ms{Person}$, but we do not know him, so $\mathcal{K}$ is consistent. In CWA however, the constraint needs to be satisfied only by named individuals which yields in return of a constraint violation. We can further observe that there is a clash caused by the functional role $\ms{hasAncestor}$ and the UNA. However, in OWA there is no UNA by default, therefore the reasoning will conclude that $\ms{Anakin}$ is the same individual as \ms{Shmi} ($\ms{Anakin} \equiv \ms{Shmi}$). Notice that this is not a problem if we add UNA to the OWA, like in the \textit{DL-Lite} family \cite{Calvanese2007,Artale2009} which is the basis for OWL 2 QL.
 
 If we follow the principle of adopting the UNA to OWL and performing contraint validation after some reasoning, the opposites of OWA in OWL and CWA in constraint validation doesn't affect each other, because missing assertions like in the example mentioned above will cause still some constraint violations but the implicit knowledge is even considered on constraint validation.
