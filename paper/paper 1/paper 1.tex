@@ -235,6 +235,17 @@ However, there is no single standard DSCL to express any constraint for each pur
 The choice depends on the individual use case.
 
 \section{Motivation}
+
+OWL is based on a knowledge representation formalism with different complexity, but is created as a language which can be seen as a constraint language.
+Constraint validation does not appear to be part of the services provided by OWL.  
+This has lead to claims that OWL cannot be used for constraint validation. 
+and there are long and controversial discussions\footnote{\url{http://lists.w3.org/Archives/Public/public-data-shapes-wg/}, \url{https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=dc-architecture}} in the W3C and DCMI WGs if OWL should be used for RDF validation.
+OWL is an instantiation of a high-level and very expressive DSCL with a compact human-readable syntax.
+OWL is a language that many people already know.
+In practice, many people use RDFS and OWL constructs to tell other people and applications about how valid instances should be created.
+Normally, RDF documents follow the structure of RDFS/OWL ontologies. 
+Thus, part of those declarations will be defined anyway and can therefore be reused for validating these RDF documents.
+
 Despite the huge diversity to formulate constraints and validate them on RDF data, most of the DSCLs require the major shortcoming of redundancy. For illustration, consider e.g., the existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasJediWaepon . JediWeapon} that stated that every Jedi has at least one Jedi weapon. Furthermore, we know that Luke is a Jedi (\ms{Jedi(Luke)}) having a blue laser sword (\ms{hasLaserSword(Luke, BlueLaserSword)}. Since all of the DSCLs are based on the closed-world assumption (CWA) and as long as it isn't explicitly defined that a blue laser sword is a Jedi weapon (\ms{JediWeapon(BlueLaserSword)}), the existential restriction causes a constraint violation.
 
 But if we express the mentioned constraints in OWL and apply a reasoner before the proper constraint validation is performed, we won't get a constraint violation because all implicit statements like a blue laser sword is a Jedi weapon (\ms{JediWeapon(BlueLaserSword)}) will be inferred. At a first glance, using OWL as constraint language the shortcoming of redundancy is solved. However, on closer consideration OWL is by default an insufficient choice because OWL is in contrast based on the open-world assumption (OWA), i.e. a statement cannot be inferred to be false on the basis of failures to prove it. 
@@ -259,18 +270,6 @@ In case of the OWA, we infer that $\ms{Anakin}$ has a father that is a $\ms{Pers
 
 If we follow the principle of adopting the UNA to OWL and performing contraint validation after some reasoning, the opposites of OWA in OWL and CWA in constraint validation doesn't affect each other, because missing assertions like in the example mentioned above will cause still some constraint violations but the implicit knowledge is even considered on constraint validation.
 
-\tb{maybe next paragraph in front}
-
-OWL is based on a knowledge representation formalism with different complexity, but is created as a language which can be seen as a constraint language.
-Constraint validation does not appear to be part of the services provided by OWL.  
-This has lead to claims that OWL cannot be used for constraint validation. 
-and there are long and controversial discussions\footnote{\url{http://lists.w3.org/Archives/Public/public-data-shapes-wg/}, \url{https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=dc-architecture}} in the W3C and DCMI WGs if OWL should be used for RDF validation.
-OWL is an instantiation of a high-level and very expressive DSCL with a compact human-readable syntax.
-OWL is a language that many people already know.
-In practice, many people use RDFS and OWL constructs to tell other people and applications about how valid instances should be created.
-Normally, RDF documents follow the structure of RDFS/OWL ontologies. 
-Thus, part of those declarations will be defined anyway and can therefore be reused for validating these RDF documents.
-
 %The standard semantics of OWL is:
 %
 %\begin{itemize}
@@ -291,31 +290,31 @@ Thus, part of those declarations will be defined anyway and can therefore be reu
 %world reasoning, and exactly the same piece can also be interpreted in closed world
 %applications as a constraint. 
 
-You can't easily use OWL to even do cardinality checking. 
-For example, suppose you assert that \ms{hasFather} is a functional property, and you have the triples \ms{Luke hasFather Anakin} and \ms{Luke hasFather Darth}.
-An OWL reasoner will invoke the nUNA to infer that \ms{Anakin owl:sameAs Darth}.
-
-Therefore, the semantics for RDF validation is Closed World Assumption (CWA) and the Unique Name Assumption.
- 
-As for an area where OWA is problematic, one need look no further than
-FRBRer ontology is clearly designed using OWL constraints
-(which I prefer to call "axioms" to avoid confusion) in a closed world
-way. The definitions are quite strict, with all classes disjoint each
-other, such that, using reasoning in the OWL, any FRBRer data will be
-inconsistent with data not using that exact set of axioms. 
-http://svn.aksw.org/papers/2014/WWW\_Databugger/public.pdf
+%You can't easily use OWL to even do cardinality checking. 
+%For example, suppose you assert that \ms{hasFather} is a functional property, and you have the triples \ms{Luke hasFather Anakin} and \ms{Luke hasFather Darth}.
+%An OWL reasoner will invoke the nUNA to infer that \ms{Anakin owl:sameAs Darth}.
+%
+%Therefore, the semantics for RDF validation is Closed World Assumption (CWA) and the Unique Name Assumption.
+ %
+%As for an area where OWA is problematic, one need look no further than
+%FRBRer ontology is clearly designed using OWL constraints
+%(which I prefer to call "axioms" to avoid confusion) in a closed world
+%way. The definitions are quite strict, with all classes disjoint each
+%other, such that, using reasoning in the OWL, any FRBRer data will be
+%inconsistent with data not using that exact set of axioms. 
+%http://svn.aksw.org/papers/2014/WWW\_Databugger/public.pdf
 
 %\tb{Andy, we want to use only star wars examples in our paper. We need 1 example showing the differences between OWA / CWA and /UNA / nUNA. You may reuse star wars examples which are already in the paper.}
 
-Let us address the CWA vs. OWA via an example. Consider the knowledge base  $\mathcal{K} = \{\ms{Person} \sqsubseteq \exists \ms{hasAncestor.Person}, \ms{Person(Luke)}\}$. In case of OWA, we know that $\ms{Luke}$ has $\ms{Ancestor}$, but we do not know all of them. Notice that $\mathcal{K}$ is consistent. In CWA however, the constraint needs to be satisfied only by named individuals which yields in return some validation errors.\\
-Consider the following case in CWA. 
-\begin{eqnarray*}
-\mathcal{K} &=  & \{\ms{Person} \sqsubseteq \exists \ms{hasAncestor.Person}, \\
- &&(\ms{funct }  \ms{hasAncestor}),\\  && \ms{Person(Luke)},\\ && \ms{hasAncestor(Luke, Anakin)},\\  && \ms{hasAncestor(Anakin, Shmi)}\}
-\end{eqnarray*}
-
-\noindent Now, observe that there is a clash because of the functional role $\ms{hasAncestor}$ and the UNA. However, in OWA there is no UNA by default, therefore the reasoning will conclude that  $\ms{Anakin}$ to be the same individual with $\ms{Shmi (Anakin} \equiv \ms{Shmi}$). Notice that this is not a problem if we add UNA to the OWA, like in the \textit{DL-Lite} family.
-Another point is that, if we perform RDF validation without reasoning, we will get a further clash: $\ms{Anakin}$ is not defined to be a $\ms{Person}$. On the other hand, if we do the validation after the reasoning, then there is no clash since $\ms{Person(Anakin)}$ is inferred. 
+%Let us address the CWA vs. OWA via an example. Consider the knowledge base  $\mathcal{K} = \{\ms{Person} \sqsubseteq \exists \ms{hasAncestor.Person}, \ms{Person(Luke)}\}$. In case of OWA, we know that $\ms{Luke}$ has $\ms{Ancestor}$, but we do not know all of them. Notice that $\mathcal{K}$ is consistent. In CWA however, the constraint needs to be satisfied only by named individuals which yields in return some validation errors.\\
+%Consider the following case in CWA. 
+%\begin{eqnarray*}
+%\mathcal{K} &=  & \{\ms{Person} \sqsubseteq \exists \ms{hasAncestor.Person}, \\
+ %&&(\ms{funct }  \ms{hasAncestor}),\\  && \ms{Person(Luke)},\\ && \ms{hasAncestor(Luke, Anakin)},\\  && \ms{hasAncestor(Anakin, Shmi)}\}
+%\end{eqnarray*}
+%
+%\noindent Now, observe that there is a clash because of the functional role $\ms{hasAncestor}$ and the UNA. However, in OWA there is no UNA by default, therefore the reasoning will conclude that  $\ms{Anakin}$ to be the same individual with $\ms{Shmi (Anakin} \equiv \ms{Shmi}$). Notice that this is not a problem if we add UNA to the OWA, like in the \textit{DL-Lite} family.
+%Another point is that, if we perform RDF validation without reasoning, we will get a further clash: $\ms{Anakin}$ is not defined to be a $\ms{Person}$. On the other hand, if we do the validation after the reasoning, then there is no clash since $\ms{Person(Anakin)}$ is inferred. 
 
 %\begin{itemize}
 	%\item explain why specific OWL 2 constructs could be used for RDF validation 
