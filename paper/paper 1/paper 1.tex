@@ -212,8 +212,6 @@ Albstadt-Sigmaringen University, Germany \\
 	%\item RDF Validation - Effects on Complexity with and without OWL 2 Reasoning
 %\end{itemize}
 
-\tb{I think we should replace DSCL by constraint language. DSCL disturbs the flow of reading. What do you think?}
-
 \section{Introduction}
 
 For many RDF applications, the formulation of constraints and the automatic validation of data according to these constraints is a much sought-after feature. 
@@ -258,6 +256,7 @@ This ambiguousness in semantics is one of the main reasons why OWL has not been 
 
 Let us address these opposites via an example. Consider e.g., the following definition of the knowledge base $\mathcal{K}$:
 
+
 \begin{center}
 \begin{DL} 
 $\mathcal{K}=\{$ & Person $\sqsubseteq \exists$ hasFather.Person, \\
@@ -269,6 +268,7 @@ $\mathcal{K}=\{$ & Person $\sqsubseteq \exists$ hasFather.Person, \\
 \end{DL}
 \end{center}
 %\tb{this takes too much place, we need to be more compact here - lower font size as first attempt}
+
 
 In case of the OWA, we infer that $\ms{Anakin}$ has a father that is a $\ms{Person}$, but we do not know him, so $\mathcal{K}$ is consistent. In CWA however, the constraint needs to be satisfied only by named individuals which yields in return of a constraint violation. We can further observe that there is a clash caused by the functional role $\ms{hasAncestor}$ and the UNA. However, in OWA there is no UNA by default, therefore the reasoning will conclude that $\ms{Anakin}$ is the same individual as \ms{Shmi} ($\ms{Anakin} \equiv \ms{Shmi}$). Notice that this is not a problem if we add UNA to the OWA, like in the \textit{DL-Lite} family \cite{Calvanese2007,Artale2009} which is the basis for OWL 2 QL.
 
@@ -390,7 +390,7 @@ As a consequence, the validator may recommend to express the stated axioms/const
 %If we want to use OWL 2 for RDF validation, we have to ensure that as many requirements for formulating RDF constraints are fulfilled
 %and that the computational complexity to formulate these constraints is satisfying.  
 
-This paper serves to answer the following \textbf{research questions}:
+This paper serves to answer the two \textbf{research questions}:
 \begin{itemize}
 	%\item Which constraints are expressible by DL and which are only expressible by a query language (e.g Datalog or SPARQL)?
 	%\item For which requirements formulating constraints the expressivity of \textit{DL-Lite}$_\mathcal{A}$ (respectively OWL 2 QL) is sufficient
@@ -438,15 +438,6 @@ As a result of its expressive power, OWL 2 DL allows a large variety of sophisti
 
 \section{Classification of RDF Constraints and DSCLs according to Expressivity, Complexity, and User-Friendliness}
 
-\textcolor{red}{
-\begin{itemize}
-	\item section 3 is needed as basis for this chapter to which extend do most promising five constraint languages cover RDF validation requirements?
-	\item --> then, constraint languages can also be assigned to these classes (e.g. 6 out of 30 class A requirements are covered by constraint language A --> constraint language A is also assigned to that class)
-\end{itemize}
-}
-
-\textcolor{red}{at least 1 example for each class}
-
 %We divide these constraints into three classes:
 %\begin{itemize}
 	%\item constraints expressible by OWL 2 QL
@@ -473,8 +464,6 @@ As existential restrictions are part of OWL 2 DL reasoning, the constraint's com
  
 We evaluated to which extend the most promising five DSCLs fulfill each requirement.
 We also evaluated if a specific requirement is covered by OWL 2 QL or if the more expressive and complex OWL 2 DL is needed \cite{BoschNolleAcarEckert2015}.
-
-\tb{How to publish the requirements evaluation? as technical report?}
 
 \subsection{Classification Dimension Expressivity}
 
@@ -624,17 +613,15 @@ It depends on the individual use case, which constrains are needed to express an
 As a consequence, you may select a DSCL which is not the most expressive one within one specific expressivity class, 
 but may be better evaluated according to one or multiple user-friendliness classes.
 If, for instance, reasoning should not be performed and three particular constraints should be covered by the DSCL.
-Even if the expressivity (\ms{Expr-C}) of SPIN is much higher than of ShEx  
-\begin{eqnarray*}
-\ms{Expr-C}(ShEx) \subset \ms{Expr-C}(SPIN)
-\end{eqnarray*}
+Even if the expressivity (\ms{Expr-C}) of SPIN is much higher than of ShEx (\ms{Expr-C}(ShEx) $\subset$ \ms{Expr-C}(SPIN)) 
+%\begin{eqnarray*}
+%\ms{Expr-C}(ShEx) \subset \ms{Expr-C}(SPIN)
+%\end{eqnarray*}
 it could be quite beneficial to choose ShEx rather than SPIN (in case the three constraints are covered by both).
 Now, the user-friendliness classes comes into play:
 \begin{eqnarray*}
-\ms{UF-L}(SPIN) \subset \ms{UF-L}(ShEx) \\
-\ms{UF-I}(SPIN) \subset \ms{UF-I}(ShEx) \\
-\ms{UF-C}(SPIN) \subset \ms{UF-C}(ShEx) \\
-\ms{UF-L}(ShEx) \subset \ms{UF-L}(SPIN)
+\ms{UF-L}(SPIN) \subset \ms{UF-L}(ShEx), \ms{UF-I}(SPIN) \subset \ms{UF-I}(ShEx) \\
+\ms{UF-C}(SPIN) \subset \ms{UF-C}(ShEx), \ms{UF-L}(ShEx) \subset \ms{UF-L}(SPIN)
 \end{eqnarray*}
 Although, SPIN is more adopted than ShEx, ShEx is a high-level compared to a low-level language, ShEx is more intuitive and concise than SPIN.
 According to this evaluation, tools may recommend alternatives to the most expressive language SPIN.  
