@@ -760,7 +760,7 @@ but not for the triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D
 \subsection{Expressible by OWL 2 DL}
 \label{sec:rdf-validation-requirements-without-reasoning-2}
 
-\textbf{Allowed Values}\footnote{corresponds to R-30-ALLOWED-VALUES-FOR-RDF-OBJECTS and R-37-ALLOWED-VALUES-FOR-RDF-LITERALS}\textbf{.}
+\textbf{Allowed Values}\footnote{corresponds to R-30-ALLOWED-VALUES}\textbf{.}
 It is a common requirement to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resources). This is often rendered in drop down boxes or radio buttons in user interfaces. 
 The constraint 'Jedis can only have blue, green, or white laser swords' can be expressed by OWL 2 DL, DSP, ReSh, ShEx, SPIN, and SPARQL.
 
@@ -768,21 +768,21 @@ The constraint 'Jedis can only have blue, green, or white laser swords' can be e
 Jedi $\equiv$ $\exists$ laserSwordColor . \{blue, green, white\} \\
 \end{DL}
 
-In DSP, the constraint does not look that concise:
-
-\begin{ex}
-personDescriptionTemplate
-    a dsp:DescriptionTemplate ;
-    dsp:resourceClass Jedi ;
-    dsp:statementTemplate [
-        a dsp:LiteralStatementTemplate ;
-        dsp:property laserSwordColor ;
-        dsp:literalConstraint [
-            a dsp:LiteralConstraint ;
-            dsp:literal "blue" ;
-            dsp:literal "green" ;
-            dsp:literal "white"] ] .
-\end{ex}
+%In DSP, the constraint does not look that concise:
+%
+%\begin{ex}
+%personDescriptionTemplate
+    %a dsp:DescriptionTemplate ;
+    %dsp:resourceClass Jedi ;
+    %dsp:statementTemplate [
+        %a dsp:LiteralStatementTemplate ;
+        %dsp:property laserSwordColor ;
+        %dsp:literalConstraint [
+            %a dsp:LiteralConstraint ;
+            %dsp:literal "blue" ;
+            %dsp:literal "green" ;
+            %dsp:literal "white"] ] .
+%\end{ex}
 
 When representing the constraint by OWL2 DL a new datatype is defined by simply enumerating its literals:
 
