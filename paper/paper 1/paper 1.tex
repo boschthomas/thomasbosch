@@ -350,23 +350,22 @@ If we follow the principle of adopting the UNA to OWL and performing contraint v
 	%\item there is no query rewriting mechanism for OWL 2, just for OWL 2 QL
 %\end{itemize}
 
-In this paper, we investigate the expressivity, the complexity, and the user-friendliness of each constraint language and constraint.
-We take OWL 2 reasoning into account as a pre-validation step which leads to higher complexity.
-In this case, users of validation tools could define which axioms they want to use for their inference rules.
+In this paper, we investigate the expressivity, the complexity, and the user-friendliness of the five most promising constraint languages.
+We take OWL 2 reasoning into account as a possible pre-validation step leading to higher complexity.
+In case of reasoning, users of validation tools can define which axioms they want to use for inference rules.
 The validator is then able to determine the complexity class, to show which axioms lead to a higher complexity class, and to recommend how to get to a lower complexity class.
-When stating needed axioms and constraints (without reasoning capabilities), 
-the validator is able determine the expressivity class and thus can recommend which constraint language to use in order to express the wished axioms/constraints. 
-Although, there is a partial ordering of constraint languages of particular expressivity classes, 
+When stating axioms and constraints (without reasoning capabilities) needed for validation, 
+the validator is able to determine the expressivity class and thus can recommend constraint languages which can be used to express the wished axioms/constraints. 
+Although, there is a partial ordering of constraint languages for particular expressivity classes, 
 validators may not recommend the constraint language with the highest expressivity of that specific expressivity class.
-The most expressive constraint language may not be as good evaluated regarding user-friendliness as another constraint language, which is less expressive but can also express the needed axioms/constraints.
+The validator compares the constraint languages, which are able to express the needed axioms/constraints, according to multiple user-friendliness classes.
+As a consequence, the validator may recommend to express the stated axioms/constraints by a constraint language which is less but enough expressive, and more user-friendly.
 
- 
-
-As case studies are linked to use cases and use cases to requirements, it is known how complex the task is to fulfill use cases and case studies.
-For specific use cases, it can also be determined which of the associated requirements lead to a higher complexity class.
-Imaginable is a system in which use cases can be selected which should be met for particular applications.
-Then, the system determines the complexity class, can point to requirements and constraints causing a higher complexity class,
-and can give hints how to rewrite the constraint in order to stay in a lower complexity class.   
+%As case studies are linked to use cases and use cases to requirements, it is known how complex the task is to fulfill use cases and case studies.
+%For specific use cases, it can also be determined which of the associated requirements lead to a higher complexity class.
+%Imaginable is a system in which use cases can be selected which should be met for particular applications.
+%Then, the system determines the complexity class, can point to requirements and constraints causing a higher complexity class,
+%and can give hints how to rewrite the constraint in order to stay in a lower complexity class.   
 
 Query languages such as SPARQL or Datalog are more expressive than OWL 2 QL and DL,
 but the complexity of query languages is less than the complexity of OWL 2 QL and DL, because of the reasoning calculations.
