@@ -13,6 +13,7 @@
 
 \usepackage[utf8]{inputenc}
 
+
 % footnotes
 \usepackage{scrextend}
 
@@ -255,13 +256,13 @@ Additionally, in OWL we have the non-unique name assumption (nUNA) whereas RDF v
 This ambiguousness in semantics is one of the main reasons why OWL has not been adopted as standard DSCL for RDF validation in the past. 
 
 Let us address these opposites via an example. Consider e.g., the following definition of the knowledge base $\mathcal{K}$:
-\begin{eqnarray*}
-\mathcal{K} &=  & \{\ms{Person} \sqsubseteq \exists \ms{hasFather.Person}, \\
+\begin{eqnarray*} 
+\mathcal{K} &=  & \ms{Person} \sqsubseteq \exists \ms{hasFather.Person}, \\
  &&(\ms{funct (hasFather)}),\\
  && \ms{Person(Anakin)},\\
  && \ms{Person(Luke)},\\
- && \ms{hasFather(Luke, Anakin)},\\ 
- && \ms{hasFather(Luke, Shmi)}\}
+ &&\ms{hasFather(Luke, Anakin)},\\ 
+ &&\ms{hasFather(Luke, Shmi)}\}
 \end{eqnarray*}
 
 \tb{this takes too much place, we need to be more compact here - lower font size as first attempt}
@@ -491,13 +492,14 @@ or to check if this class assignment is explicitly stated in the data without re
 Although, there are no reasoning implementations for other DSCLs than OWL 2 available yet, 
 reasoning axioms cannot only be expressed by OWL 2.
 
+\begin{center}
 \begin{evaluation}
 \ms{Expr-R-OWL2-QL} (11) & 0 & 11 & 11 & 0(2) & 1 & 11 \\
 \ms{Expr-R-OWL2-DL} (18) & 7 & 18 & 0 & 9 & 8(1) & 18 \\
 \ms{Expr-R} (4) & 1 & 0 & 0 & 2 & 2 & 4 \\ 
 \ms{Expr-C} (41) & 6 & 18(4) & 7(4) & 8 & 12 & 40(1)\\
 \end{evaluation}
-
+\end{center}
 \tb{ToDo Thomas: refer to table}
 
 The total amount of constraints/axioms is indicated by numbers in round brackets in the first column.
@@ -529,15 +531,16 @@ According to our evaluation of requirements to formulate RDF constraints, we ide
 
 The complexity class \ms{C-R} encompasses all axioms for which reasoning can be executed but cannot be expressed by OWL 2.  
 Table \textcolor{red}{XXX} gives an overview of the computational complexity for RDF validation when reasoning is performed and when reasoning is not performed. 
-
+\begin{center}
 \begin{complexity}
 \ms{C-C} & \textsc{Pspace}-Complete \\
 \ms{C-R-OWL2-QL} & \textsc{Ptime} \\
 \ms{C-R-OWL2-DL} & \textsc{N2exptime} \\
 \ms{C-R} & \textsc{N2exptime} \\
 \end{complexity}
+\end{center}
+What is considered by RDF validation w/o reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on \textit{DL-Lite} family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
 
-What is considered by validation w/o reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on \textit{DL-Lite} family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
 As, for example, the constraint \ms{cardinality shortcuts} is associated with the complexity class \ms{C-R} and OWL2 DL reasoning can be done on cardinality restrictions,
 the complexity of \ms{C-R} is in \textsc{N2exptime} as well. 
 The complexity classes' partial ordering is:
@@ -559,13 +562,14 @@ Criteria to determine the degree of user-friendliness of DSCLs lead to four user
 
 We evaluated the five most important DSCLs according to these user-friendliness classes:
 
+\begin{center}
 \begin{user-fiendliness}
 \ms{UF-L} & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & \ding{55} \\
 \ms{UF-I} & $\sim$ & $\sim$ & $\sim$ & $\checkmark$ & \ding{55} \\
 \ms{UF-C} & \ding{55} & $\checkmark$ & $\sim$ & $\checkmark$ & \ding{55} \\
 \ms{UF-A} & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
 \end{user-fiendliness}
-
+\end{center}
 SPIN is in contrast to the other DSCLs a general-purpose low-level language, as it is the most expressive one (\ms{UF-L}).
 As SPARQL queries may be very long and complex, the purpose of constraints expressed in SPIN may not be immediately clear to human readers.
 On the other side, ShEx is the most intuitive DSCL, since it is based on regular expressions and since well-known constructs of other languages\footnote{e.g. numbers standing for min, max, and exact cardinality in UML} are part of the language definition.
@@ -691,6 +695,7 @@ Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword
 
 This existential quantification contains all those individuals that are connected by \ms{hasLaserSword} to an individual that is an instance of the class \ms{LaserSword}.
 In OWL 2 DL, this existential quantification can also be expressed:
+
 
 \begin{ex}
 [ a owl:Restriction ;
