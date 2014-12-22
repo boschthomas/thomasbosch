@@ -210,6 +210,8 @@ Albstadt-Sigmaringen University, Germany \\
 	%\item RDF Validation - Effects on Complexity with and without OWL 2 Reasoning
 %\end{itemize}
 
+\tb{I think we should replace DSCL by constraint language. DSCL disturbs the flow of reading. What do you think?}
+
 \section{Introduction}
 
 For many RDF applications, the formulation of constraints and the automatic validation of data according to these constraints is a much sought-after feature. 
@@ -235,7 +237,7 @@ The choice depends on the individual use case.
 \section{Motivation}
 Despite the huge diversity to formulate constraints and validate them on RDF data, most of the DSCLs require the major shortcoming of redundancy. For illustration, consider e.g., the existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasJediWaepon . JediWeapon} that stated that every Jedi has at least one Jedi weapon. Furthermore, we know that Luke is a Jedi (\ms{Jedi(Luke)}) having a blue laser sword (\ms{hasLaserSword(Luke, BlueLaserSword)}. Since all of the DSCLs are based on the closed-world assumption (CWA) and as long as it isn't explicitly defined that a blue laser sword is a Jedi weapon (\ms{JediWeapon(BlueLaserSword)}), the existential restriction causes a constraint violation.
 
-But if we express the mentioned constraints in OWL and apply a reasoner before the proper constraint validation is performed, we won't get a constraint violation because all implicit statements like a blue laser sword is a Jedi weapon (\ms{JediWeapon(BlueLaserSword)}) will be inferred. At a first glance, using OWL as constraint language the shortcoming of redundancy is solved. However, on closer consideration OWL is by default an insufficient choice because OWL is in contrast based on the closed-world assumption (CWA). Additionally, in OWL we have the non-unique name assumption (nUNA) whereas RDF validation requires that different names represent different objects (also known as unique name assumption (UNA)).
+But if we express the mentioned constraints in OWL and apply a reasoner before the proper constraint validation is performed, we won't get a constraint violation because all implicit statements like a blue laser sword is a Jedi weapon (\ms{JediWeapon(BlueLaserSword)}) will be inferred. At a first glance, using OWL as constraint language the shortcoming of redundancy is solved. However, on closer consideration OWL is by default an insufficient choice because OWL is in contrast based on the open-world assumption (OWA)\tb{we have to state here the difference of OWA dn CWA}, i.e. a statement cannot be inferred to be false on the basis of failures to prove it. Additionally, in OWL we have the non-unique name assumption (nUNA) whereas RDF validation requires that different names represent different objects (also known as unique name assumption (UNA)).
 
 Let us address these opposites via an example. Consider e.g., the following definition of the knowledge base $\mathcal{K}$:
 \begin{eqnarray*}
@@ -247,9 +249,9 @@ Let us address these opposites via an example. Consider e.g., the following defi
  && \ms{hasFather(Luke, Shmi)}\}
 \end{eqnarray*}
 
-In case of the OWA, we infer that$\ms{Anakin}$ has a Father that is a $\ms{Person}$, but we do not know him, so$\mathcal{K}$ is consistent. In CWA however, the constraint needs to be satisfied only by named individuals which yields in return of a constraint violation. We can further observe that there is a clash caused the functional role $\ms{hasAncestor}$ and the UNA. However, in OWA there is no UNA by default, therefore the reasoning will conclude that $\ms{Anakin}$ is the same individual as $\ms{Anakin} \equiv \ms{Shmi}$). Notice that this is not a problem if we add UNA to the OWA, like in the \textit{DL-Lite} family \cite{Calvanese2007,Artale2009} which is the basis for OWL 2 QL.
+In case of the OWA, we infer that $\ms{Anakin}$ has a father that is a $\ms{Person}$, but we do not know him, so $\mathcal{K}$ is consistent. In CWA however, the constraint needs to be satisfied only by named individuals which yields in return of a constraint violation. We can further observe that there is a clash caused by the functional role $\ms{hasAncestor}$ and the UNA. However, in OWA there is no UNA by default, therefore the reasoning will conclude that $\ms{Anakin}$ is the same individual as \ms{Shmi} ($\ms{Anakin} \equiv \ms{Shmi}$). Notice that this is not a problem if we add UNA to the OWA, like in the \textit{DL-Lite} family \cite{Calvanese2007,Artale2009} which is the basis for OWL 2 QL.
 
-If we following the principle of adopting the UNA to OWL and performing contraint validation after some reasoning, the opposites of OWA in OWL and CWA in constraint validation doesn't affect each other, because missing assertions like in the example mentioned above will cause still some constraint violations but the implicit knowledge is even considered on constraint validation.
+If we follow the principle of adopting the UNA to OWL and performing contraint validation after some reasoning, the opposites of OWA in OWL and CWA in constraint validation doesn't affect each other, because missing assertions like in the example mentioned above will cause still some constraint violations but the implicit knowledge is even considered on constraint validation.
 
 
 
