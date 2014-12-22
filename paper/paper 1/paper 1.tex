@@ -265,6 +265,8 @@ Let us address these opposites via an example. Consider e.g., the following defi
  &&\ms{hasFather(Luke, Shmi)}\}
 \end{eqnarray*}
 
+\tb{this takes too much place, we need to be more compact here - lower font size as first attempt}
+
 In case of the OWA, we infer that $\ms{Anakin}$ has a father that is a $\ms{Person}$, but we do not know him, so $\mathcal{K}$ is consistent. In CWA however, the constraint needs to be satisfied only by named individuals which yields in return of a constraint violation. We can further observe that there is a clash caused by the functional role $\ms{hasAncestor}$ and the UNA. However, in OWA there is no UNA by default, therefore the reasoning will conclude that $\ms{Anakin}$ is the same individual as \ms{Shmi} ($\ms{Anakin} \equiv \ms{Shmi}$). Notice that this is not a problem if we add UNA to the OWA, like in the \textit{DL-Lite} family \cite{Calvanese2007,Artale2009} which is the basis for OWL 2 QL.
 
 If we follow the principle of adopting the UNA to OWL and performing contraint validation after some reasoning, the opposites of OWA in OWL and CWA in constraint validation doesn't affect each other, because missing assertions like in the example mentioned above will cause still some constraint violations but the implicit knowledge is even considered on constraint validation.
@@ -351,83 +353,62 @@ If we follow the principle of adopting the UNA to OWL and performing contraint v
 	%\item there is no query rewriting mechanism for OWL 2, just for OWL 2 QL
 %\end{itemize}
 
-In this paper, we investigate the expressivity, the complexity, and the user-friendliness of each constraint language and constraint.
-We take OWL 2 reasoning into account as a pre-validation step which leads to higher complexity.
-In this case, users of validation tools could define which axioms they want to use for their inference rules.
+In this paper, we investigate the expressivity, the complexity, and the user-friendliness of the five most promising constraint languages.
+We take OWL 2 reasoning into account as a possible pre-validation step leading to higher complexity.
+In case of reasoning, users of validation tools can define which axioms they want to use for inference rules.
 The validator is then able to determine the complexity class, to show which axioms lead to a higher complexity class, and to recommend how to get to a lower complexity class.
-When stating needed axioms and constraints (without reasoning capabilities), 
-the validator is able determine the expressivity class and thus can recommend which constraint language to use in order to express the wished axioms/constraints. 
-Although, there is a partial ordering of constraint languages of particular expressivity classes, 
+When reasoning is not needed for validation, axioms can be reformulated as constraints in queries leading to a lower complexity class. 
+Such a complexity aware validator could help people writing constraints that can be efficiently computed.
+%For DL, there is a web application allowing to select the needed DL constructs in order to determine the complexity of DL reasoning\footnote{\url{http://www.cs.man.ac.uk/~ezolin/dl/}}.
+
+When stating axioms and constraints (without reasoning capabilities) needed for validation, 
+the validator is able to determine the expressivity class and thus can recommend constraint languages which can be used to express the wished axioms/constraints. 
+Although, there is a partial ordering of constraint languages for particular expressivity classes, 
 validators may not recommend the constraint language with the highest expressivity of that specific expressivity class.
-The most expressive constraint language may not be as good evaluated regarding user-friendliness as another constraint language, which is less expressive but can also express the needed axioms/constraints.
+The validator compares the constraint languages, which are able to express the needed axioms/constraints, according to multiple user-friendliness classes.
+As a consequence, the validator may recommend to express the stated axioms/constraints by a constraint language which is less but enough expressive, and more user-friendly.
 
- 
+%As case studies are linked to use cases and use cases to requirements, it is known how complex the task is to fulfill use cases and case studies.
+%For specific use cases, it can also be determined which of the associated requirements lead to a higher complexity class.
+%Imaginable is a system in which use cases can be selected which should be met for particular applications.
+%Then, the system determines the complexity class, can point to requirements and constraints causing a higher complexity class,
+%and can give hints how to rewrite the constraint in order to stay in a lower complexity class.   
 
-As case studies are linked to use cases and use cases to requirements, it is known how complex the task is to fulfill use cases and case studies.
-For specific use cases, it can also be determined which of the associated requirements lead to a higher complexity class.
-Imaginable is a system in which use cases can be selected which should be met for particular applications.
-Then, the system determines the complexity class, can point to requirements and constraints causing a higher complexity class,
-and can give hints how to rewrite the constraint in order to stay in a lower complexity class.   
+%Query languages such as SPARQL or Datalog are more expressive than OWL 2,
+%but the complexity of query languages is less than the complexity of OWL 2, because of the reasoning calculations.
+%For many constraints, reasoning can be executed.
+%When reasoning is not needed for validation, axioms can be reformulated as constraints in queries leading to a lower complexity class. 
+%Such a complexity aware validator could help people writing constraints that can be efficiently computed.
+%For DL, there is a web application allowing to select the needed DL constructs in order to determine the complexity of DL reasoning\footnote{\url{http://www.cs.man.ac.uk/~ezolin/dl/}}.
 
-Query languages such as SPARQL or Datalog are more expressive than OWL 2 QL and DL,
-but the complexity of query languages is less than the complexity of OWL 2 QL and DL, because of the reasoning calculations.
-For many constraints reasoning can be done, but when reasoning is not needed for validation this constraint can be reformulated as a query by a query language
-leading to a lower complexity class. 
-\textcolor{red}{example}
-Such a complexity aware RDF validator could help people writing constraints that can be efficiently computed.
-For DL, there is a web application allowing you to select the needed DL constructs in order to determine the complexity of DL reasoning\footnote{\url{http://www.cs.man.ac.uk/~ezolin/dl/}}.
+%As we evaluated to which extend each constraint can be expressed by the most promising five DSCLs, 
+%we can determine the complexity of these DSCLs as well. 
+%
+%If we want to use OWL 2 for RDF validation, we have to ensure that as many requirements for formulating RDF constraints are fulfilled
+%and that the computational complexity to formulate these constraints is satisfying.  
 
-As we evaluated to which extend each constraint can be expressed by the most promising five DSCLs, 
-we can determine the complexity of these DSCLs as well. 
-
-If we want to use OWL 2 for RDF validation, we have to ensure that as many requirements for formulating RDF constraints are fulfilled
-and that the computational complexity to formulate these constraints is satisfying.  
-
-Therefore, we answer five \textbf{research questions}:
-\begin{enumerate}
-	\item Which constraints are expressible by DL and which are only expressible by a query language (e.g Datalog or SPARQL)?
-	\item For which requirements formulating constraints the expressivity of \textit{DL-Lite}$_\mathcal{A}$ (respectively OWL 2 QL) is sufficient
-	and for which requirements additional DSCLs are needed?
-	\item For which constraints a priori reasoning makes sense and how does reasoning affect their validation?  
-	\item What are the effects on complexity to express these constraints with and without OWL 2 QL and OWL 2 DL reasoning?
-	\item What are the effects on complexity of constraints not expressible by DL but by a query language?
-	
+This paper serves to answer the following \textbf{research questions}:
+\begin{itemize}
+	%\item Which constraints are expressible by DL and which are only expressible by a query language (e.g Datalog or SPARQL)?
+	%\item For which requirements formulating constraints the expressivity of \textit{DL-Lite}$_\mathcal{A}$ (respectively OWL 2 QL) is sufficient
+	%and for which requirements additional DSCLs are needed?
+	%\item For which constraints a priori reasoning makes sense and how does reasoning affect their validation?  
+	%\item What are the effects on complexity to express these constraints with and without OWL 2 QL and OWL 2 DL reasoning?
+	%\item What are the effects on complexity of constraints not expressible by DL but by a query language?
 	\item How does reasoning affect the complexity of axioms and constraint languages?
 	\item How to classify constraints and constraint languages according to expressivity, complexity, and user-friendliness?
-\end{enumerate}
+\end{itemize}
 
-The three \textbf{main contributions} of this paper are:
-\begin{enumerate}
-  \item We explain why OWL can be used as constraint language
+The \textbf{main contributions} of this paper are:
+\begin{itemize}
+  %\item We explain why OWL can be used as constraint language
 	\item We explain why reasoning is beneficial for validation and how reasoning interacts with validation
-  \item We investigate the effects on complexity expressing each constraint
-	\item We show that OWL 2 QL together with additional DSCLs completely satisfy all RDF validation requirements.
-	\item We evaluated to which extend the five possible standard DSCLs fulfill each requirement.
-\end{enumerate}
-
-\textcolor{red}{paper organization}
+  %\item We investigate the effects on complexity expressing each constraint
+	%\item We show that OWL 2 QL together with additional DSCLs completely satisfy all RDF validation requirements.
+	%\item We evaluated to which extend the five possible standard DSCLs fulfill each requirement.
+\end{itemize}
 
 \section{Expressivity and Complexity in OWL 2 Reasoning}
-
-Reasoning and validation are very closely related. 
-Reasoning is the process of determining what follows from what has been
-stated.  Reasoning ranges from simple (Jedi students are Jedis, Luke is a Jedi student, therefore Luke is a Jedi) to the very complex. Reasoning can
-also recognize impossibilities ( Jedi masters are Jedis, Yoda is a Jedi master, Yoda
-is not a Jedi, therefore there is a contradiction). 
-Both should be possible: (1) validation with reasoning and (2) validation without reasoning. 
-Reasoning may be a pre validation step to infer triples resolving constraint violations or to infer triples for which constraints are validated.
-
-%Reasoning may be a pre validation step to infer triples resolving constraint violations.
-%According to the existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasJediWaepon . JediWeapon} every Jedi has at least one Jedi weapon.
-%Luke is a Jedi (\ms{Jedi(Luke)}) having a blue laser sword (\ms{hasLaserSword(Luke, BlueLaserSword)}.
-%As it is not defined that laser swords are Jedi weapons and as Luke is a Jedi, the existential restriction causes a constraint violation. 
-%This constraint violation is not raised when we define that laser swords are Jedi weapons (\ms{hasLaserSword $\sqsubseteq$ hasJediWaepon} ) 
-%and \ms{hasLaserSword} is a sub-property of \ms{hasJediWeapon} (\ms{LaserSword $\sqsubseteq$ JediWeapon}).
-%
-%It makes also sense to perform reasoning to infer triples for which constraints are validated.
-%The existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword} forces Jedis to have at least one laser sword.
-%The existential restriction is not checked for the triple \ms{YediMaster(Yoda)}, as \ms{Yoda} is a \ms{JediMaster} and not a \ms{Jedi} as well.
-%If, however, our knowledge base contains the axiom \ms{JediMaster $\sqsubseteq$ Jedi}, the triple \ms{Jedi(Yoda)} is inferred and the existential restrictions is validated for the individual \ms{Yoda}, raising a constraint violation if a triple such as \ms{hasLaserSword(Yoda, GreenLaserSword)} is not included in the knowledge base. 
 
 \subsection{OWL 2 QL Reasoning}
 
@@ -559,6 +540,7 @@ Table \textcolor{red}{XXX} gives an overview of the computational complexity for
 \end{complexity}
 \end{center}
 What is considered by RDF validation w/o reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on \textit{DL-Lite} family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
+
 As, for example, the constraint \ms{cardinality shortcuts} is associated with the complexity class \ms{C-R} and OWL2 DL reasoning can be done on cardinality restrictions,
 the complexity of \ms{C-R} is in \textsc{N2exptime} as well. 
 The complexity classes' partial ordering is:
@@ -639,21 +621,30 @@ Now, the user-friendliness classes comes into play:
 Although, SPIN is more adopted than ShEx, ShEx is a high-level compared to a low-level language, ShEx is more intuitive and concise than SPIN.
 According to this evaluation, tools may recommend alternatives to the most expressive language SPIN.  
 
-\section{RDF validation requirements}
-
-\textcolor{red}{
-\begin{itemize}
-	\item organization according to developed classification system regarding expressivity and complexity
-	\item examples for rdf constraints for each class
-\end{itemize}
-}
-
-\subsection{RDF Validation Requirements and Reasoning}
+\section{RDF Validation Requirements and Reasoning}
 \label{sec:rdf-validation-requirements-and-reasoning}
 
-\tb{ToDO Thomas: RDF Validation Requirements and Inferencing}
+Reasoning and validation are very closely related. 
+Reasoning is the process of determining what follows from what has been
+stated.  Reasoning ranges from simple (Jedi students are Jedis, Luke is a Jedi student, therefore Luke is a Jedi) to the very complex. Reasoning can
+also recognize impossibilities ( Jedi masters are Jedis, Yoda is a Jedi master, Yoda
+is not a Jedi, therefore there is a contradiction). 
+Both should be possible: (1) validation with reasoning and (2) validation without reasoning. 
+Reasoning may be a pre validation step to infer triples resolving constraint violations or to infer triples for which constraints are validated.
 
-\subsubsection{OWL 2 QL Reasoning}
+%Reasoning may be a pre validation step to infer triples resolving constraint violations.
+%According to the existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasJediWaepon . JediWeapon} every Jedi has at least one Jedi weapon.
+%Luke is a Jedi (\ms{Jedi(Luke)}) having a blue laser sword (\ms{hasLaserSword(Luke, BlueLaserSword)}.
+%As it is not defined that laser swords are Jedi weapons and as Luke is a Jedi, the existential restriction causes a constraint violation. 
+%This constraint violation is not raised when we define that laser swords are Jedi weapons (\ms{hasLaserSword $\sqsubseteq$ hasJediWaepon} ) 
+%and \ms{hasLaserSword} is a sub-property of \ms{hasJediWeapon} (\ms{LaserSword $\sqsubseteq$ JediWeapon}).
+%
+%It makes also sense to perform reasoning to infer triples for which constraints are validated.
+%The existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword} forces Jedis to have at least one laser sword.
+%The existential restriction is not checked for the triple \ms{YediMaster(Yoda)}, as \ms{Yoda} is a \ms{JediMaster} and not a \ms{Jedi} as well.
+%If, however, our knowledge base contains the axiom \ms{JediMaster $\sqsubseteq$ Jedi}, the triple \ms{Jedi(Yoda)} is inferred and the existential restrictions is validated for the individual \ms{Yoda}, raising a constraint violation if a triple such as \ms{hasLaserSword(Yoda, GreenLaserSword)} is not included in the knowledge base. 
+
+\subsection{OWL 2 QL Reasoning}
 
 \textbf{Subsumption}\footnote{corresponds to R-100-SUBSUMPTION}\textbf{.}
 Subsumption relationships of both classes and properties are part of basic reasoning.
@@ -694,7 +685,7 @@ studentOf rdfs:domain JediStudent .
 Without reasoning, the data \ms{Anakin studentOf Obi-Wan} is invalid and causes a constraint violation, as it is not explicitly stated that \ms{Anakin} is assigned to the class \ms{Jedi}. 
 When inferencing is performed before validating, the class assignment \ms{Anakin a Jedi} is inferred which prevents the constraint violation to be raised.
 
-\subsubsection{OWL 2 DL Reasoning}
+\subsection{OWL 2 DL Reasoning}
 
 \textbf{Existential Quantification}\footnote{corresponds to R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}\textbf{.}
 
@@ -717,13 +708,13 @@ When our data contains the triple \ms{Luke hasLaserSword BlueLaserSword} and we 
 As the individual \ms{Luke} is assigned to the class \ms{Jedi}, all constraint associated with this class are also validated, for example that Jedis must have blue laser swords.
 Without reasoning, these constraints won't be validated as \ms{Luke} is not within the class extension of \ms{Jedi}.
 
-\subsection{RDF Validation Requirements without Reasoning}
+\section{RDF Validation Requirements without Reasoning}
 
 For the majority of the requirements to formulate RDF constraints, reasoning is not related to the constraints and is therefore not needed to be performed prior to validation. 
 It is also possible, however, to reason before validating constraints for which reasoning does not affect validation results.
 If we do reasoning by query rewriting in terms of backward chaining and if we run a constraint validation query through an engine like the --ontop-- framework\footnote{\url{http://ontop.inf.unibz.it}} or ELITE (federated query engine) \cite{nolle2013elite}, the engine will only do some rewritings if it is possible, and if you just check e.g. pattern matching there will be no rewriting.
 
-\subsubsection{Expressible by OWL 2 QL}
+\subsection{Expressible by OWL 2 QL}
 
 \textbf{Literal Pattern Matching}\footnote{corresponds to R-44-PATTERN-MATCHING-ON-RDF-LITERALS}\textbf{.} 
 \an{IMHO literal pattern matching is not expressible in DL!}\tb{but we can express it using OWL 2 DL as it is shown in the OWL 2 spec}
@@ -771,10 +762,10 @@ The literal pattern matching constraint validates \ms{DroidNumber} literals acco
 \ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber}, 
 but not for the triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}.
 
-\subsubsection{Not Expressible by OWL 2 QL but by OWL 2 DL}
+\subsection{Expressible by OWL 2 DL}
 \label{sec:rdf-validation-requirements-without-reasoning-2}
 
-\textbf{Allowed Values}\footnote{corresponds to R-30-ALLOWED-VALUES-FOR-RDF-OBJECTS and R-37-ALLOWED-VALUES-FOR-RDF-LITERALS}\textbf{.}
+\textbf{Allowed Values}\footnote{corresponds to R-30-ALLOWED-VALUES}\textbf{.}
 It is a common requirement to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resources). This is often rendered in drop down boxes or radio buttons in user interfaces. 
 The constraint 'Jedis can only have blue, green, or white laser swords' can be expressed by OWL 2 DL, DSP, ReSh, ShEx, SPIN, and SPARQL.
 
@@ -782,21 +773,21 @@ The constraint 'Jedis can only have blue, green, or white laser swords' can be e
 Jedi $\equiv$ $\exists$ laserSwordColor . \{blue, green, white\} \\
 \end{DL}
 
-In DSP, the constraint does not look that concise:
-
-\begin{ex}
-personDescriptionTemplate
-    a dsp:DescriptionTemplate ;
-    dsp:resourceClass Jedi ;
-    dsp:statementTemplate [
-        a dsp:LiteralStatementTemplate ;
-        dsp:property laserSwordColor ;
-        dsp:literalConstraint [
-            a dsp:LiteralConstraint ;
-            dsp:literal "blue" ;
-            dsp:literal "green" ;
-            dsp:literal "white"] ] .
-\end{ex}
+%In DSP, the constraint does not look that concise:
+%
+%\begin{ex}
+%personDescriptionTemplate
+    %a dsp:DescriptionTemplate ;
+    %dsp:resourceClass Jedi ;
+    %dsp:statementTemplate [
+        %a dsp:LiteralStatementTemplate ;
+        %dsp:property laserSwordColor ;
+        %dsp:literalConstraint [
+            %a dsp:LiteralConstraint ;
+            %dsp:literal "blue" ;
+            %dsp:literal "green" ;
+            %dsp:literal "white"] ] .
+%\end{ex}
 
 When representing the constraint by OWL2 DL a new datatype is defined by simply enumerating its literals:
 
@@ -849,7 +840,7 @@ Consider the triples \ms{Jedi(Luke)}, \ms{attackingBySword(Luke,true)}, \ms{Jedi
 Luke as well as Darth Sidious are associated with the class \ms{Jedi}.
 As Darth Sidious has both relationships, a constraint Violation is raised.
 
-\subsubsection{Not Expressible by OWL 2 DL But by Other Constraint Languages}
+\subsection{Expressible by Other Constraint Languages}
 
 The majority of constraints can neither be expressed by OWL 2 QL nor by OWL 2 DL. 
 In such cases, these constraints are represented by other constraint languages like DSP, ShEx, ReSh, or SPIN.
