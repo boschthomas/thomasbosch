@@ -223,14 +223,14 @@ Bosch and Eckert \cite{BoschEckert2014} initiated a database on RDF validation r
 The comprehensive, continuously maintained and extended database, which is openly available at \url{http://purl.org/net/rdf-validation}, is used to evaluate and to compare several existing solutions for RDF constraint formulation and validation. 
 The requirements are classified to provide a high-level view on different solutions and to facilitate a better understanding of the problem domain \cite{BoschEckert2014}.  
 
-There are multiple domain-specific constraint languages (DSCLs) having different syntaxes and semantics which can be used to express RDF constraints like at-least restrictions.
-The most promising DSCLs are 
+There are multiple constraint languages having different syntaxes and semantics which can be used to express RDF constraints like at-least restrictions.
+The most promising constraint languages are 
 the SPARQL Inferencing Notation (SPIN)\footnote{\url{http://spinrdf.org/}}, 
 the Web Ontology Language (OWL 2)\footnote{\url{http://www.w3.org/TR/owl2-syntax/}}, 
 Shape Expressions (ShEx)\footnote{\url{http://www.w3.org/Submission/shex-primer/}}, 
 Resource Shapes (ReSh)\footnote{\url{http://www.w3.org/Submission/shapes/}}, 
 and Description Set Profiles (DSP)\footnote{\url{http://dublincore.org/documents/2008/03/31/dc-dsp/}}.
-However, there is no single standard DSCL to express any constraint for each purpose.
+However, there is no single standard constraint language to express any constraint for each purpose.
 The choice depends on the individual use case.
 
 \section{Motivation}
@@ -239,11 +239,11 @@ OWL is based on a knowledge representation formalism with different complexity, 
 Validation does not appear to be part of the services provided by OWL.  
 This has lead to claims that OWL cannot be used for validation. 
 There have been long and controversial discussions\footnote{\url{http://lists.w3.org/Archives/Public/public-data-shapes-wg/}, \url{https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=dc-architecture}} in the W3C and DCMI WGs if OWL should be used for RDF validation.
-OWL is an instantiation of a high-level and very expressive DSCL with a compact human-readable syntax.
+OWL is an instantiation of a high-level and very expressive constraint language with a compact human-readable syntax.
 In practice, many people know OWL very well and use RDFS/OWL constructs to tell people and applications about how valid instances should be created.
 RDF documents follow the structure of RDFS/OWL ontologies which can therefore be reused for validation.
 
-Despite the huge diversity to formulate constraints and validate them on RDF data, most of the DSCLs require the major shortcoming of redundancy. For illustration, consider e.g., the existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasJediWaepon . JediWeapon} that stated that every Jedi has at least one Jedi weapon. Furthermore, we know that Luke is a Jedi (\ms{Jedi(Luke)}) having a blue laser sword (\ms{hasLaserSword(Luke, BlueLaserSword)}. Since all of the DSCLs are based on the closed-world assumption (CWA) and as long as it isn't explicitly defined that a blue laser sword is a Jedi weapon (\ms{JediWeapon(BlueLaserSword)}), the existential restriction causes a constraint violation.
+Despite the huge diversity to formulate constraints and validate them on RDF data, most of the constraint languages require the major shortcoming of redundancy. For illustration, consider e.g., the existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasJediWaepon . JediWeapon} that stated that every Jedi has at least one Jedi weapon. Furthermore, we know that Luke is a Jedi (\ms{Jedi(Luke)}) having a blue laser sword (\ms{hasLaserSword(Luke, BlueLaserSword)}. Since all of the constraint languages are based on the closed-world assumption (CWA) and as long as it isn't explicitly defined that a blue laser sword is a Jedi weapon (\ms{JediWeapon(BlueLaserSword)}), the existential restriction causes a constraint violation.
 
 But if we express the mentioned constraints in OWL and apply a reasoner before the proper constraint validation is performed, we won't get a constraint violation because all implicit statements like a blue laser sword is a Jedi weapon (\ms{JediWeapon(BlueLaserSword)}) will be inferred. At a first glance, using OWL as constraint language the shortcoming of redundancy is solved. However, on closer consideration OWL is by default an insufficient choice because OWL is in contrast based on the open-world assumption (OWA), i.e. a statement cannot be inferred to be false on the basis of failures to prove it. 
 This semantics is suitable for the distributed knowledge representation scenarios on the Semantic Web, 
@@ -251,7 +251,7 @@ where usually the knowledge about the domain comes from distributed
 sources and a complete knowledge about the domain cannot be assumed, 
 but makes it difficult to use OWL for RDF validation.
 Additionally, in OWL we have the non-unique name assumption (nUNA) whereas RDF validation requires that different names represent different objects (also known as unique name assumption (UNA)).
-This ambiguousness in semantics is one of the main reasons why OWL has not been adopted as standard DSCL for RDF validation in the past. 
+This ambiguousness in semantics is one of the main reasons why OWL has not been adopted as standard constraint language for RDF validation in the past. 
 
 Let us address these opposites via an example. Consider e.g., the following definition of the knowledge base $\mathcal{K}$:
 \begin{eqnarray*} 
@@ -277,7 +277,7 @@ If we follow the principle of adopting the UNA to OWL and performing contraint v
 %but makes it difficult to use OWL for RDF validation.
 
 %Although, most people don’t care about open world semantics, 
-%ambiguousness is one of the main reasons why OWL has not been adopted as standard DSCL for RDF validation in the past. 
+%ambiguousness is one of the main reasons why OWL has not been adopted as standard constraint language for RDF validation in the past. 
 %When OWL would be used assuming both OWA (for reasoning) and CWA (for constraint validation),
 %it would be somewhat confusing to have two completely different semantics for OWL.
 %On the other hand, OWL constraints could be interpreted either with the OWA to support open
@@ -374,8 +374,8 @@ As a consequence, the validator may recommend to express the stated axioms/const
 %Such a complexity aware validator could help people writing constraints that can be efficiently computed.
 %For DL, there is a web application allowing to select the needed DL constructs in order to determine the complexity of DL reasoning\footnote{\url{http://www.cs.man.ac.uk/~ezolin/dl/}}.
 
-%As we evaluated to which extend each constraint can be expressed by the most promising five DSCLs, 
-%we can determine the complexity of these DSCLs as well. 
+%As we evaluated to which extend each constraint can be expressed by the most promising five constraint languages, 
+%we can determine the complexity of these constraint languages as well. 
 %
 %If we want to use OWL 2 for RDF validation, we have to ensure that as many requirements for formulating RDF constraints are fulfilled
 %and that the computational complexity to formulate these constraints is satisfying.  
@@ -384,7 +384,7 @@ This paper serves to answer the two \textbf{research questions}:
 \begin{itemize}
 	%\item Which constraints are expressible by DL and which are only expressible by a query language (e.g Datalog or SPARQL)?
 	%\item For which requirements formulating constraints the expressivity of \textit{DL-Lite}$_\mathcal{A}$ (respectively OWL 2 QL) is sufficient
-	%and for which requirements additional DSCLs are needed?
+	%and for which requirements additional constraint languages are needed?
 	%\item For which constraints a priori reasoning makes sense and how does reasoning affect their validation?  
 	%\item What are the effects on complexity to express these constraints with and without OWL 2 QL and OWL 2 DL reasoning?
 	%\item What are the effects on complexity of constraints not expressible by DL but by a query language?
@@ -397,8 +397,8 @@ The \textbf{main contributions} of this paper are:
   %\item We explain why OWL can be used as constraint language
 	\item We explain why reasoning is beneficial for validation and how reasoning interacts with validation
   %\item We investigate the effects on complexity expressing each constraint
-	%\item We show that OWL 2 QL together with additional DSCLs completely satisfy all RDF validation requirements.
-	%\item We evaluated to which extend the five possible standard DSCLs fulfill each requirement.
+	%\item We show that OWL 2 QL together with additional constraint languages completely satisfy all RDF validation requirements.
+	%\item We evaluated to which extend the five possible standard constraint languages fulfill each requirement.
 \end{itemize}
 
 \section{Expressivity and Complexity in OWL 2 Reasoning}
@@ -426,17 +426,17 @@ entailment checking. The drawback of its expressive power results as a lack of c
 
 As a result of its expressive power, OWL 2 DL allows a large variety of sophisticated modeling capabilities for many application domains.  On the other hand, to maintain the decidability, OWL 2 DL has a numerous ways of syntactic restrictions. One example is that OWL 2 DL allows  expressing transitive properties as well as asymmetric properties, yet a property to be both transitive and asymmetric (just as ancestor relation) is not allowed. In the sequel, from RDF validation perspective, we will give some examples of constraints that remain at the outside of its scope. 
 
-\section{Classification of RDF Constraints and DSCLs according to Expressivity, Complexity, and User-Friendliness}
+\section{Classification of RDF Constraints and Constraint Languages according to Expressivity, Complexity, and User-Friendliness}
 
 %We divide these constraints into three classes:
 %\begin{itemize}
 	%\item constraints expressible by OWL 2 QL
 	%\item constraints not expressible by OWL 2 QL but by OWL 2 DL
-	%\item constraints only expressible by other DSCLs
+	%\item constraints only expressible by other constraint languages
 %\end{itemize}
 
 The W3C and DCMI WGs identified in total 74 requirements to formulate RDF constraints\footnote{Two of this paper's authors are actively contributing to these WGs and the process deriving requirements from case studies and use cases is still ongoing.}.
-Bosch et al.\footnote{available at: \url{https://github.com/boschthomas/rdf-validation-research/paper}} explained each requirement in detail and give at least one example for each of them represented by different DSCLs.
+Bosch et al.\footnote{available at: \url{https://github.com/boschthomas/rdf-validation-research/paper}} explained each requirement in detail and give at least one example for each of them represented by different constraint languages.
 We added mappings to DL in order to logically underpin each requirement and in order to determine which DL constructs are needed to express each constraint.
 When the DL constructs, needed to express a particular constraint, are known, the expressivity and the complexity of this constraint can be determined. 
 The constraint \ms{Context-Specific Exclusive OR of Properties} (see section~\ref{sec:rdf-validation-requirements-without-reasoning-2}), for example, can generically be expressed as follows:
@@ -450,13 +450,13 @@ the constraint's expressivity is calculated as the expressivity of the individua
 The DL constructs \ms{property inclusion}, \ms{complement}, \ms{intersection}, \ms{union}, and \ms{existential restriction} are used to express this constraint.  
 As existential restrictions are part of OWL 2 DL reasoning, the constraint's complexity is \textsc{N2exptime}.
  
-We evaluated to which extend the most promising five DSCLs fulfill each requirement.
+We evaluated to which extend the most promising five constraint languages fulfill each requirement.
 We also evaluated if a specific requirement is covered by OWL 2 QL or if the more expressive and complex OWL 2 DL is needed \cite{BoschNolleAcarEckert2015}.
 
 \subsection{Classification Dimension Expressivity}
 
-There are no reserved words for expressivity of DSCLs like LOGSPACE for complexity in computational logic.
-As a consequence, for the expressivity of DSCLs, we need to define our own reserved words.
+There are no reserved words for expressivity of constraint languages like LOGSPACE for complexity in computational logic.
+As a consequence, for the expressivity of constraint languages, we need to define our own reserved words.
 As we want to be able to perform reasoning before actually validating the data, we identified four RDF validation expressivity classes, 
 which we define as follows: 
 
@@ -471,7 +471,7 @@ Reasoning axioms can be used for its original purpose to infer new triples out o
 If in our knowledge base it is stated that \ms{DarthVader} is a \ms{Sith} (\ms{Sith(DarthVader)}) and that Siths feel the force of the dark side (\ms{Sith $\sqsubseteq$ FeelingForceDarkSide}), it is either possible to infer that \ms{DarthVader} feels the force of the dark side (\ms{FeelingForceDarkSide(DarthVader)}) 
 or to check if this class assignment is explicitly stated in the data without reasoning.  
 
-Although, there are no reasoning implementations for other DSCLs than OWL 2 available yet, 
+Although, there are no reasoning implementations for other constraint languages than OWL 2 available yet, 
 reasoning axioms cannot only be expressed by OWL 2.
 
 \begin{center}
@@ -485,7 +485,7 @@ reasoning axioms cannot only be expressed by OWL 2.
 \tb{ToDo Thomas: refer to table}
 
 The total amount of constraints/axioms is indicated by numbers in round brackets in the first column.
-Numbers in round brackets in the other columns indicate the number of constraints/axioms which may be expressed by that particular DSCL - either by limitations, workarounds, or extensions.  
+Numbers in round brackets in the other columns indicate the number of constraints/axioms which may be expressed by that particular constraint language - either by limitations, workarounds, or extensions.  
 OWL 2 DL reasoning axioms are additional reasoning axioms which cannot be expressed by OWL 2 QL. 
 OWL 2 QL reasoning axioms are not included in the total amount of OWL 2 DL reasoning axioms.
 There are some reasoning axioms which cannot be expressed by OWL 2 such as class-specific property ranges and class-specific reflexive object properties.
@@ -497,8 +497,8 @@ Partial (not necessarily total) orderings are:
 \ms{Expr-R}: OWL2-QL \subseteq OWL2-DL \subset DSP \subset ReSh \subseteq ShEx \subset SPIN \\
 \ms{Expr-C}: DSP \subset OWL2-QL \subset ReSh \subset ShEx \subset OWL2-DL \subset SPIN
 \end{eqnarray*}
-It depends on the use case which DSCL to use to fulfill related requirements, i.e. to express associated constraints.
-If, for instance, OWL2-QL reasoning is needed the DSCLs OWL2-QL, OWL2-DL, or SPIN are the most expressive ones.
+It depends on the use case which constraint language to use to fulfill related requirements, i.e. to express associated constraints.
+If, for instance, OWL2-QL reasoning is needed the constraint languages OWL2-QL, OWL2-DL, or SPIN are the most expressive ones.
 
 \subsection{Classification Dimension Complexity}
 
@@ -532,8 +532,8 @@ The complexity classes' partial ordering is:
 
 \subsection{Classification Dimension User-Friendliness}
 
-We cannot formally measure the user-friendliness of DSCLs as in the case of expressivity and complexity. 
-Criteria to determine the degree of user-friendliness of DSCLs lead to four user-friendliness classes of DSCLs:
+We cannot formally measure the user-friendliness of constraint languages as in the case of expressivity and complexity. 
+Criteria to determine the degree of user-friendliness of constraint languages lead to four user-friendliness classes of constraint languages:
 
 \begin{itemize}
 	\item \ms{UF-L} (constraint formulation level): low-level (\ding{55}) vs. high-level ($\checkmark$)
@@ -542,7 +542,7 @@ Criteria to determine the degree of user-friendliness of DSCLs lead to four user
 	\item \ms{UF-A} (adoption): less adopted (\ding{55}) $<$ well adopted ($\checkmark$)
 \end{itemize}
 
-We evaluated the five most important DSCLs according to these user-friendliness classes:
+We evaluated the five most important constraint languages according to these user-friendliness classes:
 
 \begin{center}
 \begin{user-fiendliness}
@@ -552,15 +552,15 @@ We evaluated the five most important DSCLs according to these user-friendliness 
 \ms{UF-A} & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
 \end{user-fiendliness}
 \end{center}
-SPIN is in contrast to the other DSCLs a general-purpose low-level language, as it is the most expressive one (\ms{UF-L}).
+SPIN is in contrast to the other constraint languages a general-purpose low-level language, as it is the most expressive one (\ms{UF-L}).
 As SPARQL queries may be very long and complex, the purpose of constraints expressed in SPIN may not be immediately clear to human readers.
-On the other side, ShEx is the most intuitive DSCL, since it is based on regular expressions and since well-known constructs of other languages\footnote{e.g. numbers standing for min, max, and exact cardinality in UML} are part of the language definition.
+On the other side, ShEx is the most intuitive constraint language, since it is based on regular expressions and since well-known constructs of other languages\footnote{e.g. numbers standing for min, max, and exact cardinality in UML} are part of the language definition.
 DSP, ReSh, as well as OWL 2 are not that intuitive than ShEx, but more intuitive to humans than SPIN\footnote{see the examples of the requirement \ms{allowed values} in the paper of Bosch et al. \cite{BoschNolleAcarEckert2015}\label{footnoteIntuitivenessConciseness}} (\ms{UF-I}).
 In most cases, the same constraints can be expressed more concise in OWL 2 and ShEx than in DSP and SPIN\footref{footnoteIntuitivenessConciseness} (\ms{UF-C}).
-The only well adopted and therefore well known DSCLs are SPIN and most of all OWL 2 (\ms{UF-A}).
+The only well adopted and therefore well known constraint languages are SPIN and most of all OWL 2 (\ms{UF-A}).
 
-These user-friendliness classes could also be evaluated more fine granular for each constraint (and not only for each DSCL).
-Tools could then recommend for each user-friendliness class or in total which DSCL to use in order to express a particular constraint or sets of constraints. 
+These user-friendliness classes could also be evaluated more fine granular for each constraint (and not only for each constraint language).
+Tools could then recommend for each user-friendliness class or in total which constraint language to use in order to express a particular constraint or sets of constraints. 
 
 \subsection{Overall Classification}
  
@@ -578,16 +578,16 @@ Tools could then recommend for each user-friendliness class or in total which DS
 	\label{fig:expressivity-complexity}
 \end{figure}
 
-We assigned the five most promising DSCLs to four expressivity, four complexity, and four user-friendliness classes.
+We assigned the five most promising constraint languages to four expressivity, four complexity, and four user-friendliness classes.
 Expressivity and complexity classes can be combined in a diagram (see figure Figure~\ref{fig:expressivity-complexity}).
-OWL2-DL and SPIN are the DSCLs with the highest \ms{Expr-R-OWL2-DL} to express OWL2-DL axioms in \ms{\textsc{N2exptime}}.
+OWL2-DL and SPIN are the constraint languages with the highest \ms{Expr-R-OWL2-DL} to express OWL2-DL axioms in \ms{\textsc{N2exptime}}.
 The highest \ms{Expr-R-OWL2-QL} expressing OWL2-QL axioms in \ms{\textsc{Ptime}} can be achieved with OWL2-QL, OWL2-DL, and SPIN.
 If an application needs to cover the majority of constraints on which reasoning cannot be applied, SPIN should be used (\ms{Expr-C}) in \ms{\textsc{Pspace}-Complete}.
 
-It depends on the individual use case, which constrains are needed to express and therefore which DSCL to choose.
-As a consequence, you may select a DSCL which is not the most expressive one within one specific expressivity class, 
+It depends on the individual use case, which constrains are needed to express and therefore which constraint language to choose.
+As a consequence, you may select a constraint language which is not the most expressive one within one specific expressivity class, 
 but may be better evaluated according to one or multiple user-friendliness classes.
-If, for instance, reasoning should not be performed and three particular constraints should be covered by the DSCL.
+If, for instance, reasoning should not be performed and three particular constraints should be covered by the constraint language.
 Even if the expressivity (\ms{Expr-C}) of SPIN is much higher than of ShEx (\ms{Expr-C}(ShEx) $\subset$ \ms{Expr-C}(SPIN)) 
 %\begin{eqnarray*}
 %\ms{Expr-C}(ShEx) \subset \ms{Expr-C}(SPIN)
@@ -864,21 +864,21 @@ In contrast, OWL 2 DL constraints are comparatively easy to understand, but lack
 \an{IMHO this should be described more precisely because validation in terms of inconsistency detection is still available, not sure about the completeness for OWL 2 DL}
 \tb{Andy, can you write a short paragraph about inconsistency detection? Sounds interesting!}
 Bosch and Eckert\cite{BoschEckert2014-2} use SPIN as basis to define a
-validation environment in which the validation of any DSCL\footnote{the only limitation is that DSCLs must be represented in RDF} can be implemented by representing them in SPARQL. 
-The validation implementation of DSCLs is fully declarative,
-consisting of a mapping from a DSCL to SPIN in form of SPARQL CONSTRUCT queries.
+validation environment in which the validation of any constraint language\footnote{the only limitation is that constraint languages must be represented in RDF} can be implemented by representing them in SPARQL. 
+The validation implementation of constraint languages is fully declarative,
+consisting of a mapping from a constraint language to SPIN in form of SPARQL CONSTRUCT queries.
 SPIN represents both the SPIN mappings and the SPARQL queries in RDF. 
 Within the validation environment, we fully implemented an automatic RDF validation of all OWL 2 DL\footnote{and therefore all OWL 2 QL constructs} constructs. 
 \an{you should mention at this point that this validation is in terms of RDF validation, because inconsistency can't be done completely}
 The implementation can be tested at \url{http://purl.org/net/rdfval-demo} and
 the OWL 2 SPIN mapping is maintained at \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}.
 
-The developed DSCL classification according to the three dimensions expressivity, complexity, and user-friendliness leads to many possible extensions of the RDF validator and similar validation systems.
+The developed constraint language classification according to the three dimensions expressivity, complexity, and user-friendliness leads to many possible extensions of the RDF validator and similar validation systems.
 Users may choose if they wish to execute reasoning as a pre-validation step and which reasoning axioms they want to use to express their inference rules.
 They may also select which constraints they need for their use cases.
 
-As we defined an ordering of DSCLs for each expressivity class, we assigned reasoning axioms and constraints to complexity classes, we evaluated DSCLs regarding multiple user-friendliness criteria, the validator can provide a list of DSCLs for which the expressivity is enough to express the wished constraints and axioms.
-The validator can also recommend a DSCL of that list whose user-friendliness is evaluated to be the highest according to the user-friendliness criteria.
+As we defined an ordering of constraint languages for each expressivity class, we assigned reasoning axioms and constraints to complexity classes, we evaluated constraint languages regarding multiple user-friendliness criteria, the validator can provide a list of constraint languages for which the expressivity is enough to express the wished constraints and axioms.
+The validator can also recommend a constraint language of that list whose user-friendliness is evaluated to be the highest according to the user-friendliness criteria.
 As reasoning may cause high complexity, the validator may show which axioms from the user's selection cause the determined complexity class 
 and it may provide solutions how to get to the next lower complexity class.
 
