@@ -375,16 +375,18 @@ terminology:
 
 \section{Complex Constraints}
 
-\subsection{}
-
-\begin{DL}
-Female $\sqcap$ $\neg$ Married \\
-\end{DL}
-
 \subsection{Disjoint Classes}
 
 \begin{DL}
-Female $\sqcap$ $\neg$ Married \\
+Hologram $\sqcap$ Human $\sqsubseteq$ $\perp$\\
+Alternative:\\
+$Hologram \sqsubseteq \neg Human$
+\end{DL}
+
+\subsection{Minimum Qualified Cardinality Restrictions on Properties}
+
+\begin{DL}
+$FederationCaptain \sqsubseteq Federation \sqcap \geq1 commandsVessel . Vessel $
 \end{DL}
 
 \bibliography{../../literature/literature}{}

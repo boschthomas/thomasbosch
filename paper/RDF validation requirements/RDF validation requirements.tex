@@ -874,7 +874,7 @@ $JediMasters \sqsubseteq Jedi \sqcap 1\leq studentOf^{-}.\top \sqcap 2\geq stude
 $SuperJediMaster \sqsubseteq Jedi \sqcap  3\leq studentOf^{-}.\top $
 \end{DL}
 
-corrections (to verify):
+\textcolor{red}{corrections (to verify):}
 
 \begin{DL}
 $Jedi \sqsubseteq \exists attitude.\{good\} $\\
@@ -882,6 +882,16 @@ $JediStudent \sqsubseteq Jedi \sqcap \geq1 studentOf.\top \sqcap \leq1 studentOf
 $JediMasters \sqsubseteq Jedi \sqcap \geq1 studentOf^{-}.\top \sqcap \leq2 studentOf^{-}.\top $\\
 $SuperJediMaster \sqsubseteq Jedi \sqcap  \geq3 studentOf^{-}.\top $
 \end{DL}
+
+\subsection{Simple Example}
+
+\begin{DL}
+$Captain \sqsubseteq \geq1 commandsVessel.\top $
+\end{DL}
+
+\begin{gcotable}
+property & Captain & commandsVessel & - & $\top$ & $\geq$ & 1 \\
+\end{gcotable}
 
 \section{Minimum Qualified Cardinality Restrictions on Properties}
 
@@ -909,8 +919,6 @@ $\leq n R. C$ is minimum qualified cardinality restriction where $n \in \mathbb{
 $\geq$ 2 childOf . Parent
 \end{DL}
 
-
-
 \begin{itemize}
 	\item set of individuals that are children of at least two parents
 \end{itemize}
@@ -935,8 +943,6 @@ property & $\geq$ 2 childOf . Parent & childOf & -  & Parent & $\geq$ & 2 \\
 foaf:Person $\equiv$ $\geq$ 2 hasName.xsd:string
 \end{DL}
 
-\tb{ToDO: check DL}
-\er{foaf: or xsd:string is no DL syntax. So you can delete 18.2 if you are fine.}
 \begin{gcotable}
 property & foaf:Person & hasName & - & xsd:string & $\geq$ & 2 \\
 \end{gcotable}
@@ -1013,11 +1019,30 @@ $SuperJediMaster \sqsubseteq Jedi \sqcap  3\leq studentOf^{-}.Jedi $
 Father2Daughters $\equiv$ Man $\sqcap$ ($\geq$ 2 hasChild.Woman)
 \end{DL}
 
-%\tb{ToDO: check DL}
-
 \begin{gcotable}
 property & $\geq$ 2 hasChild.Woman & hasChild & - & Woman & $\geq$ & 2 \\
 class & Father2Daughters & - & - & Man, $\geq$ 2 hasChild.Woman & $\sqcap$ & - \\
+\end{gcotable}
+
+\subsection{Simple Example}
+
+\begin{DL}
+$Captain \sqsubseteq \geq1 commandsVessel . Vessel $
+\end{DL}
+
+\begin{gcotable}
+property & Captain & commandsVessel & - & Vessel & $\geq$ & 1 \\
+\end{gcotable}
+
+\subsection{Complex Example}
+
+\begin{DL}
+$FederationCaptain \sqsubseteq Federation \sqcap \geq1 commandsVessel . Vessel $
+\end{DL}
+
+\begin{gcotable}
+property & $\geq$1 commandsVessel . Vessel & commandsVessel & - & Vessel & $\geq$ & 1 \\
+class & FederationCaptain & - & - & Federation, $\geq$1 commandsVessel . Vessel & $\sqcap$ & - \\
 \end{gcotable}
 
 \section{Maximum Unqualified Cardinality Restrictions on Properties}
