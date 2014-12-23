@@ -432,7 +432,7 @@ OWL 2 QL is an OWL 2 profile which focuses on reasoning on query answering with 
 
 OWL 2 QL is based on the \textit{DL-Lite} family of description logics, a tractable family of fragments of first-order logic \cite{Artale2009,Calvanese2007}. 
 However, an important difference between the \textit{DL-Lite} family and OWL is the
-unique name assumption (UNA). UNA is common in data management, therefore it is adopted in the \textit{DL-Lite} family whereas not adopted in OWL. In OWL, one uses constructs \textbf{sameAs} or \textbf{differentFrom} explicitly to state that two individuals, say  $a$ and $b$, are the \emph{same} or {different} respectively. For that reason in OWL 2 QL, any construct e.g., number restrictions or functionality constraints which can interfere with UNA and also which can cause higher complexity without the UNA, has been avoided. \an{but in \textit{DL-Lite}$_\mathcal{A}$ functionality is expressible, as far as I know there is also an extension to \textit{DL-Lite}$_\mathcal{A}$ that allows number restrictions...}
+unique name assumption (UNA). UNA is common in data management, therefore it is adopted in the \textit{DL-Lite} family whereas not adopted in OWL. In OWL, one uses constructs \textbf{sameAs} or \textbf{differentFrom} explicitly to state that two individuals, say  $a$ and $b$, are the \emph{same} or {different} respectively. For that reason in OWL 2 QL, any construct e.g., number restrictions or functionality constraints which can interfere with UNA and also which can cause higher complexity without the UNA, has been avoided.\footnote{Some extensions of \textit{DL-Lite}$_\mathcal{R}$ like \textit{DL-Lite}$_\mathcal{A}$ comprises for example also functionality, for further readings see the work of Poggi et al. \cite{poggi2008linking}}
 
 Among the members of \textit{DL-Lite} family, \textit{DL-Lite}$_\mathcal{R}$ is the one that OWL 2 QL is based on. The reason is to avoid any problematic issue which might appear in the explicit axiomatization of UNA, since  \textit{DL-Lite}$_\mathcal{R}$ in general does not require the UNA, because making this assumption has no semantic affect on a \textit{DL-Lite}$_\mathcal{R}$ ontology.
 
@@ -747,7 +747,7 @@ If we do reasoning by query rewriting in terms of backward chaining and if we ru
 \subsection{Expressible by OWL 2 QL}
 
 \textbf{Literal Pattern Matching}\footnote{corresponds to R-44-PATTERN-MATCHING-ON-RDF-LITERALS}\textbf{.} 
-\an{IMHO literal pattern matching is not expressible in DL!}\tb{but we can express it using OWL 2 DL as it is shown in the OWL 2 spec}
+\an{IMHO literal pattern matching is not expressible in DL and also not in OWL 2 QL!}
 There are multiple use cases associated with the requirement to match literals according to given patterns.
 
 %A social security number, for example, is a string that matches a given regular expression - which can be expressed by OWL 2 QL: 
@@ -852,7 +852,7 @@ Jedi { (
     attackingByForce xsd:boolean ) }
 \end{ex}
 
-The same constraint may be expressed by OWL 2 DL \an{Do you mean DL or QL at this point?}\tb{DisjointUnion is only supported by DL, see OWL 2 Profile spec}, but not very intuitively and concisely.
+The same constraint may be expressed by OWL 2 DL, but not very intuitively and concisely.
 This can rather be seen as a workaround, as anonymous classes are built for each of the exclusive properties.
 
 \begin{ex}
@@ -912,16 +912,13 @@ Sith a ResourceShape ;
 \section{Implementation}
 
 SPARQL is generally seen as the method of choice to validate RDF data according to certain constraints, although it is not ideal for their formulation. 
-In contrast, OWL 2 DL constraints are comparatively easy to understand, but lack an implementation to validate RDF data. 
-\an{IMHO this should be described more precisely because validation in terms of inconsistency detection is still available, not sure about the completeness for OWL 2 DL}
-\tb{Andy, can you write a short paragraph about inconsistency detection? Sounds interesting!}
+In contrast, OWL 2 DL constraints are comparatively easy to understand, but lack an implementation to validate RDF data. However, reasoning in OWL supports the identification of inconsistencies, which is also known as ontology debugging \cite{stuckenschmidt2008debugging}. Despite the fact that inconsistency detection especially in DL has already been studied extensively, it is not sufficient for constraint validation.
 Bosch and Eckert\cite{BoschEckert2014-2} use SPIN as basis to define a
 validation environment in which the validation of any constraint language\footnote{the only limitation is that constraint languages must be represented in RDF} can be implemented by representing them in SPARQL. 
 The validation implementation of constraint languages is fully declarative,
 consisting of a mapping from a constraint language to SPIN in form of SPARQL CONSTRUCT queries.
 SPIN represents both the SPIN mappings and the SPARQL queries in RDF. 
 Within the validation environment, we fully implemented an automatic RDF validation of all OWL 2 DL\footnote{and therefore all OWL 2 QL constructs} constructs. 
-\an{you should mention at this point that this validation is in terms of RDF validation, because inconsistency can't be done completely}
 The implementation can be tested at \url{http://purl.org/net/rdfval-demo} and
 the OWL 2 SPIN mapping is maintained at \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}.
 
