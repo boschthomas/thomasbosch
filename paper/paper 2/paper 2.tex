@@ -67,15 +67,15 @@
 }
 
 \newenvironment{DL}{
-  \scriptsize
-  \sffamily
-  \vspace{0.3cm}
-  \begin{tabular}{l}
-	\textbf{DL:} \\
+  %\scriptsize
+  %\sffamily
+  %\vspace{0.3cm}
+	\begin{center}
+  \begin{tabular}{r l}
 
 }{
   \end{tabular}
-  \linebreak
+	\end{center}
 }
 
 \usepackage{xspace}
@@ -145,6 +145,17 @@ XXXXX \\
 % ---------------
 
 \section{Introduction}
+
+\section{Notes}
+
+\begin{itemize}
+	\item requirements / constraints mapped to DL
+	\item requirements / constraints which cannot be mapped to DL
+	\item syntactic sugar for some constraints
+	\item complex constraints encompass complex constraints and simple constraints
+	\item DL statements of complex constraints are created out of DL statements of composed constraints 
+	\item define terminology for RDF constraints
+\end{itemize}
 
 \section{Motivation}
 
@@ -361,6 +372,20 @@ terminology:
   \item express constraint in CL A and translate constraint in CL B
   \item provide SPARQL validation (SPIN mapping) for each general C 
 \end{itemize}
+
+\section{Complex Constraints}
+
+\subsection{}
+
+\begin{DL}
+Female $\sqcap$ $\neg$ Married \\
+\end{DL}
+
+\subsection{Disjoint Classes}
+
+\begin{DL}
+Female $\sqcap$ $\neg$ Married \\
+\end{DL}
 
 \bibliography{../../literature/literature}{}
 \bibliographystyle{plain}

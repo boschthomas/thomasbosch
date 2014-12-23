@@ -57,33 +57,35 @@
   \scriptsize
   \sffamily
   \vspace{0.3cm}
+	\begin{center}
   \begin{tabular}{l|l|l|l|l|l|l}
   \hline
-  \textbf{c. type} & \textbf{context concept} & \textbf{left p. list} & \textbf{right p. list} & \textbf{concepts} & \textbf{c. element} & \textbf{c. value} \\
+  \textbf{c. type} & \textbf{context class} & \textbf{left r. list} & \textbf{right r. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
   \hline
 
 }{
   \hline
   \end{tabular}
-  \linebreak
+	\end{center}
 }
 
 \newenvironment{DL}{
-  \scriptsize
-  \sffamily
-  \vspace{0.3cm}
-  \begin{tabular}{l}
-	\textbf{DL:} \\
+  %\scriptsize
+  %\sffamily
+  %\vspace{0.3cm}
+	\begin{center}
+  \begin{tabular}{r l}
 
 }{
   \end{tabular}
-  \linebreak
+	\end{center}
 }
 
 \newenvironment{evaluation}{
   \scriptsize
   \sffamily
   \vspace{0.3cm}
+	\begin{center}
   \begin{tabular}{l|c|c|c|c|c|c}
   \hline
   \textbf{constraint} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\
@@ -93,6 +95,24 @@
   \hline
   \end{tabular}
   \linebreak
+	\end{center}
+}
+
+\newenvironment{evaluation-overall}{
+  \scriptsize
+  \sffamily
+  \vspace{0.3cm}
+	\begin{center}
+  \begin{tabular}{l|c|c|c|c|c|c}
+  \hline
+  \textbf{constraint} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\
+  \hline
+
+}{
+  \hline
+  \end{tabular}
+  \linebreak
+	\end{center}
 }
 
 \usepackage{xspace}
@@ -134,22 +154,26 @@
 
 %
 %
-\title{XXXXX}
+\title{RDF Validation Requirements - Evaluation and Logical Underpinning}
+\subtitle{}
 %
 \titlerunning{XXXXX}  % abbreviated title (for running head)
 %                                     also used for the TOC unless
 %                                     \toctitle is used
 %
-\author{XXXXX\inst{1} \and XXXXX\inst{2}}
+\author{Thomas Bosch\inst{1} \and Andreas Nolle\inst{2} \and Erman Acar\inst{3}}
 %
 \authorrunning{XXXXX} % abbreviated author list (for running head)
 %
 %%%% list of authors for the TOC (use if author list has to be modified)
-\institute{XXXXX\\
-\email{XXXXX},\\ 
+\institute{GESIS – Leibniz Institute for the Social Sciences, Germany\\
+\email{thomas.bosch@gesis.org},\\ 
 \and
-XXXXX \\
-\email{XXXXX} 
+Albstadt-Sigmaringen University, Germany \\
+\email{nolle@hs-albsig.de}
+\and
+University of Mannheim, Germany \\
+\email{\{christian,erman,kai\}@informatik.uni-mannheim.de} 
 }
 
 \maketitle              % typeset the title of the contribution
@@ -170,32 +194,28 @@ XXXXX \\
 	\item mappings from RDF validation requirements (more specifically RDF constraint formulation requirements) to generic constraints (expressed by generic constraint language)
 \end{itemize}
 
-\tb{I think we should provide mappings to DL directly in the requirements chapters and not just in 1 table at the end of the paper}
-
 \section{Subsumption}
 
-requirement:
-
-\begin{itemize}
-	\item R-100-SUBSUMPTION
-\end{itemize}
-
-\subsection{Description}
+\ms{Subsumption} corresponds to the requirement \ms{R-100-SUBSUMPTION}.
 
 \begin{itemize}
 	\item DL terminology: concept inclusion
 \end{itemize}
 
-\subsection{Simple Example}
+\begin{evaluation}
+*Subsumption & \ding{55} & $\checkmark$ & $\checkmark$ & $\sim$ & $\checkmark$ & $\checkmark$ \\
+\end{evaluation}
 
-\begin{DL}
-Mother $\sqsubseteq$ Parent 
-\end{DL}
+\subsection{Simple Example}
 
 \begin{itemize}
 	\item all mothers are parents
   \item the concept Mother is subsumed by the concept Parent
 \end{itemize}
+
+\begin{DL}
+Mother $\sqsubseteq$ Parent \\
+\end{DL}
 
 \begin{gcotable}
 class & Mother & - & - & Parent & $\sqsubseteq$ \\
@@ -203,9 +223,11 @@ class & Mother & - & - & Parent & $\sqsubseteq$ \\
 
 \subsection{Simple Example}
 
-\begin{itemize}
-	\item Jedis feel the force 
-\end{itemize}
+Jedis feel the force. 
+
+\begin{DL}
+Jedi $\sqsubseteq$ FeelingForce
+\end{DL}
 
 \begin{ex}
 # DSP
@@ -216,7 +238,7 @@ class & Mother & - & - & Parent & $\sqsubseteq$ \\
 \begin{ex}
 # OWL2
 # ----
-:Jedi rdfs:subClassOf :FeelingForce .
+Jedi rdfs:subClassOf FeelingForce .
 \end{ex}
 
 \begin{ex}
@@ -228,24 +250,24 @@ the extension ext:extendsShape may be used
 \begin{ex}
 # ShEx
 # ----
-:FeelingForce {
-    :feelingForce (true) }
-:Jedi {
-    & :FeelingForce ,
-    :attitute ('good') }
+FeelingForce {
+    feelingForce (true) }
+Jedi {
+    & FeelingForce ,
+    attitute ('good') }
 \end{ex}
 
 \begin{ex}
 # data
 # ----
-:Yoda 
-    :feelingForce true ;
-    :attitute 'good' .
+Yoda 
+    feelingForce true ;
+    attitute 'good' .
 \end{ex}
 
-\begin{DL}
-:Jedi $\sqsubseteq$ :FeelingForce
-\end{DL}
+\begin{gcotable}
+class & Jedi & - & - & FeelingForce & $\sqsubseteq$ \\
+\end{gcotable}
 
 \subsection{Complex Example}
 
@@ -266,15 +288,10 @@ requirement:
 	\item R-3-EQUIVALENT-CLASSES
 \end{itemize}
 
-\subsection{Description}
-
-\begin{itemize}
-	\item Concept equivalence asserts that two concepts have the same instances \cite{Kroetzsch2012}
-  \item While synonyms are an obvious example of equivalent concepts, in practice one more
-often uses concept equivalence to give a name to complex expression  \cite{Kroetzsch2012}
-\item Concept equivalence is indeed subsumption  from left and right. ($A \sqsubseteq B$ and $B \sqsubseteq A$ implies $A \equiv B$ )
-
-\end{itemize}
+Concept equivalence asserts that two concepts have the same instances \cite{Kroetzsch2012}.
+While synonyms are an obvious example of equivalent concepts, in practice one more
+often uses concept equivalence to give a name to complex expression  \cite{Kroetzsch2012}.
+Concept equivalence is indeed subsumption from left and right ($A \sqsubseteq B$ and $B \sqsubseteq A$ implies $A \equiv B$ ).
 
 \subsection{Simple Example}
 
@@ -283,17 +300,10 @@ Person $\equiv$ Human
 \end{DL}
 
 \begin{gcotable}
-class & Person & - & - & Human & $\equiv$ \\
-class & Human & - & - & Person & $\equiv$ \\
-\end{gcotable}
-
-maybe better:
-\er{It is not better since we should stick to what we use as syntax.}
-
-\begin{gcotable}
 class & Person & - & - & Human & $\sqsubseteq$ \\
 class & Human & - & - & Person & $\sqsubseteq$ \\
 \end{gcotable}
+
 \section{Sub Object Properties}
 
 requirements:
@@ -303,7 +313,7 @@ requirements:
 	\item R-54-SUB-OBJECT-PROPERTIES
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item DL terminology: role inclusion 
@@ -315,15 +325,7 @@ requirements:
 parentOf $\sqsubseteq$ ancestorOf 
 \end{DL}
 
-\begin{itemize}
-	\item states that parentOf is a subrole of ancestorOf , i.e., every pair of individuals related by parentOf is also related by ancestorOf
-\end{itemize}
-
-\begin{gcotable}
-property & parentOf & ancestorOf & - & - & $\sqsubseteq$ \\
-\end{gcotable}
-
-better:
+States that \ms{parentOf} is a sub-role of \ms{ancestorOf} , i.e., every pair of individuals related by \ms{parentOf} is also related by \ms{ancestorOf}.
 
 \begin{gcotable}
 property & $\top$ & parentOf & ancestorOf & $\top$ & $\sqsubseteq$ \\
@@ -341,7 +343,6 @@ property & $\top$ & parentOf & ancestorOf & $\top$ & $\sqsubseteq$ \\
 hasDog $\sqsubseteq$ hasPet 
 \end{DL}
 
-
 \section{Sub Data Properties}
 
 requirements:
@@ -351,13 +352,13 @@ requirements:
 	\item R-54-SUB-DATA-PROPERTIES
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item DL terminology: concrete domains functional roles  
 \end{itemize}
 
-\subsection{Simple Example}
+\subsection{Complex Example}
 \begin{DL}
  $Person \sqcap  \forall hasAge. \leq_{10} \sqsubseteq Person \sqcap \forall hasEvenAge. \leq_{10}$ 
 \end{DL}
@@ -370,7 +371,7 @@ requirement:
 	\item R-55-OBJECT-PROPERTY-PATHS
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
   \item DL terminology: complex role inclusion axiom / role composition
@@ -393,24 +394,12 @@ brotherOf $\circ$ parentOf $\sqsubseteq$ uncleOf
 property & $\top$ & brotherOf, parentOf & uncleOf & $\top$ & $\sqsubseteq$ & -  \\
 \end{gcotable}
 
-old mapping: 
-
-\begin{gcotable}
-property & uncleOf & brotherOf, parentOf & - & $\top$ & $\sqsubseteq$ \\
-\end{gcotable}
-
 \section{Disjoint Properties}
 
 requirements:
 
 \begin{itemize}
 	\item R-9-DISJOINT-PROPERTIES
-\end{itemize}
-
-\subsection{Description}
-
-\begin{itemize}
-	\item 
 \end{itemize}
 
 \subsection{Simple Example}
@@ -420,6 +409,12 @@ Disjoint(parentOf, childOf)\\
 Alternative:\\
 $parentOf \sqsubseteq \neg childOf$
 \end{DL}
+
+\begin{gcotable}
+property & $\top$ & parentOf & $\neg$childOf & $\top$ & $\sqsubseteq$ \\
+\end{gcotable}
+
+syntactic sugar:
 
 \begin{gcotable}
 property & $\top$ & parentOf & childOf & $\top$ & $\ne$ \\
@@ -434,7 +429,7 @@ requirements:
 	\item R-16-CONJUNCTION-OF-DATA-RANGES
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item composition / conjunction
@@ -467,13 +462,13 @@ equivalence Mother $\equiv$ Female $\sqcap$ Parent .
 Female $\sqcap$ Parent
 \end{DL}
 
-\begin{itemize}
-	\item complex concept of all individuals which are of the concept Female and of the concept Parent
-\end{itemize}
+Complex concept of all individuals which are of the concept Female and of the concept Parent.
 
 \begin{gcotable}
 class & Female $\sqcap$ Parent & - & - & Female, Parent & $\sqcap$ \\
 \end{gcotable}
+
+\subsection{Simple Example}
 
 \begin{DL}
 Mother $\equiv$ Female $\sqcap$ Parent
@@ -492,10 +487,11 @@ requirements:
 	\item R-18-DISJUNCTION-OF-DATA-RANGES
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
-	\item union / inclusive OR
+	\item synonyms: union / inclusive OR
+	\item disjunction of classes, data ranges
 \end{itemize}
 
 \subsection{Simple Example}
@@ -505,7 +501,7 @@ Father $\sqcup$ Mother $\sqcup$ Child
 \end{DL}
 
 \begin{gcotable}
-class & complex concept & - & - & Father, Mother, Child & $\sqcup$ \\
+class & Father $\sqcup$ Mother $\sqcup$ Child & - & - & Father, Mother, Child & $\sqcup$ \\
 \end{gcotable}
 
 \subsection{Simple Example}
@@ -527,10 +523,10 @@ requirements:
 	\item R-20-NEGATION-OF-DATA-RANGES
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
-	\item complement
+	\item synonym: complement
 \end{itemize}
 
 \subsection{Simple Example}
@@ -539,9 +535,7 @@ requirements:
 $ \neg Married $ \\ 
 \end{DL}
 
-\begin{itemize}
-	\item set of all individuals that are not married
-\end{itemize}
+set of all individuals that are not married.
 
 \begin{gcotable}
 class & $\neg$ Married & - & - & Married & $\neg$ \\
@@ -560,17 +554,7 @@ class & Female $\sqcap$ $\neg$ Married & - & - & Female, $\neg$ Married & $\sqca
 
 \section{Disjoint Classes}
 
-requirements:
-
-\begin{itemize}
-	\item R-7-DISJOINT-CLASSES
-\end{itemize}
-
-\subsection{Description}
-
-\begin{itemize}
-	\item 
-\end{itemize}
+requirement \ms{R-7-DISJOINT-CLASSES}
 
 \subsection{Simple Example}
 
@@ -592,21 +576,32 @@ class & Male & - & - & Female & $\ne$ \\
 class & Female & - & - & Male & $\ne$ \\
 \end{gcotable}
 
+\subsection{Simple Example}
+
+\begin{DL}
+Hologram $\sqcap$ Human $\sqsubseteq$ $\perp$\\
+Alternative:\\
+$Hologram \sqsubseteq \neg Human$
+\end{DL}
+
+\begin{gcotable}
+class & Hologram $\sqcap$ Human & - & - & Hologram, Human & $\sqcap$  \\
+class & $\top$ & - & - & Hologram $\sqcap$ Human, $\perp$ & $\sqsubseteq$ \\
+\end{gcotable}
+
+syntactic sugar:
+
+\begin{gcotable}
+class & Hologram & - & - & Human & $\ne$ \\
+class & Human & - & - & Hologram & $\ne$ \\
+\end{gcotable}
+
 \section{Existential Quantification on Properties}
 
-requirements:
-
-\begin{itemize}
-	\item R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES
-\end{itemize}
-
-\subsection{Description}
-
-\begin{itemize}
-	\item DL termonology: existential restriction
-	\item An existential class expression ObjectSomeValuesFrom( OPE CE ) consists of an object property expression OPE and a class expression CE, and it contains all those individuals that are connected by OPE to an individual that is an instance of CE. Such a class expression can be seen as a syntactic shortcut for the class expression ObjectMinCardinality( 1 OPE CE ).
-	\item An existential class expression DataSomeValuesFrom( DPE1 ... DPEn DR ) consists of n data property expressions DPEi, 1 $\leq$ i $\leq$ n, and a data range DR whose arity MUST be n. Such a class expression contains all those individuals that are connected by DPEi to literals lti, 1 $\leq$ i $\leq$ n, such that the tuple ( lt1 , ..., ltn ) is in DR. A class expression of the form DataSomeValuesFrom( DPE DR ) can be seen as a syntactic shortcut for the class expression DataMinCardinality( 1 DPE DR ). 
-\end{itemize}
+\ms{Existential Quantification on Properties} conforms to the requirement \ms{R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}
+In DL terminology the \ms{existential quantification} is alco called \ms{existential restriction}.
+An existential class expression ObjectSomeValuesFrom( OPE CE ) consists of an object property expression OPE and a class expression CE, and it contains all those individuals that are connected by OPE to an individual that is an instance of CE. Such a class expression can be seen as a syntactic shortcut for the class expression ObjectMinCardinality( 1 OPE CE ).
+An existential class expression DataSomeValuesFrom( DPE1 ... DPEn DR ) consists of n data property expressions DPEi, 1 $\leq$ i $\leq$ n, and a data range DR whose arity MUST be n. Such a class expression contains all those individuals that are connected by DPEi to literals lti, 1 $\leq$ i $\leq$ n, such that the tuple ( lt1 , ..., ltn ) is in DR. A class expression of the form DataSomeValuesFrom( DPE DR ) can be seen as a syntactic shortcut for the class expression DataMinCardinality( 1 DPE DR ). 
 
 \subsection{Simple Example}
 
@@ -644,22 +639,26 @@ Parent $\equiv$ $\exists$ parentOf . $\top$
 property & Parent & parentOf & - & $\top$ & $\exists$ \\
 \end{gcotable}
 
+\subsection{Simple Example}
+
+\begin{DL}
+ParentOfSon $\equiv$ $\exists$ parentOf . Male
+\end{DL}
+
+\begin{gcotable}
+property & ParentOfSon & parentOf & - & Male & $\exists$ \\
+\end{gcotable}
+
 \section{Universal Quantification on Properties}
 
-requirements:
+\ms{Universal Quantification on Properties} corresponds to the requirement \ms{R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}, which is called \ms{value restriction} in DL terminology.
 
-\begin{itemize}
-	\item R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES
-\end{itemize}
-
-\subsection{Description}
-
-\begin{itemize}
-	\item DL terminology: value restriction
-\end{itemize}
-
-
-$(\forall R.C)^\mathcal{I}= \{a \in \Delta^\mathcal{I}\mid (a,b) \in R^\mathcal{I} \rightarrow b \in C^\mathcal{I} \}$ where $\cdot^\mathcal{I}$ is an interpretation function, $\Delta^I$ is the domain, $a,b \in \Delta^\mathcal{I}$ are individuals $C$ is a concept, $R$ is a role. 
+\begin{center}
+\begin{DL} 
+$(\forall R.C)^\mathcal{I}= \{a \in \Delta^\mathcal{I}\mid (a,b) \in R^\mathcal{I} \rightarrow b \in C^\mathcal{I} \}$ where $\cdot^\mathcal{I}$ is an interpretation function, \\
+$\Delta^I$ is the domain, $a,b \in \Delta^\mathcal{I}$ are individuals $C$ is a concept, $R$ is a role. 
+\end{DL}
+\end{center}
 
 \subsection{Simple Example}
 
@@ -685,7 +684,7 @@ requirements:
 	\item R-26-DATA-PROPERTY-DOMAIN
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item restrict domain of object and data properties
@@ -705,6 +704,8 @@ $\exists$ sonOf . $\top$ $\sqsubseteq$ Male
 	\item restrict the domain of sonOf to male individual
 \end{itemize}
 
+syntactic sugar:
+
 \begin{gcotable}
 property & $\top$ & sonOf & - & Male & domain \\
 \end{gcotable}
@@ -718,16 +719,12 @@ requirements:
 	\item R-35-DATA-PROPERTY-RANGE
 \end{itemize}
 
-\subsection{Description}
-
 \begin{itemize}
 	\item restrict range of object and data properties
 	\item DL terminology: range restrictions on roles
 \end{itemize}
 
 $\top \sqsubseteq \forall R . C$ is the range restriction to object property $R$ (restricted by concept $C$).  
-
-
 
 \subsection{Simple Example}
 
@@ -761,6 +758,8 @@ sonOf rdfs:range Parent .
                 dsp:valueClass Parent ] ] .
 \end{ex}
 
+syntactic sugar:
+
 \begin{gcotable}
 property & $\top$ & sonOf & - & Parent & range \\
 \end{gcotable}
@@ -773,8 +772,6 @@ requirements:
 	\item R-29-CLASS-SPECIFIC-RANGE-OF-RDF-OBJECTS
 	\item R-36-CLASS-SPECIFIC-RANGE-OF-RDF-LITERALS
 \end{itemize}
-
-\subsection{Description}
 
 \begin{itemize}
   \item restrict range of object and data properties for individuals within specific context
@@ -790,6 +787,10 @@ requirements:
 	\item range: class 'Parent'
 	\item $\rightarrow$ individuals of the class 'Man' can only have 'sonOf' relationships to indivuduals of the class 'Parent'
 \end{itemize}
+
+\begin{DL}
+Man $\sqsubseteq$ $\forall$ sonOf . Parent \\
+\end{DL}
 
 \section{Minimum Unqualified Cardinality Restrictions on Properties}
 
@@ -1397,7 +1398,7 @@ requirement:
 	\item R-56-INVERSE-OBJECT-PROPERTIES
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item In many cases properties are used bi-directionally and then accessed in the inverse direction, e.g. parent $\equiv$ child$^{-}$. There should be a way to declare value type, cardinality etc of those inverse relations without having to declare a new property URI. 
@@ -1432,7 +1433,7 @@ requirements:
 	\item R-63-TRANSITIVE-OBJECT-PROPERTIES
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item Transitivity is a special form of complex role inclusion
@@ -1471,7 +1472,7 @@ requirement:
 	\item R-61-SYMMETRIC-OBJECT-PROPERTIES
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item A role is symmetric if it is equivalent to its own inverse \cite{Kroetzsch2012}
@@ -1508,7 +1509,7 @@ requirement:
 	\item R-62-ASYMMETRIC-OBJECT-PROPERTIES
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item A role is asymmetric if it is disjoint from its own inverse \cite{Kroetzsch2012}
@@ -1562,7 +1563,7 @@ requirement:
 	\item 
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
   \item DL terminology: local reflexivity
@@ -1599,7 +1600,7 @@ requirement:
 	\item R-59-REFLEXIVE-OBJECT-PROPERTIES
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
   \item DL terminology: reflexive roles, global reflexivity
@@ -1630,7 +1631,7 @@ requirement:
 	\item R-60-IRREFLEXIVE-OBJECT-PROPERTIES
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item DL terminology: irreflexive roles
@@ -1677,7 +1678,7 @@ requirement:
 	\item R-66-PROPERTY-GROUPS
 \end{itemize}
 
-\subsection{Description}
+
 
 \subsection{Simple Example}
 
@@ -1724,7 +1725,7 @@ requirements:
 	\item R-11-CONTEXT-SPECIFIC-EXCLUSIVE-OR-OF-PROPERTIES
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
   \item exclusive or: logical operation that outputs true whenever both inputs differ (one is true, the other is false).
@@ -1886,7 +1887,7 @@ requirements:
 	\item R-202-CONTEXT-SPECIFIC-INCLUSIVE-OR-OF-PROPERTIES
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item inclusive or: A logical connective joining two or more predicates that yields the logical value "true" when at least one of the predicates is true.
@@ -1909,7 +1910,7 @@ requirement:
 	\item R-13-DISJOINT-GROUP-OF-PROPERTIES-CLASS-SPECIFIC
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item exclusive or: logical operation that outputs true whenever both inputs differ (one is true, the other is false).
@@ -2030,7 +2031,7 @@ requirements:
 	\item 
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
   \item at least one property group must match for individuals of a specific context 
@@ -2073,7 +2074,7 @@ requirements:
   \item R-37-ALLOWED-VALUES-FOR-RDF-LITERALS
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
   \item It is a common requirement to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resource). This is often rendered in drop down boxes or radio buttons in user interfaces. 
@@ -2224,7 +2225,7 @@ requirements:
 	\item R-200-NEGATIVE-LITERAL-CONSTRAINTS
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item not allowed objects
@@ -2291,7 +2292,7 @@ requirements:
 	\item R-39-MEMBERSHIP-OF-RDF-LITERALS-IN-CONTROLLED-VOCABULARIES
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item resources can only be members of listed controlled vocabularies
@@ -2369,7 +2370,7 @@ requirements:
   \item R-23-IRI-PATTERN-MATCHING-ON-RDF-PROPERTIES
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item IRI pattern matching on subjects, properties, and objects
@@ -2383,7 +2384,7 @@ requirements:
   \item R-44-PATTERN-MATCHING-ON-RDF-LITERALS
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item pattern matching on literals
@@ -2452,7 +2453,7 @@ requirements:
   \item R-44-PATTERN-MATCHING-ON-RDF-LITERALS
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item negative pattern matching on literals
@@ -2523,7 +2524,7 @@ requirement:
 	\item R-43-LITERAL-VALUE-COMPARISON
 \end{itemize}
 
-\subsection{Description}
+
 
 examples:
 
@@ -2607,7 +2608,7 @@ requirements:
 	\item R-142-NEGATIVE-RANGES-OF-RDF-LITERAL-VALUES
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item The literal value of a resource (having a certain type) must (not) be within a specific range
@@ -2642,7 +2643,7 @@ requirement:
 	\item R-45-RANGES-OF-RDF-LITERAL-VALUES
 \end{itemize}
 
-\subsection{Description}
+
 
 \subsection{Example}
 
@@ -2733,7 +2734,7 @@ requirements:
 	\item R-217-DEFINE-ORDER-FOR-FORMS/DISPLAY
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item order properties
@@ -2758,7 +2759,7 @@ requirements:
 	\item R-193-MULTIPLE-CONSTRAINT-VALIDATION-EXECUTION-LEVELS
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
   \item Different levels of severity, priority
@@ -2779,7 +2780,7 @@ requirement:
 	\item R-194-PROVIDE-STRING-FUNCTIONS-FOR-RDF-LITERALS
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item Some constraints require building new strings out of other strings
@@ -2807,7 +2808,7 @@ requirements:
 	\item R-209-VALID-CLASSES
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item What types of resources (rdf:type) are valid in this context? Context can be an input stream, a data creation function, or an API.
@@ -2850,7 +2851,7 @@ requirements:
   \item R-38-DEFAULT-VALUES-OF-RDF-LITERALS
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item default values for RDF literals
@@ -2922,7 +2923,7 @@ requirements:
 	\item R-41-STATISTICAL-COMPUTATIONS
 \end{itemize}
 
-\subsection{Description}
+
 
 examples:
 
@@ -2960,7 +2961,7 @@ requirements:
 	\item R-48-MISSING-LANGUAGE-TAGS
 \end{itemize}
  
-\subsection{Description}
+
 
 \subsection{Example}
 
@@ -3019,7 +3020,7 @@ requirement:
 	\item R-50-WHITESPACE-HANDLING-OF-RDF-LITERALS
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item avoid whitespaces in literals neither leading nor trailing white spaces
@@ -3059,7 +3060,7 @@ requirements:
 	\item R-68-REQUIRED-PROPERTIES
 \end{itemize}
 
-\subsection{Description}
+
 
 \subsection{Simple Example}
 
@@ -3075,7 +3076,7 @@ requirements:
 	\item R-69-OPTIONAL-PROPERTIES
 \end{itemize}
 
-\subsection{Description}
+
 
 \subsection{Simple Example}
 
@@ -3093,7 +3094,7 @@ requirements:
 	\item R-70-REPEATABLE-PROPERTIES
 \end{itemize}
 
-\subsection{Description}
+
 
 \subsection{Simple Example}
 
@@ -3111,7 +3112,7 @@ requirements:
 	\item R-71-CONDITIONAL-PROPERTIES
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item various conditions possible
@@ -3139,7 +3140,7 @@ requirements:
 	\item R-72-RECOMMENDED-PROPERTIES
 \end{itemize}
 
-\subsection{Description}
+
 
 \subsection{Simple Example}
 
@@ -3158,7 +3159,7 @@ requirements:
 	\item R-53-NEGATIVE-DATA-PROPERTY-CONSTRAINTS
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item instances of a specific class must not have some object property
@@ -3228,7 +3229,7 @@ requirement:
 	\item R-120-HANDLE-RDF-COLLECTIONS
 \end{itemize}
 
-\subsection{Description}
+
 
 examples:
 
@@ -3308,7 +3309,7 @@ requirements:
 	\item R-222-RECURSIVE-QUERIES
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item If we want to define Resource Shapes, remember that it is a recursive
@@ -3348,7 +3349,7 @@ requirements:
 	\item 
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item make sure that a value is valid for its datatype
@@ -3382,7 +3383,7 @@ $\rho(\textsf{hasBirthday}) \sqsubseteq \PVerb{xsd:dateTime}$\\
 
 \section{Individual Equality}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item states that two different names are known to refer to the same individual \cite{Kroetzsch2012}
@@ -3401,7 +3402,7 @@ class & \{john\} & - & - & \{julia\} & = \\
 
 \section{Individual Inequality}
 
-\subsection{Description}
+
 
 \subsection{Simple Example}
 
@@ -3421,7 +3422,7 @@ class & \{john\} & - & - & \{julia\} & $\ne$ \\
 
 \section{Equivalent Properties}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item An equivalent object properties axiom EquivalentObjectProperties( OPE1 ... OPEn ) states that all of the object property expressions OPEi, 1 $\leq$ i $\leq$ n, are semantically equivalent to each other. This axiom allows one to use each OPEi as a synonym for each OPEj — that is, in any expression in the ontology containing such an axiom, OPEi can be replaced with OPEj without affecting the meaning of the ontology. The axiom EquivalentObjectProperties( OPE1 OPE2 ) is equivalent to the following two axioms SubObjectPropertyOf( OPE1 OPE2 ) and SubObjectPropertyOf( OPE2 OPE1 ).
@@ -3453,7 +3454,7 @@ equivalent to: $hasBrother = hasMaleSibling$
 
 \section{Property Assertions}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item positive property assertions
@@ -3499,7 +3500,7 @@ $hasAge ( \textbf{Meg} ,\textbf{ "17"}\hat{\ } \hat{\ } xsd:integer ) $\\
 
 \section{Functional Properties}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item An object property functionality axiom FunctionalObjectProperty( OPE ) states that the object property expression OPE is functional — that is, for each individual x, there can be at most one distinct individual y such that x is connected by OPE to y. Each such axiom can be seen as a syntactic shortcut for the following axiom: SubClassOf( owl:Thing ObjectMaxCardinality( 1 OPE ) ).
@@ -3531,7 +3532,7 @@ $(\textsf{funct } \textsf{hasFather})$
 
 \section{Inverse-Functional Properties}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item An object property inverse functionality axiom InverseFunctionalObjectProperty( OPE ) states that the object property expression OPE is inverse-functional — that is, for each individual x, there can be at most one individual y such that y is connected by OPE with x. Each such axiom can be seen as a syntactic shortcut for the following axiom: SubClassOf( owl:Thing ObjectMaxCardinality( 1 ObjectInverseOf( OPE ) ) ).
@@ -3563,7 +3564,7 @@ $(\textsf{funct } \textsf{hasFather}\sp{\overline{\ }})$
 
 \section{Value Restrictions}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item Individual Value Restrictions: A has-value class expression ObjectHasValue( OPE a ) consists of an object property expression OPE and an individual a, and it contains all those individuals that are connected by OPE to a. Each such class expression can be seen as a syntactic shortcut for the class expression ObjectSomeValuesFrom( OPE ObjectOneOf( a ) ). 
@@ -3592,7 +3593,7 @@ $Shortcut \sqsubseteq \exists fatherOf.\{\textbf{Stewie}\}$
 
 \section{Self Restrictions}
 
-\subsection{Description}
+
 
 \begin{itemize}
 	\item A self-restriction ObjectHasSelf( OPE ) consists of an object property expression OPE, and it contains all those individuals that are connected by OPE to themselves. 
@@ -3624,7 +3625,7 @@ requirement:
 	\item R-46-CONSTRAINING-FACETS
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
   \item For datatype properties it should be possible to declare frequently needed "facets" to drive user interfaces and validate input against simple conditions, including min/max value, regular expressions, string length etc. similar to XSD datatypes. 
@@ -3698,7 +3699,7 @@ requirement:
 	\item 
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
   \item It is often useful to declare a given (datatype) property as the "primary key" of a class, so that the system can enforce uniqueness and also automatically build URIs from user input and data imported from relational databases or spreadsheets. 
@@ -3764,7 +3765,7 @@ requirement:
 	\item R-224-instance-level-data-validation-exploitingclass/property-specialization-axioms-in-ontologies
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
   \item Validation of instances data (direct or indirect) exploiting the subclass or sub-property link in a given ontology.
@@ -3793,7 +3794,7 @@ requirement:
 	\item 
 \end{itemize}
 
-\subsection{Description}
+
 
 \begin{itemize}
   \item In most Library applications, these tend to appear in pairs, with repeatable / non-repeatable establishing max cardinality and optional / mandatory establishing min cardinality.
@@ -3826,7 +3827,7 @@ Tilde means that this constraint may be fulfilled by that particular constraint 
 We also evaluated if a specific constraint is fulfilled by OWL 2 QL or if the more expressive OWL 2 DL is needed. 
 Inferencing may be performed prior to validating constraints. This is marked with an asterisk.
 
-\begin{evaluation}
+\begin{evaluation-overall}
 *Subsumption & \ding{55} & $\checkmark$ & $\checkmark$ & $\sim$ & $\checkmark$ & $\checkmark$ \\
 *Class Equivalence & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
 *Sub Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
@@ -3886,9 +3887,9 @@ Literal Value Comparison & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\che
 Define Order & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Validation Levels & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 String Operations & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-\end{evaluation}
+\end{evaluation-overall}
 
-\begin{evaluation}
+\begin{evaluation-overall}
 Context-Specific Valid Classes & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Context-Specific Valid Properties & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Default Values & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & \ding{55} & $\checkmark$ \\
@@ -3904,7 +3905,7 @@ Value is Valid for Datatype & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \d
 *Exploiting Class/Property Specialization Ontology Axioms & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 *Cardinality Shortcuts & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
 Aggregations & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-\end{evaluation}
+\end{evaluation-overall}
 
 \end{document}
 
