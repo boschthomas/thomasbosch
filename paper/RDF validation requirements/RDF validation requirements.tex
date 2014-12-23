@@ -865,7 +865,6 @@ description:
 # ------------------------------------------------------
 :Yoda 
 \end{ex}
-\er{Note that this example includes also has at-most restriction.}\\
 
 Assume that  mentorOf and studentOf are inverse properties.\\
 \begin{DL}
@@ -873,6 +872,15 @@ $Jedi \sqsubseteq \exists attitude.\{good\} $\\
 $JediStudent \sqsubseteq Jedi \sqcap 1\geq studentOf.\top \sqcap 1\leq studentOf.\top$ \\
 $JediMasters \sqsubseteq Jedi \sqcap 1\leq studentOf^{-}.\top \sqcap 2\geq studentOf^{-}.\top $\\
 $SuperJediMaster \sqsubseteq Jedi \sqcap  3\leq studentOf^{-}.\top $
+\end{DL}
+
+corrections (to verify):
+
+\begin{DL}
+$Jedi \sqsubseteq \exists attitude.\{good\} $\\
+$JediStudent \sqsubseteq Jedi \sqcap \geq1 studentOf.\top \sqcap \leq1 studentOf.\top$ \\
+$JediMasters \sqsubseteq Jedi \sqcap \geq1 studentOf^{-}.\top \sqcap \leq2 studentOf^{-}.\top $\\
+$SuperJediMaster \sqsubseteq Jedi \sqcap  \geq3 studentOf^{-}.\top $
 \end{DL}
 
 \section{Minimum Qualified Cardinality Restrictions on Properties}
