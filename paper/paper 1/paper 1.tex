@@ -912,16 +912,13 @@ Sith a ResourceShape ;
 \section{Implementation}
 
 SPARQL is generally seen as the method of choice to validate RDF data according to certain constraints, although it is not ideal for their formulation. 
-In contrast, OWL 2 DL constraints are comparatively easy to understand, but lack an implementation to validate RDF data. 
-\an{IMHO this should be described more precisely because validation in terms of inconsistency detection is still available, not sure about the completeness for OWL 2 DL}
-\tb{Andy, can you write a short paragraph about inconsistency detection? Sounds interesting!}
+In contrast, OWL 2 DL constraints are comparatively easy to understand, but lack an implementation to validate RDF data. However, reasoning in OWL supports the identification of inconsistencies, which is also known as ontology debugging \cite{stuckenschmidt2008debugging}. Despite the fact that inconsistency detection especially in DL has already been studied extensively, it is not sufficient for constraint validation.
 Bosch and Eckert\cite{BoschEckert2014-2} use SPIN as basis to define a
 validation environment in which the validation of any constraint language\footnote{the only limitation is that constraint languages must be represented in RDF} can be implemented by representing them in SPARQL. 
 The validation implementation of constraint languages is fully declarative,
 consisting of a mapping from a constraint language to SPIN in form of SPARQL CONSTRUCT queries.
 SPIN represents both the SPIN mappings and the SPARQL queries in RDF. 
 Within the validation environment, we fully implemented an automatic RDF validation of all OWL 2 DL\footnote{and therefore all OWL 2 QL constructs} constructs. 
-\an{you should mention at this point that this validation is in terms of RDF validation, because inconsistency can't be done completely}
 The implementation can be tested at \url{http://purl.org/net/rdfval-demo} and
 the OWL 2 SPIN mapping is maintained at \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}.
 
