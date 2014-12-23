@@ -432,7 +432,7 @@ OWL 2 QL is an OWL 2 profile which focuses on reasoning on query answering with 
 
 OWL 2 QL is based on the \textit{DL-Lite} family of description logics, a tractable family of fragments of first-order logic \cite{Artale2009,Calvanese2007}. 
 However, an important difference between the \textit{DL-Lite} family and OWL is the
-unique name assumption (UNA). UNA is common in data management, therefore it is adopted in the \textit{DL-Lite} family whereas not adopted in OWL. In OWL, one uses constructs \textbf{sameAs} or \textbf{differentFrom} explicitly to state that two individuals, say  $a$ and $b$, are the \emph{same} or {different} respectively. For that reason in OWL 2 QL, any construct e.g., number restrictions or functionality constraints which can interfere with UNA and also which can cause higher complexity without the UNA, has been avoided. \an{but in \textit{DL-Lite}$_\mathcal{A}$ functionality is expressible, as far as I know there is also an extension to \textit{DL-Lite}$_\mathcal{A}$ that allows number restrictions...}
+unique name assumption (UNA). UNA is common in data management, therefore it is adopted in the \textit{DL-Lite} family whereas not adopted in OWL. In OWL, one uses constructs \textbf{sameAs} or \textbf{differentFrom} explicitly to state that two individuals, say  $a$ and $b$, are the \emph{same} or {different} respectively. For that reason in OWL 2 QL, any construct e.g., number restrictions or functionality constraints which can interfere with UNA and also which can cause higher complexity without the UNA, has been avoided.\footnote{Some extensions of \textit{DL-Lite}$_\mathcal{R}$ like \textit{DL-Lite}$_\mathcal{A}$ comprises for example also functionality, for further readings see the work of Poggi et al. \cite{poggi2008linking}}
 
 Among the members of \textit{DL-Lite} family, \textit{DL-Lite}$_\mathcal{R}$ is the one that OWL 2 QL is based on. The reason is to avoid any problematic issue which might appear in the explicit axiomatization of UNA, since  \textit{DL-Lite}$_\mathcal{R}$ in general does not require the UNA, because making this assumption has no semantic affect on a \textit{DL-Lite}$_\mathcal{R}$ ontology.
 
@@ -852,7 +852,7 @@ Jedi { (
     attackingByForce xsd:boolean ) }
 \end{ex}
 
-The same constraint may be expressed by OWL 2 DL \an{Do you mean DL or QL at this point?}\tb{DisjointUnion is only supported by DL, see OWL 2 Profile spec}, but not very intuitively and concisely.
+The same constraint may be expressed by OWL 2 DL, but not very intuitively and concisely.
 This can rather be seen as a workaround, as anonymous classes are built for each of the exclusive properties.
 
 \begin{ex}
