@@ -69,6 +69,22 @@
 	\end{center}
 }
 
+%\newenvironment{gcotable}{
+  %\scriptsize
+  %\sffamily
+  %\vspace{0.3cm}
+	%\begin{center}
+  %\begin{tabular}{l|l|l|l|l|l|l}
+  %\hline
+  %\textbf{c. type} & \textbf{context c. $\vert$ p.} & \textbf{left r. list} & \textbf{right r. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
+  %\hline
+%
+%}{
+  %\hline
+  %\end{tabular}
+	%\end{center}
+%}
+
 \newenvironment{DL}{
   %\scriptsize
   %\sffamily
@@ -414,7 +430,7 @@ $parentOf \sqsubseteq \neg childOf$
 property & $\top$ & parentOf & $\neg$childOf & $\top$ & $\sqsubseteq$ \\
 \end{gcotable}
 
-syntactic sugar:
+syntactic sugar (preferred):
 
 \begin{gcotable}
 property & $\top$ & parentOf & childOf & $\top$ & $\ne$ \\
@@ -1424,21 +1440,36 @@ requirement:
 \subsection{Simple Example}
 
 \begin{DL}
-parentOf $\equiv$ $childOf^{-}$ \\
-not sure if this should be rather\\
-$parentOf \sqsubseteq childOf^{-}$ \\
+$parentOf \equiv childOf^{-}$ \\
 \end{DL}
 
-\an{not sure!}
+outdated:
 
 \begin{gcotable}
-property & parentOf & childOf & - & $\top$ & $inverse role (^{-})$ \\
+property & $\top$ & parentOf & childOf$^{-}$ & - & $\equiv$ \\
 \end{gcotable}
 
-consistent with ontology:
+\subsection{Simple Example}
+
+\begin{DL}
+captainOf $\equiv$ hasCaptain$^{-}$ \\
+\end{DL}
 
 \begin{gcotable}
-property & $\top$ & parentOf & childOf & $\top$ & $inverse role (^{-})$ \\
+property & $\top$ & captainOf & hasCaptain & - & inverse \\
+\end{gcotable}
+
+alternative:
+
+\begin{gcotable}
+property & hasCaptain$^{-}$ & hasCaptain & - & - & inverse \\
+property & captainOf & hasCaptain$^{-}$ & - & - & $\equiv$ \\
+\end{gcotable}
+
+alternative:
+
+\begin{gcotable}
+property & captainOf & hasCaptain & - & - & inverse \\
 \end{gcotable}
 
 \section{Transitive Object Properties}
@@ -1448,8 +1479,6 @@ requirements:
 \begin{itemize}
 	\item R-63-TRANSITIVE-OBJECT-PROPERTIES
 \end{itemize}
-
-
 
 \begin{itemize}
 	\item Transitivity is a special form of complex role inclusion
@@ -1462,22 +1491,14 @@ requirements:
 ancestorOf $\circ$ ancestorOf $\sqsubseteq$ ancestorOf
 \end{DL}
 
+\begin{gcotable}
+property & $\top$ & ancestorOf, ancestorOf & ancestorOf & - & $\sqsubseteq$ \\
+\end{gcotable}
+
 syntactic sugar:
 
 \begin{gcotable}
-property & ancesterOf & ancestorOf, ancestorOf & - & $\top$ & transitive role \\
-\end{gcotable}
-
-syntactic sugar (ontology conform):
-
-\begin{gcotable}
-property & $\top$ & ancestorOf, ancestorOf & ancestorOf & $\top$ & transitive role \\
-\end{gcotable}
-
-without syntactic sugar (ontology conform):
-
-\begin{gcotable}
-property & $\top$ & ancestorOf, ancestorOf & ancestorOf & $\top$ & $\sqsubseteq$ \\
+property & $\top$ & ancestorOf & - & - & transitive \\
 \end{gcotable}
 
 \section{Symmetric Object Properties}
@@ -1498,23 +1519,17 @@ requirement:
 \subsection{Simple Example}
 
 \begin{DL}
-$marriedTo \sqsubseteq marriedTo^{-}$ \\
+$marriedTo \equiv marriedTo^{-}$ \\
 \end{DL}
 
 \begin{gcotable}
-property & marriedTo & marriedTo & - & $\top$ & $inverse role (^{-})$ \\
-\end{gcotable}
-
-ontology conform:
-
-\begin{gcotable}
-property & $\top$ & marriedTo & marriedTo & $\top$ & $inverse role (^{-})$ \\
+property & $\top$ & marriedTo & marriedTo & - & inverse \\
 \end{gcotable}
 
 syntactic sugar:
 
 \begin{gcotable}
-property & $\top$ & marriedTo & - & $\top$ & symmetric role \\
+property & $\top$ & marriedTo & - & - & symmetric \\
 \end{gcotable}
 
 \subsubsection{Asymmetric Object Properties}
@@ -1525,8 +1540,6 @@ requirement:
 	\item R-62-ASYMMETRIC-OBJECT-PROPERTIES
 \end{itemize}
 
-
-
 \begin{itemize}
 	\item A role is asymmetric if it is disjoint from its own inverse \cite{Kroetzsch2012}
 	\item An object property asymmetry axiom AsymmetricObjectProperty( OPE ) states that the object property expression OPE is asymmetric — that is, if an individual x is connected by OPE to an individual y, then y cannot be connected by OPE to x. 
@@ -1536,27 +1549,19 @@ requirement:
 
 \begin{DL}
 $parentOf \sqsubseteq \neg parentOf^{-}$ or\\
-$parentOf \sqcap parentOf^{-} \sqsubseteq \bot$
+$parentOf \sqcap parentOf^{-} \sqsubseteq \bot$ or \\
+disjoint(parentOf, parentOf$^{-}$)
 \end{DL}
 
-
-
 \begin{gcotable}
-property & $parentOf^{-}$ & parentOf & - & $\top$ & inverse role $(^{-})$ \\
-property & parentOf & parentOf, $parentOf^{-}$ & - & $\top$ & disjoint role ($\ne$) \\
-\end{gcotable}
-
-ontology conform:
-
-\begin{gcotable}
-property & $\top$ & parentOf & - & $\top$ & inverse role $(^{-})$ \\
-property & $\top$ & parentOf, $parentOf^{-}$ & - & $\top$ & disjoint role ($\ne$) \\
+property & $\top$ & $parentOf^{-}$ & parentOf & - & inverse \\
+property & $\top$ & parentOf & $parentOf^{-}$ & - & $\ne$ \\
 \end{gcotable}
 
 syntactic sugar:
 
 \begin{gcotable}
-property & $\top$ & parentOf & - & $\top$ & asymmetric role \\
+property & $\top$ & parentOf & - & - & asymmetric \\
 \end{gcotable}
 
 \subsection{Simple Example}
@@ -1571,7 +1576,7 @@ property & $\top$ & parentOf & - & $\top$ & asymmetric role \\
 	\item person birth place relations (dbo:birthPlace) cannot be symmetric
 \end{itemize}
 
-\section{Class-Specific Reflexive Object Properties / Local Reflexivity}
+\section{Class-Specific Reflexive Object Properties}
 
 requirement:
 
@@ -1590,7 +1595,7 @@ requirement:
 \subsection{Simple Example}
 
 \begin{DL}
-$\exists$ talksTo .Self. 
+TalkingToThemselves $\sqsubseteq$ $\exists$ talksTo .Self. 
 \end{DL}
 
 \begin{itemize}
@@ -1598,17 +1603,17 @@ $\exists$ talksTo .Self.
 \end{itemize}
 
 \begin{gcotable}
-property & $\exists$ talksTo .Self.  & talksTo & - & Self & $\exists$ \\
+property & TalkingToThemselves & talksTo & - & Self & $\exists$ \\
 \end{gcotable}
 
 syntactic sugar:
 
 \begin{gcotable}
-property & $\exists$ talksTo .Self. & talksTo & - & - & reflexive role \\
+property & $\exists$ talksTo .Self & talksTo & - & - & reflexive \\
 \end{gcotable}
 
 
-\section{Reflexive Object Properties / Global Reflexivity}
+\section{Reflexive Object Properties}
 
 requirement:
 
@@ -1629,14 +1634,15 @@ requirement:
 $\top$ $\sqsubseteq$ $\exists$ knows . Self
 \end{DL}
 
+\begin{gcotable}
+property & $\exists$ knows . Self & knows & - & Self & $\exists$ \\
+class & $\top$ & - & - & $\top$, $\exists$ knows . Self & \sqsubseteq \\
+\end{gcotable}
+
 syntactic sugar:
 
 \begin{gcotable}
-property & $\top$ & knows & - & $\top$ & reflexive role \\
-\end{gcotable}
-
-\begin{gcotable}
-property & $\top$ & knows & - & Self & $\exists$ \\
+property & $\top$ & knows & - & - & reflexive \\
 \end{gcotable}
 
 \section{Irreflexive Object Properties}
@@ -1646,8 +1652,6 @@ requirement:
 \begin{itemize}
 	\item R-60-IRREFLEXIVE-OBJECT-PROPERTIES
 \end{itemize}
-
-
 
 \begin{itemize}
 	\item DL terminology: irreflexive roles
@@ -1663,15 +1667,16 @@ $\exists marriedTo . Self \sqsubseteq \bot$  OR\\
 $marriedTo \sqcap marriedTo^{-} \sqsubseteq \bot$ (without special self-concept Self)
 \end{DL}
 
+\begin{gcotable}
+property & $\exists$ knows . Self & knows & - & Self & $\exists$ \\
+class & $\neg$ $\exists$ knows . Self & - & - & $\exists$ knows . Self & $\neg$ \\
+class & $\top$ & - & - & $\top$, $\neg$ $\exists$ knows . Self & \sqsubseteq \\
+\end{gcotable}
+
 syntactic sugar:
 
 \begin{gcotable}
-property & $\top$ & marriedTo & - & $\top$ & irreflexive role \\
-\end{gcotable}
-
-\begin{gcotable}
-property & $\exists$ marriedTo . Self & marriedTo & - & Self & $\exists$ \\
-class & $\top$ & - & - & $\exists$ marriedTo . Self & $\neg$ \\
+property & $\top$ & marriedTo & - & - & irreflexive \\
 \end{gcotable}
 
 \subsection{Simple Example}
@@ -3864,8 +3869,8 @@ Individual Inequality & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \d
 *Equivalent Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
 Property Assertions & \ding{55} & $\checkmark$ & $\sim$ & \ding{55} & \ding{55} & $\checkmark$ \\
 Data Property Facets & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-Literal Pattern Matching & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-Negative Literal Pattern Matching & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+Literal Pattern Matching & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+Negative Literal Pattern Matching & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 *Object Property Paths & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 *Intersection & \ding{55} & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
 *Disjunction & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\

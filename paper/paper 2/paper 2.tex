@@ -391,7 +391,17 @@ $FederationCaptain \sqsubseteq Federation \sqcap \geq1 commandsVessel . Vessel $
 
 \section{Syntactic Sugar}
 
+In Section 1.3 we introduced three forms of RBox axioms: role inclusions, role equiv-
+alences and role disjointness. OWL provides a variety of others, namely role transi-
+tivity, symmetry, asymmetry, reflexivity and irreflexivity. These are sometimes consid-
+ered as basic axiom types in DLs as well, using some suggestive notation such as
+Trans( ancestorOf ) to express that the role ancestorOf is transitive. However, such axioms
+are just syntactic sugar; all role characteristics can be expressed using the features
+of DLs that we have already introduced.
+
 \begin{itemize}
+  \item domain and range
+	\item (ir)reflexive object properties
 	\item Exact Qualified Cardinality Restrictions on Properties
 \end{itemize}
 
