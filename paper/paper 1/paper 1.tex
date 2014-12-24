@@ -744,56 +744,33 @@ For the majority of the requirements to formulate RDF constraints, reasoning is 
 It is also possible, however, to reason before validating constraints for which reasoning does not affect validation results.
 If we do reasoning by query rewriting in terms of backward chaining and if we run a constraint validation query through an engine like the --ontop-- framework\footnote{\url{http://ontop.inf.unibz.it}} or ELITE (federated query engine) \cite{nolle2013elite}, the engine will only do some rewritings if it is possible, and if you just check e.g. pattern matching there will be no rewriting.
 
-\subsection{Expressible by OWL 2 QL}
+\subsection{Expressible by OWL 2}
+\label{sec:rdf-validation-requirements-without-reasoning-2}
 
-\textbf{Literal Pattern Matching}\footnote{corresponds to R-44-PATTERN-MATCHING-ON-RDF-LITERALS}\textbf{.} 
-\an{IMHO literal pattern matching is not expressible in DL and also not in OWL 2 QL!}
-There are multiple use cases associated with the requirement to match literals according to given patterns.
-
-%A social security number, for example, is a string that matches a given regular expression - which can be expressed by OWL 2 QL: 
+%\textbf{Literal Pattern Matching}\footnote{corresponds to R-44-PATTERN-MATCHING-ON-RDF-LITERALS}\textbf{.} 
+%There are multiple use cases associated with the requirement to match literals according to given patterns.
+%
+%Luke's droids can only have the numbers "R2-D2" or "C-3PO".
+%The universal restriction part of this constraint can be expressed by OWL 2 DL:
+%\ms{LukesDroids $\sqsubseteq$ $\forall$ droidNumber . DroidNumber}.
+%The restriction of the datatype \ms{DroidNumber}, however, cannot be expressed in DL, but OWL 2 DL can be used anyway:
 %
 %\begin{ex}
-%SSN 
+%DroidNumber 
     %a rdfs:Datatype ;
     %owl:equivalentClass [
         %a rdfs:Datatype ;
         %owl:onDatatype xsd:string ;
         %owl:withRestrictions ( 
-            %[ xsd:pattern "[0-9]{3}-[0-9]{2}-[0-9]{4}" ] ) ] .
-%hasSSN rdfs:range SSN .
+            %[ xsd:pattern "R2-D2|C-3PO" ] ) ] .
 %\end{ex}
 %
-%The second axiom defines \ms{SSN} as an abbreviation for a datatype restriction on \ms{xsd:string}. 
-%The first axiom explicitly declares \ms{SSN} to be a datatype. 
-%The datatype \ms{SSN} can be used just like any other datatype like in the third axiom to define the range of the \ms{hasSSN} property.
-%The literal pattern matching constraint above validates \ms{hasSSN} literals according to the stated regular expression causing a constraint violation for the triple 
-%\ms{TimBernersLee hasSSN "123456789"\textasciicircum{}\textasciicircum{}SSN}, 
-%but not for the triple \ms{TimBernersLee hasSSN "123-45-6789"\textasciicircum{}\textasciicircum{}SSN}.
-
-Luke's droids can only have the numbers "R2-D2" or "C-3PO".
-The universal restriction part of this constraint can be expressed by OWL 2 DL:
-\ms{LukesDroids $\sqsubseteq$ $\forall$ droidNumber . DroidNumber}.
-The restriction of the datatype \ms{DroidNumber}, however, cannot be expressed in DL, but OWL 2 QL can be used anyway:
-
-\begin{ex}
-DroidNumber 
-    a rdfs:Datatype ;
-    owl:equivalentClass [
-        a rdfs:Datatype ;
-        owl:onDatatype xsd:string ;
-        owl:withRestrictions ( 
-            [ xsd:pattern "R2-D2|C-3PO" ] ) ] .
-\end{ex}
-
-The second axiom defines \ms{DroidNumber} as an abbreviation for a datatype restriction on \ms{xsd:string}. 
-The first axiom explicitly declares \ms{DroidNumber} to be a datatype. 
-The datatype \ms{DroidNumber} can be used just like any other datatype like in the universal restriction above.
-The literal pattern matching constraint validates \ms{DroidNumber} literals according to the stated regular expression causing a constraint violation for the triples 
-\ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber}, 
-but not for the triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}.
-
-\subsection{Expressible by OWL 2 DL}
-\label{sec:rdf-validation-requirements-without-reasoning-2}
+%The second axiom defines \ms{DroidNumber} as an abbreviation for a datatype restriction on \ms{xsd:string}. 
+%The first axiom explicitly declares \ms{DroidNumber} to be a datatype. 
+%The datatype \ms{DroidNumber} can be used just like any other datatype like in the universal restriction above.
+%The literal pattern matching constraint validates \ms{DroidNumber} literals according to the stated regular expression causing a constraint violation for the triples 
+%\ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber}, 
+%but not for the triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}.
 
 \textbf{Allowed Values}\footnote{corresponds to R-30-ALLOWED-VALUES}\textbf{.}
 It is a common requirement to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resources). This is often rendered in drop down boxes or radio buttons in user interfaces. 
