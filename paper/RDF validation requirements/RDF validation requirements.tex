@@ -866,21 +866,11 @@ description:
 :Yoda 
 \end{ex}
 
-Assume that  mentorOf and studentOf are inverse properties.\\
-\begin{DL}
-$Jedi \sqsubseteq \exists attitude.\{good\} $\\
-$JediStudent \sqsubseteq Jedi \sqcap 1\geq studentOf.\top \sqcap 1\leq studentOf.\top$ \\
-$JediMasters \sqsubseteq Jedi \sqcap 1\leq studentOf^{-}.\top \sqcap 2\geq studentOf^{-}.\top $\\
-$SuperJediMaster \sqsubseteq Jedi \sqcap  3\leq studentOf^{-}.\top $
-\end{DL}
-
-\textcolor{red}{corrections (to verify):}
-
 \begin{DL}
 $Jedi \sqsubseteq \exists attitude.\{good\} $\\
 $JediStudent \sqsubseteq Jedi \sqcap \geq1 studentOf.\top \sqcap \leq1 studentOf.\top$ \\
-$JediMasters \sqsubseteq Jedi \sqcap \geq1 studentOf^{-}.\top \sqcap \leq2 studentOf^{-}.\top $\\
-$SuperJediMaster \sqsubseteq Jedi \sqcap  \geq3 studentOf^{-}.\top $
+$JediMasters \sqsubseteq Jedi \sqcap \geq1 mentorOf.\top \sqcap \leq2 mentorOf.\top $\\
+$SuperJediMaster \sqsubseteq Jedi \sqcap  \geq3 mentorOf.\top $
 \end{DL}
 
 \subsection{Simple Example}
@@ -1009,10 +999,11 @@ property & foaf:Person & hasName & - & xsd:string & $\geq$ & 2 \\
 
 \begin{DL}
 $Jedi \sqsubseteq \exists attitude.\{good\} $\\
-$JediStudent \sqsubseteq Jedi \sqcap 1\geq studentOf.Jedi \sqcap 1\leq studentOf.Jedi$ \\
-$JediMasters \sqsubseteq Jedi \sqcap 1\leq studentOf^{-}.Jedi\sqcap 2\geq studentOf^{-}.Jedi $\\
-$SuperJediMaster \sqsubseteq Jedi \sqcap  3\leq studentOf^{-}.Jedi $
+$JediStudent \sqsubseteq Jedi \sqcap \geq1 studentOf.Jedi \sqcap \leq1 studentOf.Jedi$ \\
+$JediMasters \sqsubseteq Jedi \sqcap \geq1 mentorOf.Jedi \sqcap \leq2 mentorOf.Jedi $\\
+$SuperJediMaster \sqsubseteq Jedi \sqcap  \geq3 mentorOf.Jedi $
 \end{DL}
+
 \subsection{Complex Example}
 
 \begin{DL}
@@ -1116,13 +1107,11 @@ $\geq n R. \top$ is maximum unqualified cardinality restriction where $n \in \ma
 :Obi-Wan
 \end{ex}
 
-%\tb{ToDO: add DL}
-\noindent Taking mentorOf and studentOf as inverse properties. \\
 \begin{DL}
 $Jedi \sqsubseteq \exists attitude.\{good\} $\\
-$JediStudent \sqsubseteq Jedi \sqcap 1\geq studentOf.\top \sqcap 1\leq studentOf.\top$ \\
-$JediMasters \sqsubseteq Jedi \sqcap 1\leq studentOf^{-}.\top \sqcap 2\geq studentOf^{-}.\top $\\
-$SuperJediMaster \sqsubseteq Jedi \sqcap  3\leq studentOf^{-}.\top $
+$JediStudent \sqsubseteq Jedi \sqcap \geq1 studentOf.\top \sqcap \leq1 studentOf.\top$ \\
+$JediMasters \sqsubseteq Jedi \sqcap \geq1 mentorOf.\top \sqcap \leq2 mentorOf.\top $\\
+$SuperJediMaster \sqsubseteq Jedi \sqcap  \geq3 mentorOf.\top $
 \end{DL}
 
 \section{Maximum Qualified Cardinality Restrictions on Properties}
@@ -1221,9 +1210,9 @@ property & $\leq$  2 childOf . Parent & childOf & - & Parent & $\leq$ & 2 \\
 
 \begin{DL}
 $Jedi \sqsubseteq \exists attitude.\{good\} $\\
-$JediStudent \sqsubseteq Jedi \sqcap 1\geq studentOf.Jedi \sqcap 1\leq studentOf.Jedi$ \\
-$JediMasters \sqsubseteq Jedi \sqcap 1\leq studentOf^{-}.Jedi\sqcap 2\geq studentOf^{-}.Jedi $\\
-$SuperJediMaster \sqsubseteq Jedi \sqcap  3\leq studentOf^{-}.Jedi $
+$JediStudent \sqsubseteq Jedi \sqcap \geq1 studentOf.Jedi \sqcap \leq1 studentOf.Jedi$ \\
+$JediMasters \sqsubseteq Jedi \sqcap \geq1 mentorOf.Jedi \sqcap \leq2 mentorOf.Jedi $\\
+$SuperJediMaster \sqsubseteq Jedi \sqcap  \geq3 mentorOf.Jedi $
 \end{DL}
 
 \section{Exact Unqualified Cardinality Restrictions on Properties}
@@ -1300,11 +1289,10 @@ $\geq n R. \top \sqcap \leq n R. \top $ is exact unqualified cardinality restric
 :MaceWindu :Obi-Wan :Anakin :Luke
 \end{ex}
 
-%\tb{ToDO: add DL}
 \begin{DL}
-$Jedi \sqsubseteq \exists attitude.\{good\} $\\
-$JediStudent \sqsubseteq Jedi \sqcap 1\geq studentOf.\top \sqcap 1\leq studentOf.\top$ \\
+$JediStudent \sqsubseteq Jedi \sqcap \geq1 studentOf.\top \sqcap \leq1 studentOf.\top$ \\
 \end{DL}
+
 \section{Exact Qualified Cardinality Restrictions on Properties}
 
 requirements:
@@ -1389,11 +1377,9 @@ $\geq n R. C \sqcap \leq n R. C $ is exact unqualified cardinality restriction w
 :MaceWindu :Obi-Wan :Anakin :Luke
 \end{ex}
 
-
-
 \begin{DL}
 $Jedi \sqsubseteq \exists attitude.\{good\} $\\
-$JediStudent \sqsubseteq Jedi \sqcap 1\geq studentOf.Jedi \sqcap 1\leq studentOf.Jedi$ \\
+$JediStudent \sqsubseteq Jedi \sqcap \geq1 studentOf.Jedi \sqcap \leq1 studentOf.Jedi$ \\
 \end{DL}
 
 \subsection{Complex Example}
