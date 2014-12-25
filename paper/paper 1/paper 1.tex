@@ -190,17 +190,18 @@ Albstadt-Sigmaringen University, Germany \\
 \begin{abstract}
 There is no standard way to formulate RDF constraints and to validate data according to these constraints,
 although there are five promising constraint languages covering all requirements on RDF validation.
-OWL 2 is an instantiation of a high-level and very expressive constraint language with a compact human-readable syntax.
+The ontology language OWL 2 can be used as an expressive constraint language with a high level human-readable syntax.
 We explain why OWL 2 reasoning is beneficial for validation and how reasoning interacts with validation.
-We take reasoning into account as a possible pre-validation step, 
-(1) to infer triples resolving constraint violations, 
-(2) to infer triples for which constraints can also be validated, and 
-(3) to solve the major shortcoming of RDF validation - redundancy. 
-We investigate the expressivity, the complexity, and the user-friendliness of constraint languages.
-Following this approach, validation environments can suggest which constraint language to use to express constraints for specific validation scenarios with and without reasoning.
-Validators can determine which axioms cause high complexity and which constraints can only be expressed within a more sophisticated expressivity class.
-As a next step, validators give some guidance how to get to lower expressivity and complexity classes.
-If validators propose multiple constraint languages for a particular validation use case, additional rather subjective criteria regarding user-friendliness may be evaluated.
+%We take reasoning into account as a possible pre-validation step, 
+%(1) to infer triples resolving constraint violations, 
+%(2) to infer triples for which constraints can also be validated, and 
+%(3) to solve the major shortcoming of RDF validation: redundancy. 
+\er{I simplified the long abstract a bit by commenting (\%) as well as little editing. The part starting with, "we investigate", cause lacking integrity in abstract,  I dropped 1, 2, 3 for simplification and better flow. We can write abstract in the end, which can also include a short part of introduction if necessary.}
+We also attempt to classify the expressivity, the complexity, and the user-friendliness of constraint languages. 
+Following this approach, one can clarify which constraint language to use to express constraints for specific validation scenarios, with and without reasoning concerning the complexity as well as user-friendliness.
+%Validators can determine which axioms cause high complexity and which constraints can only be expressed within a more sophisticated expressivity class.
+%As a next step, validators give some guidance how to get to lower expressivity and complexity classes.
+%If validators propose multiple constraint languages for a particular validation use case, additional rather subjective criteria regarding user-friendliness may be evaluated.
 
 \keywords{RDF Validation, RDF Constraints, OWL 2 QL, OWL 2 DL, Reasoning, RDF Validation Requirements, Linked Data, Semantic Web}
 \end{abstract}
@@ -227,25 +228,25 @@ If validators propose multiple constraint languages for a particular validation 
 
 \section{Introduction}
 
-For many RDF applications, the formulation of constraints and the automatic validation of data according to these constraints is a much sought-after feature. 
+For many RDF applications\er{Do we mean software applications (i.e., RDF-based applications) or application as a task?}, the formulation of constraints and the automatic validation of data according to these constraints is a much sought-after feature. 
 In 2013, the W3C invited experts from industry, government, and academia to the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/rdf-val/}}, 
 where first use cases have been presented and discussed. 
-Two WGs, that follow up on this workshop and address RDF constraint formulation and validation, are established in 2014: 
+Two WGs, \er{WG? Working groups?} that follow up on this workshop and address RDF constraint formulation and validation, are established in 2014: 
 the W3C RDF Data Shapes WG\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles WG\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
 
-Bosch and Eckert \cite{BoschEckert2014} initiated a database on RDF validation requirements, which is intended to be a way to collect case studies, use cases and especially requirements regarding RDF validation collaboratively and in a structured form.
-The comprehensive, continuously maintained and extended database, which is openly available at \url{http://purl.org/net/rdf-validation}, is used to evaluate and to compare several existing solutions for RDF constraint formulation and validation. 
+Bosch and Eckert \cite{BoschEckert2014} initiated a database on RDF validation requirements to collect case studies, use cases and especially requirements regarding RDF validation collaboratively and in a comprehensive and structured way. \er{Just for reminding ourselves:  being careful using what is a use-case and what is a case-study later in the text.}
+This database is continuously updated and openly available at \url{http://purl.org/net/rdf-validation}. It is used to evaluate and compare several existing solutions for RDF constraint formulation and validation. 
 The requirements are classified to provide a high-level view on different solutions and to facilitate a better understanding of the problem domain \cite{BoschEckert2014}.  
 
-There are multiple constraint languages having different syntaxes and semantics which can be used to express RDF constraints like at-least restrictions.
-The most promising constraint languages are 
+There are multiple constraint languages having different syntaxes and semantics which can be used to express RDF constraints e.g., \emph{at-least} restrictions.
+The most promising constraint languages are \er{Promising on what? Or popular or common? This should be underlined. No aim yet  except expressing things has been mentioned .}
 the SPARQL Inferencing Notation (SPIN)\footnote{\url{http://spinrdf.org/}}, 
 the Web Ontology Language (OWL 2)\footnote{\url{http://www.w3.org/TR/owl2-syntax/}}, 
 Shape Expressions (ShEx)\footnote{\url{http://www.w3.org/Submission/shex-primer/}}, 
 Resource Shapes (ReSh)\footnote{\url{http://www.w3.org/Submission/shapes/}}, 
 and Description Set Profiles (DSP)\footnote{\url{http://dublincore.org/documents/2008/03/31/dc-dsp/}}.
-However, there is no single standard constraint language to express any constraint for each purpose.
-The choice depends on the individual use case.
+However, there is no single standard all-purpose constraint language. \er{Notice that except expressivity, no purpose has been yet uttered.}
+The choice depends on the individual use case. \er{I think before that the importance of complexity and expressivity in practice of rdf-validation should be briefly told in one or few sentence(s), as well as a closing short paragraph telling the structure of the paper would be good.}
 
 \section{Motivation}
 
