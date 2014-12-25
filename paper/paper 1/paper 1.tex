@@ -225,6 +225,7 @@ Following this approach, one can clarify which constraint language to use to exp
 	%\item RDF Validation - Effects on Complexity with and without OWL 2 Reasoning
 	% RDF Validation - Proposing / Comparing / Recommendation / Recommending Constraint Languages According to Expressivity, Complexity, and User-Friendliness
 	% Constraint Validation with OWL 2
+	% Constraint Validation with and without OWL
 %\end{itemize}
 
 \section{Introduction}
@@ -715,8 +716,6 @@ studentOf rdfs:domain JediStudent .
 Without reasoning, the data \ms{Anakin studentOf Obi-Wan} is invalid and causes a constraint violation, as it is not explicitly stated that \ms{Anakin} is assigned to the class \ms{Jedi}. 
 When inferencing is performed before validating, the class assignment \ms{Anakin a Jedi} is inferred which prevents the constraint violation to be raised.
 
-\subsection{OWL 2 DL Reasoning}
-
 \textbf{Existential Quantification}\footnote{corresponds to R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}\textbf{.}
 
 \begin{center}
@@ -728,7 +727,6 @@ Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword
 Here, existential quantification let us refer to all those individuals that are connected by \ms{hasLaserSword} to an individual that is an instance of the class \ms{LaserSword}.
 In OWL 2 DL, this existential quantification can also be expressed:
 
-
 \begin{ex}
 [ a owl:Restriction ;
   owl:onProperty hasLaserSword ;
@@ -739,6 +737,10 @@ In OWL 2 DL, this existential quantification can also be expressed:
 When our data contains the triple \ms{Luke hasLaserSword BlueLaserSword} and we perform reasoning, we can infer that \ms{Luke} is a \ms{Jedi}, as he has a laser sword.
 As the individual \ms{Luke} is assigned to the class \ms{Jedi}, all constraint associated with this class are also validated, for example that Jedis must have blue laser swords.
 Without reasoning, these constraints won't be validated as \ms{Luke} is not within the class extension of \ms{Jedi}.
+
+\subsection{OWL 2 DL Reasoning}
+
+\textcolor{red}{universal quantification}
 
 \section{RDF Validation Requirements without Reasoning}
 
