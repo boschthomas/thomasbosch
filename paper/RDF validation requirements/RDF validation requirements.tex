@@ -218,10 +218,6 @@ University of Mannheim, Germany \\
 	\item DL terminology: concept inclusion
 \end{itemize}
 
-\begin{evaluation}
-*Subsumption & \ding{55} & $\checkmark$ & $\checkmark$ & $\sim$ & $\checkmark$ & $\checkmark$ \\
-\end{evaluation}
-
 \subsection{Simple Example}
 
 \begin{itemize}
@@ -1636,7 +1632,7 @@ $\top$ $\sqsubseteq$ $\exists$ knows . Self
 
 \begin{gcotable}
 property & $\exists$ knows . Self & knows & - & Self & $\exists$ \\
-class & $\top$ & - & - & $\top$, $\exists$ knows . Self & \sqsubseteq \\
+class & $\top$ & - & - & $\top$, $\exists$ knows . Self & $\sqsubseteq$ \\
 \end{gcotable}
 
 syntactic sugar:
@@ -1670,7 +1666,7 @@ $marriedTo \sqcap marriedTo^{-} \sqsubseteq \bot$ (without special self-concept 
 \begin{gcotable}
 property & $\exists$ knows . Self & knows & - & Self & $\exists$ \\
 class & $\neg$ $\exists$ knows . Self & - & - & $\exists$ knows . Self & $\neg$ \\
-class & $\top$ & - & - & $\top$, $\neg$ $\exists$ knows . Self & \sqsubseteq \\
+class & $\top$ & - & - & $\top$, $\neg$ $\exists$ knows . Self & $\sqsubseteq$ \\
 \end{gcotable}
 
 syntactic sugar:
@@ -1699,12 +1695,11 @@ requirement:
 	\item R-66-PROPERTY-GROUPS
 \end{itemize}
 
-
-
 \subsection{Simple Example}
 
-DSCL (ShEx):
 \begin{ex}
+# ShEx
+# ----
 <Human> { 
     (  
         foaf:name xsd:string ,
@@ -1721,22 +1716,45 @@ DSCL (ShEx):
 	\item 2. group: 1 foaf:mbox (range: IRI) and 1 foaf:homepage (range: foaf:Document) 
 \end{itemize}
 
-\begin{DL}
-$A \equiv \forall foaf:name . xsd:string$ \\
-$B \equiv \forall foaf:givenName . xsd:string$ \\
-$C \equiv A XOR B$ \\
-$D \equiv \forall foaf:mbox . xsd:string$ \\
-$Human \equiv C \sqcap D$ \\
-\end{DL}
-\er{Where does this using $foaf:$ in DL come from? We need a description.}
+%\begin{DL}
+%$Human \equiv C \sqcap F$ \\
+%$C \equiv A \sqcap B$ \\
+%$A \sqsubseteq \exists name.xsd:string$ \\
+%$B \sqsubseteq \exists givenName.xsd:string$ \\
+%$F \equiv D \sqcap E$ \\
+%$D \sqsubseteq \exists mbox.xsd:string$ \\
+%$E \sqsubseteq \exists homepage.Document$ \\
+%\end{DL}
 
-\an{I think we should use the existential quantifier instead of the universal quantifier!?}
 \begin{DL}
-$A \sqsubseteq \exists name.xsd:string$ \\
-$B \sqsubseteq \exists givenName.xsd:string$ \\
-$D \sqsubseteq \exists mbox.xsd:string$ \\
-$Human \sqsubseteq C \sqcap D$ \\
+Human $\equiv$ M $\sqcap$ N \\
+M $\equiv$ C $\sqcap$ F \\
+C $\sqsubseteq$ $\geq$ 1 name . string $\sqcap$ $\leq$ 1 name . string \\
+F $\sqsubseteq$ $\geq$ 1 givenName . string $\sqcap$ $\leq$ 1 givenName . string \\
+N $\equiv$ I $\sqcap$ L \\
+I $\sqsubseteq$ $\geq$ 1 mbox . string $\sqcap$ $\leq$ 1 mbox . string \\
+L $\sqsubseteq$ $\geq$ 1 homepage . Document $\sqcap$ $\leq$ 1 homepage . Document \\
 \end{DL}
+
+\begin{gcotable}
+class & Human & - & - & M, N & $\sqcap$ & - \\
+\hline
+class & M & - & - & C, F & $\sqcap$ & - \\
+class & C & - & - & A, B & $\sqcap$ & - \\
+property & A & foaf:name & - & string & $\geq$ & 1 \\
+property & B & foaf:name & - & string & $\leq$ & 1 \\
+class & F & - & - & D, E & $\sqcap$ & - \\
+property & D & foaf:givenName & - & string & $\geq$ & 1 \\
+property & E & foaf:givenName & - & string & $\leq$ & 1 \\
+\hline
+class & N & - & - & I, L & $\sqcap$ & - \\
+class & I & - & - & G, H & $\sqcap$ & - \\
+property & G & foaf:mbox & - & string & $\geq$ & 1 \\
+property & H & foaf:mbox & - & string & $\leq$ & 1 \\
+class & L & - & - & J, K & $\sqcap$ & - \\
+property & J & foaf:homepage & - & foaf:Document & $\geq$ & 1 \\
+property & K & foaf:homepage & - & foaf:Document & $\leq$ & 1 \\
+\end{gcotable}
 
 \section{Context-Specific Exclusive OR of Properties}
 
@@ -1793,32 +1811,34 @@ DSCL (OWL 2):
 \end{itemize}
 
 \begin{DL}
-A $\equiv$ $\exists$ foaf:name . xsd:string \\
-B $\equiv$ $\exists$ foaf:givenName . xsd:string \\ 
 Human $\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
+A $\sqsubseteq$ $\geq$ 1 name . string $\sqcap$ $\leq$ 1 name . string \\
+B $\sqsubseteq$ $\geq$ 1 givenName . string $\sqcap$ $\leq$ 1 givenName . string \\
 \end{DL}
 
-\er{Let us mark that $foaf:$ occurs here.}
-
 \begin{gcotable}
-property & A & foaf:name & - & xsd:string & $\forall$ \\
-property & B & foaf:givenName & - & xsd:string & $\forall$ \\
-class & $\neg$ A & - & - & A & $\neg$ \\
-class & $\neg$ B & - & - & B & $\neg$ \\
-class & $\neg$ A $\sqcap$ B & - & - & $\neg$ A, B & $\sqcap$ \\
-class & A $\sqcap$ $\neg$ B & - & - & A, $\neg$ B & $\sqcap$ \\
 class & Human & - & - & $\neg$ A $\sqcap$ B, A $\sqcap$ $\neg$ B & $\sqcup$ \\
+\hline
+class & A $\sqcap$ $\neg$ B & - & - & A, $\neg$ B & $\sqcap$ \\
+class & $\neg$ A $\sqcap$ B & - & - & $\neg$ A, B & $\sqcap$ \\
+\hline
+class & $\neg$ A & - & - & A & $\neg$ \\
+class & A & - & - & $\geq$ 1 name.string, $\leq$ 1 name.string & $\sqcap$ & - \\
+property & $\geq$ 1 name.string & name & - & string & $\geq$ & 1 \\
+property & $\leq$ 1 name.string & name & - & string & $\leq$ & 1 \\
+\hline
+class & $\neg$ B & - & - & B & $\neg$ \\
+class & B & - & - & $\geq$ 1 givenName.string, $\leq$ 1 givenName.string & $\sqcap$ & - \\
+property & $\geq$ 1 givenName.string & givenName & - & string & $\geq$ & 1 \\
+property & $\leq$ 1 givenName.string & givenName & - & string & $\leq$ & 1 \\
 \end{gcotable}
 
 syntactic sugar:
-
 \begin{gcotable}
-property & A & foaf:name & - & xsd:string & $\forall$ \\
-property & B & foaf:givenName & - & xsd:string & $\forall$ \\
-class & Human & - & - & A, B & XOR \\
+property & = 1 name.string & name & - & string & = & 1 \\
+property & = 1 givenName.string & givenName & - & string & = & 1 \\
+class & Human & - & - & = 1 name.string, = 1 givenName.string & XOR \\
 \end{gcotable}
-
-\er{Unsure what is meant in this example.}
 
 \subsection{Simple Example}
 
@@ -1854,6 +1874,12 @@ B $\equiv$ $\exists$ :attackingByForce . xsd:boolean \\
 :FeelingForce $\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
 \end{DL}
 
+\subsection{Simple Example}
+
+\begin{DL}
+$Person \sqsubseteq ((Male \sqcap \neg Female) \sqcup (\neg Male \sqcap  Female)) $ 
+\end{DL}
+
 \subsection{Complex Example}
 
 DSCL (ShEx):
@@ -1869,15 +1895,6 @@ DSCL (ShEx):
 	\item and
 	\item 1 foaf:familyName (range xsd:string)
 \end{itemize}
-
-%\tb{ToDo: DL}
-
-
-\er{Unsure what is meant in this example. Could be instead:}
-
-\begin{DL}
-$Person \sqsubseteq ((Male \sqcap \neg Female) \sqcup (\neg Male \sqcap  Female)) $ 
-\end{DL}
 
 Individuals matching the 'Human' data shape:
 
@@ -1922,6 +1939,19 @@ requirements:
 	\item it is also possible that both 1 foaf:name and 1 foaf:givenName are stated
 	\item context: class Human
 \end{itemize}
+
+\begin{DL}
+Human $\sqsubseteq$ A $\sqcup$ B \\
+A $\sqsubseteq$ $\geq$ 1 name . string $\sqcap$ $\leq$ 1 name . string \\
+B $\sqsubseteq$ $\geq$ 1 givenName . string $\sqcap$ $\leq$ 1 givenName . string \\
+\end{DL}
+
+syntactic sugar:
+\begin{gcotable}
+property & = 1 name.string & name & - & string & = & 1 \\
+property & = 1 givenName.string & givenName & - & string & = & 1 \\
+class & Human & - & - & = 1 name.string, = 1 givenName.string & $\sqcup$ \\
+\end{gcotable}
 
 \section{Context-Specific Exclusive OR of Property Groups}
 
@@ -1983,11 +2013,22 @@ requirement:
 Human $\sqsubseteq$ ($\neg$ E $\sqcap$ F) $\sqcup$ (E $\sqcap$ $\neg$ F) \\ 
 E $\equiv$ A $\sqcap$ B \\
 F $\equiv$ C $\sqcap$ D \\
-A $\equiv$ $\forall$ foaf:name . xsd:string \\
-B $\equiv$ $\forall$ foaf:givenName . xsd:string \\ 
-C $\equiv$ $\forall$ foaf:mbox . IRI \\
-D $\equiv$ $\forall$ foaf:homepage . foaf:Document \\
+A $\sqsubseteq$ $\geq$ 1 name . string $\sqcap$ $\leq$ 1 name . string \\
+B $\sqsubseteq$ $\geq$ 1 givenName . string $\sqcap$ $\leq$ 1 givenName . string \\
+C $\sqsubseteq$ $\geq$ 1 mbox . IRI $\sqcap$ $\leq$ 1 mbox . IRI \\
+D $\sqsubseteq$ $\geq$ 1 homepage . Document $\sqcap$ $\leq$ 1 homepage . Document \\
 \end{DL}
+
+syntactic sugar:
+\begin{gcotable}
+class & Human & - & - & E, F & XOR \\
+class & E & - & - & = 1 name.string, = 1 givenName.string & $\sqcap$ \\
+class & F & - & - & = 1 mbox.IRI, = 1 homepage.Document & $\sqcap$ \\
+property & = 1 name.string & name & - & string & = & 1 \\
+property & = 1 givenName.string & givenName & - & string & = & 1 \\
+property & = 1 mbox.IRI & mbox & - & IRI & = & 1 \\
+property & = 1 homepage.Document & homepage & - & Document & = & 1 \\
+\end{gcotable}
 
 \subsection{Complex Example}
 
@@ -2085,6 +2126,27 @@ requirements:
 :Anakin
     a :Person .
 \end{ex}
+
+\begin{DL}
+Human $\sqsubseteq$ E $\sqcup$ F \\ 
+E $\equiv$ A $\sqcap$ B \\
+F $\equiv$ C $\sqcap$ D \\
+A $\sqsubseteq$ $\geq$ 1 name . string $\sqcap$ $\leq$ 1 name . string \\
+B $\sqsubseteq$ $\geq$ 1 givenName . string $\sqcap$ $\leq$ 1 givenName . string \\
+C $\sqsubseteq$ $\geq$ 1 mbox . IRI $\sqcap$ $\leq$ 1 mbox . IRI \\
+D $\sqsubseteq$ $\geq$ 1 homepage . Document $\sqcap$ $\leq$ 1 homepage . Document \\
+\end{DL}
+
+syntactic sugar:
+\begin{gcotable}
+class & Human & - & - & E, F & $\sqcup$ \\
+class & E & - & - & = 1 name.string, = 1 givenName.string & $\sqcap$ \\
+class & F & - & - & = 1 mbox.IRI, = 1 homepage.Document & $\sqcap$ \\
+property & = 1 name.string & name & - & string & = & 1 \\
+property & = 1 givenName.string & givenName & - & string & = & 1 \\
+property & = 1 mbox.IRI & mbox & - & IRI & = & 1 \\
+property & = 1 homepage.Document & homepage & - & Document & = & 1 \\
+\end{gcotable}
 
 \section{Allowed Values}
 
