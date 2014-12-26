@@ -3251,8 +3251,6 @@ requirements:
 	\item R-70-REPEATABLE-PROPERTIES
 \end{itemize}
 
-
-
 \subsection{Simple Example}
 
 \section{Conditional Properties}
@@ -3262,8 +3260,6 @@ requirements:
 \begin{itemize}
 	\item R-71-CONDITIONAL-PROPERTIES
 \end{itemize}
-
-
 
 \begin{itemize}
 	\item various conditions possible
@@ -3362,6 +3358,11 @@ requirements:
 \begin{DL}
 $JediMentor \sqsubseteq \neg(\exists studentOf.JediMentor)$
 \end{DL}
+
+\begin{gcotable}
+property & $\exists$ studentOf.JediMentor & studentOf & - & JediMentor & $\exists$ & - \\
+class & JediMentor & - & - & $\exists$ studentOf.JediMentor & $\neg$ & - \\
+\end{gcotable}
 
 \section{Handle RDF Collections}
 
@@ -3473,8 +3474,6 @@ sounds manageable to me.
 # ShEx
 # ----
 <IssueShape> {
-    :state (:unassigned :assigned),
-    :reportedBy @<UserShape>,
     :related @<IssueShape>*
 }
 \end{ex}
@@ -3491,11 +3490,7 @@ requirements:
 	\item 
 \end{itemize}
 
-
-
-\begin{itemize}
-	\item make sure that a value is valid for its datatype
-\end{itemize}
+Make sure that a value is valid for its datatype.
 
 \subsection{Simple Example}
 
@@ -3513,23 +3508,28 @@ FILTER ( datatype( ?shoeSize ) = xsd:nonNegativeInteger )
 isNumeric ( ?shoeSize )
 \end{ex}
 
-\begin{DL} 
-$\rho(\textsf{hasBirthday}) \sqsubseteq \PVerb{xsd:dateTime}$\\
-(equal to the definition of an attribute (data property) range)
-\end{DL}
-
 \begin{itemize}
 	\item datatype of ?showSize id xsd:nonNegativeInteger
 	\item datatype is really numeric
 \end{itemize}
 
+\begin{gcotable}
+class & $\top$ & shoeSize & - & xsd:nonNegativeInteger & value valid for datatype & - \\
+\end{gcotable}
+
+\subsection{Simple Example}
+
+\begin{DL} 
+$\rho(\textsf{hasBirthday}) \sqsubseteq \PVerb{xsd:dateTime}$\\
+\end{DL}
+
+Equal to the definition of a data property range.
+
+\tb{I do not understand the relation of this example to this constraint}
+
 \section{Individual Equality}
 
-
-
-\begin{itemize}
-	\item states that two different names are known to refer to the same individual \cite{Kroetzsch2012}
-\end{itemize}
+\ms{Individual equality} states that two different names are known to refer to the same individual \cite{Kroetzsch2012}.
 
 \subsection{Simple Example}
 
@@ -3538,28 +3538,25 @@ $\{julia\} = \{john\} $\\
 \end{DL}
 
 \begin{gcotable}
-class & \{julia\} & - & - & \{john\} & = \\
-class & \{john\} & - & - & \{julia\} & = \\
+class & \{julia\} & - & - & \{john\} & = & - \\
+class & \{john\} & - & - & \{julia\} & = & - \\
 \end{gcotable}
 
 \section{Individual Inequality}
 
-
+This is by default because of the UNA.
 
 \subsection{Simple Example}
 
 \begin{DL}
 $\{julia\} \ne \{john\} $\\
-(this is by default because of the UNA)
 \end{DL}
 
-\begin{itemize}
-	\item asserts that Julia and John are actually different individuals
-\end{itemize}
+Asserts that Julia and John are actually different individuals.
 
 \begin{gcotable}
-class & \{julia\} & - & - & \{john\} & $\ne$ \\
-class & \{john\} & - & - & \{julia\} & $\ne$ \\
+class & \{julia\} & - & - & \{john\} & $\ne$ & - \\
+class & \{john\} & - & - & \{julia\} & $\ne$ & - \\
 \end{gcotable}
 
 \section{Equivalent Properties}
