@@ -454,7 +454,41 @@ entailment checking. The drawback of its expressive power results as a lack of c
 
 As a result of its expressive power, OWL 2 DL allows a large variety of sophisticated modeling capabilities for many application domains.  On the other hand, to maintain the decidability, OWL 2 DL has a numerous ways of syntactic restrictions. One example is that OWL 2 DL allows  expressing transitive properties as well as asymmetric properties, yet a property to be both transitive and asymmetric (just as ancestor relation) is not allowed. In the sequel, from RDF validation perspective, we will give some examples of constraints that remain at the outside of its scope. 
 
-\section{Classification of RDF Constraints and Constraint Languages according to Expressivity, Complexity, and User-Friendliness}
+\section{Classification of RDF Constraints according to Reasoning and Complexity}
+
+\subsection{Reasoning}
+
+The W3C Data Shapes WG defines \ms{constraint} as a component of a schema what needs to be satisfied\footnote{\url{https://www.w3.org/2014/data-shapes/wiki/Glossary}}.
+We distinguish two disjoint sub-classes of constraints:
+\begin{itemize}
+	\item \ms{C}: contraints without reasoning
+	\item \ms{C-R}: contraints with reasoning
+\end{itemize}
+
+\ms{Constraints without reasoning} are constraints for which reasoning cannot be done or does not make any sense.
+
+\textcolor{red}{ToDo Thomas: 1 example}
+
+\ms{Constraints with reasoning} are constraints for which reasoning may be performed or is even needed.
+\ms{Constraints with reasoning} correspond to axioms in DL - e.g. subsumption, sup properties, cardinality restrictions, existential, and universal restrictions.
+As we are dealing with fields from different research communities, we define our own nomenclature for RDF validation instead of reusing the heavily overloaded term axiom.
+For instance, for  many in DL community, axioms are only those which are statements of TBox (subsumption statements), if there is a TBox and ABox. 
+In OWL community, an ABox statement  i.e., "class assertion" is also called "class membership axiom". 
+See that this is not a subclass of constraint anymore. 
+One common thing everyone agrees is, axiom is something which has to hold (satisfied).  
+See that this is overlapping with the definition of constraint (a component of a schema what needs to be satisfied). 
+Actually from logic point of view, when a constraint is not satisfied it leads to no model, and when an axiom is not satisfied it leads to a superset of models.
+\ms{Sub Properties}, e.g., are constraints for which reasoning may be performed.
+If, e.g., an individual X has an \ms{attackingBySword} relationship to an individual Y, 
+then individual X must also have an \ms{attackingByWeapon} relationship to individual Y: \ms{attackingBySword $\sqsubseteq$ attackingByWeapon}.
+If we use sub properties without reasoning and our data contains the triple \ms{attackingBySword(Luke, DarthVader)},
+then the triple \ms{attackingByWeapon(Luke, DarthVader)} has to be stated in the data explicitly.
+If this triple is not stated, a constraint violation is raised.
+If we use sub properties with reasoning, the triple (causing a constraint violation) is inferred resolving the possible constraint violation.
+
+\subsection{Complexity}
+
+\section{Classification of Constraint Languages according to Expressivity and Complexity}
 
 %We divide these constraints into three classes:
 %\begin{itemize}
