@@ -3560,14 +3560,9 @@ class & \{john\} & - & - & \{julia\} & $\ne$ & - \\
 \end{gcotable}
 
 \section{Equivalent Properties}
+An equivalent object properties axiom EquivalentObjectProperties( OPE1 ... OPEn ) states that all of the object property expressions OPEi, 1 $\leq$ i $\leq$ n, are semantically equivalent to each other. This axiom allows one to use each OPEi as a synonym for each OPEj — that is, in any expression in the ontology containing such an axiom, OPEi can be replaced with OPEj without affecting the meaning of the ontology. The axiom EquivalentObjectProperties( OPE1 OPE2 ) is equivalent to the following two axioms SubObjectPropertyOf( OPE1 OPE2 ) and SubObjectPropertyOf( OPE2 OPE1 ).
 
-
-
-\begin{itemize}
-	\item An equivalent object properties axiom EquivalentObjectProperties( OPE1 ... OPEn ) states that all of the object property expressions OPEi, 1 $\leq$ i $\leq$ n, are semantically equivalent to each other. This axiom allows one to use each OPEi as a synonym for each OPEj — that is, in any expression in the ontology containing such an axiom, OPEi can be replaced with OPEj without affecting the meaning of the ontology. The axiom EquivalentObjectProperties( OPE1 OPE2 ) is equivalent to the following two axioms SubObjectPropertyOf( OPE1 OPE2 ) and SubObjectPropertyOf( OPE2 OPE1 ).
-	\item An equivalent data properties axiom EquivalentDataProperties( DPE1 ... DPEn ) states that all the data property expressions DPEi, 1 $\leq$ i $\leq$ n, are semantically equivalent to each other. This axiom allows one to use each DPEi as a synonym for each DPEj — that is, in any expression in the ontology containing such an axiom, DPEi can be replaced with DPEj without affecting the meaning of the ontology. The axiom EquivalentDataProperties( DPE1 DPE2 ) can be seen as a syntactic shortcut for the following axiom SubDataPropertyOf( DPE1 DPE2 ) and SubDataPropertyOf( DPE2 DPE1 ).
-
-\end{itemize}
+An equivalent data properties axiom EquivalentDataProperties( DPE1 ... DPEn ) states that all the data property expressions DPEi, 1 $\leq$ i $\leq$ n, are semantically equivalent to each other. This axiom allows one to use each DPEi as a synonym for each DPEj — that is, in any expression in the ontology containing such an axiom, DPEi can be replaced with DPEj without affecting the meaning of the ontology. The axiom EquivalentDataProperties( DPE1 DPE2 ) can be seen as a syntactic shortcut for the following axiom SubDataPropertyOf( DPE1 DPE2 ) and SubDataPropertyOf( DPE2 DPE1 ).
 
 \subsection{Simple Example}
 
@@ -3588,12 +3583,18 @@ entailments:
 
 \begin{DL}
 :hasBrother $\sqsubseteq$ :hasMaleSibling $\sqcap$ :hasMaleSibling $\sqsubseteq$ :hasBrother \\
-equivalent to: $hasBrother = hasMaleSibling$
+\end{DL}
+
+\begin{gcotable}
+property & $\top$ & hasBrother & hasMaleSibling & - & $\sqsubseteq$ \\
+property & $\top$ & hasMaleSibling & has Brother & - & $\sqsubseteq$ \\
+\end{gcotable}
+
+\begin{DL}
+$hasBrother \equiv hasMaleSibling$
 \end{DL}
 
 \section{Property Assertions}
-
-
 
 \begin{itemize}
 	\item positive property assertions
@@ -3612,14 +3613,17 @@ equivalent to: $hasBrother = hasMaleSibling$
 NegativeObjectPropertyAssertion( :hasSon :Peter :Meg )
 \end{ex}
 
-\begin{itemize}
-	\item Meg is not a son of Peter.
-\end{itemize}
+Meg is not a son of Peter.
 
 \begin{DL}
-$hasSon(\textbf{Peter},\textbf{Meg})$\\
-(negation of such an assertion is not necessary / meaningless!)
+$hasSon(Peter,Meg)$\\
 \end{DL}
+
+The negation of such an assertion is not necessary, as it's meaningless!
+
+\begin{gcotable}
+class & \{Peter\} & hasSon & - & \{Meg\} & $\neq$ & - \\
+\end{gcotable}
 
 \subsection{Simple Example}
 
@@ -3629,21 +3633,19 @@ $hasSon(\textbf{Peter},\textbf{Meg})$\\
 DataPropertyAssertion( :hasAge :Meg "17"^^xsd:integer )
 \end{ex}
 
-\begin{itemize}
-	\item Meg is seventeen years old. 
-\end{itemize}
+Meg is seventeen years old. 
 
 \begin{DL}
-$hasAge ( \textbf{Meg} ,\textbf{ "17"}\hat{\ } \hat{\ } xsd:integer ) $\\
+$hasAge ( Meg ,"17"\hat{\ } \hat{\ } xsd:integer ) $\\
 \end{DL}
+
+\begin{gcotable}
+class & \{Meg\} & hasAge & - & - & = & "17"$\hat{\ } \hat{\ }$ xsd:integer \\
+\end{gcotable}
 
 \section{Functional Properties}
 
-
-
-\begin{itemize}
-	\item An object property functionality axiom FunctionalObjectProperty( OPE ) states that the object property expression OPE is functional — that is, for each individual x, there can be at most one distinct individual y such that x is connected by OPE to y. Each such axiom can be seen as a syntactic shortcut for the following axiom: SubClassOf( owl:Thing ObjectMaxCardinality( 1 OPE ) ).
-\end{itemize}
+An object property functionality axiom FunctionalObjectProperty( OPE ) states that the object property expression OPE is functional — that is, for each individual x, there can be at most one distinct individual y such that x is connected by OPE to y. Each such axiom can be seen as a syntactic shortcut for the following axiom: SubClassOf( owl:Thing ObjectMaxCardinality( 1 OPE ) ).
 
 \subsection{Simple Example}
 
@@ -3655,9 +3657,7 @@ $hasAge ( \textbf{Meg} ,\textbf{ "17"}\hat{\ } \hat{\ } xsd:integer ) $\\
 :Stewie :hasFather :Peter_Griffin . 
 \end{ex}
 
-\begin{itemize}
-	\item Each object can have at most one father. 
-\end{itemize}
+Each object can have at most one father. 
 
 entailment:
 
@@ -3669,13 +3669,13 @@ entailment:
 $(\textsf{funct } \textsf{hasFather})$
 \end{DL}
 
+\begin{gcotable}
+property & $\top$ & hasFather & - & - & functional & - \\
+\end{gcotable}
+
 \section{Inverse-Functional Properties}
 
-
-
-\begin{itemize}
-	\item An object property inverse functionality axiom InverseFunctionalObjectProperty( OPE ) states that the object property expression OPE is inverse-functional — that is, for each individual x, there can be at most one individual y such that y is connected by OPE with x. Each such axiom can be seen as a syntactic shortcut for the following axiom: SubClassOf( owl:Thing ObjectMaxCardinality( 1 ObjectInverseOf( OPE ) ) ).
-\end{itemize}
+An object property inverse functionality axiom InverseFunctionalObjectProperty( OPE ) states that the object property expression OPE is inverse-functional — that is, for each individual x, there can be at most one individual y such that y is connected by OPE with x. Each such axiom can be seen as a syntactic shortcut for the following axiom: SubClassOf( owl:Thing ObjectMaxCardinality( 1 ObjectInverseOf( OPE ) ) ).
 
 \subsection{Simple Example}
 
@@ -3687,9 +3687,7 @@ $(\textsf{funct } \textsf{hasFather})$
 :Peter_Griffin :fatherOf :Stewie .
 \end{ex}
 
-\begin{itemize}
-	\item Each object can have at most one father. 
-\end{itemize}
+Each object can have at most one father. 
 
 entailment:
 
@@ -3701,9 +3699,12 @@ entailment:
 $(\textsf{funct } \textsf{hasFather}\sp{\overline{\ }})$
 \end{DL}
 
+\begin{gcotable}
+property & $\top$ & hasFather$^{-}$ & hasFather & - & inverse & - \\
+property & $\top$ & hasFather$^{-}$ & - & - & functional & - \\
+\end{gcotable}
+
 \section{Value Restrictions}
-
-
 
 \begin{itemize}
 	\item Individual Value Restrictions: A has-value class expression ObjectHasValue( OPE a ) consists of an object property expression OPE and an individual a, and it contains all those individuals that are connected by OPE to a. Each such class expression can be seen as a syntactic shortcut for the class expression ObjectSomeValuesFrom( OPE ObjectOneOf( a ) ). 
