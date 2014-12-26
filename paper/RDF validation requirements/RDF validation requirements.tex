@@ -60,7 +60,7 @@
 	\begin{center}
   \begin{tabular}{l|l|l|l|l|l|l}
   \hline
-  \textbf{c. type} & \textbf{context class} & \textbf{left r. list} & \textbf{right r. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
+  \textbf{c. type} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
   \hline
 
 }{
@@ -2297,7 +2297,10 @@ class & complex concept & - & - & \{ComputerScience\}, \{SocialScience\}, \{Libr
 Jedi $\equiv$ $\exists$ laserSwordColor . \{blue, green, white\} \\
 \end{DL}
 
-%\tb{ToDo: check DL}
+\begin{gcotable}
+property & Jedi & laserSwordColor & - & LaserSwordColor & $\exists$ & - \\
+class & LaserSwordColor & - & - & $\{blue\}$, $\{green\}$, $\{white\}$ & $\sqcup$ & - \\
+\end{gcotable}
 
 \section{Not Allowed Values}
 
@@ -2364,7 +2367,11 @@ requirements:
 Sith $\equiv$ $\neg$ $\exists$ laserSwordColor . \{blue, green, white\} \\
 \end{DL}
 
-%\tb{ToDo: check DL}
+\begin{gcotable}
+property & $\exists$ laserSwordColor . LaserSwordColor & laserSwordColor & - & LaserSwordColor & $\exists$ & - \\
+class & Jedi & - & - & $\exists$ laserSwordColor . LaserSwordColor & $\neg$ & - \\
+class & LaserSwordColor & - & - & $\{blue\}$, $\{green\}$, $\{white\}$ & $\sqcup$ & - \\
+\end{gcotable}
 
 \section{Membership in Controlled Vocabularies}
 
@@ -2401,12 +2408,20 @@ requirements:
 \begin{itemize}
 	\item \ms{skos:Concept} resources can only be members of the listed controlled vocabularies
 \end{itemize}
-\er{This sort of DL-syntax (with semicolon) must be rechecked. Note that in DL, it does not have to correspond directly to names of things in machine-readable syntax. It is fine to say BookSubjects rather than :BookSubjects for the sake of simplicity }
+%\er{This sort of DL-syntax (with semicolon) must be rechecked. Note that in DL, it does not have to correspond directly to names of things in machine-readable syntax. It is fine to say BookSubjects rather than :BookSubjects for the sake of simplicity }
 \begin{DL}
-$A \equiv skos:Concept \sqcap B$ \\
-$B \equiv \forall skos:inScheme . C$ \\
-$C \equiv skos:ConceptScheme \sqcap ( \{:BookSubjects\} \sqcup \{:BookTopics\} \sqcup \{:BookCategories\} )$ \\
+$A \equiv Concept \sqcap B$ \\
+$B \equiv \forall inScheme . C$ \\
+$C \equiv ConceptScheme \sqcap ( \{BookSubjects\} \sqcup \{BookTopics\} \sqcup \{BookCategories\} )$
 \end{DL}
+
+\begin{gcotable}
+property & $\top$ & subject & - & A & range & - \\
+class & A & - & - & Concept, B & $\sqcap$ & - \\
+property & B & inScheme & - & C & $\forall$ & - \\
+class & C & - & - & ConceptScheme, D & $\sqcap$ & - \\
+class & D & - & - & $\{BookSubjects\}$, $\{BookTopics\}$, $\{BookCategories\}$ & $\sqcup$ & - \\
+\end{gcotable}
 
 \begin{ex}
 # valid data
@@ -2476,7 +2491,7 @@ requirements:
 \subsection{Simple Example}
 
 \begin{ex}
-# OWL 2 QL (functional-style syntax)
+# OWL 2 DL (functional-style syntax)
 # ----------------------------------
 Declaration( Datatype( :SSN ) ) 
 DatatypeDefinition( 
@@ -2486,7 +2501,7 @@ DataPropertyRange( :hasSSN :SSN )
 \end{ex}
 
 \begin{ex}
-# OWL 2 QL (turtle syntax)
+# OWL 2 DL (turtle syntax)
 # ------------------------
 :SSN 
     a rdfs:Datatype ;
@@ -2521,11 +2536,46 @@ for example, it is used in the third axiom to define the range of the :hasSSN pr
 \end{ex}
 
 \begin{DL}
-NOT EXPRESSIBLE IN DL!!!
+Not expressible in DL!
 \end{DL}
 
 \begin{gcotable}
 class & SSN & - & - & xsd:string & xsd:pattern & '[0-9]{3}-[0-9]{2}-[0-9]{4}' \\
+\end{gcotable}
+
+\subsection{Simple Example}
+
+There are multiple use cases associated with the requirement to match literals according to given patterns.
+
+Luke's droids can only have the numbers "R2-D2" or "C-3PO".
+The universal restriction part of this constraint can be expressed by OWL 2 DL:
+\ms{LukesDroids $\sqsubseteq$ $\forall$ droidNumber . DroidNumber}.
+The restriction of the datatype \ms{DroidNumber}, however, cannot be expressed in DL, but OWL 2 DL can be used anyway:
+
+\begin{ex}
+DroidNumber 
+    a rdfs:Datatype ;
+    owl:equivalentClass [
+        a rdfs:Datatype ;
+        owl:onDatatype xsd:string ;
+        owl:withRestrictions ( 
+            [ xsd:pattern "R2-D2|C-3PO" ] ) ] .
+\end{ex}
+
+The second axiom defines \ms{DroidNumber} as an abbreviation for a datatype restriction on \ms{xsd:string}. 
+The first axiom explicitly declares \ms{DroidNumber} to be a datatype. 
+The datatype \ms{DroidNumber} can be used just like any other datatype like in the universal restriction above.
+The literal pattern matching constraint validates \ms{DroidNumber} literals according to the stated regular expression causing a constraint violation for the triples 
+\ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber}, 
+but not for the triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}.
+
+\begin{DL}
+Not expressible in DL!
+\end{DL}
+
+\begin{gcotable}
+property & LukesDroids & droidNumber & - & DroidNumber & $\forall$ & - \\
+class & DroidNumber & - & - & xsd:string & xsd:pattern & 'R2-D2$|$C-3PO' \\
 \end{gcotable}
 
 \section{Negative Literal Pattern Matching}
@@ -2590,7 +2640,7 @@ NOP can be a not operator (!) or empty.
 \end{ex}
 
 \begin{DL}
-NOT EXPRESSIBLE IN DL!!!
+Not expressible in DL!
 \end{DL}
 
 \begin{gcotable}
@@ -2663,7 +2713,7 @@ OP => <
 \end{ex}
 
 \begin{DL}
-NOT EXPRESSIBLE IN DL!!!
+Not expressible in DL!
 \end{DL}
 
 \begin{gcotable}
@@ -2682,6 +2732,14 @@ dc:subject "foo"
 \end{ex}
 
 There are no identical strings.
+
+\begin{DL}
+Not expressible in DL!
+\end{DL}
+
+\begin{gcotable}
+property & $\top$ & dc:subject & dc:subject & xsd:string & $\neq$ & - \\
+\end{gcotable}
 
 \section{Negative Literal Ranges}
 
@@ -2780,20 +2838,23 @@ DataPropertyRange( :position :NumberPlayersPerWorldCupTeam )
   \item constraints are stated on this datatype
 \end{itemize}
 
+%\begin{DL}
+%1-23 $\equiv$ \{'1'\} $\sqcup$ \{'2'\} $\sqcup$ ... $\sqcup$ \{'23'\} \\
+%$\top$ $\sqsubseteq$ $\forall$ position . 1-23 \\
+%\end{DL}
+
 \begin{DL}
-1-23 $\equiv$ \{'1'\} $\sqcup$ \{'2'\} $\sqcup$ ... $\sqcup$ \{'23'\} \\
-$\top$ $\sqsubseteq$ $\forall$ position . 1-23 \\
-This is just an auxiliary construction and is not sufficient for general cases, so: NOT EXPRESSIBLE IN DL!!!
+Not expressible in DL!
 \end{DL}
 
-\begin{gcotable}
-class & AtLeast1 & - & - & xsd:nonNegativeInteger & $\geq$ & 1 \\
-class & AtMost23 & - & - & xsd:nonNegativeInteger & $\leq$ & 23 \\
-class & NumberPlayers... & - & - & AtLeast1, AtMost23 & $\sqcap$ & - \\
-property & $\top$ & position & - & NumberPlayers... & range & - \\
-\end{gcotable}
-
-or:
+%\begin{gcotable}
+%class & AtLeast1 & - & - & xsd:nonNegativeInteger & $\geq$ & 1 \\
+%class & AtMost23 & - & - & xsd:nonNegativeInteger & $\leq$ & 23 \\
+%class & NumberPlayers... & - & - & AtLeast1, AtMost23 & $\sqcap$ & - \\
+%property & $\top$ & position & - & NumberPlayers... & range & - \\
+%\end{gcotable}
+%
+%or:
 
 \begin{gcotable}
 property & $\top$ & position & - & 1-23 & range & - \\
@@ -2801,12 +2862,12 @@ class & 1-23 & - & - & xsd:nonNegativeInteger & $\geq$ & 1 \\
 class & 1-23 & - & - & xsd:nonNegativeInteger & $\leq$ & 23 \\
 \end{gcotable}
 
-or:
-
-\begin{gcotable}
-class & 1-23 & - & - & \{'1'\}, \{'2'\}, ..., \{'23'\} & $\sqcup$ & - \\
-property & $\top$ & position & - & 1-23 & range& - \\
-\end{gcotable}
+%or:
+%
+%\begin{gcotable}
+%class & 1-23 & - & - & \{'1'\}, \{'2'\}, ..., \{'23'\} & $\sqcup$ & - \\
+%property & $\top$ & position & - & 1-23 & range& - \\
+%\end{gcotable}
 
 \section{Define Order}
 
@@ -2828,7 +2889,7 @@ requirements:
 \subsection{Simple Example}
 
 \begin{DL}
-NOT EXPRESSIBLE IN DL!!!
+Not expressible in DL!
 \end{DL}
 
 \section{Validation Levels}
@@ -2852,7 +2913,7 @@ requirements:
 \subsection{Simple Example}
 
 \begin{DL}
-NOT EXPRESSIBLE IN DL!!!
+Not expressible in DL!
 \end{DL}
 
 \section{String Operations}
@@ -2878,10 +2939,8 @@ examples:
 \subsection{Simple Example}
 
 \begin{DL}
-NOT EXPRESSIBLE IN DL!!!
+Not expressible in DL!
 \end{DL}
-
-
 
 \section{Context-Specific Valid Classes}
 
@@ -2891,19 +2950,13 @@ requirements:
 	\item R-209-VALID-CLASSES
 \end{itemize}
 
-
-
 \begin{itemize}
 	\item What types of resources (rdf:type) are valid in this context? Context can be an input stream, a data creation function, or an API.
 \end{itemize}
 
 \subsection{Simple Example}
 
-\begin{DL}
 I'm not sure about the meaning of this constraint, but for me this seams like e.g. the range of a role... but if this is the case, take into account the consequences of reasoning with OWA...
-\end{DL}
-
-\an{not sure!}
 
 \section{Context-Specific Valid Properties}
 
@@ -2919,11 +2972,7 @@ requirements:
 
 \subsection{Simple Example}
 
-\begin{DL}
 I'm not sure about the meaning of this constraint, but for me this seams like e.g. the domain of a role... but if this is the case, take into account the consequences of reasoning with OWA...
-\end{DL}
-
-\an{not sure!}
 
 \section{Default Values}
 
@@ -2994,8 +3043,15 @@ owl:Thing
 \end{ex}
 
 \begin{DL}
-NOT EXPRESSIBLE IN DL!!!
+Not expresible in DL!
 \end{DL}
+
+\begin{gcotable}
+class & Jedi & laserSwordColor & - & - & default values & 'blue' \\
+class & Jedi & numberLaserSwords & - & - & default values & '1' \\
+class & Sith & laserSwordColor & - & - & default values & 'red' \\
+class & Sith & numberLaserSwords & - & - & default values & '2' \\
+\end{gcotable}
 
 \section{Mathematical Operations}
 
@@ -3020,7 +3076,7 @@ examples:
 \subsection{Simple Example}
 
 \begin{DL}
-NOT EXPRESSIBLE IN DL!!!
+Not Expressible in DL!
 \end{DL}
 
 \section{Language Tag Matching}
@@ -3031,9 +3087,17 @@ requirement:
 	\item R-47-LANGUAGE-TAG-MATCHING
 \end{itemize}
 
+\subsection{Simple Example}
+
+Only English names are allowed.
+
 \begin{DL}
-NOT EXPRESSIBLE IN DL!!!
+Not expressible in DL!
 \end{DL}
+
+\begin{gcotable}
+class & $\top$ & name & - & - & language tag & 'en' \\
+\end{gcotable}
 
 \section{Language Tag Cardinality}
 
@@ -3043,10 +3107,8 @@ requirements:
 	\item R-49-RDF-LITERALS-HAVING-AT-MOST-ONE-LANGUAGE-TAG
 	\item R-48-MISSING-LANGUAGE-TAGS
 \end{itemize}
- 
 
-
-\subsection{Example}
+\subsection{Simple Example}
 
 check that no language is used more than once per property
 
@@ -3092,8 +3154,12 @@ V1 => en
 \end{ex}
 
 \begin{DL}
-NOT EXPRESSIBLE IN DL!!!
+Not expressible in DL!
 \end{DL}
+
+\begin{gcotable}
+class & $\top$ & foaf:name & - & - & language tag exact cardinality & 1 \\
+\end{gcotable}
 
 \section{Whitespace Handling}
 
@@ -3103,17 +3169,21 @@ requirement:
 	\item R-50-WHITESPACE-HANDLING-OF-RDF-LITERALS
 \end{itemize}
 
-
-
 \begin{itemize}
 	\item avoid whitespaces in literals neither leading nor trailing white spaces
 \end{itemize}
 
 \subsection{Simple Example}
 
+check if literals of the property \ms{p} do not include whitespaces
+
 \begin{DL}
-NOT EXPRESSIBLE IN DL!!!
+Not expressible in DL!
 \end{DL}
+
+\begin{gcotable}
+class & $\top$ & p & - & - & whitespace & - \\
+\end{gcotable}
 
 \section{HTML Handling}
 
@@ -3123,17 +3193,21 @@ requirement:
 	\item R-51-HTML-HANDLING-OF-RDF-LITERALS
 \end{itemize}
 
-description:
-
 \begin{itemize}
-	\item check if there are no html tags included in literals (of specific data properties within the context of specific classes)
+	\item check if there are no HTML tags included in literals (of specific data properties within the context of specific classes)
 \end{itemize}
 
 \subsection{Simple Example}
 
+check if literals of the property \ms{p} of the class \ms{C} do not include HTML tags
+
 \begin{DL}
-NOT EXPRESSIBLE IN DL!!!
+Not expressible in DL!
 \end{DL}
+
+\begin{gcotable}
+class & c & p & - & - & HTML & - \\
+\end{gcotable}
 
 \section{Required Properties}
 
@@ -3165,9 +3239,9 @@ requirements:
 
 \begin{DL}
 $\exists hasAncestor.Person \sqsubseteq Person$ \\
-(same as the definition of domains)
 \end{DL}
 
+Same as the definition of domains.
 
 \section{Repeatable Properties}
 
@@ -3180,12 +3254,6 @@ requirements:
 
 
 \subsection{Simple Example}
-
-\begin{DL}
-Not sure about the meaning of this constraint...
-\end{DL}
-
-\an{not sure!}
 
 \section{Conditional Properties}
 
@@ -3206,15 +3274,6 @@ requirements:
 
 \subsection{Simple Example}
 
-\begin{DL}
-- condition: universal quantification on object and data properties\\
-\ \ \ \ same as above!?\\
-- condition: existential quantification on object and data properties\\
-\ \ \ \ same as above!?\\
-- condition: if specific properties are present, then specific other properties also have to be present
-\ \ \ \ same as super properties, so if a property (role or attribute) is used, all super properties are also present
-\end{DL}
-
 \section{Recommended Properties}
 
 requirements:
@@ -3223,15 +3282,17 @@ requirements:
 	\item R-72-RECOMMENDED-PROPERTIES
 \end{itemize}
 
-
-
 \subsection{Simple Example}
 
+Property \ms{p} is recommended to use within the context of the class \ms{C}.
+
 \begin{DL}
-Not sure about the meaning of this constraint...
+Not expressible in DL!
 \end{DL}
 
-\an{not sure!}
+\begin{gcotable}
+class & C & p & - & - & recommended & - \\
+\end{gcotable}
 
 \section{Negative Property Constraints}
 
@@ -3241,8 +3302,6 @@ requirements:
 	\item R-52-NEGATIVE-OBJECT-PROPERTY-CONSTRAINTS
 	\item R-53-NEGATIVE-DATA-PROPERTY-CONSTRAINTS
 \end{itemize}
-
-
 
 \begin{itemize}
 	\item instances of a specific class must not have some object property
@@ -3381,7 +3440,7 @@ BIND ( :getListItem( ?list, "1"xsd:nonNegativeInteger ) AS ?listItem ) .
 \end{ex}
 
 \begin{DL}
-NOT EXPRESSIBLE IN DL!!!
+Not expressible in DL!
 \end{DL}
 
 \section{Recursive Queries}
@@ -3421,7 +3480,7 @@ sounds manageable to me.
 \end{ex}
 
 \begin{DL}
-NOT EXPRESSIBLE IN DL!!!
+Not expressible in DL!
 \end{DL}
 
 \section{Value is Valid for Datatype}
@@ -3767,7 +3826,7 @@ for example, it is used in the third axiom to define the range of the :hasSSN pr
 \end{ex}
 
 \begin{DL}
-NOT EXPRESSIBLE IN DL!!!
+Not expressible in DL!
 \end{DL}
 
 \begin{gcotable}
