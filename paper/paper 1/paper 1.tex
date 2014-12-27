@@ -471,6 +471,30 @@ As a result of its expressive power, OWL 2 DL allows a large variety of sophisti
 
 \section{Classification of RDF Constraints according to Reasoning and Complexity}
 
+%We divide these constraints into three classes:
+%\begin{itemize}
+	%\item constraints expressible by OWL 2 QL
+	%\item constraints not expressible by OWL 2 QL but by OWL 2 DL
+	%\item constraints only expressible by other constraint languages
+%\end{itemize}
+
+The W3C and DCMI WGs identified in total 74 requirements to formulate RDF constraints\footnote{Two of this paper's authors are actively contributing to these WGs and the process deriving requirements from case studies and use cases is still ongoing.}.
+Bosch et al.\footnote{available at: \url{https://github.com/boschthomas/rdf-validation-research/paper}} explained each requirement in detail and give at least one example for each of them represented by different constraint languages.
+We added mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express each constraint.
+When the DL constructs, needed to express a particular constraint, are known, the expressivity and the complexity of this constraint can be determined. 
+The constraint \ms{Context-Specific Exclusive OR of Properties} (see section~\ref{sec:rdf-validation-requirements-without-reasoning-2}), e.g., can generically be expressed as follows:
+\begin{center}
+\begin{DL}
+C &$\sqsubseteq (\neg$ A $\sqcap$ B$) \sqcup ($A $\sqcap \neg$ B$)$ \\
+A &$\equiv \exists$ a . D \\
+B &$\equiv \exists$ b . E  
+\end{DL}
+\end{center}
+As this constraint is a complex constraint (constructed out of multiple complex and simple constraints), 
+the constraint's expressivity is calculated as the expressivity of the individual constraints used to express the complex constraint.
+The DL constructs \ms{property inclusion}, \ms{complement}, \ms{intersection}, \ms{union}, and \ms{existential restriction} are used to express this constraint.  
+As existential restrictions are part of OWL 2 DL reasoning, the constraint's complexity is \textsc{N2exptime}.
+
 \subsection{Reasoning}
 
 The W3C Data Shapes WG defines \ms{constraint} as a component of a schema what needs to be satisfied\footnote{\url{https://www.w3.org/2014/data-shapes/wiki/Glossary}}.
@@ -532,30 +556,6 @@ The complexity classes' partial ordering is:
 \end{eqnarray*}
 
 \section{Classification of Constraint Languages according to Expressivity and Complexity}
-
-%We divide these constraints into three classes:
-%\begin{itemize}
-	%\item constraints expressible by OWL 2 QL
-	%\item constraints not expressible by OWL 2 QL but by OWL 2 DL
-	%\item constraints only expressible by other constraint languages
-%\end{itemize}
-
-The W3C and DCMI WGs identified in total 74 requirements to formulate RDF constraints\footnote{Two of this paper's authors are actively contributing to these WGs and the process deriving requirements from case studies and use cases is still ongoing.}.
-Bosch et al.\footnote{available at: \url{https://github.com/boschthomas/rdf-validation-research/paper}} explained each requirement in detail and give at least one example for each of them represented by different constraint languages.
-We added mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express each constraint.
-When the DL constructs, needed to express a particular constraint, are known, the expressivity and the complexity of this constraint can be determined. 
-The constraint \ms{Context-Specific Exclusive OR of Properties} (see section~\ref{sec:rdf-validation-requirements-without-reasoning-2}), e.g., can generically be expressed as follows:
-\begin{center}
-\begin{DL}
-C &$\sqsubseteq (\neg$ A $\sqcap$ B$) \sqcup ($A $\sqcap \neg$ B$)$ \\
-A &$\equiv \exists$ a . D \\
-B &$\equiv \exists$ b . E  
-\end{DL}
-\end{center}
-As this constraint is a complex constraint (constructed out of multiple complex and simple constraints), 
-the constraint's expressivity is calculated as the expressivity of the individual constraints used to express the complex constraint.
-The DL constructs \ms{property inclusion}, \ms{complement}, \ms{intersection}, \ms{union}, and \ms{existential restriction} are used to express this constraint.  
-As existential restrictions are part of OWL 2 DL reasoning, the constraint's complexity is \textsc{N2exptime}.
  
 We evaluated to which extend the most promising five constraint languages fulfill each requirement to formulate RDF constraints.
 We also evaluated if a specific requirement is covered by OWL 2 QL or if the more expressive and complex OWL 2 DL is needed \cite{BoschNolleAcarEckert2015}.
