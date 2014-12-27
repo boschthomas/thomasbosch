@@ -749,43 +749,39 @@ The only well adopted and therefore well known constraint languages are SPIN and
 %Tools could then recommend for each user-friendliness class or in total which constraint language to use in order to express a particular constraint or sets of constraints. 
 
 \subsection{Overall Classification}
- 
+   
+%\begin{figure}
+	%\centering
+		%\includegraphics[width=1.00\textwidth]{expressivity-complexity-3.png}
+	%\caption{Expressivity and Complexity}
+	%\label{fig:expressivity-complexity}
+%\end{figure}
+\textcolor{red}{needs modification}
+
+We assigned the five most promising constraint languages to two expressivity, and to four complexity classes.
+Expressivity and complexity classes can be combined in a diagram (see figure Figure~\ref{fig:expressivity-complexity}).
+
 \begin{figure}
 	\centering
 		\includegraphics[width=0.95\textwidth]{complexiity_and_expressivity.png}
 	\caption{Complexity and Expressivity Classes}
-	\label{fig:VennDiagram}
-\end{figure}
-  
-\begin{figure}
-	\centering
-		\includegraphics[width=1.00\textwidth]{expressivity-complexity-3.png}
-	\caption{Expressivity and Complexity}
 	\label{fig:expressivity-complexity}
 \end{figure}
 
-We assigned the five most promising constraint languages to four expressivity, four complexity, and four user-friendliness classes.
-Expressivity and complexity classes can be combined in a diagram (see figure Figure~\ref{fig:expressivity-complexity}).
-OWL2-DL and SPIN are the constraint languages with the highest \ms{Expr-R-OWL2-DL} to express OWL2-DL axioms in \ms{\textsc{N2exptime}}.
-The highest \ms{Expr-R-OWL2-QL} expressing OWL2-QL axioms in \ms{\textsc{Ptime}} can be achieved with OWL2-QL, OWL2-DL, and SPIN.
-If an application needs to cover the majority of constraints on which reasoning cannot be applied, SPIN should be used (\ms{Expr-C}) in \ms{\textsc{Pspace}-Complete}.
-
 It depends on the individual use case, which constrains are needed to express and therefore which constraint language to choose.
-As a consequence, you may select a constraint language which is not the most expressive one within one specific expressivity class, 
-but may be better evaluated according to one or multiple user-friendliness classes.
+%As a consequence, you may select a constraint language which is not the most expressive one within one specific expressivity class, 
+%but may be better evaluated according to one or multiple user-friendliness classes.
 If, for instance, reasoning should not be performed and three particular constraints should be covered by the constraint language.
-Even if the expressivity (\ms{Expr-C}) of SPIN is much higher than of ShEx (\ms{Expr-C}(ShEx) $\subset$ \ms{Expr-C}(SPIN)) 
+Even if the absolute expressivity (\ms{Expr-C}) of SPIN is much higher than the one of ShEx (\ms{Expr-C}(ShEx) $\subset$ \ms{Expr-C}(SPIN)) 
+, the relative expressivity of this expressivity class could be the same for ShEx and SPIN - in case the three constraints are covered by both.
+
+%Now, the user-friendliness classes comes into play:
 %\begin{eqnarray*}
-%\ms{Expr-C}(ShEx) \subset \ms{Expr-C}(SPIN)
+%\ms{UF-L}(SPIN) \subset \ms{UF-L}(ShEx), \ms{UF-I}(SPIN) \subset \ms{UF-I}(ShEx) \\
+%\ms{UF-C}(SPIN) \subset \ms{UF-C}(ShEx), \ms{UF-L}(ShEx) \subset \ms{UF-L}(SPIN)
 %\end{eqnarray*}
-it could be quite beneficial to choose ShEx rather than SPIN (in case the three constraints are covered by both).
-Now, the user-friendliness classes comes into play:
-\begin{eqnarray*}
-\ms{UF-L}(SPIN) \subset \ms{UF-L}(ShEx), \ms{UF-I}(SPIN) \subset \ms{UF-I}(ShEx) \\
-\ms{UF-C}(SPIN) \subset \ms{UF-C}(ShEx), \ms{UF-L}(ShEx) \subset \ms{UF-L}(SPIN)
-\end{eqnarray*}
-Although, SPIN is more adopted than ShEx, ShEx is a high-level compared to a low-level language, ShEx is more intuitive and concise than SPIN.
-According to this evaluation, tools may recommend alternatives to the most expressive language SPIN.  
+%Although, SPIN is more adopted than ShEx, ShEx is a high-level compared to a low-level language, ShEx is more intuitive and concise than SPIN.
+%According to this evaluation, tools may recommend alternatives to the most expressive language SPIN.  
 
 \section{RDF Validation Requirements and Reasoning}
 \label{sec:rdf-validation-requirements-and-reasoning}
