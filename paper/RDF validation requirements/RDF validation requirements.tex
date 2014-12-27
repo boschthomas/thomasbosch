@@ -3706,42 +3706,38 @@ property & $\top$ & hasFather$^{-}$ & - & - & functional & - \\
 
 \section{Value Restrictions}
 
-\begin{itemize}
-	\item Individual Value Restrictions: A has-value class expression ObjectHasValue( OPE a ) consists of an object property expression OPE and an individual a, and it contains all those individuals that are connected by OPE to a. Each such class expression can be seen as a syntactic shortcut for the class expression ObjectSomeValuesFrom( OPE ObjectOneOf( a ) ). 
-	\item Literal Value Restrictions: A has-value class expression DataHasValue( DPE lt ) consists of a data property expression DPE and a literal lt, and it contains all those individuals that are connected by DPE to lt. Each such class expression can be seen as a syntactic shortcut for the class expression DataSomeValuesFrom( DPE DataOneOf( lt ) ).
-\end{itemize}
+Individual Value Restrictions: A has-value class expression ObjectHasValue( OPE a ) consists of an object property expression OPE and an individual a, and it contains all those individuals that are connected by OPE to a. Each such class expression can be seen as a syntactic shortcut for the class expression ObjectSomeValuesFrom( OPE ObjectOneOf( a ) ). 
+Literal Value Restrictions: A has-value class expression DataHasValue( DPE lt ) consists of a data property expression DPE and a literal lt, and it contains all those individuals that are connected by DPE to lt. Each such class expression can be seen as a syntactic shortcut for the class expression DataSomeValuesFrom( DPE DataOneOf( lt ) ).
 
 \subsection{Simple Example}
 
+\begin{DL}
+$FatherOfStewie \sqsubseteq \exists fatherOf.\{Stewie\}$
+\end{DL}
+
 \begin{ex}
+# OWL 2
+# -----
 :Peter :fatherOf :Stewie . 
 ObjectHasValue( :fatherOf :Stewie )
 \end{ex}
 
-\begin{itemize}
-	\item The has-value class expression contains those individuals that are connected through the :fatherOf property with the individual :Stewie
-  \item :Peter is classified as its instance
-\end{itemize}
+The has-value class expression contains those individuals that are connected through the :fatherOf property with the individual :Stewie.
+:Peter is classified as its instance.
 
-\begin{DL}
-Not sure about the meaning of this constraint...\\
-May be it is:\\
-$Shortcut \sqsubseteq \exists fatherOf.\{\textbf{Stewie}\}$
-\end{DL}
-
-\an{not sure!}
+\begin{gcotable}
+property & FatherOfStewie & fatherOf & - & $\{Stewie\}$ & $\exists$ \\
+\end{gcotable}
 
 \section{Self Restrictions}
 
-
-
-\begin{itemize}
-	\item A self-restriction ObjectHasSelf( OPE ) consists of an object property expression OPE, and it contains all those individuals that are connected by OPE to themselves. 
-\end{itemize}
+A self-restriction ObjectHasSelf( OPE ) consists of an object property expression OPE, and it contains all those individuals that are connected by OPE to themselves. 
 
 \subsection{Simple Example}
 
 \begin{ex}
+# OWL 2
+# -----
 :Peter :likes :Peter . 
 ObjectHasSelf( :likes ) 
 \end{ex}
@@ -3752,10 +3748,19 @@ Not sure about if this constraint is expressible in DL, I think not!
 
 \an{not sure!}
 
-\begin{itemize}
-	\item The self-restriction contains those individuals that like themselves
-  \item :Peter is classified as its instance
-\end{itemize}
+\begin{DL}
+$\top$ $\sqsubseteq$ $\exists$ likes . Self
+\end{DL}
+
+\tb{my attempt}
+
+\begin{gcotable}
+property & $\exists$ likes . Self & likes & - & Self & $\exists$ \\
+class & $\top$ & - & - & $\top$, $\exists$ likes . Self & $\sqsubseteq$ \\
+\end{gcotable}
+
+The self-restriction contains those individuals that like themselves.
+:Peter is classified as its instance.
 
 \section{Data Property Facets}
 
@@ -3833,23 +3838,10 @@ class & SSN & - & - & xsd:string & xsd:pattern & '[0-9]{3}-[0-9]{2}-[0-9]{4}' \\
 
 \section{Primary Key Properties}
 
-requirement:
-
-\begin{itemize}
-	\item 
-\end{itemize}
-
-
-
-\begin{itemize}
-  \item It is often useful to declare a given (datatype) property as the "primary key" of a class, so that the system can enforce uniqueness and also automatically build URIs from user input and data imported from relational databases or spreadsheets. 
-\end{itemize}
+It is often useful to declare a given (datatype) property as the "primary key" of a class, so that the system can enforce uniqueness and also automatically build URIs from user input and data imported from relational databases or spreadsheets. 
 
 \subsection{Simple Example}
-
-\begin{itemize}
-	\item Each object is uniquely identified by its social security number.
-\end{itemize}
+Each object is uniquely identified by its social security number.
 
 \begin{ex}
 # DSP
@@ -3875,9 +3867,7 @@ owl:Thing owl:hasKey ( :hasSSN ) .
 -
 \end{ex}
 
-\begin{itemize}
-	\item The first axiom makes :hasSSN the key for instances of the owl:Thing class; thus, only one individual can have a particular value for :hasSSN. 
-\end{itemize}
+The first axiom makes :hasSSN the key for instances of the owl:Thing class; thus, only one individual can have a particular value for :hasSSN. 
 
 \begin{ex}
 # data
@@ -3886,9 +3876,7 @@ owl:Thing owl:hasKey ( :hasSSN ) .
 :PeterGriffin :hasSSN "123-45-6789" . 
 \end{ex}
 
-\begin{itemize}
-	\item Since the values of :hasSSN are the same for the individuals a:Peter and a:PeterGriffin, these two individuals are equal - that is, this ontology entails the following assertion :Peter owl:sameAs :PeterGriffin . 
-\end{itemize}
+Since the values of :hasSSN are the same for the individuals a:Peter and a:PeterGriffin, these two individuals are equal - that is, this ontology entails the following assertion :Peter owl:sameAs :PeterGriffin . 
 
 \begin{DL}
 Not sure if this is expressible in DL, may be we should have a detailed look to \textit{DL-Lite}$_{\mathcal{A},id}$ \\
@@ -3896,6 +3884,16 @@ Not sure if this is expressible in DL, may be we should have a detailed look to 
 \end{DL}
 
 \an{not sure!}
+
+\begin{DL}
+$(\textsf{funct } \textsf{hasSSN})$
+\end{DL}
+
+\begin{gcotable}
+property & $\top$ & hasSSN & - & - & functional & - \\
+\end{gcotable}
+
+\tb{my attempt}
 
 \section{Exploiting Class/Property Specialization Ontology Axioms}
 
@@ -3952,9 +3950,7 @@ Not sure if the meaning of this constraint, probably it is the same as for cardi
 
 \section{Aggregations}
 
-\begin{itemize}
-  \item Some constraints require aggregating multiple values, especially via COUNT, MIN and MAX. 
-\end{itemize}
+Some constraints require aggregating multiple values, especially via COUNT, MIN and MAX. 
 
 \begin{DL}
 Not expressible in DL
