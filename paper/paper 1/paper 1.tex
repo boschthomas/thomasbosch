@@ -106,7 +106,7 @@
   %\vspace{0.3cm}
   \begin{tabular}{l|l}
   \hline
-  \textbf{Validation Type} & \textbf{Complexity} \\
+  \textbf{Complexity Class} & \textbf{Complexity} \\
   \hline
 
 }{
@@ -133,7 +133,22 @@
   %\vspace{0.3cm}
   \begin{tabular}{l|c|c|c|c|c|c}
   \hline
-  \textbf{constraint class} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\
+  \textbf{Constraint Class} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\
+  \hline
+
+}{
+  \hline
+  \end{tabular}
+  \linebreak
+}
+
+\newenvironment{constraint-languages-complexity}{
+  %\scriptsize
+  %\sffamily
+  %\vspace{0.3cm}
+  \begin{tabular}{l|c|c|c|c|c|c}
+  \hline
+  \textbf{Complexity Class} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\
   \hline
 
 }{
@@ -655,7 +670,16 @@ even though the absolute expressivity of OWL2-DL is much higher for both express
 
 \subsection{Complexity}
 
+The next table shows which constraints (of both constraint classes) can be expressed by which constraint language - aggregated by complexity class and sorted by ascending complexity.
 
+\begin{center}
+\begin{constraint-languages-complexity}
+\ms{C-C} (41) & 6 & 18(4) & 7(4) & 8 & 12 & 40(1)\\
+\ms{C-R-OWL2-QL} (11) & 0 & 11 & 11 & 0(2) & 1 & 11 \\
+\ms{C-R-OWL2-DL} (18) & 7 & 18 & 0 & 9 & 8(1) & 18 \\
+\ms{C-R} (4) & 1 & 0 & 0 & 2 & 2 & 4 \\ 
+\end{constraint-languages-complexity}
+\end{center}
 
 \subsection{Classification Dimension User-Friendliness}
 
