@@ -245,10 +245,10 @@ Following this approach, one can clarify which constraint language to use to exp
 
 \section{Introduction}
 
-For many RDF applications\er{Do we mean software applications (i.e., RDF-based applications) or application as a task?}\tb{tasks not just RDF-based applications}, the formulation of constraints and the automatic validation of data according to these constraints is a much sought-after feature. 
+For many RDF applications, the formulation of constraints and the automatic validation of data according to these constraints is a much sought-after feature. 
 In 2013, the W3C invited experts from industry, government, and academia to the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/rdf-val/}}, 
 where first use cases have been presented and discussed. 
-Two WGs, \er{WG? Working groups?}\tb{working groups} that follow up on this workshop and address RDF constraint formulation and validation, are established in 2014: 
+Two working groups (WGs),  that follow up on this workshop and address RDF constraint formulation and validation, are established in 2014: 
 the W3C RDF Data Shapes WG\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles WG\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
 
 Bosch and Eckert \cite{BoschEckert2014} initiated a database on RDF validation requirements to collect case studies, use cases and especially requirements regarding RDF validation collaboratively and in a comprehensive and structured way. 
@@ -258,8 +258,7 @@ This database is continuously updated and openly available at \url{http://purl.o
 The requirements are classified to provide a high-level view on different solutions and to facilitate a better understanding of the problem domain \cite{BoschEckert2014}.  
 
 There are multiple constraint languages having different syntaxes and semantics which can be used to express RDF constraints e.g., \emph{at-least} restrictions.
-The most promising constraint languages are \er{Promising on what? Or popular or common? This should be underlined. No aim yet  except expressing things has been mentioned .}
-\tb{promising to be possible standard constraint languages / candidates as standard constraint languages}
+The most promising ones on being the standard, are
 the SPARQL Inferencing Notation (SPIN)\footnote{\url{http://spinrdf.org/}}, 
 the Web Ontology Language (OWL 2)\footnote{\url{http://www.w3.org/TR/owl2-syntax/}}, 
 Shape Expressions (ShEx)\footnote{\url{http://www.w3.org/Submission/shex-primer/}}, 
@@ -442,10 +441,11 @@ The three \textbf{main contributions} of this paper are:
 	%\item We show that OWL 2 QL together with additional constraint languages completely satisfy all RDF validation requirements.
 	%\item We evaluated to which extend the five possible standard constraint languages fulfill each requirement.
 \end{itemize}
-\er{I think after putting 2 pages of motivation, either we should get rid of this itemisation in terms of reshape or reorganise, or embed them inside flowing motivation text. They are so many. }
 \tb{+1 / this should be the 3 main contributions, maybe we should highlight them in the flow text / no itemization}
-\section{Expressivity and Complexity in OWL 2 Reasoning}
+\er{We can reserve a paragraph (flowing text) for those  item as well. }
 
+\section{Expressivity and Complexity in OWL 2 Reasoning}
+\er{We need a short introduction here.}
 \subsection{OWL 2 QL Reasoning}
 
 OWL 2 profiles (or fragments in logic literature) are restricted (sublanguage) versions of OWL 2 that offer different trade-offs regarding expressivity  vs. efficiency in reasoning. There are three main  profiles of OWL 2, which are OWL 2 QL, OWL 2 RL and OWL 2 EL namely, each designed to  be useful for different purposes and application scenarios. The choice of which profile to use is purpose-specific on what to express and to perform the reasoning about. We refer reader to \cite{owl2profiles2008} for a comprehensive treatment of those profiles. 
@@ -460,14 +460,14 @@ Among the members of \textit{DL-Lite} family, \textit{DL-Lite}$_\mathcal{R}$ is 
 
 \subsection{OWL 2 DL Reasoning}
 
-%\tb{ToDO for Erman and Andy: can you please write a short paragraph about OWL 2 DL reasoning?}
 
-The Semantic Web ontology language OWL 2 DL\footnote{See \url{http://www.w3.org/TR/owl2-direct-semantics/}.} was standardized by
+
+The Semantic Web ontology language OWL 2 DL\footnote{See \url{http://www.w3.org/TR/owl2-direct-semantics/}.} was standardised by
 the World Wide Web Consortium (W3C) in 2009 (and updated in 2012) as a
 description logic-like formalism.  OWL 2 DL has high expressivity, yet maintains  decidability for main reasoning tasks e.g., ontology satisability, 
 entailment checking. The drawback of its expressive power results as a lack of computational efficiency in performance. In general, reasoning in OWL 2 DL is in \textsc{N2exptime} \cite{owl2profiles2008}. 
 
-As a result of its expressive power, OWL 2 DL allows a large variety of sophisticated modeling capabilities for many application domains.  On the other hand, to maintain the decidability, OWL 2 DL has a numerous ways of syntactic restrictions. One example is that OWL 2 DL allows  expressing transitive properties as well as asymmetric properties, yet a property to be both transitive and asymmetric (just as ancestor relation) is not allowed. In the sequel, from RDF validation perspective, we will give some examples of constraints that remain at the outside of its scope. 
+As a result of its expressive power, OWL 2 DL allows a large variety of sophisticated modeling capabilities for many application domains.  On the other hand, to maintain the decidability, OWL 2 DL has numerous syntactic restrictions. One example is that OWL 2 DL allows  expressing transitive properties as well as asymmetric properties, however a property to be both transitive and asymmetric (just like \emph{ancestor relation}) is not allowed. In the sequel, from RDF validation perspective, we will give some examples of constraints that remain at the outside of its scope. 
 
 \section{Classification of RDF Constraints according to Reasoning and Complexity}
 
@@ -478,22 +478,21 @@ As a result of its expressive power, OWL 2 DL allows a large variety of sophisti
 	%\item constraints only expressible by other constraint languages
 %\end{itemize}
 
-The W3C and DCMI WGs identified in total 74 requirements to formulate RDF constraints\footnote{Two of this paper's authors are actively contributing to these WGs and the process deriving requirements from case studies and use cases is still ongoing.}.
-Bosch et al.\footnote{available at: \url{https://github.com/boschthomas/rdf-validation-research/paper}} explained each requirement in detail and give at least one example for each of them represented by different constraint languages.
-We added mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express each constraint.
-When the DL constructs, needed to express a particular constraint, are known, the expressivity and the complexity of this constraint can be determined. 
-The constraint \ms{Context-Specific Exclusive OR of Properties} (see section~\ref{sec:rdf-validation-requirements-without-reasoning-2}), e.g., can generically be expressed as follows:
+The W3C and DCMI WGs identified in total 74 requirements to formulate RDF constraints.  
+Bosch et al.\footnote{Available at: \url{https://github.com/boschthomas/rdf-validation-research/paper}} explain each requirement in detail and give examples for each, represented by listed constraint languages.
+It contains also mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express each constraint.
+When the DL constructs  (needed to express a particular constraint) are known, the expressivity and the complexity of this constraint can be determined. 
+For example, the constraint \ms{Context-Specific Exclusive OR of Properties} (see section~\ref{sec:rdf-validation-requirements-without-reasoning-2}) can generically be expressed as follows:
 \begin{center}
 \begin{DL}
-C &$\sqsubseteq (\neg$ A $\sqcap$ B$) \sqcup ($A $\sqcap \neg$ B$)$ \\
-A &$\equiv \exists$ a . D \\
-B &$\equiv \exists$ b . E  
+$C$ &$\sqsubseteq (\neg A \sqcap B) \sqcup (A \sqcap \neg B)$ \\
+$A$ &$\equiv \exists a.D$ \\
+$B$ &$\equiv \exists b.E$  
 \end{DL}
 \end{center}
-As this constraint is a complex constraint (constructed out of multiple complex and simple constraints), 
-the constraint's expressivity is calculated as the expressivity of the individual constraints used to express the complex constraint.
+As this constraint is a complex constraint (constructed out of multiple complex and simple constraints), its expressivity is evaluated by the expressivity of the individual constraints used.
 The DL constructs \ms{property inclusion}, \ms{complement}, \ms{intersection}, \ms{union}, and \ms{existential restriction} are used to express this constraint.  
-As existential restrictions are part of OWL 2 DL reasoning, the constraint's complexity is \textsc{N2exptime}.
+As existential restrictions are part of OWL 2 DL reasoning, the constraint's complexity is \textsc{N2exptime}. \er{Now computational complexity? Existential restrictions are not necessarily \textsc{N2Exptime}}
 
 \subsection{Reasoning}
 
