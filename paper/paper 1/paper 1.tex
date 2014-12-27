@@ -670,7 +670,7 @@ even though the absolute expressivity of OWL2-DL is much higher for both express
 
 \subsection{Complexity}
 
-The next table shows which constraints (of both constraint classes) can be expressed by which constraint language - aggregated by complexity class and sorted by ascending complexity.
+The next table shows the amount of constraints (of both constraint classes) can be expressed by which constraint language - aggregated by complexity class and sorted by ascending complexity.
 
 \begin{center}
 \begin{constraint-languages-complexity}
@@ -680,6 +680,14 @@ The next table shows which constraints (of both constraint classes) can be expre
 \ms{C-R} (4) & 1 & 0 & 0 & 2 & 2 & 4 \\ 
 \end{constraint-languages-complexity}
 \end{center}
+
+Partial (not necessarily total) orderings are:
+\begin{eqnarray*}
+\ms{C-C}: DSP \subset OWL2-QL \subset ReSh \subset ShEx \subset OWL2-DL \subset SPIN \\
+\ms{C-R-OWL2-QL}: DSP \subset ReSh \subset ShEx \subset SPIN \subseteq OWL2-QL \subseteq OWL2-DL \\
+\ms{C-R-OWL2-DL}: OWL2-QL \subset DSP \subset ShEx \subset ReSh \subset SPIN \subseteq OWL2-DL \\
+\ms{C-R}: OWL2-QL \subseteq OWL2-DL \subset DSP \subset ReSh \subseteq ShEx \subset SPIN
+\end{eqnarray*}
 
 \subsection{Classification Dimension User-Friendliness}
 
