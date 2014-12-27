@@ -689,37 +689,64 @@ Partial (not necessarily total) orderings are:
 \ms{C-R}: OWL2-QL \subseteq OWL2-DL \subset DSP \subset ReSh \subseteq ShEx \subset SPIN
 \end{eqnarray*}
 
-\subsection{Classification Dimension User-Friendliness}
+\subsection{Additional Criteria}
 
+SPIN is the most expressive constraint language for the two expressivity classes \ms{Expr-C} and \ms{Expr-R}.
+It can be beneficial, however, to use other constraint languages to meet particular use cases when additional rather subjective criteria are evaluated.
+
+\ms{User-friendliness} is one dimension of these criteria.
 We cannot formally measure the user-friendliness of constraint languages as in the case of expressivity and complexity. 
-Criteria to determine the degree of user-friendliness of constraint languages lead to four user-friendliness classes of constraint languages:
-
-\begin{itemize}
-	\item \ms{UF-L} (constraint formulation level): low-level (\ding{55}) vs. high-level ($\checkmark$)
-	\item \ms{UF-I} (intuitiveness): not intuitive (\ding{55}) $<$ less intuitive ($\sim$) $<$ intuitive ($\checkmark$)
-	\item \ms{UF-C} (conciseness): not concise (\ding{55}) $<$ less concise ($\sim$) $<$ concise ($\checkmark$)
-	\item \ms{UF-A} (adoption): less adopted (\ding{55}) $<$ well adopted ($\checkmark$)
-\end{itemize}
-
-We evaluated the five most important constraint languages according to these user-friendliness classes:
-
-\begin{center}
-\begin{user-fiendliness}
-\ms{UF-L} & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & \ding{55} \\
-\ms{UF-I} & $\sim$ & $\sim$ & $\sim$ & $\checkmark$ & \ding{55} \\
-\ms{UF-C} & \ding{55} & $\checkmark$ & $\sim$ & $\checkmark$ & \ding{55} \\
-\ms{UF-A} & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-\end{user-fiendliness}
-\end{center}
-SPIN is in contrast to the other constraint languages a general-purpose low-level language, as it is the most expressive one (\ms{UF-L}).
+%Rather subjective criteria to determine the degree of user-friendliness of constraint languages lead to four user-friendliness classes of constraint languages:
+%
+%\begin{itemize}
+	%\item \ms{UF-L} (constraint formulation level): low-level (\ding{55}) vs. high-level ($\checkmark$)
+	%\item \ms{UF-I} (intuitiveness): not intuitive (\ding{55}) $<$ less intuitive ($\sim$) $<$ intuitive ($\checkmark$)
+	%\item \ms{UF-C} (conciseness): not concise (\ding{55}) $<$ less concise ($\sim$) $<$ concise ($\checkmark$)
+	%\item \ms{UF-A} (adoption): less adopted (\ding{55}) $<$ well adopted ($\checkmark$)
+%\end{itemize}
+Rather subjective criteria to determine the degree of user-friendliness of constraint languages are 
+constraint formulation level, intuitiveness, conciseness, and adoption.
+SPIN is in contrast to the other constraint languages a general-purpose low-level language, as it is the most expressive one (constraint formulation level).
 As SPARQL queries may be very long and complex, the purpose of constraints expressed in SPIN may not be immediately clear to human readers.
 On the other side, ShEx is the most intuitive constraint language, since it is based on regular expressions and since well-known constructs of other languages\footnote{e.g. numbers standing for min, max, and exact cardinality in UML} are part of the language definition.
-DSP, ReSh, as well as OWL 2 are not that intuitive than ShEx, but more intuitive to humans than SPIN\footnote{see the examples of the requirement \ms{allowed values} in the paper of Bosch et al. \cite{BoschNolleAcarEckert2015}\label{footnoteIntuitivenessConciseness}} (\ms{UF-I}).
-In most cases, the same constraints can be expressed more concise in OWL 2 and ShEx than in DSP and SPIN\footref{footnoteIntuitivenessConciseness} (\ms{UF-C}).
-The only well adopted and therefore well known constraint languages are SPIN and most of all OWL 2 (\ms{UF-A}).
+DSP, ReSh, as well as OWL 2 are not that intuitive than ShEx, but more intuitive to humans than SPIN\footnote{see, e.g., the requirement \ms{allowed values} in the paper of Bosch et al. \cite{BoschNolleAcarEckert2015}\label{footnoteIntuitivenessConciseness}} (intuitiveness).
+In most cases, the same constraints can be expressed more concise in OWL 2 and ShEx than in DSP and SPIN\footref{footnoteIntuitivenessConciseness} (conciseness).
+The only well adopted and therefore well known constraint languages are SPIN and most of all OWL 2 (adoption).
 
-These user-friendliness classes could also be evaluated more fine granular for each constraint (and not only for each constraint language).
-Tools could then recommend for each user-friendliness class or in total which constraint language to use in order to express a particular constraint or sets of constraints. 
+%These user-friendliness classes could also be evaluated more fine granular for each constraint (and not only for each constraint language).
+%Tools could then recommend for each user-friendliness class or in total which constraint language to use in order to express a particular constraint or sets of constraints. 
+
+%\subsection{Classification Dimension User-Friendliness}
+%
+%We cannot formally measure the user-friendliness of constraint languages as in the case of expressivity and complexity. 
+%Criteria to determine the degree of user-friendliness of constraint languages lead to four user-friendliness classes of constraint languages:
+%
+%\begin{itemize}
+	%\item \ms{UF-L} (constraint formulation level): low-level (\ding{55}) vs. high-level ($\checkmark$)
+	%\item \ms{UF-I} (intuitiveness): not intuitive (\ding{55}) $<$ less intuitive ($\sim$) $<$ intuitive ($\checkmark$)
+	%\item \ms{UF-C} (conciseness): not concise (\ding{55}) $<$ less concise ($\sim$) $<$ concise ($\checkmark$)
+	%\item \ms{UF-A} (adoption): less adopted (\ding{55}) $<$ well adopted ($\checkmark$)
+%\end{itemize}
+%
+%We evaluated the five most important constraint languages according to these user-friendliness classes:
+%
+%\begin{center}
+%\begin{user-fiendliness}
+%\ms{UF-L} & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & \ding{55} \\
+%\ms{UF-I} & $\sim$ & $\sim$ & $\sim$ & $\checkmark$ & \ding{55} \\
+%\ms{UF-C} & \ding{55} & $\checkmark$ & $\sim$ & $\checkmark$ & \ding{55} \\
+%\ms{UF-A} & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+%\end{user-fiendliness}
+%\end{center}
+%SPIN is in contrast to the other constraint languages a general-purpose low-level language, as it is the most expressive one (\ms{UF-L}).
+%As SPARQL queries may be very long and complex, the purpose of constraints expressed in SPIN may not be immediately clear to human readers.
+%On the other side, ShEx is the most intuitive constraint language, since it is based on regular expressions and since well-known constructs of other languages\footnote{e.g. numbers standing for min, max, and exact cardinality in UML} are part of the language definition.
+%DSP, ReSh, as well as OWL 2 are not that intuitive than ShEx, but more intuitive to humans than SPIN\footnote{see the examples of the requirement \ms{allowed values} in the paper of Bosch et al. \cite{BoschNolleAcarEckert2015}\label{footnoteIntuitivenessConciseness}} (\ms{UF-I}).
+%In most cases, the same constraints can be expressed more concise in OWL 2 and ShEx than in DSP and SPIN\footref{footnoteIntuitivenessConciseness} (\ms{UF-C}).
+%The only well adopted and therefore well known constraint languages are SPIN and most of all OWL 2 (\ms{UF-A}).
+%
+%These user-friendliness classes could also be evaluated more fine granular for each constraint (and not only for each constraint language).
+%Tools could then recommend for each user-friendliness class or in total which constraint language to use in order to express a particular constraint or sets of constraints. 
 
 \subsection{Overall Classification}
  
