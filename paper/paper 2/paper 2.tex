@@ -286,11 +286,14 @@ If we transform a specific constraint (expressed by any constraint language) int
 As a consequence, we do not have to specify an automatic validation for each specific constraint, as we need to define an automatic validation only once for each generic constraint. 
 We have to provide an automatic validation for each generic constraint in order to support the automatic validation for each specific constraint.
 
-When domain experts use graphical user interfaces to define constraints in a user-friendly way, 
-these constraints can be either mapped to either a specific or a generic constraint, as for both an automatic validation is provided in the background.    
-So, the user does not have to know how to express specific constraints using a constraint language such as OWL 2, DSP, or ShEx.
-If there is a new constraint not covered by any constraint language you can just define the automatic validation for this newly defined constraint.
-This way, you are able to extend existing constraint language and to define new constraint language if existing constraint languages are not sufficient for further use cases.
+When domain experts use graphical user interfaces to define constraints in a user-friendly way (without the necessity to express constraints on their own), 
+constraints can be mapped to either a specific or a generic constraint, as for both an automatic validation is provided in the background.    
+So, the user does not have to know how to express specific constraints using any constraint language.
+If there is a new constraint not covered by any existing constraint language, one can just define the automatic validation for a corresponding generic constraint.
+This way, one is able to extend existing constraint languages and also to define new constraint languages if existing constraint languages are not sufficient to express particular constraints.
+If a language designer develops a new constraint language, 
+the language designer only needs to define a mapping between the new constraint language and the generic constraint language
+in order to be able to automatically validate the constraints expressible by the new constraint language.
 
 The \textbf{contributions} of this paper are:
 \begin{itemize}
@@ -299,25 +302,17 @@ The \textbf{contributions} of this paper are:
 	%\item Any specific constraint (expressed by any constraint language) can be validated automatically (if an automatic validation is defined only once for corresponding generic constraint)
 	\item We define a terminology for RDF constraints and constraining languages
 	\item We developed an ontology describing any RDF constraint which can also be expressed by any constraint language
-	\item We show how ...
+	\item We present that any RDF constraint can be described by the developed ontology - whether the constraint can be expressed in DL or not 
+	\item We show how to transform specific constraints (expressed by any constraint language A) into generic constraints and into specific constraints (expressed by any other constraint language B)
+  \item We explain that any specific constraint can be validated automatically (if an automatic validation is defined only once for corresponding generic constraint)
 \end{itemize}
 
-The \textbf{benefits} of our framework are:
-\begin{itemize}
-	\item Any specific constraint (expressed by any constraint language) can be transformed into a generic constraint (expressed by the generic constraint language)
-	\item Any specific constraint (expressed by any constraint language A) can be transformed into any specific constraint (expressed by any constraint language B)
-	\item Any specific constraint (expressed by any constraint language) can be validated automatically (if an automatic validation is defined only once for corresponding generic constraint)
-\end{itemize}
-
-Benefits:
-\begin{itemize}
-	\item if a language designer develops a new constraint language the language designer only needs to define a mapping between the new constraint language and the GCLO 
-	in order to be able to automatically validate the new constraint language constraints
-\end{itemize}
-
-\begin{itemize}
-  \item express constraint in CL A and translate constraint in CL B
-\end{itemize}
+%The \textbf{benefits} of our framework are:
+%\begin{itemize}
+	%\item Any specific constraint (expressed by any constraint language) can be transformed into a generic constraint (expressed by the generic constraint language)
+	%\item Any specific constraint (expressed by any constraint language A) can be transformed into any specific constraint (expressed by any constraint language B)
+	%\item Any specific constraint (expressed by any constraint language) can be validated automatically (if an automatic validation is defined only once for corresponding generic constraint)
+%\end{itemize}
 
 \textcolor{red}{paper organization}
 
@@ -404,6 +399,10 @@ of DLs that we have already introduced.
 	\item (ir)reflexive object properties
 	\item Exact Qualified Cardinality Restrictions on Properties
 \end{itemize}
+
+\section{Transformations between Specific Constraints}
+
+\section{Automatic Validation of Specific Constraints}
 
 \section{Constraints Expressible in DL}
 
