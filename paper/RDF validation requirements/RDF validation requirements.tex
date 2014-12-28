@@ -3047,10 +3047,10 @@ Not expresible in DL!
 \end{DL}
 
 \begin{gcotable}
-class & Jedi & laserSwordColor & - & - & default values & 'blue' \\
-class & Jedi & numberLaserSwords & - & - & default values & '1' \\
-class & Sith & laserSwordColor & - & - & default values & 'red' \\
-class & Sith & numberLaserSwords & - & - & default values & '2' \\
+property & Jedi & laserSwordColor & - & - & default values & 'blue' \\
+property & Jedi & numberLaserSwords & - & - & default values & '1' \\
+property & Sith & laserSwordColor & - & - & default values & 'red' \\
+property & Sith & numberLaserSwords & - & - & default values & '2' \\
 \end{gcotable}
 
 \section{Mathematical Operations}
@@ -3096,7 +3096,7 @@ Not expressible in DL!
 \end{DL}
 
 \begin{gcotable}
-class & $\top$ & name & - & - & language tag & 'en' \\
+property & $\top$ & name & - & - & language tag & 'en' \\
 \end{gcotable}
 
 \section{Language Tag Cardinality}
@@ -3158,7 +3158,7 @@ Not expressible in DL!
 \end{DL}
 
 \begin{gcotable}
-class & $\top$ & foaf:name & - & - & language tag exact cardinality & 1 \\
+property & $\top$ & foaf:name & - & - & language tag exact cardinality & 1 \\
 \end{gcotable}
 
 \section{Whitespace Handling}
@@ -3182,7 +3182,7 @@ Not expressible in DL!
 \end{DL}
 
 \begin{gcotable}
-class & $\top$ & p & - & - & whitespace & - \\
+property & $\top$ & p & - & - & whitespace & - \\
 \end{gcotable}
 
 \section{HTML Handling}
@@ -3206,7 +3206,7 @@ Not expressible in DL!
 \end{DL}
 
 \begin{gcotable}
-class & c & p & - & - & HTML & - \\
+property & c & p & - & - & HTML & - \\
 \end{gcotable}
 
 \section{Required Properties}
@@ -3287,7 +3287,7 @@ Not expressible in DL!
 \end{DL}
 
 \begin{gcotable}
-class & C & p & - & - & recommended & - \\
+property & C & p & - & - & recommended & - \\
 \end{gcotable}
 
 \section{Negative Property Constraints}
@@ -3514,7 +3514,7 @@ isNumeric ( ?shoeSize )
 \end{itemize}
 
 \begin{gcotable}
-class & $\top$ & shoeSize & - & xsd:nonNegativeInteger & value valid for datatype & - \\
+property & $\top$ & shoeSize & - & xsd:nonNegativeInteger & value valid for datatype & - \\
 \end{gcotable}
 
 \subsection{Simple Example}
@@ -3622,7 +3622,7 @@ $hasSon(Peter,Meg)$\\
 The negation of such an assertion is not necessary, as it's meaningless!
 
 \begin{gcotable}
-class & \{Peter\} & hasSon & - & \{Meg\} & $\neq$ & - \\
+property & \{Peter\} & hasSon & - & \{Meg\} & $\neq$ & - \\
 \end{gcotable}
 
 \subsection{Simple Example}
@@ -3640,7 +3640,7 @@ $hasAge ( Meg ,"17"\hat{\ } \hat{\ } xsd:integer ) $\\
 \end{DL}
 
 \begin{gcotable}
-class & \{Meg\} & hasAge & - & - & = & "17"$\hat{\ } \hat{\ }$ xsd:integer \\
+property & \{Meg\} & hasAge & - & - & = & "17"$\hat{\ } \hat{\ }$ xsd:integer \\
 \end{gcotable}
 
 \section{Functional Properties}
@@ -3743,20 +3743,12 @@ ObjectHasSelf( :likes )
 \end{ex}
 
 \begin{DL}
-Not sure about if this constraint is expressible in DL, I think not!
+LikesThemselves $\sqsubseteq$ $\exists$ likes . Self
 \end{DL}
-
-\an{not sure!}
-
-\begin{DL}
-$\top$ $\sqsubseteq$ $\exists$ likes . Self
-\end{DL}
-
-\tb{my attempt}
 
 \begin{gcotable}
 property & $\exists$ likes . Self & likes & - & Self & $\exists$ \\
-class & $\top$ & - & - & $\top$, $\exists$ likes . Self & $\sqsubseteq$ \\
+class & LikesThemselves & - & - & $\top$, $\exists$ likes . Self & $\sqsubseteq$ \\
 \end{gcotable}
 
 The self-restriction contains those individuals that like themselves.
@@ -3876,24 +3868,58 @@ The first axiom makes :hasSSN the key for instances of the owl:Thing class; thus
 :PeterGriffin :hasSSN "123-45-6789" . 
 \end{ex}
 
-Since the values of :hasSSN are the same for the individuals a:Peter and a:PeterGriffin, these two individuals are equal - that is, this ontology entails the following assertion :Peter owl:sameAs :PeterGriffin . 
-
 \begin{DL}
-Not sure if this is expressible in DL, may be we should have a detailed look to \textit{DL-Lite}$_{\mathcal{A},id}$ \\
-(see \url{http://www.dis.uniroma1.it/~lembo/papers/calv-etal-RW-2009.pdf})
-\end{DL}
-
-\an{not sure!}
-
-\begin{DL}
-$(\textsf{funct } \textsf{hasSSN})$
+$(\textsf{funct } \textsf{SSN}\sp{\overline{\ }})$
 \end{DL}
 
 \begin{gcotable}
-property & $\top$ & hasSSN & - & - & functional & - \\
+property & $\top$ & SSN$^{-}$ & SSN & - & inverse & - \\
+property & $\top$ & SSN$^{-}$ & - & - & functional & - \\
 \end{gcotable}
 
-\tb{my attempt}
+Since the values of :hasSSN are the same for the individuals a:Peter and a:PeterGriffin, these two individuals are equal - that is, this ontology entails the following assertion :Peter owl:sameAs :PeterGriffin . 
+
+%\begin{DL}
+%Not sure if this is expressible in DL, may be we should have a detailed look to \textit{DL-Lite}$_{\mathcal{A},id}$ \\
+%(see \url{http://www.dis.uniroma1.it/~lembo/papers/calv-etal-RW-2009.pdf})
+%\end{DL}
+%
+%\an{not sure!}
+
+Since "Each object is uniquely identified by its social security number." It means it is inverse functional property.
+
+So instead,  a property can be defined as 
+\begin{DL}
+$(\textsf{funct } \textsf{SSN})$
+\end{DL}
+, and then by a property inclusion axiom
+
+\begin{DL}
+$haskey \sqsubseteq SSN^{-}$
+\end{DL}
+
+now for a given number haskey will give me the object (note that obviously it should be named, no ambigious individuals).
+
+However I needed to do some little research and found out that, keys are even more general (A generalisation of inverse functional properties) so that it can also be a chain of properties. (it is clear here: http://www.w3.org/TR/2012/REC-owl2-rdf-based-semantics-20121211/\#table-semcond-keys)
+
+For this generalisation purposes and many spooky interactions of different sorts of key (and with some elaboration they can lead to undecidability), they introduced "key boxes, and extended the language with special "keyfor" construct. So how it is done in DL community as I learned is
+
+\begin{DL}
+SSN "keyfor" Human $\sqcap$ TurkishCitizen
+\end{DL}
+
+ for instance. Now ssn behaves as an identifying element for individuals of right hand side.
+
+For comprehensive studies and resources, one can find lots of examples in:
+
+http://lat.inf.tu-dresden.de/research/mas/Din-Mas-06.pdf
+https://www.jair.org/media/1542/live-1542-2375-jair.pdf
+
+Yes you can, but as you see it is not restriction statement by its own. Nevertheless, I think, in DL mapping, use of "keyfor" and sending a reference to one of those papers is more convenient/safer, since it can be a datatype property, object property, or a chain of properties (from OWL world), as well as DL literature has it as "keyfor". 
+
+\begin{gcotable}
+property & $\top$ & SSN & - & - & keyfor & - \\
+\end{gcotable}
 
 \section{Exploiting Class/Property Specialization Ontology Axioms}
 
