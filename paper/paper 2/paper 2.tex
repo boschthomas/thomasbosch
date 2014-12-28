@@ -17,6 +17,9 @@
 \usepackage{url}
 \urlstyle{same}
 
+% footnotes
+\usepackage{scrextend}
+
 % Todos
 %\usepackage[colorinlistoftodos]{todonotes}
 %\newcommand{\ke}[1]{\todo[size=\small, color=orange!40]{\textbf{Kai:} #1}}
@@ -151,6 +154,7 @@ University of Mannheim, Germany \\
 \begin{itemize}
 	\item requirements database
 	\item relationship between requirements and constraints
+	\item constraint languages
 \end{itemize}
 
 \section{Ideas}
@@ -181,156 +185,144 @@ purpose:
 
 \section{Motivation}
 
-At-least restrictions can be expressed either generically by description logics (DL) or specifically by domain-specific constraint languages (DSCL) such as OWL 2, DSP, and ShEx.
-With at-least restrictions we can state that having at least 2 female childs is equivalent to having at least 2 daughters. This axiom may be represented by DL in a logical way:
+Cardinality restrictions can be expressed either generically by description logics (DL) (\ms{generic constraints}) and additional constraints or specifically (\ms{specific constraints}) by domain-specific constraint languages such as OWL 2, DSP, ShEx, ReSh, and SPIN.
+With minimum qualified cardinality restrictions we can state, e.g., that a star fleet captain commands at least one vessel, which may be represented by DL in a logical way:
 
-\begin{align*}
-Having2Daughters \equiv \geq 2 hasChild.Woman
-\end{align*}
+\begin{DL}
+$StarFleetCaptain \sqsubseteq \geq1 commandsVessel . Vessel $
+\end{DL}
 
-The same axiom may also be represented by different DSCLs like OWL 2, DSP, and ShEx:
+The same constraint may also be represented by different constraint languages like OWL 2, ShEx, ReSh, or DSP:
 
 \begin{ex}
 # OWL 2
 # -----
-:Having2Daughters
+StarFleetCaptain
     a owl:Restriction ;
-    owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
-    owl:onProperty :hasChild ;
-    owl:onClass :Woman .
+    owl:minQualifiedCardinality 1 ;
+    owl:onProperty commandsVessel ;
+    owl:onClass Vessel .
 		
-# DSP
-# ---			
-:descriptionTemplate 
-    a dsp:DescriptionTemplate ; 
-    dsp:resourceClass :Having2Daughters ; 
-    dsp:statementTemplate [
-        a dsp:NonLiteralStatementTemplate ;
-        dsp:minOccur "1"^^xsd:nonNegativeInteger ; 
-        dsp:maxOccur "infinity"^^xsd:string ; 
-        dsp:property :hasChild ; 
-        dsp:nonLiteralConstraint [ 
-            a dsp:NonLiteralConstraint ;
-            dsp:valueClass :Woman ] ] .
-
 # ShEx
 # ----
-<Having2Daughters> {         
-    :hasChild @<Woman>{2, }
-}
-<Woman> {         
-    rdf:type (:Woman)
-}
+StarFleetCaptain { commandsVessel @Vessel{1, } }
+
+# ReSh
+# ----
+StarFleetCaptain a rs:ResourceShape ; rs:property [
+    rs:name "commandsVessel" ; rs:propertyDefinition commandsVessel ;
+    rs:valueShape Vessel ;
+    rs:occurs rs:One-or-many ; ] .
+				
+# DSP
+# ---			
+descriptionTemplate a dsp:DescriptionTemplate ; 
+    dsp:resourceClass StarFleetCaptain ; 
+    dsp:statementTemplate [ a dsp:NonLiteralStatementTemplate ;
+        dsp:minOccur 1 ; dsp:maxOccur "infinity" ; 
+        dsp:property commandsVessel ; 
+        dsp:nonLiteralConstraint [ a dsp:NonLiteralConstraint ;
+            dsp:valueClass Vessel ] ] .
 \end{ex}
 
-Data, which is valid according to the specified at-least restriction, looks like this:
+As \ms{Janeway} commands the vessel \ms{Voyager} (\ms{commandsVessel(Janeway,Voyager)}) and \ms{Voyager} is defined to be a \ms{Vessel} (\ms{rdf:type(Voyager,Vessel)}), the assignment of \ms{Janeway} to the class \ms{StarFleetCaptain} (\ms{rdf:type(Janeway,StarFleetCaptain)}) does not cause any constraint violation.
+A constraint violation is raised, however, when there is no \ms{commandsVessel} relationship pointing from the individual \ms{Janeway}. 
+A constraint violation is also raised, when there is a triple \ms{commandsVessel(Janeway,Voyager)}, but \ms{Voyager} is not explicitly defined to be a \ms{Vessel}, 
+i.e. the triple \ms{rdf:type(Voyager,Vessel)} is not present in the data. 
+As the object of the \ms{commandsVessel} property is assigned to another class than \ms{Vessel}, 
+the triples \ms{commandsVessel(Sisko,DS9)}, \ms{rdf:type(Sisko,StarFleetCaptain)}, and \ms{rdf:type(DS9,SpaceStation)}  
+also cause a constraint violation.
 
-\begin{ex}
-:Marge
-    a :Having2Daughters , :Woman ;
-    :hasChild :Maggie , :Lisa .
-:Maggie
-    a :Woman .
-:Lisa
-    a :Woman .
-\end{ex}
+As there is no standard constraint language, constraint designers may choose different constraint languages to express the identical cardinality restriction. 
+When constraint designers choose one constraint language to express an arbitrary constraint, it should be possible to transform this constraint into a constraint expressed by any other constraint language. 
+This is important as it is often the case that one constraint designer knows to read and to write constraints in one constraint language very well but not in another constraint language. 
+This way, constraint designers may communicate with each other without the necessity to understand all constraint languages and the interoperability of constraint languages is enhanced.
 
-If :Marge has only 1 child and if :Marge is assigned to the class :Having2Daughters, a constraint violation is raised for the following invalid data:
 
-\begin{ex}
-:Marge
-    a :Having2Daughters , :Woman ;
-    :hasChild :Lisa .
-:Lisa
-    a :Woman .
-\end{ex}
+There are validation environments available enabling to automatically validate RDF constraints expressed by just a few constraint languages such as OWL 2\footnote{\url{purl.org/net/rdfval-demo}\label{footnote1}}, DSP\footref{footnote1}, and ShEx\footnote{\url{http://www.w3.org/2013/ShEx/FancyShExDemo}}.
+It should be possible to validate any RDF constraints expressed by any constraint language automatically and what is even more important in exactly the same manner without any differences.  
 
-As there is no standard constraint language, constraint designers may choose different DSCLs in order to express the same at-least restriction. 
-When constraint designers choose one DSCL in order to express an arbitrary constraint, it should be possible to transform this constraint into a constraint expressed by any other DSCL. 
-This is important as it is often the case that one constraint designer knows to read and to write constraints in one DSCL very well but not in another DSCL. 
-This way, constraint designers may communicate with each other without the necessity to understand the other DSCL.
-
-There are validation environments available enabling to automatically validate any RDF constraints expressed by just a few DSCL such as OWL 2 and DSP.
-But it should be possible to validate any RDF constraints expressed by any DSCL automatically and what is even more important in the same manner without any differences.  
-
-The following table contains the mapping between the at-least restriction expressed by description logics and the at-least restriction expressed by a generic constraint language conforming to an ontology describing constraint languages.
+The following table shows the mapping between the cardinality restriction expressed in DL and the cardinality restriction (\ms{generic constraint}) expressed by a generic constraint language conforming to an ontology to describe any RDF constraint generically (see section~\ref{sec:ontology}).
 Each constraint is either a constraint on classes or a constraint on properties.
 
 \begin{gcotable}
-property & Having2Daughters & hasChild & - & Woman & $\geq$ & 2 \\
+property & Captain & commandsVessel & - & Vessel & $\geq$ & 1 \\
 \end{gcotable}
 
-
-The at-least restriction (expressed by the generic constraint language) is represented in RDF as follows:
+The cardinality restriction (expressed by the generic constraint language) is represented in RDF as follows:
 
 \begin{ex}
-:minCardinalityConstraint
-    a gclo:PropertyConstraint ;
-    gclo:contextConcept :Having2Daughters ;
-    gclo:propertyList ( :hasChild ) ;
-    gclo:concept :Woman ;
-    gclo:constrainingElement "\geq" ;
-    gclo:constrainingValue "2" .
+[   a PropertyConstraint ;
+    contextClass StarFleetCaptain ;
+    leftProperties ( commandsVessel ) ;
+    classes ( Vessel ) ;
+    constrainingElement ">=" ;
+    constrainingValue "1" ] .
 \end{ex}
 
-We implement an automatic validation for any constraint expressed by a generic constraint language conforming to an ontology describing constraint languages.
-If we transform a specific constraint (expressed by any DSCL) into a generic constraint (expressed by the generic constraint language), we will be able to validate the generic constraint and therefore the specific constraint immediately. 
-As a consequence, we do not have to specify an automatic validation for each specific constraint, as we need to define an automatic validation once for each generic constraint. The underlying SPARQL query is executed within the SPIN validation environment:
+We implemented the automatic validation for the cardinality restriction expressed by the generic constraint language within our SPIN validation environment (see SPARQL query above):
 
 \begin{ex}
 # constraint
 # ----------
-?propertyConstraint
-    a gclo:PropertyConstraint ;
-    gclo:contextConcept ?contextConcept ;
-    gclo:propertyList ( ?property ) ;
-    gclo:concept ?concept ;
-    gclo:constrainingElement ?constrainingElement ;
-    gclo:constrainingValue ?constrainingValue .
+[   a PropertyConstraint ;
+    contextClass ?cc ;
+    leftProperties ( ?p1 ) ;
+    classes ( ?c1 ) ;
+    constrainingElement ">=" ;
+    constrainingValue ?cv ] .
 		
 # data
 # ----
-?this ?property ?o .
-?this rdf:type ?contextConcept .
+?subject rdf:type ?cc .
 
-# validation ( at-least restriction )
+# validation
 # -----
-FILTER ( ?constrainingElement = "\geq" ) .
-BIND ( owl2spin:qualifiedCardinality( ?this, ?property, ?concept ) AS ?c ) .
-BIND( STRDT ( STR ( ?constrainingValue ), xsd:nonNegativeInteger ) AS ?MinimumCardinality )
-BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality )
-FILTER ( ?cardinality < ?MinimumCardinality ) .		  
+BIND ( qualifiedCardinality( ?subject, ?p1, ?c1 ) AS ?c ) .
+FILTER ( ?c < ?cv ) .		  
 \end{ex}
+
+If we transform a specific constraint (expressed by any constraint language) into a generic constraint (expressed by the generic constraint language), we will be able to validate the generic constraint and therefore the specific constraint immediately. 
+As a consequence, we do not have to specify an automatic validation for each specific constraint, as we need to define an automatic validation only once for each generic constraint. 
+We have to provide an automatic validation for each generic constraint in order to support the automatic validation for each specific constraint.
 
 When domain experts use graphical user interfaces to define constraints in a user-friendly way, 
 these constraints can be either mapped to either a specific or a generic constraint, as for both an automatic validation is provided in the background.    
-So, the user does not have to know how to express specific constraints using a DSCL such as OWL 2, DSP, or ShEx.
-If there is a new constraint not covered by any DSCL you can just define the automatic validation for this newly defined constraint.
-This way, you are able to extend existing DSCL and to define new DSCL if existing DSCLs are not sufficient for further use cases.
+So, the user does not have to know how to express specific constraints using a constraint language such as OWL 2, DSP, or ShEx.
+If there is a new constraint not covered by any constraint language you can just define the automatic validation for this newly defined constraint.
+This way, you are able to extend existing constraint language and to define new constraint language if existing constraint languages are not sufficient for further use cases.
 
-Our \textbf{contributions} of this paper are:
+The \textbf{contributions} of this paper are:
 \begin{itemize}
-	\item each constraint (expressed by any DSCL) can be validated automatically
-	\item any specific constraint (expressed by any DSCL) can be transformed into a generic constraint (expressed by a generic constraint language)
-	\item We define the terminology for RDF constraints
-	\item we developed an ontology describing any constraint language
+	%\item Any specific constraint (expressed by any constraint language) can be transformed into a generic constraint (expressed by the generic constraint language)
+	%\item Any specific constraint (expressed by any constraint language A) can be transformed into any specific constraint (expressed by any constraint language B)
+	%\item Any specific constraint (expressed by any constraint language) can be validated automatically (if an automatic validation is defined only once for corresponding generic constraint)
+	\item We define a terminology for RDF constraints and constraining languages
+	\item We developed an ontology describing any RDF constraint which can also be expressed by any constraint language
+	\item We show how ...
+\end{itemize}
+
+The \textbf{benefits} of our framework are:
+\begin{itemize}
+	\item Any specific constraint (expressed by any constraint language) can be transformed into a generic constraint (expressed by the generic constraint language)
+	\item Any specific constraint (expressed by any constraint language A) can be transformed into any specific constraint (expressed by any constraint language B)
+	\item Any specific constraint (expressed by any constraint language) can be validated automatically (if an automatic validation is defined only once for corresponding generic constraint)
 \end{itemize}
 
 Benefits:
 \begin{itemize}
-	\item GCL with only 6 elements
-	\item if a language designer develops a new DSCL the language designer only needs to define a mapping between the new DSCL and the GCLO 
-	in order to be able to automatically validate the new DSCL constraints
+	\item if a language designer develops a new constraint language the language designer only needs to define a mapping between the new constraint language and the GCLO 
+	in order to be able to automatically validate the new constraint language constraints
 \end{itemize}
 
 \begin{itemize}
-	\item relationship to requirement
-	\item interoperability between constraint languages
   \item express constraint in CL A and translate constraint in CL B
-  \item provide SPARQL validation (SPIN mapping) for each general C 
 \end{itemize}
 
+\textcolor{red}{paper organization}
+
 \section{An Ontology Describing RDF Constraints Generically} 
+\label{sec:ontology}
 
 We developed a very simple ontology (three classes, three object properties, and three data properties) which is universal enough to describe any RDF constraint expressible by any RDF constraint language.
 We distinguish between two sub-types of \ms{constraint}: 
