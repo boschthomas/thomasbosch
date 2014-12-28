@@ -116,22 +116,23 @@
 
 %
 %
-\title{XXXXX}
+\title{Formulating and Validating RDF Constraints Generically}
+%\subtitle{}
 %
 \titlerunning{XXXXX}  % abbreviated title (for running head)
 %                                     also used for the TOC unless
 %                                     \toctitle is used
 %
-\author{XXXXX\inst{1} \and XXXXX\inst{2}}
+\author{Thomas Bosch\inst{1} \and X\inst{2} \and X\inst{2} \and X\inst{2} \and Kai Eckert\inst{2}}
 %
 \authorrunning{XXXXX} % abbreviated author list (for running head)
 %
 %%%% list of authors for the TOC (use if author list has to be modified)
-\institute{XXXXX\\
-\email{XXXXX},\\ 
+\institute{GESIS – Leibniz Institute for the Social Sciences, Germany\\
+\email{thomas.bosch@gesis.org},\\ 
 \and
-XXXXX \\
-\email{XXXXX} 
+University of Mannheim, Germany \\
+\email{\{kai\}@informatik.uni-mannheim.de} 
 }
 
 \maketitle              % typeset the title of the contribution
@@ -147,15 +148,35 @@ XXXXX \\
 
 \section{Introduction}
 
-\section{Notes}
+\begin{itemize}
+	\item requirements database
+	\item relationship between requirements and constraints
+\end{itemize}
+
+\section{Ideas}
 
 \begin{itemize}
-	\item requirements / constraints mapped to DL
-	\item requirements / constraints which cannot be mapped to DL
-	\item syntactic sugar for some constraints
-	\item complex constraints encompass complex constraints and simple constraints
-	\item DL statements of complex constraints are created out of DL statements of composed constraints 
-	\item define terminology for RDF constraints
+	\item the majority of specific constraints expressed by any specific constraint language can be expressed by DL
+	\item each DL statement can be expressed by a generic constraint using a generic constraint language
+\end{itemize}
+
+purpose:
+\begin{itemize}
+	\item translations of specific constraints expressed by any specific constraint language
+	\item we do not invent a new constraint languages
+\end{itemize}
+
+%constraint design patterns:
+% - ontology design pattern.org
+% - DSP uses other design pattern
+% - constraint elements are the same / 
+% - constraint / constraint elements / constraint design patterns / constraint language
+
+%dependency between requirements / when this requirements is fulfilled then this is also fulfilled (e.g. min card and requ. car)
+%min car more powerful than req. propery
+
+\begin{itemize}
+	\item any specific constraint (expressed by specific constraint language) must be mapped to a generic constraint (expressed by GCL)
 \end{itemize}
 
 \section{Motivation}
@@ -288,11 +309,12 @@ If there is a new constraint not covered by any DSCL you can just define the aut
 This way, you are able to extend existing DSCL and to define new DSCL if existing DSCLs are not sufficient for further use cases.
 
 Our \textbf{contributions} of this paper are:
-\begin{enumerate}
+\begin{itemize}
 	\item each constraint (expressed by any DSCL) can be validated automatically
 	\item any specific constraint (expressed by any DSCL) can be transformed into a generic constraint (expressed by a generic constraint language)
+	\item We define the terminology for RDF constraints
 	\item we developed an ontology describing any constraint language
-\end{enumerate}
+\end{itemize}
 
 Benefits:
 \begin{itemize}
@@ -308,56 +330,9 @@ Benefits:
   \item provide SPARQL validation (SPIN mapping) for each general C 
 \end{itemize}
 
-\section{Ideas}
+\section{An Ontology Describing RDF Constraints Generically} 
 
-idea:
-\begin{itemize}
-	\item each specific constraint expressed using any domain specific language can be expressed as DL constraint using DL
-	\item each DL constraint can be expressed as generic constraint using generic constraint language
-	\item meta-model based ontology describing constraints
-	\item possible limitation: maybe only typical constraints
-\end{itemize}
-
-purpose:
-\begin{itemize}
-	\item translations of constraints expressed using any domain specific constraint language
-\end{itemize}
-
-contributions:
-\begin{itemize}
-	\item 
-\end{itemize}
-
-assumption:
-\begin{itemize}
-	\item CWA
-\end{itemize}
-
-
-ontology design pattern.org
-constraint grammar
-constraint elements are the same
-DSP uses other design pattern / 
-constraint / constraint elements / constraint design patterns / constraint language
-define terminology
-related to requirements DB / relate requirements to constraints, constraint languages
-constraint element: e.g. min cardinality
-dependency between requirements / when this requirements is fulfilled then this is also fulfilled (e.g. min card and requ. car)
-min car more powerful than req. propery
-why ontology? automatic translation from DSP to OWL 
-define general constraint language
-we do not invent a new constraint languages
-requirements in SPARQL umsetzten
-only one validation for each requirement
-constraints may be composed 
-
-\begin{itemize}
-	\item any specific constraint (expressed by DSCL) must be mapped to a generic constraint (expressed by GCL)
-\end{itemize}
-
-\section{An Ontology Describing Constraint Languages} 
-
-We developed an ontology to describe any constraint language.
+We developed a very simple ontology (three classes, three object properties, and three data properties) which is universal enough to describe any RDF constraint expressible by any RDF constraint language.
 We distinguish between two sub-types of \ms{constraint}: 
 \begin{itemize}
 	\item \ms{property constraints} and 
@@ -400,6 +375,9 @@ i.e., restricting the objects, the property \ms{commandsVessel} point to, to be 
 
 \section{Complex Constraints}
 
+Complex constraints encompass complex constraints and simple constraints.
+DL statements of complex constraints are created out of DL statements of composed constraints. 
+
 \subsection{Disjoint Classes}
 
 \begin{DL}
@@ -416,6 +394,10 @@ $FederationCaptain \sqsubseteq Federation \sqcap \geq1 commandsVessel . Vessel $
 
 \section{Syntactic Sugar}
 
+\begin{itemize}
+	\item syntactic sugar for some constraints
+\end{itemize}
+
 In Section 1.3 we introduced three forms of RBox axioms: role inclusions, role equiv-
 alences and role disjointness. OWL provides a variety of others, namely role transi-
 tivity, symmetry, asymmetry, reflexivity and irreflexivity. These are sometimes consid-
@@ -426,9 +408,12 @@ of DLs that we have already introduced.
 
 \begin{itemize}
   \item domain and range
+	\item Primary Key Properties
 	\item (ir)reflexive object properties
 	\item Exact Qualified Cardinality Restrictions on Properties
 \end{itemize}
+
+\section{Constraints Expressible in DL}
 
 \section{Constraints Not Expressible in DL}
 
@@ -469,6 +454,18 @@ class & RegistryNumber & - & - & xsd:string & regex & 'NCC-1701([-][A-E])?' \\
 The \ms{Literal Pattern Matching} constraint introduces a new constraining element: \ms{regex}.
 For this new constraining element, an automatic validation must be implemented in SPIN.
 This has to be done once for each constraint which cannot be expressed in DL.
+
+\section{Implementation}
+
+\section{Limitations}
+
+\begin{itemize}
+	\item in order to transform specific constraint languages, there must be a concrete syntax in RDF
+\end{itemize}
+
+\section{Related Work}
+
+\section{Conclusion and Future Work}
 
 \bibliography{../../literature/literature}{}
 \bibliographystyle{plain}
