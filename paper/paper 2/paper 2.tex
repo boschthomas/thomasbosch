@@ -82,6 +82,22 @@
 	\end{center}
 }
 
+\newenvironment{evaluation}{
+  %\scriptsize
+  %\sffamily
+  %\vspace{0.3cm}
+	\begin{center}
+  \begin{tabular}{l|c|c|c|c|c|c}
+  \hline
+  \textbf{Constraint Class} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\
+  \hline
+
+}{
+  \hline
+  \end{tabular}
+	\end{center}
+}
+
 \usepackage{xspace}
 % Einfache und doppelte Anfuehrungszeichen
 \newcommand{\qs}{``} 
@@ -362,7 +378,7 @@ i.e., restricting the objects, the property \ms{commandsVessel} point to, to be 
 
 \section{Complex Constraints}
 
-\ms{Complex constraints} encompass complex constraints and \ms{simple constraints} (atomic constraints).
+\ms{Complex constraints} encompass complex constraints and/or \ms{simple constraints} (atomic constraints).
 DL statements of complex constraints are created out of DL statements of composed constraints. 
 
 \textbf{Context-Specific Exclusive OR of Property Groups}\footnote{corresponds to R-13-DISJOINT-GROUP-OF-PROPERTIES-CLASS-SPECIFIC}\textbf{.}
@@ -475,29 +491,17 @@ of DLs that we have already introduced.
 	\item ( Exact Qualified Cardinality Restrictions on Properties )
 \end{itemize}
 
-\textbf{Context-Specific Exclusive OR of Property Groups.}
-\begin{gcotable}
-class & Half-Klingon & - & - & E, F & XOR \\
-class & E & - & - & A, B & $\sqcap$ \\
-class & F & - & - & C, D & $\sqcap$ \\
-property & A & klingonMother & - & Klingon & = & 1 \\
-property & B & humanFather & - & Human & = & 1 \\
-property & C & humanMother & - & Human & = & 1 \\
-property & D & klingonFather & - & Klingon & = & 1 \\
-\end{gcotable}
-
 \section{Transformations between Specific Constraints}
 
 \section{Automatic Validation of Specific Constraints}
 
-\section{Constraints Expressible in DL}
+\section{Simple Constraints Not Expressible in DL}
 
-\section{Constraints Not Expressible in DL}
-
-There are constraints which cannot be expressed by DL such as literal pattern matching, literal value comparison, literal ranges, default values, and language tag cardinality \cite{BoschNolleAcarEckert2015}.
+There are simple constraints which cannot be expressed by DL such as literal pattern matching, literal value comparison, literal ranges, default values, and language tag cardinality \cite{BoschNolleAcarEckert2015}.
 
 % maybe additional constraint default values:
 % ear shape of races, e.g. vulcans / teeth color
+% mathematical operations
 
 There are multiple use cases associated with the requirement to match literals according to given patterns (\ms{Literal Pattern Matching} constraint).
 The enterprise vessel, e.g.,  can only have the registry numbers "NCC-1701", "NCC-1701-A", "NCC-1701-B", "NCC-1701-C", "NCC-1701-D", or "NCC-1701-E".
@@ -539,6 +543,18 @@ This has to be done once for each constraint which cannot be expressed in DL.
 \begin{itemize}
 	\item in order to transform specific constraint languages, there must be a concrete syntax in RDF
 \end{itemize}
+
+\section{Evaluation}
+
+We evaluated to which extend the most promising five constraint languages fulfill each requirement to formulate RDF constraints \cite{BoschNolleAcarEckert2015}.
+If a constraint can be expressed in DL, we added the mapping to DL and to the generic constraint.
+If a constraint cannot be expressed in DL, we added a mapping to the generic constraint.
+Therefore, we show that each constraint can be mapped to a generic constraint.
+
+\begin{evaluation}
+\ms{Expr-C} (41) & 6 & 18(4) & 7(4) & 8 & 12 & 40(1)\\
+\ms{Expr-R} (33) & 8 & 29 & 11 & 11(2) & 11(1) & 33 \\ 
+\end{evaluation}
 
 \section{Related Work}
 

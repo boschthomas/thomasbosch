@@ -2367,7 +2367,7 @@ Sith $\equiv$ $\neg$ $\exists$ laserSwordColor . \{blue, green, white\} \\
 
 \begin{gcotable}
 property & $\exists$ laserSwordColor . LaserSwordColor & laserSwordColor & - & LaserSwordColor & $\exists$ & - \\
-class & Jedi & - & - & $\exists$ laserSwordColor . LaserSwordColor & $\neg$ & - \\
+class & Sith & - & - & $\exists$ laserSwordColor . LaserSwordColor & $\neg$ & - \\
 class & LaserSwordColor & - & - & $\{blue\}$, $\{green\}$, $\{white\}$ & $\sqcup$ & - \\
 \end{gcotable}
 
@@ -2886,9 +2886,16 @@ requirements:
 
 \subsection{Simple Example}
 
+Define the order of the property \ms{listElement} for the class \ms{rdf:List}.
+List elements are of datatype \ms{xsd:string}.
+
 \begin{DL}
 Not expressible in DL!
 \end{DL}
+
+\begin{gcotable}
+property & rdf:List & listElement & - & xsd:string & order & 1 \\
+\end{gcotable}
 
 \section{Validation Levels}
 
@@ -2900,8 +2907,6 @@ requirements:
 	\item R-158-SEVERITY-LEVELS-OF-CONSTRAINT-VIOLATIONS
 	\item R-193-MULTIPLE-CONSTRAINT-VALIDATION-EXECUTION-LEVELS
 \end{itemize}
-
-
 
 \begin{itemize}
   \item Different levels of severity, priority
@@ -2922,8 +2927,6 @@ requirement:
 	\item R-194-PROVIDE-STRING-FUNCTIONS-FOR-RDF-LITERALS
 \end{itemize}
 
-
-
 \begin{itemize}
 	\item Some constraints require building new strings out of other strings
 \end{itemize}
@@ -2936,9 +2939,15 @@ examples:
 
 \subsection{Simple Example}
 
+The length of strings of the property \ms{hasISBN} for the context class \ms{Book} must be exactly 3.
+
 \begin{DL}
 Not expressible in DL!
 \end{DL}
+
+\begin{gcotable}
+property & Book & hasISBN & - & xsd:string & length & 3 \\
+\end{gcotable}
 
 \section{Context-Specific Valid Classes}
 
@@ -2954,7 +2963,15 @@ requirements:
 
 \subsection{Simple Example}
 
-I'm not sure about the meaning of this constraint, but for me this seams like e.g. the range of a role... but if this is the case, take into account the consequences of reasoning with OWA...
+Within the context \ms{AP} (application profile) the classes \ms{Book} and \ms{Paper} are valid.
+
+\begin{DL}
+Not expressible in DL!
+\end{DL}
+
+\begin{gcotable}
+class & AP & - & - & Book, Paper & context-specific valid classes & true \\
+\end{gcotable}
 
 \section{Context-Specific Valid Properties}
 
@@ -2970,7 +2987,15 @@ requirements:
 
 \subsection{Simple Example}
 
-I'm not sure about the meaning of this constraint, but for me this seams like e.g. the domain of a role... but if this is the case, take into account the consequences of reasoning with OWA...
+Within the context \ms{AP} (application profile) the properties \ms{dcterms:subject} and \ms{dcterms:title} are invalid.
+
+\begin{DL}
+Not expressible in DL!
+\end{DL}
+
+\begin{gcotable}
+property & AP & dcterms:subject, dcterms:title & - & - & context-specific valid properties & false \\
+\end{gcotable}
 
 \section{Default Values}
 
@@ -3073,9 +3098,15 @@ examples:
 
 \subsection{Simple Example}
 
+Calculate rectangle areas.
+
 \begin{DL}
-Not Expressible in DL!
+Not expressible in DL!
 \end{DL}
+
+\begin{gcotable}
+property & Rectangle & area & width, height & xsd:integer & multiplication & - \\
+\end{gcotable}
 
 \section{Language Tag Matching}
 
@@ -3209,37 +3240,44 @@ property & c & p & - & - & HTML & - \\
 
 \section{Required Properties}
 
-requirements:
-
-\begin{itemize}
-	\item R-68-REQUIRED-PROPERTIES
-\end{itemize}
-
-
+\ms{Required Properties} corresponds to the requirement \ms{R-68-REQUIRED-PROPERTIES}.
 
 \subsection{Simple Example}
+
+For persons the property \ms{hasAncestor} has to be stated pointing to persons.
 
 \begin{DL}
 $Person \sqsubseteq \exists hasAncestor.Person$
 \end{DL}
 
+\begin{gcotable}
+property & Person & hasAncestor & - & Person & $\exists$ & - \\
+\end{gcotable}
+
 \section{Optional Properties}
 
-requirements:
-
-\begin{itemize}
-	\item R-69-OPTIONAL-PROPERTIES
-\end{itemize}
-
-
+\ms{Optional Properties} corresponds to the requirement \ms{R-69-OPTIONAL-PROPERTIES}.
 
 \subsection{Simple Example}
+
+For persons the property \ms{hasAncestor} pointing to persons is optional.
 
 \begin{DL}
 $\exists hasAncestor.Person \sqsubseteq Person$ \\
 \end{DL}
 
 Same as the definition of domains.
+
+\begin{gcotable}
+property & $\exists$ hasAncestor.Person & hasAncestor & - & Person & $\exists$ & - \\
+class & Person & - & - & $\exists$ hasAncestor.Person & $\sqsubseteq$ & - \\
+\end{gcotable}	
+
+syntactic sugar:
+
+\begin{gcotable}
+property & Person & hasAncestor & - & Person & optional & - \\
+\end{gcotable}
 
 \section{Repeatable Properties}
 
