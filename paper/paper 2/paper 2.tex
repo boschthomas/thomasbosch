@@ -362,8 +362,83 @@ i.e., restricting the objects, the property \ms{commandsVessel} point to, to be 
 
 \section{Complex Constraints}
 
-Complex constraints encompass complex constraints and simple constraints.
+\ms{Complex constraints} encompass complex constraints and \ms{simple constraints} (atomic constraints).
 DL statements of complex constraints are created out of DL statements of composed constraints. 
+
+\textbf{Context-Specific Exclusive OR of Property Groups}\footnote{corresponds to R-13-DISJOINT-GROUP-OF-PROPERTIES-CLASS-SPECIFIC}\textbf{.}
+Exclusive or is a logical operation that outputs true whenever both inputs differ (one is true, the other is false).
+Only one of multiple property groups should be present in the data.
+Half-Klingons, e.g., either have a klingon mother and a human father or a human mother and a klingon father, which can be expressed by ShEx:
+
+\begin{ex}
+Half-Klingon { 
+    ( klingonMother Klingon , humanFather Human ) |
+    ( humanMother Human , klingonFather Klingon ) }
+\end{ex}
+
+As \ms{B'Elanna Torres} is a \ms{Half-Klingon} with a klingon mother and a human father, this data is valid:
+
+\begin{ex}
+BElannaTorres a Half-Klingon ;
+    klingonMother Miral ; humanFather JohnTorres .
+\end{ex}
+
+%\begin{DL}
+%rdf:type(BElannaTorres,Half-Klingon) \\
+%klingonMother(BElannaTorres,Miral) \\
+%klingonMother(BElannaTorres,JohnTorres)
+%\end{DL}
+
+This complex constraint can be mapped to DL:
+
+\begin{DL}
+Half-Klingon $\sqsubseteq$ ($\neg$E $\sqcap$ F) $\sqcup$ (E $\sqcap$ $\neg$F) \\ 
+E $\equiv$ A $\sqcap$ B \\
+F $\equiv$ C $\sqcap$ D \\
+A $\sqsubseteq$ $\geq$ 1 klingonMother.Klingon $\sqcap$ $\leq$ 1 klingonMother.Klingon \\
+B $\sqsubseteq$ $\geq$ 1 humanFather.Human $\sqcap$ $\leq$ 1 humanFather.Human \\
+C $\sqsubseteq$ $\geq$ 1 humanMother.Human $\sqcap$ $\leq$ 1 humanMother.Human \\
+D $\sqsubseteq$ $\geq$ 1 klingonFather.Klingon $\sqcap$ $\leq$ 1 klingonFather.Klingon \\
+\end{DL}
+
+The constraint expressed by DL can be mapped to a generic constraint:
+
+\begin{gcotable}
+class & Half-Klingon & - & - & $\neg$E $\sqcap$ F, E $\sqcap$ $\neg$F & $\sqcup$ & - \\
+class & $\neg$E $\sqcap$ F & - & - & $\neg$E, F & $\sqcap$ & - \\
+class & E $\sqcap$ $\neg$F & - & - & E, $\neg$F & $\sqcap$ & - \\
+class & $\neg$E & - & - & E & $\neg$ & - \\
+class & E & - & - & A, B & $\sqcap$ & - \\
+class & $\neg$F & - & - & F & $\neg$ & - \\
+class & F & - & - & C, D & $\sqcap$ & - \\
+class & A & - & - & A1, A2 & $\sqcap$ & - \\
+property & A1 & klingonMother & - & Klingon & $\geq$ & 1 \\
+property & A2 & klingonMother & - & Klingon & $\leq$ & 1 \\
+class & B & - & - & B1, B2 & $\sqcap$ & - \\
+property & B1 & humanFather & - & Human & $\geq$ & 1 \\
+property & B2 & humanFather & - & Human & $\leq$ & 1 \\
+class & C & - & - & C1, C2 & $\sqcap$ & - \\
+property & C1 & humanMother & - & Human & $\geq$ & 1 \\
+property & C2 & humanMother & - & Human & $\leq$ & 1 \\
+class & D & - & - & D1, D2 & $\sqcap$ & - \\
+property & D1 & klingonFather & - & Klingon & $\geq$ & 1 \\
+property & D2 & klingonFather & - & Klingon & $\leq$ & 1 \\
+\end{gcotable}
+
+Even though, tools may generate generic constraints automatically, this complex constraint is composed of many other complex (e.g. minimum and maximum qualified cardinality restrictions) and simple constraints (e.g. constraints on sets).
+As \ms{exact (un)qualified cardinality restrictions} and \ms{exclusive or} are frequently used complex constraints,
+we propose using them as simple constraints - 	in terms of syntactic sugar.
+As a consequence, the \ms{Context-Specific Exclusive OR of Property Groups} constraint above is represented as a generic constraint more intuitively and concisely:
+
+\begin{gcotable}
+class & Half-Klingon & - & - & E, F & XOR \\
+class & E & - & - & A, B & $\sqcap$ \\
+class & F & - & - & C, D & $\sqcap$ \\
+property & A & klingonMother & - & Klingon & = & 1 \\
+property & B & humanFather & - & Human & = & 1 \\
+property & C & humanMother & - & Human & = & 1 \\
+property & D & klingonFather & - & Klingon & = & 1 \\
+\end{gcotable}
 
 \subsection{Disjoint Classes}
 
@@ -397,8 +472,19 @@ of DLs that we have already introduced.
   \item domain and range
 	\item Primary Key Properties
 	\item (ir)reflexive object properties
-	\item Exact Qualified Cardinality Restrictions on Properties
+	\item ( Exact Qualified Cardinality Restrictions on Properties )
 \end{itemize}
+
+\textbf{Context-Specific Exclusive OR of Property Groups.}
+\begin{gcotable}
+class & Half-Klingon & - & - & E, F & XOR \\
+class & E & - & - & A, B & $\sqcap$ \\
+class & F & - & - & C, D & $\sqcap$ \\
+property & A & klingonMother & - & Klingon & = & 1 \\
+property & B & humanFather & - & Human & = & 1 \\
+property & C & humanMother & - & Human & = & 1 \\
+property & D & klingonFather & - & Klingon & = & 1 \\
+\end{gcotable}
 
 \section{Transformations between Specific Constraints}
 
