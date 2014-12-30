@@ -190,18 +190,7 @@ University of Mannheim, Germany \\
 	\item constraint languages
 \end{itemize}
 
-\section{Ideas}
-
-\begin{itemize}
-	\item the majority of specific constraints expressed by any specific constraint language can be expressed by DL
-	\item each DL statement can be expressed by a generic constraint using a generic constraint language
-\end{itemize}
-
-purpose:
-\begin{itemize}
-	\item translations of specific constraints expressed by any specific constraint language
-	\item we do not invent a new constraint languages
-\end{itemize}
+%\section{Ideas}
 
 %constraint design patterns:
 % - ontology design pattern.org
@@ -211,10 +200,6 @@ purpose:
 
 %dependency between requirements / when this requirements is fulfilled then this is also fulfilled (e.g. min card and requ. car)
 %min car more powerful than req. propery
-
-\begin{itemize}
-	\item any specific constraint (expressed by specific constraint language) must be mapped to a generic constraint (expressed by GCL)
-\end{itemize}
 
 \section{Motivation}
 
@@ -337,7 +322,7 @@ The \textbf{contributions} of this paper are:
 	\item We developed an ontology describing any RDF constraint which can also be expressed by any constraint language
 	\item We present that any RDF constraint can be described by the developed ontology - whether the constraint can be expressed in DL or not 
 	\item We show how to transform specific constraints (expressed by any constraint language A) into generic constraints and into specific constraints (expressed by any other constraint language B)
-  \item We explain that any specific constraint can be validated automatically (if an automatic validation is defined only once for corresponding generic constraint)
+  \item We explain that any specific constraint can be validated automatically (if an automatic validation is defined only once for the corresponding generic constraint)
 \end{itemize}
 
 %The \textbf{benefits} of our framework are:
@@ -353,6 +338,7 @@ The \textbf{contributions} of this paper are:
 \label{sec:ontology}
 
 We developed a very simple ontology (three classes, three object properties, and three data properties) which is universal enough to describe any RDF constraint expressible by any RDF constraint language.
+Therefore, we do not invent a new constraint language.
 We distinguish between two sub-types of \ms{constraint}: 
 \begin{itemize}
 	\item \ms{property constraints} and 
@@ -510,8 +496,6 @@ of DLs that we have already introduced.
 
 \section{Transformations between Specific Constraints}
 
-\section{Automatic Validation of Specific Constraints}
-
 \section{Simple Constraints Not Expressible in DL}
 
 There are simple constraints which cannot be expressed by DL such as literal pattern matching, literal value comparison, literal ranges, default values, and language tag cardinality \cite{BoschNolleAcarEckert2015}.
@@ -570,7 +554,8 @@ We provide a mapping from the generic constraint language to SPIN\footnote{GCL S
 Part of future work will be 
 \begin{itemize}
 	\item to provide a GUI which generates generic constraints automatically according to inputs of domain experts who are not familiar with the formulation of constraints.
-	\item to extend our RDF validator to provide bidirectional transformations between specific constraints (expressed by multiple constraint languages) and generic constraints. 
+	\item to offer bidirectional transformations between specific constraints (expressed by multiple constraint languages) and generic constraints. 
+	\item to provide translations between specific constraints (expressed by any specific constraint language) by using generic constraints as an intermediate transformation step.
 \end{itemize}
 
 \section{Evaluation}
@@ -602,7 +587,7 @@ Constraints may be either atomic (\ms{simple constraints}) or created out of sim
 Almost two thirds are simple constraints, a quarter are complex constraints.
 Almost 15 percent are complex constraints which can be formulated as simple constraints when used in terms of syntactic sugar.
 Constraints can either be expressible in DL or not.
-Nearly 70\% of the overall constraints are expressible in DL.	
+The majority - nearly 70\% - of the overall constraints are expressible in DL.	
 
 \section{Related Work}
 
