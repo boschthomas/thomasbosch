@@ -555,10 +555,23 @@ This has to be done once for each constraint which cannot be expressed in DL.
 
 \section{Implementation}
 
-\section{Limitations}
+SPARQL is generally seen as the method of choice to validate RDF data according to certain constraints, although it is not ideal for their formulation. 
+In contrast, OWL 2 and DSP constraints are comparatively easy to understand, but lack an implementation to validate RDF data. 
+DSPs are used to formulate constraints within a DCMI AP.
+Bosch and Eckert\cite{BoschEckert2014-2} use SPIN as basis to define a
+validation environment in which the validation of any constraint language\footnote{the only limitation is that constraint languages must be represented in RDF} can be implemented by representing them in SPARQL. 
+The validation implementation of constraint languages is fully declarative,
+consisting of a mapping from constraint languages to SPIN in form of SPARQL CONSTRUCT queries.
+SPIN represents both the SPIN mappings and the SPARQL queries in RDF. 
+Within the validation environment, we fully implemented an automatic validation of all OWL 2 DL\footnote{OWL 2 SPIN mapping: \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}} and DSP\footnote{DSP SPIN mapping: \url{https://github.com/dcmi/DSP-SPIN-Mapping}} constructs (for the complete DSP validation see \cite{BoschEckert2014-2}). 
+The implementation can be tested at \url{http://purl.org/net/rdfval-demo}.
+The SPIN engine checks for each resource in the RDF data if the resource satisfies all defined constraints and generates a result RDF graph containing information about all constraint violations.
 
+We provide a mapping from the generic constraint language to SPIN in order to automatically validate each type of generic constraint (simple, complex, property, and class constraints).
+Part of future work will be 
 \begin{itemize}
-	\item in order to transform specific constraint languages, there must be a concrete syntax in RDF
+	\item to provide a GUI which generates generic constraints automatically according to inputs of domain experts who are not familiar with the formulation of constraints.
+	\item to extend our RDF validator to provide bidirectional transformations between specific constraints (expressed by multiple constraint languages) and generic constraints. 
 \end{itemize}
 
 \section{Evaluation}
@@ -590,7 +603,7 @@ Constraints may be either atomic (\ms{simple constraints}) or created out of sim
 Almost two thirds are simple constraints, a quarter are complex constraints.
 Almost 15 percent are complex constraints which can be formulated as simple constraints when used in terms of syntactic sugar.
 Constraints can either be expressible in DL or not.
-Nearly 70\% of the overall constraints are expressible in DL.
+Nearly 70\% of the overall constraints are expressible in DL.	
 
 \section{Related Work}
 
