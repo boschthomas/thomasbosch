@@ -98,6 +98,23 @@
 	\end{center}
 }
 
+\newenvironment{evaluation-generic-overview}{
+  %\scriptsize
+  %\sffamily
+  %\vspace{0.3cm}
+	\begin{center}
+  \begin{tabular}{l|c|c}
+  \hline
+  \textbf{Constraint Classes} & \textbf{\#} & \textbf{\%} \\
+  \hline
+
+}{
+  \hline
+  \end{tabular}
+  \linebreak
+	\end{center}
+}
+
 \usepackage{xspace}
 % Einfache und doppelte Anfuehrungszeichen
 \newcommand{\qs}{``} 
@@ -546,15 +563,34 @@ This has to be done once for each constraint which cannot be expressed in DL.
 
 \section{Evaluation}
 
-We evaluated to which extend the most promising five constraint languages fulfill each requirement to formulate RDF constraints \cite{BoschNolleAcarEckert2015}.
+We evaluated to which extend the most promising five constraint languages fulfill each of the overall 74 requirements to formulate RDF constraints \cite{BoschNolleAcarEckert2015}.
 If a constraint can be expressed in DL, we added the mapping to DL and to the generic constraint.
 If a constraint cannot be expressed in DL, we added a mapping to the generic constraint.
 Therefore, we show that each constraint can be mapped to a generic constraint.
+The following table shows the absolute number and the relative percentage for the three dimensions to classify constraints:
 
-\begin{evaluation}
-\ms{Expr-C} (41) & 6 & 18(4) & 7(4) & 8 & 12 & 40(1)\\
-\ms{Expr-R} (33) & 8 & 29 & 11 & 11(2) & 11(1) & 33 \\ 
-\end{evaluation}
+\begin{evaluation-generic-overview}
+Property Constraints & 48 & 65 (64.86) \\
+Class Constraints & 17 & 23 (22.96) \\
+Property and Class Constraints & 9 & 12 (12.16) \\
+\hline
+Simple Constraints & 46 & 62 (62.16) \\
+Simple Constraints (Syntactic Sugar) & 10 & 14 (13.51) \\
+Complex Constraints & 18 & 24 (24.32) \\
+\hline
+DL Expressible & 51 & 69 (68.92) \\
+DL Not Expressible & 23 & 31 (31.08) \\
+\hline
+Total & 74 & 100 \\
+\end{evaluation-generic-overview}
+
+Constraints can be classified as \ms{property constraints} and \ms{class constraints}.
+Two thirds are property constraints, one fifth class constraints, and approx. 10\% are composed of both property and class constraints.
+Constraints may be either atomic (\ms{simple constraints}) or created out of simple and complex constraints (\ms{complex constraints}).
+Almost two thirds are simple constraints, a quarter are complex constraints.
+Almost 15 percent are complex constraints which can be formulated as simple constraints when used in terms of syntactic sugar.
+Constraints can either be expressible in DL or not.
+Nearly 70\% of the overall constraints are expressible in DL.
 
 \section{Related Work}
 

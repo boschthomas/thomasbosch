@@ -131,6 +131,40 @@
 	\end{center}
 }
 
+\newenvironment{evaluation-generic}{
+  \scriptsize
+  \sffamily
+  \vspace{0.3cm}
+	\begin{center}
+  \begin{tabular}{l|c|c|c}
+  \hline
+  \textbf{constraint} & \textbf{property c.} & \textbf{simple c.} & \textbf{DL} \\
+  \hline
+
+}{
+  \hline
+  \end{tabular}
+  \linebreak
+	\end{center}
+}
+
+\newenvironment{evaluation-generic-overview}{
+  \scriptsize
+  \sffamily
+  \vspace{0.3cm}
+	\begin{center}
+  \begin{tabular}{l|c|c}
+  \hline
+  \textbf{Constraint Classes} & \textbf{\#} & \textbf{\%} \\
+  \hline
+
+}{
+  \hline
+  \end{tabular}
+  \linebreak
+	\end{center}
+}
+
 \usepackage{xspace}
 % Einfache und doppelte Anfuehrungszeichen
 \newcommand{\qs}{``} 
@@ -3281,38 +3315,53 @@ property & Person & hasAncestor & - & Person & optional & - \\
 
 \section{Repeatable Properties}
 
-requirements:
-
-\begin{itemize}
-	\item R-70-REPEATABLE-PROPERTIES
-\end{itemize}
+\ms{Repeatable Properties} corresponds to the requirement \ms{R-70-REPEATABLE-PROPERTIES}.
 
 \subsection{Simple Example}
+
+The property \ms{commandsVessel} is repeatable for individuals of the class \ms{Captain}.
+
+\begin{DL}
+$Captain \sqsubseteq \geq1 commandsVessel.\top $
+\end{DL}
+
+\begin{gcotable}
+property & Captain & commandsVessel & - & $\top$ & $\geq$ & 1 \\
+\end{gcotable}
+
+syntactic sugar:
+
+\begin{gcotable}
+property & Captain & commandsVessel & - & $\top$ & repeatable & - \\
+\end{gcotable}
 
 \section{Conditional Properties}
 
-requirements:
+\ms{Conditional Properties} corresponds to the requirement \ms{R-71-CONDITIONAL-PROPERTIES}.
+
+Multiple conditions are possible:
 
 \begin{itemize}
-	\item R-71-CONDITIONAL-PROPERTIES
-\end{itemize}
-
-\begin{itemize}
-	\item various conditions possible
-  \item condition: universal quantification on object and data properties
-  \item condition: existential quantification on object and data properties
-  \item condition: if specific properties are present, then specific other properties also have to be present
+  \item universal quantification on object and data properties,
+  \item existential quantification on object and data properties,
+  \item if specific properties are present, then specific other properties also have to be present
 \end{itemize}
 
 \subsection{Simple Example}
 
+If an individual has a \ms{parentOf} property relationship, then this individual also has a \ms{ancestorOf} property relationship.
+
+\begin{DL}
+parentOf $\sqsubseteq$ ancestorOf 
+\end{DL}
+
+\begin{gcotable}
+property & $\top$ & parentOf & ancestorOf & $\top$ & $\sqsubseteq$ \\
+\end{gcotable}
+
 \section{Recommended Properties}
 
-requirements:
-
-\begin{itemize}
-	\item R-72-RECOMMENDED-PROPERTIES
-\end{itemize}
+\ms{Recommended Properties} corresponds to the requirement \ms{R-72-RECOMMENDED-PROPERTIES}.
 
 \subsection{Simple Example}
 
@@ -3408,8 +3457,6 @@ requirement:
 	\item R-120-HANDLE-RDF-COLLECTIONS
 \end{itemize}
 
-
-
 examples:
 
 \begin{itemize}
@@ -3424,9 +3471,7 @@ examples:
 
 \subsection{Example}
 
-\begin{itemize}
-	\item get 2. list element
-\end{itemize}
+get 2. list element
 
 \begin{ex}
 # SPIN
@@ -3480,6 +3525,18 @@ BIND ( :getListItem( ?list, "1"xsd:nonNegativeInteger ) AS ?listItem ) .
 Not expressible in DL!
 \end{DL}
 
+\subsection{Simple Example}
+
+Append a string list element 'list element' to a list the property \ms{p} of the class \ms{C} is pointing to.
+
+\begin{DL}
+Not expressible in DL!
+\end{DL}
+
+\begin{gcotable}
+property & C & p & - & xsd:string & append list element & 'list element' \\
+\end{gcotable}
+
 \section{Recursive Queries}
 
 requirements:
@@ -3509,14 +3566,18 @@ sounds manageable to me.
 \begin{ex}
 # ShEx
 # ----
-<IssueShape> {
-    :related @<IssueShape>*
+IssueShape {
+    related @IssueShape*
 }
 \end{ex}
 
 \begin{DL}
-Not expressible in DL!
+$IssueShape \sqsubseteq \geq1 related.IssueShape $
 \end{DL}
+
+\begin{gcotable}
+property & IssueShape & related & - & IssueShape & $\geq$ & 1 \\
+\end{gcotable}
 
 \section{Value is Valid for Datatype}
 
@@ -3980,43 +4041,52 @@ examples:
   \item If one or more dc:coverage are present, suggest the use of one of its sub-properties, dcterms spatial or dcterms:temporal.
 \end{itemize}
 
+\subsection{Simple Example}
+
+If dc:date and one of its sub-properties dcterms:created or dcterms:issued are present, check that the value in dc:date is not redundant with dcterms:created or dcterms:issued for ingestion
+
 \begin{DL}
-Not sure if this is expressible in DL, I think not!
+Not expressible in DL!
 \end{DL}
 
-\an{not sure!}
+\begin{gcotable}
+property & $\top$ & dc:date & dcterms:created, dcterms:issued & - & not redundant & - \\
+\end{gcotable}
 
 \section{Cardinality Shortcuts}
 
-requirement:
-
+In most Library applications, cardinality shortcuts tend to appear in pairs, with repeatable / non-repeatable establishing maximum cardinality and optional / mandatory establishing minimum cardinality.
 \begin{itemize}
-	\item 
-\end{itemize}
-
-
-
-\begin{itemize}
-  \item In most Library applications, these tend to appear in pairs, with repeatable / non-repeatable establishing max cardinality and optional / mandatory establishing min cardinality.
 	\item Optional \& Non-Repeatable = [0,1]
   \item Optional \& Repeatable = [0,*]
   \item Mandatory \& Non-Repeatable = [1,1]
   \item Mandatory \& Repatable = [1,*]
 \end{itemize}
-
-\begin{DL}
-Not sure if the meaning of this constraint, probably it is the same as for cardinality restrictions?
-\end{DL}
-
-\an{not sure!}
+Can be expressed in DL using minimum and maximum cardinality restrictions.
+We propose to use syntactic sugar instead:
+\begin{gcotable}
+property & C & p & - & - & optional and non-repeatable & - \\
+\end{gcotable}
 
 \section{Aggregations}
 
 Some constraints require aggregating multiple values, especially via COUNT, MIN and MAX. 
 
+\subsection{Simple Example}
+
+\begin{DL}
+p = COUNT (q)
+\end{DL}
+
+Context class is \ms{C}.
+
 \begin{DL}
 Not expressible in DL
 \end{DL}
+
+\begin{gcotable}
+property & C & p & q & - & count & - \\
+\end{gcotable}
 
 \section{Evaluation}
 
@@ -4104,6 +4174,190 @@ Value is Valid for Datatype & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \d
 *Cardinality Shortcuts & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
 Aggregations & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 \end{evaluation-overall}
+
+\subsection{Generic Constraints}
+
+\begin{evaluation-generic-overview}
+Property Constraints & 48 & 65 (64.86) \\
+Class Constraints & 17 & 23 (22.96) \\
+Property and Class Constraints & 9 & 12 (12.16) \\
+\hline
+Simple Constraints & 46 & 62 (62.16) \\
+Simple Constraints (Syntactic Sugar) & 10 & 14 (13.51) \\
+Complex Constraints & 18 & 24 (24.32) \\
+\hline
+DL Expressible & 51 & 69 (68.92) \\
+DL Not Expressible & 23 & 31 (31.08) \\
+\hline
+Total & 74 & 100 \\
+\end{evaluation-generic-overview}
+
+legend of the detailed evaluation:
+\begin{itemize}
+	\item \ms{property constraint:} property constraint ($\checkmark$) vs. class constraint (\ding{55}) vs. property and class constraints ($\sim$) 
+	\item \ms{simple constraint:} simple constraint ($\checkmark$) vs. simple constraint [syntactic sugar] ($\sim$) vs. complex constraint (\ding{55})
+	\item \ms{DL:} expressible in DL ($\checkmark$) vs. not expressible in DL (\ding{55})
+\end{itemize}
+
+\begin{evaluation-generic}
+*Subsumption & \ding{55} & $\checkmark$ & $\checkmark$ \\ 
+*Class Equivalence & \ding{55} & \ding{55} & $\checkmark$ \\ 
+*Sub Properties & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
+*Property Domain & $\checkmark$ & $\sim$ & $\checkmark$ \\ 
+*Property Range & $\checkmark$ & $\sim$ & $\checkmark$ \\ 
+*Inverse Object Properties & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
+*Symmetric Object Properties & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
+*Asymmetric Object Properties & $\checkmark$ & $\sim$ & $\checkmark$ \\ 
+*Reflexive Object Properties & $\checkmark$ & $\sim$ & $\checkmark$ \\ 
+*Irreflexive Object Properties & $\checkmark$ & $\sim$ & $\checkmark$ \\
+Disjoint Properties & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
+Disjoint Classes & \ding{55} & \ding{55} & $\checkmark$ \\ 
+Context-Sp. Property Groups & $\sim$ & \ding{55} & $\checkmark$ \\  
+Context-Sp. Inclusive OR of P. & $\sim$ & \ding{55} & $\checkmark$ \\
+Context-Sp. Inclusive OR of P. Groups & $\sim$ & \ding{55} & $\checkmark$ \\ 
+Recursive Queries & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
+Individual Inequality & \ding{55} & \ding{55} & $\checkmark$ \\  
+*Equivalent Properties & $\checkmark$ & \ding{55} & $\checkmark$ \\   
+Property Assertions & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
+Data Property Facets & \ding{55} & $\checkmark$ & \ding{55} \\  
+Literal Pattern Matching & \ding{55} & $\checkmark$ & \ding{55} \\   
+Negative Literal Pattern Matching & \ding{55} & \ding{55} & \ding{55} \\ 
+*Object Property Paths & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
+*Intersection & \ding{55} & $\checkmark$ & $\checkmark$ \\  
+*Disjunction & \ding{55} & $\checkmark$ & $\checkmark$ \\ 
+*Negation & \ding{55} & $\checkmark$ & $\checkmark$ \\ 
+*Existential Quantification & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
+*Universal Quantification & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
+*Minimum Unqualified Cardinality & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
+*Minimum Qualified Cardinality & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
+*Maximum Unqualified Cardinality & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
+*Maximum Qualified Cardinality & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
+*Exact Unqualified Cardinality & $\checkmark$ & $\sim$ & $\checkmark$ \\ 
+*Exact Qualified Cardinality & $\checkmark$ & $\sim$ & $\checkmark$ \\ 
+*Transitive Object Properties & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
+Context-Sp. Exclusive OR of P. & $\sim$ & \ding{55} & $\checkmark$ \\ 
+Context-Sp. Exclusive OR of P. Groups & $\sim$ & \ding{55} & $\checkmark$ \\
+Allowed Values & \ding{55} & $\checkmark$ & $\checkmark$ \\  
+Not Allowed Values & \ding{55} & \ding{55} & $\checkmark$ \\  
+Literal Ranges & \ding{55} & \ding{55} & \ding{55} \\ 
+Negative Literal Ranges & \ding{55} & \ding{55} & \ding{55} \\ 
+Required Properties & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
+Optional Properties & $\checkmark$ & $\sim$ & $\checkmark$ \\
+Repeatable Properties & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
+Negative Property Constraints & $\sim$ & \ding{55} & $\checkmark$ \\ 
+*Individual Equality & \ding{55} & \ding{55} & $\checkmark$ \\  
+*Functional Properties & $\checkmark$ & $\checkmark$ & $\checkmark$ \\ 
+*Inverse-Functional Properties & $\checkmark$ & \ding{55} & $\checkmark$ \\ 
+*Value Restrictions & $\checkmark$ & $\checkmark$ & $\checkmark$ \\ 
+*Self Restrictions & $\sim$ & \ding{55} & $\checkmark$ \\
+Primary Key Properties & $\checkmark$ & $\sim$ & $\checkmark$ \\ 
+*Class-Specific Property Range & $\checkmark$ & $\sim$ & $\checkmark$ \\ 
+*Class-Sp. Reflexive Object P. & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
+Membership in Controlled Vocabularies & $\sim$ & \ding{55} & $\checkmark$ \\ 
+IRI Pattern Matching & \ding{55} & $\checkmark$ & \ding{55} \\   
+Literal Value Comparison & $\checkmark$ & $\checkmark$ & \ding{55} \\   
+Define Order & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
+Validation Levels & $\sim$ & $\checkmark$ & \ding{55} \\
+String Operations & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
+\end{evaluation-generic}
+
+\begin{evaluation-generic}
+Context-Specific Valid Classes & \ding{55} & $\checkmark$ & \ding{55} \\   
+Context-Specific Valid Properties & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
+Default Values & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
+Mathematical Operations & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
+Language Tag Matching & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
+Language Tag Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
+Whitespace Handling & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
+HTML Handling & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
+Conditional Properties & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
+Recommended Properties & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
+Handle RDF Collections & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
+Value is Valid for Datatype & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
+*Exploiting Class/Property Specialization Ontology Axioms & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
+*Cardinality Shortcuts & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
+Aggregations & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
+\end{evaluation-generic}
+
+%\begin{evaluation-generic}
+%*Subsumption 
+%*Class Equivalence
+%*Sub Properties 
+%*Property Domain 
+%*Property Range 
+%*Inverse Object Properties 
+%*Symmetric Object Properties 
+%*Asymmetric Object Properties 
+%*Reflexive Object Properties 
+%*Irreflexive Object Properties
+%Disjoint Properties 
+%Disjoint Classes
+%Context-Sp. Property Groups 
+%Context-Sp. Inclusive OR of P.
+%Context-Sp. Inclusive OR of P. Groups 
+%Recursive Queries 
+%Individual Inequality 
+%*Equivalent Properties 
+%Property Assertions 
+%Data Property Facets 
+%Literal Pattern Matching 
+%Negative Literal Pattern Matching 
+%*Object Property Paths 
+%*Intersection 
+%*Disjunction 
+%*Negation 
+%*Existential Quantification 
+%*Universal Quantification 
+%*Minimum Unqualified Cardinality 
+%*Minimum Qualified Cardinality 
+%*Maximum Unqualified Cardinality 
+%*Maximum Qualified Cardinality 
+%*Exact Unqualified Cardinality 
+%*Exact Qualified Cardinality 
+%*Transitive Object Properties 
+%Context-Sp. Exclusive OR of P. 
+%Context-Sp. Exclusive OR of P. Groups
+%Allowed Values 
+%Not Allowed Values 
+%Literal Ranges 
+%Negative Literal Ranges 
+%Required Properties 
+%Optional Properties
+%Repeatable Properties 
+%Negative Property Constraints 
+%*Individual Equality 
+%*Functional Properties
+%*Inverse-Functional Properties 
+%*Value Restrictions
+%*Self Restrictions
+%Primary Key Properties 
+%*Class-Specific Property Range 
+%*Class-Sp. Reflexive Object P. 
+%Membership in Controlled Vocabularies 
+%IRI Pattern Matching 
+%Literal Value Comparison 
+%Define Order 
+%Validation Levels 
+%String Operations 
+%\end{evaluation-generic}
+%
+%\begin{evaluation-generic}
+%Context-Specific Valid Classes 
+%Context-Specific Valid Properties 
+%Default Values 
+%Mathematical Operations 
+%Language Tag Matching 
+%Language Tag Cardinality 
+%Whitespace Handling 
+%HTML Handling 
+%Conditional Properties 
+%Recommended Properties 
+%Handle RDF Collections 
+%Value is Valid for Datatype 
+%*Exploiting Class/Property Specialization Ontology Axioms 
+%*Cardinality Shortcuts 
+%Aggregations 
+%\end{evaluation-generic}
 
 \end{document}
 
