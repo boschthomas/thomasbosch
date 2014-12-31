@@ -318,9 +318,9 @@ The \textbf{contributions} of this paper are:
 	%\item Any specific constraint (expressed by any constraint language) can be transformed into a generic constraint (expressed by the generic constraint language)
 	%\item Any specific constraint (expressed by any constraint language A) can be transformed into any specific constraint (expressed by any constraint language B)
 	%\item Any specific constraint (expressed by any constraint language) can be validated automatically (if an automatic validation is defined only once for corresponding generic constraint)
-	\item We define a terminology for RDF constraints and constraining languages
-	\item We developed an ontology describing any RDF constraint which can also be expressed by any constraint language
-	\item We present that any RDF constraint can be described by the developed ontology - whether the constraint can be expressed in DL or not 
+	\item We define a basic terminology and classification system for RDF constraints
+	\item We developed an ontology describing any RDF constraint generically (whether expressible in DL or not)%which can also be expressed by any constraint language
+	%\item We present that any RDF constraint can be described by the developed ontology - whether the constraint can be expressed in DL or not 
 	\item We show how to transform specific constraints (expressed by any constraint language A) into generic constraints and into specific constraints (expressed by any other constraint language B)
   \item We explain that any specific constraint can be validated automatically (if an automatic validation is defined only once for the corresponding generic constraint)
 \end{itemize}
@@ -334,30 +334,55 @@ The \textbf{contributions} of this paper are:
 
 \textcolor{red}{paper organization}
 
-\section{An Ontology Describing RDF Constraints Generically} 
+\section{RDF Constraints Ontology} 
 \label{sec:ontology}
 
-We developed a very simple ontology (three classes, three object properties, and three data properties) which is universal enough to describe any RDF constraint expressible by any RDF constraint language.
-Therefore, we do not invent a new constraint language.
-We distinguish between two sub-types of \ms{constraint}: 
+In order to define this ontology to describe RDF constraints generically, it is needed to define the terminology for the formulation of constraints. 
+A \ms{constraint language} is a language which is used to formulate constraints.
+The W3C Data Shapes WG defines \ms{constraint} as a component of a schema what needs to be satisfied\footnote{\url{https://www.w3.org/2014/data-shapes/wiki/Glossary}}.
+We identified four dimensions to classify constraints:
 \begin{itemize}
-	\item \ms{property constraints} and 
-	\item \ms{class constraints}. 
+  \item \ms{Universality:} specific constraints vs. generic constraints
+	\item \ms{Complexity:} simple constraints vs. complex constraints
+	\item \ms{Context:} property constraints vs. class constraints
+	\item \ms{DL Expressivity:} constraints expressible in DL vs. constraints not expressible in DL
 \end{itemize}
 
-For both property and class constraints a context class, a list of classes, the constraining element, and the constraining value can be stated
-(see figure \ref{fig:generic-constraint-language-ontology}). Lists of left and right properties can only be stated for property constraints.
+As there are already five promising constraint languages, our purpose is not to invent a new constraint language.
+We developed a very simple ontology (only three classes, three object properties, and three data properties) which is universal enough to describe any RDF constraint expressible by any RDF constraint language (see the conceptual model in figure \ref{fig:RDF-CO-conceptual-model}).
+We call this ontology the \ms{RDF constraints ontology (RDF-CO)}\footnote{Available at: \url{https://github.com/boschthomas/RDF-constraints-ontology}}.
 
 \begin{figure}
 	\centering
-		\includegraphics[width=0.80\textwidth]{images/generic-constraint-language-ontology.png}
-	\caption{generic constraint language ontology}
-	\label{fig:generic-constraint-language-ontology}
+		\includegraphics[width=0.80\textwidth]{images/RDF-CO-conceptual-model.png}
+	\caption{RDF constraints ontology (RDF-CO) - conceptual model}
+	\label{fig:RDF-CO-conceptual-model}
 \end{figure}
 
-In order to define this ontology, it is needed to define the terminology for the formulation of constraints. 
-A \ms{constraint language} is a language which is used to formulate constraints.
-The W3C Data Shapes WG defines \ms{constraint} as a component of a schema what needs to be satisfied\footnote{\url{https://www.w3.org/2014/data-shapes/wiki/Glossary}}.
+\ms{Specific constraints} are expressed by specific constraint languages like DSP, OWL 2, ReSh, ShEx, and SPIN.
+\ms{Generic constraints} are expressed by the RDF-CO.
+As RDF-CO describes constraints generically, RDF-CO does not distinguish constraints according to the dimension \ms{universality}. 
+The majority of constraints can be expressed in DL (see section \ref{sec:evaluation}).
+In contrast, there are constraints which cannot be expressed in DL, but are also representable by the RDF-CO. 
+\ms{Complex constraints} encompass \ms{simple constraints} (atomic constraints) and/or further complex constraints.
+DL statements representing complex constraints are created out of DL statements representing composed constraints (if expressible in DL). 
+Simple constraints may be applied to either properties \ms{properties constraints} or classes \ms{class constraints}.
+There are no terms representing simple and complex constraints in the RDF-CO, since context classes (associated simple constraints hold for individuals of these classes) of simple constraints may just be reused by further constraints.
+As a consequence, the distinction of property and class constraints is sufficient to describe all possible RDF constraints.
+
+\subsection{Simple Constraints (Expressible in DL)}
+
+Sub-classes of \ms{simple constraints} are \ms{property constraints} and \ms{class constraints} (see the RDF-CO implementation model in figure \ref{fig:RDF-CO-implementation-model}). 
+For both property and class constraints a context class, a list of classes, the constraining element, and the constraining value can be stated. 
+Lists of left and right properties can only be stated for property constraints.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.80\textwidth]{images/RDF-CO-implementation-model.png}
+	\caption{RDF constraints ontology (RDF-CO) - implementation model}
+	\label{fig:RDF-CO-implementation-model}
+\end{figure}
+
 A constraint holds for all individuals of a context class (\ms{contextClass}).
 Consider, e.g., the following cardinality restriction on the property \ms{commandsVessel}, which restricts that a captain must command at least one vessel: 
 \begin{DL}
@@ -379,11 +404,50 @@ Thus, the constraining element of this property constraint is the DL at-least re
 In case of the property constraint above, the qualified cardinality restriction refers to the class \ms{Vessel}, 
 i.e., restricting the objects, the property \ms{commandsVessel} point to, to be of the class \ms{Vessel}.
 
-\section{Complex Constraints}
+\subsection{Simple Constraints (Not Expressible in DL)}
 
-\ms{Complex constraints} encompass complex constraints and/or \ms{simple constraints} (atomic constraints).
-DL statements of complex constraints are created out of DL statements of composed constraints. 
+There are simple constraints which cannot be expressed by DL such as literal pattern matching, literal value comparison, literal ranges, default values, and language tag cardinality \cite{BoschNolleAcarEckert2015}.
 
+% maybe additional constraint default values:
+% ear shape of races, e.g. vulcans / teeth color
+% mathematical operations
+
+There are multiple use cases associated with the requirement to match literals according to given patterns (\ms{Literal Pattern Matching} constraint).
+The enterprise vessel, e.g.,  can only have the registry numbers "NCC-1701", "NCC-1701-A", "NCC-1701-B", "NCC-1701-C", "NCC-1701-D", or "NCC-1701-E".
+The universal restriction part of this complex constraint can be expressed by OWL 2 DL:
+\ms{Enterprise $\sqsubseteq$ $\forall$ registryNumber.RegistryNumber}.
+The restriction of the datatype \ms{RegistryNumber}, however, cannot be expressed in DL, but OWL 2 DL can be used anyway to express the literal pattern matching constraint:
+
+\begin{ex}
+RegistryNumber
+    a rdfs:Datatype ;
+    owl:equivalentClass [
+        a rdfs:Datatype ;
+        owl:onDatatype xsd:string ;
+        owl:withRestrictions ( 
+            [ xsd:pattern "NCC-1701([-][A-E])?" ] ) ] .
+\end{ex}
+
+The second axiom defines \ms{RegistryNumber} as an abbreviation for a datatype restriction on \ms{xsd:string}. 
+The first axiom explicitly declares \ms{RegistryNumber} to be a datatype. 
+The datatype \ms{RegistryNumber} can be used just like any other datatype like in the universal restriction above.
+The literal pattern matching constraint validates \ms{RegistryNumber} literals according to the stated regular expression causing a constraint violation for the triples 
+\ms{Janeway commandsEnterprise Voyager} and \ms{Voyager registryNumber "NCC-74656"\textasciicircum{}\textasciicircum{}RegistryNumber}, 
+but not for the triples \ms{Picard commandsEnterprise Enterprise} and \ms{Enterprise registryNumber "NCC-1701-E"\textasciicircum{}\textasciicircum{}RegistryNumber}.
+The universal restriction and the literal pattern matching constraint are mapped to the generic constraint language as follows:
+
+\begin{gcotable}
+property & Enterprise & registryNumber & - & RegistryNumber & $\forall$ & - \\
+class & RegistryNumber & - & - & xsd:string & regex & 'NCC-1701([-][A-E])?' \\
+\end{gcotable}
+
+The \ms{Literal Pattern Matching} constraint introduces a new constraining element: \ms{regex}.
+For this new constraining element, an automatic validation must be implemented in SPIN.
+This has to be done once for each constraint which cannot be expressed in DL.
+
+\subsection{Complex Constraints}
+
+\ms{Complex constraints} encompass simple constraints and/or complex constraints.
 \textbf{Context-Specific Exclusive OR of Property Groups}\footnote{corresponds to R-13-DISJOINT-GROUP-OF-PROPERTIES-CLASS-SPECIFIC}\textbf{.}
 Exclusive or is a logical operation that outputs true whenever both inputs differ (one is true, the other is false).
 Only one of multiple property groups should be present in the data.
@@ -459,25 +523,9 @@ property & C & humanMother & - & Human & = & 1 \\
 property & D & klingonFather & - & Klingon & = & 1 \\
 \end{gcotable}
 
-\subsection{Disjoint Classes}
+\subsection{Simple Constraints (Syntactic Sugar)}
 
-\begin{DL}
-Hologram $\sqcap$ Human $\sqsubseteq$ $\perp$\\
-Alternative:\\
-$Hologram \sqsubseteq \neg Human$
-\end{DL}
-
-\subsection{Minimum Qualified Cardinality Restrictions on Properties}
-
-\begin{DL}
-$FederationCaptain \sqsubseteq Federation \sqcap \geq1 commandsVessel . Vessel $
-\end{DL}
-
-\section{Syntactic Sugar}
-
-\begin{itemize}
-	\item syntactic sugar for some constraints
-\end{itemize}
+Almost 15 percent of all RDF constraints are complex constraints which can be simplified and therefore formulated as simple constraints when used in terms of syntactic sugar (see section \ref{sec:evaluation}).
 
 In Section 1.3 we introduced three forms of RBox axioms: role inclusions, role equiv-
 alences and role disjointness. OWL provides a variety of others, namely role transi-
@@ -494,48 +542,21 @@ of DLs that we have already introduced.
 	\item ( Exact Qualified Cardinality Restrictions on Properties )
 \end{itemize}
 
+\subsection{Disjoint Classes}
+
+\begin{DL}
+Hologram $\sqcap$ Human $\sqsubseteq$ $\perp$\\
+Alternative:\\
+$Hologram \sqsubseteq \neg Human$
+\end{DL}
+
+\subsection{Minimum Qualified Cardinality Restrictions on Properties}
+
+\begin{DL}
+$FederationCaptain \sqsubseteq Federation \sqcap \geq1 commandsVessel . Vessel $
+\end{DL}
+
 \section{Transformations between Specific Constraints}
-
-\section{Simple Constraints Not Expressible in DL}
-
-There are simple constraints which cannot be expressed by DL such as literal pattern matching, literal value comparison, literal ranges, default values, and language tag cardinality \cite{BoschNolleAcarEckert2015}.
-
-% maybe additional constraint default values:
-% ear shape of races, e.g. vulcans / teeth color
-% mathematical operations
-
-There are multiple use cases associated with the requirement to match literals according to given patterns (\ms{Literal Pattern Matching} constraint).
-The enterprise vessel, e.g.,  can only have the registry numbers "NCC-1701", "NCC-1701-A", "NCC-1701-B", "NCC-1701-C", "NCC-1701-D", or "NCC-1701-E".
-The universal restriction part of this complex constraint can be expressed by OWL 2 DL:
-\ms{Enterprise $\sqsubseteq$ $\forall$ registryNumber.RegistryNumber}.
-The restriction of the datatype \ms{RegistryNumber}, however, cannot be expressed in DL, but OWL 2 DL can be used anyway to express the literal pattern matching constraint:
-
-\begin{ex}
-RegistryNumber
-    a rdfs:Datatype ;
-    owl:equivalentClass [
-        a rdfs:Datatype ;
-        owl:onDatatype xsd:string ;
-        owl:withRestrictions ( 
-            [ xsd:pattern "NCC-1701([-][A-E])?" ] ) ] .
-\end{ex}
-
-The second axiom defines \ms{RegistryNumber} as an abbreviation for a datatype restriction on \ms{xsd:string}. 
-The first axiom explicitly declares \ms{RegistryNumber} to be a datatype. 
-The datatype \ms{RegistryNumber} can be used just like any other datatype like in the universal restriction above.
-The literal pattern matching constraint validates \ms{RegistryNumber} literals according to the stated regular expression causing a constraint violation for the triples 
-\ms{Janeway commandsEnterprise Voyager} and \ms{Voyager registryNumber "NCC-74656"\textasciicircum{}\textasciicircum{}RegistryNumber}, 
-but not for the triples \ms{Picard commandsEnterprise Enterprise} and \ms{Enterprise registryNumber "NCC-1701-E"\textasciicircum{}\textasciicircum{}RegistryNumber}.
-The universal restriction and the literal pattern matching constraint are mapped to the generic constraint language as follows:
-
-\begin{gcotable}
-property & Enterprise & registryNumber & - & RegistryNumber & $\forall$ & - \\
-class & RegistryNumber & - & - & xsd:string & regex & 'NCC-1701([-][A-E])?' \\
-\end{gcotable}
-
-The \ms{Literal Pattern Matching} constraint introduces a new constraining element: \ms{regex}.
-For this new constraining element, an automatic validation must be implemented in SPIN.
-This has to be done once for each constraint which cannot be expressed in DL.
 
 \section{Implementation}
 
@@ -559,6 +580,7 @@ Part of future work will be
 \end{itemize}
 
 \section{Evaluation}
+\label{sec:evaluation}
 
 We evaluated to which extend the most promising five constraint languages fulfill each of the overall 74 requirements to formulate RDF constraints \cite{BoschNolleAcarEckert2015}.
 If a constraint can be expressed in DL, we added the mapping to DL and to the generic constraint.
