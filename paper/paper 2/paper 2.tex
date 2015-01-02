@@ -625,8 +625,9 @@ $Hologram \sqsubseteq \neg Human$
 $FederationCaptain \sqsubseteq Federation \sqcap \geq1 commandsVessel . Vessel $
 \end{DL}
 
-\section{Transformations and Automatic Validation of Specific Constraints}
+%\section{Transformations and Automatic Validation of Specific Constraints}
 %\section{Transformations between Specific Constraints (Expressed by Different Constraint Languages)}
+\section{Transformations between Specific Constraints}
 
 RDF data providers ensure that their data conforms to constraints which are part of the contract between the providers and the consumers of that data.
 As there is no standard way, these constraints may be represented by multiple constraint languages (there are even more than the five promising ones)\footnote{i.a. Bibframe, DQTP, Pellet ICV, RDFUnit, SPARQL, Stardog ICV}.
@@ -657,18 +658,27 @@ Without an intermediate generic constraint, we only need to define \ms{n} mappin
 \ms{Allowed Values}\footnote{correspond to the requirements \ms{R-30-ALLOWED-VALUES-FOR-RDF-OBJECTS} and \ms{R-37-ALLOWED-VALUES-FOR-RDF-LITERALS}}
 is a common requirement to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resources). 
 This is often rendered in drop down boxes or radio buttons in user interfaces.
-Starfleet captains, e.g. can only be overruled by commodores and admirals\footnote{simplified}.
+The Enterprise, e.g. is only commended by the captains Archer, Kirk, and Picard.
 This complex constraint is composed of two simple constraints: \ms{universal quantification} and \ms{allowed values} - which can be represented in DL:
 
+%\begin{DL}
+%StarfleetCaptain $\equiv$ $\forall$ overruledBy . \{Commodore\} $\sqcup$ \{Admiral\}
+%\end{DL}
+
 \begin{DL}
-StarfleetCaptain $\equiv$ $\forall$ overruledBy . \{Commodore\} $\sqcup$ \{Admiral\}
+Enterprise $\equiv$ $\forall$ commandedBy . \{Archer\} $\sqcup$ \{Kirk\} $\sqcup$ \{Picard\}
 \end{DL}
 
-First, we map these DL statements to two simple constraints corresponding to the RDF-CO (we define the class \ms{CaptainOverruler} by simply enumerating its instances):
+First, we map these DL statements to two simple constraints corresponding to the RDF-CO (we define the class \ms{EnterpriseCaptains} by simply enumerating its instances):
+
+%\begin{gcotable}
+%property & StarfleetCaptain & overruledBy & - & CaptainOverruler & $\forall$ & - \\
+%class & CaptainOverruler & - & - & \{Commodore\},\{Admiral\} & $\sqcup$ & - \\
+%\end{gcotable}
 
 \begin{gcotable}
-property & StarfleetCaptain & overruledBy & - & CaptainOverruler & $\forall$ & - \\
-class & CaptainOverruler & - & - & \{Commodore\},\{Admiral\} & $\sqcup$ & - \\
+property & Enterprise & commandedBy & - & EnterpriseCaptains & $\forall$ & - \\
+class & EnterpriseCaptains & - & - & \{Archer\},\{Kirk\},\{Picard\} & $\sqcup$ & - \\
 \end{gcotable}
 
 The next step is to define one mapping for each specific constraint to the generic constraint.
@@ -751,7 +761,7 @@ WHERE {
     FILTER ( ?i != ?i1 && ?i != ?i2 && ?i != ?i3 ) . }
 \end{ex}
 
-There can be no detailed difference in the automatic validation of a constraint when it is expressed by different constraint languages.
+The implementation of the automatic validation of a constraint cannot be different when it is expressed by different constraint languages.
 So, the validation results do not differ on the basis of multiple validation implementations, as there is only one validation implementation for each constraint independent from the used constraint language.
 
 %\subsection{Not Allowed Values}
