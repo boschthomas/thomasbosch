@@ -35,6 +35,11 @@
 % monospace within text
 \newcommand{\ms}[1]{\texttt{#1}}
 
+%\usepackage{listings}% http://ctan.org/pkg/listings
+%\lstset{
+  %numbers=left,numbersep=2mm,frame=single,mathescape,fontsize=\scriptsize
+%}
+
 % examples
 \usepackage{fancyvrb}
 \DefineVerbatimEnvironment{ex}{Verbatim}{numbers=left,numbersep=2mm,frame=single,fontsize=\scriptsize}
@@ -176,7 +181,7 @@ University of Mannheim, Germany \\
 \begin{abstract}
 
 
-\keywords{..}
+\keywords{RDF Validation, RDF Constraints, RDF Validation Requirements, Linked Data, Semantic Web}
 \end{abstract}
 %
 
@@ -184,11 +189,30 @@ University of Mannheim, Germany \\
 
 \section{Introduction}
 
-\begin{itemize}
-	\item requirements database
-	\item relationship between requirements and constraints
-	\item constraint languages
-\end{itemize}
+For many RDF applications, the formulation of constraints and the automatic validation of data according to these constraints is a much sought-after feature. 
+In 2013, the W3C invited experts from industry, government, and academia to the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/rdf-val/}}, 
+where first use cases have been presented and discussed. 
+Two working groups (WGs),  that follow up on this workshop and address RDF constraint formulation and validation, are established in 2014: 
+the W3C RDF Data Shapes WG\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles WG\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
+
+Bosch and Eckert \cite{BoschEckert2014} initiated a database on RDF validation requirements to collect case studies, use cases and especially requirements regarding RDF validation collaboratively and in a comprehensive and structured way. 
+%\er{Just for reminding ourselves:  being careful using what is a use-case and what is a case-study later in the text.(http://www.w3.org/2001/sw/sweo/public/UseCases/)}
+%\tb{agreed, will take care}
+This database is continuously updated and openly available at \url{http://purl.org/net/rdf-validation}. It is used to evaluate and compare several existing solutions for RDF constraint formulation and validation. 
+The requirements are classified to provide a high-level view on different solutions and to facilitate a better understanding of the problem domain \cite{BoschEckert2014}.  
+Each requirement to formulate RDF constraints is directly mapped to an RDF constraint.
+
+There are multiple constraint languages with different syntaxes and semantics which can be used to express RDF constraints, e.g., \emph{at-least} restrictions.
+The most promising ones on being the standard, are
+the SPARQL Inferencing Notation (SPIN)\footnote{\url{http://spinrdf.org/}}, 
+the Web Ontology Language (OWL 2)\footnote{\url{http://www.w3.org/TR/owl2-syntax/}}, 
+Shape Expressions (ShEx)\footnote{\url{http://www.w3.org/Submission/shex-primer/}}, 
+Resource Shapes (ReSh)\footnote{\url{http://www.w3.org/Submission/shapes/}}, 
+and Description Set Profiles (DSP)\footnote{\url{http://dublincore.org/documents/2008/03/31/dc-dsp/}}.
+However, there is no single standard general-purpose constraint language.
+The choice depends on the individual use case.
+
+\tb{copied from first paper - need to be modified}
 
 %\section{Ideas}
 
@@ -527,20 +551,65 @@ property & D & klingonFather & - & Klingon & = & 1 \\
 
 Almost 15 percent of all RDF constraints are complex constraints which can be simplified and therefore formulated as simple constraints when used in terms of syntactic sugar (see section \ref{sec:evaluation}).
 
-In Section 1.3 we introduced three forms of RBox axioms: role inclusions, role equiv-
-alences and role disjointness. OWL provides a variety of others, namely role transi-
-tivity, symmetry, asymmetry, reflexivity and irreflexivity. These are sometimes consid-
-ered as basic axiom types in DLs as well, using some suggestive notation such as
-Trans( ancestorOf ) to express that the role ancestorOf is transitive. However, such axioms
-are just syntactic sugar; all role characteristics can be expressed using the features
-of DLs that we have already introduced.
+There three forms of RBox axioms: role inclusions, role equivalences and role disjointness. 
+OWL provides a variety of others, namely role transitivity, symmetry, asymmetry, reflexivity and irreflexivity. 
+These are sometimes considered as basic axiom types in DLs as well, using some suggestive notation such as
+\ms{Trans(ancestorOf)} to express that the role ancestorOf is transitive. 
+However, such axioms are just syntactic sugar; 
+all role characteristics can be expressed using the basic features of DLs.
+\ms{Irreflexive Object Properties}\footnote{corresponds to the requirement \ms{R-60-IRREFLEXIVE-OBJECT-PROPERTIES}}
+restricts that an object property is irreflexive if it is never locally reflexive, i.e. no individual is connected by the object property to itself \cite{Kroetzsch2012}.
+Irreflexivity constraints, stating that individuals cannot be married to themselves, can be represented in DL:
 
-\begin{itemize}
-  \item domain and range
-	\item Primary Key Properties
-	\item (ir)reflexive object properties
-	\item ( Exact Qualified Cardinality Restrictions on Properties )
-\end{itemize}
+\begin{DL}
+$\top$ $\sqsubseteq$ $\neg$ $\exists  marriedTo . Self$
+\end{DL}
+
+When mapped to the RDF-CO, the complex constraint aggregates three simple constraints (one property and two class constraints):
+
+\begin{gcotable}
+property & $\exists$ marriedTo . Self & marriedTo & - & Self & $\exists$ & - \\
+class & $\neg$ $\exists$ marriedTo . Self & - & - & $\exists$ marriedTo . Self & $\neg$ & - \\
+class & $\top$ & - & - & $\top$, $\neg$ $\exists$ marriedTo . Self & $\sqsubseteq$ & - \\
+\end{gcotable}
+
+When using the RBox axiom \ms{role irreflexivity} as syntactic sugar, 
+the complex constraint transforms into a simple property constraint with exactly the same semantics:
+
+\begin{gcotable}
+property & $\top$ & marriedTo & - & - & irreflexive & - \\
+\end{gcotable}
+
+The \ms{Primary Key Properties} constraint is often useful to declare a given (datatype) property as the "primary key" of a class, so that the system can enforce uniqueness. 
+Starfleet officers are uniquely identified by their command authorization code (e.g. to activate and cancel auto-destruct sequences).
+It means that the property \ms{commandAuthorizationCode} is inverse functional - mapped to DL and RDF-CO as follows:
+\begin{DL}
+$(\ms{funct } commandAuthorizationCode\sp{\overline{\ }})$
+\end{DL}
+\begin{gcotable}
+property & $\top$ & commandAuthorizationCode$^{-}$ & commandAuthorizationCode & - & inverse & - \\
+property & $\top$ & commandAuthorizationCode$^{-}$ & - & - & functional & - \\
+\end{gcotable}
+
+Keys are even more general, i.e., a generalization of inverse functional properties\footnote{\url{http://www.w3.org/TR/2012/REC-owl2-rdf-based-semantics-20121211/#Semantic_Conditions_for_Keys}}.
+A key can be a datatype property, an object property, or a chain of properties.
+For this generalization purposes, as there are different sorts of key, and as keys can lead to undecidability, 
+DL is extended with \ms{key boxes} and a special \ms{keyfor} construct\cite{Lutz2005}.
+This leads to the following DL and RDF-CO mappings (only one simple property constraint) for the example:
+
+\begin{DL}
+commandAuthorizationCode \ms{keyfor} StarfleetOfficer
+\end{DL}
+
+\begin{gcotable}
+property & StarFleetOfficer & commandAuthorizationCode & - & - & keyfor & - \\
+\end{gcotable}
+
+%\begin{itemize}
+  %\item domain and range
+	%\item Primary Key Properties
+	%\item ( Exact Qualified Cardinality Restrictions on Properties )
+%\end{itemize}
 
 \subsection{Disjoint Classes}
 
@@ -556,9 +625,139 @@ $Hologram \sqsubseteq \neg Human$
 $FederationCaptain \sqsubseteq Federation \sqcap \geq1 commandsVessel . Vessel $
 \end{DL}
 
-\section{Transformations between Specific Constraints}
+\section{Transformations and Automatic Validation of Specific Constraints}
+%\section{Transformations between Specific Constraints (Expressed by Different Constraint Languages)}
+
+RDF data providers ensure that their data conforms to constraints which are part of the contract between the providers and the consumers of that data.
+As there is no standard way, these constraints may be represented by multiple constraint languages (there are even more than the five promising ones)\footnote{i.a. Bibframe, DQTP, Pellet ICV, RDFUnit, SPARQL, Stardog ICV}.
+There is an obvious need to transform a specific constraint (\ms{$sc_{\alpha}$}) (expressed by any constraint language \ms{$\alpha$}) into a specific constraint (\ms{$sc_{\beta}$}) (expressed by any constraint language \ms{$\beta$}) - when they have the same semantics.
+We use the RDF-CO as intermediate language for these transformations.
+If we define mappings ($m(sc_{\alpha}), m(sc_{\beta})$) from these two specific constraints to the corresponding generic constraint (\ms{gc}),
+we can convert them automatically:
+
+\begin{DL}
+$ gc = m(sc_{\alpha}) = m(sc_{\beta}) $
+\end{DL}
+
+We do not need to define mappings for each pair of semantically equivalent specific constraint.
+Let's assume we are able to express a constraint by 5/6/7/8/9/10 constraint languages.
+Without the intermediate generic constraint, we would have to define one mapping for each pair of specific constraints expressed by a specific constraint language
+- that are \ms{\( {n \choose 2} \)} mappings for each constraint (example: 10/15/21/28/36/45).
+Without an intermediate generic constraint, we only need to define \ms{n} mappings from the specific constraints to the generic constraint (example: 5/6/7/8/9/10 ).
+
+%(n(n+1))/2
+
+%\begin{DL}
+%\(\sum \limits_{i=1}^n i = \frac{n(n+1)}{2}\)
+%\(\sum \limits_{i=1}^n i\)
+%\(\Binom{n}{2} \)
+%\( {n \choose 2} \)
+%\end{DL}
+
+\ms{Allowed Values}\footnote{correspond to the requirements \ms{R-30-ALLOWED-VALUES-FOR-RDF-OBJECTS} and \ms{R-37-ALLOWED-VALUES-FOR-RDF-LITERALS}}
+is a common requirement to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resources). 
+This is often rendered in drop down boxes or radio buttons in user interfaces.
+Starfleet captains, e.g. can only be overruled by commodores and admirals\footnote{simplified}.
+This complex constraint is composed of two simple constraints: \ms{universal quantification} and \ms{allowed values} - which can be represented in DL:
+
+\begin{DL}
+StarfleetCaptain $\equiv$ $\forall$ overruledBy . \{Commodore\} $\sqcup$ \{Admiral\}
+\end{DL}
+
+First, we map these DL statements to two simple constraints corresponding to the RDF-CO (we define the class \ms{CaptainOverruler} by simply enumerating its instances):
+
+\begin{gcotable}
+property & StarfleetCaptain & overruledBy & - & CaptainOverruler & $\forall$ & - \\
+class & CaptainOverruler & - & - & \{Commodore\},\{Admiral\} & $\sqcup$ & - \\
+\end{gcotable}
+
+The next step is to define one mapping for each specific constraint to the generic constraint.
+The specific constraints (\ms{$sc_{OWL 2}$}, \ms{$sc_{ReSh}$}, and \ms{$sc_{ShEx}$}) expressed by OWL 2, ReSh, and ShEx look like this:
+
+\begin{ex}
+# OWL 2:
+Enterprise rdfs:subClassOf [ a owl:Restriction .
+    owl:onProperty commandedBy .
+    owl:allValuesFrom [ a owl:Class ;
+        owl:oneOf ( Archer Kirk Picard ) ] ] .
+# ReSh:
+Enterprise a rs:ResourceShape ; rs:property [
+    rs:name "commandedBy" ; rs:propertyDefinition commandedBy ;
+    rs:allowedValue Archer , Kirk , Picard ;
+    rs:occurs rs:Exactly-one ; ] .
+# ShEx:
+Enterprise {
+    commandedBy (Archer Kirk Picard) }
+\end{ex}
+
+%\begin{ex}
+%# DSP:
+%[ a dsp:DescriptionTemplate ;
+    %dsp:resourceClass StarfleetCaptain ; 
+    %dsp:statementTemplate [ a dsp:NonLiteralStatementTemplate ; 
+        %dsp:property overruledBy ; 
+        %dsp:nonLiteralConstraint [ a dsp:NonLiteralConstraint ;
+            %dsp:valueClass Commodore , Admiral ] ] ] .
+%# OWL 2:
+%StarfleetCaptain rdfs:subClassOf [ a owl:Restriction .
+    %owl:onProperty overruledBy .
+    %owl:allValuesFrom [ a owl:Class ;
+        %owl:oneOf ( Commodore Admiral ) ] ] .
+%# ReSh:
+%%StarfleetCaptain a rs:ResourceShape ;
+    %%rs:property [
+        %%rs:name "overruledBy" ; rs:propertyDefinition overruledBy ;
+        %%rs:valueShape Commodore ; rs:occurs rs:Zero-or-many ; ] ;
+    %%rs:property [
+        %%rs:name "overruledBy" ; rs:propertyDefinition overruledBy ;
+        %%rs:valueShape Admiral ; rs:occurs rs:Zero-or-many ; ] ;
+%# ShEx:
+%:StarfleetCaptain {
+    %:overruledBy @:Commodore* , :overruledBy @:Admiral* }
+%\end{ex}
+
+\section{Automatic Validation of Specific and Generic Constraints}
+
+We can provide an automatic validation of all specific constraints (expressed by any constraint language) by defining a mapping to SPIN.
+That's what we have done for all OWL 2 and DSP constructs (see section \ref{sec:implementation}).
+%We do not have to define a mapping to SPIN for each specific constraint. 
+%when we define a mapping to SPIN for each generic constraint.
+But, if we define a mapping from a specific constraint to the corresponding generic constraint and if we define a mapping from the generic constraint to SPIN,
+we do not have to define a mapping to SPIN for that specific constraint - we can perform an automatic validation for the generic and for the specific constraint as well.
+As a consequence, we only have to define one SPIN mapping for each constraint corresponding to a requirement within the RDF validation requirements database.
+19 of 74 RDF constraints can be expressed by at least four constraint languages \cite{BoschNolleAcarEckert2015}.
+This means, that there must be 76 (four for each constraint) implementations for an automatic validation of these constraints - instead of only 19 (one for each constraint).
+
+Within our SPIN validation environment, we define a SPIN construct template for each generic constraint\footnote{for details about the SPIN validation environment see \cite{BoschEckert2014-2}}.
+The SPIN construct template contains a SPARQL CONSTRUCT query which generates constraint violation triples (\ms{spin:ConstraintViolation}) indicating the subject (\ms{spin:violationRoot}) and the properties (\ms{spin:violationPath}), causing the constraint violation, and the reason why the constraint violation has been raised (\ms{rdfs:label}).
+The SPIN construct template creates the constraint violation triples if all triple patterns within the SPARQL WHERE clause match.
+The SPARQL CONSTRUCT query for the universal quantification is shown below:
+
+\begin{ex}
+CONSTRUCT {
+    [   a spin:ConstraintViolation ; spin:violationRoot ?subject ;
+        rdfs:label ?violationMessage ; spin:violationPath ?p1 . }
+WHERE {	  
+    [   a gclo:PropertyConstraint ;
+        gclo:contextClass ?cc ;
+        gclo:leftProperties ( ?p1 ) ;
+        gclo:classes ( ?c1 ) ;
+        gclo:constrainingElement "universal quantification" ] .
+    [   a gclo:ClassConstraint ;
+        gclo:contextClass ?c1 ;
+        gclo:classes ( ?i1 ?i2 ?i3 ) ;
+        gclo:constrainingElement "union" ] .				
+    ?subject a ?cc ; ?p1 ?i .
+    FILTER ( ?i != ?i1 && ?i != ?i2 && ?i != ?i3 ) . }
+\end{ex}
+
+There can be no detailed difference in the automatic validation of a constraint when it is expressed by different constraint languages.
+So, the validation results do not differ on the basis of multiple validation implementations, as there is only one validation implementation for each constraint independent from the used constraint language.
+
+%\subsection{Not Allowed Values}
 
 \section{Implementation}
+\label{sec:implementation}
 
 SPARQL is generally seen as the method of choice to validate RDF data according to certain constraints, although it is not ideal for their formulation. 
 In contrast, OWL 2 and DSP constraints are comparatively easy to understand, but lack an implementation to validate RDF data. 
