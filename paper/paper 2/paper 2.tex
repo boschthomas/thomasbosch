@@ -199,30 +199,27 @@ If we define a validation for a constraint generically and if we map semanticall
 
 \section{Introduction}
 
-For many RDF applications, the formulation of constraints and the automatic validation of data according to these constraints is a much sought-after feature. 
-In 2013, the W3C invited experts from industry, government, and academia to the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/rdf-val/}}, 
-where first use cases have been presented and discussed. 
-Two working groups (WGs),  that follow up on this workshop and address RDF constraint formulation and validation, are established in 2014: 
+The purpose of ontologies is to perform reasoning on RDF data and not to validate RDF data conforming to these ontologies.
+For RDF, we cannot use ontologies like we use XML Schemas, DTDs, RELAX NG, or Schematron to validate XML documents.
+The W3C organized the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/rdf-val/}}, 
+where experts from industry, government, and academia discussed first use cases for RDF constraint formulation and validation.
+In 2014, two working groups on RDF validation have been established: 
 the W3C RDF Data Shapes WG\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles WG\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
 
-Bosch and Eckert \cite{BoschEckert2014} initiated a database on RDF validation requirements to collect case studies, use cases and especially requirements regarding RDF validation collaboratively and in a comprehensive and structured way. 
-%\er{Just for reminding ourselves:  being careful using what is a use-case and what is a case-study later in the text.(http://www.w3.org/2001/sw/sweo/public/UseCases/)}
-%\tb{agreed, will take care}
-This database is continuously updated and openly available at \url{http://purl.org/net/rdf-validation}. It is used to evaluate and compare several existing solutions for RDF constraint formulation and validation. 
-The requirements are classified to provide a high-level view on different solutions and to facilitate a better understanding of the problem domain \cite{BoschEckert2014}.  
-Each requirement to formulate RDF constraints is directly mapped to an RDF constraint.
+Bosch and Eckert \cite{BoschEckert2014} collected the findings of these working groups and initiated a database of requirements to formulate and validate RDF constraints
+which is available for contribution at \url{http://purl.org/net/rdf-validation}.
+The intention associated with this database is to collaboratively collect case studies, use cases, requirements, and solutions regarding RDF validation in a comprehensive and structured way. 
+The requirements are classified to better evaluate existing solutions. 
+We mapped each requirement to formulate RDF constraints directly to an RDF constraint.
 
-There are multiple constraint languages with different syntaxes and semantics which can be used to express RDF constraints, e.g., \emph{at-least} restrictions.
-The most promising ones on being the standard, are
-the SPARQL Inferencing Notation (SPIN)\footnote{\url{http://spinrdf.org/}}, 
-the Web Ontology Language (OWL 2)\footnote{\url{http://www.w3.org/TR/owl2-syntax/}}, 
-Shape Expressions (ShEx)\footnote{\url{http://www.w3.org/Submission/shex-primer/}}, 
+There is no constraint language which can be seen as the standard.
+Although, there are multiple constraint languages (having different syntaxes and semantics) which can be used to express RDF constraints, such as existential and universal quantification, cardinality restrictions, and exclusive or of properties.
+The five most promising ones on being the standard are
+Description Set Profiles (DSP)\footnote{\url{http://dublincore.org/documents/2008/03/31/dc-dsp/}},
 Resource Shapes (ReSh)\footnote{\url{http://www.w3.org/Submission/shapes/}}, 
-and Description Set Profiles (DSP)\footnote{\url{http://dublincore.org/documents/2008/03/31/dc-dsp/}}.
-However, there is no single standard general-purpose constraint language.
-The choice depends on the individual use case.
-
-\tb{introduction copied from first paper - need to be modified}
+Shape Expressions (ShEx)\footnote{\url{http://www.w3.org/Submission/shex-primer/}},
+the SPARQL Inferencing Notation (SPIN)\footnote{\url{http://spinrdf.org/}}, 
+and the Web Ontology Language (OWL 2)\footnote{\url{http://www.w3.org/TR/owl2-syntax/}}.
 
 %\section{Ideas}
 
