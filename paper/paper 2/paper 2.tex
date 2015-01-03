@@ -78,7 +78,7 @@
 \newenvironment{DL}{
   %\scriptsize
   %\sffamily
-  %\vspace{0.3cm}
+  \vspace{0.3cm}
 	\begin{center}
   \begin{tabular}{r l}
 
@@ -90,7 +90,7 @@
 \newenvironment{evaluation}{
   %\scriptsize
   %\sffamily
-  %\vspace{0.3cm}
+  \vspace{0.3cm}
 	\begin{center}
   \begin{tabular}{l|c|c|c|c|c|c}
   \hline
@@ -116,7 +116,7 @@
 }{
   \hline
   \end{tabular}
-  \linebreak
+  %\linebreak
 	\end{center}
 }
 
@@ -180,8 +180,18 @@ University of Mannheim, Germany \\
 
 \begin{abstract}
 
+For XML, XML Schema is the standard constraint language to validate XML documents.
+For RDF, however, there are multiple candidates for languages to express constraints on RDF data - but there is no standard language for RDF validation.
+W3C and DCMI working groups on RDF validation identified requirements to formulate and to validate RDF constraints.
+The majority of these constraints can be represented in description logics providing a logical underpinning of these constraints.
+We developed an ontology describing any RDF constraint generically (whether expressible in description logics or not).
+In parallel, we defined a basic terminology and a classification system for RDF constraints.
 
-\keywords{RDF Validation, RDF Constraints, RDF Validation Requirements, Linked Data, Semantic Web}
+A constraint (expressed by constraint language \ms{$sc_{\alpha}$}) can be transformed to a constraint (expressed by constraint language \ms{$sc_{\beta}$}) by using the RDF constraint ontology as intermediate language. 
+Currently, we cannot validate every constraint language or constraint of a constraint language.
+If we define a validation for a constraint generically and if we map semantically equivalent constraints (expressed by different constraint languages) to that generically expressed constraint, we are able to provide the validation of these constraints out of the box.
+
+\keywords{RDF Validation, RDF Constraints, RDF Validation Requirements, Transformation, Linked Data, Semantic Web}
 \end{abstract}
 %
 
@@ -212,7 +222,7 @@ and Description Set Profiles (DSP)\footnote{\url{http://dublincore.org/documents
 However, there is no single standard general-purpose constraint language.
 The choice depends on the individual use case.
 
-\tb{copied from first paper - need to be modified}
+\tb{introduction copied from first paper - need to be modified}
 
 %\section{Ideas}
 
@@ -305,8 +315,6 @@ The cardinality restriction (expressed by the generic constraint language) is re
 We implemented the automatic validation for the cardinality restriction expressed by the generic constraint language within our SPIN validation environment (see SPARQL query above):
 
 \begin{ex}
-# constraint
-# ----------
 [   a PropertyConstraint ;
     contextClass ?cc ;
     leftProperties ( ?p1 ) ;
@@ -314,12 +322,8 @@ We implemented the automatic validation for the cardinality restriction expresse
     constrainingElement ">=" ;
     constrainingValue ?cv ] .
 		
-# data
-# ----
 ?subject rdf:type ?cc .
 
-# validation
-# -----
 BIND ( qualifiedCardinality( ?subject, ?p1, ?c1 ) AS ?c ) .
 FILTER ( ?c < ?cv ) .		  
 \end{ex}
@@ -402,7 +406,7 @@ Lists of left and right properties can only be stated for property constraints.
 
 \begin{figure}
 	\centering
-		\includegraphics[width=0.80\textwidth]{images/RDF-CO-implementation-model.png}
+		\includegraphics[width=0.70\textwidth]{images/RDF-CO-implementation-model.png}
 	\caption{RDF constraints ontology (RDF-CO) - implementation model}
 	\label{fig:RDF-CO-implementation-model}
 \end{figure}
@@ -583,9 +587,11 @@ property & $\top$ & marriedTo & - & - & irreflexive & - \\
 The \ms{Primary Key Properties} constraint is often useful to declare a given (datatype) property as the "primary key" of a class, so that the system can enforce uniqueness. 
 Starfleet officers are uniquely identified by their command authorization code (e.g. to activate and cancel auto-destruct sequences).
 It means that the property \ms{commandAuthorizationCode} is inverse functional - mapped to DL and RDF-CO as follows:
+
 \begin{DL}
 $(\ms{funct } commandAuthorizationCode\sp{\overline{\ }})$
 \end{DL}
+
 \begin{gcotable}
 property & $\top$ & commandAuthorizationCode$^{-}$ & commandAuthorizationCode & - & inverse & - \\
 property & $\top$ & commandAuthorizationCode$^{-}$ & - & - & functional & - \\
@@ -611,23 +617,24 @@ property & StarFleetOfficer & commandAuthorizationCode & - & - & keyfor & - \\
 	%\item ( Exact Qualified Cardinality Restrictions on Properties )
 %\end{itemize}
 
-\subsection{Disjoint Classes}
-
-\begin{DL}
-Hologram $\sqcap$ Human $\sqsubseteq$ $\perp$\\
-Alternative:\\
-$Hologram \sqsubseteq \neg Human$
-\end{DL}
-
-\subsection{Minimum Qualified Cardinality Restrictions on Properties}
-
-\begin{DL}
-$FederationCaptain \sqsubseteq Federation \sqcap \geq1 commandsVessel . Vessel $
-\end{DL}
+%\subsection{Disjoint Classes}
+%
+%\begin{DL}
+%Hologram $\sqcap$ Human $\sqsubseteq$ $\perp$\\
+%Alternative:\\
+%$Hologram \sqsubseteq \neg Human$
+%\end{DL}
+%
+%\subsection{Minimum Qualified Cardinality Restrictions on Properties}
+%
+%\begin{DL}
+%$FederationCaptain \sqsubseteq Federation \sqcap \geq1 commandsVessel . Vessel $
+%\end{DL}
 
 %\section{Transformations and Automatic Validation of Specific Constraints}
 %\section{Transformations between Specific Constraints (Expressed by Different Constraint Languages)}
 \section{Transformations between Specific Constraints}
+\label{sec:transformations}
 
 RDF data providers ensure that their data conforms to constraints which are part of the contract between the providers and the consumers of that data.
 As there is no standard way, these constraints may be represented by multiple constraint languages (there are even more than the five promising ones)\footnote{i.a. Bibframe, DQTP, Pellet ICV, RDFUnit, SPARQL, Stardog ICV}.
@@ -644,7 +651,7 @@ We do not need to define mappings for each pair of semantically equivalent speci
 Let's assume we are able to express a constraint by 5/6/7/8/9/10 constraint languages.
 Without the intermediate generic constraint, we would have to define one mapping for each pair of specific constraints expressed by a specific constraint language
 - that are \ms{\( {n \choose 2} \)} mappings for each constraint (example: 10/15/21/28/36/45).
-Without an intermediate generic constraint, we only need to define \ms{n} mappings from the specific constraints to the generic constraint (example: 5/6/7/8/9/10 ).
+With an intermediate generic constraint, we only need to define \ms{n} mappings from the specific constraints to the generic constraint (example: 5/6/7/8/9/10 ).
 
 %(n(n+1))/2
 
@@ -655,11 +662,10 @@ Without an intermediate generic constraint, we only need to define \ms{n} mappin
 %\( {n \choose 2} \)
 %\end{DL}
 
-\ms{Allowed Values}\footnote{correspond to the requirements \ms{R-30-ALLOWED-VALUES-FOR-RDF-OBJECTS} and \ms{R-37-ALLOWED-VALUES-FOR-RDF-LITERALS}}
+\ms{Allowed Values}\footnote{corresponds to the requirements \ms{R-30-ALLOWED-VALUES-FOR-RDF-OBJECTS} and \ms{R-37-ALLOWED-VALUES-FOR-RDF-LITERALS}}
 is a common requirement to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resources). 
-This is often rendered in drop down boxes or radio buttons in user interfaces.
-The Enterprise, e.g. is only commended by the captains Archer, Kirk, and Picard.
-This complex constraint is composed of two simple constraints: \ms{universal quantification} and \ms{allowed values} - which can be represented in DL:
+The Enterprise, e.g., is only commanded by the captains Archer, Kirk, and Picard.
+This complex constraint is composed of the two simple constraints \ms{universal quantification} and \ms{allowed values} which can be represented in DL:
 
 %\begin{DL}
 %StarfleetCaptain $\equiv$ $\forall$ overruledBy . \{Commodore\} $\sqcup$ \{Admiral\}
@@ -736,12 +742,12 @@ But, if we define a mapping from a specific constraint to the corresponding gene
 we do not have to define a mapping to SPIN for that specific constraint - we can perform an automatic validation for the generic and for the specific constraint as well.
 As a consequence, we only have to define one SPIN mapping for each constraint corresponding to a requirement within the RDF validation requirements database.
 19 of 74 RDF constraints can be expressed by at least four constraint languages \cite{BoschNolleAcarEckert2015}.
-This means, that there must be 76 (four for each constraint) implementations for an automatic validation of these constraints - instead of only 19 (one for each constraint).
+This means, that there must be 76 (four for each constraint) implementations to validate  these constraints - instead of only 19 (one for each constraint).
 
 Within our SPIN validation environment, we define a SPIN construct template for each generic constraint\footnote{for details about the SPIN validation environment see \cite{BoschEckert2014-2}}.
 The SPIN construct template contains a SPARQL CONSTRUCT query which generates constraint violation triples (\ms{spin:ConstraintViolation}) indicating the subject (\ms{spin:violationRoot}) and the properties (\ms{spin:violationPath}), causing the constraint violation, and the reason why the constraint violation has been raised (\ms{rdfs:label}).
 The SPIN construct template creates the constraint violation triples if all triple patterns within the SPARQL WHERE clause match.
-The SPARQL CONSTRUCT query for the universal quantification is shown below:
+The SPARQL CONSTRUCT query for the universal quantification (of the previous example in section \ref{sec:transformations}) is shown below:
 
 \begin{ex}
 CONSTRUCT {
@@ -761,8 +767,7 @@ WHERE {
     FILTER ( ?i != ?i1 && ?i != ?i2 && ?i != ?i3 ) . }
 \end{ex}
 
-The implementation of the automatic validation of a constraint cannot be different when it is expressed by different constraint languages.
-So, the validation results do not differ on the basis of multiple validation implementations, as there is only one validation implementation for each constraint independent from the used constraint language.
+As a consequence, the validation results do not differ for semantically equivalent constraints when they are based on multiple validation implementations, as there is only one validation implementation for each constraint - independent from the used constraint language.
 
 %\subsection{Not Allowed Values}
 
