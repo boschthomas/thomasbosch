@@ -351,12 +351,12 @@ The \textbf{contributions} of this paper are:
 	%\item Any specific constraint (expressed by any constraint language) can be validated automatically (if an automatic validation is defined only once for corresponding generic constraint)
 %\end{itemize}
 
-\section{RDF Constraints Ontology} 
+\section{Ontology to Describe RDF Constraints Generically} 
 \label{sec:ontology}
 
-In order to define this ontology to describe RDF constraints generically, it is needed to define the terminology for the formulation of constraints. 
+In order to define an ontology to describe RDF constraints generically, it is needed to define the terminology for the formulation of RDF constraints and to classify them. 
 A \ms{constraint language} is a language which is used to formulate constraints.
-The W3C Data Shapes WG defines \ms{constraint} as a component of a schema what needs to be satisfied\footnote{\url{https://www.w3.org/2014/data-shapes/wiki/Glossary}}.
+The W3C Data Shapes working group defines \ms{constraint} as a component of a schema what needs to be satisfied\footnote{\url{https://www.w3.org/2014/data-shapes/wiki/Glossary}}.
 We identified four dimensions to classify constraints:
 \begin{itemize}
   \item \ms{Universality:} specific constraints vs. generic constraints
@@ -366,7 +366,7 @@ We identified four dimensions to classify constraints:
 \end{itemize}
 
 As there are already five promising constraint languages, our purpose is not to invent a new constraint language.
-We developed a very simple ontology (only three classes, three object properties, and three data properties) which is universal enough to describe any RDF constraint expressible by any RDF constraint language (see the conceptual model in figure \ref{fig:RDF-CO-conceptual-model}).
+We rather developed a very simple ontology (only three classes, three object properties, and three data properties) which is universal enough to describe any RDF constraint expressible by any RDF constraint language (see the conceptual model in figure \ref{fig:RDF-CO-conceptual-model}).
 We call this ontology the \ms{RDF constraints ontology (RDF-CO)}\footnote{Available at: \url{https://github.com/boschthomas/RDF-constraints-ontology}}.
 
 \begin{figure}
@@ -383,7 +383,7 @@ The majority of constraints can be expressed in DL (see section \ref{sec:evaluat
 In contrast, there are constraints which cannot be expressed in DL, but are also representable by the RDF-CO. 
 \ms{Complex constraints} encompass \ms{simple constraints} (atomic constraints) and/or further complex constraints.
 DL statements representing complex constraints are created out of DL statements representing composed constraints (if expressible in DL). 
-Simple constraints may be applied to either properties \ms{properties constraints} or classes \ms{class constraints}.
+Simple constraints may be applied to either properties (\ms{properties constraints}) or classes (\ms{class constraints}).
 There are no terms representing simple and complex constraints in the RDF-CO, since context classes (associated simple constraints hold for individuals of these classes) of simple constraints may just be reused by further constraints.
 As a consequence, the distinction of property and class constraints is sufficient to describe all possible RDF constraints.
 
@@ -401,25 +401,40 @@ Lists of left and right properties can only be stated for property constraints.
 \end{figure}
 
 A constraint holds for all individuals of a context class (\ms{contextClass}).
-Consider, e.g., the following cardinality restriction on the property \ms{commandsVessel}, which restricts that a captain must command at least one vessel: 
+Consider, e.g., the following cardinality restriction on the property \ms{commandsVessel}, which restricts Starfleet captains to command at least one vessel: 
 \begin{DL}
-$Captain \sqsubseteq \geq1 commandsVessel . Vessel $
+$StarfleetCaptain \sqsubseteq \geq1 commandsVessel . Vessel $
 \end{DL}
-Mapped to the GCLO the cardinality restriction is classified as a property constraint which holds for individuals of the class \ms{Captain} - the context class:
+Mapped to the RDF-CO the cardinality restriction is classified as a property constraint which holds for individuals of the class \ms{StarfleetCaptain}:
 \begin{gcotable}
-property & Captain & commandsVessel & - & Vessel & $\geq$ & 1 \\
+property & StarfleetCaptain & commandsVessel & - & Vessel & $\geq$ & 1 \\
 \end{gcotable}
-The constraining element (\ms{constrainingElement}) is the operator indicating the actual type of constraint like DL concept and role constructors, (in)equality, and further keywords for constrains which cannot be expressed in DL (e.g. regular expressions, constraining facets).
+The constraining element (\ms{constrainingElement}) indicates the actual type of constraint like DL concept and role constructors, (in)equality, and further keywords for constrains which cannot be expressed in DL (e.g. regular expressions and constraining facets).
 In some cases, a constraint is only complete when in addition to the constraining element a constraining value (\ms{constrainingValue}) is stated.
 The cardinality restriction 
-\begin{DL}
-$\geq$1 commandsVessel . Vessel
-\end{DL}
+\ms{$\geq$1 commandsVessel.Vessel}
 constructs an anonymous class of all individuals who command at least one vessel.
 Thus, the constraining element of this property constraint is the DL at-least restriction \ms{$\geq$} and the constraining value is \ms{1}.
-\ms{Classes} indicate the list of classes constraints refer to.
-In case of the property constraint above, the qualified cardinality restriction refers to the class \ms{Vessel}, 
-i.e., restricting the objects, the property \ms{commandsVessel} point to, to be of the class \ms{Vessel}.
+\ms{Classes} indicate the list of classes, constraints refer to.
+The qualified cardinality restriction refers to the class \ms{Vessel}, 
+i.e., restricting the objects, the property \ms{commandsVessel} points to, to be of the class \ms{Vessel}.
+
+For property constraints, left and right property lists (\ms{leftProperties}, \ms{rightProperties}) can be specified.
+The assignment of properties to these lists happens relative to the constraining element - which may be an operator (e.g. $\sqsubseteq$ in case of object property paths).
+\ms{Object Property Paths}\footnote{corresponds to the requirement \ms{R-55-OBJECT-PROPERTY-PATHS}} (also called complex role inclusion axioms in DL terminology)
+state that, if an individual x is connected by a sequence of object properties with an individual y, 
+then x is also connected with y by a particular object property. 
+According to the following object property path and some instance data, lieutenant commander \ms{Data} is commanded by captain \ms{Picard} 
+(as \ms{Data} is commanded by commander \ms{Riker} who is commanded by captain \ms{Picard}):
+\begin{DL}
+commandedByCommander $\circ$ commandedByCaptain $\sqsubseteq$ commandedByCaptain 
+\end{DL}
+When mapped to the RDF-CO, the properties \ms{commandedByCommander}, \ms{commandedByCaptain} are on the left side of the constraining element \ms{$\sqsubseteq$},
+and the property \ms{commandedByCaptain} is on the right side:
+
+\begin{gcotable}
+property & $\top$ & commandedByCommander, commandedByCaptain & commandedByCaptain & $\top$ & $\sqsubseteq$ & - \\
+\end{gcotable}
 
 \subsection{Simple Constraints (Not Expressible in DL)}
 
@@ -818,6 +833,8 @@ The majority - nearly 70\% - of the overall constraints are expressible in DL.
 \section{Related Work}
 
 \section{Conclusion and Future Work}
+
+\tb{ToDO: too much space before and after DL and table environments}
 
 \bibliography{../../literature/literature}{}
 \bibliographystyle{plain}
