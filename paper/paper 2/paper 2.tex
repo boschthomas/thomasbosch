@@ -730,22 +730,23 @@ Enterprise {
     %:overruledBy @:Commodore* , :overruledBy @:Admiral* }
 %\end{ex}
 
-\section{Automatic Validation of Specific and Generic Constraints}
+\section{Validation of Specific and Generic Constraints}
 \label{sec:validation}
 
-We can provide an automatic validation of all specific constraints (expressed by any constraint language) by defining a mapping to SPIN.
+We can provide the validation of all specific constraints (expressed by any constraint language) by defining a mapping to SPIN.
 That's what we have done for all OWL 2 and DSP constructs (see section \ref{sec:implementation}).
 %We do not have to define a mapping to SPIN for each specific constraint. 
 %when we define a mapping to SPIN for each generic constraint.
 But, if we define a mapping from a specific constraint to the corresponding generic constraint and if we define a mapping from the generic constraint to SPIN,
-we do not have to define a mapping to SPIN for that specific constraint - we can perform an automatic validation for the generic and for the specific constraint as well.
+we do not have to define a mapping to SPIN for that specific constraint - 
+we are able to validate the generic as well as the specific constraint.
 As a consequence, we only have to define one SPIN mapping for each constraint corresponding to a requirement within the RDF validation requirements database.
 19 of 74 RDF constraints can be expressed by at least four constraint languages \cite{BoschNolleAcarEckert2015}.
-This means, that there must be 76 (four for each constraint) implementations to validate  these constraints - instead of only 19 (one for each constraint).
+This means, that there must be 76 (four for each constraint) implementations to validate 76 specific constraints - instead of only 19 implementations (one for each generic constraint).
 
 Within our SPIN validation environment, we define a SPIN construct template for each generic constraint\footnote{for details about the SPIN validation environment see \cite{BoschEckert2014-2}}.
-The SPIN construct template contains a SPARQL CONSTRUCT query which generates constraint violation triples (\ms{spin:ConstraintViolation}) indicating the subject (\ms{spin:violationRoot}) and the properties (\ms{spin:violationPath}), causing the constraint violation, and the reason why the constraint violation has been raised (\ms{rdfs:label}).
-The SPIN construct template creates the constraint violation triples if all triple patterns within the SPARQL WHERE clause match.
+A SPIN construct template contains a SPARQL CONSTRUCT query which generates constraint violation triples (\ms{spin:ConstraintViolation}) indicating the subject (\ms{spin:violationRoot}) and the properties (\ms{spin:violationPath}), causing constraint violations, and the reason why constraint violations have been raised (\ms{rdfs:label}).
+A SPIN construct template creates constraint violation triples if all triple patterns within the SPARQL WHERE clause match.
 The SPARQL CONSTRUCT query for the universal quantification (of the previous example in section \ref{sec:transformations}) is shown below:
 
 \begin{ex}
@@ -766,7 +767,8 @@ WHERE {
     FILTER ( ?i != ?i1 && ?i != ?i2 && ?i != ?i3 ) . }
 \end{ex}
 
-As a consequence, the validation results do not differ for semantically equivalent constraints when they are based on multiple validation implementations, as there is only one validation implementation for each constraint - independent from the used constraint language.
+As a consequence, the validation results do not differ for semantically equivalent constraints expressed by multiple constraint languages,
+as we provide only one validation implementation for each generic constraint.
 
 %\subsection{Not Allowed Values}
 
