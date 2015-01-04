@@ -782,26 +782,28 @@ validation environment in which the validation of any constraint language\footno
 The validation implementation of constraint languages is fully declarative,
 consisting of a mapping from constraint languages to SPIN in form of SPARQL CONSTRUCT queries.
 SPIN represents both the SPIN mappings and the SPARQL queries in RDF. 
-Within the validation environment, we fully implemented an automatic validation of all OWL 2 DL\footnote{OWL 2 SPIN mapping: \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}} and DSP\footnote{DSP SPIN mapping: \url{https://github.com/dcmi/DSP-SPIN-Mapping}} constructs (for the complete DSP validation see \cite{BoschEckert2014-2}). 
+Within the validation environment, we fully implemented the validation of all OWL 2 DL\footnote{OWL 2 SPIN mapping: \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}} and DSP\footnote{DSP SPIN mapping: \url{https://github.com/dcmi/DSP-SPIN-Mapping}} constructs (for the complete DSP validation see \cite{BoschEckert2014-2}). 
 The implementation can be tested at \url{http://purl.org/net/rdfval-demo}.
 The SPIN engine checks for each resource if it satisfies all constraints (associated with its assigned classes) and generates a result RDF graph containing information about all constraint violations.
 
-We provide a mapping from the generic constraint language to SPIN\footnote{GCL SPIN mapping: \url{https://github.com/boschthomas/GCL-SPIN-Mapping}} in order to automatically validate each type of generic constraint (simple, complex, property, and class constraints).
+We provide a mapping from RDF-CO to SPIN\footnote{RDF-CO SPIN mapping: \url{https://github.com/boschthomas/RDF-CO-SPIN-Mapping}} in order to automatically validate each type of generic constraint (simple, complex, property, and class constraints).
 Part of future work will be 
-\begin{itemize}
-	\item to provide a GUI which generates generic constraints automatically according to inputs of domain experts who are not familiar with the formulation of constraints.
-	\item to offer bidirectional transformations between specific constraints (expressed by multiple constraint languages) and generic constraints. 
-	\item to provide translations between specific constraints (expressed by any specific constraint language) by using generic constraints as an intermediate transformation step.
-\end{itemize}
-
+(1) to provide a GUI which generates generic constraints automatically according to inputs of domain experts who are not familiar with the formulation of constraints; 
+(2) to offer bidirectional transformations between specific constraints (expressed by multiple constraint languages) and generic constraints;
+(3) to provide translations between specific constraints (expressed by any specific constraint language) by using generic constraints as an intermediate transformation step.
+%\begin{itemize}
+	%\item to provide a GUI which generates generic constraints automatically according to inputs of domain experts who are not familiar with the formulation of constraints.
+	%\item to offer bidirectional transformations between specific constraints (expressed by multiple constraint languages) and generic constraints. 
+	%\item to provide translations between specific constraints (expressed by any specific constraint language) by using generic constraints as an intermediate transformation step.
+%\end{itemize}
 \section{Evaluation}
 \label{sec:evaluation}
 
 We evaluated to which extend the most promising five constraint languages fulfill each of the overall 74 requirements to formulate RDF constraints \cite{BoschNolleAcarEckert2015}.
 If a constraint can be expressed in DL, we added the mapping to DL and to the generic constraint.
-If a constraint cannot be expressed in DL, we added a mapping to the generic constraint.
+If a constraint cannot be expressed in DL, we only added the mapping to the generic constraint.
 Therefore, we show that each constraint can be mapped to a generic constraint.
-The following table shows the absolute number and the relative percentage for the three dimensions to classify constraints:
+The following table shows the absolute numbers and the relative percentages for each of the three dimensions to classify constraints:
 
 \begin{evaluation-generic-overview}
 Property Constraints & 48 & 65 (64.86) \\
@@ -819,10 +821,10 @@ Total & 74 & 100 \\
 \end{evaluation-generic-overview}
 
 Constraints can be classified as \ms{property constraints} and \ms{class constraints}.
-Two thirds are property constraints, one fifth class constraints, and approx. 10\% are composed of both property and class constraints.
-Constraints may be either atomic (\ms{simple constraints}) or created out of simple and complex constraints (\ms{complex constraints}).
+Two thirds of the total amount of constraints are property constraints, one fifth are class constraints, and approx. 10\% are composed of both property and class constraints.
+Constraints may be either atomic (\ms{simple constraints}) or created out of simple and/or complex constraints (\ms{complex constraints}).
 Almost two thirds are simple constraints, a quarter are complex constraints.
-Almost 15 percent are complex constraints which can be formulated as simple constraints when used in terms of syntactic sugar.
+Almost 15 percent are complex constraints which can be formulated as simple constraints when using them in terms of syntactic sugar.
 Constraints can either be expressible in DL or not.
 The majority - nearly 70\% - of the overall constraints are expressible in DL.	
 
