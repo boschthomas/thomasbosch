@@ -47,7 +47,7 @@
 \newenvironment{gcotable-1}{
   \scriptsize
   \sffamily
-  \vspace{0.3cm}
+  \vspace{0cm}
   \begin{tabular}{l|l|l|l|l|l}
   \hline
   \textbf{c. type} & \textbf{context concept} & \textbf{p. list} & \textbf{concepts} & \textbf{c. element} & \textbf{c. value} \\
@@ -56,13 +56,12 @@
 }{
   \hline
   \end{tabular}
-  \linebreak
 }
 
 \newenvironment{gcotable}{
   \scriptsize
   \sffamily
-  \vspace{0.3cm}
+  \vspace{0cm}
 	\begin{center}
   \begin{tabular}{l|l|l|l|l|l|l}
   \hline
@@ -78,7 +77,7 @@
 \newenvironment{DL}{
   %\scriptsize
   %\sffamily
-  \vspace{0.3cm}
+  \vspace{0cm}
 	\begin{center}
   \begin{tabular}{r l}
 
@@ -90,7 +89,7 @@
 \newenvironment{evaluation}{
   %\scriptsize
   %\sffamily
-  \vspace{0.3cm}
+  \vspace{0cm}
 	\begin{center}
   \begin{tabular}{l|c|c|c|c|c|c}
   \hline
@@ -106,7 +105,7 @@
 \newenvironment{evaluation-generic-overview}{
   %\scriptsize
   %\sffamily
-  %\vspace{0.3cm}
+  \vspace{0cm}
 	\begin{center}
   \begin{tabular}{l|c|c}
   \hline
@@ -636,21 +635,21 @@ property & StarFleetOfficer & commandAuthorizationCode & - & - & keyfor & - \\
 \label{sec:transformations}
 
 RDF data providers ensure that their data conforms to constraints which are part of the contract between the providers and the consumers of that data.
-As there is no standard way, these constraints may be represented by multiple constraint languages (there are even more than the five promising ones)\footnote{i.a. Bibframe, DQTP, Pellet ICV, RDFUnit, SPARQL, Stardog ICV}.
+As there is no standard way, these constraints may be represented by multiple constraint languages (there are even more than the five promising ones\footnote{i.a. Bibframe, DQTP, Pellet ICV, RDFUnit, SPARQL, Stardog ICV}).
 There is an obvious need to transform a specific constraint (\ms{$sc_{\alpha}$}) (expressed by any constraint language \ms{$\alpha$}) into a specific constraint (\ms{$sc_{\beta}$}) (expressed by any constraint language \ms{$\beta$}) - when they have the same semantics.
-We use the RDF-CO as intermediate language for these transformations.
-If we define mappings ($m(sc_{\alpha}), m(sc_{\beta})$) from these two specific constraints to the corresponding generic constraint (\ms{gc}),
+We use the RDF-CO as intermediate representation for these transformations.
+If we define mappings ($m(sc_{\alpha}), m(sc_{\beta})$) from two equivalent specific constraints to the corresponding generic constraint (\ms{gc}),
 we can convert them automatically:
 
 \begin{DL}
 $ gc = m(sc_{\alpha}) = m(sc_{\beta}) $
 \end{DL}
 
-We do not need to define mappings for each pair of semantically equivalent specific constraint.
+We do not need to define mappings for each pair of semantically equivalent specific constraints.
 Let's assume we are able to express a constraint by 5/6/7/8/9/10 constraint languages.
-Without the intermediate generic constraint, we would have to define one mapping for each pair of specific constraints expressed by a specific constraint language
-- that are \ms{\( {n \choose 2} \)} mappings for each constraint (example: 10/15/21/28/36/45).
-With an intermediate generic constraint, we only need to define \ms{n} mappings from the specific constraints to the generic constraint (example: 5/6/7/8/9/10 ).
+Without the intermediate generic constraint, we would have to define one mapping for each pair of specific constraints expressed by a different constraint languages
+- that are \ms{\( {n \choose 2} \)} mappings for each constraint (10/15/21/28/36/45 mappings).
+With an intermediate generic constraint, we only need to define \ms{n} mappings (one mapping for each specific constraint) from the specific constraints to the generic constraint (5/6/7/8/9/10 mappings).
 
 %(n(n+1))/2
 
@@ -674,7 +673,7 @@ This complex constraint is composed of the two simple constraints \ms{universal 
 Enterprise $\equiv$ $\forall$ commandedBy . \{Archer\} $\sqcup$ \{Kirk\} $\sqcup$ \{Picard\}
 \end{DL}
 
-First, we map these DL statements to two simple constraints corresponding to the RDF-CO (we define the class \ms{EnterpriseCaptains} by simply enumerating its instances):
+First, we map these DL statements to two simple generic constraints corresponding to the RDF-CO (we define the class \ms{EnterpriseCaptains} by simply enumerating its instances):
 
 %\begin{gcotable}
 %property & StarfleetCaptain & overruledBy & - & CaptainOverruler & $\forall$ & - \\
@@ -830,6 +829,7 @@ The majority - nearly 70\% - of the overall constraints are expressible in DL.
 \section{Conclusion and Future Work}
 
 \tb{ToDO: too much space before and after DL and table environments}
+\tb{ToDo: there are no line breaks for ms environment}
 
 \bibliography{../../literature/literature}{}
 \bibliographystyle{plain}
