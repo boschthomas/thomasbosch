@@ -439,25 +439,20 @@ property & $\top$ & commandedByCommander, commandedByCaptain & commandedByCaptai
 \subsection{Simple Constraints (Not Expressible in DL)}
 
 There are simple constraints which cannot be expressed by DL such as literal pattern matching, literal value comparison, literal ranges, default values, and language tag cardinality \cite{BoschNolleAcarEckert2015}.
-
 % maybe additional constraint default values:
 % ear shape of races, e.g. vulcans / teeth color
 % mathematical operations
-
-There are multiple use cases associated with the requirement to match literals according to given patterns (\ms{Literal Pattern Matching} constraint).
+There are multiple use cases associated with the requirement to match literals according to given patterns (\ms{Literal Pattern Matching}\footnote{corresponds to the requirement \ms{R-44-PATTERN-MATCHING-ON-RDF-LITERALS}}).
 The enterprise vessel, e.g.,  can only have the registry numbers "NCC-1701", "NCC-1701-A", "NCC-1701-B", "NCC-1701-C", "NCC-1701-D", or "NCC-1701-E".
-The universal restriction part of this complex constraint can be expressed by OWL 2 DL:
+The universal restriction can be represented in DL:
 \ms{Enterprise $\sqsubseteq$ $\forall$ registryNumber.RegistryNumber}.
 The restriction of the datatype \ms{RegistryNumber}, however, cannot be expressed in DL, but OWL 2 DL can be used anyway to express the literal pattern matching constraint:
 
 \begin{ex}
 RegistryNumber
-    a rdfs:Datatype ;
-    owl:equivalentClass [
-        a rdfs:Datatype ;
+    a rdfs:Datatype ; owl:equivalentClass [ a rdfs:Datatype ;
         owl:onDatatype xsd:string ;
-        owl:withRestrictions ( 
-            [ xsd:pattern "NCC-1701([-][A-E])?" ] ) ] .
+        owl:withRestrictions ( [ xsd:pattern "NCC-1701([-][A-E])?" ] ) ] .
 \end{ex}
 
 The second axiom defines \ms{RegistryNumber} as an abbreviation for a datatype restriction on \ms{xsd:string}. 
@@ -466,23 +461,23 @@ The datatype \ms{RegistryNumber} can be used just like any other datatype like i
 The literal pattern matching constraint validates \ms{RegistryNumber} literals according to the stated regular expression causing a constraint violation for the triples 
 \ms{Janeway commandsEnterprise Voyager} and \ms{Voyager registryNumber "NCC-74656"\textasciicircum{}\textasciicircum{}RegistryNumber}, 
 but not for the triples \ms{Picard commandsEnterprise Enterprise} and \ms{Enterprise registryNumber "NCC-1701-E"\textasciicircum{}\textasciicircum{}RegistryNumber}.
-The universal restriction and the literal pattern matching constraint are mapped to the generic constraint language as follows:
+The simple constraints - universal restriction and literal pattern matching - are mapped to the RDF-CO as follows:
 
 \begin{gcotable}
 property & Enterprise & registryNumber & - & RegistryNumber & $\forall$ & - \\
 class & RegistryNumber & - & - & xsd:string & regex & 'NCC-1701([-][A-E])?' \\
 \end{gcotable}
 
-The \ms{Literal Pattern Matching} constraint introduces a new constraining element: \ms{regex}.
-For this new constraining element, an automatic validation must be implemented in SPIN.
+The \ms{Literal Pattern Matching} constraint introduces the new constraining element \ms{regex}.
+For this new constraining element, the validation must be implemented.
 This has to be done once for each constraint which cannot be expressed in DL.
 
 \subsection{Complex Constraints}
 
 \ms{Complex constraints} encompass simple constraints and/or complex constraints.
-\textbf{Context-Specific Exclusive OR of Property Groups}\footnote{corresponds to R-13-DISJOINT-GROUP-OF-PROPERTIES-CLASS-SPECIFIC}\textbf{.}
 Exclusive or is a logical operation that outputs true whenever both inputs differ (one is true, the other is false).
-Only one of multiple property groups should be present in the data.
+The \ms{Context-Specific Exclusive OR of Property Groups}\footnote{corresponds to R-13-DISJOINT-GROUP-OF-PROPERTIES-CLASS-SPECIFIC} 
+constraint restricts the data to contain only one of multiple property groups.
 Half-Klingons, e.g., either have a klingon mother and a human father or a human mother and a klingon father, which can be expressed by ShEx:
 
 \begin{ex}
@@ -491,7 +486,7 @@ Half-Klingon {
     ( humanMother Human , klingonFather Klingon ) }
 \end{ex}
 
-As \ms{B'Elanna Torres} is a \ms{Half-Klingon} with a klingon mother and a human father, this data is valid:
+As \ms{B'Elanna Torres} is a \ms{Half-Klingon} with a klingon mother and a human father, the following data is valid:
 
 \begin{ex}
 BElannaTorres a Half-Klingon ;
@@ -516,7 +511,7 @@ C $\sqsubseteq$ $\geq$ 1 humanMother.Human $\sqcap$ $\leq$ 1 humanMother.Human \
 D $\sqsubseteq$ $\geq$ 1 klingonFather.Klingon $\sqcap$ $\leq$ 1 klingonFather.Klingon \\
 \end{DL}
 
-The constraint expressed by DL can be mapped to a generic constraint:
+The complex constraint (expressed in DL) is mapped to a generic constraint:
 
 \begin{gcotable}
 class & Half-Klingon & - & - & $\neg$E $\sqcap$ F, E $\sqcap$ $\neg$F & $\sqcup$ & - \\
@@ -557,17 +552,17 @@ property & D & klingonFather & - & Klingon & = & 1 \\
 
 \subsection{Simple Constraints (Syntactic Sugar)}
 
-Almost 15 percent of all RDF constraints are complex constraints which can be simplified and therefore formulated as simple constraints when used in terms of syntactic sugar (see section \ref{sec:evaluation}).
+Almost 15 percent of all RDF constraints are complex constraints which can be simplified and therefore formulated as simple constraints when using them in terms of syntactic sugar (see section \ref{sec:evaluation}).
 
-There three forms of RBox axioms: role inclusions, role equivalences and role disjointness. 
+There are three forms of RBox axioms: role inclusions, equivalences and disjointness. 
 OWL provides a variety of others, namely role transitivity, symmetry, asymmetry, reflexivity and irreflexivity. 
-These are sometimes considered as basic axiom types in DLs as well, using some suggestive notation such as
+These are sometimes considered as basic axiom types in DL as well, using some suggestive notation such as
 \ms{Trans(ancestorOf)} to express that the role ancestorOf is transitive. 
 However, such axioms are just syntactic sugar; 
-all role characteristics can be expressed using the basic features of DLs.
+all role characteristics can be expressed using the basic features of DL.
 \ms{Irreflexive Object Properties}\footnote{corresponds to the requirement \ms{R-60-IRREFLEXIVE-OBJECT-PROPERTIES}}
 restricts that an object property is irreflexive if it is never locally reflexive, i.e. no individual is connected by the object property to itself \cite{Kroetzsch2012}.
-Irreflexivity constraints, stating that individuals cannot be married to themselves, can be represented in DL:
+The irreflexivity constraint, stating that individuals cannot be married to themselves, can be represented in DL:
 
 \begin{DL}
 $\top$ $\sqsubseteq$ $\neg$ $\exists  marriedTo . Self$
@@ -588,24 +583,24 @@ the complex constraint transforms into a simple property constraint with exactly
 property & $\top$ & marriedTo & - & - & irreflexive & - \\
 \end{gcotable}
 
-The \ms{Primary Key Properties} constraint is often useful to declare a given (datatype) property as the "primary key" of a class, so that the system can enforce uniqueness. 
-Starfleet officers are uniquely identified by their command authorization code (e.g. to activate and cancel auto-destruct sequences).
-It means that the property \ms{commandAuthorizationCode} is inverse functional - mapped to DL and RDF-CO as follows:
+The \ms{Primary Key Properties} constraint is often useful to declare a given (datatype) property as the "primary key" of a class, so that a system can enforce uniqueness. 
+Starfleet officers, e.g., are uniquely identified by their command authorization code (e.g. to activate and cancel auto-destruct sequences).
+It means that the property \ms{commandAuthorizationCode} is inverse functional - mapped to DL and the RDF-CO as follows:
 
 \begin{DL}
 $(\ms{funct } commandAuthorizationCode\sp{\overline{\ }})$
 \end{DL}
 
 \begin{gcotable}
-property & $\top$ & commandAuthorizationCode$^{-}$ & commandAuthorizationCode & - & inverse & - \\
+property & $\top$ & commandAuthorizationCode$^{-}$ & commandAuthorizationCode$^{-}$ & - & inverse & - \\
 property & $\top$ & commandAuthorizationCode$^{-}$ & - & - & functional & - \\
 \end{gcotable}
 
-Keys are even more general, i.e., a generalization of inverse functional properties\footnote{\url{http://www.w3.org/TR/2012/REC-owl2-rdf-based-semantics-20121211/#Semantic_Conditions_for_Keys}}.
+Keys, however, are even more general, i.e., a generalization of inverse functional properties \cite{Schneider2009}.
 A key can be a datatype property, an object property, or a chain of properties.
 For this generalization purposes, as there are different sorts of key, and as keys can lead to undecidability, 
 DL is extended with \ms{key boxes} and a special \ms{keyfor} construct\cite{Lutz2005}.
-This leads to the following DL and RDF-CO mappings (only one simple property constraint) for the example:
+This leads to the following DL and RDF-CO mappings (only one simple property constraint):
 
 \begin{DL}
 commandAuthorizationCode \ms{keyfor} StarfleetOfficer
