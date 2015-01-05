@@ -506,8 +506,28 @@ We distinguish two disjoint sub-classes of constraints:
 \end{itemize}
 
 \ms{Constraints without reasoning} are constraints for which reasoning cannot be done or does not make any sense.
+\ms{Literal Pattern Matching}\footnote{corresponds to R-44-PATTERN-MATCHING-ON-RDF-LITERALS}, e.g., restrict literals to match given patterns.
+Luke's droids can only have the numbers "R2-D2" or "C-3PO".
+The universal restriction can be expressed by OWL 2 DL:
+\ms{LukesDroids $\sqsubseteq$ $\forall$ droidNumber . DroidNumber}.
+The restriction of the datatype \ms{DroidNumber}, however, cannot be expressed in DL, but OWL 2 DL can be used anyway:
 
-\textcolor{red}{ToDo Thomas: 1 example}
+\begin{ex}
+DroidNumber 
+    a rdfs:Datatype ;
+    owl:equivalentClass [
+        a rdfs:Datatype ;
+        owl:onDatatype xsd:string ;
+        owl:withRestrictions ( 
+            [ xsd:pattern "R2-D2|C-3PO" ] ) ] .
+\end{ex}
+
+The second axiom defines \ms{DroidNumber} as an abbreviation for a datatype restriction on \ms{xsd:string}. 
+The first axiom explicitly declares \ms{DroidNumber} to be a datatype. 
+The datatype \ms{DroidNumber} can be used just like any other datatype like in the universal restriction above.
+The literal pattern matching constraint validates \ms{DroidNumber} literals according to the stated regular expression causing a constraint violation for the triples 
+\ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber}, 
+but not for the triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}.
 
 \ms{Constraints with reasoning} are constraints for which reasoning may be performed or is even needed.
 \ms{Constraints with reasoning} correspond to axioms in DL - e.g. subsumption, sup properties, cardinality restrictions, existential, and universal restrictions.
