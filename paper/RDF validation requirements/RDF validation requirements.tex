@@ -41,7 +41,7 @@
 \newenvironment{gcotable-old}{
   \scriptsize
   \sffamily
-  \vspace{0.3cm}\linebreak
+  \vspace{0cm}\linebreak
   \begin{tabular}{l|l|l|l|l|l}
   \hline
   \textbf{c. type} & \textbf{context concept} & \textbf{p. list} & \textbf{concepts} & \textbf{c. element} & \textbf{c. value} \\
@@ -56,10 +56,11 @@
 \newenvironment{gcotable}{
   \scriptsize
   \sffamily
-  \vspace{0.3cm}
+  \vspace{0cm}
 	\begin{center}
+	\textbf{\vspace{0.4cm}Mapping to RDF-CO:} \\
   \begin{tabular}{l|l|l|l|l|l|l}
-  \hline
+	\hline
   \textbf{c. type} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
   \hline
 
@@ -88,7 +89,7 @@
 \newenvironment{DL}{
   %\scriptsize
   %\sffamily
-  %\vspace{0.3cm}
+  \vspace{0cm}
 	\begin{center}
   \begin{tabular}{r l}
 
@@ -100,7 +101,7 @@
 \newenvironment{evaluation}{
   \scriptsize
   \sffamily
-  \vspace{0.3cm}
+  \vspace{0cm}
 	\begin{center}
   \begin{tabular}{l|c|c|c|c|c|c}
   \hline
@@ -117,7 +118,7 @@
 \newenvironment{evaluation-overall}{
   \scriptsize
   \sffamily
-  \vspace{0.3cm}
+  \vspace{0cm}
 	\begin{center}
   \begin{tabular}{l|c|c|c|c|c|c}
   \hline
@@ -134,7 +135,7 @@
 \newenvironment{evaluation-generic}{
   \scriptsize
   \sffamily
-  \vspace{0.3cm}
+  \vspace{0cm}
 	\begin{center}
   \begin{tabular}{l|c|c|c}
   \hline
@@ -151,7 +152,7 @@
 \newenvironment{evaluation-generic-overview}{
   \scriptsize
   \sffamily
-  \vspace{0.3cm}
+  \vspace{0cm}
 	\begin{center}
   \begin{tabular}{l|c|c}
   \hline
@@ -319,18 +320,14 @@ In section \ref{sec:evaluation-2} we classify the constraints according to the d
 
 \section{Subsumption}
 
-\ms{Subsumption} corresponds to the requirement \ms{R-100-SUBSUMPTION}.
-
-\begin{itemize}
-	\item DL terminology: concept inclusion
-\end{itemize}
+\ms{Subsumption} (DL terminology: \ms{concept inclusion}) corresponds to the requirement \ms{R-100-SUBSUMPTION}.
+A subclass axiom SubClassOf( CE1 CE2 ) states that the class expression CE1 is a subclass of the class expression CE2. 
+Roughly speaking, this states that CE1 is more specific than CE2.
 
 \subsection{Simple Example}
 
-\begin{itemize}
-	\item all mothers are parents
-  \item the concept Mother is subsumed by the concept Parent
-\end{itemize}
+All mothers are parents.
+The concept \ms{Mother} is subsumed by the concept \ms{Parent}:
 
 \begin{DL}
 Mother $\sqsubseteq$ Parent \\
@@ -342,33 +339,26 @@ class & Mother & - & - & Parent & $\sqsubseteq$ \\
 
 \subsection{Simple Example}
 
-Jedis feel the force. 
+Jedis feel the force:
 
 \begin{DL}
 Jedi $\sqsubseteq$ FeelingForce
 \end{DL}
 
-\begin{ex}
-# DSP
-# ---
--
-\end{ex}
+Expressed by multiple constraint languages:
 
 \begin{ex}
-# OWL2
-# ----
+# OWL2:
 Jedi rdfs:subClassOf FeelingForce .
 \end{ex}
 
 \begin{ex}
-# ReSh
-# ----
+# ReSh:
 the extension ext:extendsShape may be used
 \end{ex}
 
 \begin{ex}
-# ShEx
-# ----
+# ShEx:
 FeelingForce {
     feelingForce (true) }
 Jedi {
@@ -376,9 +366,9 @@ Jedi {
     attitute ('good') }
 \end{ex}
 
+Data matching the shapes \ms{FeelingForce} and \ms{Jedi}:
+
 \begin{ex}
-# data
-# ----
 Yoda 
     feelingForce true ;
     attitute 'good' .
@@ -389,6 +379,8 @@ class & Jedi & - & - & FeelingForce & $\sqsubseteq$ \\
 \end{gcotable}
 
 \subsection{Complex Example}
+
+If an individual is rich, then this individual is not poor:
 
 \begin{DL}
 Rich $\sqsubseteq$ $\neg$ Poor 
@@ -401,15 +393,10 @@ class & Rich & - & - & $\neg$ Poor & $\sqsubseteq$ \\
 
 \section{Class Equivalence}
 
-requirement:
-
-\begin{itemize}
-	\item R-3-EQUIVALENT-CLASSES
-\end{itemize}
-
+\ms{Class Equivalence} corresponds to the requirement \ms{R-3-EQUIVALENT-CLASSES}.
 Concept equivalence asserts that two concepts have the same instances \cite{Kroetzsch2012}.
 While synonyms are an obvious example of equivalent concepts, in practice one more
-often uses concept equivalence to give a name to complex expression  \cite{Kroetzsch2012}.
+often uses concept equivalence to give a name to complex expressions \cite{Kroetzsch2012}.
 Concept equivalence is indeed subsumption from left and right ($A \sqsubseteq B$ and $B \sqsubseteq A$ implies $A \equiv B$ ).
 
 \subsection{Simple Example}
@@ -423,20 +410,11 @@ class & Person & - & - & Human & $\sqsubseteq$ \\
 class & Human & - & - & Person & $\sqsubseteq$ \\
 \end{gcotable}
 
-\section{Sub Object Properties}
+\section{Sub Properties}
 
-requirements:
-
-\begin{itemize}
-
-	\item R-54-SUB-OBJECT-PROPERTIES
-\end{itemize}
-
-
-
-\begin{itemize}
-	\item DL terminology: role inclusion 
-\end{itemize}
+\ms{Sub Properties} (DL terminology: \ms{role inclusion}) correspond to the requirements \ms{R-54-SUB-OBJECT-PROPERTIES} and \ms{R-54-SUB-DATA-PROPERTIES}.
+Subproperty axioms are analogous to subclass axioms.
+These axioms state that the property expression PE1 is a subproperty of the property expression PE2 — that is, if an individual x is connected by PE1 to an individual or a literal y, then x is also connected by PE2 to y. 
 
 \subsection{Simple Example}
 
@@ -462,40 +440,23 @@ property & $\top$ & parentOf & ancestorOf & $\top$ & $\sqsubseteq$ \\
 hasDog $\sqsubseteq$ hasPet 
 \end{DL}
 
-\section{Sub Data Properties}
 
-requirements:
-
-\begin{itemize}
-
-	\item R-54-SUB-DATA-PROPERTIES
-\end{itemize}
-
-
-
-\begin{itemize}
-	\item DL terminology: concrete domains functional roles  
-\end{itemize}
+%\begin{itemize}
+	%\item DL terminology: concrete domains functional roles  
+%\end{itemize}
 
 \subsection{Complex Example}
+
 \begin{DL}
  $Person \sqcap  \forall hasAge. \leq_{10} \sqsubseteq Person \sqcap \forall hasEvenAge. \leq_{10}$ 
 \end{DL}
 
-\section{Object Property Paths / Object Property Chains}
+\section{Object Property Paths}
 
-requirement:
-
-\begin{itemize}
-	\item R-55-OBJECT-PROPERTY-PATHS
-\end{itemize}
-
-
-
-\begin{itemize}
-  \item DL terminology: complex role inclusion axiom / role composition
-	\item role composition can only appear on the left-hand side of complex role inclusions \cite{Kroetzsch2012}
-\end{itemize}
+\ms{Object Property Paths} (or Object Property Chains and in DL terminology complex role inclusion axiom or role composition)
+corresponds to the requirement \ms{R-55-OBJECT-PROPERTY-PATHS}.
+The more complex form of sub properties. This axiom states that, if an individual x is connected by a sequence of object property expressions OPE1, ..., OPEn with an individual y, then x is also connected with y by the object property expression OPE.  
+Role composition can only appear on the left-hand side of complex role inclusions \cite{Kroetzsch2012}.
 
 \subsection{Simple Example}
 
@@ -504,9 +465,8 @@ brotherOf $\circ$ parentOf $\sqsubseteq$ uncleOf
 \end{DL}
 
 \begin{ex}
-# OWL2
-# ----
-:uncleOf owl:propertyChainAxiom ( :brotherOf :parentOf ) . 
+# OWL2:
+uncleOf owl:propertyChainAxiom ( brotherOf parentOf ) . 
 \end{ex}
 
 \begin{gcotable}
@@ -515,17 +475,21 @@ property & $\top$ & brotherOf, parentOf & uncleOf & $\top$ & $\sqsubseteq$ & -  
 
 \section{Disjoint Properties}
 
-requirements:
-
-\begin{itemize}
-	\item R-9-DISJOINT-PROPERTIES
-\end{itemize}
+\ms{Disjoint Properties} corresponds to the requirement \ms{R-9-DISJOINT-PROPERTIES}.
+A disjoint properties axiom states that all of the properties are pairwise disjoint; 
+that is, no individual x can be connected to an individual y by these properties. 
 
 \subsection{Simple Example}
 
+The object properties \ms{parentOf} and \ms{childOf} are disjoint:
+
 \begin{DL}
 Disjoint(parentOf, childOf)\\
-Alternative:\\
+\end{DL}
+
+or alternatively:
+
+\begin{DL}
 $parentOf \sqsubseteq \neg childOf$
 \end{DL}
 
@@ -533,7 +497,7 @@ $parentOf \sqsubseteq \neg childOf$
 property & $\top$ & parentOf & $\neg$childOf & $\top$ & $\sqsubseteq$ \\
 \end{gcotable}
 
-syntactic sugar (preferred):
+syntactic sugar:
 
 \begin{gcotable}
 property & $\top$ & parentOf & childOf & $\top$ & $\ne$ \\
@@ -541,24 +505,11 @@ property & $\top$ & parentOf & childOf & $\top$ & $\ne$ \\
 
 \section{Intersection}
 
-requirements:
-
-\begin{itemize}
-  \item R-15-CONJUNCTION-OF-CLASS-EXPRESSIONS
-	\item R-16-CONJUNCTION-OF-DATA-RANGES
-\end{itemize}
-
-
-
-\begin{itemize}
-	\item composition / conjunction
-\end{itemize}
-
+\ms{Intersection} (composition, conjunction) corresponds to the requirements \ms{R-15-CONJUNCTION-OF-CLASS-EXPRESSIONS} and \ms{R-16-CONJUNCTION-OF-DATA-RANGES}.
 DLs allow new concepts and roles to be
 built using a variety of different constructors. We distinguish concept and role 
 constructors depending on whether concept or role expressions are constructed. In the case of
 concepts, one can further separate basic Boolean constructors, role restrictions and nominals/enumerations \cite{Kroetzsch2012}.
-
 Boolean concept constructors provide basic boolean operations that are closely related to
 the familiar operations of intersection, union and complement of sets, or to conjunction,
 disjunction and negation of logical expressions \cite{Kroetzsch2012}.
@@ -567,7 +518,7 @@ disjunction and negation of logical expressions \cite{Kroetzsch2012}.
 Mother $\equiv$ Female $\sqcap$ Parent
 \end{DL}
 
-concept inclusions allow us to state that all mothers are female and that
+Concept inclusions allow us to state that all mothers are female and that
 all mothers are parents, but what we really mean is that mothers are exactly the female
 parents. DLs support such statements by allowing us to form complex concepts such as
 the intersection (also called conjunction)
@@ -581,7 +532,7 @@ equivalence Mother $\equiv$ Female $\sqcap$ Parent .
 Female $\sqcap$ Parent
 \end{DL}
 
-Complex concept of all individuals which are of the concept Female and of the concept Parent.
+Complex concept of all individuals which are of the concept \ms{Female} and of the concept \ms{Parent}.
 
 \begin{gcotable}
 class & Female $\sqcap$ Parent & - & - & Female, Parent & $\sqcap$ \\
@@ -599,19 +550,9 @@ class & Mother & - & - & Female, Parent & $\sqcap$ \\
 
 \section{Disjunction}
 
-requirements:
-
-\begin{itemize}
-	\item R-17-DISJUNCTION-OF-CLASS-EXPRESSIONS
-	\item R-18-DISJUNCTION-OF-DATA-RANGES
-\end{itemize}
-
-
-
-\begin{itemize}
-	\item synonyms: union / inclusive OR
-	\item disjunction of classes, data ranges
-\end{itemize}
+\ms{Disjunction} of classes or data ranges corresponds to the requirements \\
+\ms{R-17-DISJUNCTION-OF-CLASS-EXPRESSIONS} and \ms{R-18-DISJUNCTION-OF-DATA-RANGES}.
+Synonyms are union and inclusive or.
 
 \subsection{Simple Example}
 
@@ -635,18 +576,7 @@ class & Parent & - & - & Father, Mother & $\sqcup$ \\
 
 \section{Negation}
 
-requirements:
-
-\begin{itemize}
-  \item R-19-NEGATION-OF-CLASS-EXPRESSIONS
-	\item R-20-NEGATION-OF-DATA-RANGES
-\end{itemize}
-
-
-
-\begin{itemize}
-	\item synonym: complement
-\end{itemize}
+\ms{Negation} (complement) corresponds to the requirements \ms{R-19-NEGATION-OF-CLASS-EXPRESSIONS} and \ms{R-20-NEGATION-OF-DATA-RANGES}.
 
 \subsection{Simple Example}
 
@@ -654,7 +584,7 @@ requirements:
 $ \neg Married $ \\ 
 \end{DL}
 
-set of all individuals that are not married.
+Set of all individuals that are not married.
 
 \begin{gcotable}
 class & $\neg$ Married & - & - & Married & $\neg$ \\
@@ -666,6 +596,8 @@ class & $\neg$ Married & - & - & Married & $\neg$ \\
 Female $\sqcap$ $\neg$ Married \\
 \end{DL}
 
+All female individuals that are not married.
+
 \begin{gcotable}
 class & $\neg$ Married & - & - & Married & $\neg$ \\
 class & Female $\sqcap$ $\neg$ Married & - & - & Female, $\neg$ Married & $\sqcap$ \\
@@ -673,13 +605,21 @@ class & Female $\sqcap$ $\neg$ Married & - & - & Female, $\neg$ Married & $\sqca
 
 \section{Disjoint Classes}
 
-requirement \ms{R-7-DISJOINT-CLASSES}
+\ms{Disjoint Classes} corresponds to the requirement \ms{R-7-DISJOINT-CLASSES}.
+A disjoint classes axiom states that all of the classes are pairwise disjoint; 
+that is, no individual can be at the same time an instance of these classes. 
 
 \subsection{Simple Example}
 
+Individuals cannot be male and female at the same time:
+
 \begin{DL}
 Male $\sqcap$ Female $\sqsubseteq$ $\perp$\\
-Alternative:\\
+\end{DL}
+
+or alternatively:
+
+\begin{DL}
 $Male \sqsubseteq \neg Female$
 \end{DL}
 
@@ -697,9 +637,15 @@ class & Female & - & - & Male & $\ne$ \\
 
 \subsection{Simple Example}
 
+One can either be a hologram or a human, but not both:
+
 \begin{DL}
 Hologram $\sqcap$ Human $\sqsubseteq$ $\perp$\\
-Alternative:\\
+\end{DL}
+
+or alternatively:
+
+\begin{DL}
 $Hologram \sqsubseteq \neg Human$
 \end{DL}
 
@@ -717,10 +663,10 @@ class & Human & - & - & Hologram & $\ne$ \\
 
 \section{Existential Quantification on Properties}
 
-\ms{Existential Quantification on Properties} conforms to the requirement \ms{R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}
+\ms{Existential Quantification on Properties} conforms to the requirement \\
+\ms{R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}.
 In DL terminology the \ms{existential quantification} is alco called \ms{existential restriction}.
-An existential class expression ObjectSomeValuesFrom( OPE CE ) consists of an object property expression OPE and a class expression CE, and it contains all those individuals that are connected by OPE to an individual that is an instance of CE. Such a class expression can be seen as a syntactic shortcut for the class expression ObjectMinCardinality( 1 OPE CE ).
-An existential class expression DataSomeValuesFrom( DPE1 ... DPEn DR ) consists of n data property expressions DPEi, 1 $\leq$ i $\leq$ n, and a data range DR whose arity MUST be n. Such a class expression contains all those individuals that are connected by DPEi to literals lti, 1 $\leq$ i $\leq$ n, such that the tuple ( lt1 , ..., ltn ) is in DR. A class expression of the form DataSomeValuesFrom( DPE DR ) can be seen as a syntactic shortcut for the class expression DataMinCardinality( 1 DPE DR ). 
+An existential class expression consists of a property expression and a class expression or a data range, and it contains all those individuals that are connected by the property expression to an individual that is an instance of the class expression or to literals that are in the data range.  
 
 \subsection{Simple Example}
 
@@ -728,7 +674,7 @@ An existential class expression DataSomeValuesFrom( DPE1 ... DPEn DR ) consists 
 $\exists$ parentOf . $\top$
 \end{DL}
 
-complex concept that describes the set
+Complex concept that describes the set
 of individuals that are parents of at least one individual (instance of $\top$). 
 
 \begin{gcotable}
@@ -741,7 +687,7 @@ property & $\exists$ parentOf . $\top$ & parentOf & - & $\top$ & $\exists$ \\
 $\exists$ parentOf . Female
 \end{DL}
 
-the complex concept describes those individuals that are parents of at least one
+The complex concept describes those individuals that are parents of at least one
 female individual, i.e., those that have a daughter.
 
 \begin{gcotable}
@@ -770,7 +716,8 @@ property & ParentOfSon & parentOf & - & Male & $\exists$ \\
 
 \section{Universal Quantification on Properties}
 
-\ms{Universal Quantification on Properties} corresponds to the requirement \ms{R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}, which is called \ms{value restriction} in DL terminology.
+\ms{Universal Quantification on Properties} corresponds to the requirement \ms{R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}, 
+which is also called \ms{value} \ms{restriction} in DL terminology.
 
 \begin{center}
 \begin{DL} 
@@ -785,10 +732,7 @@ $\Delta^\mathcal{I}$ is the domain, $a,b \in \Delta^\mathcal{I}$ are individuals
 $\forall$ parentOf . Female
 \end{DL}
 
-\begin{itemize}
-	\item set of individuals all of whose children are female
-  \item also includes those that have no children at all
-\end{itemize}
+The set of individuals all of whose children are female also includes those that have no children at all.
 
 \begin{gcotable}
 property & $\forall$ parentOf . Female & parentOf & - & Female & $\forall$ \\
@@ -796,21 +740,10 @@ property & $\forall$ parentOf . Female & parentOf & - & Female & $\forall$ \\
 
 \section{Property Domain}
 
-requirements:
-
-\begin{itemize}
-	\item R-25-OBJECT-PROPERTY-DOMAIN
-	\item R-26-DATA-PROPERTY-DOMAIN
-\end{itemize}
-
-
-
-\begin{itemize}
-	\item restrict domain of object and data properties
-	\item DL terminology: domain restrictions on roles
-	\item The language needs to include an easy-to-use vocabulary to declare that a given property is associated with a class, e.g. to populate input forms with appropriate widgets but also constraint checking. In OO terms this is the declaration of a member, field, attribute or association. 
-\end{itemize}
-
+\ms{Property Domain} corresponds to the requirements \ms{R-25-OBJECT-PROPERTY-DOMAIN} and \ms{R-26-DATA-PROPERTY-DOMAIN}.
+The constraint restricts the domain of object and data properties.
+In DL terminology this constraint is also called domain restrictions on roles.
+The purpose is to declare that a given property is associated with a class, e.g. to populate input forms with appropriate widgets but also constraint checking. In OO terms this is the declaration of a member, field, attribute or association. 
 $\exists R. \top \sqsubseteq C$ is the object property restriction where $R$ is the object property (role) whose domain is restricted to concept $C$.
 
 \subsection{Simple Example}
@@ -819,9 +752,7 @@ $\exists R. \top \sqsubseteq C$ is the object property restriction where $R$ is 
 $\exists$ sonOf . $\top$ $\sqsubseteq$ Male 
 \end{DL}
 
-\begin{itemize}
-	\item restrict the domain of sonOf to male individual
-\end{itemize}
+Restricts the domain of \ms{sonOf} to male individual.
 
 syntactic sugar:
 
@@ -831,41 +762,32 @@ property & $\top$ & sonOf & - & Male & domain \\
 
 \section{Property Range}
 
-requirements:
-
-\begin{itemize}
-	\item R-28-OBJECT-PROPERTY-RANGE
-	\item R-35-DATA-PROPERTY-RANGE
-\end{itemize}
-
-\begin{itemize}
-	\item restrict range of object and data properties
-	\item DL terminology: range restrictions on roles
-\end{itemize}
-
-$\top \sqsubseteq \forall R . C$ is the range restriction to object property $R$ (restricted by concept $C$).  
+\ms{Property Range} corresponds to the requirements \ms{R-28-OBJECT-PROPERTY-RANGE} and \ms{R-35-DATA-PROPERTY-RANGE}.
+This constraint restricts the range of object and data properties
+In DL terminology it is also called range restrictions on roles.
+$\top \sqsubseteq \forall R . C$ is the range restriction to the object property $R$ (restricted by the concept $C$).  
 
 \subsection{Simple Example}
 
 \begin{DL}
 $\top$ $\sqsubseteq$ $\forall$ sonOf . Parent \\
-Equivalent to:\\
+\end{DL}
+
+equivalent to:
+
+\begin{DL}
 $\exists sonOf\sp{\overline{\ }}.\top \sqsubseteq Person$
 \end{DL}
 
-\begin{itemize}
-	\item restrict the range of sonOf to parents
-\end{itemize}
+Restricts the range of \ms{sonOf} to parents.
 
 \begin{ex}
-# OWL 2
-# -----
+# OWL 2:
 sonOf rdfs:range Parent . 
 \end{ex}
 
 \begin{ex}
-# DSP
-# ---
+# DSP:
 :hasDogRange
         a dsp:DescriptionTemplate ; 
         dsp:resourceClass owl:Thing ; 
@@ -885,59 +807,34 @@ property & $\top$ & sonOf & - & Parent & range \\
 
 \section{Class-Specific Property Range}
 
-requirements:
-
-\begin{itemize}
-	\item R-29-CLASS-SPECIFIC-RANGE-OF-RDF-OBJECTS
-	\item R-36-CLASS-SPECIFIC-RANGE-OF-RDF-LITERALS
-\end{itemize}
-
-\begin{itemize}
-  \item restrict range of object and data properties for individuals within specific context
-	\item context: e.g. class
-	\item The values of each member property of a class may be limited by their value type, such as xsd:string or ex:Person. 
-\end{itemize}
+\ms{Class-Specific Property Range} corresponds to the requirements
+\ms{R-29-CLASS-} \ms{SPECIFIC-RANGE-OF-RDF-OBJECTS} and \ms{R-36-CLASS-SPECIFIC-RANGE-OF-RDF-} \ms{LITERALS}.
+The constraint restricts the range of object and data properties for individuals within a specific context (e.g. class, application profile).
+The values of each member property of a class may be limited by their value type, such as xsd:string or Person. 
 
 \subsection{Simple Example}
-
-\begin{itemize}
-	\item property 'sonOf'
-	\item context: class 'Man'
-	\item range: class 'Parent'
-	\item $\rightarrow$ individuals of the class 'Man' can only have 'sonOf' relationships to indivuduals of the class 'Parent'
-\end{itemize}
 
 \begin{DL}
 Man $\sqsubseteq$ $\forall$ sonOf . Parent \\
 \end{DL}
 
+Individuals of the class \ms{Man} (context class) can only have \ms{sonOf} relationships to individuals of the class \ms{Parent} (range class).
+
 \section{Minimum Unqualified Cardinality Restrictions on Properties}
 
-requirements:
-
-\begin{itemize}
-	\item R-81-MINIMUM-UNQUALIFIED-CARDINALITY-ON-PROPERTIES
-	\item R-211-CARDINALITY-CONSTRAINTS
-\end{itemize}
-
-Definition:\\
-
-$\leq n R. \top$ is minimum unqualified cardinality restriction where $n \in \mathbb{N}$ (written $\leq  n R$ in short).
-
-description:
-
-\begin{itemize}
-	\item A minimum cardinality expression ObjectMinCardinality( n OPE CE ) consists of a nonnegative integer n, an object property expression OPE, and a class expression CE, and it contains all those individuals that are connected by OPE to at least n different individuals that are instances of CE. If CE is missing, it is taken to be owl:Thing.
-	\item A minimum cardinality expression DataMinCardinality( n DPE DR ) consists of a nonnegative integer n, a data property expression DPE, and a unary data range DR, and it contains all those individuals that are connected by DPE to at least n different literals in DR. If DR is not present, it is taken to be rdfs:Literal. 
-	\item unqualified: CE respective DR is NOT stated. 
-\end{itemize}
-
+\ms{Minimum Unqualified Cardinality Restrictions on Properties}
+corresponds to the requirements
+\ms{R-81-MINIMUM-UNQUALIFIED-CARDINALITY-ON-PROPERTIES} and
+\ms{R-211-CARDINALITY-CONSTRAINTS}.
+$\leq n R. \top$ is the minimum unqualified cardinality restriction where $n \in \mathbb{N}$ (written $\leq  n R$ in short).
+A minimum cardinality restrictions contains all those individuals that are connected by a property to at least n different individuals/literals 
+that are instances of a particular class or data range. If the class is missing, it is taken to be owl:Thing. 
+If the data range is missing, it is taken to be rdfs:Literal.
 
 \subsection{Simple Example}
 
 \begin{ex}
-# ShEx
-# ----
+# ShEx:
 :Jedi {
     :attitude ('good') }
 :JediStudent {
@@ -959,8 +856,7 @@ description:
 \end{itemize}
 
 \begin{ex}
-# data
-# ----
+# data:
 :Yoda 
     :attitude 'good' ;
     :mentorOf :MaceWindu , :Obi-Wan , :Luke .
@@ -980,8 +876,7 @@ description:
 \end{ex}
 
 \begin{ex}
-# Individuals matching the ’:SuperJediMaster’ data shape
-# ------------------------------------------------------
+# Individuals matching the ’:SuperJediMaster’ data shape:
 :Yoda 
 \end{ex}
 
@@ -997,6 +892,8 @@ $SuperJediMaster \sqsubseteq Jedi \sqcap  \geq3 mentorOf.\top $
 \begin{DL}
 $Captain \sqsubseteq \geq1 commandsVessel.\top $
 \end{DL}
+
+Captains command at least one vessel.
 
 \begin{gcotable}
 property & Captain & commandsVessel & - & $\top$ & $\geq$ & 1 \\
