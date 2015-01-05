@@ -830,6 +830,7 @@ $\leq n R. \top$ is the minimum unqualified cardinality restriction where $n \in
 A minimum cardinality restrictions contains all those individuals that are connected by a property to at least n different individuals/literals 
 that are instances of a particular class or data range. If the class is missing, it is taken to be owl:Thing. 
 If the data range is missing, it is taken to be rdfs:Literal.
+For unqualified cardinality restrictions, classes respective data ranges are not stated.
 
 \subsection{Simple Example}
 
@@ -901,23 +902,13 @@ property & Captain & commandsVessel & - & $\top$ & $\geq$ & 1 \\
 
 \section{Minimum Qualified Cardinality Restrictions on Properties}
 
-requirements:
-
-\begin{itemize}
-	\item R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES
-  \item R-211-CARDINALITY-CONSTRAINTS
-\end{itemize}
-
-description:
-
-\begin{itemize}
-	\item A minimum cardinality expression ObjectMinCardinality( n OPE CE ) consists of a nonnegative integer n, an object property expression OPE, and a class expression CE, and it contains all those individuals that are connected by OPE to at least n different individuals that are instances of CE. If CE is missing, it is taken to be owl:Thing.
-	\item A minimum cardinality expression DataMinCardinality( n DPE DR ) consists of a nonnegative integer n, a data property expression DPE, and a unary data range DR, and it contains all those individuals that are connected by DPE to at least n different literals in DR. If DR is not present, it is taken to be rdfs:Literal. 
-	\item qualified: CE respective DR is stated.
-\end{itemize}
-Definition:\\
-
-$\leq n R. C$ is minimum qualified cardinality restriction where $n \in \mathbb{N}$.
+\ms{Minimum Qualified Cardinality Restrictions on Properties} corresponds to the requirements
+\ms{R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES} and \ms{R-211-CARDINALITY-CONSTRAINTS}
+A minimum cardinality restrictions contains all those individuals that are connected by a property to at least n different individuals/literals 
+that are instances of a particular class or data range. If the class is missing, it is taken to be owl:Thing. 
+If the data range is missing, it is taken to be rdfs:Literal.
+For qualified cardinality restrictions, classes respective data ranges are stated.
+$\leq n R. C$ is a minimum qualified cardinality restriction where $n \in \mathbb{N}$.
 
 \subsection{Simple Example}
 
@@ -925,13 +916,10 @@ $\leq n R. C$ is minimum qualified cardinality restriction where $n \in \mathbb{
 $\geq$ 2 childOf . Parent
 \end{DL}
 
-\begin{itemize}
-	\item set of individuals that are children of at least two parents
-\end{itemize}
+Set of individuals that are children of at least two parents.
 
 \begin{ex}
-# OWL 2
-# -----
+# OWL 2:
 owl:Thing
     a owl:Restriction ;
     owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
@@ -958,8 +946,7 @@ property & foaf:Person & hasName & - & xsd:string & $\geq$ & 2 \\
 %\tb{ToDO: OWL 2 DL}
 
 \begin{ex}
-# ShEx
-# ----
+# ShEx:
 :Jedi {
     :attitude ('good') }
 :JediStudent {
@@ -981,8 +968,7 @@ property & foaf:Person & hasName & - & xsd:string & $\geq$ & 2 \\
 \end{itemize}
 
 \begin{ex}
-# data
-# ----
+# data:
 :Yoda 
     :attitude 'good' ;
     :mentorOf :MaceWindu , :Obi-Wan , :Luke .
@@ -1002,12 +988,10 @@ property & foaf:Person & hasName & - & xsd:string & $\geq$ & 2 \\
 \end{ex}
 
 \begin{ex}
-# Individuals matching the ’:SuperJediMaster’ data shape
-# ------------------------------------------------------
+# Individuals matching the ’:SuperJediMaster’ data shape:
 :Yoda 
 
-# Individuals matching the ’:JediMaster’ data shape
-# -------------------------------------------------
+# Individuals matching the ’:JediMaster’ data shape:
 :Obi-Wan
 \end{ex}
 
@@ -1054,29 +1038,15 @@ class & FederationCaptain & - & - & Federation, $\geq$1 commandsVessel . Vessel 
 
 \section{Maximum Unqualified Cardinality Restrictions on Properties}
 
-requirements:
-
-\begin{itemize}
-	\item R-82-MAXIMUM-UNQUALIFIED-CARDINALITY-ON-PROPERTIES
-	\item R-211-CARDINALITY-CONSTRAINTS
-\end{itemize}
-
-description:
-
-\begin{itemize}
-	\item A maximum cardinality expression ObjectMaxCardinality( n OPE CE ) consists of a nonnegative integer n, an object property expression OPE, and a class expression CE, and it contains all those individuals that are connected by OPE to at most n different individuals that are instances of CE. If CE is missing, it is taken to be owl:Thing.
-	\item A maximum cardinality expression DataMaxCardinality( n DPE DR ) consists of a nonnegative integer n, a data property expression DPE, and a unary data range DR, and it contains all those individuals that are connected by DPE to at most n different literals in DR. If DR is not present, it is taken to be rdfs:Literal. 
-	\item unqualified: CE respective DR is NOT stated. 
-\end{itemize}
-
-Definition:\\
-
-$\geq n R. \top$ is maximum unqualified cardinality restriction where $n \in \mathbb{N}$ (written $\geq  n R$ in short).
+\ms{Maximum Unqualified Cardinality Restrictions on Properties} corresponds to the requirements 
+\ms{R-82-MAXIMUM-UNQUALIFIED-CARDINALITY-ON-PROPERTIES} and \ms{R-211-CARDINALITY-CONSTRAINTS}.
+A maximum cardinality restriction contains all those individuals that are connected by a property to at most n different individuals/literals that are instances of a particular class or data range. If the class is missing, it is taken to be owl:Thing. If the data range is not present, it is taken to be rdfs:Literal.
+Unqualified means that the class respective the data range is not stated. 
+$\geq n R. \top$ is a maximum unqualified cardinality restriction where $n \in \mathbb{N}$ (written $\geq  n R$ in short).
 \subsection{Simple Example}
 
 \begin{ex}
-# ShEx
-# ----
+# ShEx:
 :Jedi {
     :attitude ('good') }
 :JediStudent {
@@ -1097,8 +1067,7 @@ $\geq n R. \top$ is maximum unqualified cardinality restriction where $n \in \ma
 	\item Super Jedi masters are mentoring at least 3 resources  
 \end{itemize}
 \begin{ex}
-# data
-# ----
+# data:
 :Yoda 
     :attitude 'good' ;
     :mentorOf :MaceWindu , :Obi-Wan , :Luke .
@@ -1118,8 +1087,7 @@ $\geq n R. \top$ is maximum unqualified cardinality restriction where $n \in \ma
 \end{ex}
 
 \begin{ex}
-# Individuals matching the ’:JediMaster’ data shape
-# -------------------------------------------------
+# Individuals matching the ’:JediMaster’ data shape:
 :Obi-Wan
 \end{ex}
 
@@ -1132,23 +1100,12 @@ $SuperJediMaster \sqsubseteq Jedi \sqcap  \geq3 mentorOf.\top $
 
 \section{Maximum Qualified Cardinality Restrictions on Properties}
 
-requirements:
-
-\begin{itemize}
-	\item R-76-MAXIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES
-	\item R-211-CARDINALITY-CONSTRAINTS
-\end{itemize}
-
-description:
-
-\begin{itemize}
-	\item A maximum cardinality expression ObjectMaxCardinality( n OPE CE ) consists of a nonnegative integer n, an object property expression OPE, and a class expression CE, and it contains all those individuals that are connected by OPE to at most n different individuals that are instances of CE. If CE is missing, it is taken to be owl:Thing.
-	\item A maximum cardinality expression DataMaxCardinality( n DPE DR ) consists of a nonnegative integer n, a data property expression DPE, and a unary data range DR, and it contains all those individuals that are connected by DPE to at most n different literals in DR. If DR is not present, it is taken to be rdfs:Literal. 
-	\item qualified: CE respective DR is stated. 
-\end{itemize}
-Definition:\\
-
-$\leq n R. C$ is maximum qualified cardinality restriction where $n \in \mathbb{N}$.
+\ms{Maximum Qualified Cardinality Restrictions on Properties} corresponds to the requirements
+\ms{R-76-MAXIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES} and
+\ms{R-211-CARDINALITY-CONSTRAINTS}.
+A maximum cardinality restriction contains all those individuals that are connected by a property to at most n different individuals/literals that are instances of a particular class or data range. If the class is missing, it is taken to be owl:Thing. If the data range is not present, it is taken to be rdfs:Literal.
+Qualified means that the class respective the data range is stated. 
+$\leq n R. C$ is a maximum qualified cardinality restriction where $n \in \mathbb{N}$.
 
 \subsection{Simple Example}
 
@@ -1156,13 +1113,7 @@ $\leq n R. C$ is maximum qualified cardinality restriction where $n \in \mathbb{
 $\leq$  2 childOf . Parent
 \end{DL}
 
-%\tb{ToDO: check DL}
-
-
-
-\begin{itemize}
-	\item set of individuals that are children of at most two parents
-\end{itemize}
+Set of individuals that are children of at most two parents.
 
 \begin{gcotable}
 property & $\leq$  2 childOf . Parent & childOf & - & Parent & $\leq$ & 2 \\
@@ -1171,8 +1122,7 @@ property & $\leq$  2 childOf . Parent & childOf & - & Parent & $\leq$ & 2 \\
 \subsection{Simple Example}
 
 \begin{ex}
-# ShEx
-# ----
+# ShEx:
 :Jedi {
     :attitude ('good') }
 :JediStudent {
@@ -1194,8 +1144,7 @@ property & $\leq$  2 childOf . Parent & childOf & - & Parent & $\leq$ & 2 \\
 \end{itemize}
 
 \begin{ex}
-# data
-# ----
+# data:
 :Yoda 
     :attitude 'good' ;
     :mentorOf :MaceWindu , :Obi-Wan , :Luke .
@@ -1215,14 +1164,11 @@ property & $\leq$  2 childOf . Parent & childOf & - & Parent & $\leq$ & 2 \\
 \end{ex}
 
 \begin{ex}
-# Individuals matching the ’:JediMaster’ data shape
-# -------------------------------------------------
+# Individuals matching the ’:JediMaster’ data shape:
 :Obi-Wan
 \end{ex}
 
-%\tb{ToDO: add DL}
-
-\noindent $mentorOf$ and $studentOf$ are taken to be inverse properties:\\
+%\noindent $mentorOf$ and $studentOf$ are taken to be inverse properties:\\
 
 \begin{DL}
 $Jedi \sqsubseteq \exists attitude.\{good\} $\\
@@ -1233,38 +1179,27 @@ $SuperJediMaster \sqsubseteq Jedi \sqcap  \geq3 mentorOf.Jedi $
 
 \section{Exact Unqualified Cardinality Restrictions on Properties}
 
-requirements:
+\ms{Exact Unqualified Cardinality Restrictions on Properties} corresponds to the requirements
+\ms{R-80-EXACT-UNQUALIFIED-CARDINALITY-ON-PROPERTIES} and
+\ms{R-211-CARDINALITY-CONSTRAINTS}.
+An exact cardinality restriction contains all those individuals that are connected by a property to exactly n different individuals that are instances of a particular class or data range. 
+If the class is missing, it is taken to be owl:Thing. 
+If the data range is not present, it is taken to be rdfs:Literal.
+Unqualified means that the class respective data range is not stated. 
+$\geq n R. \top \sqcap \leq n R. \top $ is an exact unqualified cardinality restriction where $n \in \mathbb{N}$.
 
-\begin{itemize}
-	\item R-80-EXACT-UNQUALIFIED-CARDINALITY-ON-PROPERTIES
-	\item R-211-CARDINALITY-CONSTRAINTS
-\end{itemize}
-
-description:
-
-\begin{itemize}
-	\item An exact cardinality expression ObjectExactCardinality( n OPE CE ) consists of a nonnegative integer n, an object property expression OPE, and a class expression CE, and it contains all those individuals that are connected by OPE to exactly n different individuals that are instances of CE. If CE is missing, it is taken to be owl:Thing. Such an expression is actually equivalent to the expression ObjectIntersectionOf( ObjectMinCardinality( n OPE CE ) ObjectMaxCardinality( n OPE CE ) ).
-	\item An exact cardinality expression DataExactCardinality( n DPE DR ) consists of a nonnegative integer n, a data property expression DPE, and a unary data range DR, and it contains all those individuals that are connected by DPE to exactly n different literals in DR. If DR is not present, it is taken to be rdfs:Literal. 
-	\item unqualified: CE respective DR is NOT stated. 
-\end{itemize}
-
-Definition:\\
-
-$\geq n R. \top \sqcap \leq n R. \top $ is exact unqualified cardinality restriction where $n \in \mathbb{N}$. ($\top$ can be dropped in short writing.)
 \subsection{Simple Example}
 
 %\tb{ToDo. OWL 2 DL}
 
 \begin{ex}
-# ShEx
-# ----
+# ShEx:
 :JediStudent {
     :studentOf {}{1} }
 \end{ex}
 
 \begin{ex}
-# ReSh
-# ----
+# ReSh:
 :JediStudent a rs:ResourceShape ;
     rs:property [
         rs:name "studentOf" ;
@@ -1279,8 +1214,7 @@ $\geq n R. \top \sqcap \leq n R. \top $ is exact unqualified cardinality restric
 \end{itemize}
 
 \begin{ex}
-# data
-# ----
+# data:
 :Yoda 
     :attitude 'good' ;
     :mentorOf :MaceWindu , :Obi-Wan , :Luke .
@@ -1300,8 +1234,7 @@ $\geq n R. \top \sqcap \leq n R. \top $ is exact unqualified cardinality restric
 \end{ex}
 
 \begin{ex}
-# Individuals matching the ’:JediStudent’ data shape
-# --------------------------------------------------
+# Individuals matching the ’:JediStudent’ data shape:
 :MaceWindu :Obi-Wan :Anakin :Luke
 \end{ex}
 
@@ -1311,31 +1244,21 @@ $JediStudent \sqsubseteq Jedi \sqcap \geq1 studentOf.\top \sqcap \leq1 studentOf
 
 \section{Exact Qualified Cardinality Restrictions on Properties}
 
-requirements:
+\ms{Exact Qualified Cardinality Restrictions on Properties} corresponds to the requirements
+\ms{R-74-EXACT-QUALIFIED-CARDINALITY-ON-PROPERTIES} and \\
+\ms{R-211-CARDINALITY-CONSTRAINTS}.
+An exact cardinality restriction contains all those individuals that are connected by a property to exactly n different individuals that are instances of a particular class or data range. 
+If the class is missing, it is taken to be owl:Thing. 
+If the data range is not present, it is taken to be rdfs:Literal.
+Qualified means that the class respective data range is stated. 
+$\geq n R. C \sqcap \leq n R. C $ is an exact qualified cardinality restriction where $n \in \mathbb{N}$.
 
-\begin{itemize}
-	\item R-74-EXACT-QUALIFIED-CARDINALITY-ON-PROPERTIES
-	\item R-211-CARDINALITY-CONSTRAINTS
-\end{itemize}
-
-description:
-
-\begin{itemize}
-	\item An exact cardinality expression ObjectExactCardinality( n OPE CE ) consists of a nonnegative integer n, an object property expression OPE, and a class expression CE, and it contains all those individuals that are connected by OPE to exactly n different individuals that are instances of CE. If CE is missing, it is taken to be owl:Thing. Such an expression is actually equivalent to the expression ObjectIntersectionOf( ObjectMinCardinality( n OPE CE ) ObjectMaxCardinality( n OPE CE ) ).
-	\item An exact cardinality expression DataExactCardinality( n DPE DR ) consists of a nonnegative integer n, a data property expression DPE, and a unary data range DR, and it contains all those individuals that are connected by DPE to exactly n different literals in DR. If DR is not present, it is taken to be rdfs:Literal. 
-	\item qualified: CE respective DR is stated. 
-\end{itemize}
-
-Definition:\\
-
-$\geq n R. C \sqcap \leq n R. C $ is exact unqualified cardinality restriction where $n \in \mathbb{N}$.
 \subsection{Simple Example}
 
 %\tb{ToDO: OWL 2 DL}
 
 \begin{ex}
-# ShEx
-# ----
+# ShEx:
 :Jedi {
     :attitude ('good') }
 :JediStudent {
@@ -1343,8 +1266,7 @@ $\geq n R. C \sqcap \leq n R. C $ is exact unqualified cardinality restriction w
 \end{ex}
 
 \begin{ex}
-# ReSh
-# ----
+# ReSh:
 :Jedi a rs:ResourceShape ;
     rs:property [
         rs:name "attitude" ;
@@ -1367,8 +1289,7 @@ $\geq n R. C \sqcap \leq n R. C $ is exact unqualified cardinality restriction w
 \end{itemize}
 
 \begin{ex}
-# data
-# ----
+# data:
 :Yoda 
     :attitude 'good' ;
     :mentorOf :MaceWindu , :Obi-Wan , :Luke .
@@ -1388,8 +1309,7 @@ $\geq n R. C \sqcap \leq n R. C $ is exact unqualified cardinality restriction w
 \end{ex}
 
 \begin{ex}
-# Individuals matching the ’:JediStudent’ data shape
-# --------------------------------------------------
+# Individuals matching the ’:JediStudent’ data shape:
 :MaceWindu :Obi-Wan :Anakin :Luke
 \end{ex}
 
@@ -1404,11 +1324,7 @@ $JediStudent \sqsubseteq Jedi \sqcap \geq1 studentOf.Jedi \sqcap \leq1 studentOf
 Person $\sqsubseteq$ $\geq$ 2 childOf . Parent $\sqcap$ $\leq$  2 childOf . Parent \\
 \end{DL}
 
-%\tb{ToDO: check DL}
-
-\begin{itemize}
-	\item every person is a child of exactly two parents
-\end{itemize}
+Every person is a child of exactly two parents.
 
 \begin{gcotable}
 property & $\geq$ 2 childOf . Parent & childOf & - & Parent & $\geq$ & 2 \\
