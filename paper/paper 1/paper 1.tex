@@ -446,20 +446,18 @@ The three \textbf{main contributions} of this paper are:
 \tb{+1 / this should be the 3 main contributions, maybe we should highlight them in the flow text / no itemization}
 \er{We can reserve a paragraph (flowing text) for those  item as well. }
 
-\section{Expressivity and Complexity in OWL 2 Reasoning}
+\section{Expressivity and Complexity in OWL 2}
 
-\er{We need a short introduction here.}
+In this section, we will briefly mention the expressivity and complexity OWL 2. This will also be the base for our classification of rdf validation requirements with reasoning. In this regard, we will  mainly focus on  OWL 2 QL as well as OWL 2 DL. Note that there is also the very expressive ontology web language OWL 2 Full (which is not a DL) for reasoning that we will not include in our classification, since its high worst case complexity (undecidability) as well as interesting rdf requirements with reasoning is already available in aforementioned OWLs (OWL 2 DL/QL).
 
-\tb{ToDo for Erman: there is also OWL 2 Full, which is not a DL at
-all because its too expressive (therefore has the highest complexity
-class: undecidable), but it HAS reasoning.  We do not mention it all.
-Perhaps, we might at least mention it in a sentence that we will not
-take it into our evaluation because it is this and this, impractical and
-so on.}
+
+OWL 2 profiles (or fragments in logic literature) are restricted (sublanguage) versions of OWL 2 that offer different trade-offs regarding expressivity  vs. efficiency in reasoning. There are three main  profiles of OWL 2, which are OWL 2 QL, OWL 2 RL and OWL 2 EL namely, each designed to  be useful for different purposes and application scenarios. The choice of which profile to use is purpose-specific on what to express and to perform the reasoning about. We refer reader to \cite{owl2profiles2008} for a comprehensive treatment of those profiles. 
+
+
 
 \subsection{OWL 2 QL Reasoning}
 
-OWL 2 profiles (or fragments in logic literature) are restricted (sublanguage) versions of OWL 2 that offer different trade-offs regarding expressivity  vs. efficiency in reasoning. There are three main  profiles of OWL 2, which are OWL 2 QL, OWL 2 RL and OWL 2 EL namely, each designed to  be useful for different purposes and application scenarios. The choice of which profile to use is purpose-specific on what to express and to perform the reasoning about. We refer reader to \cite{owl2profiles2008} for a comprehensive treatment of those profiles. 
+
 
 OWL 2 QL is an OWL 2 profile which focuses on reasoning on query answering with very large size of instance data. The acronym QL stands for query language as query answering in this profile can be done by rewriting queries into a standard relational query language (also known as First-Order Rewritability). Also, conjunctive query answering can be done by using conventional relational database systems. Aiming at efficiency on working with large size data, the expressive power of the profile is quite limited as expected. As a result of this, reasoning in OWL 2 QL is highly efficient so that sound and complete conjunctive query answering can be performed in \textsc{LogSpace} in the size of the data assertions as well as  the ontology consistency and class expression subsumption can be performed in polynomial time.
 
@@ -479,6 +477,7 @@ description logic-like formalism.  OWL 2 DL has high expressivity, yet maintains
 entailment checking. The drawback of its expressive power results as a lack of computational efficiency in performance. In general, reasoning in OWL 2 DL is in \textsc{N2exptime} \cite{owl2profiles2008}. 
 
 As a result of its expressive power, OWL 2 DL allows a large variety of sophisticated modeling capabilities for many application domains.  On the other hand, to maintain the decidability, OWL 2 DL has numerous syntactic restrictions. One example is that OWL 2 DL allows  expressing transitive properties as well as asymmetric properties, however a property to be both transitive and asymmetric (just like \emph{ancestor relation}) is not allowed. In the sequel, from RDF validation perspective, we will give some examples of constraints that remain at the outside of its scope. 
+\er{Do we really need a Section 3?}
 
 \section{Classification of RDF Constraints according to Reasoning and Complexity}
 
