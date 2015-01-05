@@ -118,12 +118,12 @@
 \newenvironment{DL}{
   %\scriptsize
   %\sffamily
-  %\vspace{0.3cm}
+  \vspace{0cm}
   \begin{tabular}{r l}
 
 }{
   \end{tabular}
-  \linebreak
+  %\linebreak
 }
 
 
@@ -894,7 +894,20 @@ Without reasoning, these constraints won't be validated as \ms{Luke} is not with
 
 \subsection{OWL 2 DL Reasoning}
 
-\textcolor{red}{universal quantification}
+\textbf{Universal Quantifications}\footnote{corresponds to R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}
+contain all those individuals that are connected by a particular property only to individuals that are instances of a specific class.
+Siths, e.g., can only have Siths as mentors (\ms{Sith $\sqsubseteq$ $\forall$ hasMentor.Sith}), 
+which cannot be expressed by OWL 2 QL, but by OWL 2 DL \cite{owl2profiles2008}:
+
+\begin{ex}
+[ a owl:Restriction ;
+  owl:onProperty hasMentor ;
+  owl:allValuesFrom Sith ;
+  rdfs:subClassOf Sith ] .
+\end{ex}
+
+When performing reasoning, the triples \ms{DarthMaul hasMentor DarthSidious} and \ms{DarthSidious a Sith} infer that \ms{DarthMaul} is a Sith.
+When reasoning is not wished, these explicitly stated triples cause a constraint violation, as each resource having \ms{hasMentor} relationships to a Sith must also be a Sith (which is not explicitly stated in the data).
 
 \section{RDF Validation Requirements without Reasoning}
 
