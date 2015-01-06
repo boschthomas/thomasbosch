@@ -505,15 +505,15 @@ The DL constructs \ms{property inclusion}, \ms{complement}, \ms{intersection}, \
 
 \subsection{Reasoning}
 
-The W3C Data Shapes WG defines \ms{constraint} as a component of a schema what needs to be satisfied\footnote{See \url{https://www.w3.org/2014/data-shapes/wiki/Glossary}.}.
+The W3C Data Shapes WG defines \emph{constraint} as a component of a schema what needs to be satisfied\footnote{See \url{https://www.w3.org/2014/data-shapes/wiki/Glossary}.}.
 We distinguish two disjoint sub-classes of constraints:
 \begin{itemize}
-	\item \ms{C}: contraints without reasoning
-	\item \ms{C-R}: contraints with reasoning
+	\item $\mathcal{C}$: contraints without reasoning
+	\item $\mathcal{C}_R$: contraints with reasoning
 \end{itemize}
 
 
-\ms{Constraints without reasoning} are constraints for which reasoning cannot be done or does not improve in any obvious sense.
+\emph{Constraints without reasoning} are constraints for which reasoning cannot be done or does not improve in any obvious sense.
 \ms{Literal Pattern Matching}\footnote{See R-44-PATTERN-MATCHING-ON-RDF-LITERALS.}, e.g., restrict literals to match given patterns.
 \emph{Luke's droids} can only have the numbers "R2-D2" or "C-3PO".
 The universal restriction \ms{LukesDroids $\sqsubseteq$ $\forall$ droidNumber.DroidNumber} can be expressed by OWL 2 DL.
@@ -538,8 +538,8 @@ The literal pattern matching constraint validates \ms{DroidNumber} literals acco
 The triples \ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber} cause a constraint violation. 
 The triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}, however, lead to valid data. \er{Let us divide this last sentence of the paragraph.}\tb{resolved}
 
-\ms{Constraints with reasoning} are constraints for which reasoning may be performed or is even needed.
-\ms{Constraints with reasoning} correspond to axioms in DL - e.g. subsumption, subproperties, cardinality restrictions, existential, and universal restrictions.
+\emph{Constraints with reasoning} are constraints for which reasoning may be performed or is even needed.
+\emph{Constraints with reasoning} correspond to axioms in DL - e.g. subsumption, subproperties, cardinality restrictions, existential, and universal restrictions.
 As we are dealing with fields from different research communities, we define our own nomenclature for RDF validation instead of reusing the heavily overloaded term axiom.
 For instance, for  many in DL community, axioms are only those which are statements of TBox (subsumption statements), if there is a TBox and ABox. 
 In OWL community, an ABox statement  i.e., "class assertion" is also called "class membership axiom". 
@@ -557,33 +557,32 @@ If we use subproperties with reasoning, the triple (causing a constraint violati
 
 \subsection{Complexity}
 
-According to our evaluation of requirements to formulate RDF constraints, we identified four main ways of validating the two constraint classes \ms{constraints without reasoning} and \ms{constraints with reasoning} assigned to four RDF validation complexity classes:
+According to our evaluation of requirements to formulate RDF constraints, we identified four main ways of validating the two constraint classes \emph{constraints without reasoning} and \emph{constraints with reasoning} assigned to four RDF validation complexity classes:
 
-\begin{itemize}
-	\item \ms{C-C}: validation by query answering without reasoning
-	\item \ms{C-R-OWL2-QL}: validation by query answering with OWL 2 QL reasoning
-	\item \ms{C-R-OWL2-DL}: validation by query answering with OWL 2 DL reasoning
-	\item \ms{C-R}: validation by query answering with reasoning
+\begin{itemize}\itemsep1em
+	\item $\overline{\mathcal{C}_R}$: validation by query answering without reasoning
+	\item $\mathcal{C}_R ^{\mathcal{QL}}$: validation by query answering with OWL 2 QL reasoning
+	\item $\mathcal{C}_R ^{\mathcal{DL}}$: validation by query answering with OWL 2 DL reasoning
+	\item $\mathcal{C}_R$: validation by query answering with reasoning
 \end{itemize}
 \er{Let us better not call these ones as complexity classes, because a complexity class is for instance "PTime". If I understand correctly, this can be called as "validation class" per (computational) complexity. I will help in this tomorrow.}\tb{I see, I like the term validation complexity class}
-The complexity class \ms{C-R} encompasses all \ms{constraints with reasoning} for which reasoning can be executed but cannot be expressed by OWL 2.  \er{What/Why can't  be expressed by OWL 2  while being inferred? }\tb{e.g. class-specific property ranges or class-specific reflexive object properties cannot be expressed in OWL / these 2 axioms can only be stated globally for the properties, we cannot restrict it to individuals of specific classes}
+The complexity class $\mathcal{C}_R$ encompasses all \emph{constraints with reasoning} for which reasoning can be executed but cannot be expressed by OWL 2.  \er{What/Why can't  be expressed by OWL 2  while being inferred? }\tb{e.g. class-specific property ranges or class-specific reflexive object properties cannot be expressed in OWL / these 2 axioms can only be stated globally for the properties, we cannot restrict it to individuals of specific classes}
 The next table gives an overview of the computational complexity for RDF validation when reasoning is performed and when reasoning is not performed in ascending complexity ordering. 
 \begin{center}
 \begin{complexity}
-\ms{C-C} & \textsc{Pspace}-Complete \\
-\ms{C-R-OWL2-QL} & \textsc{Ptime} \\
-\ms{C-R-OWL2-DL} & \textsc{N2exptime} \\
-\ms{C-R} & \textsc{N2exptime} \\
+$\overline{\mathcal{C}_R}$ & \textsc{Pspace}-Complete \\
+$\mathcal{C}_R ^{\mathcal{QL}}$ & \textsc{Ptime} \\
+$\mathcal{C}_R ^{\mathcal{DL}}$ & \textsc{N2exptime} \\
 \end{complexity}
 \end{center}
 What is considered by RDF validation w/o reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on \textit{DL-Lite} family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
 
-As, e.g, the constraint \ms{cardinality shortcuts} is associated with the complexity class \ms{C-R} and OWL2 DL reasoning can be done on cardinality restrictions,
-the complexity of \ms{C-R} is in \textsc{N2exptime} as well. 
+As, e.g, the constraint \emph{cardinality shortcuts} is associated with the complexity class $\mathcal{C}_R$ and OWL2 DL reasoning can be done on cardinality restrictions,
+the complexity of $\mathcal{C}_R$ is in \textsc{N2exptime} as well. 
 The complexity classes' partial ordering is: \er{We should talk about how to get this partial ordering.}
 \tb{PSPACE-Complete is less complex than PTIME which is less complex than... / what exactly would you explain here?}
 \begin{eqnarray*}
-\ms{C-C} \subset \ms{C-R-OWL2-QL} \subset \ms{C-R} \subseteq \ms{C-R-OWL2-DL}
+\overline{\mathcal{C}_R} \subset \mathcal{C}_R ^{\mathcal{QL}} \subset \mathcal{C}_R \subseteq \mathcal{C}_R ^{\mathcal{DL}}
 \end{eqnarray*}
 
 \section{Classification of Constraint Languages according to Expressivity and Complexity}
@@ -594,7 +593,7 @@ We also evaluated if a specific requirement is covered by OWL 2 QL or the more e
 \subsection{Expressivity}
 
 As we want to be able to perform reasoning before actually validating the data,
-we use the two types of constraints - \ms{Constraints without reasoning} and \ms{Constraints with reasoning} - as criteria to measure constraint-specific expressivity.
+we use the two types of constraints - \emph{constraints without reasoning} and \emph{constraints with reasoning} - as criteria to measure constraint-specific expressivity.
 We define these two expressivity classes as follows: 
 
 \begin{itemize}
@@ -602,11 +601,11 @@ We define these two expressivity classes as follows:
 	\item \ms{Expr-R}: constraints with reasoning
 \end{itemize}
 
-\ms{Constraints with reasoning} can be used as axioms to infer new triples out of explicitly stated triples (see section \ref{sec:RDF-validation-requirements-and-reasoning}), but also to express constraints without reasoning. \er{Also to express constraints?}\tb{also to express constraints without reasoning}
+\emph{constraints with reasoning} can be used as axioms to infer new triples out of explicitly stated triples (see section \ref{sec:RDF-validation-requirements-and-reasoning}), but also to express constraints without reasoning. \er{Also to express constraints?}\tb{also to express constraints without reasoning}
 If in our knowledge base it is stated that \ms{DarthVader} is a \ms{Sith} (e.g., \ms{Sith(DarthVader)}) and  Siths feel the force of the dark side (e.g., \ms{Sith $\sqsubseteq$ FeelingForceDarkSide}), it is either possible to infer that \ms{DarthVader} feels the force of the dark side (\ms{FeelingForceDarkSide(DarthVader)}) 
 or to check if this class assignment is explicitly stated in the data without reasoning. 
 Although, there are no reasoning implementations for  constraint languages other than OWL 2 available yet, 
-\ms{constraints with reasoning} cannot only be expressed by OWL 2 but also by other constraint languages. \er{This is again the part I don't understand.}\tb{but also by other constraint languages}
+\emph{constraints with reasoning} cannot only be expressed by OWL 2 but also by other constraint languages. \er{This is again the part I don't understand.}\tb{but also by other constraint languages}
 
 \begin{center}
 \begin{evaluation}
@@ -624,8 +623,8 @@ Partial (not necessarily total) orderings are:
 \ms{Expr-R}: DSP \subset OWL2-QL \subset ShEx \subset ReSh \subset OWL2-DL \subset SPIN
 \end{eqnarray*}
 It depends on the use case which constraint language to use in order to fulfill related requirements, i.e., to express associated constraints.
-If, e.g., many \ms{constraints with reasoning} are needed, the constraint language SPIN is the most expressive one.
-If, on the other side, only specific \ms{constraints without reasoning} or \ms{constraints with reasoning} are needed for particular use cases, 
+If, e.g., many \emph{constraints with reasoning} are needed, the constraint language SPIN is the most expressive one.
+If, on the other side, only specific \emph{constraints without reasoning} or \emph{constraints with reasoning} are needed for particular use cases, 
 the relative expressivity of both expressivity classes can be the same for the constraint languages DSP and OWL2-DL, 
 even though the absolute expressivity of OWL2-DL is much higher for both expressivity classes.
 
@@ -705,19 +704,19 @@ The next table shows the amount of constraints (of both constraint types) can be
 
 \begin{center}
 \begin{constraint-languages-complexity}
-\ms{C-C} (41) & 6 & 18(4) & 7(4) & 8 & 12 & 40(1)\\
-\ms{C-R-OWL2-QL} (11) & 0 & 11 & 11 & 0(2) & 1 & 11 \\
-\ms{C-R-OWL2-DL} (18) & 7 & 18 & 0 & 9 & 8(1) & 18 \\
-\ms{C-R} (4) & 1 & 0 & 0 & 2 & 2 & 4 \\ 
+$\overline{\mathcal{C}_R}$ (41) & 6 & 18(4) & 7(4) & 8 & 12 & 40(1)\\
+$\mathcal{C}_R ^{\mathcal{QL}}$ (11) & 0 & 11 & 11 & 0(2) & 1 & 11 \\
+$\mathcal{C}_R ^{\mathcal{DL}}$ (18) & 7 & 18 & 0 & 9 & 8(1) & 18 \\
+$\mathcal{C}_R$ (4) & 1 & 0 & 0 & 2 & 2 & 4 \\ 
 \end{constraint-languages-complexity}
 \end{center}
 
 Partial (not necessarily total) orderings are:
 \begin{eqnarray*}
-\ms{C-C}: DSP \subset OWL2-QL \subset ReSh \subset ShEx \subset OWL2-DL \subset SPIN \\
-\ms{C-R-OWL2-QL}: DSP \subset ReSh \subset ShEx \subset SPIN \subseteq OWL2-QL \subseteq OWL2-DL \\
-\ms{C-R-OWL2-DL}: OWL2-QL \subset DSP \subset ShEx \subset ReSh \subset SPIN \subseteq OWL2-DL \\
-\ms{C-R}: OWL2-QL \subseteq OWL2-DL \subset DSP \subset ReSh \subseteq ShEx \subset SPIN
+\overline{\mathcal{C}_R}: DSP \subset OWL2-QL \subset ReSh \subset ShEx \subset OWL2-DL \subset SPIN \\
+\mathcal{C}_R ^{\mathcal{QL}}: DSP \subset ReSh \subset ShEx \subset SPIN \subseteq OWL2-QL \subseteq OWL2-DL \\
+\mathcal{C}_R ^{\mathcal{DL}}: OWL2-QL \subset DSP \subset ShEx \subset ReSh \subset SPIN \subseteq OWL2-DL \\
+\mathcal{C}_R: OWL2-QL \subseteq OWL2-DL \subset DSP \subset ReSh \subseteq ShEx \subset SPIN
 \end{eqnarray*}
 
 \subsection{Additional Criteria}
