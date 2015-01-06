@@ -580,18 +580,19 @@ $\mathcal{C}_R ^{\mathcal{DL}}$ & \textsc{N2exptime} \\
 \end{tabular}
 \end{center}
 What is considered by RDF validation w/o reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on \textit{DL-Lite} family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
-
-As, e.g, the constraint \emph{cardinality shortcuts} is associated with the complexity class $\mathcal{C}_R$ and OWL2 DL reasoning can be done on cardinality restrictions,
-the complexity of $\mathcal{C}_R$ is in \textsc{N2exptime} as well. 
 The complexity classes' partial ordering is: \er{We should talk about how to get this partial ordering.}
 \tb{PSPACE-Complete is less complex than PTIME which is less complex than... / what exactly would you explain here?}
+%\begin{eqnarray*}
+%\overline{\mathcal{C}_R} \subset \mathcal{C}_R ^{\mathcal{QL}} \subset \mathcal{C}_R \subseteq \mathcal{C}_R ^{\mathcal{DL}}
+%\end{eqnarray*}
 \begin{eqnarray*}
-\overline{\mathcal{C}_R} \subset \mathcal{C}_R ^{\mathcal{QL}} \subset \mathcal{C}_R \subseteq \mathcal{C}_R ^{\mathcal{DL}}
+\overline{\mathcal{C}_R} \subset \mathcal{C}_R ^{\mathcal{QL}} \subset \mathcal{C}_R ^{\mathcal{DL}}
 \end{eqnarray*}
 
 There are constraints (e.g. class-specific property range, class-specific reflexive object properties) for which reasoning could be executed even though there is currently no implementation supported by any constraint language. 
 We leave it as future work to write SPARQL CONSTRUCT queries in order to provide reasoning for these constraints.
-In the worst case, the complexity of such constraints would be \textsc{N2exptime}.
+In the worst case, the complexity of such constraints would be \textsc{N2exptime},
+as in case of \emph{cardinality shortcuts}, e.g., OWL2 DL reasoning can be done on cardinality restrictions.
 
 \section{Classification of Constraint Languages according to Expressivity and Complexity}
  
