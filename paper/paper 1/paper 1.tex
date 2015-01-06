@@ -580,7 +580,7 @@ $\mathcal{C}_R ^{\mathcal{DL}}$ & \textsc{N2exptime} \\
 \end{tabular}
 \end{center}
 What is considered by RDF validation w/o reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on \textit{DL-Lite} family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
-The complexity classes' partial ordering is:
+The  relation between those complexity classes is well-known (\cite{Arora:2009:CCM:1540612}) and as follows:
 
 %\begin{eqnarray*}
 %\overline{\mathcal{C}_R} \subset \mathcal{C}_R ^{\mathcal{QL}} \subset \mathcal{C}_R \subseteq \mathcal{C}_R ^{\mathcal{DL}}
