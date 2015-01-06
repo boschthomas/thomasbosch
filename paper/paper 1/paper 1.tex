@@ -583,6 +583,7 @@ What is considered by RDF validation w/o reasoning, corresponds to performing SP
 As, e.g, the constraint \ms{cardinality shortcuts} is associated with the complexity class \ms{C-R} and OWL2 DL reasoning can be done on cardinality restrictions,
 the complexity of \ms{C-R} is in \textsc{N2exptime} as well. 
 The complexity classes' partial ordering is: \er{We should talk about how to get this partial ordering.}
+\tb{PSPACE-Complete is less complex than PTIME which is less complex than... / what exactly would you explain here?}
 \begin{eqnarray*}
 \ms{C-C} \subset \ms{C-R-OWL2-QL} \subset \ms{C-R} \subseteq \ms{C-R-OWL2-DL}
 \end{eqnarray*}
@@ -603,11 +604,11 @@ We define these two expressivity classes as follows:
 	\item \ms{Expr-R}: constraints with reasoning
 \end{itemize}
 
-\ms{Constraints with reasoning} can be used as axioms to infer new triples out of explicitly stated triples (see section \ref{sec:RDF-validation-requirements-and-reasoning}), but also to express constraints. \er{Also to express constraints?}
+\ms{Constraints with reasoning} can be used as axioms to infer new triples out of explicitly stated triples (see section \ref{sec:RDF-validation-requirements-and-reasoning}), but also to express constraints without reasoning. \er{Also to express constraints?}\tb{also to express constraints without reasoning}
 If in our knowledge base it is stated that \ms{DarthVader} is a \ms{Sith} (e.g., \ms{Sith(DarthVader)}) and  Siths feel the force of the dark side (e.g., \ms{Sith $\sqsubseteq$ FeelingForceDarkSide}), it is either possible to infer that \ms{DarthVader} feels the force of the dark side (\ms{FeelingForceDarkSide(DarthVader)}) 
 or to check if this class assignment is explicitly stated in the data without reasoning. 
 Although, there are no reasoning implementations for  constraint languages other than OWL 2 available yet, 
-\ms{constraints with reasoning} cannot only be expressed by OWL 2. \er{This is again the part I don't understand.}
+\ms{constraints with reasoning} cannot only be expressed by OWL 2 but also by other constraint languages. \er{This is again the part I don't understand.}\tb{but also by other constraint languages}
 
 \begin{center}
 \begin{evaluation}
@@ -615,7 +616,7 @@ Although, there are no reasoning implementations for  constraint languages other
 \ms{Expr-R} (33) & 8 & 29 & 11 & 11(2) & 11(1) & 33 \\ 
 \end{evaluation}
 \end{center}
-
+\tb{this is indeed a misunderstanding. I only took into account that is DSP supports 6 EXPR-C constraints and OWL 2 DL 5, then DSP is more expressive than OWL 2 DL regarding the expressivity class EXPR-C / but this is not right?}
 In the table above, the total amount of constraints per constraint class is shown by numbers in round brackets in the first column.
 Numbers in round brackets in the other columns indicate the number of constraints which may be expressed by that particular constraint language - either by limitations, workarounds, or extensions.  
 \er{One possible misunderstanding (maybe not) is the ordering. It is not only based on the size of the number of the constrains that they satisfies right? For instance, if there are 6 constraints (from EXPR-C) that  DSP satisfies and OWL2-DL  can satisfy lets say only 5 of them but 13 other, in such scenario OWL2 DL and DSP would be incomparable (no ordering). It is more expressive only if it contains those 6 and extras.}
@@ -807,6 +808,7 @@ If, for instance, reasoning should not be performed and three particular constra
 Even if the absolute expressivity (\ms{Expr-C}) of SPIN is much higher than the one of ShEx (\ms{Expr-C}(ShEx) $\subset$ \ms{Expr-C}(SPIN)) 
 , the relative expressivity of this expressivity class could be the same for ShEx and SPIN - in case the three constraints are covered by both.
 \er{The expressivity here (in figure) is not constraint specific expressivity, it is more general. However, constraint specific expressivity must follow.}
+\tb{we need to create a new figure}
 %Now, the user-friendliness classes comes into play:
 %\begin{eqnarray*}
 %\ms{UF-L}(SPIN) \subset \ms{UF-L}(ShEx), \ms{UF-I}(SPIN) \subset \ms{UF-I}(ShEx) \\
