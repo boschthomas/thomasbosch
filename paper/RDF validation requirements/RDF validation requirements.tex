@@ -1340,18 +1340,11 @@ property & Person & childOf & - & Parent & = & 2 \\
 
 \section{Inverse Object Properties}
 
-requirement:
-
-\begin{itemize}
-	\item R-56-INVERSE-OBJECT-PROPERTIES
-\end{itemize}
-
-
-
-\begin{itemize}
-	\item In many cases properties are used bi-directionally and then accessed in the inverse direction, e.g. parent $\equiv$ child$^{-}$. There should be a way to declare value type, cardinality etc of those inverse relations without having to declare a new property URI. 
-	\item The object property expression OPE1 is an inverse of the object property expression OPE2. Thus, if an individual x is connected by OPE1 to an individual y, then y is also connected by OPE2 to x, and vice versa.
-\end{itemize}
+\ms{Inverse Object Properties} corresponds to the requirement
+\ms{R-56-INVERSE-} \ms{OBJECT-PROPERTIES}.
+In many cases properties are used bi-directionally and then accessed in the inverse direction, e.g. parent $\equiv$ child$^{-}$. There should be a way to declare value type, cardinality etc of those inverse relations without having to declare a new property URI. 
+The object property OP1 is an inverse of the object property OP2. 
+Thus, if an individual x is connected by OP1 to an individual y, then y is also connected by OP2 to x, and vice versa.
 
 \subsection{Simple Example}
 
@@ -1359,11 +1352,15 @@ requirement:
 $parentOf \equiv childOf^{-}$ \\
 \end{DL}
 
-outdated:
-
 \begin{gcotable}
-property & $\top$ & parentOf & childOf$^{-}$ & - & $\equiv$ \\
+property & $\top$ & parentOf & childOf & - & inverse \\
 \end{gcotable}
+
+%outdated:
+%
+%\begin{gcotable}
+%property & $\top$ & parentOf & childOf$^{-}$ & - & $\equiv$ \\
+%\end{gcotable}
 
 \subsection{Simple Example}
 
@@ -1375,31 +1372,25 @@ captainOf $\equiv$ hasCaptain$^{-}$ \\
 property & $\top$ & captainOf & hasCaptain & - & inverse \\
 \end{gcotable}
 
-alternative:
-
-\begin{gcotable}
-property & hasCaptain$^{-}$ & hasCaptain & - & - & inverse \\
-property & captainOf & hasCaptain$^{-}$ & - & - & $\equiv$ \\
-\end{gcotable}
-
-alternative:
-
-\begin{gcotable}
-property & captainOf & hasCaptain & - & - & inverse \\
-\end{gcotable}
+%alternative:
+%
+%\begin{gcotable}
+%property & hasCaptain$^{-}$ & hasCaptain & - & - & inverse \\
+%property & captainOf & hasCaptain$^{-}$ & - & - & $\equiv$ \\
+%\end{gcotable}
+%
+%alternative:
+%
+%\begin{gcotable}
+%property & captainOf & hasCaptain & - & - & inverse \\
+%\end{gcotable}
 
 \section{Transitive Object Properties}
 
-requirements:
-
-\begin{itemize}
-	\item R-63-TRANSITIVE-OBJECT-PROPERTIES
-\end{itemize}
-
-\begin{itemize}
-	\item Transitivity is a special form of complex role inclusion
-	\item An object property transitivity axiom TransitiveObjectProperty( OPE ) states that the object property expression OPE is transitive — that is, if an individual x is connected by OPE to an individual y that is connected by OPE to an individual z, then x is also connected by OPE to z.
-\end{itemize}
+\ms{Transitive Object Properties} corresponds to the requirement \\
+\ms{R-63-TRANSITIVE-OBJECT-PROPERTIES}.
+Transitivity is a special form of complex role inclusion.
+An object property transitivity axiom states that the object property is transitive — that is, if an individual x is connected by the object property to an individual y that is connected by the object property to an individual z, then x is also connected by the object property to z.
 
 \subsection{Simple Example}
 

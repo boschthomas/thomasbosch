@@ -246,17 +246,17 @@ Following this approach, one can clarify which constraint language to use to exp
 \section{Introduction}
 
 For many RDF applications, the formulation of constraints and the automatic validation of data according to these constraints is a much sought-after feature. 
-In 2013, the W3C invited experts from industry, government, and academia to the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/rdf-val/}}, 
+In 2013, the W3C invited experts from industry, government, and academia to the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/RDF-val/}}, 
 where first use cases have been presented and discussed. 
 Two working groups (WGs) that follow up on this workshop and address RDF constraint formulation and validation, are established in 2014: 
 the W3C RDF Data Shapes WG\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles WG\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
 
-Bosch and Eckert \cite{BoschEckert2014} initiated a comprehensive database  (publicly available at \url{http://purl.org/net/rdf-validation})  on RDF validation requirements to collect case studies and use cases. It is continuously updated, and used to evaluate and compare various existing solutions for RDF constraint formulation and validation. 
+Bosch and Eckert \cite{BoschEckert2014} initiated a comprehensive database  (publicly available at \url{http://purl.org/net/RDF-validation})  on RDF validation requirements to collect case studies and use cases. It is continuously updated, and used to evaluate and compare various existing solutions for RDF constraint formulation and validation. 
 Also, the requirements are classified to provide a high-level view on different solutions and to facilitate a better understanding of the problem domain \cite{BoschEckert2014}.  
 
 For expressing RDF constraints, there are numerous constraint languages, each with its own syntax and semantics.  
 Yet none of them is all-purpose standard, the most popular ones are
-the SPARQL Inferencing Notation (SPIN)\footnote{\url{http://spinrdf.org/}}, 
+the SPARQL Inferencing Notation (SPIN)\footnote{\url{http://spinRDF.org/}}, 
 the Web Ontology Language (OWL 2)\footnote{\url{http://www.w3.org/TR/owl2-syntax/}}, 
 Shape Expressions (ShEx)\footnote{\url{http://www.w3.org/Submission/shex-primer/}}, 
 Resource Shapes (ReSh)\footnote{\url{http://www.w3.org/Submission/shapes/}}, 
@@ -265,9 +265,7 @@ and Description Set Profiles (DSP)\footnote{\url{http://dublincore.org/documents
 
 Their relevance vary with respect to several foremost criteria in validation process, such as user-friendliness, constraint expressivity and performance.  Regarding performance, we will refer to worst case complexity. Furthermore, the crucial service of reasoning and its usability is in question. What makes any of them a best choice, solely depends on the  particular use case. In this paper, we propose several  classifications for constraint languages as well as constraints in the light of the aforementioned criteria.
 
-The rest of the paper goes as follows. We take a deeper look at motivation in the next section. Then, in Section 3, we briefly mention the expressivity and complexity results in OWL 2 reasoning. Next, classification of rdf constraints according to reasoning and complexity follows.  In Section 5, we present a classification of constraint Languages concerning expressivity and complexity. In this section, we also discuss user-friendliness as an additional criteria. Furthermore, giving some examples, we present a perspective of rdf validation requirements with reasoning and without reasoning in Section 6 and Section 7 respectively. Section 8 briefly discusses implementation aspects. Section 9 presents the related work. Conclusion and future work finalises the paper.
-
-\er{This section must be rechecked at the end before submission} 
+The rest of the paper goes as follows. We take a deeper look at motivation in the next section. Then, in Section 3, we briefly mention the expressivity and complexity results in OWL 2 reasoning. Next, classification of RDF constraints according to reasoning and complexity follows.  In Section 5, we present a classification of constraint Languages concerning expressivity and complexity. In this section, we also discuss user-friendliness as an additional criteria. Furthermore, giving some examples, we present a perspective of RDF validation requirements with reasoning and without reasoning in Section 6 and Section 7 respectively. Section 8 briefly discusses implementation aspects. Section 9 presents the related work. Conclusion and future work finalises the paper.
 
 \section{Motivation}
 
@@ -448,10 +446,10 @@ The three \textbf{main contributions} of this paper are:
 
 \section{Expressivity and Complexity in OWL 2}
 
-In this section, we will briefly mention the expressivity and complexity OWL 2. This will also be the base for our classification of rdf validation requirements with reasoning. In this regard, we will  mainly focus on  OWL 2 QL as well as OWL 2 DL. Note that there is also the very expressive ontology web language OWL 2 Full (which is not a DL) for reasoning that we will not include in our classification, since its high worst case complexity (undecidability) as well as interesting rdf requirements with reasoning is already available in aforementioned OWLs (OWL 2 DL/QL).
+In this section, we will briefly mention the expressivity and complexity of OWL 2. This will also be the base for our classification of RDF validation requirements with reasoning. In this regard, we will  mainly focus on  OWL 2 QL as well as OWL 2 DL. Note that there is also the very expressive web ontology language OWL 2 Full (which is not a DL) for reasoning that we will not include in our classification, since its high worst case complexity (undecidability) as well as interesting RDF requirements with reasoning is already available in aforementioned OWLs (OWL 2 DL/QL).
 
 
-OWL 2 profiles (or fragments in logic literature) are restricted (sublanguage) versions of OWL 2 that offer different trade-offs regarding expressivity  vs. efficiency in reasoning. There are three main  profiles of OWL 2, which are OWL 2 QL, OWL 2 RL and OWL 2 EL namely, each designed to  be useful for different purposes and application scenarios. The choice of which profile to use is purpose-specific on what to express and to perform the reasoning about. We refer reader to \cite{owl2profiles2008} for a comprehensive treatment of those profiles. 
+OWL 2 profiles (or fragments in logic literature) are restricted (sublanguage) versions of OWL 2 that offer different trade-offs regarding expressivity  vs. efficiency in reasoning. There are three main  profiles of OWL 2, which are OWL 2 QL, OWL 2 RL and OWL 2 EL namely, each designed to  be useful for different purposes and application scenarios. The choice of which profile to use is purpose-specific on what to express and to perform the reasoning about. We refer the reader to \cite{owl2profiles2008} for a comprehensive treatment of those profiles. 
 
 
 
@@ -478,6 +476,7 @@ entailment checking. The drawback of its expressive power results as a lack of c
 
 As a result of its expressive power, OWL 2 DL allows a large variety of sophisticated modeling capabilities for many application domains.  On the other hand, to maintain the decidability, OWL 2 DL has numerous syntactic restrictions. One example is that OWL 2 DL allows  expressing transitive properties as well as asymmetric properties, however a property to be both transitive and asymmetric (just like \emph{ancestor relation}) is not allowed. In the sequel, from RDF validation perspective, we will give some examples of constraints that remain at the outside of its scope. 
 \er{Do we really need a Section 3?}
+\tb{What do you mean with this comment?}
 
 \section{Classification of RDF Constraints according to Reasoning and Complexity}
 
@@ -489,10 +488,10 @@ As a result of its expressive power, OWL 2 DL allows a large variety of sophisti
 %\end{itemize}
 
 The W3C and DCMI WGs identified in total 74 requirements to formulate RDF constraints.  
-Bosch et al.\footnote{Available at: \url{https://github.com/boschthomas/rdf-validation-research/paper}} explain each requirement in detail and give examples for each, represented by listed constraint languages.
+Bosch et al.\footnote{Available at: \url{https://github.com/boschthomas/RDF-validation-research/paper}} explain each requirement in detail and give examples for each, represented by listed constraint languages.
 It contains also mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express which constraint.
-When the DL constructs  which is needed to express a particular constraint are known, the required expressivity and the computational complexity to perform reasoning for that constraint can be determined. 
-For example, the constraint \ms{Context-Specific Exclusive OR of Properties} (see section~\ref{sec:rdf-validation-requirements-without-reasoning-2}) can generically be expressed as follows:
+When the DL constructs  which are needed to express a particular constraint are known, the required expressivity and the computational complexity to perform reasoning for that constraint can be determined. 
+For example, the constraint \ms{Context-Specific Exclusive OR of Properties} (see section~\ref{sec:RDF-validation-requirements-without-reasoning-2}) can generically be expressed as follows:
 \begin{center}
 \begin{DL}
 $C$ &$\sqsubseteq (\neg A \sqcap B) \sqcup (A \sqcap \neg B)$ \\
@@ -508,7 +507,7 @@ The DL constructs \ms{property inclusion}, \ms{complement}, \ms{intersection}, \
 
 \subsection{Reasoning}
 
-The W3C Data Shapes WG defines \ms{constraint} as a component of a schema what needs to be satisfied\footnote{\url{See https://www.w3.org/2014/data-shapes/wiki/Glossary}.}.
+The W3C Data Shapes WG defines \ms{constraint} as a component of a schema what needs to be satisfied\footnote{See \url{https://www.w3.org/2014/data-shapes/wiki/Glossary}.}.
 We distinguish two disjoint sub-classes of constraints:
 \begin{itemize}
 	\item \ms{C}: contraints without reasoning
@@ -519,33 +518,34 @@ We distinguish two disjoint sub-classes of constraints:
 \ms{Constraints without reasoning} are constraints for which reasoning cannot be done or does not improve in any obvious sense.
 \ms{Literal Pattern Matching}\footnote{See R-44-PATTERN-MATCHING-ON-RDF-LITERALS.}, e.g., restrict literals to match given patterns.
 \emph{Luke's droids} can only have the numbers "R2-D2" or "C-3PO".
-The universal restriction can be expressed by OWL 2 DL:
-\ms{LukesDroids $\sqsubseteq$ $\forall$ droidNumber . DroidNumber}.\er{This is no OWL.}
-The restriction of the datatype \ms{DroidNumber}, however, cannot be expressed in DL, but OWL 2 DL can be used anyway: \er{DL can naturally express datatypes. All you need to do is to define \emph{DroidNumber} as a concrete domain.}  
+The universal restriction \ms{LukesDroids $\sqsubseteq$ $\forall$ droidNumber.DroidNumber} can be expressed by OWL 2 DL.
+\er{This is no OWL.}\tb{resolved}
+A data range expression is restricted in OWL 2 QL to the predefined datatypes and the intersection of data ranges. 
+Thus, the restriction of the datatype \ms{DroidNumber} must be expressed by OWL 2 DL: \er{DL can naturally express datatypes. All you need to do is to define \emph{DroidNumber} as a concrete domain.}\tb{resolved}  
 
 \begin{ex}
 DroidNumber 
-    a rdfs:Datatype ;
+    a RDFs:Datatype ;
     owl:equivalentClass [
-        a rdfs:Datatype ;
+        a RDFs:Datatype ;
         owl:onDatatype xsd:string ;
         owl:withRestrictions ( 
             [ xsd:pattern "R2-D2|C-3PO" ] ) ] .
 \end{ex}
 
-The second axiom defines \ms{DroidNumber} as an abbreviation for a datatype restriction on \ms{xsd:string}. 
-The first axiom explicitly declares \ms{DroidNumber} to be a datatype. \er{Why start from second and then first? Also better we say "owl axiom" when we talk axiom of owl, to prevent ambiguity.}
+The first OWL axiom explicitly declares \ms{DroidNumber} to be a datatype. \er{Why start from second and then first? Also better we say "owl axiom" when we talk axiom of owl, to prevent ambiguity.}\tb{resolved}
+The second OWL axiom defines \ms{DroidNumber} as an abbreviation for a datatype restriction on \ms{xsd:string}. 
 The datatype \ms{DroidNumber} can be used just like any other datatype like in the universal restriction above.
-The literal pattern matching constraint validates \ms{DroidNumber} literals according to the stated regular expression causing a constraint violation for the triples 
-\ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber}, 
-but not for the triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}. \er{Let us divide this last sentence of the paragraph.}
+The literal pattern matching constraint validates \ms{DroidNumber} literals according to the stated regular expression. 
+The triples \ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber} cause a constraint violation. 
+The triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}, however, lead to valid data. \er{Let us divide this last sentence of the paragraph.}\tb{resolved}
 
 \ms{Constraints with reasoning} are constraints for which reasoning may be performed or is even needed.
 \ms{Constraints with reasoning} correspond to axioms in DL - e.g. subsumption, subproperties, cardinality restrictions, existential, and universal restrictions.
 As we are dealing with fields from different research communities, we define our own nomenclature for RDF validation instead of reusing the heavily overloaded term axiom.
 For instance, for  many in DL community, axioms are only those which are statements of TBox (subsumption statements), if there is a TBox and ABox. 
 In OWL community, an ABox statement  i.e., "class assertion" is also called "class membership axiom". 
-See that this is not a subclass of constraint anymore. \er{Alright, this whole part was my answer from my email. This was not meant to be put into the paper but rather an explanation for us, but no worries, I will take care of this part tomorrow.}
+See that this is not a subclass of constraint anymore. \er{Alright, this whole part was my answer from my email. This was not meant to be put into the paper but rather an explanation for us, but no worries, I will take care of this part tomorrow.}\tb{ok, thx}
 One common thing everyone agrees is, axiom is something which has to hold (satisfied).  
 See that this is overlapping with the definition of constraint (a component of a schema what needs to be satisfied). 
 Actually from logic point of view, when a constraint is not satisfied it leads to no model, and when an axiom is not satisfied it leads to a superset of models.
@@ -603,7 +603,7 @@ We define these two expressivity classes as follows:
 	\item \ms{Expr-R}: constraints with reasoning
 \end{itemize}
 
-\ms{Constraints with reasoning} can be used as axioms to infer new triples out of explicitly stated triples (see section \ref{sec:rdf-validation-requirements-and-reasoning}), but also to express constraints. \er{Also to express constraints?}
+\ms{Constraints with reasoning} can be used as axioms to infer new triples out of explicitly stated triples (see section \ref{sec:RDF-validation-requirements-and-reasoning}), but also to express constraints. \er{Also to express constraints?}
 If in our knowledge base it is stated that \ms{DarthVader} is a \ms{Sith} (e.g., \ms{Sith(DarthVader)}) and  Siths feel the force of the dark side (e.g., \ms{Sith $\sqsubseteq$ FeelingForceDarkSide}), it is either possible to infer that \ms{DarthVader} feels the force of the dark side (\ms{FeelingForceDarkSide(DarthVader)}) 
 or to check if this class assignment is explicitly stated in the data without reasoning. 
 Although, there are no reasoning implementations for  constraint languages other than OWL 2 available yet, 
@@ -644,7 +644,7 @@ even though the absolute expressivity of OWL2-DL is much higher for both express
 	%\item \ms{Expr-C}: constraints without reasoning
 %\end{itemize}
 %
-%Reasoning axioms can be used for its original purpose to infer new triples out of explicitly stated triples (see section \ref{sec:rdf-validation-requirements-and-reasoning}), but also to express constraints.
+%Reasoning axioms can be used for its original purpose to infer new triples out of explicitly stated triples (see section \ref{sec:RDF-validation-requirements-and-reasoning}), but also to express constraints.
 %If in our knowledge base it is stated that \ms{DarthVader} is a \ms{Sith} (\ms{Sith(DarthVader)}) and that Siths feel the force of the dark side (\ms{Sith $\sqsubseteq$ FeelingForceDarkSide}), it is either possible to infer that \ms{DarthVader} feels the force of the dark side (\ms{FeelingForceDarkSide(DarthVader)}) 
 %or to check if this class assignment is explicitly stated in the data without reasoning.  
 %
@@ -816,7 +816,7 @@ Even if the absolute expressivity (\ms{Expr-C}) of SPIN is much higher than the 
 %According to this evaluation, tools may recommend alternatives to the most expressive language SPIN.  
 
 \section{RDF Validation Requirements and Reasoning}
-\label{sec:rdf-validation-requirements-and-reasoning}
+\label{sec:RDF-validation-requirements-and-reasoning}
 
 Reasoning and validation are very closely related. 
 Reasoning is the process of determining what follows from what has been
@@ -854,8 +854,8 @@ All Jedi masters are Jedis feeling the force.
 These sub-class relationships can also be expressed by OWL 2 QL:
 
 \begin{ex}
-Jedi rdfs:subClassOf FeelingForce . 
-JediMaster rdfs:subClassOf Jedi . 
+Jedi RDFs:subClassOf FeelingForce . 
+JediMaster RDFs:subClassOf Jedi . 
 \end{ex}
 
 Valid data must contain the three class assignments \ms{JediMaster(Yoda)}, \ms{Jedi(Yoda)}, and \ms{FeelingForce(Yoda)}.
@@ -875,7 +875,7 @@ restricts that individuals having studentOf relationships must be Jedi students.
 This property domain constraint can also be expressed by OWL 2 QL:
 
 \begin{ex}
-studentOf rdfs:domain JediStudent .
+studentOf RDFs:domain JediStudent .
 \end{ex}
 
 Without reasoning, the data \ms{Anakin studentOf Obi-Wan} is invalid and causes a constraint violation, as it is not explicitly stated that \ms{Anakin} is assigned to the class \ms{Jedi}. 
@@ -896,7 +896,7 @@ In OWL 2 DL, this existential quantification can also be expressed:
 [ a owl:Restriction ;
   owl:onProperty hasLaserSword ;
   owl:someValuesFrom LaserSword ;
-  rdfs:subClassOf Jedi ] .
+  RDFs:subClassOf Jedi ] .
 \end{ex}
 
 When our data contains the triple \ms{Luke hasLaserSword BlueLaserSword} and we perform reasoning, we can infer that \ms{Luke} is a \ms{Jedi}, as he has a laser sword.
@@ -914,7 +914,7 @@ which cannot be expressed by OWL 2 QL, but by OWL 2 DL \cite{owl2profiles2008}:
 [ a owl:Restriction ;
   owl:onProperty hasMentor ;
   owl:allValuesFrom Sith ;
-  rdfs:subClassOf Sith ] .
+  RDFs:subClassOf Sith ] .
 \end{ex}
 
 When performing reasoning, the triples \ms{DarthMaul hasMentor DarthSidious} and \ms{DarthSidious a Sith} infer that \ms{DarthMaul} is a Sith.
@@ -927,7 +927,7 @@ It is also possible, however, to reason before validating constraints for which 
 If we do reasoning by query rewriting in terms of backward chaining and if we run a constraint validation query through an engine like the --ontop-- framework\footnote{\url{http://ontop.inf.unibz.it}} or ELITE (federated query engine) \cite{nolle2013elite}, the engine will only do some rewritings if it is possible, and if you just check e.g. pattern matching there will be no rewriting.
 
 \subsection{Expressible by OWL 2}
-\label{sec:rdf-validation-requirements-without-reasoning-2}
+\label{sec:RDF-validation-requirements-without-reasoning-2}
 
 %\textbf{Literal Pattern Matching}\footnote{corresponds to R-44-PATTERN-MATCHING-ON-RDF-LITERALS}\textbf{.} 
 %There are multiple use cases associated with the requirement to match literals according to given patterns.
@@ -939,9 +939,9 @@ If we do reasoning by query rewriting in terms of backward chaining and if we ru
 %
 %\begin{ex}
 %DroidNumber 
-    %a rdfs:Datatype ;
+    %a RDFs:Datatype ;
     %owl:equivalentClass [
-        %a rdfs:Datatype ;
+        %a RDFs:Datatype ;
         %owl:onDatatype xsd:string ;
         %owl:withRestrictions ( 
             %[ xsd:pattern "R2-D2|C-3PO" ] ) ] .
@@ -981,9 +981,9 @@ Jedi $\equiv$ $\exists$ laserSwordColor . \{blue, green, white\} \\
 When representing the constraint by OWL2 DL a new datatype is defined by simply enumerating its literals:
 
 \begin{ex}
-laserSwordColor rdfs:range laserSwordColors . 
+laserSwordColor RDFs:range laserSwordColors . 
 laserSwordColors
-    a rdfs:Datatype .
+    a RDFs:Datatype .
     owl:oneOf ( "blue" "green" "white" ) .
 \end{ex}
 
@@ -1016,11 +1016,11 @@ This can rather be seen as a workaround, as anonymous classes are built for each
 
 \begin{ex}
 Jedi owl:disjointUnionOf ( CC1 CC2 ) . 
-CC1 rdfs:subClassOf [
+CC1 RDFs:subClassOf [
     a owl:Restriction ;
     owl:onProperty attackingBySword ;
     owl:someValuesFrom xsd:boolean ] .
-CC2 rdfs:subClassOf [
+CC2 RDFs:subClassOf [
     a owl:Restriction ;
     owl:onProperty attackingByForce ;
     owl:someValuesFrom xsd:boolean ] .
@@ -1078,7 +1078,7 @@ The validation implementation of constraint languages is fully declarative,
 consisting of a mapping from a constraint language to SPIN in form of SPARQL CONSTRUCT queries.
 SPIN represents both the SPIN mappings and the SPARQL queries in RDF. 
 Within the validation environment, we fully implemented an automatic RDF validation of all OWL 2 DL\footnote{and therefore all OWL 2 QL constructs} constructs. 
-The implementation can be tested at \url{http://purl.org/net/rdfval-demo} and
+The implementation can be tested at \url{http://purl.org/net/RDFval-demo} and
 the OWL 2 SPIN mapping is maintained at \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}.
 
 The developed constraint language classification according to the three dimensions expressivity, complexity, and user-friendliness leads to many possible extensions of the RDF validator and similar validation systems.
