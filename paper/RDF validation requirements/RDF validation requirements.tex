@@ -1442,9 +1442,21 @@ An object property asymmetry axiom AsymmetricObjectProperty( OPE ) states that t
 
 \subsection{Simple Example}
 
+The property \ms{parentOf} is asymmetric:
+
 \begin{DL}
-$parentOf \sqsubseteq \neg parentOf^{-}$ or\\
-$parentOf \sqcap parentOf^{-} \sqsubseteq \bot$ or \\
+$parentOf \sqsubseteq \neg parentOf^{-}$ 
+\end{DL}
+
+alternatively:
+
+\begin{DL}
+$parentOf \sqcap parentOf^{-} \sqsubseteq \bot$ 
+\end{DL}
+
+alternatively:
+
+\begin{DL}
 disjoint(parentOf, parentOf$^{-}$)
 \end{DL}
 
@@ -1461,31 +1473,15 @@ property & $\top$ & parentOf & - & - & asymmetric \\
 
 \subsection{Simple Example}
 
-\begin{itemize}
-	\item child parent relations (dbo:child) cannot be symmetric
-\end{itemize}
+Child parent relations (dbo:child) cannot be symmetric.
 
 \subsection{Simple Example}
 
-\begin{itemize}
-	\item person birth place relations (dbo:birthPlace) cannot be symmetric
-\end{itemize}
+Person birth place relations (dbo:birthPlace) cannot be symmetric.
 
 \section{Class-Specific Reflexive Object Properties}
 
-requirement:
-
-\begin{itemize}
-	\item 
-\end{itemize}
-
-
-
-\begin{itemize}
-  \item DL terminology: local reflexivity
-	\item set of individuals that are related to themselves via a given role \cite{Kroetzsch2012}.
-	\item set of individuals (of a specific class) that are related to themselves via a given object property
-\end{itemize}
+Using DL terminology \ms{Class-Specific Reflexive Object Properties} is called local reflexivity - a set of individuals (of a specific class) that are related to themselves via a given role \cite{Kroetzsch2012}.
 
 \subsection{Simple Example}
 
@@ -1493,9 +1489,7 @@ requirement:
 TalkingToThemselves $\sqsubseteq$ $\exists$ talksTo .Self. 
 \end{DL}
 
-\begin{itemize}
-	\item set of individuals that are talking to themselves
-\end{itemize}
+Set of individuals that are talking to themselves.
 
 \begin{gcotable}
 property & TalkingToThemselves & talksTo & - & Self & $\exists$ \\
@@ -1510,20 +1504,12 @@ property & $\exists$ talksTo .Self & talksTo & - & - & reflexive \\
 
 \section{Reflexive Object Properties}
 
-requirement:
-
-\begin{itemize}
-	\item R-59-REFLEXIVE-OBJECT-PROPERTIES
-\end{itemize}
-
-
-
-\begin{itemize}
-  \item DL terminology: reflexive roles, global reflexivity
-	\item global reflexivity can be expressed by imposing local reflexivity on the top concept \cite{Kroetzsch2012}
-\end{itemize}
+\ms{Reflexive Object Properties} (reflexive roles, global reflexivity in DL) corresponds to the requirement \ms{R-59-REFLEXIVE-OBJECT-PROPERTIES}.
+Global reflexivity can be expressed by imposing local reflexivity on the top concept \cite{Kroetzsch2012}.
 
 \subsection{Simple Example}
+
+Each individual knows itself:
 
 \begin{DL}
 $\top$ $\sqsubseteq$ $\exists$ knows . Self
@@ -1542,23 +1528,25 @@ property & $\top$ & knows & - & - & reflexive \\
 
 \section{Irreflexive Object Properties}
 
-requirement:
-
-\begin{itemize}
-	\item R-60-IRREFLEXIVE-OBJECT-PROPERTIES
-\end{itemize}
-
-\begin{itemize}
-	\item DL terminology: irreflexive roles
-  \item A role is irreflexive if it is never locally reflexive \cite{Kroetzsch2012}
-	\item An object property irreflexivity axiom IrreflexiveObjectProperty( OPE ) states that the object property expression OPE is irreflexive — that is, no individual is connected by OPE to itself. 
-\end{itemize}
+\ms{Irreflexive Object Properties} (irreflexive roles in DL) corresponds to the requirement \ms{R-60-IRREFLEXIVE-OBJECT-PROPERTIES}.
+A role is irreflexive if it is never locally reflexive \cite{Kroetzsch2012}.
+An object property irreflexivity axiom IrreflexiveObjectProperty( OPE ) states that the object property expression OPE is irreflexive - that is, no individual is connected by OPE to itself. 
 
 \subsection{Simple Example}
 
 \begin{DL}
-$\top$ $\sqsubseteq$ $\neg$ $\exists  marriedTo . Self$   OR\\
-$\exists marriedTo . Self \sqsubseteq \bot$  OR\\
+$\top$ $\sqsubseteq$ $\neg$ $\exists  marriedTo . Self$ 
+\end{DL}
+
+alternatively:
+
+\begin{DL}
+$\exists marriedTo . Self \sqsubseteq \bot$  
+\end{DL}
+
+alternatively:
+
+\begin{DL}
 $marriedTo \sqcap marriedTo^{-} \sqsubseteq \bot$ (without special self-concept Self)
 \end{DL}
 
@@ -1576,29 +1564,21 @@ property & $\top$ & marriedTo & - & - & irreflexive \\
 
 \subsection{Simple Example}
 
-\begin{itemize}
-	\item a resource cannot be its own parent (dbo:parent)
-\end{itemize}
+A resource cannot be its own parent (dbo:parent).
 
 \subsection{Simple Example}
 
-\begin{itemize}
-	\item a resource cannot be its own child (dbo:child)
-\end{itemize}
+A resource cannot be its own child (dbo:child).
 
 \section{Context-Specific Property Groups}
 
-requirement:
-
-\begin{itemize}
-	\item R-66-PROPERTY-GROUPS
-\end{itemize}
+\ms{Context-Specific Property Groups} corresponds to the requirement \\
+\ms{R-66-PROPERTY-GROUPS} to group data and object properties.
 
 \subsection{Simple Example}
 
 \begin{ex}
-# ShEx
-# ----
+# ShEx:
 <Human> { 
     (  
         foaf:name xsd:string ,
@@ -1657,26 +1637,17 @@ property & K & foaf:homepage & - & foaf:Document & $\leq$ & 1 \\
 
 \section{Context-Specific Exclusive OR of Properties}
 
-requirements:
-
-\begin{itemize}
-	\item R-11-CONTEXT-SPECIFIC-EXCLUSIVE-OR-OF-PROPERTIES
-\end{itemize}
-
-
-
-\begin{itemize}
-  \item exclusive or: logical operation that outputs true whenever both inputs differ (one is true, the other is false).
-	\item in OWL 2, inclusive OR of properties would be possible to express, but not exclusive OR of data properties
-\end{itemize}
-
-DL (general):
+\ms{Context-Specific Exclusive OR of Properties} correponds to the requirement
+\ms{R-11-CONTEXT-SPECIFIC-EXCLUSIVE-OR-OF-PROPERTIES}.
+Exclusive or is a logical operation that outputs true whenever both inputs differ (one is true, the other is false).
+%In OWL 2, inclusive OR of properties would be possible to express, but not exclusive OR of data properties
+This constraint is generally expressed in DL as follows:
 
 \begin{DL}
 $C \sqsubseteq (\neg A \sqcap B) \sqcup (A \sqcap \neg B)$ \\
 \end{DL}
 
-DL (general) (alternative):
+and alternatively:
 
 \begin{DL}
 $C \sqsubseteq (A \sqcup B) \sqcap \neg(A \sqcap B)$ \\
@@ -1684,22 +1655,22 @@ $C \sqsubseteq (A \sqcup B) \sqcap \neg(A \sqcap B)$ \\
 
 \subsection{Simple Example}
 
-DSCL (ShEx):
 \begin{ex}
+# ShEx:
 <Human> { (  
     foaf:name xsd:string | 
     foaf:givenName xsd:string ) }
 \end{ex}
 
-DSCL (OWL 2):
 \begin{ex}
-:Human owl:disjointUnionOf ( :CC1 :CC2 ) . 
+# OWL 2:
+Human owl:disjointUnionOf ( :CC1 :CC2 ) . 
 
-:CC1 rdfs:subClassOf [
+CC1 rdfs:subClassOf [
     a owl:Restriction ;
     owl:onProperty foaf:name ;
     owl:someValuesFrom xsd:string ] .
-:CC2 rdfs:subClassOf [
+CC2 rdfs:subClassOf [
     a owl:Restriction ;
     owl:onProperty foaf:givenName ;
     owl:someValuesFrom xsd:string ] .
@@ -1742,35 +1713,31 @@ class & Human & - & - & = 1 name.string, = 1 givenName.string & XOR \\
 \subsection{Simple Example}
 
 \begin{ex}
-# ShEx
-# ----
+# ShEx:
 <FeelingForce> { (  
-    :attackingBySword xsd:boolean | 
-    :attackingByForce xsd:boolean ) }
+    attackingBySword xsd:boolean | 
+    attackingByForce xsd:boolean ) }
 \end{ex}
 
 \begin{ex}
-# OWL 2 DL
-# --------
-:FeelingForce owl:disjointUnionOf ( :CC1 :CC2 ) . 
-:CC1 rdfs:subClassOf [
+# OWL 2 DL:
+FeelingForce owl:disjointUnionOf ( CC1 CC2 ) . 
+CC1 rdfs:subClassOf [
     a owl:Restriction ;
-    owl:onProperty :attackingBySword ;
+    owl:onProperty attackingBySword ;
     owl:someValuesFrom xsd:boolean ] .
-:CC2 rdfs:subClassOf [
+CC2 rdfs:subClassOf [
     a owl:Restriction ;
-    owl:onProperty :attackingByForce ;
+    owl:onProperty attackingByForce ;
     owl:someValuesFrom xsd:boolean ] .
 \end{ex}
 
-\begin{itemize}
-	\item :FeelingForce $\equiv$ 1 :attackingBySword (range xsd:boolean) XOR 1 :attackingByForce (range xsd:boolean)
-\end{itemize}
+This means that \ms{FeelingForce} individuals are individuals having one \ms{attackingBySword} relationship (range xsd:boolean) or one \ms{attackingByForce} relationship (range xsd:boolean) but not both.
 
 \begin{DL}
-A $\equiv$ $\exists$ :attackingBySword . xsd:boolean \\
-B $\equiv$ $\exists$ :attackingByForce . xsd:boolean \\ 
-:FeelingForce $\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
+A $\equiv$ $\exists$ attackingBySword.xsd:boolean \\
+B $\equiv$ $\exists$ attackingByForce.xsd:boolean \\ 
+FeelingForce $\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
 \end{DL}
 
 \subsection{Simple Example}
@@ -1781,9 +1748,8 @@ $Person \sqsubseteq ((Male \sqcap \neg Female) \sqcup (\neg Male \sqcap  Female)
 
 \subsection{Complex Example}
 
-DSCL (ShEx):
-
 \begin{ex}
+# ShEx:
 <Human> { (  
     foaf:name xsd:string | foaf:givenName xsd:string+ , 
     foaf:familyName xsd:string ) }
@@ -1818,18 +1784,10 @@ Individual not matching the 'Human' data shape:
 
 \section{Context-Specific Inclusive OR of Properties}
 
-requirements:
-
-\begin{itemize}
-	\item R-202-CONTEXT-SPECIFIC-INCLUSIVE-OR-OF-PROPERTIES
-\end{itemize}
-
-
-
-\begin{itemize}
-	\item inclusive or: A logical connective joining two or more predicates that yields the logical value "true" when at least one of the predicates is true.
-	\item context can be a class $\rightarrow$ constraint applies for individuals of this specific class 
-\end{itemize}
+\ms{Context-Specific Inclusive OR of Properties} corresponds to the requirement
+\ms{R-202-CONTEXT-SPECIFIC-INCLUSIVE-OR-OF-PROPERTIES}.
+Inclusive or is a logical connective joining two or more predicates that yields the logical value "true" when at least one of the predicates is true.
+The context can be a class, i.e., the constraint applies for individuals of this specific class.
 
 \subsection{Simple Example}
 
