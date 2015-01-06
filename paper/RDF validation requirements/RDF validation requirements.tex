@@ -1812,21 +1812,15 @@ class & Human & - & - & = 1 name.string, = 1 givenName.string & $\sqcup$ \\
 
 \section{Context-Specific Exclusive OR of Property Groups}
 
-requirement:
-
-\begin{itemize}
-	\item R-13-DISJOINT-GROUP-OF-PROPERTIES-CLASS-SPECIFIC
-\end{itemize}
-
-\begin{itemize}
-	\item exclusive or: logical operation that outputs true whenever both inputs differ (one is true, the other is false).
-\end{itemize}
+\ms{Context-Specific Exclusive OR of Property Groups} corresponds to the requirement:
+\ms{R-13-DISJOINT-GROUP-OF-PROPERTIES-CLASS-SPECIFIC}.
+Exclusive or is a logical operation that outputs true whenever both inputs differ (one is true, the other is false).
+Only one of multiple property groups leads to valid data.
 
 \subsection{Simple Example}
 
 \begin{ex}
-# DSCL (ShEx)
-# -----------
+# ShEx:
 <Human> { 
     (  
         foaf:name xsd:string ,
@@ -1845,19 +1839,17 @@ requirement:
 \end{itemize}
 
 \begin{ex}
-# valid data
-# ----------
-:Thomas
-    a :Human ;
+# valid data:
+Thomas
+    a Human ;
     foaf:mbox <thomas.bosch@gesis.org> ;
     foaf:homepage <http://purl.org/net/thomasbosch> .
 \end{ex}
 
 \begin{ex}
-# invalid data
-# ----------
-:Thomas
-    a :Human ;
+# invalid data:
+Thomas
+    a Human ;
     foaf:name 'Thomas Bosch' ;
     foaf:givenName 'Thomas' ;
     foaf:mbox <thomas.bosch@gesis.org> ;
@@ -1885,75 +1877,65 @@ property & = 1 mbox.IRI & mbox & - & IRI & = & 1 \\
 property & = 1 homepage.Document & homepage & - & Document & = & 1 \\
 \end{gcotable}
 
-\subsection{Complex Example}
-
-\begin{ex}
-# ShExC
-# -----
-[[
-  <UserShape> {                          # A User has
-    (foaf:name xsd:string                #  either a foaf:name
-     | foaf:givenName xsd:string+,       #   or 1+ givenNames
-       foaf:familyName xsd:string),      #   and a family name
-    foaf:mbox IRI                        # and an mbox.
-  }
-]]
-\end{ex}
-
-\begin{ex}
-# ReSh
-# ----
-
-[[
-  PREFIX rs:<http://open-services.net/ns/core#>
-  PREFIX se:<http://www.w3.org/2013/ShEx/Definition#>
-
-  <UserShape> a rs:ResourceShape ;       # A User has
-    se:choice [
-      rs:property [                      #  either a foaf:name
-        rs:name "name" ;
-        rs:propertyDefinition foaf:name ;
-        rs:valueType xsd:string ;
-        rs:occurs rs:Exactly-one ;
-      ] ;
-      se:ruleGroup [
-        rs:property [                    #   or 1+ givenNames
-          rs:name "givenName" ;
-          rs:propertyDefinition foaf:givenName ;
-          rs:valueType xsd:string ;
-          rs:occurs rs:One-or-many ;
-        ] ;
-        rs:property [                    #   and a family name
-          rs:name "familyName" ;
-          rs:propertyDefinition foaf:familyName ;
-          rs:valueType xsd:string ;
-          rs:occurs rs:Exactly-one ;
-        ] ;
-      ] ;
-    ] ;
-    rs:property [                        # and an mbox.
-      rs:name "mbox" ;
-      rs:propertyDefinition foaf:mbox ;
-      rs:valueType rs:Resource ;
-      rs:occurs rs:Exactly-one ;
-    ] .
-]]
-\end{ex}
+%\subsection{Complex Example}
+%
+%\begin{ex}
+%# ShExC
+%# -----
+%[[
+  %<UserShape> {                          # A User has
+    %(foaf:name xsd:string                #  either a foaf:name
+     %| foaf:givenName xsd:string+,       #   or 1+ givenNames
+       %foaf:familyName xsd:string),      #   and a family name
+    %foaf:mbox IRI                        # and an mbox.
+  %}
+%]]
+%\end{ex}
+%
+%\begin{ex}
+%# ReSh
+%# ----
+%
+%[[
+  %PREFIX rs:<http://open-services.net/ns/core#>
+  %PREFIX se:<http://www.w3.org/2013/ShEx/Definition#>
+%
+  %<UserShape> a rs:ResourceShape ;       # A User has
+    %se:choice [
+      %rs:property [                      #  either a foaf:name
+        %rs:name "name" ;
+        %rs:propertyDefinition foaf:name ;
+        %rs:valueType xsd:string ;
+        %rs:occurs rs:Exactly-one ;
+      %] ;
+      %se:ruleGroup [
+        %rs:property [                    #   or 1+ givenNames
+          %rs:name "givenName" ;
+          %rs:propertyDefinition foaf:givenName ;
+          %rs:valueType xsd:string ;
+          %rs:occurs rs:One-or-many ;
+        %] ;
+        %rs:property [                    #   and a family name
+          %rs:name "familyName" ;
+          %rs:propertyDefinition foaf:familyName ;
+          %rs:valueType xsd:string ;
+          %rs:occurs rs:Exactly-one ;
+        %] ;
+      %] ;
+    %] ;
+    %rs:property [                        # and an mbox.
+      %rs:name "mbox" ;
+      %rs:propertyDefinition foaf:mbox ;
+      %rs:valueType rs:Resource ;
+      %rs:occurs rs:Exactly-one ;
+    %] .
+%]]
+%\end{ex}
 
 \section{Context-Specific Inclusive OR of Property Groups}
 
-requirements:
-
-\begin{itemize}
-	\item 
-\end{itemize}
-
-
-
-\begin{itemize}
-  \item at least one property group must match for individuals of a specific context 
-	\item context: may be a class
-\end{itemize}
+At least one property group must match for individuals of a specific context. 
+Context may be a class, a shape, or an application profile.
 
 \subsection{Simple Example}
 
@@ -1965,8 +1947,7 @@ requirements:
 \end{itemize}
 
 \begin{ex}
-# valid data
-# ----------
+# valid data:
 :Anakin
     a :Person ;
     foaf:firstName 'Anakin' ;
@@ -1976,8 +1957,7 @@ requirements:
 \end{ex}
 
 \begin{ex}
-# invalid data
-# ----------
+# invalid data:
 :Anakin
     a :Person .
 \end{ex}
@@ -1993,6 +1973,7 @@ D $\sqsubseteq$ $\geq$ 1 homepage . Document $\sqcap$ $\leq$ 1 homepage . Docume
 \end{DL}
 
 syntactic sugar:
+
 \begin{gcotable}
 class & Human & - & - & E, F & $\sqcup$ \\
 class & E & - & - & = 1 name.string, = 1 givenName.string & $\sqcap$ \\
@@ -2005,39 +1986,30 @@ property & = 1 homepage.Document & homepage & - & Document & = & 1 \\
 
 \section{Allowed Values}
 
-requirements:
-
+\ms{Allowed Values} corresponds to the requirements:
+\ms{R-30-ALLOWED-VALUES-FOR-} \ms{RDF-OBJECTS} and 
+\ms{R-37-ALLOWED-VALUES-FOR-RDF-LITERALS}.
+It is a common requirement to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resource). This is often rendered in drop down boxes or radio buttons in user interfaces. 
+%\begin{itemize}
+  %\item define a concept by simply enumerating its instances
+	%\item A DL nominal is a concept that has exactly one instance
+	%\item DL enumeration: combining nominals with union
+%\end{itemize}
+Allowed values for properties
 \begin{itemize}
-	\item R-30-ALLOWED-VALUES-FOR-RDF-OBJECTS
-  \item R-37-ALLOWED-VALUES-FOR-RDF-LITERALS
-\end{itemize}
-
-
-
-\begin{itemize}
-  \item It is a common requirement to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resource). This is often rendered in drop down boxes or radio buttons in user interfaces. 
-	\item define a concept by simply enumerating its instances
-	\item A DL nominal is a concept that has exactly one instance
-	\item DL enumeration: combining nominals with union
-\end{itemize}
-
-allowed values for properties
-
-\begin{itemize}
-	\item must be an IRI
-  \item must be an IRI matching this pattern (e.g. http://id.loc.gov/authorities/names/)
-  \item must be an IRI matching one of these patterns
-  \item must be a (any) literal
-  \item must be one of these literals ("red" "blue" "green")
-  \item must be a typed literal of this type (e.g. XML dataType)
+	\item must be these IRIs,
+  \item must be IRIs matching specific patterns,
+  \item must be IRIs matching one of multiple patterns,
+  \item must be (any) literals,
+  \item must be literals of a list of allowed literals (e.g. "red" "blue" "green"),
+  \item must be typed literals of this type (e.g. XML dataType).
 \end{itemize}
 
 \subsection{Example}
 
 \begin{ex}
-# DSP
-# ----------
-:descriptionTemplate 
+# DSP:
+descriptionTemplate 
     a dsp:DescriptionTemplate ;
     dsp:minOccur "0"^^xsd:nonNegativeInteger ; 
     dsp:maxOccur "infinity"^^xsd:string ; 
@@ -2050,25 +2022,23 @@ allowed values for properties
         dsp:nonLiteralConstraint [ 
             a dsp:NonLiteralConstraint ;
             dsp:valueClass skos:Concept ;
-            dsp:valueURI :ComputerScience, :SocialScience, :Librarianship ] ] .
+            dsp:valueURI ComputerScience, SocialScience, Librarianship ] ] .
 \end{ex}
 
 \begin{ex}
-# OWL2
-# ----
-dcterms:subject rdfs:range :ObjectOneOf . 
-# EquivalentClasses( :ObjectOneOf ObjectOneOf( :ComputerScience :SocialScience :Librarianship ) )
-:ObjectOneOf owl:equivalentClass [ 
+# OWL2:
+dcterms:subject rdfs:range ObjectOneOf . 
+# EquivalentClasses( ObjectOneOf ObjectOneOf( ComputerScience SocialScience Librarianship ) )
+ObjectOneOf owl:equivalentClass [ 
     a owl:Class ;
-    owl:oneOf ( :ComputerScience :SocialScience :Librarianship ) ] .
+    owl:oneOf ( ComputerScience SocialScience Librarianship ) ] .
 \end{ex}
 
-\begin{itemize}
-	\item the range of the object property dcterms:subject must consist of the individuals :ComputerScience :SocialScience :Librarianship which are of the class skos:Concept
-\end{itemize}
+The range of the object property \ms{dcterms:subject} must consist of the individuals \ms{ComputerScience} \ms{SocialScience} \ms{Librarianship} which are of the class \ms{skos:Concept}:
 
 \begin{DL}
-$\top$ $\sqsubseteq$ $\forall$ dcterms:subject . skos:Concept $\sqcap$ ( $\{ComputerScience\}$ $\sqcup$ \{SocialScience\} $\sqcup$ \{Librarianship\} ) \\
+$\top$ $\sqsubseteq$ $\forall$ dcterms:subject . skos:Concept $\sqcap$ \\
+( $\{ComputerScience\}$ $\sqcup$ \{SocialScience\} $\sqcup$ \{Librarianship\} ) \\
 \end{DL}
 
 \subsection{Simple Example}
@@ -2093,19 +2063,16 @@ class & complex concept & - & - & \{ComputerScience\}, \{SocialScience\}, \{Libr
 
 \subsection{Simple Example}
 
-\begin{itemize}
-	\item Jedis have blue, green, or white laser swords
-\end{itemize}
+Jedis have blue, green, or white laser swords.
 
 \begin{ex}
-# DSP
-# ---
-:personDescriptionTemplate
+# DSP:
+personDescriptionTemplate
     a dsp:DescriptionTemplate ;
-    dsp:resourceClass :Jedi ;
+    dsp:resourceClass Jedi ;
     dsp:statementTemplate [
         a dsp:LiteralStatementTemplate ;
-        dsp:property :laserSwordColor ;
+        dsp:property laserSwordColor ;
         dsp:literalConstraint [
             a dsp:LiteralConstraint ;
             dsp:literal "blue" ;
@@ -2114,42 +2081,37 @@ class & complex concept & - & - & \{ComputerScience\}, \{SocialScience\}, \{Libr
 \end{ex}
 
 \begin{ex}
-# OWL2
-# ----
-:laserSwordColor rdfs:range :laserSwordColors . 
-:laserSwordColors
+# OWL2:
+laserSwordColor rdfs:range laserSwordColors . 
+laserSwordColors
     a rdfs:Datatype .
     owl:oneOf ( "blue" "green" "white" ) .
 \end{ex}
 
 \begin{ex}
-# ReSh
-# ----
-:Jedi a rs:ResourceShape ;
+# ReSh:
+Jedi a rs:ResourceShape ;
     rs:property [
         rs:name "laserSwordColor" ;
-        rs:propertyDefinition :laserSwordColor ;
+        rs:propertyDefinition laserSwordColor ;
         rs:allowedValue "blue" , "green" , "white" ;
-        rs:occurs rs:Exactly-one ;
-    ] .
+        rs:occurs rs:Exactly-one ; ] .
 \end{ex}
 
 \begin{ex}
-# ShEx
-# ----
-:Jedi {
-    :laserSwordColor ('blue' 'green' 'white') }
+# ShEx:
+Jedi {
+    laserSwordColor ('blue' 'green' 'white') }
 \end{ex}
 
 \begin{ex}
-# Jedi individuals
-# ----------------
-:Yoda 
-    :laserSwordColor 'blue' .
+# Jedi individuals:
+Yoda 
+    laserSwordColor 'blue' .
 \end{ex}
 
 \begin{DL}
-Jedi $\equiv$ $\exists$ laserSwordColor . \{blue, green, white\} \\
+Jedi $\equiv$ $\exists$ laserSwordColor.\{blue, green, white\} \\
 \end{DL}
 
 \begin{gcotable}
