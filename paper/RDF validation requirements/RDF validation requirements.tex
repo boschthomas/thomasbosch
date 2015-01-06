@@ -1410,20 +1410,14 @@ property & $\top$ & ancestorOf & - & - & transitive \\
 
 \section{Symmetric Object Properties}
 
-requirement:
-
-\begin{itemize}
-	\item R-61-SYMMETRIC-OBJECT-PROPERTIES
-\end{itemize}
-
-
-
-\begin{itemize}
-	\item A role is symmetric if it is equivalent to its own inverse \cite{Kroetzsch2012}
-  \item An object property symmetry axiom SymmetricObjectProperty( OPE ) states that the object property expression OPE is symmetric — that is, if an individual x is connected by OPE to an individual y, then y is also connected by OPE to x. 	
-\end{itemize}
+\ms{Symmetric Object Properties} corresponds to the requirement \\
+\ms{R-61-SYMMETRIC-OBJECT-PROPERTIES}.
+A role is symmetric if it is equivalent to its own inverse \cite{Kroetzsch2012}.
+An object property symmetry axiom states that the object property expression OPE is symmetric - that is, if an individual x is connected by OPE to an individual y, then y is also connected by OPE to x. 	
 
 \subsection{Simple Example}
+
+The property \ms{marriedTo} is symmetric:
 
 \begin{DL}
 $marriedTo \equiv marriedTo^{-}$ \\
@@ -1439,18 +1433,12 @@ syntactic sugar:
 property & $\top$ & marriedTo & - & - & symmetric \\
 \end{gcotable}
 
-\subsubsection{Asymmetric Object Properties}
+\section{Asymmetric Object Properties}
 
-requirement:
-
-\begin{itemize}
-	\item R-62-ASYMMETRIC-OBJECT-PROPERTIES
-\end{itemize}
-
-\begin{itemize}
-	\item A role is asymmetric if it is disjoint from its own inverse \cite{Kroetzsch2012}
-	\item An object property asymmetry axiom AsymmetricObjectProperty( OPE ) states that the object property expression OPE is asymmetric — that is, if an individual x is connected by OPE to an individual y, then y cannot be connected by OPE to x. 
-\end{itemize}
+\ms{Asymmetric Object Properties} corresponds to the requirement \\
+\ms{R-62-ASYMMETRIC-OBJECT-PROPERTIES}.
+A role is asymmetric if it is disjoint from its own inverse \cite{Kroetzsch2012}.
+An object property asymmetry axiom AsymmetricObjectProperty( OPE ) states that the object property expression OPE is asymmetric - that is, if an individual x is connected by OPE to an individual y, then y cannot be connected by OPE to x. 
 
 \subsection{Simple Example}
 
