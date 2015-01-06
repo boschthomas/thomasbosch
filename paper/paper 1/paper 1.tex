@@ -475,8 +475,6 @@ description logic-like formalism.  OWL 2 DL has high expressivity, yet maintains
 entailment checking. The drawback of its expressive power results as a lack of computational efficiency in performance. In general, reasoning in OWL 2 DL is in \textsc{N2exptime} \cite{owl2profiles2008}. 
 
 As a result of its expressive power, OWL 2 DL allows a large variety of sophisticated modeling capabilities for many application domains.  On the other hand, to maintain the decidability, OWL 2 DL has numerous syntactic restrictions. One example is that OWL 2 DL allows  expressing transitive properties as well as asymmetric properties, however a property to be both transitive and asymmetric (just like \emph{ancestor relation}) is not allowed. In the sequel, from RDF validation perspective, we will give some examples of constraints that remain at the outside of its scope. 
-\er{Do we really need a Section 3?}
-\tb{What do you mean with this comment?}
 
 \section{Classification of RDF Constraints according to Reasoning and Complexity}
 
@@ -519,9 +517,9 @@ We distinguish two disjoint sub-classes of constraints:
 \ms{Literal Pattern Matching}\footnote{See R-44-PATTERN-MATCHING-ON-RDF-LITERALS.}, e.g., restrict literals to match given patterns.
 \emph{Luke's droids} can only have the numbers "R2-D2" or "C-3PO".
 The universal restriction \ms{LukesDroids $\sqsubseteq$ $\forall$ droidNumber.DroidNumber} can be expressed by OWL 2 DL.
-\er{This is no OWL.}\tb{resolved}
+%\er{This is no OWL.}\tb{resolved}
 A data range expression is restricted in OWL 2 QL to the predefined datatypes and the intersection of data ranges. 
-Thus, the restriction of the datatype \ms{DroidNumber} must be expressed by OWL 2 DL: \er{DL can naturally express datatypes. All you need to do is to define \emph{DroidNumber} as a concrete domain.}\tb{resolved}  
+%Thus, the restriction of the datatype \ms{DroidNumber} must be expressed by OWL 2 DL: \er{DL can naturally express datatypes. All you need to do is to define \emph{DroidNumber} as a concrete domain.}\tb{resolved}  
 
 \begin{ex}
 DroidNumber 
@@ -533,7 +531,7 @@ DroidNumber
             [ xsd:pattern "R2-D2|C-3PO" ] ) ] .
 \end{ex}
 
-The first OWL axiom explicitly declares \ms{DroidNumber} to be a datatype. \er{Why start from second and then first? Also better we say "owl axiom" when we talk axiom of owl, to prevent ambiguity.}\tb{resolved}
+%The first OWL axiom explicitly declares \ms{DroidNumber} to be a datatype. \er{Why start from second and then first? Also better we say "owl axiom" when we talk axiom of owl, to prevent ambiguity.}\tb{resolved}
 The second OWL axiom defines \ms{DroidNumber} as an abbreviation for a datatype restriction on \ms{xsd:string}. 
 The datatype \ms{DroidNumber} can be used just like any other datatype like in the universal restriction above.
 The literal pattern matching constraint validates \ms{DroidNumber} literals according to the stated regular expression. 

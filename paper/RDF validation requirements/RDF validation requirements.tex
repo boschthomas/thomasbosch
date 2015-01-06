@@ -2121,63 +2121,36 @@ class & LaserSwordColor & - & - & $\{blue\}$, $\{green\}$, $\{white\}$ & $\sqcup
 
 \section{Not Allowed Values}
 
-requirements:
-
-\begin{itemize}
-	\item R-33-NEGATIVE-OBJECT-CONSTRAINTS
-	\item R-200-NEGATIVE-LITERAL-CONSTRAINTS
-\end{itemize}
-
-
-
-\begin{itemize}
-	\item not allowed objects
-	\item not allowed literals
-	\item definition: A matching triple has any literal / object except those explicitly excluded
-\end{itemize}
+\ms{Not Allowed Values} corresponds to the requirements
+\ms{R-33-NEGATIVE-OBJECT-} \ms{CONSTRAINTS} and
+\ms{R-200-NEGATIVE-LITERAL-CONSTRAINTS}.
+A matching triple has any literal / object except those explicitly excluded.
 
 \subsection{Simple Example}
 
-\begin{itemize}
-	\item Siths do not have blue, green, or white laser swords
-\end{itemize}
+Siths do not have blue, green, or white laser swords.
 
 \begin{ex}
-# DSP
-# ---
--
-\end{ex}
-
-\begin{ex}
-# OWL2
-# ----
-:laserSwordColor rdfs:range :negativeLaserSwordColors . 
-:NegativeLaserSwordColors
+# OWL2:
+laserSwordColor rdfs:range negativeLaserSwordColors . 
+NegativeLaserSwordColors
     a rdfs:Datatype .
-    owl:complementOf :laserSwordColors .
-:laserSwordColors
+    owl:complementOf laserSwordColors .
+laserSwordColors
     a rdfs:Datatype .
     owl:oneOf ( "blue" "green" "white" ) .
 \end{ex}
 
 \begin{ex}
-# ReSh
-# ----
--
+# ShEx:
+Sith {
+    ! laserSwordColor ('blue' 'green' 'white') }
 \end{ex}
 
 \begin{ex}
-# ShEx
-# ----
-:Sith {
-    ! :laserSwordColor ('blue' 'green' 'white') }
-\end{ex}
-
-\begin{ex}
-# Sith individuals
-# ----------------
-:DarthSidious
-    :laserSwordColor 'red' .
+# Sith individuals:
+DarthSidious
+    laserSwordColor 'red' .
 \end{ex}
 
 \begin{DL}
@@ -2192,25 +2165,16 @@ class & LaserSwordColor & - & - & $\{blue\}$, $\{green\}$, $\{white\}$ & $\sqcup
 
 \section{Membership in Controlled Vocabularies}
 
-requirements:
-
-\begin{itemize}
-	\item R-32-MEMBERSHIP-OF-RDF-OBJECTS-IN-CONTROLLED-VOCABULARIES
-	\item R-39-MEMBERSHIP-OF-RDF-LITERALS-IN-CONTROLLED-VOCABULARIES
-\end{itemize}
-
-
-
-\begin{itemize}
-	\item resources can only be members of listed controlled vocabularies
-\end{itemize}
+\ms{Membership in Controlled Vocabularies} corresponds to the requirements \\
+\ms{R-32-MEMBERSHIP-OF-RDF-OBJECTS-IN-CONTROLLED-VOCABULARIES} and \\
+\ms{R-39-MEMBERSHIP-OF-RDF-LITERALS-IN-CONTROLLED-VOCABULARIES}
+Resources can only be members of listed controlled vocabularies.
 
 \subsection{Simple Example}
 
 \begin{ex}
-# DSCL (DSP)
-# ----------
-:bookDescriptionTemplate 
+# DSP:
+bookDescriptionTemplate 
     a dsp:DescriptionTemplate ;
     dsp:resourceClass swrc:Book ; 
     dsp:statementTemplate [
@@ -2219,12 +2183,11 @@ requirements:
         dsp:nonLiteralConstraint [ 
             a dsp:NonLiteralConstraint ;
             dsp:valueClass skos:Concept ; 
-            dsp:vocabularyEncodingScheme :BookSubjects, :BookTopics, :BookCategories ] ] .
+            dsp:vocabularyEncodingScheme BookSubjects, BookTopics, BookCategories ] ] .
 \end{ex}
 
-\begin{itemize}
-	\item \ms{skos:Concept} resources can only be members of the listed controlled vocabularies
-\end{itemize}
+\ms{skos:Concept} resources can only be members of the listed controlled vocabularies.
+
 %\er{This sort of DL-syntax (with semicolon) must be rechecked. Note that in DL, it does not have to correspond directly to names of things in machine-readable syntax. It is fine to say BookSubjects rather than :BookSubjects for the sake of simplicity }
 \begin{DL}
 $A \equiv Concept \sqcap B$ \\
@@ -2241,39 +2204,35 @@ class & D & - & - & $\{BookSubjects\}$, $\{BookTopics\}$, $\{BookCategories\}$ &
 \end{gcotable}
 
 \begin{ex}
-# valid data
-# ----------
-:ArtficialIntelligence
+# valid data:
+ArtficialIntelligence
     a swrc:Book ;
-    dcterms:subject :ComputerScience .
-:ComputerScience
+    dcterms:subject ComputerScience .
+ComputerScience
     a skos:Concept ;
-    dcam:memberOf :BookSubjects ;
-    skos:inScheme :BookSubjects .
-:BookSubjects
+    dcam:memberOf BookSubjects ;
+    skos:inScheme BookSubjects .
+BookSubjects
     a skos:ConceptScheme .
 \end{ex}
 
 \begin{ex}
-# invalid data
-# ------------
-:ArtficialIntelligence
+# invalid data:
+ArtficialIntelligence
     a swrc:Book ;
-    dcterms:subject :ComputerScience .
-:ComputerScience
+    dcterms:subject ComputerScience .
+ComputerScience
     a skos:Concept ;
-    dcam:memberOf :BooksAboutBirds ;
-    skos:inScheme :BooksAboutBirds ;
-    dcam:memberOf :BookSubjects ;
-    skos:inScheme :BookSubjects .
-:BookSubjects
+    dcam:memberOf BooksAboutBirds ;
+    skos:inScheme BooksAboutBirds ;
+    dcam:memberOf BookSubjects ;
+    skos:inScheme BookSubjects .
+BookSubjects
     a skos:ConceptScheme .
 \end{ex}
 
-\begin{itemize}
-	\item The related subject (\ms{:ComputerScience}) is a member of a controlled vocabulary (\ms{:BooksAboutBirds}) 
+The related subject (\ms{ComputerScience}) is a member of a controlled vocabulary (\ms{BooksAboutBirds}) 
 which is not part of the list of allowed controlled vocabularies.
-\end{itemize}
 
 \section{IRI Pattern Matching}
 
