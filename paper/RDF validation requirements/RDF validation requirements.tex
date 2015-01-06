@@ -2236,79 +2236,59 @@ which is not part of the list of allowed controlled vocabularies.
 
 \section{IRI Pattern Matching}
 
-requirements:
-
+\ms{IRI Pattern Matching} corresponds to the requirements
 \begin{itemize}
-	\item R-21-IRI-PATTERN-MATCHING-ON-RDF-SUBJECTS
-  \item R-22-IRI-PATTERN-MATCHING-ON-RDF-OBJECTS
-  \item R-23-IRI-PATTERN-MATCHING-ON-RDF-PROPERTIES
+	\item \ms{R-21-IRI-PATTERN-MATCHING-ON-RDF-SUBJECTS},
+	\item \ms{R-22-IRI-PATTERN-MATCHING-ON-RDF-OBJECTS} and
+	\item \ms{R-23-IRI-PATTERN-MATCHING-ON-RDF-PROPERTIES} 
 \end{itemize}
-
-
-
-\begin{itemize}
-	\item IRI pattern matching on subjects, properties, and objects
-\end{itemize}
+indicating IRI pattern matching on subjects, properties, and objects.
 
 \section{Literal Pattern Matching}
 
-requirements:
-
-\begin{itemize}
-  \item R-44-PATTERN-MATCHING-ON-RDF-LITERALS
-\end{itemize}
-
-
-
-\begin{itemize}
-	\item pattern matching on literals
-\end{itemize}
+\ms{Literal Pattern Matching} corresponds to the requirement \\
+\ms{R-44-PATTERN-MATCHING-ON-RDF-LITERALS}.
+indicating pattern matching on literals.
 
 \subsection{Simple Example}
 
 \begin{ex}
-# OWL 2 DL (functional-style syntax)
-# ----------------------------------
-Declaration( Datatype( :SSN ) ) 
+# OWL 2 DL (functional-style syntax):
+Declaration( Datatype( SSN ) ) 
 DatatypeDefinition( 
-    :SSN
+    SSN
     DatatypeRestriction( xsd:string xsd:pattern "[0-9]{3}-[0-9]{2}-[0-9]{4}" ) )     
-DataPropertyRange( :hasSSN :SSN ) 
+DataPropertyRange( hasSSN SSN ) 
 \end{ex}
 
 \begin{ex}
-# OWL 2 DL (turtle syntax)
-# ------------------------
-:SSN 
+# OWL 2 DL (turtle syntax):
+SSN 
     a rdfs:Datatype ;
     owl:equivalentClass [
         a rdfs:Datatype ;
         owl:onDatatype xsd:string ;
         owl:withRestrictions ( 
             [ xsd:pattern "[0-9]{3}-[0-9]{2}-[0-9]{4}" ] ) ] .
-:hasSSN rdfs:range :SSN .
+hasSSN rdfs:range SSN .
 \end{ex}
 
-\begin{itemize}
-	\item A social security number is a string that matches the given regular expression. 
-The second axiom defines :SSN as an abbreviation for a datatype restriction on xsd:string. 
-The first axiom explicitly declares :SSN to be a datatype. 
-The datatype :SSN can be used just like any other datatype; 
-for example, it is used in the third axiom to define the range of the :hasSSN property. 
-\end{itemize}
+A social security number is a string that matches the given regular expression. 
+The second axiom defines SSN as an abbreviation for a datatype restriction on xsd:string. 
+The first axiom explicitly declares SSN to be a datatype. 
+The datatype SSN can be used just like any other datatype; 
+for example, it is used in the third axiom to define the range of the hasSSN property. 
 
 \begin{ex}
-# valid data
-# ----------
-:TimBernersLee
-    :hasSSN "123-45-6789"^^:SSN .
+# valid data:
+TimBernersLee
+    hasSSN "123-45-6789"^^SSN .
 \end{ex}
 
 \begin{ex}
-# invalid data
-# ------------
-:TimBernersLee
-    :hasSSN "123456789"^^:SSN .
+# invalid data:
+TimBernersLee
+    hasSSN "123456789"^^SSN .
 \end{ex}
 
 \begin{DL}
@@ -2325,7 +2305,7 @@ There are multiple use cases associated with the requirement to match literals a
 
 Luke's droids can only have the numbers "R2-D2" or "C-3PO".
 The universal restriction part of this constraint can be expressed by OWL 2 DL:
-\ms{LukesDroids $\sqsubseteq$ $\forall$ droidNumber . DroidNumber}.
+\ms{LukesDroids $\sqsubseteq$ $\forall$ droidNumber.DroidNumber}.
 The restriction of the datatype \ms{DroidNumber}, however, cannot be expressed in DL, but OWL 2 DL can be used anyway:
 
 \begin{ex}
@@ -2356,21 +2336,12 @@ class & DroidNumber & - & - & xsd:string & xsd:pattern & 'R2-D2$|$C-3PO' \\
 
 \section{Negative Literal Pattern Matching}
 
-requirements:
-
-\begin{itemize}
-  \item R-44-PATTERN-MATCHING-ON-RDF-LITERALS
-\end{itemize}
-
-
-
-\begin{itemize}
-	\item negative pattern matching on literals
-\end{itemize}
+\ms{Negative Literal Pattern Matching} corresponds to the requirement \\
+\ms{R-44-PATTERN-MATCHING-ON-RDF-LITERALS}
+indicating negative pattern matching on literals.
 
 \begin{ex}
-# examples
-# --------
+# examples:
 1. dbo:isbn format is different ’!’ from '^([iIsSbBnN 0-9-])*$'
 2. dbo:postCode format is different ‘!’ from 'ˆ[0-9]{5}$'
 3. foaf:phone contains any letters ('[A-Za-z]')
@@ -2379,8 +2350,7 @@ requirements:
 \subsection{Example}
 
 \begin{ex}
-# test binding (DQTP)
-# -------------------
+# test binding (DQTP):
 dbo:isbn format is different ’!’ from '^([iIsSbBnN 0-9-])*$'
 
 P1 => dbo:isbn
@@ -2389,8 +2359,7 @@ REGEX => 'ˆ([iIsSbBnN 0-9-])*$'
 \end{ex}
 
 \begin{ex}
-# DQTP
-# ----
+# DQTP:
 SELECT DISTINCT ?s WHERE { ?s %%P1%% ?value .
     FILTER ( %%NOP%% regex(str(?value), %%REGEX%) ) }
 \end{ex}
@@ -2402,16 +2371,14 @@ NOP can be a not operator (!) or empty.
 \end{itemize}
 
 \begin{ex}
-# valid data
-# ----------
-:FoundationsOfSWTechnologies
+# valid data:
+FoundationsOfSWTechnologies
     dbo:isbn 'ISBN-13 978-1420090505' .
 \end{ex}
 
 \begin{ex}
-# invalid data
-# ------------
-:HandbookOfSWTechnologies
+# invalid data:
+HandbookOfSWTechnologies
     dbo:isbn 'DOI 10.1007/978-3-540-92913-0' .
 \end{ex}
 
@@ -2427,35 +2394,27 @@ class & A & - & - & xsd:string & regex & 'ˆ([iIsSbBnN 0-9-])*$' $ \\
 
 \section{Literal Value Comparison}
 
-requirement:
+\ms{Literal Value Comparison} corresponds to the requirement \\
+\ms{R-43-LITERAL-VALUE-COMPARISON}.
+Examples are:
 
 \begin{itemize}
-	\item R-43-LITERAL-VALUE-COMPARISON
-\end{itemize}
-
-
-
-examples:
-
-\begin{itemize}
-	\item dbo:deathDate before ‘<’ dbo:birthDate
-  \item dbo:releaseDate after ‘>’ dbo:latestReleaseDate
-  \item dbo:demolitionDate before ‘<’ dbo:buildingStartDate
+	\item dbo:deathDate before ‘\textless’ dbo:birthDate
+  \item dbo:releaseDate after ‘\textgreater’ dbo:latestReleaseDate
+  \item dbo:demolitionDate before ‘\textless’ dbo:buildingStartDate
 \end{itemize}
 
 \subsection{Simple Example}
 
 \begin{ex}
-# DSCL (DQTP)
-# -----------
+# DSCL (DQTP):
 SELECT ?s WHERE { 
     ?s %%P1%% ?v1 .
     ?s %%P2%% ?v2 .
     FILTER ( ?v1 %%OP%% ?v2 ) }
 \end{ex}
 
-COMP Pattern \cite{Kontokostas2014} 
-
+This constraint corresponds to the COMP Pattern \cite{Kontokostas2014}. 
 Depending on the property semantics,
 there are cases where two different literal values must have
 a specific ordering with respect to an operator. 
@@ -2463,8 +2422,7 @@ P1 and P2 are the datatype properties we need to compare and
 OP is the comparison operator (\textless, \textless=, \textgreater, \textgreater=, =, !=). 
 
 \begin{ex}
-# test binding (DQTP)
-# -------------------
+# test binding (DQTP):
 dbo:deathDate before ‘<’ dbo:birthDate
 
 P1 => dbo:deathDate
@@ -2473,16 +2431,14 @@ OP => <
 \end{ex}
 
 \begin{ex}
-# valid data
-# ----------
+# valid data:
 :AlbertEinstein
     dbo:birthDate '1879-03-14'^^xsd:date ;
     dbo:deathDate '1955-04-18'^^xsd:date .
 \end{ex}
 
 \begin{ex}
-# invalid data
-# ------------
+# invalid data:
 :NeilArmstrong
     dbo:birthDate '2012-08-25'^^xsd:date ;
     dbo:deathDate '1930-08-05'^^xsd:date .
@@ -2498,7 +2454,7 @@ property & $\top$ & dbo:birthDate & dbo:deathDate & xsd:date & \textgreater & - 
 
 \subsection{Simple Example}
 
-duplicate strings are not allowed:
+Duplicate strings are not allowed:
 
 \begin{ex}
 dc:subject "foo"@en
@@ -2519,18 +2475,10 @@ property & $\top$ & dc:subject & dc:subject & xsd:string & $\neq$ & - \\
 
 \section{Negative Literal Ranges}
 
-requirements:
-
-\begin{itemize}
-	\item R-142-NEGATIVE-RANGES-OF-RDF-LITERAL-VALUES
-\end{itemize}
-
-
-
-\begin{itemize}
-	\item The literal value of a resource (having a certain type) must (not) be within a specific range
-  \item P1 is a data property of an instance of class T1 and its literal value must be between the range of [Vmin,Vmax] or outside ( ‘!' ).
-\end{itemize}
+\ms{Negative Literal Ranges} corresponds to the requirement
+\ms{R-142-NEGATIVE-} \ms{RANGES-OF-RDF-LITERAL-VALUES}.
+The literal value of a resource (having a certain type) must (not) be within a specific range.
+P1 is a data property of an instance of class T1 and its literal value must be between the range of [Vmin,Vmax] or outside ( ‘!' ).
 
 \subsection{Simple Example}
 
@@ -2550,37 +2498,28 @@ requirements:
 	\item geo:long of a gml:Feature must be in range [-180,180]
 \end{itemize}
 
-
-
 \section{Literal Ranges}
 
-requirement:
-
-\begin{itemize}
-	\item R-45-RANGES-OF-RDF-LITERAL-VALUES
-\end{itemize}
-
-
+\ms{Literal Ranges} corresponds to the requirement
+\ms{R-45-RANGES-OF-RDF-LITERAL-} \ms{VALUES}.
 
 \subsection{Example}
 
 \begin{ex}
-# OWL 2 DL (functional-style syntax)
-# ----------------------------------
-Declaration( Datatype( :NumberPlayersPerWorldCupTeam ) ) 
+# OWL 2 DL (functional-style syntax):
+Declaration( Datatype( NumberPlayersPerWorldCupTeam ) ) 
 DatatypeDefinition( 
-    :NumberPlayersPerWorldCupTeam
+    NumberPlayersPerWorldCupTeam
     DatatypeRestriction( 
         xsd:nonNegativeInteger 
         xsd:minInclusive "1"^^xsd:nonNegativeInteger 
         xsd:maxInclusive "23"^^xsd:nonNegativeInteger ) )     
-DataPropertyRange( :position :NumberPlayersPerWorldCupTeam ) 
+DataPropertyRange( position NumberPlayersPerWorldCupTeam ) 
 \end{ex}
 
 \begin{ex}
-# OWL 2 DL (turtle syntax)
-# ------------------------
-:NumberPlayersPerWorldCupTeam
+# OWL 2 DL (turtle syntax):
+NumberPlayersPerWorldCupTeam
     a rdfs:Datatype ;
     owl:equivalentClass [
         a rdfs:Datatype ;
@@ -2588,31 +2527,26 @@ DataPropertyRange( :position :NumberPlayersPerWorldCupTeam )
         owl:withRestrictions ( 
             [ xsd:minInclusive "1"^^xsd:nonNegativeInteger ]
             [ xsd:maxInclusive "23"^^xsd:nonNegativeInteger ] ) ] .
-:position rdfs:range :NumberPlayersPerWorldCupTeam .
+position rdfs:range NumberPlayersPerWorldCupTeam .
 \end{ex}
 
-\begin{itemize}
-	\item The data range 'NumberPlayersPerWorldCupTeam' contains the non negative integers 1 to 23, as each world cup team can only have 23 football players at most
-\end{itemize}
+The data range 'NumberPlayersPerWorldCupTeam' contains the non negative integers 1 to 23, as each world cup team can only have 23 football players at most.
 
 \begin{ex}
-# valid data
-# ----------
-:MarioGoetze
-    :position "19"^^:NumberPlayersPerWorldCupTeam .
+# valid data:
+MarioGoetze
+    position "19"^^:NumberPlayersPerWorldCupTeam .
 \end{ex}
 
 \begin{ex}
-# invalid data
-# ------------
-:MarioGoetze
-    :position "99"^^:NumberPlayersPerWorldCupTeam .
+# invalid data:
+MarioGoetze
+    position "99"^^:NumberPlayersPerWorldCupTeam .
 \end{ex}
 
-\begin{itemize}
-	\item range of position is the datatype 1-23
-  \item constraints are stated on this datatype
-\end{itemize}
+%The range of \ms{position} is the datatype 1-23
+  %\item constraints are stated on this datatype
+%\end{itemize}
 
 %\begin{DL}
 %1-23 $\equiv$ \{'1'\} $\sqcup$ \{'2'\} $\sqcup$ ... $\sqcup$ \{'23'\} \\
@@ -2647,20 +2581,10 @@ class & 1-23 & - & - & xsd:nonNegativeInteger & $\leq$ & 23 \\
 
 \section{Define Order}
 
-requirements:
-
-\begin{itemize}
-  \item R-121-SPECIFY-ORDER-OF-RDF-RESOURCES
-	\item R-217-DEFINE-ORDER-FOR-FORMS/DISPLAY
-\end{itemize}
-
-
-
-\begin{itemize}
-	\item order properties
-	\item order objects of object properties
-	\item order literal of data properties
-\end{itemize}
+\ms{Define Order} corresponds to the requirements
+\ms{R-121-SPECIFY-ORDER-OF-RDF-} \ms{RESOURCES} and
+\ms{R-217-DEFINE-ORDER-FOR-FORMS/DISPLAY}.
+With this constraint objects of object properties can be ordered as well as literals of data properties and objects of object properties.
 
 \subsection{Simple Example}
 

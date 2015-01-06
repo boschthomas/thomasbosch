@@ -709,23 +709,31 @@ even though the absolute expressivity of OWL2-DL is much higher for both express
 
 \subsection{Complexity}
 
-The next table shows the amount of constraints (of both constraint types) can be expressed by which constraint language - aggregated by complexity class and sorted by ascending complexity.
+The next table shows the amount of constraints (of both constraint types) which can be expressed by each constraint language - aggregated by constraint sets regarding complexity. 
+%and sorted by ascending complexity.
 
 \begin{center}
 \begin{constraint-languages-complexity}
-$\overline{\mathcal{C}_R}$ (41) & 6 & 18(4) & 7(4) & 8 & 12 & 40(1)\\
 $\mathcal{C}_R ^{\mathcal{QL}}$ (11) & 0 & 11 & 11 & 0(2) & 1 & 11 \\
 $\mathcal{C}_R ^{\mathcal{DL}}$ (18) & 7 & 18 & 0 & 9 & 8(1) & 18 \\
-$\mathcal{C}_R$ (4) & 1 & 0 & 0 & 2 & 2 & 4 \\ 
+$\mathcal{C}_R \backslash \mathcal{C}_R ^{\mathcal{DL}}$ (4) & 1 & 0 & 0 & 2 & 2 & 4 \\ 
+$\mathcal{C}_R$ (33) & 8 & 29 & 11 & 11(2) & 11(1) & 33 \\ 
+$\overline{\mathcal{C}_R}$ (41) & 6 & 18(4) & 7(4) & 8 & 12 & 40(1)\\
+$\mathcal{C}$ (74) & 14 & 47(4) & 18(4) & 19(2) & 23(1) & 73(1) \\
 \end{constraint-languages-complexity}
 \end{center}
 
-Partial (not necessarily total) orderings are:
+%C_R includes four more constraints that is yet unimplemented (C_R \ C_R^DL)
+$\mathcal{C}_R ^{\mathcal{DL}}$ is the set of constraints which cannot be expressed by OWL 2 QL but additionally by OWL 2 DL.
+$\mathcal{C}_R ^{\mathcal{QL}}$ constraints are not included in this set.
+Partial (not necessarily total) orderings according to the total number of constraints are:
 \begin{eqnarray*}
-\overline{\mathcal{C}_R}: DSP \subset OWL2-QL \subset ReSh \subset ShEx \subset OWL2-DL \subset SPIN \\
 \mathcal{C}_R ^{\mathcal{QL}}: DSP \subset ReSh \subset ShEx \subset SPIN \subseteq OWL2-QL \subseteq OWL2-DL \\
 \mathcal{C}_R ^{\mathcal{DL}}: OWL2-QL \subset DSP \subset ShEx \subset ReSh \subset SPIN \subseteq OWL2-DL \\
-\mathcal{C}_R: OWL2-QL \subseteq OWL2-DL \subset DSP \subset ReSh \subseteq ShEx \subset SPIN
+%\mathcal{C}_R \backslash \mathcal{C}_R ^{\mathcal{DL}}: OWL2-QL \subseteq OWL2-DL \subset DSP \subset ReSh \subseteq ShEx \subset SPIN \\
+\mathcal{C}_R: DSP \subset OWL2-QL \subset ShEx \subset ReSh \subset OWL2-DL \subset SPIN \\
+\overline{\mathcal{C}_R}: DSP \subset OWL2-QL \subset ReSh \subset ShEx \subset OWL2-DL \subset SPIN \\
+\mathcal{C}: DSP \subset OWL2-QL \subset ReSh \subset ShEx \subset OWL2-DL \subset SPIN
 \end{eqnarray*}
 
 \subsection{Additional Criteria}
