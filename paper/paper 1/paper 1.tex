@@ -490,8 +490,8 @@ As a result of its expressive power, OWL 2 DL allows a large variety of sophisti
 
 The W3C and DCMI WGs identified in total 74 requirements to formulate RDF constraints.  
 Bosch et al.\footnote{Available at: \url{https://github.com/boschthomas/rdf-validation-research/paper}} explain each requirement in detail and give examples for each, represented by listed constraint languages.
-It contains also mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express each constraint.
-When the DL constructs  (needed to express a particular constraint) are known, the expressivity and the complexity of this constraint can be determined. 
+It contains also mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express which constraint.
+When the DL constructs  which is needed to express a particular constraint are known, the required expressivity and the computational complexity to perform reasoning for that constraint can be determined. 
 For example, the constraint \ms{Context-Specific Exclusive OR of Properties} (see section~\ref{sec:rdf-validation-requirements-without-reasoning-2}) can generically be expressed as follows:
 \begin{center}
 \begin{DL}
@@ -508,19 +508,20 @@ The DL constructs \ms{property inclusion}, \ms{complement}, \ms{intersection}, \
 
 \subsection{Reasoning}
 
-The W3C Data Shapes WG defines \ms{constraint} as a component of a schema what needs to be satisfied\footnote{\url{https://www.w3.org/2014/data-shapes/wiki/Glossary}}.
+The W3C Data Shapes WG defines \ms{constraint} as a component of a schema what needs to be satisfied\footnote{\url{See https://www.w3.org/2014/data-shapes/wiki/Glossary}.}.
 We distinguish two disjoint sub-classes of constraints:
 \begin{itemize}
 	\item \ms{C}: contraints without reasoning
 	\item \ms{C-R}: contraints with reasoning
 \end{itemize}
 
-\ms{Constraints without reasoning} are constraints for which reasoning cannot be done or does not make any sense.
-\ms{Literal Pattern Matching}\footnote{corresponds to R-44-PATTERN-MATCHING-ON-RDF-LITERALS}, e.g., restrict literals to match given patterns.
-Luke's droids can only have the numbers "R2-D2" or "C-3PO".
+
+\ms{Constraints without reasoning} are constraints for which reasoning cannot be done or does not improve in any obvious sense.
+\ms{Literal Pattern Matching}\footnote{See R-44-PATTERN-MATCHING-ON-RDF-LITERALS.}, e.g., restrict literals to match given patterns.
+\emph{Luke's droids} can only have the numbers "R2-D2" or "C-3PO".
 The universal restriction can be expressed by OWL 2 DL:
-\ms{LukesDroids $\sqsubseteq$ $\forall$ droidNumber . DroidNumber}.
-The restriction of the datatype \ms{DroidNumber}, however, cannot be expressed in DL, but OWL 2 DL can be used anyway:
+\ms{LukesDroids $\sqsubseteq$ $\forall$ droidNumber . DroidNumber}.\er{This is no OWL.}
+The restriction of the datatype \ms{DroidNumber}, however, cannot be expressed in DL, but OWL 2 DL can be used anyway: \er{DL can naturally express datatypes. All you need to do is to define \emph{DroidNumber} as a concrete domain.}  
 
 \begin{ex}
 DroidNumber 
@@ -533,28 +534,28 @@ DroidNumber
 \end{ex}
 
 The second axiom defines \ms{DroidNumber} as an abbreviation for a datatype restriction on \ms{xsd:string}. 
-The first axiom explicitly declares \ms{DroidNumber} to be a datatype. 
+The first axiom explicitly declares \ms{DroidNumber} to be a datatype. \er{Why start from second and then first? Also better we say "owl axiom" when we talk axiom of owl, to prevent ambiguity.}
 The datatype \ms{DroidNumber} can be used just like any other datatype like in the universal restriction above.
 The literal pattern matching constraint validates \ms{DroidNumber} literals according to the stated regular expression causing a constraint violation for the triples 
 \ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber}, 
-but not for the triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}.
+but not for the triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}. \er{Let us divide this last sentence of the paragraph.}
 
 \ms{Constraints with reasoning} are constraints for which reasoning may be performed or is even needed.
-\ms{Constraints with reasoning} correspond to axioms in DL - e.g. subsumption, sup properties, cardinality restrictions, existential, and universal restrictions.
+\ms{Constraints with reasoning} correspond to axioms in DL - e.g. subsumption, subproperties, cardinality restrictions, existential, and universal restrictions.
 As we are dealing with fields from different research communities, we define our own nomenclature for RDF validation instead of reusing the heavily overloaded term axiom.
 For instance, for  many in DL community, axioms are only those which are statements of TBox (subsumption statements), if there is a TBox and ABox. 
 In OWL community, an ABox statement  i.e., "class assertion" is also called "class membership axiom". 
-See that this is not a subclass of constraint anymore. 
+See that this is not a subclass of constraint anymore. \er{Alright, this whole part was my answer from my email. This was not meant to be put into the paper but rather an explanation for us, but no worries, I will take care of this part tomorrow.}
 One common thing everyone agrees is, axiom is something which has to hold (satisfied).  
 See that this is overlapping with the definition of constraint (a component of a schema what needs to be satisfied). 
 Actually from logic point of view, when a constraint is not satisfied it leads to no model, and when an axiom is not satisfied it leads to a superset of models.
-\ms{Sub Properties}, e.g., are constraints for which reasoning may be performed.
+\ms{SubProperties}, e.g., are constraints for which reasoning may be performed.
 If, e.g., an individual X has an \ms{attackingBySword} relationship to an individual Y, 
 then individual X must also have an \ms{attackingByWeapon} relationship to individual Y: \ms{attackingBySword $\sqsubseteq$ attackingByWeapon}.
-If we use sub properties without reasoning and our data contains the triple \ms{attackingBySword(Luke, DarthVader)},
-then the triple \ms{attackingByWeapon(Luke, DarthVader)} has to be stated in the data explicitly.
-If this triple is not stated, a constraint violation is raised.
-If we use sub properties with reasoning, the triple (causing a constraint violation) is inferred resolving the possible constraint violation.
+If we use subproperties without reasoning and our data contains the triple corresponding to \ms{attackingBySword(Luke, DarthVader)},
+then the triple which corresponds to \ms{attackingByWeapon(Luke, DarthVader)} has to be stated in the data explicitly.
+If this triple is not stated, a constraint violation occurs.
+If we use subproperties with reasoning, the triple (causing a constraint violation) is inferred and resolves the possible constraint violation.
 
 \subsection{Complexity}
 
@@ -566,8 +567,8 @@ According to our evaluation of requirements to formulate RDF constraints, we ide
 	\item \ms{C-R-OWL2-DL}: validation by query answering with OWL 2 DL reasoning
 	\item \ms{C-R}: validation by query answering with reasoning
 \end{itemize}
-
-The complexity class \ms{C-R} encompasses all \ms{constraints with reasoning} for which reasoning can be executed but cannot be expressed by OWL 2.  
+\er{Let us better not call these ones as complexity classes, because a complexity class is for instance "PTime". If I understand correctly, this can be called as "validation class" per (computational) complexity. I will help in this tomorrow.}
+The complexity class \ms{C-R} encompasses all \ms{constraints with reasoning} for which reasoning can be executed but cannot be expressed by OWL 2.  \er{What/Why can't  be expressed by OWL 2  while being inferred? }
 The next table gives an overview of the computational complexity for RDF validation when reasoning is performed and when reasoning is not performed in ascending complexity ordering. 
 \begin{center}
 \begin{complexity}
@@ -581,15 +582,15 @@ What is considered by RDF validation w/o reasoning, corresponds to performing SP
 
 As, e.g, the constraint \ms{cardinality shortcuts} is associated with the complexity class \ms{C-R} and OWL2 DL reasoning can be done on cardinality restrictions,
 the complexity of \ms{C-R} is in \textsc{N2exptime} as well. 
-The complexity classes' partial ordering is:
+The complexity classes' partial ordering is: \er{We should talk about how to get this partial ordering.}
 \begin{eqnarray*}
 \ms{C-C} \subset \ms{C-R-OWL2-QL} \subset \ms{C-R} \subseteq \ms{C-R-OWL2-DL}
 \end{eqnarray*}
 
 \section{Classification of Constraint Languages according to Expressivity and Complexity}
  
-We evaluated to which extend the most promising five constraint languages fulfill each requirement to formulate RDF constraints.
-We also evaluated if a specific requirement is covered by OWL 2 QL or if the more expressive and complex OWL 2 DL is needed \cite{BoschNolleAcarEckert2015}.
+We evaluated the most promising five constraint languages on fulfilling each requirement to formulate RDF constraints.
+We also evaluated if a specific requirement is covered by OWL 2 QL or the more expressive OWL 2 DL is needed \cite{BoschNolleAcarEckert2015}.
 
 \subsection{Expressivity}
 
@@ -602,11 +603,11 @@ We define these two expressivity classes as follows:
 	\item \ms{Expr-R}: constraints with reasoning
 \end{itemize}
 
-\ms{Constraints with reasoning} can be used as axioms to infer new triples out of explicitly stated triples (see section \ref{sec:rdf-validation-requirements-and-reasoning}), but also to express constraints.
-If in our knowledge base it is stated that \ms{DarthVader} is a \ms{Sith} (\ms{Sith(DarthVader)}) and that Siths feel the force of the dark side (\ms{Sith $\sqsubseteq$ FeelingForceDarkSide}), it is either possible to infer that \ms{DarthVader} feels the force of the dark side (\ms{FeelingForceDarkSide(DarthVader)}) 
+\ms{Constraints with reasoning} can be used as axioms to infer new triples out of explicitly stated triples (see section \ref{sec:rdf-validation-requirements-and-reasoning}), but also to express constraints. \er{Also to express constraints?}
+If in our knowledge base it is stated that \ms{DarthVader} is a \ms{Sith} (e.g., \ms{Sith(DarthVader)}) and  Siths feel the force of the dark side (e.g., \ms{Sith $\sqsubseteq$ FeelingForceDarkSide}), it is either possible to infer that \ms{DarthVader} feels the force of the dark side (\ms{FeelingForceDarkSide(DarthVader)}) 
 or to check if this class assignment is explicitly stated in the data without reasoning. 
-Although, there are no reasoning implementations for other constraint languages than OWL 2 available yet, 
-\ms{constraints with reasoning} cannot only be expressed by OWL 2. 
+Although, there are no reasoning implementations for  constraint languages other than OWL 2 available yet, 
+\ms{constraints with reasoning} cannot only be expressed by OWL 2. \er{This is again the part I don't understand.}
 
 \begin{center}
 \begin{evaluation}
@@ -617,13 +618,13 @@ Although, there are no reasoning implementations for other constraint languages 
 
 In the table above, the total amount of constraints per constraint class is shown by numbers in round brackets in the first column.
 Numbers in round brackets in the other columns indicate the number of constraints which may be expressed by that particular constraint language - either by limitations, workarounds, or extensions.  
-
+\er{One possible misunderstanding (maybe not) is the ordering. It is not only based on the size of the number of the constrains that they satisfies right? For instance, if there are 6 constraints (from EXPR-C) that  DSP satisfies and OWL2-DL  can satisfy lets say only 5 of them but 13 other, in such scenario OWL2 DL and DSP would be incomparable (no ordering). It is more expressive only if it contains those 6 and extras.}
 Partial (not necessarily total) orderings are:
 \begin{eqnarray*}
 \ms{Expr-C}: DSP \subset OWL2-QL \subset ReSh \subset ShEx \subset OWL2-DL \subset SPIN \\
 \ms{Expr-R}: DSP \subset OWL2-QL \subset ShEx \subset ReSh \subset OWL2-DL \subset SPIN
 \end{eqnarray*}
-It depends on the use case which constraint language to use in order to fulfill related requirements, i.e. to express associated constraints.
+It depends on the use case which constraint language to use in order to fulfill related requirements, i.e., to express associated constraints.
 If, e.g., many \ms{constraints with reasoning} are needed, the constraint language SPIN is the most expressive one.
 If, on the other side, only specific \ms{constraints without reasoning} or \ms{constraints with reasoning} are needed for particular use cases, 
 the relative expressivity of both expressivity classes can be the same for the constraint languages DSP and OWL2-DL, 
@@ -701,7 +702,7 @@ even though the absolute expressivity of OWL2-DL is much higher for both express
 
 \subsection{Complexity}
 
-The next table shows the amount of constraints (of both constraint classes) can be expressed by which constraint language - aggregated by complexity class and sorted by ascending complexity.
+The next table shows the amount of constraints (of both constraint types) can be expressed by which constraint language - aggregated by complexity class and sorted by ascending complexity.
 
 \begin{center}
 \begin{constraint-languages-complexity}
@@ -805,7 +806,7 @@ It depends on the individual use case, which constrains are needed to express an
 If, for instance, reasoning should not be performed and three particular constraints should be covered by the constraint language.
 Even if the absolute expressivity (\ms{Expr-C}) of SPIN is much higher than the one of ShEx (\ms{Expr-C}(ShEx) $\subset$ \ms{Expr-C}(SPIN)) 
 , the relative expressivity of this expressivity class could be the same for ShEx and SPIN - in case the three constraints are covered by both.
-
+\er{The expressivity here (in figure) is not constraint specific expressivity, it is more general. However, constraint specific expressivity must follow.}
 %Now, the user-friendliness classes comes into play:
 %\begin{eqnarray*}
 %\ms{UF-L}(SPIN) \subset \ms{UF-L}(ShEx), \ms{UF-I}(SPIN) \subset \ms{UF-I}(ShEx) \\
