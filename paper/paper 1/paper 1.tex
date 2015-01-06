@@ -563,10 +563,10 @@ According to our evaluation of requirements to formulate RDF constraints, we ide
 	\item $\overline{\mathcal{C}_R}$: validation by query answering without reasoning
 	\item $\mathcal{C}_R ^{\mathcal{QL}}$: validation by query answering with OWL 2 QL reasoning
 	\item $\mathcal{C}_R ^{\mathcal{DL}}$: validation by query answering with OWL 2 DL reasoning
-	\item $\mathcal{C}_R$: validation by query answering with reasoning
+%	\item $\mathcal{C}_R$: validation by query answering with reasoning
 \end{itemize}
 \er{Let us better not call these ones as complexity classes, because a complexity class is for instance "PTime". If I understand correctly, this can be called as "validation class" per (computational) complexity. I will help in this tomorrow.}\tb{I see, I like the term validation complexity class}
-The complexity class $\mathcal{C}_R$ encompasses all \emph{constraints with reasoning} for which reasoning can be executed but cannot be expressed by OWL 2.  \er{What/Why can't  be expressed by OWL 2  while being inferred? }\tb{e.g. class-specific property ranges or class-specific reflexive object properties cannot be expressed in OWL / these 2 axioms can only be stated globally for the properties, we cannot restrict it to individuals of specific classes}
+%The complexity class $\mathcal{C}_R$ encompasses all \emph{constraints with reasoning} for which reasoning can be executed but cannot be expressed by OWL 2.  \er{What/Why can't  be expressed by OWL 2  while being inferred? }\tb{e.g. class-specific property ranges or class-specific reflexive object properties cannot be expressed in OWL / these 2 axioms can only be stated globally for the properties, we cannot restrict it to individuals of specific classes}
 The next table gives an overview of the computational complexity for RDF validation when reasoning is performed and when reasoning is not performed in ascending complexity ordering. 
 \begin{center}
 \begin{complexity}
@@ -585,6 +585,10 @@ The complexity classes' partial ordering is: \er{We should talk about how to get
 \overline{\mathcal{C}_R} \subset \mathcal{C}_R ^{\mathcal{QL}} \subset \mathcal{C}_R \subseteq \mathcal{C}_R ^{\mathcal{DL}}
 \end{eqnarray*}
 
+There are constraints (e.g. class-specific property range, class-specific reflexive object properties) for which reasoning could be executed even though there is currently no implementation supported by any constraint language. 
+We leave it as future work to write SPARQL CONSTRUCT queries in order to provide reasoning for these constraints.
+In the worst case, the complexity of such constraints would be \textsc{N2exptime}.
+
 \section{Classification of Constraint Languages according to Expressivity and Complexity}
  
 We evaluated the most promising five constraint languages on fulfilling each requirement to formulate RDF constraints.
@@ -597,8 +601,8 @@ we use the two types of constraints - \emph{constraints without reasoning} and \
 We define these two expressivity classes as follows: 
 
 \begin{itemize}
-	\item \ms{Expr-C}: constraints without reasoning
-	\item \ms{Expr-R}: constraints with reasoning
+	\item $Expr(\overline{\mathcal{C}_R})$: constraints without reasoning 
+	\item $Expr(\mathcal{C}_R)$: constraints with reasoning
 \end{itemize}
 
 \emph{constraints with reasoning} can be used as axioms to infer new triples out of explicitly stated triples (see section \ref{sec:RDF-validation-requirements-and-reasoning}), but also to express constraints without reasoning. \er{Also to express constraints?}\tb{also to express constraints without reasoning}
