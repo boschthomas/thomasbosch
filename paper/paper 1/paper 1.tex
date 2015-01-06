@@ -474,7 +474,7 @@ the World Wide Web Consortium (W3C) in 2009 (and updated in 2012) as a
 description logic-like formalism.  OWL 2 DL has high expressivity, yet maintains  decidability for main reasoning tasks e.g., ontology satisability, 
 entailment checking. The drawback of its expressive power results as a lack of computational efficiency in performance. In general, reasoning in OWL 2 DL is in \textsc{N2exptime} \cite{owl2profiles2008}. 
 
-As a result of its expressive power, OWL 2 DL allows a large variety of sophisticated modeling capabilities for many application domains.  On the other hand, to maintain the decidability, OWL 2 DL has numerous syntactic restrictions. One example is that OWL 2 DL allows  expressing transitive properties as well as asymmetric properties, however a property to be both transitive and asymmetric (just like \emph{ancestor relation}) is not allowed. In the sequel, from RDF validation perspective, we will give some examples of constraints that remain at the outside of its scope. 
+As a result of its expressive power, OWL 2 DL allows a large variety of sophisticated modelling capabilities for many application domains.  On the other hand, to maintain the decidability, OWL 2 DL has numerous syntactic restrictions. One example is that OWL 2 DL allows  expressing transitive properties as well as asymmetric properties, however a property to be both transitive and asymmetric (just like \emph{ancestor relation}) is not allowed. In the sequel, from RDF validation perspective, we will give some examples of constraints that remain at the outside of its scope. 
 \er{Do we really need a Section 3?}
 \tb{What do you mean with this comment?}
 
@@ -507,21 +507,21 @@ The DL constructs \ms{property inclusion}, \ms{complement}, \ms{intersection}, \
 
 \subsection{Reasoning}
 
-The W3C Data Shapes WG defines \emph{constraint} as a component of a schema what needs to be satisfied\footnote{See \url{https://www.w3.org/2014/data-shapes/wiki/Glossary}.}.
-We distinguish two disjoint sub-classes of constraints:
+The W3C Data Shapes WG defines \emph{constraint} as a component of a schema what needs to be satisfied\footnote{See \url{https://www.w3.org/2014/data-shapes/wiki/Glossary}.}. 
+Let us call the set of all constraints as $\mathcal{C}$We distinguish two disjoint sub-classes of constraints:
 \begin{itemize}
 	\item $\mathcal{C}$: contraints without reasoning
 	\item $\mathcal{C}_R$: contraints with reasoning
 \end{itemize}
 
 
-\emph{Constraints without reasoning} are constraints for which reasoning cannot be done or does not improve in any obvious sense.
+\emph{Constraints without reasoning} are constraints for which reasoning cannot be done or does not improve the result in any obvious sense.
 \ms{Literal Pattern Matching}\footnote{See R-44-PATTERN-MATCHING-ON-RDF-LITERALS.}, e.g., restrict literals to match given patterns.
 \emph{Luke's droids} can only have the numbers "R2-D2" or "C-3PO".
 The universal restriction \ms{LukesDroids $\sqsubseteq$ $\forall$ droidNumber.DroidNumber} can be expressed by OWL 2 DL.
-\er{This is no OWL.}\tb{resolved}
+%\er{This is no OWL.}\tb{resolved}
 A data range expression is restricted in OWL 2 QL to the predefined datatypes and the intersection of data ranges. 
-Thus, the restriction of the datatype \ms{DroidNumber} must be expressed by OWL 2 DL: \er{DL can naturally express datatypes. All you need to do is to define \emph{DroidNumber} as a concrete domain.}\tb{resolved}  
+Thus, the restriction of the datatype \ms{DroidNumber} must be expressed by OWL 2 DL: % \er{DL can naturally express datatypes. All you need to do is to define \emph{DroidNumber} as a concrete domain.}\tb{resolved}  
 
 \begin{ex}
 DroidNumber 
@@ -533,22 +533,22 @@ DroidNumber
             [ xsd:pattern "R2-D2|C-3PO" ] ) ] .
 \end{ex}
 
-The first OWL axiom explicitly declares \ms{DroidNumber} to be a datatype. \er{Why start from second and then first? Also better we say "owl axiom" when we talk axiom of owl, to prevent ambiguity.}\tb{resolved}
+The first OWL axiom explicitly declares \ms{DroidNumber} to be a datatype. %\er{Why start from second and then first? Also better we say "owl axiom" when we talk axiom of owl, to prevent ambiguity.}\tb{resolved}
 The second OWL axiom defines \ms{DroidNumber} as an abbreviation for a datatype restriction on \ms{xsd:string}. 
 The datatype \ms{DroidNumber} can be used just like any other datatype like in the universal restriction above.
 The literal pattern matching constraint validates \ms{DroidNumber} literals according to the stated regular expression. 
 The triples \ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber} cause a constraint violation. 
-The triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}, however, lead to valid data. \er{Let us divide this last sentence of the paragraph.}\tb{resolved}
+The triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}, however, lead to valid data. %\er{Let us divide this last sentence of the paragraph.}\tb{resolved}
 
 \emph{Constraints with reasoning} are constraints for which reasoning may be performed or is even needed.
 \emph{Constraints with reasoning} correspond to axioms in DL - e.g. subsumption, subproperties, cardinality restrictions, existential, and universal restrictions.
-As we are dealing with fields from different research communities, we define our own nomenclature for RDF validation instead of reusing the heavily overloaded term axiom.
-For instance, for  many in DL community, axioms are only those which are statements of TBox (subsumption statements), if there is a TBox and ABox. 
-In OWL community, an ABox statement  i.e., "class assertion" is also called "class membership axiom". 
-See that this is not a subclass of constraint anymore. \er{Alright, this whole part was my answer from my email. This was not meant to be put into the paper but rather an explanation for us, but no worries, I will take care of this part tomorrow.}\tb{ok, thx}
-One common thing everyone agrees is, axiom is something which has to hold (satisfied).  
-See that this is overlapping with the definition of constraint (a component of a schema what needs to be satisfied). 
-Actually from logic point of view, when a constraint is not satisfied it leads to no model, and when an axiom is not satisfied it leads to a superset of models.
+%As we are dealing with fields from different research communities, we define our own nomenclature for RDF validation instead of reusing the heavily overloaded term axiom.
+%For instance, for  many in DL community, axioms are only those which are statements of TBox (subsumption statements), if there is a TBox and ABox. 
+%In OWL community, an ABox statement  i.e., "class assertion" is also called "class membership axiom". 
+%See that this is not a subclass of constraint anymore.% \er{Alright, this whole part was my answer from my email. This was not meant to be put into the paper but rather an explanation for us, but no worries, I will take care of this part tomorrow.}\tb{ok, thx}
+%One common thing everyone agrees is, axiom is something which has to hold (satisfied).  
+%See that this is overlapping with the definition of constraint (a component of a schema what needs to be satisfied). 
+%Actually from logic point of view, when a constraint is not satisfied it leads to no model, and when an axiom is not satisfied it leads to a superset of models.
 \ms{SubProperties}, e.g., are constraints for which reasoning may be performed.
 If, e.g., an individual X has an \ms{attackingBySword} relationship to an individual Y, 
 then individual X must also have an \ms{attackingByWeapon} relationship to individual Y: \ms{attackingBySword $\sqsubseteq$ attackingByWeapon}.
@@ -559,7 +559,7 @@ If we use subproperties with reasoning, the triple (causing a constraint violati
 
 \subsection{Complexity}
 
-According to our evaluation of requirements to formulate RDF constraints, we identified four main ways of validating the two constraint classes \emph{constraints without reasoning} and \emph{constraints with reasoning} assigned to four RDF validation complexity classes:
+According to our evaluation of requirements to formulate RDF constraints, we identified four main ways of validating the two constraint classes \emph{constraints without reasoning} and \emph{constraints with reasoning} assigned to three constraint classes:
 
 \begin{itemize}\itemsep1em
 	\item $\overline{\mathcal{C}_R}$: validation by query answering without reasoning
@@ -567,15 +567,19 @@ According to our evaluation of requirements to formulate RDF constraints, we ide
 	\item $\mathcal{C}_R ^{\mathcal{DL}}$: validation by query answering with OWL 2 DL reasoning
 	\item $\mathcal{C}_R$: validation by query answering with reasoning
 \end{itemize}
-\er{Let us better not call these ones as complexity classes, because a complexity class is for instance "PTime". If I understand correctly, this can be called as "validation class" per (computational) complexity. I will help in this tomorrow.}\tb{I see, I like the term validation complexity class}
+%\er{Let us better not call these ones as complexity classes, because a complexity class is for instance "PTime". If I understand correctly, this can be called as "validation class" per (computational) complexity. I will help in this tomorrow.}\tb{I see, I like the term validation complexity class}
 The complexity class $\mathcal{C}_R$ encompasses all \emph{constraints with reasoning} for which reasoning can be executed but cannot be expressed by OWL 2.  \er{What/Why can't  be expressed by OWL 2  while being inferred? }\tb{e.g. class-specific property ranges or class-specific reflexive object properties cannot be expressed in OWL / these 2 axioms can only be stated globally for the properties, we cannot restrict it to individuals of specific classes}
 The next table gives an overview of the computational complexity for RDF validation when reasoning is performed and when reasoning is not performed in ascending complexity ordering. 
 \begin{center}
-\begin{complexity}
+\begin{tabular}{| c | r |}
+\hline
 $\overline{\mathcal{C}_R}$ & \textsc{Pspace}-Complete \\
+\hline
 $\mathcal{C}_R ^{\mathcal{QL}}$ & \textsc{Ptime} \\
+\hline
 $\mathcal{C}_R ^{\mathcal{DL}}$ & \textsc{N2exptime} \\
-\end{complexity}
+\hline
+\end{tabular}
 \end{center}
 What is considered by RDF validation w/o reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on \textit{DL-Lite} family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
 
