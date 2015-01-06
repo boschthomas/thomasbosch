@@ -567,8 +567,8 @@ According to our evaluation of requirements to formulate RDF constraints, we ide
 	\item \ms{C-R-OWL2-DL}: validation by query answering with OWL 2 DL reasoning
 	\item \ms{C-R}: validation by query answering with reasoning
 \end{itemize}
-\er{Let us better not call these ones as complexity classes, because a complexity class is for instance "PTime". If I understand correctly, this can be called as "validation class" per (computational) complexity. I will help in this tomorrow.}
-The complexity class \ms{C-R} encompasses all \ms{constraints with reasoning} for which reasoning can be executed but cannot be expressed by OWL 2.  \er{What/Why can't  be expressed by OWL 2  while being inferred? }
+\er{Let us better not call these ones as complexity classes, because a complexity class is for instance "PTime". If I understand correctly, this can be called as "validation class" per (computational) complexity. I will help in this tomorrow.}\tb{I see, I like the term validation complexity class}
+The complexity class \ms{C-R} encompasses all \ms{constraints with reasoning} for which reasoning can be executed but cannot be expressed by OWL 2.  \er{What/Why can't  be expressed by OWL 2  while being inferred? }\tb{e.g. class-specific property ranges or class-specific reflexive object properties cannot be expressed in OWL / these 2 axioms can only be stated globally for the properties, we cannot restrict it to individuals of specific classes}
 The next table gives an overview of the computational complexity for RDF validation when reasoning is performed and when reasoning is not performed in ascending complexity ordering. 
 \begin{center}
 \begin{complexity}
