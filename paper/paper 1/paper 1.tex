@@ -613,8 +613,9 @@ we use the two types of constraints - \emph{constraints without reasoning} and \
 We define these two expressivity classes as follows: 
 
 \begin{itemize}
-	\item $Expr(\overline{\mathcal{C}_R})$: constraints without reasoning 
-	\item $Expr(\mathcal{C}_R)$: constraints with reasoning
+  \item $Expr(\mathcal{C})$: set of all constraints
+	\item $Expr(\overline{\mathcal{C}_R})$: set of constraints without reasoning 
+	\item $Expr(\mathcal{C}_R)$: set of constraints with reasoning
 \end{itemize}
 
 \emph{constraints with reasoning} can be used as axioms to infer new triples out of explicitly stated triples (see section \ref{sec:RDF-validation-requirements-and-reasoning}), but also to express constraints without reasoning. \er{Also to express constraints?}\tb{also to express constraints without reasoning}
@@ -625,8 +626,9 @@ Although, there are no reasoning implementations for  constraint languages other
 
 \begin{center}
 \begin{evaluation}
-\ms{Expr-C} (42) & 6 & 18(4) & 7(4) & 8 & 12 & 41(1)\\
-\ms{Expr-R} (32) & 8 & 29 & 11 & 11(2) & 11(1) & 32 \\ 
+$Expr(\mathcal{C})$ & & & & & & \\
+$Expr(\overline{\mathcal{C}_R})$ (42) & 6 & 18(4) & 7(4) & 8 & 12 & 41(1)\\
+$Expr(\mathcal{C}_R)$ (32) & 8 & 29 & 11 & 11(2) & 11(1) & 32 \\ 
 \end{evaluation}
 \end{center}
 \tb{this is indeed a misunderstanding. I only took into account that is DSP supports 6 EXPR-C constraints and OWL 2 DL 5, then DSP is more expressive than OWL 2 DL regarding the expressivity class EXPR-C / but this is not right?}
@@ -635,8 +637,9 @@ Numbers in round brackets in the other columns indicate the number of constraint
 \er{One possible misunderstanding (maybe not) is the ordering. It is not only based on the size of the number of the constrains that they satisfies right? For instance, if there are 6 constraints (from EXPR-C) that  DSP satisfies and OWL2-DL  can satisfy lets say only 5 of them but 13 other, in such scenario OWL2 DL and DSP would be incomparable (no ordering). It is more expressive only if it contains those 6 and extras.}
 Partial (not necessarily total) orderings are:
 \begin{eqnarray*}
-\ms{Expr-C}: DSP \subset OWL2-QL \subset ReSh \subset ShEx \subset OWL2-DL \subset SPIN \\
-\ms{Expr-R}: DSP \subset OWL2-QL \subset ShEx \subset ReSh \subset OWL2-DL \subset SPIN
+Expr(\mathcal{C}): ... \\
+Expr(\overline{\mathcal{C}_R}): DSP \subset OWL2-QL \subset ReSh \subset ShEx \subset OWL2-DL \subset SPIN \\
+Expr(\mathcal{C}_R): DSP \subset OWL2-QL \subset ShEx \subset ReSh \subset OWL2-DL \subset SPIN
 \end{eqnarray*}
 It depends on the use case which constraint language to use in order to fulfill related requirements, i.e., to express associated constraints.
 If, e.g., many \emph{constraints with reasoning} are needed, the constraint language SPIN is the most expressive one.
@@ -722,22 +725,22 @@ The next table shows the amount of constraints (of both constraint types) which 
 \begin{center}
 \begin{constraint-languages-complexity}
 $\mathcal{C}_R ^{\mathcal{QL}}$ (11) & 0 & 11 & 11 & 0(2) & 1 & 11 \\
-$\mathcal{C}_R ^{\mathcal{DL}}$ (21) & 8 & 21 & 0 & 11 & 10(1) & 21 \\
-$\mathcal{C}_R$ (32) & 8 & 29 & 11 & 11(2) & 11(1) & 32 \\ 
+%$\mathcal{C}_R ^{\mathcal{DL}}$ (21) & 8 & 21 & 0 & 11 & 10(1) & 21 \\
+$\mathcal{C}_R$ $\equiv$ $\mathcal{C}_R ^{\mathcal{DL}}$(32) & 8 & 32 & 11 & 11(2) & 11(1) & 32 \\ 
 $\overline{\mathcal{C}_R}$ (42) & 6 & 18(4) & 7(4) & 8 & 12 & 41(1)\\
 $\mathcal{C}$ (74) & 14 & 47(4) & 18(4) & 19(2) & 23(1) & 73(1) \\
 \end{constraint-languages-complexity}
 \end{center}
 
 %C_R includes four more constraints that is yet unimplemented (C_R \ C_R^DL)
-$\mathcal{C}_R ^{\mathcal{DL}}$ is the set of constraints which cannot be expressed by OWL 2 QL but additionally by OWL 2 DL.
-$\mathcal{C}_R ^{\mathcal{QL}}$ constraints are not included in this set.
+%$\mathcal{C}_R ^{\mathcal{DL}}$ is the set of constraints which cannot be expressed by OWL 2 QL but additionally by OWL 2 DL.
+%$\mathcal{C}_R ^{\mathcal{QL}}$ constraints are not included in this set.
 Partial (not necessarily total) orderings according to the total number of constraints are:
 \begin{eqnarray*}
 \mathcal{C}_R ^{\mathcal{QL}}: DSP \subset ReSh \subset ShEx \subset SPIN \subseteq OWL2-QL \subseteq OWL2-DL \\
-\mathcal{C}_R ^{\mathcal{DL}}: OWL2-QL \subset DSP \subset ShEx \subset ReSh \subset SPIN \subseteq OWL2-DL \\
+%\mathcal{C}_R ^{\mathcal{DL}}: OWL2-QL \subset DSP \subset ShEx \subset ReSh \subset SPIN \subseteq OWL2-DL \\
 %\mathcal{C}_R \backslash \mathcal{C}_R ^{\mathcal{DL}}: OWL2-QL \subseteq OWL2-DL \subset DSP \subset ReSh \subseteq ShEx \subset SPIN \\
-\mathcal{C}_R: DSP \subset OWL2-QL \subset ShEx \subset ReSh \subset OWL2-DL \subset SPIN \\
+\mathcal{C}_R \equiv \mathcal{C}_R ^{\mathcal{DL}}: DSP \subset OWL2-QL \subset ShEx \subset ReSh \subset SPIN \subseteq OWL2-DL \\
 \overline{\mathcal{C}_R}: DSP \subset OWL2-QL \subset ReSh \subset ShEx \subset OWL2-DL \subset SPIN \\
 \mathcal{C}: DSP \subset OWL2-QL \subset ReSh \subset ShEx \subset OWL2-DL \subset SPIN
 \end{eqnarray*}
