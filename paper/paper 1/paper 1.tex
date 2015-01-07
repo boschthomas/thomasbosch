@@ -557,19 +557,20 @@ If we use subproperties with reasoning, the triple (causing a constraint violati
 
 \subsection{Complexity}
 
-According to our evaluation of requirements to formulate RDF constraints, we identified four main ways of validating the two constraint classes \emph{constraints without reasoning} and \emph{constraints with reasoning} assigned to three constraint classes:
+To evaluate RDF validation requirements, we had group constraints under two  main classes: \emph{constraints without reasoning} and \emph{constraints with reasoning}. In addition, to have a further evaluation and to refer easily, we divide the latter into two classes (not disjoint). Overall, we have the following.
 
 \begin{itemize}\itemsep1em
 	\item $\overline{\mathcal{C}_R}$: validation by query answering without reasoning
 	\item $\mathcal{C}_R ^{\mathcal{QL}}$: validation by query answering with OWL 2 QL reasoning
 	\item $\mathcal{C}_R ^{\mathcal{DL}}$: validation by query answering with OWL 2 DL reasoning
-%	\item $\mathcal{C}_R$: validation by query answering with reasoning
+	
 \end{itemize}
 
 %The complexity class $\mathcal{C}_R$ encompasses all \emph{constraints with reasoning} for which reasoning can be executed but cannot be expressed by OWL 2.  \er{What/Why can't  be expressed by OWL 2  while being inferred? }\tb{e.g. class-specific property ranges or class-specific reflexive object properties cannot be expressed in OWL / these 2 axioms can only be stated globally for the properties, we cannot restrict it to individuals of specific classes}
 The next table gives an overview of the computational complexity for RDF validation when reasoning is performed and when reasoning is not performed. 
 \begin{center}
-\begin{tabular}{| c | r |}
+\begin{tabular}{| c | c |}
+\textbf{Constraint Class}  & \textbf{Complexity Class}\\
 \hline
 $\overline{\mathcal{C}_R}$ & \textsc{Pspace}-Complete \\
 \hline
@@ -577,10 +578,12 @@ $\mathcal{C}_R ^{\mathcal{QL}}$ & \textsc{Ptime} \\
 \hline
 $\mathcal{C}_R ^{\mathcal{DL}}$ & \textsc{N2exptime} \\
 \hline
+$\mathcal{C}_R $ & ? \\
+\hline
 \end{tabular}
 \end{center}
-What is considered by RDF validation w/o reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on \textit{DL-Lite} family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
-The  relation between those complexity classes is well-known (\cite{Arora:2009:CCM:1540612}) and as follows:
+What is considered by RDF validation with or without reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on \textit{DL-Lite} family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox-reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
+The  relation between those complexity classes is well-known \cite{Arora:2009:CCM:1540612} and as follows:
 
 %\begin{eqnarray*}
 %\overline{\mathcal{C}_R} \subset \mathcal{C}_R ^{\mathcal{QL}} \subset \mathcal{C}_R \subseteq \mathcal{C}_R ^{\mathcal{DL}}
@@ -589,7 +592,7 @@ The  relation between those complexity classes is well-known (\cite{Arora:2009:C
 \textsc{LogSpace} \subseteq \textsc{Ptime} \subseteq \textsc{Pspace-}\text{Complete} \subseteq \textsc{N2exptime} 
 \end{eqnarray*}
 
-There are constraints (e.g. class-specific property range, class-specific reflexive object properties) for which reasoning could be executed even though there is currently no implementation supported by any constraint language. 
+There are constraints (e.g., class-specific property range, class-specific reflexive object properties) for which reasoning could be executed even though there is currently no implementation supported by any constraint language. 
 We leave it as future work to write SPARQL CONSTRUCT queries in order to provide reasoning for these constraints.
 In the worst case, the complexity of such constraints would be \textsc{N2exptime},
 as in case of \emph{cardinality shortcuts}, e.g., OWL2 DL reasoning can be done on cardinality restrictions.
