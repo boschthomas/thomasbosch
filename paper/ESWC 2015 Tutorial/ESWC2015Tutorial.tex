@@ -184,13 +184,13 @@
 %                                     also used for the TOC unless
 %                                     \toctitle is used
 %
-\author{XXX\inst{1} \and XXX\inst{2}}
+\author{XXX\inst{1} \and XXX\inst{1} \and Joachim Wackerow\inst{1}}
 %
 \authorrunning{XXXXX} % abbreviated author list (for running head)
 %
 %%%% list of authors for the TOC (use if author list has to be modified)
 \institute{GESIS – Leibniz Institute for the Social Sciences, Germany\\
-\email{\{benjamin,thomas\}}.bosch@gesis.org}
+\email{\{thomas.bosch,benjamin.zapilko,joachim.wackerow\}}@gesis.org}
 
 \maketitle              % typeset the title of the contribution
 
@@ -202,7 +202,9 @@ For a publication of DDI metadata as Linked Data, widely accepted and adopted RD
 The workshop organizers show how Disco is interwoven with these vocabularies. 
 The combined usage of Physical Data Description, Disco, and DCAT enables the creation of data repositories which provide metadata for the description of collections, for data discovery, and for processing of the data.
  
-In different real world use cases, the workshop organizers demonstrate the adoption and inclusion of Disco in existing information systems. 
+In different real world use cases, we demonstrate the adoption and inclusion of Disco in existing information systems. 
+Existing DDI instances are stored in form of XML documents which can be transformed into DDI-RDF and therefore exposed as Linked Data.
+We describe typical constraints on metadata of DDI metadata, as well as how to formulate them by different constraint languages (e.g. OWL 2) and how to actually validate them.
 
 \keywords{DDI-RDF Discovery Vocabulary, Disco, Microdata, Microdata Metadata, Discovery of Microdata, Data Documentation Initiative, DDI, Linked Data, Semantic Web}
 \end{abstract}
@@ -232,6 +234,15 @@ For a publication of DDI metadata as Linked Data, widely accepted and adopted RD
 In different real world use cases, the workshop organizers demonstrate the adoption and inclusion of Disco in existing information systems. Workshop participants are encouraged to present their own use cases where Disco has been applied or will be used. Together with the workshop organizers, workshop participants will have the possibility to elaborate an RDF representation of their use cases and to formulate typical queries which are necessary to solve use case related problems.
 The workshop has a technical perspective and addresses software developers as well as data publishers who want to publish DDI metadata as Linked Data. No prerequisites are necessary, since a short introduction to RDF and Linked Open Data will be given.
 
+Existing DDI instances are stored in form of XML documents and validated against XML Schemas\footnote{XML Schemas of current DDI version available at \url{http://www.ddialliance.org/Specification/DDI-Lifecycle/3.2/XMLSchema/}}.
+DDI-XML documents can be transformed into DDI-RDF and therefore exposed as Linked Data.
+For XML, XML Schema is the standard constraint language to validate XML documents.
+For RDF, however, there are multiple candidates for languages to express constraints on RDF data - but there is no standard language for RDF validation.
+In 2014, two working groups on RDF validation have been established: the W3C RDF Data Shapes working group\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles working group\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}.
+These working groups address the formulation and validation of RDF constraints.
+We will describe typical constraints on metadata of DDI metadata, as well as how to formulate and to validate them.
+We will show how to formulate these constraints by different constraint languages such as OWL 2.
+
 \section{Tutorial Description}
 
 \textbf{objectives of the tutorial} 
@@ -248,13 +259,12 @@ The workshop has a technical perspective and addresses software developers as we
 
 \section{Tutorial Length}
 
-Half or full day, including preferences
-
-\tb{we could provide full day if we make the hands on exercises with the SPARQL queries / do you think we should do that?}
+We would like to provide a full day workshop as our experience in the previous tutorial about disco showed that a whole day is needed to explain the most important things about disco and to hold the hands-on exercises.
+We also want to address the validation of DDI-RDF which we did not covered at the last tutorial.
 
 \section{Previous Versions or Related Tutorials}
 
-Thomas Bosch and Benjamin Zapilko hold a half-day tutorial at the EDDI14 – 6th Annual European DDI User Conference in London\footnote{\url{http://www.eddi-conferences.eu/ocs/index.php/eddi/eddi14/schedConf/program}}.
+Thomas Bosch and Benjamin Zapilko hold a half-day tutorial\footnote{tutorial slides avaliable at: \url{http://de.slideshare.net/boschthomas/201412-lets-disco-eddi-2014} and \url{http://de.slideshare.net/boschthomas/201412-lets-disco-2-eddi-2014}} at the EDDI14 – 6th Annual European DDI User Conference in London\footnote{\url{http://www.eddi-conferences.eu/ocs/index.php/eddi/eddi14/schedConf/program}}.
 We got great feedback for this tutorial and had the idea to provide this tutorial at the ESWC conference as well.
 At the EDDI conference, we reached the first part of our audience - data professionals and the DDI community.
 At the ESWC conference, we want to reach the second part of our audience - Linked Data experts.
