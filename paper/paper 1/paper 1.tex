@@ -616,8 +616,8 @@ Expressivity scores (on how many of those constraints can be expressed by a part
 
 \begin{itemize}
   %\item $Expr(\mathcal{C})$: set of all constraints
-	\item $Expr(\overline{\mathcal{C}_R})$: set of constraints without reasoning 
-	\item $Expr(\mathcal{C}_R)$: set of constraints with reasoning
+	\item $Expr(\overline{\mathcal{C}_R})$: constraints without reasoning 
+	\item $Expr(\mathcal{C}_R)$: constraints with reasoning
 \end{itemize}
 
 %\emph{constraints with reasoning} can be used as axioms to infer new triples out of explicitly stated triples (see section \ref{sec:RDF-validation-requirements-and-reasoning}), but also to express constraints without reasoning. \er{Also to express constraints?}\tb{also to express constraints without reasoning}
@@ -651,17 +651,33 @@ even though the absolute expressivity of OWL2-DL is much higher for both express
 
 Classical expressivity (in computer science and logic):
 \begin{itemize}
-	\item Expr(DSP): set of constraints expressible by DSP
-	\item Expr(OWL2-DL): set of constraints expressible by OWL2-DL
-	\item Expr(OWL2-QL): set of constraints expressible by OWL2-QL
-	\item Expr(ReSh): set of constraints expressible by ReSh
-	\item Expr(ShEx): set of constraints expressible by ShEx
-	\item Expr(SPIN): set of constraints expressible by SPIN
+	\item \emph{Expr(DSP)}: constraints expressible by DSP
+	\item \emph{Expr(OWL2-DL)}: constraints expressible by OWL2-DL
+	\item \emph{Expr(OWL2-QL)}: constraints expressible by OWL2-QL
+	\item \emph{Expr(ReSh)}: constraints expressible by ReSh
+	\item \emph{Expr(ShEx)}: constraints expressible by ShEx
+	\item \emph{Expr(SPIN)}: constraints expressible by SPIN
 \end{itemize}
+
+\begin{center}
+\begin{evaluation}
+\emph{Expr(DSP)} (14) & 14 & 13 & 1 & 7(6) & 13 & 13(1) \\
+\emph{Expr(OWL2-DL)} & & & & & & \\
+\emph{Expr(OWL2-QL)} & & & & & & \\
+\emph{Expr(ReSh)} & & & & & & \\
+\emph{Expr(ShEx)} & & & & & & \\
+\emph{Expr(SPIN)} & & & & & & \\
+\end{evaluation}
+\end{center}
 
 Partial orderings are:
 \begin{eqnarray*}
-Expr(DSP): DSP \succ
+\emph{Expr(DSP):} DSP \succ SPIN \succ OWL2-DL \succeq ShEx \succ ReSh \succ OWL2-QL \\ 
+\emph{Expr(OWL2-DL):} \\
+\emph{Expr(OWL2-QL):} \\
+\emph{Expr(ReSh):} \\
+\emph{Expr(ShEx):} \\
+\emph{Expr(SPIN):} \\ 
 \end{eqnarray*}
 
 %\subsection{Classification Dimension Expressivity [Old]}
