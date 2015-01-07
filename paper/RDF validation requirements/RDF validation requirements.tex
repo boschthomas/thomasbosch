@@ -814,11 +814,22 @@ The values of each member property of a class may be limited by their value type
 
 \subsection{Simple Example}
 
+Only men can have \ms{sonOf} relationships to parents:
+
 \begin{DL}
-Man $\sqsubseteq$ $\forall$ sonOf . Parent \\
+%Man $\sqsubseteq$ $\forall$ sonOf . Parent \\
+$\neg$Man $\sqsubseteq$ $\neg\exists$ sonOf.Parent
 \end{DL}
 
-Individuals of the class \ms{Man} (context class) can only have \ms{sonOf} relationships to individuals of the class \ms{Parent} (range class).
+%Individuals of the class \ms{Man} (context class) can only have \ms{sonOf} relationships to individuals of the class \ms{Parent} (range class).
+
+\subsection{Simple Example}
+
+Only vulcans can have friendship relationships to cardassians
+
+\begin{DL}
+$\neg$Vulcan $\sqsubseteq$ $\neg\exists$ friendOf.Carsassian
+\end{DL}
 
 \section{Minimum Unqualified Cardinality Restrictions on Properties}
 
@@ -3818,8 +3829,8 @@ Negative Property Constraints & \ding{55} & $\checkmark$ & \ding{55} & \ding{55}
 *Value Restrictions & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
 *Self Restrictions & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Primary Key Properties & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-*Class-Specific Property Range & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
-*Class-Sp. Reflexive Object P. & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+*Class-Specific Property Range & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+*Class-Sp. Reflexive Object P. & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Membership in Controlled Vocabularies & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 IRI Pattern Matching & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ \\
 Literal Value Comparison & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ \\
@@ -3841,8 +3852,8 @@ Conditional Properties & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{5
 Recommended Properties & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Handle RDF Collections & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Value is Valid for Datatype & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-*Exploiting Class/Property Specialization Ontology Axioms & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-*Cardinality Shortcuts & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+Exploiting Class/Property Specialization Ontology Axioms & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+*Cardinality Shortcuts & \ding{55} & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
 Aggregations & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 \end{evaluation-overall}
 
