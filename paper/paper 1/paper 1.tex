@@ -575,6 +575,7 @@ The next table gives an overview of the computational complexity for RDF validat
 
 \begin{center}
 \begin{tabular}{| c | c |}
+\hline
 \textbf{Constraint Class}  & \textbf{Complexity Class}\\
 \hline
 $\overline{\mathcal{C}_R}$ & \textsc{Pspace}-Complete \\
@@ -609,13 +610,7 @@ We also evaluate if a specific requirement is covered by OWL 2 QL or the more ex
 
 As we want to be able to perform reasoning before actually validating the data,
 we use the two types of constraints - \emph{constraints without reasoning} and \emph{constraints with reasoning} - as criteria to measure constraint-specific expressivity.
-We define these two expressivity classes as follows: 
-
-\er{What is done / presented here should be told briefly.}
-
-
-Expressivity scores (on how many of those constraints can be expressed by a particular constraint language):
-
+Expressivity scores (on how many of those constraints can be expressed by a particular constraint language) are:
 
 \begin{itemize}
   %\item $Expr(\mathcal{C})$: set of all constraints
@@ -638,7 +633,7 @@ $Expr(\mathcal{C}_R)$ (32) & 8 & 29 & 11 & 11(2) & 11(1) & 32 \\
 \end{evaluation}
 \end{center}
 %\tb{this is indeed a misunderstanding. I only took into account that is DSP supports 6 EXPR-C constraints and OWL 2 DL 5, then DSP is more expressive than OWL 2 DL regarding the expressivity class EXPR-C / but this is not right?}
-In the table above, the total amount of constraints per constraint class is shown by numbers in round brackets in the first column.
+In the table above, the total amount of constraints per constraint type is shown by numbers in round brackets in the first column.
 Numbers in round brackets in the other columns indicate the number of constraints which may be expressed by that particular constraint language - either by limitations, workarounds, or extensions.  
 %\er{One possible misunderstanding (maybe not) is the ordering. It is not only based on the size of the number of the constrains that they satisfies right? For instance, if there are 6 constraints (from EXPR-C) that  DSP satisfies and OWL2-DL  can satisfy lets say only 5 of them but 13 other, in such scenario OWL2 DL and DSP would be incomparable (no ordering). It is more expressive only if it contains those 6 and extras.}
 Total orderings are:
@@ -647,13 +642,16 @@ Total orderings are:
 Expr(\overline{\mathcal{C}_R}): DSP \subset OWL2-QL \subset ReSh \subset ShEx \subset OWL2-DL \subset SPIN \\
 Expr(\mathcal{C}_R): DSP \subset OWL2-QL \subset ShEx \subset ReSh \subset OWL2-DL \subset SPIN
 \end{eqnarray*}
-It depends on the use case which constraint language to use in order to fulfill related requirements, i.e., to express associated constraints.
+It depends on the individual use case which constraint language to use in order to fulfill related requirements, i.e., to express associated constraints.
 If, e.g., many \emph{constraints with reasoning} are needed, the constraint language SPIN is the most expressive one.
 If, on the other side, only specific \emph{constraints without reasoning} or \emph{constraints with reasoning} are needed for particular use cases, 
-the relative expressivity of both expressivity classes can be the same for the constraint languages DSP and OWL2-DL, 
-even though the absolute expressivity of OWL2-DL is much higher for both expressivity classes.
+the relative expressivity of both constraint classes can be the same for the constraint languages DSP and OWL2-DL, 
+even though the absolute expressivity of OWL2-DL is much higher for both constraint classes.
 
-Classical expressivity (in computer science and logic):
+In computer science and logic, these expressivity scores are not that common.
+The expressivity class \emph{Expr(DSP)}, e.g. contains all constraints which are expressible by DSP.
+An interesting question could be which constraint language contains the whole DSP or what constraint language could be used instead. 
+Classical expressivity classes are:
 \begin{itemize}
 	\item \emph{Expr(DSP)}: constraints expressible by DSP
 	\item \emph{Expr(OWL2-DL)}: constraints expressible by OWL2-DL
@@ -662,6 +660,8 @@ Classical expressivity (in computer science and logic):
 	\item \emph{Expr(ShEx)}: constraints expressible by ShEx
 	\item \emph{Expr(SPIN)}: constraints expressible by SPIN
 \end{itemize}
+
+The next table shows the number of constraints covered by constraint languages and aggregated by expressivity class:
 
 \begin{center}
 \begin{evaluation}
@@ -674,7 +674,7 @@ Classical expressivity (in computer science and logic):
 \end{evaluation}
 \end{center}
 
-Partial orderings are:
+The table implies the expressivity classes' partial orderings:
 \begin{eqnarray*}
 \emph{Expr(DSP):} DSP \succ SPIN \succ OWL2-DL \succeq ShEx \succ ReSh \succ OWL2-QL \\ 
 \emph{Expr(OWL2-DL):} \\
