@@ -678,13 +678,13 @@ The next table shows the number of fully supported constraints covered by constr
 \end{evaluation}
 \end{center}
 The table implies the expressivity classes' partial orderings:
-\begin{eqnarray*}
-\emph{Expr(DSP):} DSP \succ SPIN \succ OWL2-DL \succeq ShEx \succ ReSh \succ OWL2QL \\ 
-\emph{Expr(OWL2DL):} OWL2DL \succ SPIN \succ OWL2QL \succ DSP \succ ShEx \succ ReSh \\
-\emph{Expr(OWL2QL):} OWL2QL \succeq OWL2DL \succ SPIN \succ ShEx \succ ReSh \succ DSP\\
-\emph{Expr(ReSh):} ReSh \succ SPIN \succ ShEx \succ OWL2-DL \succ DSP \succ OWL2QL \\
-\emph{Expr(ShEx):} ShEx \succ SPIN \succ OWL2DL \succ DSP \succ ReSh \succ OWL2QL \\
-\emph{Expr(SPIN):} SPIN \succ OWL2DL \succ ShEx \succ OWL2QL \succ DSP \succ ReSh \\ 
+\begin{eqnarray*} 
+\emph{Expr(DSP):} OWL2QL \prec ReSh \prec ShEx \preceq OWL2DL \prec SPIN \prec DSP \\
+\emph{Expr(OWL2DL):} ReSh \prec ShEx \prec DSP \prec OWL2QL \prec SPIN \prec OWL2DL \\
+\emph{Expr(OWL2QL):} DSP \prec ReSh \prec ShEx \prec SPIN \prec OWL2DL \preceq OWL2QL \\
+\emph{Expr(ReSh):} OWL2QL \prec DSP \prec OWLDL \prec ShEx \prec SPIn \prec ReSh \\
+\emph{Expr(ShEx):} OWL2QL \prec ReSh \prec DSP \prec OWL2DL \prec SPIN \prec ShEx \\
+\emph{Expr(SPIN):} ReSh \prec DSP \prec OWL2QL \prec ShEx \prec OWL2DL \prec SPIN \\
 \end{eqnarray*}
 
 %\subsection{Classification Dimension Expressivity [Old]}
