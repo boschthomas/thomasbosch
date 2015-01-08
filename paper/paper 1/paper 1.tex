@@ -563,7 +563,7 @@ If we use subproperties with reasoning, the triple (which would cause a constrai
 \subsection{Complexity}
 \label{sec:constraints-complexity}
 
-To evaluate RDF validation requirements, we had the classes of constraints: \emph{constraints without reasoning} and \emph{constraints with reasoning}. 
+Recall that, to evaluate RDF validation requirements, we had the classes of constraints: \emph{constraints without reasoning}  ($\overline{\mathcal{C_R}}$)and \emph{constraints with reasoning} ($\mathcal{C_R}$). 
 In addition, to have a further evaluation on the latter and to refer easily, we divide $\mathcal{C}_R$ into two classes (not disjoint). 
 Overall, we have the following. Since, OWL 2 DL is more expressive than OWL 2 QL,  $\mathcal{C}_R ^{\mathcal{QL}} \subseteq \mathcal{C}_R ^{\mathcal{DL}}$ follows. 
 \begin{enumerate}\itemsep1em
@@ -615,9 +615,7 @@ We also evaluated if a specific requirement is expressed by OWL 2 QL or the more
  
 %As we identified three constraint-specific complexity classes in the previous section, we are now able to determine the performance (i.e. complexity) of constraint languages.  It can be beneficial not using the most expressive constraint languages when additional rather subjective criteria are evaluated.
 
-\subsection{Expressivity}
 
-\subsubsection{Expressivity Score}
 
 
 
@@ -659,12 +657,12 @@ If, on the other hand, only specific requirements in $\overline{\mathcal{C_R}}$ 
 it can be more reasonable to use a compact one.
 
 
-\subsubsection{Classical Expressivity Classes}
 
-In computer science and logic, these expressivity scores are not that common.
-The expressivity class \emph{Expr(DSP)}, e.g. contains all constraints which are expressible by DSP.
-An interesting question could be which constraint language contains the whole DSP or what constraint language could be used instead. 
-There is one expressivity classes for each constraint language including all the constraints expressible by that constraint language.
+
+
+For a validation labourer, it is relevant to question the expressivity interrelation between those constraint languages e.g., "which constraint language could contain the whole DSP or  could be used instead?". This can also maintain the future development plans and directions of those languages in the way of achieving to be a solid standard constraint language.
+
+ With the aforementioned concern, let us introduce  \emph{Expr(DSP)}  which denotes the all constraint types which are expressible by DSP.  We can consider \emph{Expr(DSP)} as an expressivity class for the constraint language DSP. Using the same fashion, one can obtain a expressivity class  per constraint language, including all the constraints expressible by that constraint language.
 %\begin{itemize}
 	%\item \emph{Expr(DSP)}: constraints expressible by DSP
 	%\item \emph{Expr(OWL2-DL)}: constraints expressible by OWL2-DL
@@ -673,7 +671,7 @@ There is one expressivity classes for each constraint language including all the
 	%\item \emph{Expr(ShEx)}: constraints expressible by ShEx
 	%\item \emph{Expr(SPIN)}: constraints expressible by SPIN
 %\end{itemize}
-The next table shows the number of fully supported constraints covered by constraint languages and aggregated by expressivity class:
+The next table shows the expressivity scores of languages according to expressivity classes again defined by those languages:
 \begin{center}
 \begin{evaluation}
 \emph{Expr(DSP)} (14) & 14 & 13 & 1 & 7(6) & 13 & 13(1) \\
@@ -684,7 +682,7 @@ The next table shows the number of fully supported constraints covered by constr
 \emph{Expr(SPIN)} (73) & 13 & 50(4) & 15(4) & 12(9) & 23(1) & 73 \\
 \end{evaluation}
 \end{center}
-The table implies the expressivity classes' partial orderings:
+If we rank them according their scores, just as before we get the following as a brief picture:
 \begin{eqnarray*} 
 \emph{Expr(DSP):} OWL2QL \prec ReSh \prec ShEx \preceq OWL2DL \prec SPIN \prec DSP \\
 \emph{Expr(OWL2DL):} ReSh \prec ShEx \prec DSP \prec OWL2QL \prec SPIN \prec OWL2DL \\
@@ -693,6 +691,8 @@ The table implies the expressivity classes' partial orderings:
 \emph{Expr(ShEx):} OWL2QL \prec ReSh \prec DSP \prec OWL2DL \prec SPIN \prec ShEx \\
 \emph{Expr(SPIN):} ReSh \prec DSP \prec OWL2QL \prec ShEx \prec OWL2DL \prec SPIN
 \end{eqnarray*}
+
+From the table given above (with numbers), one can infer that in terms of expressivity on constraints, DSP can be fully covered by SPIN if we ignore the recursive queries which is partly implemented in SPIN \er{citation needed}. Yet another interesting message is that, none of those languages with mediocre expressivity covers the other so far. As we keep the validation requirements updated and those languages are further developed, it is likely that this list will change as well in the direction of needs of the validation community.
 
 %\subsection{Classification Dimension Expressivity [Old]}
 %
@@ -794,7 +794,7 @@ The table implies the expressivity classes' partial orderings:
 %\mathcal{C}: DSP \subset OWL2-QL \subset ReSh \subset ShEx \subset OWL2-DL \subset SPIN
 %\end{eqnarray*}
 
-\subsection{About User-Friendliness}
+\section{On User-Friendliness}
 
 SPIN is the most expressive constraint language (regarding both expressivity scores $Expr(\overline{\mathcal{C}_R})$ and $Expr(\mathcal{C}_R)$).
 It can be beneficial, however, to use other constraint languages to meet particular use cases when additional rather subjective criteria are evaluated.
@@ -813,7 +813,7 @@ Rather subjective criteria to determine the degree of user-friendliness of const
 \emph{constraint formulation level}, \emph{intuitiveness}, \emph{conciseness}, and \emph{adoption}.
 SPIN is in contrast to other constraint languages a general-purpose low-level language, as it is the most expressive one (\emph{constraint formulation level}).
 As SPARQL queries may be very long and complex, the purpose of constraints expressed in SPIN may not be immediately clear to human readers.
-On the other side, ShEx is the most intuitive constraint language, since it is based on regular expressions and since well-known constructs of other languages\footnote{e.g. numbers standing for min, max, and exact cardinality in UML} are part of the language definition.
+On the other side, ShEx is the most intuitive constraint language, since it is based on regular expressions and since well-known constructs of other languages\footnote{E.g., numbers standing for min, max, and exact cardinality in UML.} are part of the language definition.
 DSP, ReSh, as well as OWL 2 are not that intuitive than ShEx, but more intuitive to humans than SPIN\footnote{see, e.g., the requirement \ms{allowed values} in the paper of Bosch et al. \cite{BoschNolleAcarEckert2015}\label{footnoteIntuitivenessConciseness}} (\emph{intuitiveness}).
 In most cases, the same constraints can be expressed more concise in OWL 2 and ShEx than in DSP and SPIN\footref{footnoteIntuitivenessConciseness} (\emph{conciseness}).
 The only well adopted and therefore well known constraint languages are SPIN and most of all OWL 2 (\emph{adoption}).
