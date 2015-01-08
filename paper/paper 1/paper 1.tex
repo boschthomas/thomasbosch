@@ -299,7 +299,8 @@ $\mathcal{K}=\{$ & \ms{Person $\sqsubseteq \exists$ hasFather.Person}, \\
 \end{center}
 In case of the OWA, we infer that $\ms{Anakin}$ has a father that is a $\ms{Person}$, but we do not know who exactly, and $\mathcal{K}$ is consistent. In CWA however, the constraint needs to be satisfied only by named individuals which yields in return of a constraint violation. We can further observe that there is a clash caused by the functional role $\ms{hasAncestor}$ and the UNA. However, in OWA there is no UNA by default, therefore the reasoning will conclude that $\ms{Anakin}$ is the same individual as \ms{Shmi} ($\ms{Anakin} \equiv \ms{Shmi}$). Notice that this is not a problem if we add UNA to the OWA, like in the \textit{DL-Lite} family \cite{Calvanese2007,Artale2009} which is the basis for OWL 2 QL. %\er{Notice that this is the second example already, talking again OWA CWA in detail. I think all section must be designed in a way to show UNA and OWA vs. CWA in one example. Flows better and gains space}
 
- If we follow the principle of adopting the UNA to OWL and performing constraint validation after some reasoning, the opposites of OWA in OWL and CWA in constraint validation does not affect each other, because missing assertions like in the example mentioned above will cause still some constraint violations but the implicit knowledge is even considered on constraint validation. \er{I think that such detailed explanations or long sentences like this should not be in motivation section.}
+ If we follow the principle of adopting the UNA to OWL and performing constraint validation after some reasoning, the opposites of OWA in OWL and CWA in constraint validation does not affect each other, because missing assertions like in the example mentioned above will cause still some constraint violations but the implicit knowledge is even considered on constraint validation. 
+%\er{I think that such detailed explanations or long sentences like this should not be in motivation section.}
 
 %The standard semantics of OWL is:
 %
@@ -395,7 +396,7 @@ When stating axioms and constraints (without reasoning capabilities) needed for 
 the validator is able to determine the expressivity class and thus can recommend constraint languages which can be used to express the wished axioms/constraints. 
 Although, there is a partial ordering of constraint languages for particular expressivity classes, 
 validators may not recommend the constraint language with the highest expressivity of that specific expressivity class.
-The validator compares the constraint languages, which are able to express the needed axioms/constraints, according to multiple user-friendliness classes. \er{I think that language is a bit verbose.}\tb{+1}
+The validator compares the constraint languages, which are able to express the needed axioms/constraints, according to multiple user-friendliness classes. 
 As a consequence, the validator may recommend to express the stated axioms/constraints by a constraint language which is less but enough expressive, and more user-friendly.
 
 %As case studies are linked to use cases and use cases to requirements, it is known how complex the task is to fulfill use cases and case studies.
@@ -428,7 +429,7 @@ This paper serves to answer the two \textbf{research questions}:
 	\item How does reasoning affect the complexity of constraints and constraint languages?
 	\item How to classify constraints and constraint languages according to expressivity and complexity?
 \end{itemize}
-\tb{research question also in flow text / like this: ... (research question: How does reasoning affect the complexity of constraints and constraint languages?) }
+%\tb{research question also in flow text / like this: ... (research question: How does reasoning affect the complexity of constraints and constraint languages?) }
 
 The three \textbf{main contributions} of this paper are:
 \begin{itemize}
@@ -443,10 +444,11 @@ The three \textbf{main contributions} of this paper are:
 	%\item We show that OWL 2 QL together with additional constraint languages completely satisfy all RDF validation requirements.
 	%\item We evaluated to which extend the five possible standard constraint languages fulfill each requirement.
 \end{itemize}
-\tb{+1 / this should be the 3 main contributions, maybe we should highlight them in the flow text / no itemization}
-\er{We can reserve a paragraph (flowing text) for those  item as well. }
+%\tb{+1 / this should be the 3 main contributions, maybe we should highlight them in the flow text / no itemization}
+%\er{We can reserve a paragraph (flowing text) for those  item as well. }
 
 \section{Expressivity and Complexity in OWL 2}
+\label{Expressivity-Complexity-OWL2}
 
 In this section, we will briefly mention the expressivity and complexity of OWL 2. This will also be the base for our classification of RDF validation requirements with reasoning. In this regard, we will  mainly focus on  OWL 2 QL as well as OWL 2 DL. Note that there is also the very expressive web ontology language OWL 2 Full (which is not a DL) for reasoning that we will not include in our classification, since its high worst case complexity (undecidability) as well as interesting RDF requirements with reasoning is already available in aforementioned OWLs (OWL 2 DL/QL).
 
@@ -479,6 +481,7 @@ entailment checking. The drawback of its expressive power results as a lack of c
 As a result of its expressive power, OWL 2 DL allows a large variety of sophisticated modeling capabilities for many application domains.  On the other hand, to maintain the decidability, OWL 2 DL has numerous syntactic restrictions. One example is that OWL 2 DL allows  expressing transitive properties as well as asymmetric properties, however a property to be both transitive and asymmetric (just like \emph{ancestor relation}) is not allowed. In the sequel, from RDF validation perspective, we will give some examples of constraints that remain at the outside of its scope. 
 
 \section{Classification of RDF Constraints according to Reasoning and Complexity}
+\label{Classification-RDF-Constraints-Reasoning-Complexity}
 
 %We divide these constraints into three classes:
 %\begin{itemize}
@@ -604,6 +607,7 @@ The  relation between those complexity classes is well-known \cite{Arora:2009:CC
 %We leave it as future work to write SPARQL CONSTRUCT queries in order to provide reasoning for these constraints.
 
 \section{Classification of Constraint Languages according to Expressivity and Complexity}
+\label{Classification-Constraint-Languages-Expressivity-Complexity}
  
  In this section, we concern ourselves with the expressivity of constraint languages, or constraint specific expressivity.
 Therefore, we evaluated the five most popular constraint languages on fulfilling each requirement to formulate RDF constraints.
@@ -615,6 +619,12 @@ We also evaluated if a specific requirement is expressed by OWL 2 QL or the more
 
 \subsubsection{Expressivity Score}
 
+<<<<<<< HEAD
+=======
+As we want to be able to perform reasoning before actually validating the data,
+we use the two types of constraints - \emph{constraints without reasoning} and \emph{constraints with reasoning} - as criteria to measure constraint-specific expressivity.
+Expressivity scores (on how many of those constraints can be expressed by a particular constraint language) are:
+>>>>>>> FETCH_HEAD
 
 In evaluating the expressivity,  we introduce the intuitive notion of \emph{expressivity scores}. Expressivity score of a constraint language is how many of constraints can be expressed by this particular constraint language.
 While we evaluate expressivity scores, we use two sets of constraints (constraint types) as before: $C_R$ and $\overline{C_R}$. The main motivation in that is, one may want to perform reasoning before actually validating the data. 
@@ -689,7 +699,7 @@ The table implies the expressivity classes' partial orderings:
 \emph{Expr(DSP):} OWL2QL \prec ReSh \prec ShEx \preceq OWL2DL \prec SPIN \prec DSP \\
 \emph{Expr(OWL2DL):} ReSh \prec ShEx \prec DSP \prec OWL2QL \prec SPIN \prec OWL2DL \\
 \emph{Expr(OWL2QL):} DSP \prec ReSh \prec ShEx \prec SPIN \prec OWL2DL \preceq OWL2QL \\
-\emph{Expr(ReSh):} OWL2QL \prec DSP \prec OWLDL \prec ShEx \prec SPIn \prec ReSh \\
+\emph{Expr(ReSh):} OWL2QL \prec DSP \prec OWLDL \prec ShEx \prec SPIN \prec ReSh \\
 \emph{Expr(ShEx):} OWL2QL \prec ReSh \prec DSP \prec OWL2DL \prec SPIN \prec ShEx \\
 \emph{Expr(SPIN):} ReSh \prec DSP \prec OWL2QL \prec ShEx \prec OWL2DL \prec SPIN
 \end{eqnarray*}
@@ -995,6 +1005,7 @@ When performing reasoning, the triples \ms{DarthMaul hasMentor DarthSidious} and
 When reasoning is not wished, these explicitly stated triples cause a constraint violation, as each resource having \ms{hasMentor} relationships to a Sith must also be a Sith (which is not explicitly stated in the data).
 
 \section{RDF Validation Requirements without Reasoning}
+\label{RDF-Validation-Requirements-without-Reasoning}
 
 For the majority of the requirements to formulate RDF constraints, reasoning is not related to the constraints and is therefore not needed to be performed prior to validation. 
 It is also possible, however, to reason before validating constraints for which reasoning does not affect validation results.
@@ -1143,6 +1154,7 @@ Sith a ResourceShape ;
 \end{ex}
 
 \section{Implementation}
+\label{Implementation}
 
 SPARQL is generally seen as the method of choice to validate RDF data according to certain constraints, although it is not ideal for their formulation. 
 In contrast, OWL 2 DL constraints are comparatively easy to understand, but lack an implementation to validate RDF data. However, reasoning in OWL supports the identification of inconsistencies, which is also known as ontology debugging \cite{stuckenschmidt2008debugging}. Despite the fact that inconsistency detection especially in DL has already been studied extensively, it is not sufficient for constraint validation.
@@ -1151,7 +1163,7 @@ validation environment in which the validation of any constraint language\footno
 The validation implementation of constraint languages is fully declarative,
 consisting of a mapping from a constraint language to SPIN in form of SPARQL CONSTRUCT queries.
 SPIN represents both the SPIN mappings and the SPARQL queries in RDF. 
-Within the validation environment, we fully implemented an automatic RDF validation of all OWL 2 DL\footnote{and therefore all OWL 2 QL constructs} constructs. 
+Within the validation environment, we fully implemented the validation of all OWL 2 DL\footnote{and therefore all OWL 2 QL constructs} constructs. 
 The implementation can be tested at \url{http://purl.org/net/RDFval-demo} and
 the OWL 2 SPIN mapping is maintained at \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}.
 
@@ -1177,6 +1189,30 @@ This OWL semantics, however, was never submitted to a standards organization suc
 In description logics, reasoning tasks like query answering or detection of inconsistencies require the consideration of knowledge that is not only defined explicitly but also implicitly. To do so there are two different ways called forward- and backward-chaining. The first implies a materialized knowledge base, where the original knowledge base is extended by all assertions that can be inferred. State-of-the-art DL or OWL reasoners that following this approach are e.g. FaCT++ \cite{tsarkov2006fact++}, Pellet \cite{sirin2007pellet},  RacerPro \cite{haarslev2001racer}, or HermiT \cite{horrocks2012hermit}. On the second approach, the original knowledge base is kept in its original state and before queries are evaluated against the knowledge base, the queries will be rewritten such that its rewritings will consider also the implicit knowledge in the returned result set. Approaches following this way are e.g., \textsf{PerfectRef} given by Calvanese et al. \cite{Calvanese2007} or \textsf{TreeWitness} proposed by Kontchakov et al. \cite{kontchakov2011combined}. The choice between these two different ways depends on the specific application case. So the first kind is probably applied on local knowledge bases whereas the second is more appropriated for federative environments like in \cite{nolle2014efficient,nolle2013elite}.
 
 \section{Conclusion and Future Work}
+
+In section \ref{Expressivity-Complexity-OWL2} we explained why reasoning is beneficial for validation and how reasoning interacts with validation.
+In section \ref{Classification-RDF-Constraints-Reasoning-Complexity} we classified RDF constraints according to reasoning and complexity.
+We distinguish two disjoint constraint types $\mathcal{C}_{R}$ (constraints with reasoning) and $\overline{\mathcal{C}_{R}}$ (constraints without reasoning) to investigate the affect of reasoning to the validation process.
+Regarding the performance of constraints, we refer to worst case complexity.
+We divide $\mathcal{C}_R$ into two not disjoint classes ($\mathcal{C}_R ^{\mathcal{QL}} \subseteq \mathcal{C}_R ^{\mathcal{DL}}$) for the validation by query answering with OWL 2 QL and OWL 2 DL reasoning respectively.
+We assigned complexity classes to these constraint-specific complexity classes.
+It is, e.g., known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}, 
+which is assigned to $\overline{\mathcal{C}_R}$ (validation by query answering without reasoning).
+In section \ref{Classification-Constraint-Languages-Expressivity-Complexity} we classified constraint languages according to expressivity and complexity.
+In sections 
+\ref{sec:RDF-validation-requirements-and-reasoning} and
+\ref{RDF-Validation-Requirements-without-Reasoning}
+we present some constraints for each of the two constraint types $\mathcal{C}_{R}$ and $\overline{\mathcal{C}_{R}}$.
+For $\mathcal{C}_{R}$ constraints we consider the effects of reasoning on validation.
+We fully implemented the validation of all DSP, OWL 2 QL, and OWL 2 DL constructs
+within our validation environment (\url{http://purl.org/net/RDFval-demo}) (see section \ref{Implementation}).
+
+As part of future work we extend the validator to provide a list of constraint languages for which the expressivity is enough to express selected constraints.
+The validator may also recommend one of these constraint languages having the highest expressivity and lowest complexity.
+As reasoning may cause high complexity, the validator may show which constraints from the user's selection cause the higher complexity class 
+and it may provide solutions how to get to the next lower complexity class.
+
+%evaluation constraint languages according to complexity / ideas of Erman
 
 \bibliography{../../literature/literature}{}
 \bibliographystyle{plain}
