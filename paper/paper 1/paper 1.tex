@@ -256,16 +256,13 @@ Also, the requirements are classified to provide a high-level view on different 
 
 For expressing RDF constraints, there are numerous constraint languages, each with its own syntax and semantics.  
 Yet none of them is all-purpose standard, the most popular ones are
-the SPARQL Inferencing Notation (SPIN)\footnote{\url{http://spinRDF.org/}}, 
+the SPARQL Inferencing Notation (SPIN)\footnote{\url{http://spinRDF.org/}} (representing SPARQL queries in RDF), 
 the Web Ontology Language (OWL 2)\footnote{\url{http://www.w3.org/TR/owl2-syntax/}}, 
 Shape Expressions (ShEx)\footnote{\url{http://www.w3.org/Submission/shex-primer/}}, 
 Resource Shapes (ReSh)\footnote{\url{http://www.w3.org/Submission/shapes/}}, 
 and Description Set Profiles (DSP)\footnote{\url{http://dublincore.org/documents/2008/03/31/dc-dsp/}}.
 
-
 Their relevance vary with respect to several foremost criteria in validation process, such as user-friendliness, constraint expressivity and performance.  Regarding performance, we will refer to worst case complexity. Furthermore, the crucial service of reasoning and its usability is in question. What makes any of them a best choice, solely depends on the  particular use case. In this paper, we propose several  classifications for constraint languages as well as constraints in the light of the aforementioned criteria.
-
-The rest of the paper goes as follows. We take a deeper look at motivation in the next section. Then, in Section 3, we briefly mention the expressivity and complexity results in OWL 2 reasoning. Next, classification of RDF constraints according to reasoning and complexity follows.  In Section 5, we present a classification of constraint Languages concerning expressivity and complexity. In this section, we also discuss user-friendliness as an additional criteria. Furthermore, giving some examples, we present a perspective of RDF validation requirements with reasoning and without reasoning in Section 6 and Section 7 respectively. Section 8 briefly discusses implementation aspects. Section 9 presents the related work. Conclusion and future work finalises the paper.
 
 \section{Motivation}
 
@@ -399,6 +396,11 @@ When stating axioms and constraints (without reasoning capabilities),
 the validator is able to determine the needed expressivity and thus can recommend constraint languages which can be used to express the wished axioms/constraints. 
 Although, there is an ordering of constraint languages for particular expressivity scores and classes, 
 validators may not recommend the constraint language with the highest expressivity as further criteria may be evaluated such as user-friendliness.
+
+The rest of the paper goes as follows. We take a deeper look at motivation in the next section. Then, in Section \ref{Expressivity-Complexity-OWL2}, we briefly mention the expressivity and complexity results in OWL 2 reasoning. Next, classification of RDF constraints according to reasoning and complexity follows.  In Section \ref{Classification-Constraint-Languages-Expressivity-Complexity}, we present a classification of constraint Languages concerning expressivity. In this section, we also discuss user-friendliness as an additional criteria. Furthermore, giving some examples, we present a perspective of RDF validation requirements with reasoning and without reasoning in Section 
+\ref{sec:RDF-validation-requirements-and-reasoning} and Section 
+\ref{RDF-Validation-Requirements-without-Reasoning}
+respectively. Section \ref{Implementation} briefly discusses implementation aspects. Section \ref{sec:related-Work} presents the related work. Conclusion and future work finalizes the paper.
 
 %As case studies are linked to use cases and use cases to requirements, it is known how complex the task is to fulfill use cases and case studies.
 %For specific use cases, it can also be determined which of the associated requirements lead to a higher complexity class.
@@ -1168,6 +1170,7 @@ As reasoning may cause high complexity, the validator may show which axioms from
 and it may provide solutions how to get to the next lower complexity class.
 
 \section{Related Work}
+\label{sec:related-Work}
 
 Tao \cite{tao2012integrity} proposed an OWL 2 DL extension to support integrity constraints and enables thereby the use of OWL as a constraint language for validation including the closed-world assumption. Beside a solution to explanation and repair of constraint violations, i.e. for integrity constraints, the author describes a sound and complete approach for constraint validation by conjunctive query answering.
 
