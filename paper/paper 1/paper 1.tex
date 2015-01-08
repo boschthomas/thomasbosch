@@ -563,13 +563,11 @@ If we use subproperties with reasoning, the triple (which would cause a constrai
 To evaluate RDF validation requirements, we had the classes of constraints: \emph{constraints without reasoning} and \emph{constraints with reasoning}. 
 In addition, to have a further evaluation on the latter and to refer easily, we divide $\mathcal{C}_R$ into two classes (not disjoint). 
 Overall, we have the following. Since, OWL 2 DL is more expressive than OWL 2 QL,  $\mathcal{C}_R ^{\mathcal{QL}} \subseteq \mathcal{C}_R ^{\mathcal{DL}}$ follows. 
-
-\begin{itemize}\itemsep1em
+\begin{enumerate}\itemsep1em
 	\item $\overline{\mathcal{C}_R}$: validation by query answering without reasoning
 	\item $\mathcal{C}_R ^{\mathcal{QL}}$: validation by query answering with OWL 2 QL reasoning
 	\item $\mathcal{C}_R ^{\mathcal{DL}}$: validation by query answering with OWL 2 DL reasoning
-	
-\end{itemize}
+\end{enumerate}
 Recall that, in this work we limit $C_R$ to the ones which can be expressed by OWL 2 DL and still requires reasoning  (i.e., $C_R = C_R ^{\mathcal{DL}}$). This is due the fact that, OWL 2 DL is still quite expressive\footnote{It could alternatively be set to a more expressive language (e.g., OWL 2 Full). Such treatment can be done in future work, if it is understood that we require that.}. 
 Some of those constraints can still be expressed in some constraint languages, which will be the focus of next section.
 
@@ -619,11 +617,11 @@ As we want to be able to perform reasoning before actually validating the data,
 we use the two types of constraints - \emph{constraints without reasoning} and \emph{constraints with reasoning} - as criteria to measure constraint-specific expressivity.
 Expressivity scores (on how many of those constraints can be expressed by a particular constraint language) are:
 
-\begin{itemize}
+\begin{enumerate}
   %\item $Expr(\mathcal{C})$: set of all constraints
 	\item $Expr(\overline{\mathcal{C}_R})$: constraints without reasoning 
 	\item $Expr(\mathcal{C}_R)$: constraints with reasoning
-\end{itemize}
+\end{enumerate}
 
 %\emph{constraints with reasoning} can be used as axioms to infer new triples out of explicitly stated triples (see section \ref{sec:RDF-validation-requirements-and-reasoning}), but also to express constraints without reasoning. \er{Also to express constraints?}\tb{also to express constraints without reasoning}
 %If in our knowledge base it is stated that \ms{DarthVader} is a \ms{Sith} (e.g., \ms{Sith(DarthVader)}) and  Siths feel the force of the dark side (e.g., \ms{Sith $\sqsubseteq$ FeelingForceDarkSide}), it is either possible to infer that \ms{DarthVader} feels the force of the dark side (\ms{FeelingForceDarkSide(DarthVader)}) 
