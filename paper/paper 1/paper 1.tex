@@ -613,6 +613,8 @@ It can be beneficial not using the most expressive constraint languages when add
 
 \subsection{Expressivity}
 
+\subsubsection{Expressivity Score}
+\tb{do you know why there cannot be a new line?}
 As we want to be able to perform reasoning before actually validating the data,
 we use the two types of constraints - \emph{constraints without reasoning} and \emph{constraints with reasoning} - as criteria to measure constraint-specific expressivity.
 Expressivity scores (on how many of those constraints can be expressed by a particular constraint language) are:
@@ -652,6 +654,13 @@ If, e.g., many \emph{constraints with reasoning} are needed, the constraint lang
 If, on the other side, only specific \emph{constraints without reasoning} or \emph{constraints with reasoning} are needed for particular use cases, 
 the relative expressivity of both constraint classes can be the same for the constraint languages DSP and OWL2-DL, 
 even though the absolute expressivity of OWL2-DL is much higher for both constraint classes.
+
+It depends on the individual use case, which constrains are needed to express and therefore which constraint language to choose.
+If, for instance, reasoning should not be performed and three particular constraints should be covered by the constraint language.
+Even if the \emph{absolute expressivity score} ($Expr(\overline{\mathcal{C}_R})$) of SPIN is much higher than the one of ShEx (ShEx $\subset$ SPIN), 
+the \emph{relative expressivity score} could be the same for ShEx and SPIN - in case the three constraints are covered by both.
+
+\subsubsection{Classical Expressivity Classes}
 
 In computer science and logic, these expressivity scores are not that common.
 The expressivity class \emph{Expr(DSP)}, e.g. contains all constraints which are expressible by DSP.
@@ -853,10 +862,8 @@ The only well adopted and therefore well known constraint languages are SPIN and
 	%\caption{Expressivity and Complexity}
 	%\label{fig:expressivity-complexity}
 %\end{figure}
-\textcolor{red}{needs modification}
 \tb{do we need this section? do we need a figure?}
 
-We assigned the five most promising constraint languages to two expressivity, and to four complexity classes.
 %Expressivity and complexity classes can be combined in a diagram (see figure Figure~\ref{fig:expressivity-complexity}).
 
 %\begin{figure}
@@ -866,12 +873,12 @@ We assigned the five most promising constraint languages to two expressivity, an
 	%\label{fig:expressivity-complexity}
 %\end{figure}
 
-It depends on the individual use case, which constrains are needed to express and therefore which constraint language to choose.
+%It depends on the individual use case, which constrains are needed to express and therefore which constraint language to choose.
 %As a consequence, you may select a constraint language which is not the most expressive one within one specific expressivity class, 
 %but may be better evaluated according to one or multiple user-friendliness classes.
-If, for instance, reasoning should not be performed and three particular constraints should be covered by the constraint language.
-Even if the absolute expressivity (\ms{Expr-C}) of SPIN is much higher than the one of ShEx (\ms{Expr-C}(ShEx) $\subset$ \ms{Expr-C}(SPIN)) 
-, the relative expressivity of this expressivity class could be the same for ShEx and SPIN - in case the three constraints are covered by both.
+%If, for instance, reasoning should not be performed and three particular constraints should be covered by the constraint language.
+%Even if the absolute expressivity (\ms{Expr-C}) of SPIN is much higher than the one of ShEx (\ms{Expr-C}(ShEx) $\subset$ \ms{Expr-C}(SPIN)) 
+%, the relative expressivity of this expressivity class could be the same for ShEx and SPIN - in case the three constraints are covered by both.
 %\er{The expressivity here (in figure) is not constraint specific expressivity, it is more general. However, constraint specific expressivity must follow.}
 %\tb{we need to create a new figure}
 %Now, the user-friendliness classes comes into play:
