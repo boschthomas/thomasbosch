@@ -513,7 +513,7 @@ We denote the whole set of constraints (types) with $\mathcal{C}$. We divide it 
 	\item $\mathcal{C}_R$: constraints with reasoning
 	\item $\overline{\mathcal{C}_{R}}$: constraints without reasoning %\tb{why overline R?}
 \end{enumerate}
- which corresponds to two disjoint subsets of $\mathcal{C}$. \tb{this paragraph is about constraint without reasoning. I would add the whole set of constraints to the list above} \er{Please re-read the paragraph, and a quick continuation, I think it is good now. Also, from that point on, lets refer to `constraints with reasoning` etc. by set names which is better.}$\mathcal{C}_R$ corresponds to set of constraints which can carry out the validation process via reasoning, especially when not all the knowledge is explicit.  
+ which corresponds to two disjoint subsets of $\mathcal{C}$. $\mathcal{C}_R$ corresponds to set of constraints which can carry out the validation process via reasoning, especially when not all the knowledge is explicit.  
 Its complement, $\overline{\mathcal{C}_R}$, is the set of constraints for which reasoning cannot be done or does not improve the result in any obvious sense (e.g., the scenario with all the knowledge is already explicit).
 
 
@@ -541,8 +541,7 @@ The literal pattern matching constraint validates \ms{DroidNumber} literals acco
 The triples \ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber} cause a constraint violation. 
 The triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}, however, lead to valid data. %\er{Let us divide this last sentence of the paragraph.}\tb{resolved}
 
-\emph{Constraints with reasoning} are constraints for which reasoning may be performed or is even needed.
-\emph{Constraints with reasoning} correspond to axioms in DL - e.g. subsumption, subproperties, cardinality restrictions, existential, and universal restrictions.
+Note that $C_R$ corresponds to axioms in OWL  e.g., subsumption, subproperties, cardinality restrictions, existential, and universal restrictions.
 %As we are dealing with fields from different research communities, we define our own nomenclature for RDF validation instead of reusing the heavily overloaded term axiom.
 %For instance, for  many in DL community, axioms are only those which are statements of TBox (subsumption statements), if there is a TBox and ABox. 
 %In OWL community, an ABox statement  i.e., "class assertion" is also called "class membership axiom". 
@@ -551,7 +550,7 @@ The triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textascii
 %See that this is overlapping with the definition of constraint (a component of a schema what needs to be satisfied). 
 %Actually from logic point of view, when a constraint is not satisfied it leads to no model, and when an axiom is not satisfied it leads to a superset of models.
 \ms{SubProperties}, e.g., are constraints for which reasoning may be performed.
-If, e.g., an individual X has an \ms{attackingBySword} relationship to an individual Y, 
+For instance, if an individual X has an \ms{attackingBySword} relationship to an individual Y, 
 then individual X must also have an \ms{attackingByWeapon} relationship to individual Y: \ms{attackingBySword $\sqsubseteq$ attackingByWeapon}.
 If we use subproperties without reasoning and our data contains the triple \ms{attackingBySword(Luke, DarthVader)},
 then the triple \ms{attackingByWeapon(Luke, DarthVader)} has to be stated explicitly.
@@ -571,7 +570,7 @@ Overall, we have the following. Since, OWL 2 DL is more expressive than OWL 2 QL
 	\item $\mathcal{C}_R ^{\mathcal{DL}}$: validation by query answering with OWL 2 DL reasoning
 	
 \end{itemize}
-Recall that, in this work we limit \emph{constraints with reasoning} ($C_R$) to the ones which can be expressed by OWL 2 DL and still requires reasoning  (i.e., $C_R = C_R ^{\mathcal{DL}}$). This is due the fact that, OWL 2 DL is still quite expressive\footnote{It could alternatively be set to a more expressive language (e.g., OWL 2 Full). Such treatment can be done in future work, if it is understood that we require that.}. 
+Recall that, in this work we limit $C_R$ to the ones which can be expressed by OWL 2 DL and still requires reasoning  (i.e., $C_R = C_R ^{\mathcal{DL}}$). This is due the fact that, OWL 2 DL is still quite expressive\footnote{It could alternatively be set to a more expressive language (e.g., OWL 2 Full). Such treatment can be done in future work, if it is understood that we require that.}. 
 Some of those constraints can still be expressed in some constraint languages, which will be the focus of next section.
 
 %The complexity class $\mathcal{C}_R$ encompasses all \emph{constraints with reasoning} for which reasoning can be executed but cannot be expressed by OWL 2.  \er{What/Why can't  be expressed by OWL 2  while being inferred? }\tb{e.g. class-specific property ranges or class-specific reflexive object properties cannot be expressed in OWL / these 2 axioms can only be stated globally for the properties, we cannot restrict it to individuals of specific classes}
