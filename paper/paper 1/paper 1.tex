@@ -513,8 +513,8 @@ We denote the whole set of constraints (types) with $\mathcal{C}$. We divide it 
 	\item $\mathcal{C}_R$: constraints with reasoning
 	\item $\overline{\mathcal{C}_{R}}$: constraints without reasoning %\tb{why overline R?}
 \end{enumerate}
- which corresponds to two disjoint subsets of $\mathcal{C}$. \tb{this paragraph is about constraint without reasoning. I would add the whole set of constraints to the list above} \er{Please re-read the paragraph, and a quick continuation, I think it is good now. Also, from that point on, lets refer to `constraints with reasoning` etc. by set names which is better.}$\mathcal{C}_R$ corresponds to set of constraints which can carry out the validation process via reasoning, especially when all knowledge is not explicit.  
-Its complement, $\overline{\mathcal{C}_R}$, is the set of constraints for which reasoning cannot be done or does not improve the result in any obvious sense (all the knowledge is already explicit).
+ which corresponds to two disjoint subsets of $\mathcal{C}$. \tb{this paragraph is about constraint without reasoning. I would add the whole set of constraints to the list above} \er{Please re-read the paragraph, and a quick continuation, I think it is good now. Also, from that point on, lets refer to `constraints with reasoning` etc. by set names which is better.}$\mathcal{C}_R$ corresponds to set of constraints which can carry out the validation process via reasoning, especially when not all the knowledge is explicit.  
+Its complement, $\overline{\mathcal{C}_R}$, is the set of constraints for which reasoning cannot be done or does not improve the result in any obvious sense (e.g., the scenario with all the knowledge is already explicit).
 
 
 As an example, consider \ms{Literal Pattern Matching}\footnote{See R-44-PATTERN-MATCHING-ON-RDF-LITERALS.} which  restricts literals to match given patterns e.g., 
