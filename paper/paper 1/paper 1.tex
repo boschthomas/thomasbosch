@@ -555,6 +555,7 @@ If this triple is not stated, a constraint violation occurs.
 If we use subproperties with reasoning, the triple (which would cause a constraint violation) is inferred and therefore resolves the possible constraint violation.
 
 \subsection{Complexity}
+\label{sec:constraints-complexity}
 
 To evaluate RDF validation requirements, we had the classes of constraints: \emph{constraints without reasoning} and \emph{constraints with reasoning}. 
 In addition, to have a further evaluation on the latter and to refer easily, we divide $\mathcal{C}_R$ into two classes (not disjoint). 
@@ -603,8 +604,10 @@ The  relation between those complexity classes is well-known \cite{Arora:2009:CC
 
 \section{Classification of Constraint Languages according to Expressivity and Complexity}
  
-In this section, we evaluate the standard five constraint languages on fulfilling each requirement to formulate RDF constraints.
-We also evaluate if a specific requirement is covered by OWL 2 QL or the more expressive OWL 2 DL is needed. \cite{BoschNolleAcarEckert2015}.
+We evaluated the five most popular constraint languages on fulfilling each requirement to formulate RDF constraints.
+We also evaluated if a specific requirement is covered by OWL 2 QL or the more expressive OWL 2 DL is needed \cite{BoschNolleAcarEckert2015}.
+In this section, we determine the expressivity of constraint languages in terms of classical computer science expressivity classes as well as an expressivity score on reasoning.
+As we identified three constraint-specific complexity classes in the previous section, we are now able to determine the performance (i.e. complexity) of constraint languages. 
 
 \subsection{Expressivity}
 
@@ -651,18 +654,16 @@ even though the absolute expressivity of OWL2-DL is much higher for both constra
 In computer science and logic, these expressivity scores are not that common.
 The expressivity class \emph{Expr(DSP)}, e.g. contains all constraints which are expressible by DSP.
 An interesting question could be which constraint language contains the whole DSP or what constraint language could be used instead. 
-Classical expressivity classes are:
-\begin{itemize}
-	\item \emph{Expr(DSP)}: constraints expressible by DSP
-	\item \emph{Expr(OWL2-DL)}: constraints expressible by OWL2-DL
-	\item \emph{Expr(OWL2-QL)}: constraints expressible by OWL2-QL
-	\item \emph{Expr(ReSh)}: constraints expressible by ReSh
-	\item \emph{Expr(ShEx)}: constraints expressible by ShEx
-	\item \emph{Expr(SPIN)}: constraints expressible by SPIN
-\end{itemize}
-
+There is one expressivity classes for each constraint language including all the constraints expressible by that constraint language.
+%\begin{itemize}
+	%\item \emph{Expr(DSP)}: constraints expressible by DSP
+	%\item \emph{Expr(OWL2-DL)}: constraints expressible by OWL2-DL
+	%\item \emph{Expr(OWL2-QL)}: constraints expressible by OWL2-QL
+	%\item \emph{Expr(ReSh)}: constraints expressible by ReSh
+	%\item \emph{Expr(ShEx)}: constraints expressible by ShEx
+	%\item \emph{Expr(SPIN)}: constraints expressible by SPIN
+%\end{itemize}
 The next table shows the number of constraints covered by constraint languages and aggregated by expressivity class:
-
 \begin{center}
 \begin{evaluation}
 \emph{Expr(DSP)} (14) & 14 & 13 & 1 & 7(6) & 13 & 13(1) \\
@@ -673,7 +674,6 @@ The next table shows the number of constraints covered by constraint languages a
 \emph{Expr(SPIN)} & & & & & & \\
 \end{evaluation}
 \end{center}
-
 The table implies the expressivity classes' partial orderings:
 \begin{eqnarray*}
 \emph{Expr(DSP):} DSP \succ SPIN \succ OWL2-DL \succeq ShEx \succ ReSh \succ OWL2-QL \\ 
@@ -756,22 +756,24 @@ The table implies the expressivity classes' partial orderings:
 
 \subsection{Complexity}
 
-The next table shows the amount of constraints (of both constraint types) which can be expressed by each constraint language - aggregated by constraint sets regarding complexity. 
+We can determine the performance (i.e. complexity) of a constraint languages by counting the supported constraints grouped by constraint-specific complexity class (see next table). 
+In section \ref{sec:constraints-complexity} we classified constraints with regard of these three complexity classes.
+%How complex are constraint languages in terms of the three complexity classes.
+%The next table shows the amount of constraints (of both constraint types) which can be expressed by each constraint language - aggregated by complexity class. 
 %and sorted by ascending complexity.
-
 \begin{center}
 \begin{constraint-languages-complexity}
 $\mathcal{C}_R ^{\mathcal{QL}}$ (11) & 0 & 11 & 11 & 0(2) & 1 & 11 \\
 %$\mathcal{C}_R ^{\mathcal{DL}}$ (21) & 8 & 21 & 0 & 11 & 10(1) & 21 \\
 $\mathcal{C}_R$ $\equiv$ $\mathcal{C}_R ^{\mathcal{DL}}$(32) & 8 & 32 & 11 & 11(2) & 11(1) & 32 \\ 
 $\overline{\mathcal{C}_R}$ (42) & 6 & 18(4) & 7(4) & 8 & 12 & 41(1)\\
-$\mathcal{C}$ (74) & 14 & 47(4) & 18(4) & 19(2) & 23(1) & 73(1) \\
+%$\mathcal{C}$ (74) & 14 & 47(4) & 18(4) & 19(2) & 23(1) & 73(1) \\
 \end{constraint-languages-complexity}
 \end{center}
-
 %C_R includes four more constraints that is yet unimplemented (C_R \ C_R^DL)
 %$\mathcal{C}_R ^{\mathcal{DL}}$ is the set of constraints which cannot be expressed by OWL 2 QL but additionally by OWL 2 DL.
 %$\mathcal{C}_R ^{\mathcal{QL}}$ constraints are not included in this set.
+The table implies the partial ordering of constraint languages grouped by constraint-specific complexity class: 
 Partial (not necessarily total) orderings according to the total number of constraints are:
 \begin{eqnarray*}
 \mathcal{C}_R ^{\mathcal{QL}}: DSP \subset ReSh \subset ShEx \subset SPIN \subseteq OWL2-QL \subseteq OWL2-DL \\
@@ -779,7 +781,7 @@ Partial (not necessarily total) orderings according to the total number of const
 %\mathcal{C}_R \backslash \mathcal{C}_R ^{\mathcal{DL}}: OWL2-QL \subseteq OWL2-DL \subset DSP \subset ReSh \subseteq ShEx \subset SPIN \\
 \mathcal{C}_R \equiv \mathcal{C}_R ^{\mathcal{DL}}: DSP \subset OWL2-QL \subset ShEx \subset ReSh \subset SPIN \subseteq OWL2-DL \\
 \overline{\mathcal{C}_R}: DSP \subset OWL2-QL \subset ReSh \subset ShEx \subset OWL2-DL \subset SPIN \\
-\mathcal{C}: DSP \subset OWL2-QL \subset ReSh \subset ShEx \subset OWL2-DL \subset SPIN
+%\mathcal{C}: DSP \subset OWL2-QL \subset ReSh \subset ShEx \subset OWL2-DL \subset SPIN
 \end{eqnarray*}
 
 \subsection{Additional Criteria}
