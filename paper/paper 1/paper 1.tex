@@ -667,25 +667,25 @@ There is one expressivity classes for each constraint language including all the
 	%\item \emph{Expr(ShEx)}: constraints expressible by ShEx
 	%\item \emph{Expr(SPIN)}: constraints expressible by SPIN
 %\end{itemize}
-The next table shows the number of constraints covered by constraint languages and aggregated by expressivity class:
+The next table shows the number of fully supported constraints covered by constraint languages and aggregated by expressivity class:
 \begin{center}
 \begin{evaluation}
 \emph{Expr(DSP)} (14) & 14 & 13 & 1 & 7(6) & 13 & 13(1) \\
-\emph{Expr(OWL2-DL)} & & & & & & \\
-\emph{Expr(OWL2-QL)} & & & & & & \\
+\emph{Expr(OWL2DL)} (49) & 13 & 49 & 16(1) & 9(9) & 13(1) & 48(1) \\
+\emph{Expr(OWL2QL)} (16) & 1 & 16 & 16 & 1(2) & 2 & 15(1) \\
 \emph{Expr(ReSh)} (12) & 7 & 9(2) & 1(1) & 12 & 11 & 11(1) \\
-\emph{Expr(ShEx)} & & & & & & \\
-\emph{Expr(SPIN)} & & & & & & \\
+\emph{Expr(ShEx)} (23) & 13 & 19(2) & 2(1) & 11(7) & 23 & 22(1) \\
+\emph{Expr(SPIN)} (73) & 13 & 50(4) & 15(4) & 12(9) & 23(1) & 73 \\
 \end{evaluation}
 \end{center}
 The table implies the expressivity classes' partial orderings:
 \begin{eqnarray*}
-\emph{Expr(DSP):} DSP \succ SPIN \succ OWL2-DL \succeq ShEx \succ ReSh \succ OWL2-QL \\ 
-\emph{Expr(OWL2-DL):} \\
-\emph{Expr(OWL2-QL):} \\
-\emph{Expr(ReSh):} ReSh \succ SPIN \succ ShEx \succ OWL2-DL \succ DSP \succ OWL2-QL \\
-\emph{Expr(ShEx):} \\
-\emph{Expr(SPIN):} \\ 
+\emph{Expr(DSP):} DSP \succ SPIN \succ OWL2-DL \succeq ShEx \succ ReSh \succ OWL2QL \\ 
+\emph{Expr(OWL2DL):} OWL2DL \succ SPIN \succ OWL2QL \succ DSP \succ ShEx \succ ReSh \\
+\emph{Expr(OWL2QL):} OWL2QL \succeq OWL2DL \succ SPIN \succ ShEx \succ ReSh \succ DSP\\
+\emph{Expr(ReSh):} ReSh \succ SPIN \succ ShEx \succ OWL2-DL \succ DSP \succ OWL2QL \\
+\emph{Expr(ShEx):} ShEx \succ SPIN \succ OWL2DL \succ DSP \succ ReSh \succ OWL2QL \\
+\emph{Expr(SPIN):} SPIN \succ OWL2DL \succ ShEx \succ OWL2QL \succ DSP \succ ReSh \\ 
 \end{eqnarray*}
 
 %\subsection{Classification Dimension Expressivity [Old]}
