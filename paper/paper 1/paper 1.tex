@@ -1186,13 +1186,12 @@ In section \ref{Classification-RDF-Constraints-Reasoning-Complexity} we classifi
 We distinguish two disjoint constraint types $\mathcal{C}_{R}$ (constraints with reasoning) and $\overline{\mathcal{C}_{R}}$ (constraints without reasoning) to investigate the affect of reasoning to the validation process.
 Regarding the performance of constraints, we refer to worst case complexity.
 We divide $\mathcal{C}_R$ into two not disjoint classes ($\mathcal{C}_R ^{\mathcal{QL}} \subseteq \mathcal{C}_R ^{\mathcal{DL}}$) for the validation by query answering with OWL 2 QL and OWL 2 DL reasoning respectively.
-We assigned complexity classes to these constraint-specific complexity classes.
-It is, e.g., known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}, 
+It is well known known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}, 
 which is assigned to $\overline{\mathcal{C}_R}$ (validation by query answering without reasoning).
-In section \ref{Classification-Constraint-Languages-Expressivity-Complexity} we classified constraint languages according to expressivity and complexity.
+In section \ref{Classification-Constraint-Languages-Expressivity-Complexity} we classified constraint languages according to expressivity. Later, we discussed briefly the important aspects of the friendliness of a constraint language, which would require a further investigation.
 In sections 
 \ref{sec:RDF-validation-requirements-and-reasoning} and
-\ref{RDF-Validation-Requirements-without-Reasoning}
+\ref{RDF-Validation-Requirements-without-Reasoning},
 we present some constraints for each of the two constraint types $\mathcal{C}_{R}$ and $\overline{\mathcal{C}_{R}}$.
 For $\mathcal{C}_{R}$ constraints we consider the effects of reasoning on validation.
 We fully implemented the validation of all DSP, OWL 2 QL, and OWL 2 DL constructs
@@ -1201,9 +1200,9 @@ within our validation environment (\url{http://purl.org/net/RDFval-demo}) (see s
 As part of future work we extend the validator to provide a list of constraint languages for which the expressivity is enough to express selected constraints.
 The validator may also recommend one of these constraint languages having the highest expressivity and lowest complexity.
 As reasoning may cause high complexity, the validator may show which constraints from the user's selection cause the higher complexity class 
-and it may provide solutions how to get to the next lower complexity class.
+and it may provide solutions how to get to the next lower complexity class. In this regard, it would be charming to have an estimation on which group of constraints would demand what class of complexity. However, this is not an easy question, since complexity results are language specific and operational semantics is involved as well. Therefore, it is hard to maintain a general complexity result for a constraint independent of the language chosen. Yet, providing an estimation for particular cases can still be straightforward.
 
-%evaluation constraint languages according to complexity / ideas of Erman
+
 
 \bibliography{../../literature/literature}{}
 \bibliographystyle{plain}
