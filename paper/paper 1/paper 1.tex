@@ -606,7 +606,7 @@ The  relation between those complexity classes is well-known \cite{Arora:2009:CC
 %There are constraints (e.g., class-specific property range, class-specific reflexive object properties) for which reasoning could be executed even though there is currently no implementation supported by any constraint language. 
 %We leave it as future work to write SPARQL CONSTRUCT queries in order to provide reasoning for these constraints.
 
-\section{Classification of Constraint Languages according to Expressivity and Complexity}
+\section{Classification of Constraint Languages according to Expressivity}
 \label{Classification-Constraint-Languages-Expressivity-Complexity}
  
  In this section, we concern ourselves with the expressivity of constraint languages, or constraint specific expressivity.
@@ -650,19 +650,14 @@ Numbers in round brackets in the other columns indicate the number of constraint
 The total orderings derived from expressivity scores are:
 \begin{eqnarray*}
 %Expr(\mathcal{C}): ... \\
-Expr(\overline{\mathcal{C}_R}): DSP \succ OWL2QL \succ ReSh \succ ShEx \succ OWL2DL \succ SPIN \\
-Expr(\mathcal{C}_R): DSP \succ OWL2QL \succ ShEx \succ ReSh \succ OWL2DL \succ SPIN
+Expr(\overline{\mathcal{C}_R}): DSP \prec OWL2QL \prec ReSh \prec ShEx \prec OWL2DL \prec SPIN \\
+Expr(\mathcal{C}_R): DSP \prec OWL2QL \prec ShEx \prec ReSh \prec OWL2DL \prec SPIN
 \end{eqnarray*}
 It depends on the individual use case which constraint language to use in order to fulfil related requirements, i.e., to express associated constraints.
 If, e.g., many constraint types (requirements) in $\mathcal{C_R}$ are needed, the constraint language SPIN is the most expressive one.
-If, on the other side, only specific requirements in $\overline{\mathcal{C_R}}$ or $\mathcal{C_R}$ are needed for particular use cases, 
-the relative expressivity of both constraint classes can be the same for the constraint languages DSP and OWL2-DL, 
-even though the overall expressivity of OWL2-DL is much higher for both constraint classes.
+If, on the other hand, only specific requirements in $\overline{\mathcal{C_R}}$ or $\mathcal{C_R}$ are needed, 
+it can be more reasonable to use a compact one.
 
-It depends on the individual use case, which constrains are needed to express and therefore which constraint language to choose.
-If, for instance, reasoning should not be performed and three particular constraints should be covered by the constraint language.
-Even if the \emph{absolute expressivity score} ($Expr(\overline{\mathcal{C}_R})$) of SPIN is much higher than the one of ShEx (ShEx $\subset$ SPIN), 
-the \emph{relative expressivity score} could be the same for ShEx and SPIN - in case the three constraints are covered by both.
 
 \subsubsection{Classical Expressivity Classes}
 
