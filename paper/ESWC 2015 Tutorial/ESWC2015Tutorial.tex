@@ -177,7 +177,7 @@
 %
 %
 \title{Let’s Disco – Publishing person-level data as Linked Data.}
-\subtitle{Building a Data Portal with DCAT, DDI-RDF Discovery, PHDD, and other vocabularies.\bz{Ben's Kommentar}
+\subtitle{Building a Highly-Complex Data Set with Disco, PHDD, XKOS and widely used vocabularies.
 }
 %
 \titlerunning{XXXXX}  % abbreviated title (for running head)
@@ -206,7 +206,7 @@ In different real world use cases, we demonstrate the adoption and inclusion of 
 Existing DDI instances are stored in form of XML documents which can be transformed into DDI-RDF and therefore exposed as Linked Data.
 We describe typical constraints on metadata of DDI metadata, as well as how to formulate them by different constraint languages (e.g. OWL 2) and how to actually validate them.
 
-\keywords{DDI-RDF Discovery Vocabulary, Disco, Microdata, Microdata Metadata, Discovery of Microdata, Data Documentation Initiative, DDI, Linked Data, Semantic Web}
+\keywords{DDI-RDF Discovery Vocabulary, Disco, Microdata Metadata, Data Documentation Initiative, Linked Data}
 \end{abstract}
 %
 
@@ -234,7 +234,7 @@ The DDI (Data Documentation Initiative) is a structured metadata standard relate
 It started out in the mid-1990s as a replacement for traditional archival code books documenting research data, and then branched off to cover the research data life cycle. Over time, as the data landscape has
 changed, the DDI XML specifications have evolved to add new coverage and functionality to respond to new user requirements.
 While the Data Documentation Initiative (DDI) is an international metadata standard with origins in the quantitative social sciences, it is increasingly being used by researchers and practitioners in other disciplines. The DDI specifications are also being used to document other data types, such as social media, biomarkers, administrative data, and transaction data. The specification itself is modular and can document and manage different stages of the data lifecycle, such as conceptualization, collection, processing, analysis, distribution, discovery, repurposing, and archiving.
-Existing DDI-XML instances can be transformed into this RDF format and therefore exposed as Linked Data. This workshop aims to present the Disco vocabulary and its practical appliance with DDI metadata in detail.
+This workshop aims to present the Disco vocabulary and its practical appliance with DDI metadata in detail.
  
 For a publication of DDI metadata as Linked Data, widely accepted and adopted RDF vocabularies (e.g. RDF Data Cube, DCAT, and PHDD) are reused to a large extend. The workshop organizers show how Disco is interwoven with these vocabularies. The Data Cube vocabulary is a W3C standard for representing data cubes representing multidimensional aggregate data derived from microdata which is represented by Disco. DCAT is a W3C standard for describing catalogs of datasets. Physical data description (PHDD) represents data (tables) in a rectangular format. The data could be either represented in records with character-separated values (CSV) or in records with fixed length. The combined usage of PHDD, Disco, and DCAT enables the creation of data repositories which provide metadata for the description of collections, for data discovery, and for processing of the data. 
 
@@ -259,13 +259,20 @@ In this tutorial, the DDI-RDF Discovery vocabulary (Disco) and its interplay wit
 
 \subsection{Scope and Level of Detail of the Material}
 
+During the tutorial, we built one real world complex data set which serves as ongoing running example. 
+The whole data set can be exported from the Microdata Information System\footnote{\url{http://www.gesis.org/missy/editor/}}. 
+In all sessions, there will be practical hands-on exercises where the participants are asked to model and query particular parts of this data set. 
+The infrastructure for these exercises, i.e. a triple store, will be provided for all participants.
+We will extend slides of a previous tutorial\footnote{tutorial slides avaliable at: \url{http://de.slideshare.net/boschthomas/201412-lets-disco-eddi-2014} and \url{http://de.slideshare.net/boschthomas/201412-lets-disco-2-eddi-2014}} 
+and where appropriate refer to the current Disco specification\footnote{current specification is available at \url{https://github.com/linked-statistics/disco-spec}}.
+
 \subsection{Intended Audiences}
 Linked Data experts that are interested in modelling and publishing complex and highly inter-connected data sets as Linked Data.
 
 \subsection{Learning Objectives}
 The learning objectives of this tutorial are the following:
 \begin{itemize} 
-\item Introduction of Disco for modelling complex person-level micro data
+\item Introduction of Disco, PHDD, and XKOS for modelling complex person-level micro data
 \item Representing the interplay of Disco data with existing vocabularies
 \item Validation of Disco
 \end{itemize}
@@ -279,7 +286,7 @@ We propose a full-day workshop. In the previous tutorial about disco, we experie
 
 \section{Previous Versions or Related Tutorials}
 
-Thomas Bosch and Benjamin Zapilko held a half-day tutorial\footnote{tutorial slides avaliable at: \url{http://de.slideshare.net/boschthomas/201412-lets-disco-eddi-2014} and \url{http://de.slideshare.net/boschthomas/201412-lets-disco-2-eddi-2014}} at the EDDI14 – 6th Annual European DDI User Conference in London\footnote{\url{http://www.eddi-conferences.eu/ocs/index.php/eddi/eddi14/schedConf/program}}.
+Thomas Bosch and Benjamin Zapilko held a half-day tutorial at the EDDI14 – 6th Annual European DDI User Conference in London\footnote{\url{http://www.eddi-conferences.eu/ocs/index.php/eddi/eddi14/schedConf/program}}.
 The tutorial was well received and the presenters got overall positive feedback. Since the audience of disco is two-fold - data professionals and the DDI community at the one hand and Linked Data experts at the other hand - the idea was to offer this tutorial at the ESWC conference as well.
 At the EDDI conference, the first part of the audience - data professionals and the DDI community - was addressed.
 At the ESWC conference, the second part of our audience - Linked Data experts - will be addressed.
@@ -294,6 +301,11 @@ More specifically, he investigates how to validate any RDF constraints (formulat
 He held multiple presentations at international conferences and workshops (e.g. WWW, ISWC, DC, Dagstuhl seminars). 
 
 Benjamin Zapilko holds a degree in Computer Science and has recently finished his PhD thesis about methods for matching social science relevant Linked Data. The defense talk will be at the end of January. Beside his PhD research, he works on modelling and publishing social science relevant data as Linked Data with the focus on data modelling and integration of heterogeneous data sources and information types. He presented his work at several international conferences.
+
+Joachim Wackerow holds a degree in sociology. 
+He is the vice chair of the DDI Alliance Technical Committee whose charge is to create, maintain, and enhance the DDI specification.
+He is the chair of the DDI Alliance RDF Vocabularies Working Group whose charge is to develop RDF vocabularies for efficient use of DDI metadata in the context of the Semantic Web/Linked Data.
+He organizes the annual European DDI user conferences and holds DDI introduction workshops.
 
 \bibliography{../../literature/literature}{}
 \bibliographystyle{plain}
