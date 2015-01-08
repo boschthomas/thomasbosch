@@ -605,21 +605,19 @@ The  relation between those complexity classes is well-known \cite{Arora:2009:CC
 
 \section{Classification of Constraint Languages according to Expressivity and Complexity}
  
-We evaluated the five most popular constraint languages on fulfilling each requirement to formulate RDF constraints.
-We also evaluated if a specific requirement is covered by OWL 2 QL or the more expressive OWL 2 DL is needed \cite{BoschNolleAcarEckert2015}.
-In this section, we determine the expressivity of constraint languages in terms of classical computer science expressivity classes as well as an expressivity score on reasoning.
-As we identified three constraint-specific complexity classes in the previous section, we are now able to determine the performance (i.e. complexity) of constraint languages. 
-It can be beneficial not using the most expressive constraint languages when additional rather subjective criteria are evaluated.
+ In this section, we concern ourselves with the expressivity of constraint languages, or constraint specific expressivity.
+Therefore, we evaluated the five most popular constraint languages on fulfilling each requirement to formulate RDF constraints.
+We also evaluated if a specific requirement is expressed by OWL 2 QL or the more expressive OWL 2 DL is needed.\cite{BoschNolleAcarEckert2015}.
+ 
+%As we identified three constraint-specific complexity classes in the previous section, we are now able to determine the performance (i.e. complexity) of constraint languages.  It can be beneficial not using the most expressive constraint languages when additional rather subjective criteria are evaluated.
 
 \subsection{Expressivity}
 
 \subsubsection{Expressivity Score}
 
-\newline 
-As we want to be able to perform reasoning before actually validating the data,
-we use the two types of constraints - \emph{constraints without reasoning} and \emph{constraints with reasoning} - as criteria to measure constraint-specific expressivity.
-Expressivity scores (on how many of those constraints can be expressed by a particular constraint language) are:
 
+In evaluating the expressivity,  we introduce the intuitive notion of \emph{expressivity scores}. Expressivity score of a constraint language is how many of constraints can be expressed by this particular constraint language.
+While we evaluate expressivity scores, we use two sets of constraints (constraint types) as before: $C_R$ and $\overline{C_R}$. The main motivation in that is, one may want to perform reasoning before actually validating the data. 
 \begin{enumerate}
   %\item $Expr(\mathcal{C})$: set of all constraints
 	\item $Expr(\overline{\mathcal{C}_R})$: constraints without reasoning 
@@ -629,8 +627,8 @@ Expressivity scores (on how many of those constraints can be expressed by a part
 %\emph{constraints with reasoning} can be used as axioms to infer new triples out of explicitly stated triples (see section \ref{sec:RDF-validation-requirements-and-reasoning}), but also to express constraints without reasoning. \er{Also to express constraints?}\tb{also to express constraints without reasoning}
 %If in our knowledge base it is stated that \ms{DarthVader} is a \ms{Sith} (e.g., \ms{Sith(DarthVader)}) and  Siths feel the force of the dark side (e.g., \ms{Sith $\sqsubseteq$ FeelingForceDarkSide}), it is either possible to infer that \ms{DarthVader} feels the force of the dark side (\ms{FeelingForceDarkSide(DarthVader)}) 
 %or to check if this class assignment is explicitly stated in the data without reasoning. 
-Although, there are no reasoning implementations for  constraint languages other than OWL 2 available yet, 
-\emph{constraints with reasoning} cannot only be expressed by OWL 2 but also by other constraint languages. 
+Although  OWL 2  is the only implementation (which can be used/considered as a constraint language) with reasoning features, 
+some requirements in $\mathcal{C}_R$ is not only expressed by OWL 2  but also by other constraint languages. 
 %\er{This is again the part I don't understand.}\tb{but also by other constraint languages}
 
 \begin{center}
@@ -644,17 +642,17 @@ $Expr(\mathcal{C}_R)$ (32) & 8 & 29 & 11 & 11(2) & 11(1) & 32 \\
 In the table above, the total amount of constraints per constraint type is shown by numbers in round brackets in the first column.
 Numbers in round brackets in the other columns indicate the number of constraints which may be expressed by that particular constraint language - either by limitations, workarounds, or extensions.  
 %\er{One possible misunderstanding (maybe not) is the ordering. It is not only based on the size of the number of the constrains that they satisfies right? For instance, if there are 6 constraints (from EXPR-C) that  DSP satisfies and OWL2-DL  can satisfy lets say only 5 of them but 13 other, in such scenario OWL2 DL and DSP would be incomparable (no ordering). It is more expressive only if it contains those 6 and extras.}
-Total orderings are:
+The total orderings derived from expressivity scores are:
 \begin{eqnarray*}
 %Expr(\mathcal{C}): ... \\
-Expr(\overline{\mathcal{C}_R}): DSP \subset OWL2-QL \subset ReSh \subset ShEx \subset OWL2-DL \subset SPIN \\
-Expr(\mathcal{C}_R): DSP \subset OWL2-QL \subset ShEx \subset ReSh \subset OWL2-DL \subset SPIN
+Expr(\overline{\mathcal{C}_R}): DSP \succ OWL2QL \succ ReSh \succ ShEx \succ OWL2DL \succ SPIN \\
+Expr(\mathcal{C}_R): DSP \succ OWL2QL \succ ShEx \succ ReSh \succ OWL2DL \succ SPIN
 \end{eqnarray*}
-It depends on the individual use case which constraint language to use in order to fulfill related requirements, i.e., to express associated constraints.
-If, e.g., many \emph{constraints with reasoning} are needed, the constraint language SPIN is the most expressive one.
-If, on the other side, only specific \emph{constraints without reasoning} or \emph{constraints with reasoning} are needed for particular use cases, 
+It depends on the individual use case which constraint language to use in order to fulfil related requirements, i.e., to express associated constraints.
+If, e.g., many constraint types (requirements) in $\mathcal{C_R}$ are needed, the constraint language SPIN is the most expressive one.
+If, on the other side, only specific requirements in $\overline{\mathcal{C_R}}$ or $\mathcal{C_R}$ are needed for particular use cases, 
 the relative expressivity of both constraint classes can be the same for the constraint languages DSP and OWL2-DL, 
-even though the absolute expressivity of OWL2-DL is much higher for both constraint classes.
+even though the overall expressivity of OWL2-DL is much higher for both constraint classes.
 
 It depends on the individual use case, which constrains are needed to express and therefore which constraint language to choose.
 If, for instance, reasoning should not be performed and three particular constraints should be covered by the constraint language.
@@ -766,37 +764,37 @@ The table implies the expressivity classes' partial orderings:
 %It depends on the use case which constraint language to use to fulfill related requirements, i.e. to express associated constraints.
 %If, for instance, OWL2-QL reasoning is needed the constraint languages OWL2-QL, OWL2-DL, or SPIN are the most expressive ones.
 
-\subsection{Complexity}
+%\subsection{Complexity}
 
-We can determine the performance (i.e. complexity) of a constraint languages by counting the supported constraints grouped by constraint-specific complexity class (see next table). 
-In section \ref{sec:constraints-complexity} we classified constraints with regard of these three complexity classes.
+%We can determine the performance (i.e. complexity) of a constraint languages by counting the supported constraints grouped by constraint-specific complexity class (see next table). 
+%In section \ref{sec:constraints-complexity} we classified constraints with regard of these three complexity classes.
 %How complex are constraint languages in terms of the three complexity classes.
 %The next table shows the amount of constraints (of both constraint types) which can be expressed by each constraint language - aggregated by complexity class. 
 %and sorted by ascending complexity.
-\begin{center}
-\begin{constraint-languages-complexity}
-$\mathcal{C}_R ^{\mathcal{QL}}$ (11) & 0 & 11 & 11 & 0(2) & 1 & 11 \\
+%\begin{center}
+%\begin{constraint-languages-complexity}
+%$\mathcal{C}_R ^{\mathcal{QL}}$ (11) & 0 & 11 & 11 & 0(2) & 1 & 11 \\
 %$\mathcal{C}_R ^{\mathcal{DL}}$ (21) & 8 & 21 & 0 & 11 & 10(1) & 21 \\
-$\mathcal{C}_R$ $\equiv$ $\mathcal{C}_R ^{\mathcal{DL}}$(32) & 8 & 32 & 11 & 11(2) & 11(1) & 32 \\ 
-$\overline{\mathcal{C}_R}$ (42) & 6 & 18(4) & 7(4) & 8 & 12 & 41(1)\\
+%$\mathcal{C}_R$ $\equiv$ $\mathcal{C}_R ^{\mathcal{DL}}$(32) & 8 & 32 & 11 & 11(2) & 11(1) & 32 \\ 
+%$\overline{\mathcal{C}_R}$ (42) & 6 & 18(4) & 7(4) & 8 & 12 & 41(1)\\
 %$\mathcal{C}$ (74) & 14 & 47(4) & 18(4) & 19(2) & 23(1) & 73(1) \\
-\end{constraint-languages-complexity}
-\end{center}
+%\end{constraint-languages-complexity}
+%\end{center}
 %C_R includes four more constraints that is yet unimplemented (C_R \ C_R^DL)
 %$\mathcal{C}_R ^{\mathcal{DL}}$ is the set of constraints which cannot be expressed by OWL 2 QL but additionally by OWL 2 DL.
 %$\mathcal{C}_R ^{\mathcal{QL}}$ constraints are not included in this set.
-The table implies the partial ordering of constraint languages grouped by constraint-specific complexity class: 
-Partial (not necessarily total) orderings according to the total number of constraints are:
-\begin{eqnarray*}
-\mathcal{C}_R ^{\mathcal{QL}}: DSP \subset ReSh \subset ShEx \subset SPIN \subseteq OWL2-QL \subseteq OWL2-DL \\
+%The table implies the partial ordering of constraint languages grouped by constraint-specific complexity class: %
+%Partial (not necessarily total) orderings according to the total number of constraints are:
+%\begin{eqnarray*}
+%\mathcal{C}_R ^{\mathcal{QL}}: DSP \subset ReSh \subset ShEx \subset SPIN \subseteq OWL2-QL \subseteq OWL2-DL \\
 %\mathcal{C}_R ^{\mathcal{DL}}: OWL2-QL \subset DSP \subset ShEx \subset ReSh \subset SPIN \subseteq OWL2-DL \\
 %\mathcal{C}_R \backslash \mathcal{C}_R ^{\mathcal{DL}}: OWL2-QL \subseteq OWL2-DL \subset DSP \subset ReSh \subseteq ShEx \subset SPIN \\
-\mathcal{C}_R \equiv \mathcal{C}_R ^{\mathcal{DL}}: DSP \subset OWL2-QL \subset ShEx \subset ReSh \subset SPIN \subseteq OWL2-DL \\
-\overline{\mathcal{C}_R}: DSP \subset OWL2-QL \subset ReSh \subset ShEx \subset OWL2-DL \subset SPIN
+%\mathcal{C}_R \equiv \mathcal{C}_R ^{\mathcal{DL}}: DSP \subset OWL2-QL \subset ShEx \subset ReSh \subset SPIN \subseteq OWL2-DL \\
+%\overline{\mathcal{C}_R}: DSP \subset OWL2-QL \subset ReSh \subset ShEx \subset OWL2-DL \subset SPIN
 %\mathcal{C}: DSP \subset OWL2-QL \subset ReSh \subset ShEx \subset OWL2-DL \subset SPIN
-\end{eqnarray*}
+%\end{eqnarray*}
 
-\subsection{Additional Criteria}
+\subsection{About User-Friendliness}
 
 SPIN is the most expressive constraint language (regarding both expressivity scores $Expr(\overline{\mathcal{C}_R})$ and $Expr(\mathcal{C}_R)$).
 It can be beneficial, however, to use other constraint languages to meet particular use cases when additional rather subjective criteria are evaluated.
@@ -855,7 +853,7 @@ The only well adopted and therefore well known constraint languages are SPIN and
 %These user-friendliness classes could also be evaluated more fine granular for each constraint (and not only for each constraint language).
 %Tools could then recommend for each user-friendliness class or in total which constraint language to use in order to express a particular constraint or sets of constraints. 
 
-\subsection{Overall Classification}
+%\subsection{Overall Classification}
    
 %\begin{figure}
 	%\centering
@@ -863,7 +861,8 @@ The only well adopted and therefore well known constraint languages are SPIN and
 	%\caption{Expressivity and Complexity}
 	%\label{fig:expressivity-complexity}
 %\end{figure}
-\tb{do we need this section? do we need a figure?}
+
+
 
 %Expressivity and complexity classes can be combined in a diagram (see figure Figure~\ref{fig:expressivity-complexity}).
 
