@@ -279,6 +279,7 @@ and the Web Ontology Language (OWL 2)\footnote{\url{http://www.w3.org/TR/owl2-sy
 \section{Motivation}
 
 In this paper, we describe each requirement within the RDF validation requirements database in detail (sections 3-76).
+Additional descriptions can be found directly in the database.
 Each requirement corresponds to an RDF constraint which may be expressible by multiple constraint languages.
 For each requirement, we represent some examples in different constraint languages.
 
@@ -2630,21 +2631,10 @@ Not expressible in DL!
 
 \section{String Operations}
 
-requirement:
-
-\begin{itemize}
-	\item R-194-PROVIDE-STRING-FUNCTIONS-FOR-RDF-LITERALS
-\end{itemize}
-
-\begin{itemize}
-	\item Some constraints require building new strings out of other strings
-\end{itemize}
-
-examples:
-
-\begin{itemize}
-	\item string length
-\end{itemize}
+\ms{String Operations} corresponds to the requirement
+\ms{R-194-PROVIDE-STRING-} \ms{FUNCTIONS-FOR-RDF-LITERALS}.
+Some constraints require building new strings out of other strings.
+Calculating the string length would also be another constraint of this type.
 
 \subsection{Simple Example}
 
@@ -2660,15 +2650,11 @@ property & Book & hasISBN & - & xsd:string & length & 3 \\
 
 \section{Context-Specific Valid Classes}
 
-requirements:
 
-\begin{itemize}
-	\item R-209-VALID-CLASSES
-\end{itemize}
-
-\begin{itemize}
-	\item What types of resources (rdf:type) are valid in this context? Context can be an input stream, a data creation function, or an API.
-\end{itemize}
+\ms{Context-Specific Valid Classes} corresponds to the requirements \\
+\ms{R-209-VALID-CLASSES}.
+What types of resources (rdf:type) are valid in a specific context? 
+Context can be an input stream, a data creation function, or an API.
 
 \subsection{Simple Example}
 
@@ -2684,15 +2670,10 @@ class & AP & - & - & Book, Paper & context-specific valid classes & true \\
 
 \section{Context-Specific Valid Properties}
 
-requirements:
-
-\begin{itemize}
-	\item R-210-VALID-PROPERTIES
-\end{itemize}
-
-\begin{itemize}
-	\item What properties can be used within this context? Context can be an data receipt function, data creation function, API, etc.
-\end{itemize}
+\ms{Context-Specific Valid Properties} corresponds to the requirement
+\ms{R-210-} \ms{VALID-PROPERTIES}.
+What properties can be used within this context? 
+Context can be an data receipt function, data creation function, or API.
 
 \subsection{Simple Example}
 
@@ -2708,21 +2689,11 @@ property & AP & dcterms:subject, dcterms:title & - & - & context-specific valid 
 
 \section{Default Values}
 
-requirements:
-
-\begin{itemize}
-	\item R-31-DEFAULT-VALUES-OF-RDF-OBJECTS
-  \item R-38-DEFAULT-VALUES-OF-RDF-LITERALS
-\end{itemize}
-
-
-
-\begin{itemize}
-	\item default values for RDF literals
-	\item default values for RDF objects
-	\item default values are inferred automatically
-	\item It should be possible to declare the default value for a given property, e.g. so that input forms can be pre-populated and to insert a required property that is missing in a web service call. 
-\end{itemize}
+\ms{Default Values} corresponds to the requirements
+\ms{R-31-DEFAULT-VALUES-OF-RDF-} \ms{OBJECTS} and
+\ms{R-38-DEFAULT-VALUES-OF-RDF-LITERALS}.
+Default values for objects and literals are inferred automatically.
+It should be possible to declare the default value for a given property, e.g. so that input forms can be pre-populated and to insert a required property that is missing in a web service call. 
 
 \subsection{Simple Example}
 
@@ -2737,41 +2708,39 @@ owl:Thing
         a sp:Construct ;
             sp:text """
                 CONSTRUCT {            
-                    ?this :laserSwordColor "blue"^^xsd:string ;
-                    ?this :numberLaserSwords "1"^^xsd:nonNegativeInteger . 
+                    ?this laserSwordColor "blue"^^xsd:string ;
+                    ?this numberLaserSwords "1"^^xsd:nonNegativeInteger . 
                 }
                 WHERE {             
-                    ?this a :Jedi .            
+                    ?this a Jedi .            
                 } """ ; ] .
 owl:Thing
     spin:rule [
         a sp:Construct ;
             sp:text """
                 CONSTRUCT {
-                    ?this :laserSwordColor "red"^^xsd:string ;
-                    ?this :numberLaserSwords "2"^^xsd:nonNegativeInteger . 
+                    ?this laserSwordColor "red"^^xsd:string ;
+                    ?this numberLaserSwords "2"^^xsd:nonNegativeInteger . 
                 }
                 WHERE {             
-                    ?this a :Sith .            
+                    ?this a Sith .            
                 } """ ; ] .
 \end{ex}
 
 \begin{ex}
-# data
-# ----
-:Joda a :Jedi .
-:DarthSidious a :Sith .
+# data:
+Joda a Jedi .
+DarthSidious a Sith .
 \end{ex}
 
 \begin{ex}
-# inferred triples
-# ----------------
-:Joda 
-    :laserSwordColor "blue"^^xsd:string ;
-    :numberLaserSwords "1"^^xsd:nonNegativeInteger .
-:DarthSidious 
-    :laserSwordColor "red"^^xsd:string ;
-    :numberLaserSwords "2"^^xsd:nonNegativeInteger .
+# inferred triples:
+Joda 
+    laserSwordColor "blue"^^xsd:string ;
+    numberLaserSwords "1"^^xsd:nonNegativeInteger .
+DarthSidious 
+    laserSwordColor "red"^^xsd:string ;
+    numberLaserSwords "2"^^xsd:nonNegativeInteger .
 \end{ex}
 
 \begin{DL}
@@ -2787,17 +2756,12 @@ property & Sith & numberLaserSwords & - & - & default values & '2' \\
 
 \section{Mathematical Operations}
 
-requirements:
-
+\ms{Mathematical Operations} corresponds to the requirements
 \begin{itemize}
-	\item R-42-MATHEMATICAL-OPERATIONS
-	\item R-41-STATISTICAL-COMPUTATIONS
+	\item \ms{R-42-MATHEMATICAL-OPERATIONS} and
+  \item \ms{R-41-STATISTICAL-COMPUTATIONS}.
 \end{itemize}
-
-
-
-examples:
-
+Examples are:
 \begin{itemize}
 	\item adding 2 dates
 	\item add number of days to start date
@@ -2819,11 +2783,8 @@ property & Rectangle & area & width, height & xsd:integer & multiplication & - \
 
 \section{Language Tag Matching}
 
-requirement:
-
-\begin{itemize}
-	\item R-47-LANGUAGE-TAG-MATCHING
-\end{itemize}
+\ms{Language Tag Matching} corresponds to the requirement \\
+\ms{R-47-LANGUAGE-TAG-MATCHING}.
 
 \subsection{Simple Example}
 
@@ -2839,53 +2800,44 @@ property & $\top$ & name & - & - & language tag & 'en' \\
 
 \section{Language Tag Cardinality}
 
-requirements:
-
+\ms{Language Tag Cardinality} corresponds to the requirements
 \begin{itemize}
-	\item R-49-RDF-LITERALS-HAVING-AT-MOST-ONE-LANGUAGE-TAG
-	\item R-48-MISSING-LANGUAGE-TAGS
+	\item \ms{R-49-RDF-LITERALS-HAVING-AT-MOST-ONE-LANGUAGE-TAG} and
+	\item \ms{R-48-MISSING-LANGUAGE-TAGS}.
 \end{itemize}
 
 \subsection{Simple Example}
 
-check that no language is used more than once per property
+Check that no language is used more than once per property
 
 \begin{ex}
-# DQTP
-# ----
+# DQTP:
 SELECT DISTINCT ?s WHERE { ?s %%P1%% ?c
     BIND ( lang(?c) AS ?l )
     FILTER (isLiteral (?c) && lang(?c) = %%V1%%)}
 GROUP BY ?s HAVING COUNT (?l) > 1
 \end{ex}
 
-\begin{itemize}
-	\item ONELANGPattern \cite{Kontokostas2014} 
-  \item A literal value should contain at most 1 literal for a language. 
-  \item P1 is the property containing the literal and V1 is the language we want to check.
-\end{itemize}
+This corresponds to the test pattern \ms{ONELANGPattern} \cite{Kontokostas2014}.
+A literal value should contain at most 1 literal for a language. 
+\ms{P1} is the property containing the literal and \ms{V1} is the language we want to check.
 
 \begin{ex}
-# test binding (DQTP)
----------------------
+# test binding (DQTP):
 P1 => foaf:name
 V1 => en
 \end{ex}
 
-\begin{itemize}
-	\item a single English (“en”) foaf:name
-\end{itemize}
+A single English (“en”) \ms{foaf:name}.
 
 \begin{ex}
-# valid data
-# ----------
+# valid data:
 :LeiaSkywalker
     foaf:name 'Leia Skywalker'@en .
 \end{ex}
 
 \begin{ex}
-# invalid data
-# ------------
+# invalid data:
 :LeiaSkywalker
     foaf:name 'Leia Skywalker'@en ;
     foaf:name 'Leia'@en .
