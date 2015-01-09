@@ -1,1 +1,5 @@
 - validation with Datalog
+- validation of person-level data sets metadata
+- Description Set Profiles 2.0
+- reverse engineering of RDF constraints out of data
+- visualization of constraint violations
