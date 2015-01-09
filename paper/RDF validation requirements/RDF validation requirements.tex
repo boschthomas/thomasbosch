@@ -506,7 +506,8 @@ property & $\top$ & parentOf & childOf & $\top$ & $\ne$ \\
 
 \section{Intersection}
 
-\ms{Intersection} (composition, conjunction) corresponds to the requirements \ms{R-15-CONJUNCTION-OF-CLASS-EXPRESSIONS} and \ms{R-16-CONJUNCTION-OF-DATA-RANGES}.
+\ms{Intersection} (composition, conjunction) corresponds to the requirements \\
+\ms{R-15-CONJUNCTION-OF-CLASS-EXPRESSIONS} and \ms{R-16-CONJUNCTION-OF-DATA-} \ms{RANGES}.
 DLs allow new concepts and roles to be
 built using a variety of different constructors. We distinguish concept and role 
 constructors depending on whether concept or role expressions are constructed. In the case of
@@ -2853,19 +2854,14 @@ property & $\top$ & foaf:name & - & - & language tag exact cardinality & 1 \\
 
 \section{Whitespace Handling}
 
-requirement:
-
-\begin{itemize}
-	\item R-50-WHITESPACE-HANDLING-OF-RDF-LITERALS
-\end{itemize}
-
-\begin{itemize}
-	\item avoid whitespaces in literals neither leading nor trailing white spaces
-\end{itemize}
+\ms{Whitespace Handling} corresponds to the requirement
+\ms{R-50-WHITESPACE-} \\
+\ms{HANDLING-OF-RDF-LITERALS}.
+Avoid whitespaces in literals neither leading nor trailing white spaces.
 
 \subsection{Simple Example}
 
-check if literals of the property \ms{p} do not include whitespaces
+Check if literals of the property \ms{p} do not include whitespaces.
 
 \begin{DL}
 Not expressible in DL!
@@ -2877,19 +2873,13 @@ property & $\top$ & p & - & - & whitespace & - \\
 
 \section{HTML Handling}
 
-requirement:
-
-\begin{itemize}
-	\item R-51-HTML-HANDLING-OF-RDF-LITERALS
-\end{itemize}
-
-\begin{itemize}
-	\item check if there are no HTML tags included in literals (of specific data properties within the context of specific classes)
-\end{itemize}
+\ms{HTML Handling} corresponds to the requirement
+\ms{R-51-HTML-HANDLING-OF-RDF-} \ms{LITERALS}.
+Check if there are no HTML tags included in literals (of specific data properties within the context of specific classes).
 
 \subsection{Simple Example}
 
-check if literals of the property \ms{p} of the class \ms{C} do not include HTML tags
+Check if literals of the property \ms{p} of the class \ms{C} do not include HTML tags.
 
 \begin{DL}
 Not expressible in DL!
@@ -3004,67 +2994,57 @@ property & C & p & - & - & recommended & - \\
 
 \section{Negative Property Constraints}
 
-requirements:
-
+\ms{Negative Property Constraints} corresponds to the requirements
 \begin{itemize}
-	\item R-52-NEGATIVE-OBJECT-PROPERTY-CONSTRAINTS
-	\item R-53-NEGATIVE-DATA-PROPERTY-CONSTRAINTS
+	\item \ms{R-52-NEGATIVE-OBJECT-PROPERTY-CONSTRAINTS} and
+	\item \ms{R-53-NEGATIVE-DATA-PROPERTY-CONSTRAINTS}.
 \end{itemize}
-
-\begin{itemize}
-	\item instances of a specific class must not have some object property
-  \item OWL 2 DL: ObjectComplementOf ( ObjectSomeValuesFrom ( ObjectPropertyExpression owl:Thing ) )
-\end{itemize}
+Instances of a specific class must not have some object property.
+In OWL 2 DL, this can be expressed as follows: \ms{ObjectComplementOf ( ObjectSomeValuesFrom ( ObjectPropertyExpression owl:Thing ) )}.
 
 \subsection{Example}
 
 \begin{ex}
-# ShEx
-# ----
+# ShEx:
 <FeelingForce> {
-    :feelingForce (true) ,
-    :attitute xsd:string }
+    feelingForce (true) ,
+    attitute xsd:string }
 <JediMentor> {
-    :feelingForce (true) ,
-    :attitute ('good') ,
-    :laserSwordColor xsd:string ,
-    :numberLaserSwords xsd:nonNegativeInteger ,
-    :mentorOf @<JediStudent> ,
-   !:studentOf @<JediMentor> }
+    feelingForce (true) ,
+    attitute ('good') ,
+    laserSwordColor xsd:string ,
+    numberLaserSwords xsd:nonNegativeInteger ,
+    mentorOf @<JediStudent> ,
+   !studentOf @<JediMentor> }
 <JediStudent> {
-    :feelingForce (true) ,
-    :attitute ('good') ,
-    :laserSwordColor xsd:string ,
-    :numberLaserSwords xsd:nonNegativeInteger ,
-   !:mentorOf @<JediStudent> ,
-    :studentOf @<JediMentor> }
+    feelingForce (true) ,
+    attitute ('good') ,
+    laserSwordColor xsd:string ,
+    numberLaserSwords xsd:nonNegativeInteger ,
+   !mentorOf @<JediStudent> ,
+    studentOf @<JediMentor> }
 \end{ex}
 
-\begin{itemize}
-	\item A matching triple has any predicate except those excluded by the '!' operator.
-  \item \url{http://w3.org/brief/Mzk0}
-\end{itemize}
+A matching triple has any predicate except those excluded by the '!' operator.
 
 \begin{ex}
-# individuals matching 'FeelingForce' and 'JediMentor' data shapes
-# ----------------------------------------------------------------
-:Obi-Wan 
-    :feelingForce true ;
-    :attitute 'good' ;
-    :laserSwordColor 'blue' ;
-    :numberLaserSwords '1'^^xsd:nonNegativeInteger ;
-    :mentorOf :Anakin .
+# individuals matching 'FeelingForce' and 'JediMentor' data shapes:
+Obi-Wan 
+    feelingForce true ;
+    attitute 'good' ;
+    laserSwordColor 'blue' ;
+    numberLaserSwords '1'^^xsd:nonNegativeInteger ;
+    mentorOf Anakin .
 \end{ex}
 
 \begin{ex}
-# individuals matching 'FeelingForce' and 'JediStudent' data shapes
-# -----------------------------------------------------------------
-:Anakin 
-    :feelingForce true ;
-    :attitute 'good' ;
-    :laserSwordColor 'blue' ;
-    :numberLaserSwords '1'^^xsd:nonNegativeInteger ;
-    :studentOf :Obi-Wan .
+# individuals matching 'FeelingForce' and 'JediStudent' data shapes:
+Anakin 
+    feelingForce true ;
+    attitute 'good' ;
+    laserSwordColor 'blue' ;
+    numberLaserSwords '1'^^xsd:nonNegativeInteger ;
+    studentOf Obi-Wan .
 \end{ex}
 
 \begin{DL}
@@ -3078,32 +3058,26 @@ class & JediMentor & - & - & $\exists$ studentOf.JediMentor & $\neg$ & - \\
 
 \section{Handle RDF Collections}
 
-requirement:
-
-\begin{itemize}
-	\item R-120-HANDLE-RDF-COLLECTIONS
-\end{itemize}
-
-examples:
-
+\ms{Handle RDF Collections} corresponds to the requirement
+\ms{R-120-HANDLE-RDF-} \ms{COLLECTIONS}.
+Examples are:
 \begin{itemize}
 	\item size of collection
 	\item first / last element of list must be a specific literal
 	\item compare elements of collection
 	\item are collections identical?
-	\item actions on RDF lists: \url{http://www.snee.com/bobdc.blog/2014/04/rdf-lists-and-sparql.html}
-	\item 2. list element equals ''
+	\item actions on RDF lists\footnote{See \url{http://www.snee.com/bobdc.blog/2014/04/rdf-lists-and-sparql.html}}
+	\item 2. list element equals 'XXX'
 	\item Does the list have more than 10 elements?
 \end{itemize}
 
 \subsection{Example}
 
-get 2. list element
+Get 2. list element:
 
 \begin{ex}
-# SPIN
-# ----
-:getListItem
+# SPIN:
+getListItem
     a spin:Function ; rdfs:subClassOf spin:Functions ;
     spin:constraint [
         rdf:type spl:Argument ;
@@ -3120,21 +3094,19 @@ get 2. list element
         sp:text """
             SELECT ?item
             WHERE {
-                ?arg1 :contents/rdf:rest{?arg2}/rdf:first ?item } """ ; ] ;
+                ?arg1 contents/rdf:rest{?arg2}/rdf:first ?item } """ ; ] ;
     spin:returnType rdfs:Resource .
 \end{ex}
 
 \begin{ex}
-# data
-# ----
-:Jinn :students 
-     ( :Xanatos :Kenobi ) . 
+# data:
+Jinn students 
+     ( Xanatos Kenobi ) . 
 \end{ex}
 
 \begin{ex}
-# SPIN
-# ----
-BIND ( :getListItem( ?list, "1"xsd:nonNegativeInteger ) AS ?listItem ) .
+# SPIN:
+BIND ( getListItem( ?list, "1"xsd:nonNegativeInteger ) AS ?listItem ) .
 \end{ex}
 
 \begin{itemize}
@@ -3143,9 +3115,8 @@ BIND ( :getListItem( ?list, "1"xsd:nonNegativeInteger ) AS ?listItem ) .
 \end{itemize}
 
 \begin{ex}
-# result
-# ------
-:Kenobi
+# result:
+Kenobi
 \end{ex}
 
 \begin{DL}
@@ -3166,16 +3137,9 @@ property & C & p & - & xsd:string & append list element & 'list element' \\
 
 \section{Recursive Queries}
 
-requirements:
-
-\begin{itemize}
-	\item R-222-RECURSIVE-QUERIES
-\end{itemize}
-
-
-
-\begin{itemize}
-	\item If we want to define Resource Shapes, remember that it is a recursive
+\ms{Recursive Queries} corresponds to the requirement
+\ms{R-222-RECURSIVE-QUERIES}.
+If we want to define Resource Shapes, remember that it is a recursive
 language (the valueShape of a Resource Shape is in turn another
 Resource Shape). There is no way to express that in SPARQL without
 hand-waving "and then you call the function again here" or "and then
@@ -3183,16 +3147,14 @@ you embed this operation here" text.  The embedding trick doesn't work
 in the general case because SPARQL can't express recursive queries,
 e.g. "test that this Issue is valid and all of the Issues that
 references, recursively".
-  \item Most SPARQL engines already have
+Most SPARQL engines already have
 functions that go beyond the official SPARQL 1.1 spec. The cost of that
-sounds manageable to me.
-\end{itemize}
+sounds manageable.
 
 \subsection{Simple Example}
 
 \begin{ex}
-# ShEx
-# ----
+# ShEx:
 IssueShape {
     related @IssueShape*
 }
@@ -3208,48 +3170,35 @@ property & IssueShape & related & - & IssueShape & $\geq$ & 1 \\
 
 \section{Value is Valid for Datatype}
 
-requirements:
-
-\begin{itemize}
-	\item 
-\end{itemize}
-
 Make sure that a value is valid for its datatype.
 
 \subsection{Simple Example}
 
-\begin{itemize}
-	\item a date is really a date
-  \item SPARQL regex can be used
-\end{itemize}
+A date is really a date, as an example.
+SPARQL regex can be used for this purpose.
 
 \subsection{Simple Example}
 
 \begin{ex}
-# SPIN
-# ----
+# SPIN:
 FILTER ( datatype( ?shoeSize ) = xsd:nonNegativeInteger )
 isNumeric ( ?shoeSize )
 \end{ex}
 
-\begin{itemize}
-	\item datatype of ?showSize id xsd:nonNegativeInteger
-	\item datatype is really numeric
-\end{itemize}
+The datatype of ?showSize is xsd:nonNegativeInteger.
+The datatype is really numeric.
 
 \begin{gcotable}
 property & $\top$ & shoeSize & - & xsd:nonNegativeInteger & value valid for datatype & - \\
 \end{gcotable}
 
-\subsection{Simple Example}
-
-\begin{DL} 
-$\rho(\textsf{hasBirthday}) \sqsubseteq \PVerb{xsd:dateTime}$\\
-\end{DL}
-
-Equal to the definition of a data property range.
-
-\tb{I do not understand the relation of this example to this constraint}
+%\subsection{Simple Example}
+%
+%\begin{DL} 
+%$\rho(\textsf{hasBirthday}) \sqsubseteq \PVerb{xsd:dateTime}$\\
+%\end{DL}
+%
+%Equal to the definition of a data property range.
 
 \section{Individual Equality}
 
@@ -3291,22 +3240,21 @@ An equivalent data properties axiom EquivalentDataProperties( DPE1 ... DPEn ) st
 \subsection{Simple Example}
 
 \begin{ex}
-# OWL 2
-# -----
-:hasBrother owl:equivalentProperty :hasMaleSibling . 
-:Chris :hasBrother :Stewie . 
-:Stewie :hasMaleSibling :Chris .
+# OWL 2:
+hasBrother owl:equivalentProperty hasMaleSibling . 
+Chris hasBrother Stewie . 
+Stewie hasMaleSibling Chris .
 \end{ex}
 
 entailments:
 
 \begin{ex}
-:Chris :hasMaleSibling a:Stewie . 
-:Stewie :hasBrother a:Chris .
+Chris hasMaleSibling Stewie . 
+Stewie hasBrother Chris .
 \end{ex}
 
 \begin{DL}
-:hasBrother $\sqsubseteq$ :hasMaleSibling $\sqcap$ :hasMaleSibling $\sqsubseteq$ :hasBrother \\
+hasBrother $\sqsubseteq$ hasMaleSibling $\sqcap$ hasMaleSibling $\sqsubseteq$ hasBrother \\
 \end{DL}
 
 \begin{gcotable}
@@ -3320,21 +3268,18 @@ $hasBrother \equiv hasMaleSibling$
 
 \section{Property Assertions}
 
-\begin{itemize}
-	\item positive property assertions
-  \item negative property assertions
-	\item A positive object property assertion ObjectPropertyAssertion( OPE a1 a2 ) states that the individual a1 is connected by the object property expression OPE to the individual a2. 
-	\item A negative object property assertion NegativeObjectPropertyAssertion( OPE a1 a2 ) states that the individual a1 is not connected by the object property expression OPE to the individual a2. 
-	\item A positive data property assertion DataPropertyAssertion( DPE a lt ) states that the individual a is connected by the data property expression DPE to the literal lt. 
-	\item A negative data property assertion NegativeDataPropertyAssertion( DPE a lt ) states that the individual a is not connected by the data property expression DPE to the literal lt.
-\end{itemize}
+\ms{{Property Assertions}} corresponds to the requirement \ms{R-96-PROPERTY-ASSERTIONS}
+and includes positive property assertions and negative property assertions.
+A positive object property assertion ObjectPropertyAssertion( OPE a1 a2 ) states that the individual a1 is connected by the object property expression OPE to the individual a2. 
+A negative object property assertion NegativeObjectPropertyAssertion( OPE a1 a2 ) states that the individual a1 is not connected by the object property expression OPE to the individual a2. 
+A positive data property assertion DataPropertyAssertion( DPE a lt ) states that the individual a is connected by the data property expression DPE to the literal lt. 
+A negative data property assertion NegativeDataPropertyAssertion( DPE a lt ) states that the individual a is not connected by the data property expression DPE to the literal lt.
 
 \subsection{Simple Example}
 
 \begin{ex}
-# OWL 2
-# -----
-NegativeObjectPropertyAssertion( :hasSon :Peter :Meg )
+# OWL 2:
+NegativeObjectPropertyAssertion( hasSon Peter Meg )
 \end{ex}
 
 Meg is not a son of Peter.
@@ -3352,8 +3297,7 @@ property & \{Peter\} & hasSon & - & \{Meg\} & $\neq$ & - \\
 \subsection{Simple Example}
 
 \begin{ex}
-# OWL 2
-# -----
+# OWL 2:
 DataPropertyAssertion( :hasAge :Meg "17"^^xsd:integer )
 \end{ex}
 
@@ -3374,11 +3318,10 @@ An object property functionality axiom FunctionalObjectProperty( OPE ) states th
 \subsection{Simple Example}
 
 \begin{ex}
-# OWL 2
-# -----
-:hasFather rdf:type owl:FunctionalProperty . 	
-:Stewie :hasFather :Peter . 	
-:Stewie :hasFather :Peter_Griffin . 
+# OWL 2:
+hasFather rdf:type owl:FunctionalProperty . 	
+Stewie hasFather Peter . 	
+Stewie hasFather Peter_Griffin . 
 \end{ex}
 
 Each object can have at most one father. 
@@ -3386,7 +3329,7 @@ Each object can have at most one father.
 entailment:
 
 \begin{ex}
-:Peter_Griffin owl:sameAs :Peter .  
+Peter_Griffin owl:sameAs Peter .  
 \end{ex}
 
 \begin{DL}
@@ -3399,24 +3342,23 @@ property & $\top$ & hasFather & - & - & functional & - \\
 
 \section{Inverse-Functional Properties}
 
-An object property inverse functionality axiom InverseFunctionalObjectProperty( OPE ) states that the object property expression OPE is inverse-functional — that is, for each individual x, there can be at most one individual y such that y is connected by OPE with x. Each such axiom can be seen as a syntactic shortcut for the following axiom: SubClassOf( owl:Thing ObjectMaxCardinality( 1 ObjectInverseOf( OPE ) ) ).
+An object property inverse functionality axiom InverseFunctionalObjectProperty( OPE ) states that the object property expression OPE is inverse-functional - that is, for each individual x, there can be at most one individual y such that y is connected by OPE with x. Each such axiom can be seen as a syntactic shortcut for the following axiom: SubClassOf( owl:Thing ObjectMaxCardinality( 1 ObjectInverseOf( OPE ) ) ).
 
 \subsection{Simple Example}
 
 \begin{ex}
-# OWL 2
-# -----
-:fatherOf rdf:type owl:InverseFunctionalProperty . 	
-:Peter :fatherOf :Stewie .
-:Peter_Griffin :fatherOf :Stewie .
+# OWL 2:
+fatherOf rdf:type owl:InverseFunctionalProperty . 	
+Peter fatherOf Stewie .
+Peter_Griffin fatherOf Stewie .
 \end{ex}
 
 Each object can have at most one father. 
 
-entailment:
+Entailment:
 
 \begin{ex}
-:Peter owl:sameAs :Peter_Griffin . 
+Peter owl:sameAs Peter_Griffin . 
 \end{ex}
 
 \begin{DL}
@@ -3440,14 +3382,13 @@ $FatherOfStewie \sqsubseteq \exists fatherOf.\{Stewie\}$
 \end{DL}
 
 \begin{ex}
-# OWL 2
-# -----
-:Peter :fatherOf :Stewie . 
-ObjectHasValue( :fatherOf :Stewie )
+# OWL 2:
+Peter fatherOf Stewie . 
+ObjectHasValue( fatherOf Stewie )
 \end{ex}
 
-The has-value class expression contains those individuals that are connected through the :fatherOf property with the individual :Stewie.
-:Peter is classified as its instance.
+The has-value class expression contains those individuals that are connected through the \ms{fatherOf} property with the individual \ms{Stewie}.
+\ms{Peter} is classified as its instance.
 
 \begin{gcotable}
 property & FatherOfStewie & fatherOf & - & $\{Stewie\}$ & $\exists$ \\
@@ -3460,14 +3401,13 @@ A self-restriction ObjectHasSelf( OPE ) consists of an object property expressio
 \subsection{Simple Example}
 
 \begin{ex}
-# OWL 2
-# -----
-:Peter :likes :Peter . 
-ObjectHasSelf( :likes ) 
+# OWL 2:
+Peter likes Peter . 
+ObjectHasSelf( likes ) 
 \end{ex}
 
 \begin{DL}
-LikesThemselves $\sqsubseteq$ $\exists$ likes . Self
+LikesThemselves $\sqsubseteq$ $\exists$ likes.Self
 \end{DL}
 
 \begin{gcotable}
@@ -3476,72 +3416,57 @@ class & LikesThemselves & - & - & $\top$, $\exists$ likes . Self & $\sqsubseteq$
 \end{gcotable}
 
 The self-restriction contains those individuals that like themselves.
-:Peter is classified as its instance.
+\ms{Peter} is classified as its instance.
 
 \section{Data Property Facets}
 
-requirement:
-
-\begin{itemize}
-	\item R-46-CONSTRAINING-FACETS
-\end{itemize}
-
-
-
-\begin{itemize}
-  \item For datatype properties it should be possible to declare frequently needed "facets" to drive user interfaces and validate input against simple conditions, including min/max value, regular expressions, string length etc. similar to XSD datatypes. 
-	\item constraining facets to restrict datatypes of RDF literals
-  \item constraining facets: xsd:length, xsd:minLength, xsd:maxLength, xsd:pattern, xsd:enumeration, xsd:whiteSpace, xsd:maxInclusive, xsd:maxExclusive, xsd:minExclusive, xsd:minInclusive, xsd:totalDigits, xsd:fractionDigits
-
-\end{itemize}
+\ms{Data Property Facets} corresponds to the requirement
+\ms{R-46-CONSTRAINING-FACETS}.
+For datatype properties it should be possible to declare frequently needed "facets" to drive user interfaces and validate input against simple conditions, including min/max value, regular expressions, string length etc. similar to XSD datatypes. 
+Constraining facets to restrict datatypes of RDF literals.
+Constraining facets may be: xsd:length, xsd:minLength, xsd:maxLength, xsd:pattern, xsd:enumeration, xsd:whiteSpace, xsd:maxInclusive, xsd:maxExclusive, xsd:minExclusive, xsd:minInclusive, xsd:totalDigits, xsd:fractionDigits.
 
 \subsection{Simple Example}
 
 \textbf{string matches regular expression}
 
 \begin{ex}
-# OWL 2 QL (functional-style syntax)
-# ----------------------------------
-Declaration( Datatype( :SSN ) ) 
+# OWL 2 QL (functional-style syntax):
+Declaration( Datatype( SSN ) ) 
 DatatypeDefinition( 
-    :SSN
+    SSN
     DatatypeRestriction( xsd:string xsd:pattern "[0-9]{3}-[0-9]{2}-[0-9]{4}" ) )     
-DataPropertyRange( :hasSSN :SSN ) 
+DataPropertyRange( hasSSN SSN ) 
 \end{ex}
 
 \begin{ex}
-# OWL 2 QL (turtle syntax)
-# ------------------------
-:SSN 
+# OWL 2 QL (turtle syntax):
+SSN 
     a rdfs:Datatype ;
     owl:equivalentClass [
         a rdfs:Datatype ;
         owl:onDatatype xsd:string ;
         owl:withRestrictions ( 
             [ xsd:pattern "[0-9]{3}-[0-9]{2}-[0-9]{4}" ] ) ] .
-:hasSSN rdfs:range :SSN .
+hasSSN rdfs:range SSN .
 \end{ex}
 
-\begin{itemize}
-	\item A social security number is a string that matches the given regular expression. 
-The second axiom defines :SSN as an abbreviation for a datatype restriction on xsd:string. 
-The first axiom explicitly declares :SSN to be a datatype. 
-The datatype :SSN can be used just like any other datatype; 
-for example, it is used in the third axiom to define the range of the :hasSSN property. 
-\end{itemize}
+A social security number is a string that matches the given regular expression. 
+The second axiom defines SSN as an abbreviation for a datatype restriction on xsd:string. 
+The first axiom explicitly declares SSN to be a datatype. 
+The datatype SSN can be used just like any other datatype; 
+for example, it is used in the third axiom to define the range of the hasSSN property. 
 
 \begin{ex}
-# valid data
-# ----------
-:TimBernersLee
-    :hasSSN "123-45-6789"^^:SSN .
+# valid data:
+TimBernersLee
+    hasSSN "123-45-6789"^^SSN .
 \end{ex}
 
 \begin{ex}
-# invalid data
-# ------------
-:TimBernersLee
-    :hasSSN "123456789"^^:SSN .
+# invalid data:
+TimBernersLee
+    hasSSN "123456789"^^SSN .
 \end{ex}
 
 \begin{DL}
@@ -3556,52 +3481,32 @@ class & SSN & - & - & xsd:string & xsd:pattern & '[0-9]{3}-[0-9]{2}-[0-9]{4}' \\
 
 It is often useful to declare a given (datatype) property as the "primary key" of a class, so that the system can enforce uniqueness and also automatically build URIs from user input and data imported from relational databases or spreadsheets. 
 
-\subsection{Simple Example}
-Each object is uniquely identified by its social security number.
-
-\begin{ex}
-# DSP
-# ---
--
-\end{ex}
-
-\begin{ex}
-# OWL2 DL
-# -------
-owl:Thing owl:hasKey ( :hasSSN ) . 	
-\end{ex}
-
-\begin{ex}
-# ReSh
-# ----
--
-\end{ex}
-
-\begin{ex}
-# ShEx
-# ----
--
-\end{ex}
-
-The first axiom makes :hasSSN the key for instances of the owl:Thing class; thus, only one individual can have a particular value for :hasSSN. 
-
-\begin{ex}
-# data
-# ----
-:Peter :hasSSN "123-45-6789" . 
-:PeterGriffin :hasSSN "123-45-6789" . 
-\end{ex}
-
-\begin{DL}
-$(\textsf{funct } \textsf{SSN}\sp{\overline{\ }})$
-\end{DL}
-
-\begin{gcotable}
-property & $\top$ & SSN$^{-}$ & SSN & - & inverse & - \\
-property & $\top$ & SSN$^{-}$ & - & - & functional & - \\
-\end{gcotable}
-
-Since the values of :hasSSN are the same for the individuals a:Peter and a:PeterGriffin, these two individuals are equal - that is, this ontology entails the following assertion :Peter owl:sameAs :PeterGriffin . 
+%\subsection{Simple Example}
+%Each object is uniquely identified by its social security number.
+%
+%\begin{ex}
+%# OWL2 DL:
+%owl:Thing owl:hasKey ( hasSSN ) . 	
+%\end{ex}
+%
+%The first axiom makes hasSSN the key for instances of the owl:Thing class; thus, only one individual can have a particular value for hasSSN. 
+%
+%\begin{ex}
+%# data
+%Peter hasSSN "123-45-6789" . 
+%PeterGriffin hasSSN "123-45-6789" . 
+%\end{ex}
+%
+%\begin{DL}
+%$(\textsf{funct } \textsf{SSN}\sp{\overline{\ }})$
+%\end{DL}
+%
+%\begin{gcotable}
+%property & $\top$ & SSN$^{-}$ & SSN & - & inverse & - \\
+%property & $\top$ & SSN$^{-}$ & - & - & functional & - \\
+%\end{gcotable}
+%
+%Since the values of hasSSN are the same for the individuals Peter and PeterGriffin, these two individuals are equal - that is, this ontology entails the following assertion Peter owl:sameAs PeterGriffin . 
 
 %\begin{DL}
 %Not sure if this is expressible in DL, may be we should have a detailed look to \textit{DL-Lite}$_{\mathcal{A},id}$ \\
@@ -3610,58 +3515,77 @@ Since the values of :hasSSN are the same for the individuals a:Peter and a:Peter
 %
 %\an{not sure!}
 
-Since "Each object is uniquely identified by its social security number." It means it is inverse functional property.
+%Since "Each object is uniquely identified by its social security number." It means it is inverse functional property.
+%
+%So instead, a property can be defined as 
+%\begin{DL}
+%$(\textsf{funct } \textsf{SSN})$
+%\end{DL}
+%, and then by a property inclusion axiom
+%
+%\begin{DL}
+%$haskey \sqsubseteq SSN^{-}$
+%\end{DL}
+%
+%now for a given number haskey will give me the object (note that obviously it should be named, no ambigious individuals).
+%
+%However I needed to do some little research and found out that, keys are even more general (A generalisation of inverse functional properties) so that it can also be a chain of properties. (it is clear here: http://www.w3.org/TR/2012/REC-owl2-rdf-based-semantics-20121211/\#table-semcond-keys)
+%
+%For this generalisation purposes and many spooky interactions of different sorts of key (and with some elaboration they can lead to undecidability), they introduced "key boxes, and extended the language with special "keyfor" construct. So how it is done in DL community as I learned is
+%
+%\begin{DL}
+%SSN "keyfor" Human $\sqcap$ TurkishCitizen
+%\end{DL}
+%
+ %for instance. Now ssn behaves as an identifying element for individuals of right hand side.
+%
+%For comprehensive studies and resources, one can find lots of examples in:
+%
+%http://lat.inf.tu-dresden.de/research/mas/Din-Mas-06.pdf
+%https://www.jair.org/media/1542/live-1542-2375-jair.pdf
+%
+%Yes you can, but as you see it is not restriction statement by its own. Nevertheless, I think, in DL mapping, use of "keyfor" and sending a reference to one of those papers is more convenient/safer, since it can be a datatype property, object property, or a chain of properties (from OWL world), as well as DL literature has it as "keyfor". 
+%
+%\begin{gcotable}
+%property & $\top$ & SSN & - & - & keyfor & - \\
+%\end{gcotable}
 
-So instead,  a property can be defined as 
+\subsection{Simple Example}
+
+The \ms{Primary Key Properties} constraint is often useful to declare a given (datatype) property as the "primary key" of a class, so that a system can enforce uniqueness. 
+Starfleet officers, e.g., are uniquely identified by their command authorization code (e.g. to activate and cancel auto-destruct sequences).
+It means that the property \ms{commandAuthorizationCode} is inverse functional - mapped to DL and the RDF-CO as follows:
+
 \begin{DL}
-$(\textsf{funct } \textsf{SSN})$
+$(\ms{funct } commandAuthorizationCode\sp{\overline{\ }})$
 \end{DL}
-, and then by a property inclusion axiom
-
-\begin{DL}
-$haskey \sqsubseteq SSN^{-}$
-\end{DL}
-
-now for a given number haskey will give me the object (note that obviously it should be named, no ambigious individuals).
-
-However I needed to do some little research and found out that, keys are even more general (A generalisation of inverse functional properties) so that it can also be a chain of properties. (it is clear here: http://www.w3.org/TR/2012/REC-owl2-rdf-based-semantics-20121211/\#table-semcond-keys)
-
-For this generalisation purposes and many spooky interactions of different sorts of key (and with some elaboration they can lead to undecidability), they introduced "key boxes, and extended the language with special "keyfor" construct. So how it is done in DL community as I learned is
-
-\begin{DL}
-SSN "keyfor" Human $\sqcap$ TurkishCitizen
-\end{DL}
-
- for instance. Now ssn behaves as an identifying element for individuals of right hand side.
-
-For comprehensive studies and resources, one can find lots of examples in:
-
-http://lat.inf.tu-dresden.de/research/mas/Din-Mas-06.pdf
-https://www.jair.org/media/1542/live-1542-2375-jair.pdf
-
-Yes you can, but as you see it is not restriction statement by its own. Nevertheless, I think, in DL mapping, use of "keyfor" and sending a reference to one of those papers is more convenient/safer, since it can be a datatype property, object property, or a chain of properties (from OWL world), as well as DL literature has it as "keyfor". 
 
 \begin{gcotable}
-property & $\top$ & SSN & - & - & keyfor & - \\
+property & $\top$ & commandAuthorizationCode$^{-}$ & commandAuthorizationCode$^{-}$ & - & inverse & - \\
+property & $\top$ & commandAuthorizationCode$^{-}$ & - & - & functional & - \\
+\end{gcotable}
+
+Keys, however, are even more general, i.e., a generalization of inverse functional properties \cite{Schneider2009}.
+A key can be a datatype property, an object property, or a chain of properties.
+For this generalization purposes, as there are different sorts of key, and as keys can lead to undecidability, 
+DL is extended with \ms{key boxes} and a special \ms{keyfor} construct\cite{Lutz2005}.
+This leads to the following DL and RDF-CO mappings (only one simple property constraint):
+
+\begin{DL}
+commandAuthorizationCode \ms{keyfor} StarfleetOfficer
+\end{DL}
+
+\begin{gcotable}
+property & StarFleetOfficer & commandAuthorizationCode & - & - & keyfor & - \\
 \end{gcotable}
 
 \section{Exploiting Class/Property Specialization Ontology Axioms}
 
-requirement:
-
-\begin{itemize}
-	\item R-224-instance-level-data-validation-exploitingclass/property-specialization-axioms-in-ontologies
-\end{itemize}
-
-
-
-\begin{itemize}
-  \item Validation of instances data (direct or indirect) exploiting the subclass or sub-property link in a given ontology.
-  \item This validation can indicate when the data is verbose (redundant) or expressed at a too general level, and could be improved.
-\end{itemize}
-
-examples:
-
+\ms{Exploiting Class/Property Specialization Ontology Axioms} corresponds to the requirement
+\ms{R-224-instance-level-data-validation-exploitingclass/} \ms{property-specialization-axioms-in-ontologies}.
+Validation of instances data (direct or indirect) exploiting the subclass or sub-property link in a given ontology.
+This validation can indicate when the data is verbose (redundant) or expressed at a too general level, and could be improved.
+Examples are:
 \begin{itemize}
 	\item If dc:date and one of its sub-properties dcterms:created or dcterms:issued are present, check that the value in dc:date is not redundant with dcterms:created or dcterms:issued for ingestion
   \item Check if dc:rights has the same value than edm:rights either as rdf:resource or literal, if yes dc:rights is redundant
