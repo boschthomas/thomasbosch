@@ -553,7 +553,8 @@ class & Mother & - & - & Female, Parent & $\sqcap$ \\
 \section{Disjunction}
 
 \ms{Disjunction} of classes or data ranges corresponds to the requirements \\
-\ms{R-17-DISJUNCTION-OF-CLASS-EXPRESSIONS} and \ms{R-18-DISJUNCTION-OF-DATA-RANGES}.
+\ms{R-17-DISJUNCTION-OF-CLASS-EXPRESSIONS} and \ms{R-18-DISJUNCTION-OF-} \\
+\ms{DATA-RANGES}.
 Synonyms are union and inclusive or.
 
 \subsection{Simple Example}
@@ -578,7 +579,7 @@ class & Parent & - & - & Father, Mother & $\sqcup$ \\
 
 \section{Negation}
 
-\ms{Negation} (complement) corresponds to the requirements \ms{R-19-NEGATION-OF-CLASS-EXPRESSIONS} and \ms{R-20-NEGATION-OF-DATA-RANGES}.
+\ms{Negation} (complement) corresponds to the requirements \ms{R-19-NEGATION-OF-} \ms{CLASS-EXPRESSIONS} and \ms{R-20-NEGATION-OF-DATA-RANGES}.
 
 \subsection{Simple Example}
 
@@ -1745,7 +1746,8 @@ CC2 rdfs:subClassOf [
     owl:someValuesFrom xsd:boolean ] .
 \end{ex}
 
-This means that \ms{FeelingForce} individuals are individuals having one \ms{attackingBySword} relationship (range xsd:boolean) or one \ms{attackingByForce} relationship (range xsd:boolean) but not both.
+This means that \ms{FeelingForce} individuals are individuals having one \\
+\ms{attackingBySword} relationship (range xsd:boolean) or one \ms{attackingByForce} relationship (range xsd:boolean) but not both.
 
 \begin{DL}
 A $\equiv$ $\exists$ attackingBySword.xsd:boolean \\
@@ -2932,7 +2934,8 @@ property & Person & hasAncestor & - & Person & optional & - \\
 
 \section{Repeatable Properties}
 
-\ms{Repeatable Properties} corresponds to the requirement \ms{R-70-REPEATABLE-PROPERTIES}.
+\ms{Repeatable Properties} corresponds to the requirement \\
+\ms{R-70-REPEATABLE-PROPERTIES}.
 
 \subsection{Simple Example}
 
@@ -2954,7 +2957,8 @@ property & Captain & commandsVessel & - & $\top$ & repeatable & - \\
 
 \section{Conditional Properties}
 
-\ms{Conditional Properties} corresponds to the requirement \ms{R-71-CONDITIONAL-PROPERTIES}.
+\ms{Conditional Properties} corresponds to the requirement \\
+\ms{R-71-CONDITIONAL-PROPERTIES}.
 
 Multiple conditions are possible:
 
@@ -2978,7 +2982,8 @@ property & $\top$ & parentOf & ancestorOf & $\top$ & $\sqsubseteq$ \\
 
 \section{Recommended Properties}
 
-\ms{Recommended Properties} corresponds to the requirement \ms{R-72-RECOMMENDED-PROPERTIES}.
+\ms{Recommended Properties} corresponds to the requirement \\
+\ms{R-72-RECOMMENDED-PROPERTIES}.
 
 \subsection{Simple Example}
 
@@ -3929,6 +3934,19 @@ The majority - nearly 70\% - of the overall constraints are expressible in DL.
 %\end{evaluation-generic}
 
 \section{Conclusion and Future Work}
+There is no standard way to validate RDF data conforming to RDF constraints like XML Schemas serve to validate XML documents.
+Two working groups currently try to achieve a solution for RDF validation - the W3C RDF Data Shapes working group and the DCMI RDF Application Profiles working group. 
+We initiated a comprehensive database on RDF validation requirements: \url{http://purl.org/net/rdf-validation}.
+The intention of this database is to collaboratively work on case studies, use cases, requirements, and solutions on RDF validation.
+In this paper, we evaluated to which extend the five most promising constraint languages on being the standard (DSP, OWL2, ReSh, ShEx, and SPIN) fulfill each of the requirements to formulate RDF constraints.
+Each of these requirements corresponds to a type of constraint.
+The majority of the constraints can be expressed in DL, which serves as a logical underpinning of related requirements.
+We developed an ontology to express any constraint generically, so that constrains expressed by a constraint language $\alpha$ can be transformed into constraints expressed by a constraint language $\beta$ without any information loss.
+By expressing any constraint generically, we can provide a validation of the generically expressed constraint.
+When specific constraints are then transformed into generic constraints, we can provide the validation of the semantically equivalent specific constraints (expressed by multiple constraint languages) out-of-the-box without any additional effort and without any difference in validation results. 
+As not every constrains can be represented in DL, we need to represent \emph{constraints expressible by DL} as well as \emph{constraints not expressible by DL} by means of this ontology.
+We shown in terms of an evaluation that any constraint can be expressed using the developed ontology.
+As part of future work, we will continuously add, modify, and maintain case studies, use cases, requirements, and solutions within the RDF validation requirements database.
 
 \end{document}
 
