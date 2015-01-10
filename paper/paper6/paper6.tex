@@ -32,6 +32,16 @@
 \newcommand{\bz}[1]{\todo[size=\small, color=red!40]{\textbf{Ben:} #1}}
 \newcommand{\jw}[1]{\todo[size=\small, color=blue!40]{\textbf{Achim:} #1}}
 
+\newenvironment{DL}{
+  %\scriptsize
+  %\sffamily
+  \vspace{0cm}
+  \begin{tabular}{l l}
+
+}{
+  \end{tabular}
+  %\linebreak
+}
 
 \begin{document}
 
@@ -94,6 +104,12 @@
 	\item Why do we need to validate metadata on person-level data sets? 
 \end{itemize}
 
+\textbf{Contributions.}
+\begin{itemize}
+  \item We define constraints on Disco, Data Cube, PHDD, DCAT, XKOS data sets
+	\item WE provide an implementation to validate Disco, Data Cube, PHDD, DCAT, XKOS data sets 
+\end{itemize}
+
 \section{Data Documentation Initiative}
 
 \section{DDI-RDF Discovery Vocabulary}
@@ -114,9 +130,73 @@
 	\item brief description of vocabularies
 \end{itemize}
 
+\section{Validation Environment}
+
 \section{Validation of Metadata on Person-Level Data Sets}
 
-\subsection{Qualified Cardinality Restrictions}
+\subsection{Data Model Consistency}
+
+Is the data consistent with the intended semantics of the data model?
+Ensures the integrity of the data according to the data model.
+
+\subsection{Unqualified Cardinality Restrictions}
+
+\subsection{Minimum Qualified Cardinality Restrictions}
+
+{\em DISCO-C-XX}. 
+A {\em disco:Questionnaire} has at least 1 {\em disco:question} relationship to {\em disco:Question}.
+
+\begin{DL}
+Questionnaire $\sqsubseteq$ $\geq$1 question.Question
+\end{DL}
+
+\subsection{Exact Qualified Cardinality Restrictions}
+
+{\em DISCO-C-XX}. 
+A {\em disco:Question} has exactly 1 {\em disco:universe} relationship to {\em disco:Universe}.
+
+\begin{DL}
+Question $\sqsubseteq$ \\
+$\geq$1 universe.Universe $\sqcap$ $\leq$1 universe.Universe \\
+\end{DL}
+
+\subsection{Universal Quantifications}
+
+{\em DISCO-C-XX}. 
+Only {\em disco:LogicalDataSet}s can have {\em disco:aggregation} relationships to {\em qb:DataSet}s.
+
+\begin{DL}
+LogicalDataSet $\sqsubseteq$ $\forall$ aggregation.DataSet \\
+\end{DL}
+
+\subsection{Existential Quantifications}
+
+{\em DISCO-C-XX}. 
+There must be at least 1 {\em disco:universe} relationship from {\em disco:Studies} or {\em disco:StudyGroups} to {\em disco:Universe}.
+
+\begin{DL}
+Study $\sqcup$ StudyGroup $\sqsubseteq$ $\exists$ universe.Universe \\
+\end{DL}
+
+\subsection{SKOS-Related Constraints}
+
+\subsubsection{Membership in Controlled Vocabularies.}
+
+Questions, variables, and represented variables may have representations.
+
+\subsubsection{Hierarchies}
+
+Hierarchies of DDI concepts
+
+\begin{itemize}
+	\item root?
+\end{itemize}
+
+\subsection{Ordering}
+
+In DDI, variables, questions, and categories are typically organized in a particular order. 
+For obtaining this order, {\em skos:OrderedCollection} resources are used. 
+A collection of variables, e.g, is represented as being of the type {\em skos:OrderedCollection} containing multiple variables (each represented as {\em skos:Concept}) in a {\em skos:memberList}. 
 
 \section{Validation in Combination with other Vocabularies}
 
@@ -124,36 +204,77 @@
 
 There are 22 RDF Data Cube integrity constraints\footnote{http://www.w3.org/TR/vocab-data-cube/\#wf} \cite{CyganiakReynolds2014}.
 
-\textcolor{blue}{describe 1 constraint of each type in detail with Datalog query}
-
-\textbf{Datatypes.}
 \begin{itemize}
-	\item {\em IC-0:} Datatypes must be consistent under RDF D-entailment using a datatype map containing all the datatypes used within the graph.
+	\item \textcolor{blue}{describe 1 constraint of each type in detail with Datalog query}
 \end{itemize}
+
+\textbf{Data Model Consistency.}
+{\em IC-0}, \textcolor{red}{{\em IC-8}}, {\em IC-13}, {\em IC-14}, {\em IC-15}, {\em IC-16}, {\em IC-17}, \textcolor{red}{{\em IC-18}}
+%\begin{itemize}
+	%\item {\em IC-0:} Datatypes must be consistent under RDF D-entailment using a datatype map containing all the datatypes used within the graph.
+	%\item \textcolor{red}{{\em IC-8:} Every {\em qb:componentProperty} on a {\em qb:SliceKey} must also be declared as a {\em qb:component} of the associated {\em qb:DataStructureDefinition}.} 
+%\end{itemize}
 
 \textbf{Unqualified Cardinality Restrictions.}
-\begin{itemize}
-	\item {\em IC-4:} Every dimension declared in a {\em qb:DataStructureDefinition} must have a declared {\em rdfs:range}.  
-\end{itemize}
+{\em IC-4}, {\em IC-5}, {\em IC-10}, {\em IC-11}
+%\begin{itemize}
+	%\item {\em IC-4:} Every dimension declared in a {\em qb:DataStructureDefinition} must have a declared {\em rdfs:range}. 
+	%\item {\em IC-5:} Every dimension with range {\em skos:Concept} must have a {\em qb:codeList}. 
+	%\item {\em IC-10:} Every {\em qb:Slice} must have a value for every dimension declared in its {\em qb:sliceStructure}. 
+	%\item {\em IC-11:} All dimensions required - Every {\em qb:Observation} has a value for each dimension declared in its associated {\em qb:DataStructureDefinition}.
+%\end{itemize}
 
 \textbf{Qualified Cardinality Restrictions.}
-\begin{itemize}
-	\item {\em IC-1:} Every {\em qb:Observation} has exactly one associated {\em qb:DataSet}. 
-	\item {\em IC-2:} Every {\em qb:DataSet} has exactly one associated {\em qb:DataStructureDefinition}. 
-	\item {\em IC-3:} Every {\em qb:DataStructureDefinition} must include at least one declared measure. 
-\end{itemize}
+{\em IC-1}, {\em IC-2}, {\em IC-3}, {\em IC-6}, {\em IC-7}, {\em IC-9} 
+%\begin{itemize}
+	%\item {\em IC-1:} Every {\em qb:Observation} has exactly one associated {\em qb:DataSet}. 
+	%\item {\em IC-2:} Every {\em qb:DataSet} has exactly one associated {\em qb:DataStructureDefinition}. 
+	%\item {\em IC-3:} Every {\em qb:DataStructureDefinition} must include at least one declared measure. 
+	%\item {\em IC-6:} The only components of a {\em qb:DataStructureDefinition} that may be marked as optional, using {\em qb:componentRequired} are attributes. 
+	%\item {\em IC-7:} Every {\em qb:SliceKey} must be associated with a {\em qb:DataStructureDefinition}. 
+	%\item {\em IC-9:} Each {\em qb:Slice} must have exactly one associated {\em qb:sliceStructure}. 
+%\end{itemize}
 
-\textcolor{blue}{are there further constraints which can be described in this paper?}
+\textbf{Duplicate Detection.}
+{\em IC-12}
+%\begin{itemize}
+	%\item {\em IC-12:} No duplicate observations - No two {\em qb:Observations} in the same {\em qb:DataSet} may have the same value for all dimensions. 
+%\end{itemize}
+
+\textbf{Membership in Controlled Vocabularies.}
+\textcolor{red}{{\em IC-19}}
+
+\textbf{SKOS Hierarchies.}
+{\em IC-20}, {\em IC-21}
+
+%\textbf{Mandatory Properties.}
+
+%\textbf{Optional Properties.}
+
+\begin{itemize}
+	\item \textcolor{blue}{are there further constraints which can be described in this paper?}
+\end{itemize}
 
 \subsection{SKOS and XKOS}
 
 \subsection{PHDD}
+
+\subsection{DCAT}
+
+\section{DDI 4 Validation}
 
 \section{Implementation}
 
 \textbf{Validation of Data Cube instances.}
 \begin{itemize}
 	\item \textcolor{blue}{is there an implementation available yet? If not I implement it in our validation environment}
+	\item \textcolor{blue}{example QB data set / we could use the one from the QB spec}
+\end{itemize}
+
+\section{Evaluation}
+
+\begin{itemize}
+	\item validate constraints on complex example data set
 \end{itemize}
 
 \section{Related Work}
@@ -163,6 +284,9 @@ A well-formed RDF Data Cube is an a RDF graph describing one or more instances o
 Each integrity constraint is expressed as narrative prose and, where possible, a SPARQL ASK query or query template. 
 If the ASK query is applied to an RDF graph then it will return true if that graph contains one or more Data Cube instances which violate the corresponding constraint.
 \cite{CyganiakReynolds2014}
+
+\textbf{DCAT.}
+\textcolor{blue}{are there already constraints defined for DCAT?}
 
 \section{Conclusion and Future Work}
 
