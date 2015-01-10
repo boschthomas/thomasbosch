@@ -25,7 +25,12 @@
 %% tell Latex where to look for files menioned in \includegraphics
 \graphicspath{{jwsGraphics/}}
 
-
+% Todos
+\usepackage[colorinlistoftodos]{todonotes}
+\newcommand{\ke}[1]{\todo[size=\small, color=orange!40]{\textbf{Kai:} #1}}
+\newcommand{\tb}[1]{\todo[size=\small, color=green!40]{\textbf{Thomas:} #1}}
+\newcommand{\bz}[1]{\todo[size=\small, color=red!40]{\textbf{Ben:} #1}}
+\newcommand{\jw}[1]{\todo[size=\small, color=blue!40]{\textbf{Achim:} #1}}
 
 
 \begin{document}
@@ -45,7 +50,7 @@
 \author[gesis]{Benjamin Zapilko},
 \ead{benjamin.zapilko@gesis.org}
 \author[gesis]{Joachim Wackerow}
-\ead{joachim.wackerow@gesis.org}
+\ead{joachim.wackerow@gesis.org},
 \author[mannheim]{Kai Eckert}
 \ead{kai@informatik.uni-mannheim.de}
 
@@ -82,16 +87,84 @@
 \end{frontmatter}
 
 
-\section{Introduction}
-\label{introduction}
+\section{Motivation}
 
+\begin{itemize}
+	\item Why do we need RDF Validation?
+	\item Why do we need to validate metadata on person-level data sets? 
+\end{itemize}
 
+\section{Data Documentation Initiative}
 
+\section{DDI-RDF Discovery Vocabulary}
 
+\begin{itemize}
+  \item overview of disco
+	\item description of disco
+\end{itemize}
 
+\subsection{Conceptional Model}
 
+\subsection{Use Cases}
 
+\subsection{Relationships to other Vocabularies}
 
+\begin{itemize}
+	\item RDF Data Cube, DCAT, PHDD, XKOS
+	\item brief description of vocabularies
+\end{itemize}
+
+\section{Validation of Metadata on Person-Level Data Sets}
+
+\subsection{Qualified Cardinality Restrictions}
+
+\section{Validation in Combination with other Vocabularies}
+
+\subsection{RDF Data Cube Vocabulary}
+
+There are 22 RDF Data Cube integrity constraints\footnote{http://www.w3.org/TR/vocab-data-cube/\#wf} \cite{CyganiakReynolds2014}.
+
+\textcolor{blue}{describe 1 constraint of each type in detail with Datalog query}
+
+\textbf{Datatypes.}
+\begin{itemize}
+	\item {\em IC-0:} Datatypes must be consistent under RDF D-entailment using a datatype map containing all the datatypes used within the graph.
+\end{itemize}
+
+\textbf{Unqualified Cardinality Restrictions.}
+\begin{itemize}
+	\item {\em IC-4:} Every dimension declared in a {\em qb:DataStructureDefinition} must have a declared {\em rdfs:range}.  
+\end{itemize}
+
+\textbf{Qualified Cardinality Restrictions.}
+\begin{itemize}
+	\item {\em IC-1:} Every {\em qb:Observation} has exactly one associated {\em qb:DataSet}. 
+	\item {\em IC-2:} Every {\em qb:DataSet} has exactly one associated {\em qb:DataStructureDefinition}. 
+	\item {\em IC-3:} Every {\em qb:DataStructureDefinition} must include at least one declared measure. 
+\end{itemize}
+
+\textcolor{blue}{are there further constraints which can be described in this paper?}
+
+\subsection{SKOS and XKOS}
+
+\subsection{PHDD}
+
+\section{Implementation}
+
+\textbf{Validation of Data Cube instances.}
+\begin{itemize}
+	\item \textcolor{blue}{is there an implementation available yet? If not I implement it in our validation environment}
+\end{itemize}
+
+\section{Related Work}
+
+\textbf{RDF Data Cube Vocabulary.}
+A well-formed RDF Data Cube is an a RDF graph describing one or more instances of {\em qb:DataSet} for which each of the defined integrity constraints passes.
+Each integrity constraint is expressed as narrative prose and, where possible, a SPARQL ASK query or query template. 
+If the ASK query is applied to an RDF graph then it will return true if that graph contains one or more Data Cube instances which violate the corresponding constraint.
+\cite{CyganiakReynolds2014}
+
+\section{Conclusion and Future Work}
 
 \bibliographystyle{elsart-num-sort}
 
