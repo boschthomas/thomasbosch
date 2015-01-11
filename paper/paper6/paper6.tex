@@ -32,6 +32,10 @@
 \newcommand{\bz}[1]{\todo[size=\small, color=red!40]{\textbf{Ben:} #1}}
 \newcommand{\jw}[1]{\todo[size=\small, color=blue!40]{\textbf{Achim:} #1}}
 
+% examples
+\usepackage{fancyvrb}
+\DefineVerbatimEnvironment{ex}{Verbatim}{numbers=left,numbersep=2mm,frame=single,fontsize=\scriptsize}
+
 \newenvironment{DL}{
   %\scriptsize
   %\sffamily
@@ -341,31 +345,69 @@ Concept $\sqsubseteq$ $\neg$$\exists$ narrower.Self.
 
 \subsection{Context-Specific Exclusive OR of Property Groups}
 
-{\em Context-Specific Exclusive OR of Property Groups} corresponds to the requirement:
-{\em R-13-DISJOINT-GROUP-OF-PROPERTIES-CLASS-SPECIFIC}.
 Exclusive or is a logical operation that outputs true whenever both inputs differ (one is true, the other is false).
-Only one of multiple property groups leads to valid data.
+Only one of multiple property groups leads to valid data\footnote{{\em R-13-DISJOINT-GROUP-OF-PROPERTIES-CLASS-SPECIFIC}}.
 
 \textbf{{\em DISCO-C-XX}}.
 Within the context of Disco, skos:Concepts can have either skos:definition (when interpreted as DDI concepts) or skos:notation and skos:prefLabel properties (when interpreted as DDI codes and categories), but not both.
 
 \begin{DL}
-Human $\sqsubseteq$ ($\neg$ E $\sqcap$ F) $\sqcup$ (E $\sqcap$ $\neg$ F) \\ 
-E $\equiv$ A $\sqcap$ B \\
-F $\equiv$ C $\sqcap$ D \\
-A $\sqsubseteq$ $\geq$ 1 name . string $\sqcap$ $\leq$ 1 name . string \\
-B $\sqsubseteq$ $\geq$ 1 givenName . string $\sqcap$ $\leq$ 1 givenName . string \\
-C $\sqsubseteq$ $\geq$ 1 mbox . IRI $\sqcap$ $\leq$ 1 mbox . IRI \\
-D $\sqsubseteq$ $\geq$ 1 homepage . Document $\sqcap$ $\leq$ 1 homepage . Document \\
+Concept $\sqsubseteq$ ($\neg$ D $\sqcap$ C) $\sqcup$ (D $\sqcap$ $\neg$ C) \\ 
+D $\equiv$ A $\sqcap$ B \\
+A $\sqsubseteq$ $\geq$ 1 notation.string $\sqcap$ $\leq$ 1 notation.string \\
+B $\sqsubseteq$ $\geq$ 1 prefLabel.string $\sqcap$ $\leq$ 1 prefLabel.string \\
+C $\sqsubseteq$ $\geq$ 1 definition.string $\sqcap$ $\leq$ 1 definition.string \\
 \end{DL}
 
-\subsection{SKOS-Related Constraints}
+\section{Allowed Values}
 
-\subsubsection{Membership in Controlled Vocabularies.}
+It is a common requirement to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resource). 
+This is often rendered in drop down boxes or radio buttons in user interfaces. 
+Allowed values for properties can be IRIs, IRIs (matching one or multiple patterns), (any) literals, literals of a list of allowed literals (e.g. 'red' 'blue' 'green'), typed literals one or multiple type(s) (e.g. xsd:string)\footnote{{\em R-30-ALLOWED-VALUES-FOR-RDF-OBJECTS} and 
+{\em R-37-ALLOWED-VALUES-FOR-RDF-LITERALS}}.
 
-Questions, variables, and represented variables may have representations.
+\textbf{{\em DISCO-C-XX}}.
+{\em disco:CategoryStatistics} can only have {\em disco:computationBase} relationships to the values 'valid' and 'invalid' of the datatype {\em rdf:langString}.
 
-\subsubsection{Hierarchies}
+\begin{DL}
+CategoryStatistics $\equiv$ \\ $\forall$ computationBase.\{valid,invalid\} $\sqcap$ langString \\
+\end{DL}
+
+\subsection{Membership in Controlled Vocabularies.}
+
+Resources can only be members of listed controlled vocabularies\footnote{{\em R-32-MEMBERSHIP-OF-RDF-OBJECTS-IN-CONTROLLED-VOCABULARIES} and
+{\em R-39-MEMBERSHIP-OF-RDF-LITERALS-IN-CONTROLLED-VOCABULARIES}}.
+
+\textbf{{\em DISCO-C-XX}}.
+{\em disco:SummaryStatistics} can only have {\em disco:summaryStatisticType} relationships to {\em skos:Concept}s which must be members of the controlled vocabulary {\em ddicv:SummaryStatisticType} which is a {\em skos:ConceptScheme}.
+
+\begin{DL}
+SummaryStatistics $\sqsubseteq$ \\
+$\forall summaryStatisticType.Concept \sqcap \forall inScheme . A$ \\
+$A \equiv ConceptScheme \sqcap \{SummaryStatisticType\}$
+\end{DL}
+
+\subsection{Literal Value Comparison}
+
+Depending on the property semantics,
+there are cases where two different literal values must have
+a specific ordering with respect to an operator. 
+P1 and P2 are the datatype properties we need to compare and 
+OP is the comparison operator (\textless, \textless=, \textgreater, \textgreater=, =, !=)\footnote{{\em R-43-LITERAL-VALUE-COMPARISON}}.
+The {\em COMP Pattern}, one of the Data Quality Test Pattern, can be used to validate the {\em Literal Value Comparison} constraint \cite{Kontokostas2014}:
+
+\begin{ex}
+SELECT ?s WHERE { 
+    ?s %%P1%% ?v1 .
+    ?s %%P2%% ?v2 .
+    FILTER ( ?v1 %%OP%% ?v2 ) }
+\end{ex}
+
+\textbf{{\em DISCO-C-XX}}.
+{\em disco:startDate}s must be before (‘\textless’) the {\em disco:endDate}s.
+To validate this constraint we bind the variables as follows (P1: {\em disco:startDate}, P2: {\em disco:endDate}, OP: \textless). 
+
+\subsection{Hierarchies}
 
 Hierarchies of DDI concepts
 
