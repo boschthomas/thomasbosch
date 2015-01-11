@@ -136,6 +136,10 @@
 
 \section{Validation of Metadata on Person-Level Data Sets}
 
+Where appropriate constraint types are related to complementary requirements of the RDF validation requirements database.
+
+We state one Disco constraint for each constraint type.
+
 Constraint types marked with an asterisk can be used as an OWL 2 axiom.
 Thus, reasoners may be used to infer implicit triples resolving constraint violations causing when these constraints are validated.
 \textcolor{blue}{example}
@@ -149,6 +153,11 @@ Ensures the integrity of the data according to the data model.
 
 \subsection{Minimum Qualified Cardinality Restrictions}
 
+A minimum cardinality restrictions contains all those individuals that are connected by a property to at least n different individuals/literals 
+that are instances of a particular class or data range. If the class is missing, it is taken to be owl:Thing. 
+If the data range is missing, it is taken to be rdfs:Literal.
+$\geq n R. C$ is a minimum qualified cardinality restriction where $n \in \mathbb{N}$\footnote{{\em R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES} and {\em R-211-CARDINALITY-CONSTRAINTS}}.
+
 \textbf{{\em DISCO-C-XX}}.
 A {\em disco:Questionnaire} has at least 1 {\em disco:question} relationship to {\em disco:Question}\footnote{When mapped to DL, we do not state namespace prefixes for simplicity reasons}.
 
@@ -157,6 +166,11 @@ Questionnaire $\sqsubseteq$ $\geq$1 question.Question
 \end{DL}
 
 \subsection{Exact Qualified Cardinality Restrictions}
+
+An exact cardinality restriction contains all those individuals that are connected by a property to exactly n different individuals that are instances of a particular class or data range. 
+If the class is missing, it is taken to be owl:Thing. 
+If the data range is not present, it is taken to be rdfs:Literal.
+$\geq n R. C \sqcap \leq n R. C $ is an exact qualified cardinality restriction where $n \in \mathbb{N}$\footnote{{\em R-74-EXACT-QUALIFIED-CARDINALITY-ON-PROPERTIES} and {\em R-211-CARDINALITY-CONSTRAINTS}.}.
 
 \textbf{{\em DISCO-C-XX}}. 
 A {\em disco:Question} has exactly 1 {\em disco:universe} relationship to {\em disco:Universe}.
@@ -168,7 +182,7 @@ $\geq$1 universe.Universe $\sqcap$ $\leq$1 universe.Universe \\
 
 \subsection{Universal Quantifications*}
 
-\footnote{R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}
+A universal class expression ({\em value restriction} in DL) contains all those individuals that are connected by an object property only to individuals that are instances of a particular class\footnote{{\em R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}}.
 
 \textbf{{\em DISCO-C-XX}}.
 Only {\em disco:LogicalDataSet}s can have {\em disco:aggregation} relationships to {\em qb:DataSet}s.
@@ -179,7 +193,7 @@ LogicalDataSet $\sqsubseteq$ $\forall$ aggregation.DataSet \\
 
 \subsection{Existential Quantifications}
 
-An existential class expression ({\em existential restriction} in DL terminology) contains all those individuals that are connected by the property P to an individual x that is an instance of the class C or to literals that are in the data range DR\footnote{R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}.
+An existential class expression ({\em existential restriction} in DL terminology) contains all those individuals that are connected by the property P to an individual x that is an instance of the class C or to literals that are in the data range DR\footnote{{\em R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}}.
 
 \textbf{{\em DISCO-C-XX}}. 
 There must be at least 1 {\em disco:universe} relationship from {\em disco:Studies} or {\em disco:StudyGroups} to {\em disco:Universe}.
@@ -189,6 +203,10 @@ Study $\sqcup$ StudyGroup $\sqsubseteq$ $\exists$ universe.Universe \\
 \end{DL}
 
 \subsection{Disjunction}
+
+A union class expression contains all individuals that are instances of at least one class $C_{i}$ for 1 $\leq$ i $\leq$ n. 
+A union data range contains all tuples of literals that are contained in the at least one data range $DR_{i}$ for 1 $\leq$ i $\leq$ n.
+Synonyms of {\em disjunction} are {\em union} and {\em inclusive or}\footnote{{\em R-17-DISJUNCTION-OF-CLASS-EXPRESSIONS} and {\em R-18-DISJUNCTION-OF-DATA-RANGES}}.
 
 \textbf{{\em DISCO-C-XX}}. 
 Only {\em disco:Variable}s or {\em disco:Question}s or {\em disco:RepresentedVariable}s can have {\em disco:concept} relationships to {\em skos:Concept}s.
@@ -200,6 +218,10 @@ $\sqsubseteq$ $\forall$ concept.Concept \\
 		
 \subsection{Property Domains*}
 
+{\em Property Domains} ({\em domain restrictions on roles} in DL) restricts the domain of object and data properties.
+The purpose is to declare that a given property is associated with a class. 
+In OO terms this is the declaration of a member, field, attribute or association. 
+$\exists R. \top \sqsubseteq C$ is the object property restriction where $R$ is the object property (role) whose domain is restricted to concept $C$\footnote{{\em R-25-OBJECT-PROPERTY-DOMAIN} and {\em R-26-DATA-PROPERTY-DOMAIN}}.
 {\em Property Domain} constraints are defined for each Disco object and data property.
 
 \textbf{{\em DISCO-C-XX}}. 
@@ -211,6 +233,9 @@ $\exists$ responseDomain.$\top$ $\sqsubseteq$ Question
 
 \subsection{Property Ranges*}
 
+{\em Property Range} ({\em range restrictions on roles} in DL) restricts the range of object and data properties.
+$\top \sqsubseteq \forall R . C$ is the range restriction to the object property $R$ (restricted by the concept $C$)\footnote{{\em R-28-OBJECT-PROPERTY-RANGE} and {\em R-35-DATA-PROPERTY-RANGE}}. 
+
 \textbf{{\em DISCO-C-XX}}. 
 {\em disco:caseQuantity} relationships can only point to literals of the datatype {\em xsd:nonNegativeInteger}.
 
@@ -219,6 +244,9 @@ $\top$ $\sqsubseteq$ $\forall$ caseQuantity.nonNegativeInteger \\
 \end{DL}
 
 \subsection{Class-Specific Property Ranges}		
+
+{\em Class-Specific Property Range} restricts the range of object and data properties for individuals within a specific context (e.g. class, shape, application profile).
+The values of each member property of a class may be limited by their value type, such as xsd:string or foaf:Person\footnote{{\em R-29-CLASS-SPECIFIC-RANGE-OF-RDF-OBJECTS} and {\em R-36-CLASS-SPECIFIC-RANGE-OF-RDF-LITERALS}}. 
 
 \textbf{{\em DISCO-C-XX}}. 
 Only {\em disco:Question}s can have {\em disco:questionText} relationships to literals of the datatype {\em rdf:langString}.
@@ -229,6 +257,8 @@ $\neg$Question $\sqsubseteq$ $\neg\exists$ questionText.langString
 
 \subsection{Subsumption*}
 
+A subclass axiom ({\em concept inclusion} in DL) states that the class C1 is a subclass of the class C2 - C1 is more specific than C2\footnote{{\em R-100-SUBSUMPTION}}.
+
 \textbf{{\em DISCO-C-XX}}. 
 All {\em disco:Universe}s must also be {\em skos:Concept}s.
 
@@ -237,6 +267,11 @@ Universe $\sqsubseteq$ Concept
 \end{DL}
 
 \subsection{Class Equivalence*}
+
+{\em Class Equivalence} asserts that two concepts have the same instances.
+While synonyms are an obvious example of equivalent concepts, in practice one more
+often uses concept equivalence to give a name to complex expressions \cite{Kroetzsch2012}.
+Concept equivalence is indeed subsumption from left and right ($A \sqsubseteq B$ and $B \sqsubseteq A$ implies $A \equiv B$)\footnote{{\em R-3-EQUIVALENT-CLASSES}}.
 
 \textbf{{\em DISCO-C-XX}}. 
 All {\em sio:SIO\_000367}s must also be {\em disco:Variable}s.
@@ -263,12 +298,65 @@ fundedBy $\sqsubseteq$ contributor
 \subsection{Disjoint Classes}
 
 {\em Disjoint Classes} state that all of the classes are pairwise disjoint; 
-that is, no individual can be at the same time an instance of these disjoint classes\footnote{R-7-DISJOINT-CLASSES}.
-\textbf{{\em DISCO-DISJOINT-CLASSES-01}}.All Disco classes are defined to be pairwise disjoint.
+that is, no individual can be at the same time an instance of these disjoint classes\footnote{{\em R-7-DISJOINT-CLASSES}}.
+\textbf{{\em DISCO-C-01}}. All Disco classes are defined to be pairwise disjoint.
 The following DL statements holds for each pair of Disco classes:
 
 \begin{DL}
 Study $\sqcap$ Variable $\sqsubseteq$ $\perp$\\
+\end{DL}
+
+\subsection{Asymmetric Object Properties}
+
+A property is asymmetric if it is disjoint from its own inverse \cite{Kroetzsch2012}.
+An object property asymmetry axiom states that the object property OP is asymmetric - that is, if an individual x is connected by OP to an individual y, then y cannot be connected by OP to x\footnote{{\em R-62-ASYMMETRIC-OBJECT-PROPERTIES}}. 
+
+\textbf{{\em DISCO-C-01}}. 
+A {\em disco:Variable} may be based on a {\em disco:RepresentedVariable}.
+A {\em disco:RepresentedVariable}, however, cannot be based on a {\em disco:Variable}.
+This is a kind of mistake may occur as a semantically equivalent object property for the other direction may also be possible ({\em disco:basisOf}).
+
+\begin{DL}
+$basedOn \sqcap basedOn^{-} \sqsubseteq \bot$ 
+\end{DL}
+
+\subsection{Class-Specific Irreflexive Object Properties}
+
+A property is irreflexive if it is never locally reflexive \cite{Kroetzsch2012}.
+An object property irreflexivity axiom states that the object property OP is irreflexive - that is, no individual is connected by OP to itself. 
+
+\textbf{{\em DISCO-C-XX}}.
+Within the Disco context, {\em skos:Concept}s cannot be related via the object property {\em skos:boader} to themselves.
+
+\begin{DL}
+Concept $\sqsubseteq$ $\neg$$\exists$ broader.Self. 
+\end{DL}
+
+\textbf{{\em DISCO-C-XX}}.
+Within the Disco context, {\em skos:Concept}s cannot be related via the object property {\em skos:narrower} to themselves. 
+
+\begin{DL}
+Concept $\sqsubseteq$ $\neg$$\exists$ narrower.Self. 
+\end{DL}
+
+\subsection{Context-Specific Exclusive OR of Property Groups}
+
+{\em Context-Specific Exclusive OR of Property Groups} corresponds to the requirement:
+{\em R-13-DISJOINT-GROUP-OF-PROPERTIES-CLASS-SPECIFIC}.
+Exclusive or is a logical operation that outputs true whenever both inputs differ (one is true, the other is false).
+Only one of multiple property groups leads to valid data.
+
+\textbf{{\em DISCO-C-XX}}.
+Within the context of Disco, skos:Concepts can have either skos:definition (when interpreted as DDI concepts) or skos:notation and skos:prefLabel properties (when interpreted as DDI codes and categories), but not both.
+
+\begin{DL}
+Human $\sqsubseteq$ ($\neg$ E $\sqcap$ F) $\sqcup$ (E $\sqcap$ $\neg$ F) \\ 
+E $\equiv$ A $\sqcap$ B \\
+F $\equiv$ C $\sqcap$ D \\
+A $\sqsubseteq$ $\geq$ 1 name . string $\sqcap$ $\leq$ 1 name . string \\
+B $\sqsubseteq$ $\geq$ 1 givenName . string $\sqcap$ $\leq$ 1 givenName . string \\
+C $\sqsubseteq$ $\geq$ 1 mbox . IRI $\sqcap$ $\leq$ 1 mbox . IRI \\
+D $\sqsubseteq$ $\geq$ 1 homepage . Document $\sqcap$ $\leq$ 1 homepage . Document \\
 \end{DL}
 
 \subsection{SKOS-Related Constraints}
