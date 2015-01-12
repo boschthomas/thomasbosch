@@ -178,7 +178,7 @@
 
 %
 %
-\title{On Constraint Languages for RDF Validation and Reasoning}
+\title{On Constraint Languages for RDF Validation with an account to Reasoning}
 \subtitle{}
 %On Constraint Languages for RDF Validation and Reasoning
 %RDF Validation - Classification of Constraints and Constraint Languages According to Reasoning, Expressivity, and Complexity
@@ -209,17 +209,16 @@ Albstadt-Sigmaringen University, Germany \\
 \maketitle              % typeset the title of the contribution
 
 \begin{abstract}
-There is no standard way to formulate RDF constraints and to validate data according to these constraints,
-although there are five promising constraint languages covering the major requirements on RDF validation.
-The ontology language OWL 2 can be used as an expressive constraint language with a high level human-readable syntax.
-We explain why OWL 2 reasoning is beneficial for validation and how reasoning interacts with validation.
+There is no standard way to formulate RDF constraints for validation,
+however there are several popular constraint languages (i.e., SPIN, ReSh, ShEx) covering major requirements on RDF validation. Amongst others, the ontology language OWL 2 can also be considered as an expressive constraint language with a high level human-readable syntax.
+In this work, we discuss possible scenarios on how OWL 2 reasoning can actually be useful for RDF validation.
 %We take reasoning into account as a possible pre-validation step, 
 %(1) to infer triples resolving constraint violations, 
 %(2) to infer triples for which constraints can also be validated, and 
 %(3) to solve the major shortcoming of RDF validation: redundancy. 
 %\er{I simplified the long abstract a bit by commenting (\%) as well as little editing. The part starting with, "we investigate", cause lacking integrity in abstract,  I dropped 1, 2, 3 for simplification and better flow. We can write abstract in the end, which can also include a short part of introduction if necessary.}
-We also attempt to classify the expressivity, the complexity, and the user-friendliness of constraint languages. 
-Following this approach, one can clarify which constraint language to use to express constraints for specific validation scenarios, with and without reasoning concerning the complexity as well as user-friendliness.
+Then, regarding a collected list of constraint types (requirements), we classify their expressivity with an account to reasoning.   
+%Following this approach, one can clarify which constraint language to use to express constraints for specific validation scenarios, with and without reasoning.
 %Validators can determine which axioms cause high complexity and which constraints can only be expressed within a more sophisticated expressivity class.
 %As a next step, validators give some guidance how to get to lower expressivity and complexity classes.
 %If validators propose multiple constraint languages for a particular validation use case, additional rather subjective criteria regarding user-friendliness may be evaluated.
