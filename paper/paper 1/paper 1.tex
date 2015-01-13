@@ -519,23 +519,28 @@ As a result of its expressive power, OWL 2 DL allows a large variety of sophisti
 	%\item constraints only expressible by other constraint languages
 %\end{itemize}
 
-The W3C and DCMI WGs identified in total 74 requirements to formulate RDF constraints.  
-Bosch et al.\footnote{Available at: \url{https://github.com/boschthomas/RDF-validation-research/paper}} explain each requirement in detail and give examples for each, represented by listed constraint languages.
-It contains also mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express which constraint.
-When the DL constructs  which are needed to express a particular constraint are known, the required expressivity and the computational complexity to perform reasoning for that constraint can be determined. 
-The constraint \ms{Context-Specific Exclusive OR of Properties} (see section~\ref{sec:RDF-validation-requirements-without-reasoning-2}), e.g., can generically be expressed as follows:
-\begin{center}
-\begin{DL}
-$C$ &$\sqsubseteq (\neg A \sqcap B) \sqcup (A \sqcap \neg B)$ \\
-$A$ &$\equiv \exists a.D$ \\
-$B$ &$\equiv \exists b.E$  
-\end{DL}
-\end{center}
-As this constraint is a complex constraint (constructed out of multiple complex and simple constraints), its expressivity is evaluated by the expressivity of the individual constraints used.
-The DL constructs \ms{property inclusion}, \ms{complement}, \ms{intersection}, \ms{union}, and \ms{existential restriction} are used to express this constraint.  
+For this paper, we identified in total 74 requirements to formulate RDF constraints; each of them corresponding to a constraint type. 
+We recently published a technical report\footnote{Available at: \url{https://github.com/boschthomas/RDF-validation-research/paper}} (serving as appendix of this paper) in which we explain each requirement in detail and in which we give examples for each (represented by listed constraint languages)\tb{citation}.
+This technical report also contains mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express which constraint type.
+%When the DL constructs  which are needed to express a particular constraint are known, the required expressivity and the computational complexity to perform reasoning for that constraint can be determined. 
+%The constraint \ms{Context-Specific Exclusive OR of Properties} (see section~\ref{sec:RDF-validation-requirements-without-reasoning-2}), e.g., can generically be expressed as follows:
+%\begin{center}
+%\begin{DL}
+%$C$ &$\sqsubseteq (\neg A \sqcap B) \sqcup (A \sqcap \neg B)$ \\
+%$A$ &$\equiv \exists a.D$ \\
+%$B$ &$\equiv \exists b.E$  
+%\end{DL}
+%\end{center}
+%As this constraint is a complex constraint (constructed out of multiple complex and simple constraints), its expressivity is evaluated by the expressivity of the individual constraints used.
+%The DL constructs \ms{property inclusion}, \ms{complement}, \ms{intersection}, \ms{union}, and \ms{existential restriction} are used to express this constraint.  
 % As existential restrictions are part of OWL 2 DL reasoning, the constraint's complexity is \textsc{N2exptime}.
-
 % \er{Now computational complexity? Existential restrictions are not necessarily \textsc{N2Exptime}}
+In this section, we show how to determine the performance (the computational complexity) to validate simple (atomic) and complex (composed) constraint types.
+\begin{enumerate}
+	\item As reasoning may be performed as a pre-validation step, we determine for each constraint type if it makes sense to perform reasoning for this constraint type.
+	\item As validation may be performed without reasoning, but also by means of different reasoning types, we assign each constraint type to a validation type (which is associated with a specific complexity class).
+	\item The combination of DL constructs of a constraint type determines its complexity. By mapping each constraint type to DL and as the complexity of DL constructs are known (some DL constructs are only expressible by particular OWL 2 profile which are associated with a complexity class), we get an idea of the complexity for each constraint type in worst case.
+\end{enumerate}
 
 \subsection{Reasoning}
 
