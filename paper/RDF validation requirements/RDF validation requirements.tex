@@ -260,6 +260,8 @@ The intention associated with this database is to collaboratively collect case s
 The requirements are classified to better evaluate existing solutions. 
 We mapped each requirement to formulate RDF constraints directly to an RDF constraint.
 
+A \ms{constraint language} is a language which is used to formulate constraints.
+The W3C Data Shapes working group defines \ms{constraint} as a component of a schema what needs to be satisfied\footnote{\url{https://www.w3.org/2014/data-shapes/wiki/Glossary}}.
 There is no constraint language which can be seen as the standalone standard.
 However, there are multiple constraint languages (each having its own  syntax and semantics) which can be used to express RDF constraints, such as existential and universal quantification, cardinality restrictions, and exclusive-or of properties.
 The five popular constraint languages are 
@@ -269,7 +271,6 @@ Shape Expressions (ShEx)\footnote{\url{http://www.w3.org/Submission/shex-primer/
 the SPARQL Inferencing Notation (SPIN)\footnote{\url{http://spinrdf.org/}}, 
 and the Web Ontology Language (OWL 2)\footnote{\url{http://www.w3.org/TR/owl2-syntax/}}.
 
-\section{Motivation}
 
 In this paper, we describe each requirement within the RDF validation requirements database in detail (sections 3-76).
 Additional descriptions can be found directly in the database.
@@ -281,8 +282,9 @@ We distinguished if a constraint is fulfilled by OWL 2 QL or if the more express
 We also take reasoning into account, as reasoning may be performed prior to validating constraints.
 
 In order to define an ontology to describe RDF constraints generically, it is needed to define the terminology for the formulation of RDF constraints and to classify them. 
-A \ms{constraint language} is a language which is used to formulate constraints.
-The W3C Data Shapes working group defines \ms{constraint} as a component of a schema what needs to be satisfied\footnote{\url{https://www.w3.org/2014/data-shapes/wiki/Glossary}}.
+
+
+
 We identified four dimensions to classify constraints:
 \begin{itemize}
   \item \ms{Universality:} specific constraints vs. generic constraints
@@ -297,11 +299,11 @@ We call this ontology the \ms{RDF constraints ontology (RDF-CO)}\footnote{Availa
 
 \ms{Specific constraints} are expressed by specific constraint languages like DSP, OWL 2, ReSh, ShEx, and SPIN.
 \ms{Generic constraints} are expressed by the RDF-CO.
-As RDF-CO describes constraints generically, RDF-CO does not distinguish constraints according to the dimension \ms{universality}. 
+As RDF-CO describes constraints generically, it does not distinguish constraints according to the dimension \ms{universality}. 
 The majority of constraints can be expressed in DL.
-In contrast, there are constraints which cannot be expressed in DL, but are also representable by the RDF-CO. 
-\ms{Complex constraints} encompass \ms{simple constraints} (atomic constraints) and/or further complex constraints.
-DL statements representing complex constraints are created out of DL statements representing composed constraints (if expressible in DL). 
+In contrast, there are constraints which cannot be expressed in DL, but are also expressible in the RDF-CO. 
+\ms{Complex constraints} are built by combining \ms{simple constraints} or complex constraints.
+DL statements which represents complex constraints are created out of DL statements representing composed constraints (if expressible in DL). 
 Simple constraints may be applied to either properties (\ms{properties constraints}) or classes (\ms{class constraints}).
 There are no terms representing simple and complex constraints in the RDF-CO, since context classes (associated simple constraints hold for individuals of these classes) of simple constraints may just be reused by further constraints.
 As a consequence, the distinction of property and class constraints is sufficient to describe all possible RDF constraints.
