@@ -268,40 +268,6 @@ Resource Shapes (ReSh)\footnote{\url{http://www.w3.org/Submission/shapes/}},
 and Description Set Profiles (DSP)\footnote{\url{http://dublincore.org/documents/2008/03/31/dc-dsp/}}.
 
 Their relevance varies with respect to several foremost criteria in validation process, such as user-friendliness (how easy is it for a user to define constraints?), constraint expressivity (what kind of constraints can be expressed?) and performance (how efficient in terms of runtime can RDF be validated?). Furthermore, the service of reasoning and its usability is in question. 
-OWL 2 is an expressive semantic web language which is based on description logics, offering knowledge representation and reasoning services. Validation, however, does not appear to be a genuine part of it.  
-This has lead to claims that OWL 2 cannot be used for validation. 
-There have been long and controversial discussions\footnote{\url{http://lists.w3.org/Archives/Public/public-data-shapes-wg/}\\ \url{https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=dc-architecture}} in the W3C and DCMI WGs if OWL 2 should be used for RDF validation.
-%However, OWL 2 is high-level  expressive  language with a compact human-readable syntax.
-
-
-In practice, OWL 2 is well-spread and RDFS/OWL constructs is widely used to tell people and applications about how valid instances should be created.
-RDF documents follow the structure of RDFS/OWL ontologies which can therefore be reused for validation. In particular, most of the constraint languages except OWL, have a major shortcoming of redundancy. Consider the following  DL knowledge base $\mathcal{K}$ :
-\begin{center}
-\begin{DL} 
-$\mathcal{K}=\{$ & \ms{Person $\sqsubseteq \exists$ hasAncestor.Person}, \\
-  & \ms{Jedi $\sqsubseteq \forall$ hasWeapon. JediWeapon }\\
-  & \ms{Jedi $\sqsubseteq$ Person} \\
- &(\ms{funct (hasAncestor)}),\\
- &\ms{Person(Anakin)},\\
- &\ms{Jedi(Luke)},\\
- &\ms{hasWeapon(Luke, LaserSword)}\\
- &\ms{hasAncestor(Luke, Anakin)},\\ 
- &\ms{hasAncestor(Luke, Shmi)}$\}$
-\end{DL}
-\end{center}
-
-The statement \ms{Jedi $\sqsubseteq \forall$ hasWeapon. JediWeapon } says \emph{Jedis can have only Jediweapon}. Furthermore, we know that Luke is a Jedi  (i.e., \ms{Jedi(Luke)}) and \emph{Luke has the weapon laser sword} (\ms{hasWeapon(Luke, LaserSword)}.  However,  if a laser sword is not explicitly defined to be a Jedi weapon (e.g., \ms{Jediweapon(LaserSword)}), it causes a constraint violation.\er{Would there be really a violation?}
-If we express the mentioned constraints in OWL
-and apply a reasoner before the proper constraint validation is performed, we will not get a constraint violation  because implicit statements such as \emph{laser sword is a Jedi weapon} (i.e., \ms{JediWeapon(LaserSword)}) will be inferred. 
-
-
-
-Additionally, in OWL we have the non-unique name assumption (nUNA) whereas RDF validation requires that different names represent different objects (also known as unique name assumption (UNA)). This ambiguity in semantics stands as one of the main reasons of why OWL has not been adopted as a standard constraint language for RDF validation in the past.  
-OWL's semantics is based on open-world assumption (OWA)  i.e., a statement cannot be inferred to be false if it cannot be proved to be true  which fits its primary design purpose: to represent knowledge on World Wide Web. With its open-world semantics, used as a constraint language, OWL seems to solve the redundancy problem. With the OWA, in the given knowledge base above, we infer that $\ms{Anakin}$ has an ancestor that is a $\ms{Person}$ (since Anakin is a person e.g.,\ms{Person(Anakin)}), but we do not know who exactly, and $\mathcal{K}$ is consistent. 
-
-On the other hand, many RDF validation scenario requires the closed-world assumption (CWA) (i.e., a statement is inferred to be false if it cannot be proved to be true), therefore  classical constraint languages are based on CWA where  the constraint needs to be satisfied only by named individuals which yields in return of a constraint violation. This would be a shortcoming of OWA in RDF validation. We can further observe that there is a clash caused by the functional role $\ms{hasAncestor}$ and the UNA. However, in OWA there is no UNA by default, therefore the reasoning will conclude that $\ms{Anakin}$ is the same individual as \ms{Shmi} ($\ms{Anakin} \equiv \ms{Shmi}$). This is not a problem if we add the UNA to the OWA, like in the \textit{DL-Lite} family \cite{Calvanese2007,Artale2009} which is the basis for OWL 2 QL. 
-
-
 
 In this paper, taking reasoning into account, our main focus will be on constraint expressivity. We leave an analysis of user-friendliness to a further work. Nevertheless, we will mention the known complexity results of those languages through out the paper.  
 
@@ -476,23 +442,54 @@ The rest of the paper goes as follows...
 %\tb{+1 / this should be the 3 main contributions, maybe we should highlight them in the flow text / no itemization}
 %\er{We can reserve a paragraph (flowing text) for those  item as well. }
 
-\section{Expressivity and Complexity in OWL 2}
-\label{Expressivity-Complexity-OWL2}
+\section{OWL as a Constraint Language}
 
+%\begin{itemize}
+	%\item advantages and disadvantages of OWL in terms of validation
+%\end{itemize}
+OWL 2 is an expressive semantic web language which is based on description logics, offering knowledge representation and reasoning services. Validation, however, does not appear to be a genuine part of it.  
+This has lead to claims that OWL 2 cannot be used for validation. 
+There have been long and controversial discussions\footnote{\url{http://lists.w3.org/Archives/Public/public-data-shapes-wg/}\\ \url{https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=dc-architecture}} in the W3C and DCMI WGs if OWL 2 should be used for RDF validation.
+%However, OWL 2 is high-level  expressive  language with a compact human-readable syntax.
+
+
+In practice, OWL 2 is well-spread and RDFS/OWL constructs is widely used to tell people and applications about how valid instances should be created.
+RDF documents follow the structure of RDFS/OWL ontologies which can therefore be reused for validation. In particular, most of the constraint languages except OWL, have a major shortcoming of redundancy. Consider the following  DL knowledge base $\mathcal{K}$ :
+\begin{center}
+\begin{DL} 
+$\mathcal{K}=\{$ & \ms{Person $\sqsubseteq \exists$ hasAncestor.Person}, \\
+  & \ms{Jedi $\sqsubseteq \forall$ hasWeapon. JediWeapon }\\
+  & \ms{Jedi $\sqsubseteq$ Person} \\
+ &(\ms{funct (hasAncestor)}),\\
+ &\ms{Person(Anakin)},\\
+ &\ms{Jedi(Luke)},\\
+ &\ms{hasWeapon(Luke, LaserSword)}\\
+ &\ms{hasAncestor(Luke, Anakin)},\\ 
+ &\ms{hasAncestor(Luke, Shmi)}$\}$
+\end{DL}
+\end{center}
+
+The statement \ms{Jedi $\sqsubseteq \forall$ hasWeapon. JediWeapon } says \emph{Jedis can have only Jediweapon}. Furthermore, we know that Luke is a Jedi  (i.e., \ms{Jedi(Luke)}) and \emph{Luke has the weapon laser sword} (\ms{hasWeapon(Luke, LaserSword)}.  However,  if a laser sword is not explicitly defined to be a Jedi weapon (e.g., \ms{Jediweapon(LaserSword)}), it causes a constraint violation.\er{Would there be really a violation?}
+If we express the mentioned constraints in OWL
+and apply a reasoner before the proper constraint validation is performed, we will not get a constraint violation  because implicit statements such as \emph{laser sword is a Jedi weapon} (i.e., \ms{JediWeapon(LaserSword)}) will be inferred. 
+
+\subsection{CWA vs. OWA in RDF Validation}
+
+Additionally, in OWL we have the non-unique name assumption (nUNA) whereas RDF validation requires that different names represent different objects (also known as unique name assumption (UNA)). This ambiguity in semantics stands as one of the main reasons of why OWL has not been adopted as a standard constraint language for RDF validation in the past.  
+OWL's semantics is based on open-world assumption (OWA)  i.e., a statement cannot be inferred to be false if it cannot be proved to be true  which fits its primary design purpose: to represent knowledge on World Wide Web. With its open-world semantics, used as a constraint language, OWL seems to solve the redundancy problem. With the OWA, in the given knowledge base above, we infer that $\ms{Anakin}$ has an ancestor that is a $\ms{Person}$ (since Anakin is a person e.g.,\ms{Person(Anakin)}), but we do not know who exactly, and $\mathcal{K}$ is consistent. 
+
+On the other hand, many RDF validation scenario requires the closed-world assumption (CWA) (i.e., a statement is inferred to be false if it cannot be proved to be true), therefore  classical constraint languages are based on CWA where  the constraint needs to be satisfied only by named individuals which yields in return of a constraint violation. This would be a shortcoming of OWA in RDF validation. We can further observe that there is a clash caused by the functional role $\ms{hasAncestor}$ and the UNA. However, in OWA there is no UNA by default, therefore the reasoning will conclude that $\ms{Anakin}$ is the same individual as \ms{Shmi} ($\ms{Anakin} \equiv \ms{Shmi}$). This is not a problem if we add the UNA to the OWA, like in the \textit{DL-Lite} family \cite{Calvanese2007,Artale2009} which is the basis for OWL 2 QL. 
+
+\subsection{Expressivity and Complexity in OWL 2}
+\label{Expressivity-Complexity-OWL2}
 
 OWL 2 profiles (or fragments in logic literature) are restricted (sublanguage) versions of OWL 2 that offer different trade-offs regarding expressivity  vs. efficiency in reasoning. There are three main  profiles of OWL 2, which are OWL 2 QL, OWL 2 RL and OWL 2 EL namely, each designed to  be useful for different purposes and application scenarios. The choice of which profile to use is purpose-specific on what to express and to perform the reasoning about. We refer the reader to \cite{owl2profiles2008} for a comprehensive treatment of those profiles.
 
 In this section, we will briefly mention the expressivity and complexity of OWL 2. This will also be the base for our classification of RDF validation requirements with reasoning. In this regard, we will  mainly focus on  OWL 2 QL as well as OWL 2 DL. Note that there is also the very expressive web ontology language OWL 2 Full (which is not a DL) for reasoning that we will not include in our classification, since its high worst case complexity (undecidability) as well as interesting RDF requirements with reasoning is already available in aforementioned OWLs (OWL 2 DL/QL).
 
+\tb{simplify and merge}
 
- 
-
-
-
-\subsection{OWL 2 QL Reasoning}
-
-
-
+\textbf{OWL 2 QL Reasoning.}
 OWL 2 QL is an OWL 2 profile which focuses on reasoning in the context of query answering with very large size of instance data. The acronym QL stands for query language as query answering in this profile can be done by rewriting queries into a standard relational query language (also known as First-Order Rewritability). Also, conjunctive query answering can be done by using conventional relational database systems. Aiming at efficiency on working with large size data, the expressive power of the profile is quite limited as expected. As a result of this, reasoning in OWL 2 QL is highly efficient so that sound and complete conjunctive query answering can be performed in \textsc{LogSpace} in the size of the data assertions as well as  the ontology consistency and class expression subsumption can be performed in polynomial time.
 
 OWL 2 QL is based on the \textit{DL-Lite} family of description logics, a tractable family of fragments of first-order logic \cite{Artale2009,Calvanese2007}. 
@@ -501,10 +498,7 @@ unique name assumption (UNA). The UNA is common in data management, therefore it
 
 Among the members of \textit{DL-Lite} family, \textit{DL-Lite}$_\mathcal{R}$ is the one that OWL 2 QL is based on. The reason is to avoid any problematic issue which might appear in the explicit axiomatization of the UNA, since  \textit{DL-Lite}$_\mathcal{R}$ in general does not require the UNA, because making this assumption has no semantic affect on a \textit{DL-Lite}$_\mathcal{R}$ ontology.
 
-\subsection{OWL 2 DL Reasoning}
-
-
-
+\textbf{OWL 2 DL Reasoning.}
 The Semantic Web ontology language OWL 2 DL\footnote{See \url{http://www.w3.org/TR/owl2-direct-semantics/}.} was standardised by
 the World Wide Web Consortium (W3C) in 2009 (and updated in 2012) as a
 description logic-like formalism.  OWL 2 DL has high expressivity, yet maintains  decidability for main reasoning tasks e.g., ontology satisability, 
@@ -544,6 +538,245 @@ In this section, we show how to determine the performance (the computational com
 	\item As validation may be performed without reasoning, but also by means of different reasoning types, we assign each constraint type to a validation type (which is associated with a specific complexity class).
 	\item The combination of DL constructs of a constraint type determines its complexity. By mapping each constraint type to DL and as the complexity of DL constructs are known (some DL constructs are only expressible by particular OWL 2 profile which are associated with a complexity class), we get an idea of the complexity for each constraint type in worst case.
 \end{enumerate}
+
+\subsection{RDF Validation Requirements and Reasoning}
+\label{sec:RDF-validation-requirements-and-reasoning}
+
+Reasoning and validation are very closely related. 
+Reasoning is the process of determining what follows from what has been
+stated.  Reasoning ranges from simple (Jedi students are Jedis, Luke is a Jedi student, therefore Luke is a Jedi) to the very complex. Reasoning can
+also recognize impossibilities ( Jedi masters are Jedis, Yoda is a Jedi master, Yoda
+is not a Jedi, therefore there is a contradiction). 
+Both should be possible: (1) validation with reasoning and (2) validation without reasoning. 
+Reasoning may be a pre validation step to infer triples resolving constraint violations or to infer triples for which constraints are validated.
+
+%Reasoning may be a pre validation step to infer triples resolving constraint violations.
+%According to the existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasJediWaepon . JediWeapon} every Jedi has at least one Jedi weapon.
+%Luke is a Jedi (\ms{Jedi(Luke)}) having a blue laser sword (\ms{hasLaserSword(Luke, BlueLaserSword)}.
+%As it is not defined that laser swords are Jedi weapons and as Luke is a Jedi, the existential restriction causes a constraint violation. 
+%This constraint violation is not raised when we define that laser swords are Jedi weapons (\ms{hasLaserSword $\sqsubseteq$ hasJediWaepon} ) 
+%and \ms{hasLaserSword} is a sub-property of \ms{hasJediWeapon} (\ms{LaserSword $\sqsubseteq$ JediWeapon}).
+%
+%It makes also sense to perform reasoning to infer triples for which constraints are validated.
+%The existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword} forces Jedis to have at least one laser sword.
+%The existential restriction is not checked for the triple \ms{YediMaster(Yoda)}, as \ms{Yoda} is a \ms{JediMaster} and not a \ms{Jedi} as well.
+%If, however, our knowledge base contains the axiom \ms{JediMaster $\sqsubseteq$ Jedi}, the triple \ms{Jedi(Yoda)} is inferred and the existential restrictions is validated for the individual \ms{Yoda}, raising a constraint violation if a triple such as \ms{hasLaserSword(Yoda, GreenLaserSword)} is not included in the knowledge base. 
+
+\subsubsection{OWL 2 QL Reasoning}
+
+{\em Subsumption}\footnote{corresponds to R-100-SUBSUMPTION}
+relationships of both classes and properties are part of basic reasoning.
+
+\begin{center}
+\begin{DL}
+Jedi &$\sqsubseteq$ FeelingForce \\
+JediMaster &$\sqsubseteq$ Jedi \\
+\end{DL}
+\end{center}
+
+All Jedi masters are Jedis feeling the force.
+These sub-class relationships can also be expressed by OWL 2 QL:
+
+\begin{ex}
+Jedi RDFs:subClassOf FeelingForce . 
+JediMaster RDFs:subClassOf Jedi . 
+\end{ex}
+
+Valid data must contain the three class assignments \ms{JediMaster(Yoda)}, \ms{Jedi(Yoda)}, and \ms{FeelingForce(Yoda)}.
+These class assignments can be either explicitly stated or implicitly inferred when reasoning is performed before actually validating the data.
+When only the triple \ms{Yoda a JediMaster} is given and reasoning is not executed, then a constraint violation is raised.
+After reasoning, however, the triples \ms{Yoda a Jedi , FeelingForce} are inferred resulting in valid data. 
+
+The {\em Property Domain}\footnote{corresponds to R-25-PROPERTY-DOMAIN} constraint
+\ms{$\exists$ studentOf.$\top$ $\sqsubseteq$ JediStudent}
+restricts that individuals having studentOf relationships must be Jedi students.
+This property domain constraint can also be expressed by OWL 2 QL:
+
+\begin{ex}
+studentOf RDFs:domain JediStudent .
+\end{ex}
+
+Without reasoning, the data \ms{Anakin studentOf Obi-Wan} is invalid and causes a constraint violation, as it is not explicitly stated that \ms{Anakin} is assigned to the class \ms{Jedi}. 
+When inferencing is performed before validating, the class assignment \ms{Anakin a Jedi} is inferred which prevents the constraint violation to be raised.
+
+The {\em Existential Quantification}\footnote{corresponds to R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}
+\ms{Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword} let us refer to all those individuals that are connected by \ms{hasLaserSword} to an individual that is an instance of the class \ms{LaserSword}.
+In OWL 2 DL, this existential quantification can also be expressed:
+
+\begin{ex}
+[ a owl:Restriction ;
+  owl:onProperty hasLaserSword ;
+  owl:someValuesFrom LaserSword ;
+  RDFs:subClassOf Jedi ] .
+\end{ex}
+
+When our data contains the triple \ms{Luke hasLaserSword BlueLaserSword} and we perform reasoning, we can infer that \ms{Luke} is a \ms{Jedi}, as he has a laser sword.
+As the individual \ms{Luke} is assigned to the class \ms{Jedi}, all constraint associated with this class are also validated, for example that Jedis must have blue laser swords.
+Without reasoning, these constraints won't be validated as \ms{Luke} is not within the class extension of \ms{Jedi}.
+
+\subsubsection{OWL 2 DL Reasoning}
+
+{\em Universal quantifications}\footnote{corresponds to R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}
+contain all those individuals that are connected by a particular property only to individuals that are instances of a specific class.
+Siths, e.g., can only have Siths as mentors (\ms{Sith $\sqsubseteq$ $\forall$ hasMentor.Sith}), 
+which cannot be expressed by OWL 2 QL, but by OWL 2 DL \cite{owl2profiles2008}:
+\begin{ex}
+[ a owl:Restriction ;
+  owl:onProperty hasMentor ;
+  owl:allValuesFrom Sith ;
+  RDFs:subClassOf Sith ] .
+\end{ex}
+When performing reasoning, the triples \ms{DarthMaul hasMentor DarthSidious} and \ms{DarthSidious a Sith} infer that \ms{DarthMaul} is a Sith.
+When reasoning is not wished, these explicitly stated triples cause a constraint violation, as each resource having \ms{hasMentor} relationships to a Sith must also be a Sith (which is not explicitly stated in the data).
+
+\subsection{RDF Validation Requirements without Reasoning}
+\label{RDF-Validation-Requirements-without-Reasoning}
+
+For the majority of the requirements to formulate RDF constraints, reasoning is not related to the constraints and is therefore not needed to be performed prior to validation. 
+It is also possible, however, to reason before validating constraints for which reasoning does not affect validation results.
+If we do reasoning by query rewriting in terms of backward chaining and if we run a constraint validation query through an engine like the --ontop-- framework\footnote{\url{http://ontop.inf.unibz.it}} or ELITE (federated query engine) \cite{nolle2013elite}, the engine will only do some rewritings if it is possible, and if you just check e.g. pattern matching there will be no rewriting.
+
+\subsection{Expressible by OWL 2}
+\label{sec:RDF-validation-requirements-without-reasoning-2}
+
+%\textbf{Literal Pattern Matching}\footnote{corresponds to R-44-PATTERN-MATCHING-ON-RDF-LITERALS}\textbf{.} 
+%There are multiple use cases associated with the requirement to match literals according to given patterns.
+%
+%Luke's droids can only have the numbers "R2-D2" or "C-3PO".
+%The universal restriction part of this constraint can be expressed by OWL 2 DL:
+%\ms{LukesDroids $\sqsubseteq$ $\forall$ droidNumber . DroidNumber}.
+%The restriction of the datatype \ms{DroidNumber}, however, cannot be expressed in DL, but OWL 2 DL can be used anyway:
+%
+%\begin{ex}
+%DroidNumber 
+    %a RDFs:Datatype ;
+    %owl:equivalentClass [
+        %a RDFs:Datatype ;
+        %owl:onDatatype xsd:string ;
+        %owl:withRestrictions ( 
+            %[ xsd:pattern "R2-D2|C-3PO" ] ) ] .
+%\end{ex}
+%
+%The second axiom defines \ms{DroidNumber} as an abbreviation for a datatype restriction on \ms{xsd:string}. 
+%The first axiom explicitly declares \ms{DroidNumber} to be a datatype. 
+%The datatype \ms{DroidNumber} can be used just like any other datatype like in the universal restriction above.
+%The literal pattern matching constraint validates \ms{DroidNumber} literals according to the stated regular expression causing a constraint violation for the triples 
+%\ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber}, 
+%but not for the triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}.
+
+\textbf{Allowed Values}\footnote{corresponds to R-30-ALLOWED-VALUES}\textbf{.}
+It is a common requirement to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resources). This is often rendered in drop down boxes or radio buttons in user interfaces. 
+The constraint 'Jedis can only have blue, green, or white laser swords' can be expressed by OWL 2 DL, DSP, ReSh, ShEx, SPIN, and SPARQL.
+\begin{center}
+\begin{DL}
+Jedi $\equiv$ $\exists$ laserSwordColor . \{blue, green, white\} \\
+\end{DL}
+\end{center}
+%In DSP, the constraint does not look that concise:
+%
+%\begin{ex}
+%personDescriptionTemplate
+    %a dsp:DescriptionTemplate ;
+    %dsp:resourceClass Jedi ;
+    %dsp:statementTemplate [
+        %a dsp:LiteralStatementTemplate ;
+        %dsp:property laserSwordColor ;
+        %dsp:literalConstraint [
+            %a dsp:LiteralConstraint ;
+            %dsp:literal "blue" ;
+            %dsp:literal "green" ;
+            %dsp:literal "white"] ] .
+%\end{ex}
+
+When representing the constraint by OWL2 DL a new datatype is defined by simply enumerating its literals:
+
+\begin{ex}
+laserSwordColor RDFs:range laserSwordColors . 
+laserSwordColors
+    a RDFs:Datatype .
+    owl:oneOf ( "blue" "green" "white" ) .
+\end{ex}
+
+Data containing the triples \ms{Yoda a Jedi ; laserSwordColor 'blue'} is valid, 
+whereas data including the triples \ms{DarthMaul a Jedi ; laserSwordColor 'red'} is invalid.
+
+\textbf{Context-Specific Exclusive OR of Properties}\footnote{corresponds to  R-11-CONTEXT-SPECIFIC-EXCLUSIVE-OR-OF-PROPERTIES}\textbf{.}
+An individual can either have a relationship via property A or via property B, but not both.
+To take an example, a Jedi is either attacking by sword or by force but not both (such a fight would not be fair):
+
+\begin{center}
+\begin{DL}
+Jedi &$\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
+A &$\equiv$ $\exists$ attackingBySword . xsd:boolean \\
+B &$\equiv$ $\exists$ attackingByForce . xsd:boolean \\ 
+\end{DL} 
+\end{center}
+
+Context-specific exclusive OR of properties can be expressed by ShEx. 
+In this case, the constraint context is the class \ms{Jedi}.
+
+\begin{ex}
+Jedi { (  
+    attackingBySword xsd:boolean | 
+    attackingByForce xsd:boolean ) }
+\end{ex}
+
+The same constraint may be expressed by OWL 2 DL, but not very intuitively and concisely.
+This can rather be seen as a workaround, as anonymous classes are built for each of the exclusive properties.
+
+\begin{ex}
+Jedi owl:disjointUnionOf ( CC1 CC2 ) . 
+CC1 RDFs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty attackingBySword ;
+    owl:someValuesFrom xsd:boolean ] .
+CC2 RDFs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty attackingByForce ;
+    owl:someValuesFrom xsd:boolean ] .
+\end{ex}
+
+Consider the triples \ms{Jedi(Luke)}, \ms{attackingBySword(Luke,true)}, \ms{Jedi(DarthSidious)},
+\ms{attackingByForce(DarthSidious,true)}, and \ms{attackingBySword(DarthSidious,true)}
+Luke as well as Darth Sidious are associated with the class \ms{Jedi}.
+As Darth Sidious has both relationships, a constraint Violation is raised.
+
+\subsection{Expressible by Other Constraint Languages}
+
+The majority of constraints can neither be expressed by OWL 2 QL nor by OWL 2 DL. 
+In such cases, these constraints are represented by other constraint languages like DSP, ShEx, ReSh, or SPIN.
+
+\textbf{Default Values}\footnote{Corresponds to R-31-DEFAULT-VALUES-OF-RDF-OBJECTS and R-38-DEFAULT-VALUES-OF-RDF-LITERALS}\textbf{.}
+It should be possible to declare the default value for a given object and data property, e.g. so that input forms can be pre-populated and to insert a required property that is missing in a web service call. 
+Siths have per default two red laser swords.
+If there is only stated that Darth Maul is a Sith (\ms{DarthMaul a Sith .}), then additional default triples should be inferred: 
+\ms{laserSwordColor(DarthMaul,"red")} and \ms{numberLaserSwords(DarthMaul,2)}.
+
+The default values constraint can only be expressed by ReSh, SPIN, and SPARQL.
+In SPIN, we can define a rule associated with the class \ms{owl:Thing}.
+This rule is applicable for each resource, as each resource is implicitly of the type \ms{owl:Thing}. 
+
+\begin{ex}
+owl:Thing spin:rule [ a sp:Construct ; sp:text """
+    CONSTRUCT {
+        ?this laserSwordColor "red" ;
+              numberLaserSwords 2 . }
+    WHERE {             
+        ?this a Sith . } """ ; ] .
+\end{ex}
+
+For each resource, the SPARQL CONSTRUCT query within the rule is executed creating the default triples.
+ReSh can also be used to express default values:
+
+\begin{ex}
+Sith a ResourceShape ;
+    property [
+        name "laserSwordColor" ;
+        propertyDefinition laserSwordColor ;
+        valueType xsd:string ;
+        defaultValue "red"'
+        occurs Exactly-one ; ] .
+\end{ex}
 
 \subsection{Reasoning}
 
@@ -831,13 +1064,13 @@ From the table given above (with numbers), one can infer that in terms of expres
 %\mathcal{C}: DSP \subset OWL2-QL \subset ReSh \subset ShEx \subset OWL2-DL \subset SPIN
 %\end{eqnarray*}
 
-\section{On User-Friendliness}
-
-SPIN is the most expressive constraint language (regarding both expressivity scores $Expr(\overline{\mathcal{C}_R})$ and $Expr(\mathcal{C}_R)$).
-It can be beneficial, however, to use other constraint languages to meet particular use cases when additional rather subjective criteria are evaluated.
-
-\emph{User-friendliness} is one dimension of these criteria.
-We cannot formally measure the user-friendliness of constraint languages as in the case of expressivity and complexity. 
+%\section{On User-Friendliness}
+%
+%SPIN is the most expressive constraint language (regarding both expressivity scores $Expr(\overline{\mathcal{C}_R})$ and $Expr(\mathcal{C}_R)$).
+%It can be beneficial, however, to use other constraint languages to meet particular use cases when additional rather subjective criteria are evaluated.
+%
+%\emph{User-friendliness} is one dimension of these criteria.
+%We cannot formally measure the user-friendliness of constraint languages as in the case of expressivity and complexity. 
 %Rather subjective criteria to determine the degree of user-friendliness of constraint languages lead to four user-friendliness classes of constraint languages:
 %
 %\begin{itemize}
@@ -846,14 +1079,38 @@ We cannot formally measure the user-friendliness of constraint languages as in t
 	%\item \ms{UF-C} (conciseness): not concise (\ding{55}) $<$ less concise ($\sim$) $<$ concise ($\checkmark$)
 	%\item \ms{UF-A} (adoption): less adopted (\ding{55}) $<$ well adopted ($\checkmark$)
 %\end{itemize}
-Rather subjective criteria to determine the degree of user-friendliness of constraint languages are 
-\emph{constraint formulation level}, \emph{intuitiveness}, \emph{conciseness}, and \emph{adoption}.
-SPIN is in contrast to other constraint languages a general-purpose low-level language, as it is the most expressive one (\emph{constraint formulation level}).
-As SPARQL queries may be very long and complex, the purpose of constraints expressed in SPIN may not be immediately clear to human readers.
-On the other side, ShEx is the most intuitive constraint language, since it is based on regular expressions and since well-known constructs of other languages\footnote{E.g., numbers standing for min, max, and exact cardinality in UML.} are part of the language definition.
-DSP, ReSh, as well as OWL 2 are not that intuitive than ShEx, but more intuitive to humans than SPIN\footnote{see, e.g., the requirement \ms{allowed values} in the paper of Bosch et al. \cite{BoschNolleAcarEckert2015}\label{footnoteIntuitivenessConciseness}} (\emph{intuitiveness}).
-In most cases, the same constraints can be expressed more concise in OWL 2 and ShEx than in DSP and SPIN\footref{footnoteIntuitivenessConciseness} (\emph{conciseness}).
-The only well adopted and therefore well known constraint languages are SPIN and most of all OWL 2 (\emph{adoption}).
+%Rather subjective criteria to determine the degree of user-friendliness of constraint languages are 
+%\emph{constraint formulation level}, \emph{intuitiveness}, \emph{conciseness}, and \emph{adoption}.
+%SPIN is in contrast to other constraint languages a general-purpose low-level language, as it is the most expressive one (\emph{constraint formulation level}).
+%As SPARQL queries may be very long and complex, the purpose of constraints expressed in SPIN may not be immediately clear to human readers.
+%On the other side, ShEx is the most intuitive constraint language, since it is based on regular expressions and since well-known constructs of other languages\footnote{E.g., numbers standing for min, max, and exact cardinality in UML.} are part of the language definition.
+%DSP, ReSh, as well as OWL 2 are not that intuitive than ShEx, but more intuitive to humans than SPIN\footnote{see, e.g., the requirement \ms{allowed values} in the paper of Bosch et al. \cite{BoschNolleAcarEckert2015}\label{footnoteIntuitivenessConciseness}} (\emph{intuitiveness}).
+%In most cases, the same constraints can be expressed more concise in OWL 2 and ShEx than in DSP and SPIN\footref{footnoteIntuitivenessConciseness} (\emph{conciseness}).
+%The only well adopted and therefore well known constraint languages are SPIN and most of all OWL 2 (\emph{adoption}).
+
+%\section{On User-Friendliness}
+%
+%SPIN is the most expressive constraint language (regarding both expressivity scores $Expr(\overline{\mathcal{C}_R})$ and $Expr(\mathcal{C}_R)$).
+%It can be beneficial, however, to use other constraint languages to meet particular use cases when additional rather subjective criteria are evaluated.
+%
+%\emph{User-friendliness} is one dimension of these criteria.
+%We cannot formally measure the user-friendliness of constraint languages as in the case of expressivity and complexity. 
+%%Rather subjective criteria to determine the degree of user-friendliness of constraint languages lead to four user-friendliness classes of constraint languages:
+%%
+%%\begin{itemize}
+	%%\item \ms{UF-L} (constraint formulation level): low-level (\ding{55}) vs. high-level ($\checkmark$)
+	%%\item \ms{UF-I} (intuitiveness): not intuitive (\ding{55}) $<$ less intuitive ($\sim$) $<$ intuitive ($\checkmark$)
+	%%\item \ms{UF-C} (conciseness): not concise (\ding{55}) $<$ less concise ($\sim$) $<$ concise ($\checkmark$)
+	%%\item \ms{UF-A} (adoption): less adopted (\ding{55}) $<$ well adopted ($\checkmark$)
+%%\end{itemize}
+%Rather subjective criteria to determine the degree of user-friendliness of constraint languages are 
+%\emph{constraint formulation level}, \emph{intuitiveness}, \emph{conciseness}, and \emph{adoption}.
+%SPIN is in contrast to other constraint languages a general-purpose low-level language, as it is the most expressive one (\emph{constraint formulation level}).
+%As SPARQL queries may be very long and complex, the purpose of constraints expressed in SPIN may not be immediately clear to human readers.
+%On the other side, ShEx is the most intuitive constraint language, since it is based on regular expressions and since well-known constructs of other languages\footnote{E.g., numbers standing for min, max, and exact cardinality in UML.} are part of the language definition.
+%DSP, ReSh, as well as OWL 2 are not that intuitive than ShEx, but more intuitive to humans than SPIN\footnote{see, e.g., the requirement \ms{allowed values} in the paper of Bosch et al. \cite{BoschNolleAcarEckert2015}\label{footnoteIntuitivenessConciseness}} (\emph{intuitiveness}).
+%In most cases, the same constraints can be expressed more concise in OWL 2 and ShEx than in DSP and SPIN\footref{footnoteIntuitivenessConciseness} (\emph{conciseness}).
+%The only well adopted and therefore well known constraint languages are SPIN and most of all OWL 2 (\emph{adoption}).
 
 %These user-friendliness classes could also be evaluated more fine granular for each constraint (and not only for each constraint language).
 %Tools could then recommend for each user-friendliness class or in total which constraint language to use in order to express a particular constraint or sets of constraints. 
@@ -925,260 +1182,6 @@ The only well adopted and therefore well known constraint languages are SPIN and
 %\end{eqnarray*}
 %Although, SPIN is more adopted than ShEx, ShEx is a high-level compared to a low-level language, ShEx is more intuitive and concise than SPIN.
 %According to this evaluation, tools may recommend alternatives to the most expressive language SPIN.  
-
-\section{RDF Validation Requirements and Reasoning}
-\label{sec:RDF-validation-requirements-and-reasoning}
-
-Reasoning and validation are very closely related. 
-Reasoning is the process of determining what follows from what has been
-stated.  Reasoning ranges from simple (Jedi students are Jedis, Luke is a Jedi student, therefore Luke is a Jedi) to the very complex. Reasoning can
-also recognize impossibilities ( Jedi masters are Jedis, Yoda is a Jedi master, Yoda
-is not a Jedi, therefore there is a contradiction). 
-Both should be possible: (1) validation with reasoning and (2) validation without reasoning. 
-Reasoning may be a pre validation step to infer triples resolving constraint violations or to infer triples for which constraints are validated.
-
-%Reasoning may be a pre validation step to infer triples resolving constraint violations.
-%According to the existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasJediWaepon . JediWeapon} every Jedi has at least one Jedi weapon.
-%Luke is a Jedi (\ms{Jedi(Luke)}) having a blue laser sword (\ms{hasLaserSword(Luke, BlueLaserSword)}.
-%As it is not defined that laser swords are Jedi weapons and as Luke is a Jedi, the existential restriction causes a constraint violation. 
-%This constraint violation is not raised when we define that laser swords are Jedi weapons (\ms{hasLaserSword $\sqsubseteq$ hasJediWaepon} ) 
-%and \ms{hasLaserSword} is a sub-property of \ms{hasJediWeapon} (\ms{LaserSword $\sqsubseteq$ JediWeapon}).
-%
-%It makes also sense to perform reasoning to infer triples for which constraints are validated.
-%The existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword} forces Jedis to have at least one laser sword.
-%The existential restriction is not checked for the triple \ms{YediMaster(Yoda)}, as \ms{Yoda} is a \ms{JediMaster} and not a \ms{Jedi} as well.
-%If, however, our knowledge base contains the axiom \ms{JediMaster $\sqsubseteq$ Jedi}, the triple \ms{Jedi(Yoda)} is inferred and the existential restrictions is validated for the individual \ms{Yoda}, raising a constraint violation if a triple such as \ms{hasLaserSword(Yoda, GreenLaserSword)} is not included in the knowledge base. 
-
-\subsection{OWL 2 QL Reasoning}
-
-\textbf{Subsumption}\footnote{corresponds to R-100-SUBSUMPTION}\textbf{.}
-Subsumption relationships of both classes and properties are part of basic reasoning.
-
-\begin{center}
-\begin{DL}
-Jedi &$\sqsubseteq$ FeelingForce \\
-JediMaster &$\sqsubseteq$ Jedi \\
-\end{DL}
-\end{center}
-
-All Jedi masters are Jedis feeling the force.
-These sub-class relationships can also be expressed by OWL 2 QL:
-
-\begin{ex}
-Jedi RDFs:subClassOf FeelingForce . 
-JediMaster RDFs:subClassOf Jedi . 
-\end{ex}
-
-Valid data must contain the three class assignments \ms{JediMaster(Yoda)}, \ms{Jedi(Yoda)}, and \ms{FeelingForce(Yoda)}.
-These class assignments can be either explicitly stated or implicitly inferred when reasoning is performed before actually validating the data.
-
-When only the triple \ms{Yoda a JediMaster} is given and reasoning is not executed, then a constraint violation is raised.
-After reasoning, however, the triples \ms{Yoda a Jedi , FeelingForce} are inferred resulting in valid data. 
-
-\textbf{Property Domain}\footnote{corresponds to R-25-PROPERTY-DOMAIN}\textbf{.}
-The property domain constraint
-
-\begin{DL}
-$\exists$ studentOf . $\top$ $\sqsubseteq$ JediStudent \\
-\end{DL}
-
-restricts that individuals having studentOf relationships must be Jedi students.
-This property domain constraint can also be expressed by OWL 2 QL:
-
-\begin{ex}
-studentOf RDFs:domain JediStudent .
-\end{ex}
-
-Without reasoning, the data \ms{Anakin studentOf Obi-Wan} is invalid and causes a constraint violation, as it is not explicitly stated that \ms{Anakin} is assigned to the class \ms{Jedi}. 
-When inferencing is performed before validating, the class assignment \ms{Anakin a Jedi} is inferred which prevents the constraint violation to be raised.
-
-\textbf{Existential Quantification}\footnote{corresponds to R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}\textbf{.}
-
-\begin{center}
-\begin{DL}
-Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword
-\end{DL}
-\end{center}
-
-Here, existential quantification let us refer to all those individuals that are connected by \ms{hasLaserSword} to an individual that is an instance of the class \ms{LaserSword}.
-In OWL 2 DL, this existential quantification can also be expressed:
-
-\begin{ex}
-[ a owl:Restriction ;
-  owl:onProperty hasLaserSword ;
-  owl:someValuesFrom LaserSword ;
-  RDFs:subClassOf Jedi ] .
-\end{ex}
-
-When our data contains the triple \ms{Luke hasLaserSword BlueLaserSword} and we perform reasoning, we can infer that \ms{Luke} is a \ms{Jedi}, as he has a laser sword.
-As the individual \ms{Luke} is assigned to the class \ms{Jedi}, all constraint associated with this class are also validated, for example that Jedis must have blue laser swords.
-Without reasoning, these constraints won't be validated as \ms{Luke} is not within the class extension of \ms{Jedi}.
-
-\subsection{OWL 2 DL Reasoning}
-
-\textbf{Universal Quantification}\footnote{corresponds to R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}
-contain all those individuals that are connected by a particular property only to individuals that are instances of a specific class.
-Siths, e.g., can only have Siths as mentors (\ms{Sith $\sqsubseteq$ $\forall$ hasMentor.Sith}), 
-which cannot be expressed by OWL 2 QL, but by OWL 2 DL \cite{owl2profiles2008}:
-
-\begin{ex}
-[ a owl:Restriction ;
-  owl:onProperty hasMentor ;
-  owl:allValuesFrom Sith ;
-  RDFs:subClassOf Sith ] .
-\end{ex}
-
-When performing reasoning, the triples \ms{DarthMaul hasMentor DarthSidious} and \ms{DarthSidious a Sith} infer that \ms{DarthMaul} is a Sith.
-When reasoning is not wished, these explicitly stated triples cause a constraint violation, as each resource having \ms{hasMentor} relationships to a Sith must also be a Sith (which is not explicitly stated in the data).
-
-\section{RDF Validation Requirements without Reasoning}
-\label{RDF-Validation-Requirements-without-Reasoning}
-
-For the majority of the requirements to formulate RDF constraints, reasoning is not related to the constraints and is therefore not needed to be performed prior to validation. 
-It is also possible, however, to reason before validating constraints for which reasoning does not affect validation results.
-If we do reasoning by query rewriting in terms of backward chaining and if we run a constraint validation query through an engine like the --ontop-- framework\footnote{\url{http://ontop.inf.unibz.it}} or ELITE (federated query engine) \cite{nolle2013elite}, the engine will only do some rewritings if it is possible, and if you just check e.g. pattern matching there will be no rewriting.
-
-\subsection{Expressible by OWL 2}
-\label{sec:RDF-validation-requirements-without-reasoning-2}
-
-%\textbf{Literal Pattern Matching}\footnote{corresponds to R-44-PATTERN-MATCHING-ON-RDF-LITERALS}\textbf{.} 
-%There are multiple use cases associated with the requirement to match literals according to given patterns.
-%
-%Luke's droids can only have the numbers "R2-D2" or "C-3PO".
-%The universal restriction part of this constraint can be expressed by OWL 2 DL:
-%\ms{LukesDroids $\sqsubseteq$ $\forall$ droidNumber . DroidNumber}.
-%The restriction of the datatype \ms{DroidNumber}, however, cannot be expressed in DL, but OWL 2 DL can be used anyway:
-%
-%\begin{ex}
-%DroidNumber 
-    %a RDFs:Datatype ;
-    %owl:equivalentClass [
-        %a RDFs:Datatype ;
-        %owl:onDatatype xsd:string ;
-        %owl:withRestrictions ( 
-            %[ xsd:pattern "R2-D2|C-3PO" ] ) ] .
-%\end{ex}
-%
-%The second axiom defines \ms{DroidNumber} as an abbreviation for a datatype restriction on \ms{xsd:string}. 
-%The first axiom explicitly declares \ms{DroidNumber} to be a datatype. 
-%The datatype \ms{DroidNumber} can be used just like any other datatype like in the universal restriction above.
-%The literal pattern matching constraint validates \ms{DroidNumber} literals according to the stated regular expression causing a constraint violation for the triples 
-%\ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber}, 
-%but not for the triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}.
-
-\textbf{Allowed Values}\footnote{corresponds to R-30-ALLOWED-VALUES}\textbf{.}
-It is a common requirement to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resources). This is often rendered in drop down boxes or radio buttons in user interfaces. 
-The constraint 'Jedis can only have blue, green, or white laser swords' can be expressed by OWL 2 DL, DSP, ReSh, ShEx, SPIN, and SPARQL.
-\begin{center}
-\begin{DL}
-Jedi $\equiv$ $\exists$ laserSwordColor . \{blue, green, white\} \\
-\end{DL}
-\end{center}
-%In DSP, the constraint does not look that concise:
-%
-%\begin{ex}
-%personDescriptionTemplate
-    %a dsp:DescriptionTemplate ;
-    %dsp:resourceClass Jedi ;
-    %dsp:statementTemplate [
-        %a dsp:LiteralStatementTemplate ;
-        %dsp:property laserSwordColor ;
-        %dsp:literalConstraint [
-            %a dsp:LiteralConstraint ;
-            %dsp:literal "blue" ;
-            %dsp:literal "green" ;
-            %dsp:literal "white"] ] .
-%\end{ex}
-
-When representing the constraint by OWL2 DL a new datatype is defined by simply enumerating its literals:
-
-\begin{ex}
-laserSwordColor RDFs:range laserSwordColors . 
-laserSwordColors
-    a RDFs:Datatype .
-    owl:oneOf ( "blue" "green" "white" ) .
-\end{ex}
-
-Data containing the triples \ms{Yoda a Jedi ; laserSwordColor 'blue'} is valid, 
-whereas data including the triples \ms{DarthMaul a Jedi ; laserSwordColor 'red'} is invalid.
-
-\textbf{Context-Specific Exclusive OR of Properties}\footnote{corresponds to  R-11-CONTEXT-SPECIFIC-EXCLUSIVE-OR-OF-PROPERTIES}\textbf{.}
-An individual can either have a relationship via property A or via property B, but not both.
-To take an example, a Jedi is either attacking by sword or by force but not both (such a fight would not be fair):
-
-\begin{center}
-\begin{DL}
-Jedi &$\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
-A &$\equiv$ $\exists$ attackingBySword . xsd:boolean \\
-B &$\equiv$ $\exists$ attackingByForce . xsd:boolean \\ 
-\end{DL} 
-\end{center}
-
-Context-specific exclusive OR of properties can be expressed by ShEx. 
-In this case, the constraint context is the class \ms{Jedi}.
-
-\begin{ex}
-Jedi { (  
-    attackingBySword xsd:boolean | 
-    attackingByForce xsd:boolean ) }
-\end{ex}
-
-The same constraint may be expressed by OWL 2 DL, but not very intuitively and concisely.
-This can rather be seen as a workaround, as anonymous classes are built for each of the exclusive properties.
-
-\begin{ex}
-Jedi owl:disjointUnionOf ( CC1 CC2 ) . 
-CC1 RDFs:subClassOf [
-    a owl:Restriction ;
-    owl:onProperty attackingBySword ;
-    owl:someValuesFrom xsd:boolean ] .
-CC2 RDFs:subClassOf [
-    a owl:Restriction ;
-    owl:onProperty attackingByForce ;
-    owl:someValuesFrom xsd:boolean ] .
-\end{ex}
-
-Consider the triples \ms{Jedi(Luke)}, \ms{attackingBySword(Luke,true)}, \ms{Jedi(DarthSidious)},
-\ms{attackingByForce(DarthSidious,true)}, and \ms{attackingBySword(DarthSidious,true)}
-Luke as well as Darth Sidious are associated with the class \ms{Jedi}.
-As Darth Sidious has both relationships, a constraint Violation is raised.
-
-\subsection{Expressible by Other Constraint Languages}
-
-The majority of constraints can neither be expressed by OWL 2 QL nor by OWL 2 DL. 
-In such cases, these constraints are represented by other constraint languages like DSP, ShEx, ReSh, or SPIN.
-
-\textbf{Default Values}\footnote{Corresponds to R-31-DEFAULT-VALUES-OF-RDF-OBJECTS and R-38-DEFAULT-VALUES-OF-RDF-LITERALS}\textbf{.}
-It should be possible to declare the default value for a given object and data property, e.g. so that input forms can be pre-populated and to insert a required property that is missing in a web service call. 
-Siths have per default two red laser swords.
-If there is only stated that Darth Maul is a Sith (\ms{DarthMaul a Sith .}), then additional default triples should be inferred: 
-\ms{laserSwordColor(DarthMaul,"red")} and \ms{numberLaserSwords(DarthMaul,2)}.
-
-The default values constraint can only be expressed by ReSh, SPIN, and SPARQL.
-In SPIN, we can define a rule associated with the class \ms{owl:Thing}.
-This rule is applicable for each resource, as each resource is implicitly of the type \ms{owl:Thing}. 
-
-\begin{ex}
-owl:Thing spin:rule [ a sp:Construct ; sp:text """
-    CONSTRUCT {
-        ?this laserSwordColor "red" ;
-              numberLaserSwords 2 . }
-    WHERE {             
-        ?this a Sith . } """ ; ] .
-\end{ex}
-
-For each resource, the SPARQL CONSTRUCT query within the rule is executed creating the default triples.
-ReSh can also be used to express default values:
-
-\begin{ex}
-Sith a ResourceShape ;
-    property [
-        name "laserSwordColor" ;
-        propertyDefinition laserSwordColor ;
-        valueType xsd:string ;
-        defaultValue "red"'
-        occurs Exactly-one ; ] .
-\end{ex}
 
 \section{Implementation}
 \label{Implementation}
