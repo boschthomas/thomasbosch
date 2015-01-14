@@ -250,6 +250,23 @@ Then, regarding a collected list of constraint types (requirements), we classify
 
 \section{Introduction}
 
+%Example for RDF validation, really oriented at a real scenario. 
+%For example, a library wants to publish some datasets as
+%RDF by extracting them from different relational databases. In order to
+%achieve high data quality some constraints are defined first on a very
+%generic level written down some natural language sentences.  Now it
+%needs to be decided which formalism to use in order to formally express
+%these constraints and to check their validity. Moreover, it needs to be
+%clarified what role reasoning play in this verification and publication
+%process. This will perfectly fit as motivation for the contribution of
+%the paper and the example can be easily be used at other places of the
+%paper.
+%I would then always come back to the running example from the beginning
+%and always use constraints that would fit to this scenario. I know you
+%like this darth vader stuff, however, it is better to have some real
+%usecase in mind otherwise people always think this is only relevant for
+%such toy examples.
+
 For many RDF applications, the formulation of constraints and the automatic validation of data according to these constraints is a much sought-after feature. 
 In 2013, the W3C invited experts from industry, government, and academia to the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/RDF-val/}}, 
 where first use cases have been presented and discussed. 
@@ -442,7 +459,9 @@ The rest of the paper goes as follows...
 %\tb{+1 / this should be the 3 main contributions, maybe we should highlight them in the flow text / no itemization}
 %\er{We can reserve a paragraph (flowing text) for those  item as well. }
 
-\section{OWL as a Constraint Language}
+\section{OWL as a Constraint Language / The Role of Reasoning for Validation / Reasoning for Validation}
+
+\tb{I would rather use the title 'The Role of Reasoning for Validation'}
 
 %\begin{itemize}
 	%\item advantages and disadvantages of OWL in terms of validation
@@ -475,6 +494,8 @@ and apply a reasoner before the proper constraint validation is performed, we wi
 
 \subsection{CWA vs. OWA in RDF Validation}
 
+\tb{if we classify constraints according to CWA / OWA, we shift this section to subsection in next chapter}
+
 Additionally, in OWL we have the non-unique name assumption (nUNA) whereas RDF validation requires that different names represent different objects (also known as unique name assumption (UNA)). This ambiguity in semantics stands as one of the main reasons of why OWL has not been adopted as a standard constraint language for RDF validation in the past.  
 OWL's semantics is based on open-world assumption (OWA)  i.e., a statement cannot be inferred to be false if it cannot be proved to be true  which fits its primary design purpose: to represent knowledge on World Wide Web. With its open-world semantics, used as a constraint language, OWL seems to solve the redundancy problem. With the OWA, in the given knowledge base above, we infer that $\ms{Anakin}$ has an ancestor that is a $\ms{Person}$ (since Anakin is a person e.g.,\ms{Person(Anakin)}), but we do not know who exactly, and $\mathcal{K}$ is consistent. 
 
@@ -483,11 +504,11 @@ On the other hand, many RDF validation scenario requires the closed-world assump
 \subsection{Expressivity and Complexity in OWL 2}
 \label{Expressivity-Complexity-OWL2}
 
+\tb{I would briefly describe them (2paragraphs) in complexity subsection of next chapter / less than half page}
+
 OWL 2 profiles (or fragments in logic literature) are restricted (sublanguage) versions of OWL 2 that offer different trade-offs regarding expressivity  vs. efficiency in reasoning. There are three main  profiles of OWL 2, which are OWL 2 QL, OWL 2 RL and OWL 2 EL namely, each designed to  be useful for different purposes and application scenarios. The choice of which profile to use is purpose-specific on what to express and to perform the reasoning about. We refer the reader to \cite{owl2profiles2008} for a comprehensive treatment of those profiles.
 
 In this section, we will briefly mention the expressivity and complexity of OWL 2. This will also be the base for our classification of RDF validation requirements with reasoning. In this regard, we will  mainly focus on  OWL 2 QL as well as OWL 2 DL. Note that there is also the very expressive web ontology language OWL 2 Full (which is not a DL) for reasoning that we will not include in our classification, since its high worst case complexity (undecidability) as well as interesting RDF requirements with reasoning is already available in aforementioned OWLs (OWL 2 DL/QL).
-
-\tb{simplify and merge}
 
 \textbf{OWL 2 QL Reasoning.}
 OWL 2 QL is an OWL 2 profile which focuses on reasoning in the context of query answering with very large size of instance data. The acronym QL stands for query language as query answering in this profile can be done by rewriting queries into a standard relational query language (also known as First-Order Rewritability). Also, conjunctive query answering can be done by using conventional relational database systems. Aiming at efficiency on working with large size data, the expressive power of the profile is quite limited as expected. As a result of this, reasoning in OWL 2 QL is highly efficient so that sound and complete conjunctive query answering can be performed in \textsc{LogSpace} in the size of the data assertions as well as  the ontology consistency and class expression subsumption can be performed in polynomial time.
@@ -539,7 +560,111 @@ In this section, we show how to determine the performance (the computational com
 	\item The combination of DL constructs of a constraint type determines its complexity. By mapping each constraint type to DL and as the complexity of DL constructs are known (some DL constructs are only expressible by particular OWL 2 profile which are associated with a complexity class), we get an idea of the complexity for each constraint type in worst case.
 \end{enumerate}
 
-\subsection{RDF Validation Requirements and Reasoning}
+\subsection{CWA vs. OWA / Semantics}
+
+\tb{just inserted Christain's feedback so far}
+
+classification of constraints according to CWA and UNA
+- CWA dependent constrains
+- CWA independent constraints
+-----
+
+The UNA and CWA are important aspects, however, in Section 4 nd 5
+they are not used anymore. I would expect that a constraint type can be
+independent of the CWA or it can make a difference. For example:
+
+ex1: An address is a field that stores a string and its end is substring
+that refers to a number.
+ex2: If someone is a mother, she has at least one child.
+ex3: If someone is a women, it cannot be a man.
+
+ex1 has nothing to do with CWA or UNA, if you accept the CWA or its
+opposite, it doe not nmake a difference here.
+ex2 depends on CWA, in the CWA setting a mother without an explictly
+stated child violates the constraint. In OWA its different, the mother
+withour explicitly stated child is not a problem. You just have an axiom
+that allows you to entail that there is an (unknown) child.
+ex3 again independent of CWA.
+
+I was really wondering how many of the 74 patterns are independent and
+how many are dependent? Note that you can give a very clear definition
+what independent means. You can say, For a given constraint, if there
+exist not RDF dataset that would be inconsistent under CWA and
+consistent under OWA or vice versa, then the constraint is independent
+of the CWA.
+
+\subsection{Reasoning}
+
+% Feedback Christian
+%-------------------
+%- better explain difference between C_R and C_R'
+
+%However, there should also be a
+%clear definition "C_R [are] constraints without reasoning" is not even a
+%correct sentence, or differently speaking: The border of reasoning vs
+%not reasoning is not well defined, there exists not such a border. I try
+%to explain some of my problems.
+%- The way I understand it, the distinction is based on whether a
+%constraint is translatable to an OWL construct or not. The example with
+%the Literal Pattern Matching seems to go in that direction.
+%- If the criteria is whether or not its translateable to some formalims,
+%then the table on bottom of page 8 makes no sense, especially the first
+%column. This indicates whether a constraint belongs in one or the other
+%class is independently of some chosen formalism
+%... after thinking a while I have a feeling that there is no real
+%dictsinction between  C_R and C_R'.
+
+The W3C WG defines \emph{constraint} as a component of a schema what needs to be satisfied\footnote{See \url{https://www.w3.org/2014/data-shapes/wiki/Glossary}.}. 
+We denote the whole set of constraints (types) with $\mathcal{C}$. We divide it into two groups   to investigate the affect of reasoning to the validation process:
+\begin{enumerate}
+	\item $\mathcal{C}_R$: constraints with reasoning
+	\item $\overline{\mathcal{C}_{R}}$: constraints without reasoning %\tb{why overline R?}
+\end{enumerate}
+ which corresponds to two disjoint subsets of $\mathcal{C}$. $\mathcal{C}_R$ corresponds to set of constraints which can carry out the validation process via reasoning, especially when not all the knowledge is explicit.  
+Its complement, $\overline{\mathcal{C}_R}$, is the set of constraints for which reasoning cannot be done or does not improve the result in any obvious sense (e.g., the scenario with all the knowledge is already explicit).
+
+
+As an example, consider \ms{Literal Pattern Matching}\footnote{See R-44-PATTERN-MATCHING-ON-RDF-LITERALS.} which  restricts literals to match given patterns e.g., 
+\emph{Luke's droids} can only have the numbers "R2-D2" or "C-3PO".
+The universal restriction \ms{LukesDroids $\sqsubseteq$ $\forall$ droidNumber} \\ \ms{.DroidNumber} can be expressed by OWL 2 DL.
+%\er{This is no OWL.}\tb{resolved}
+A data range expression is restricted in OWL 2 QL to the predefined datatypes and the intersection of data ranges. 
+Thus, the restriction of the datatype \ms{DroidNumber} must be expressed by OWL 2 DL: % \er{DL can naturally express datatypes. All you need to do is to define \emph{DroidNumber} as a concrete domain.}\tb{resolved}  
+
+\begin{ex}
+DroidNumber 
+    a RDFs:Datatype ;
+    owl:equivalentClass [
+        a RDFs:Datatype ;
+        owl:onDatatype xsd:string ;
+        owl:withRestrictions ( 
+            [ xsd:pattern "R2-D2|C-3PO" ] ) ] .
+\end{ex}
+
+The first OWL axiom explicitly declares \ms{DroidNumber} to be a datatype. %\er{Why start from second and then first? Also better we say "owl axiom" when we talk axiom of owl, to prevent ambiguity.}\tb{resolved}
+The second OWL axiom defines \ms{DroidNumber} as an abbreviation for a datatype restriction on \ms{xsd:string}. 
+The datatype \ms{DroidNumber} can be used just like any other datatype like in the universal restriction above.
+The literal pattern matching constraint validates \ms{DroidNumber} literals according to the stated regular expression. 
+The triples \ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber} cause a constraint violation. 
+The triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}, however, lead to valid data. %\er{Let us divide this last sentence of the paragraph.}\tb{resolved}
+
+Note that $C_R$ corresponds to axioms in OWL  e.g., subsumption, subproperties, cardinality restrictions, existential, and universal restrictions.
+%As we are dealing with fields from different research communities, we define our own nomenclature for RDF validation instead of reusing the heavily overloaded term axiom.
+%For instance, for  many in DL community, axioms are only those which are statements of TBox (subsumption statements), if there is a TBox and ABox. 
+%In OWL community, an ABox statement  i.e., "class assertion" is also called "class membership axiom". 
+%See that this is not a subclass of constraint anymore.% \er{Alright, this whole part was my answer from my email. This was not meant to be put into the paper but rather an explanation for us, but no worries, I will take care of this part tomorrow.}\tb{ok, thx}
+%One common thing everyone agrees is, axiom is something which has to hold (satisfied).  
+%See that this is overlapping with the definition of constraint (a component of a schema what needs to be satisfied). 
+%Actually from logic point of view, when a constraint is not satisfied it leads to no model, and when an axiom is not satisfied it leads to a superset of models.
+\ms{SubProperties}, e.g., are constraints for which reasoning may be performed.
+For instance, if an individual X has an \ms{attackingBySword} relationship to an individual Y, 
+then individual X must also have an \ms{attackingByWeapon} relationship to individual Y: \ms{attackingBySword $\sqsubseteq$ attackingByWeapon}.
+If we use subproperties without reasoning and our data contains the triple \ms{attackingBySword(Luke, DarthVader)},
+then the triple \ms{attackingByWeapon(Luke, DarthVader)} has to be stated explicitly.
+If this triple is not stated, a constraint violation occurs.
+If we use subproperties with reasoning, the triple (which would cause a constraint violation) is inferred and therefore resolves the possible constraint violation.
+
+\subsubsection{Constraints with Reasoning}
 \label{sec:RDF-validation-requirements-and-reasoning}
 
 Reasoning and validation are very closely related. 
@@ -562,7 +687,7 @@ Reasoning may be a pre validation step to infer triples resolving constraint vio
 %The existential restriction is not checked for the triple \ms{YediMaster(Yoda)}, as \ms{Yoda} is a \ms{JediMaster} and not a \ms{Jedi} as well.
 %If, however, our knowledge base contains the axiom \ms{JediMaster $\sqsubseteq$ Jedi}, the triple \ms{Jedi(Yoda)} is inferred and the existential restrictions is validated for the individual \ms{Yoda}, raising a constraint violation if a triple such as \ms{hasLaserSword(Yoda, GreenLaserSword)} is not included in the knowledge base. 
 
-\subsubsection{OWL 2 QL Reasoning}
+\textbf{OWL 2 QL Reasoning}
 
 {\em Subsumption}\footnote{corresponds to R-100-SUBSUMPTION}
 relationships of both classes and properties are part of basic reasoning.
@@ -614,8 +739,7 @@ When our data contains the triple \ms{Luke hasLaserSword BlueLaserSword} and we 
 As the individual \ms{Luke} is assigned to the class \ms{Jedi}, all constraint associated with this class are also validated, for example that Jedis must have blue laser swords.
 Without reasoning, these constraints won't be validated as \ms{Luke} is not within the class extension of \ms{Jedi}.
 
-\subsubsection{OWL 2 DL Reasoning}
-
+\textbf{OWL 2 DL Reasoning.}
 {\em Universal quantifications}\footnote{corresponds to R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}
 contain all those individuals that are connected by a particular property only to individuals that are instances of a specific class.
 Siths, e.g., can only have Siths as mentors (\ms{Sith $\sqsubseteq$ $\forall$ hasMentor.Sith}), 
@@ -629,16 +753,15 @@ which cannot be expressed by OWL 2 QL, but by OWL 2 DL \cite{owl2profiles2008}:
 When performing reasoning, the triples \ms{DarthMaul hasMentor DarthSidious} and \ms{DarthSidious a Sith} infer that \ms{DarthMaul} is a Sith.
 When reasoning is not wished, these explicitly stated triples cause a constraint violation, as each resource having \ms{hasMentor} relationships to a Sith must also be a Sith (which is not explicitly stated in the data).
 
-\subsection{RDF Validation Requirements without Reasoning}
+\subsubsection{Constraints without Reasoning}
 \label{RDF-Validation-Requirements-without-Reasoning}
 
 For the majority of the requirements to formulate RDF constraints, reasoning is not related to the constraints and is therefore not needed to be performed prior to validation. 
 It is also possible, however, to reason before validating constraints for which reasoning does not affect validation results.
 If we do reasoning by query rewriting in terms of backward chaining and if we run a constraint validation query through an engine like the --ontop-- framework\footnote{\url{http://ontop.inf.unibz.it}} or ELITE (federated query engine) \cite{nolle2013elite}, the engine will only do some rewritings if it is possible, and if you just check e.g. pattern matching there will be no rewriting.
 
-\subsection{Expressible by OWL 2}
+\textbf{Expressible by OWL 2.}
 \label{sec:RDF-validation-requirements-without-reasoning-2}
-
 %\textbf{Literal Pattern Matching}\footnote{corresponds to R-44-PATTERN-MATCHING-ON-RDF-LITERALS}\textbf{.} 
 %There are multiple use cases associated with the requirement to match literals according to given patterns.
 %
@@ -663,8 +786,7 @@ If we do reasoning by query rewriting in terms of backward chaining and if we ru
 %The literal pattern matching constraint validates \ms{DroidNumber} literals according to the stated regular expression causing a constraint violation for the triples 
 %\ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber}, 
 %but not for the triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}.
-
-\textbf{Allowed Values}\footnote{corresponds to R-30-ALLOWED-VALUES}\textbf{.}
+{\em Allowed Values}\footnote{corresponds to R-30-ALLOWED-VALUES}.
 It is a common requirement to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resources). This is often rendered in drop down boxes or radio buttons in user interfaces. 
 The constraint 'Jedis can only have blue, green, or white laser swords' can be expressed by OWL 2 DL, DSP, ReSh, ShEx, SPIN, and SPARQL.
 \begin{center}
@@ -700,7 +822,7 @@ laserSwordColors
 Data containing the triples \ms{Yoda a Jedi ; laserSwordColor 'blue'} is valid, 
 whereas data including the triples \ms{DarthMaul a Jedi ; laserSwordColor 'red'} is invalid.
 
-\textbf{Context-Specific Exclusive OR of Properties}\footnote{corresponds to  R-11-CONTEXT-SPECIFIC-EXCLUSIVE-OR-OF-PROPERTIES}\textbf{.}
+{\em Context-Specific Exclusive OR of Properties}\footnote{corresponds to  R-11-CONTEXT-SPECIFIC-EXCLUSIVE-OR-OF-PROPERTIES}.
 An individual can either have a relationship via property A or via property B, but not both.
 To take an example, a Jedi is either attacking by sword or by force but not both (such a fight would not be fair):
 
@@ -741,12 +863,11 @@ Consider the triples \ms{Jedi(Luke)}, \ms{attackingBySword(Luke,true)}, \ms{Jedi
 Luke as well as Darth Sidious are associated with the class \ms{Jedi}.
 As Darth Sidious has both relationships, a constraint Violation is raised.
 
-\subsection{Expressible by Other Constraint Languages}
-
+\textbf{Expressible by Other Constraint Languages.}
 The majority of constraints can neither be expressed by OWL 2 QL nor by OWL 2 DL. 
 In such cases, these constraints are represented by other constraint languages like DSP, ShEx, ReSh, or SPIN.
 
-\textbf{Default Values}\footnote{Corresponds to R-31-DEFAULT-VALUES-OF-RDF-OBJECTS and R-38-DEFAULT-VALUES-OF-RDF-LITERALS}\textbf{.}
+{\em Default Values}\footnote{Corresponds to R-31-DEFAULT-VALUES-OF-RDF-OBJECTS and R-38-DEFAULT-VALUES-OF-RDF-LITERALS}.
 It should be possible to declare the default value for a given object and data property, e.g. so that input forms can be pre-populated and to insert a required property that is missing in a web service call. 
 Siths have per default two red laser swords.
 If there is only stated that Darth Maul is a Sith (\ms{DarthMaul a Sith .}), then additional default triples should be inferred: 
@@ -777,58 +898,6 @@ Sith a ResourceShape ;
         defaultValue "red"'
         occurs Exactly-one ; ] .
 \end{ex}
-
-\subsection{Reasoning}
-
-The W3C WG defines \emph{constraint} as a component of a schema what needs to be satisfied\footnote{See \url{https://www.w3.org/2014/data-shapes/wiki/Glossary}.}. 
-We denote the whole set of constraints (types) with $\mathcal{C}$. We divide it into two groups   to investigate the affect of reasoning to the validation process:
-\begin{enumerate}
-	\item $\mathcal{C}_R$: constraints with reasoning
-	\item $\overline{\mathcal{C}_{R}}$: constraints without reasoning %\tb{why overline R?}
-\end{enumerate}
- which corresponds to two disjoint subsets of $\mathcal{C}$. $\mathcal{C}_R$ corresponds to set of constraints which can carry out the validation process via reasoning, especially when not all the knowledge is explicit.  
-Its complement, $\overline{\mathcal{C}_R}$, is the set of constraints for which reasoning cannot be done or does not improve the result in any obvious sense (e.g., the scenario with all the knowledge is already explicit).
-
-
-As an example, consider \ms{Literal Pattern Matching}\footnote{See R-44-PATTERN-MATCHING-ON-RDF-LITERALS.} which  restricts literals to match given patterns e.g., 
-\emph{Luke's droids} can only have the numbers "R2-D2" or "C-3PO".
-The universal restriction \ms{LukesDroids $\sqsubseteq$ $\forall$ droidNumber} \\ \ms{.DroidNumber} can be expressed by OWL 2 DL.
-%\er{This is no OWL.}\tb{resolved}
-A data range expression is restricted in OWL 2 QL to the predefined datatypes and the intersection of data ranges. 
-Thus, the restriction of the datatype \ms{DroidNumber} must be expressed by OWL 2 DL: % \er{DL can naturally express datatypes. All you need to do is to define \emph{DroidNumber} as a concrete domain.}\tb{resolved}  
-
-\begin{ex}
-DroidNumber 
-    a RDFs:Datatype ;
-    owl:equivalentClass [
-        a RDFs:Datatype ;
-        owl:onDatatype xsd:string ;
-        owl:withRestrictions ( 
-            [ xsd:pattern "R2-D2|C-3PO" ] ) ] .
-\end{ex}
-
-The first OWL axiom explicitly declares \ms{DroidNumber} to be a datatype. %\er{Why start from second and then first? Also better we say "owl axiom" when we talk axiom of owl, to prevent ambiguity.}\tb{resolved}
-The second OWL axiom defines \ms{DroidNumber} as an abbreviation for a datatype restriction on \ms{xsd:string}. 
-The datatype \ms{DroidNumber} can be used just like any other datatype like in the universal restriction above.
-The literal pattern matching constraint validates \ms{DroidNumber} literals according to the stated regular expression. 
-The triples \ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber} cause a constraint violation. 
-The triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}, however, lead to valid data. %\er{Let us divide this last sentence of the paragraph.}\tb{resolved}
-
-Note that $C_R$ corresponds to axioms in OWL  e.g., subsumption, subproperties, cardinality restrictions, existential, and universal restrictions.
-%As we are dealing with fields from different research communities, we define our own nomenclature for RDF validation instead of reusing the heavily overloaded term axiom.
-%For instance, for  many in DL community, axioms are only those which are statements of TBox (subsumption statements), if there is a TBox and ABox. 
-%In OWL community, an ABox statement  i.e., "class assertion" is also called "class membership axiom". 
-%See that this is not a subclass of constraint anymore.% \er{Alright, this whole part was my answer from my email. This was not meant to be put into the paper but rather an explanation for us, but no worries, I will take care of this part tomorrow.}\tb{ok, thx}
-%One common thing everyone agrees is, axiom is something which has to hold (satisfied).  
-%See that this is overlapping with the definition of constraint (a component of a schema what needs to be satisfied). 
-%Actually from logic point of view, when a constraint is not satisfied it leads to no model, and when an axiom is not satisfied it leads to a superset of models.
-\ms{SubProperties}, e.g., are constraints for which reasoning may be performed.
-For instance, if an individual X has an \ms{attackingBySword} relationship to an individual Y, 
-then individual X must also have an \ms{attackingByWeapon} relationship to individual Y: \ms{attackingBySword $\sqsubseteq$ attackingByWeapon}.
-If we use subproperties without reasoning and our data contains the triple \ms{attackingBySword(Luke, DarthVader)},
-then the triple \ms{attackingByWeapon(Luke, DarthVader)} has to be stated explicitly.
-If this triple is not stated, a constraint violation occurs.
-If we use subproperties with reasoning, the triple (which would cause a constraint violation) is inferred and therefore resolves the possible constraint violation.
 
 \subsection{Complexity}
 \label{sec:constraints-complexity}
@@ -903,6 +972,9 @@ While we evaluate expressivity scores, we use two sets of constraints (constrain
 Although  OWL 2  is the only implementation (which can be used/considered as a constraint language) with reasoning features, 
 some requirements in $\mathcal{C}_R$ is not only expressed by OWL 2  but also by other constraint languages. 
 %\er{This is again the part I don't understand.}\tb{but also by other constraint languages}
+
+\tb{Make the tables floating such that the have figure caption andnnumber
+and refer to these numbers from the text}
 
 \begin{center}
 \begin{evaluation}
@@ -1219,6 +1291,17 @@ This OWL semantics, however, was never submitted to a standards organization suc
 
 In description logics, reasoning tasks like query answering or detection of inconsistencies require the consideration of knowledge that is not only defined explicitly but also implicitly. To do so there are two different ways called forward- and backward-chaining. The first implies a materialized knowledge base, where the original knowledge base is extended by all assertions that can be inferred. State-of-the-art DL or OWL reasoners that following this approach are e.g. FaCT++ \cite{tsarkov2006fact++}, Pellet \cite{sirin2007pellet},  RacerPro \cite{haarslev2001racer}, or HermiT \cite{horrocks2012hermit}. On the second approach, the original knowledge base is kept in its original state and before queries are evaluated against the knowledge base, the queries will be rewritten such that its rewritings will consider also the implicit knowledge in the returned result set. Approaches following this way are e.g., \textsf{PerfectRef} given by Calvanese et al. \cite{Calvanese2007} or \textsf{TreeWitness} proposed by Kontchakov et al. \cite{kontchakov2011combined}. The choice between these two different ways depends on the specific application case. So the first kind is probably applied on local knowledge bases whereas the second is more appropriated for federative environments like in \cite{nolle2014efficient,nolle2013elite}.
 
+\tb{2 papers, see following latex comments}
+
+%Axel Polleres, Cristina Feier, and Andreas Harth. Rules with
+%contextually scoped negation. In Proceedings of the 3rd European
+%Semantic Web Conference (ESWC2006), volume 4011 of Lecture Notes in
+%Computer Science (LNCS), pages 332-347, Budva, Montenegro, June 2006.
+%Springer.
+%
+%And additionally:
+%http://www2.informatik.uni-freiburg.de/~mschmidt/docs/sparql_constraints.pdf
+
 \section{Conclusion and Future Work}
 
 In section \ref{Expressivity-Complexity-OWL2} we explained why reasoning is beneficial for validation and how reasoning interacts with validation.
@@ -1242,6 +1325,124 @@ The validator may also recommend one of these constraint languages having the hi
 As reasoning may cause high complexity, the validator may show which constraints from the user's selection cause the higher complexity class 
 and it may provide solutions how to get to the next lower complexity class. In this regard, it would be charming to have an estimation on which group of constraints would demand what class of complexity. However, this is not an easy question, since complexity results are language specific and operational semantics is involved as well. Therefore, it is hard to maintain a general complexity result for a constraint independent of the language chosen. Yet, providing an estimation for particular cases can still be straightforward.
 
+%\section{Christian's Feedback}
+%
+%everybody, in the following some comments related to the paper draft
+%given to me by Erman. Feel free to include these comments. Further, I
+%woul prefer to be removed from the authors list, because I do not have
+%the time to work on the paper and I'm in the current status not so very
+%happy with it. Anyhow, I think guys will be able to improve it. So here
+%are now my comments.
+%
+%There are too many different issues that are not presented in a well
+%structured way / partially overlapping In particular there are two main
+%contributions for which it is hard to understand their interdependencies.
+%
+%a) the role of reasoning for constraint validation
+%b) the classification of the 74 constraint pattern in relation to the 5
+%constraint languages
+%
+%Honestly, i do not understand why there are certain paragraphs at
+%certain places and how this all goes together. I discussed several
+%details with erman and maybe he can put something into the paper.
+%
+%Anyhow, here are some suggestions that make the paper stronger. At the
+%moment I have a feeling that there is only a low chance for acceptance,
+%even though I see that lots of work is in this paper.
+%
+%1) I recommend to join section 1+2. In this new intro section I
+%recommend to put an example for RDF validation, really oriented at a
+%real scenario. For example, a library wants to publish some datasets as
+%RDF by extracting them from different relational databases. In oder to
+%achieve high data quality some constraints are defined first on a very
+%generic level written down some natural language sentences.  Now it
+%needs to be decided which formalism to use in order to formally express
+%these constraints and to check their validity. Moreover, it needs to be
+%clarified what role reasoning play in this verification and publication
+%process. This will perfectly fit as motivation for the contribution of
+%the paper and the example can be easily be used at other places of the
+%paper.
+%
+%I would then always come back to the running example from the beginning
+%and always use constraints that would fit to this scenario. I know you
+%like this darth vader stuff, however, it is better to have some real
+%usecase in mind otherwise people always think this is only relevant for
+%such toy examples.
+%
+%2) I cannot see the difference between C_R and C_R' (i use ' instead of
+%this complement line above). I think this not explained well and it
+%would help a lot if there is one or better two examples from the 74
+%constraint pattern for C_R and C_R'. However, there should also be a
+%clear definition "C_R [are] constraints without reasoning" is not even a
+%correct sentence, or differently speaking: The border of reasoning vs
+%not reasoning is not well defined, there exists not such a border. I try
+%to explain som of my problems.
+%- The way I understand it, the distinction is based on whether a
+%constraint is translatable to an OWL construct or not. The example with
+%the Literal Pattern Matching seems to go in that direction.
+%- If the criteria is whether or not its translateable to some formalims,
+%then the table on bottom of page 8 makes no sense, especially the first
+%column. This indicates whether a constraint belongs in one or the other
+%class is independently of some chosen formalism
+%- Is the Literal Pattern Matching an example for the C_R class? If yes
+%its a very untypical one if you think of reasoning. Mayb it can be
+%expressed with OWL, but is uses something very specific which looks very
+%mud linke non reasoning.
+%... after thinking a while I have a feeling that there is no real
+%dictsinction between  C_R and C_R'.
+%
+%3) MAYBE: I recommend to remove the section on user friendliness. In a
+%scientific paper this can only be answered by a field study or some
+%questionaires or something like this.
+%
+%4) The UNA and CWA are important aspects, however, in Section 4 nd 5
+%they are not used anymore. I would expect that a constraint type can be
+%independent of the CWA or it can make a difference. For example:
+%
+%ex1: An address is a field that stores a string and its end is substring
+%that refers to a number.
+%ex2: If someone is a mother, she has at least one child.
+%ex3: If someone is a women, it cannot be a man.
+%
+%ex1 has nothing to do with CWA or UNA, if you accept the CWA or its
+%opposite, it doe not nmake a difference here.
+%ex2 depends on CWA, in the CWA setting a mother without an explictly
+%stated child violates the constraint. In OWA its different, the mother
+%withour explicitly stated child is not a problem. You just have an axiom
+%that allows you to entail that there is an (unknown) child.
+%ex3 again independent of CWA.
+%
+%I was really wondering how many of the 74 patterns are independent and
+%how many are dependent? Note that you can give a very clear definition
+%what independent means. You can say, For a given constraint, if there
+%exist not RDF dataset that would be inconsistent under CWA and
+%consistent under OWA or vice versa, then the constraint is independent
+%of the CWA.
+%
+%5) Make the tables floating such that the have figure caption andnnumber
+%and refer to these numbers from the text
+%
+%6) You should discuss the argumenst in Section 7 in the light of the
+%library example given in he intro. The argumentation in this section is
+%somewhat strange because this seems to touch the question whether to
+%materialize explict or to keep tjis implicit. It is also strange why
+%eactly the spefic constructs listed in the subsctions have been picked.
+%
+%... the last pages of the paper I have not been reading in details and I
+%will not find the time to do this.
+%
+%This might be worth reading, the hint was just given from Heiner:
+%
+%Axel Polleres, Cristina Feier, and Andreas Harth. Rules with
+%contextually scoped negation. In Proceedings of the 3rd European
+%Semantic Web Conference (ESWC2006), volume 4011 of Lecture Notes in
+%Computer Science (LNCS), pages 332-347, Budva, Montenegro, June 2006.
+%Springer.
+%
+%And additionally:
+%http://www2.informatik.uni-freiburg.de/~mschmidt/docs/sparql_constraints.pdf
+%
+%Best regards, Christian.
 
 
 \bibliography{../../literature/literature}{}
