@@ -250,7 +250,32 @@ Then, regarding a collected list of constraint types (requirements), we classify
 
 \section{Introduction}
 
-\tb{example for RDF validation (see comments in tex)}
+A library wants to publish some data sets as
+RDF by extracting them from different relational databases. In order to
+achieve high data quality some constraints are defined first on a very
+generic level written down some natural language sentences.  Now it
+needs to be decided which formalism to use in order to formally express
+these constraints and to check their validity. Moreover, it needs to be
+clarified what role reasoning play in this verification and publication
+process. This will perfectly fit as motivation for the contribution of
+the paper and the example can be easily be used at other places of the
+paper.
+I would then always come back to the running example from the beginning
+and always use constraints that would fit to this scenario. 
+
+basic constraints to achieve high data quality:
+\begin{itemize}
+	\item Books, conference, and journal articles are publications (subsumption)
+	\item Only publications can have {\em author} relationships to persons (property domain)
+	\item Publications must have at least 1 author which must be a Person (qualified cardinality restrictions)
+	\item Publications must have publishers (existential quantification)
+	\item Publications can only have persons as authors (universal quantification)
+	\item If a publication is related to a person via the property {\em writtenBy}, this publication is also related to this person via the property {\em author} (sub properties)
+  \item Journal of web semantics articles have the editors 'Finin, 'Staab', 'Horrocks', and 'Bernstein' (allowed values)
+	\item Identifiers of publications are either ISBN (for books) or ISSN (for periodical publications), but not both (class-specific exclusive or of property groups)
+	\item If no keyword is stated for semantic web publications, default keywords are 'Semantic Web' and 'Linked Data' (default values)
+	\item ISBN identifiers must conform to specific patterns (Literal Pattern Matching)
+\end{itemize}
 
 %Example for RDF validation, really oriented at a real scenario. 
 %For example, a library wants to publish some datasets as
@@ -268,8 +293,10 @@ Then, regarding a collected list of constraint types (requirements), we classify
 %like this darth vader stuff, however, it is better to have some real
 %usecase in mind otherwise people always think this is only relevant for
 %such toy examples.
-
+%
 %research data / library data / institutions exchanging data
+
+\section{Introduction (old)}
 
 For many RDF applications, the formulation of constraints and the automatic validation of data according to these constraints is a much sought-after feature. 
 In 2013, the W3C invited experts from industry, government, and academia to the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/RDF-val/}}, 
