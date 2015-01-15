@@ -252,26 +252,26 @@ Then, regarding a collected list of constraint types (requirements), we classify
 
 % How research about RDF validation started
 % -----
-For many RDF applications, the formulation of constraints and the automatic validation of data according to these constraints is a much sought-after feature. 
+%For many RDF applications, the formulation of constraints and the automatic validation of data according to these constraints is a much sought-after feature. 
 In 2013, the W3C invited experts from industry, government, and academia to the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/RDF-val/}}, 
-where first use cases have been presented and discussed. 
+where first use cases on RDF validation have been presented and discussed. 
 Two working groups (WGs) that follow up on this workshop and address RDF constraint formulation and validation, are established in 2014: 
 the W3C RDF Data Shapes WG\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles WG\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
 % RDF validation requirements database
 % -----
-As a part of our earlier work \cite{BoschEckert2014}, we initiated a comprehensive database  (publicly available at \url{http://purl.org/net/RDF-validation})  on RDF validation requirements to collect case studies and use cases. It is continuously updated, and used to evaluate and compare various existing solutions for RDF constraint formulation and validation. 
-Also, the requirements are classified to provide a high-level view on different solutions and to facilitate a better understanding of the problem domain \cite{BoschEckert2014}.  
+As part of our earlier work \cite{BoschEckert2014}, we initiated a comprehensive database (publicly available at \url{http://purl.org/net/RDF-validation}) on RDF validation requirements to collect case studies, use cases, and requirements. It is continuously updated and used to evaluate and to compare various existing solutions for RDF constraint formulation and validation. 
+Requirements are classified to provide a high-level view on different solutions and to facilitate a better understanding of the problem domain.  
 
 % constraint languages
 % -----
 For expressing RDF constraints, there are numerous constraint languages, each with its own syntax and semantics.  
-Yet none of them is all-purpose standard, the most popular ones are
+Yet, none of them is a all-purpose standard, the most popular ones are
 the SPARQL Inferencing Notation (SPIN)\footnote{\url{http://spinRDF.org/}} (representing SPARQL queries in RDF), 
 the Web Ontology Language (OWL 2)\footnote{\url{http://www.w3.org/TR/owl2-syntax/}}, 
 Shape Expressions (ShEx)\footnote{\url{http://www.w3.org/Submission/shex-primer/}}, 
 Resource Shapes (ReSh)\footnote{\url{http://www.w3.org/Submission/shapes/}}, 
 and Description Set Profiles (DSP)\footnote{\url{http://dublincore.org/documents/2008/03/31/dc-dsp/}}.
-Their relevance varies with respect to several foremost criteria in validation process, such as constraint expressivity (what kind of constraints can be expressed?), performance (how efficient in terms of runtime can RDF data be validated?), as well as intuitiveness and conciseness (how easy is it for a user to define constraints?). 
+Their relevance varies with respect to several foremost criteria in the validation process, such as constraint expressivity (what kind of constraints can be expressed?), performance (how efficient in terms of runtime can RDF data be validated?), as well as intuitiveness and conciseness (how easy is it for a user to define constraints?). 
 %Furthermore, the service of reasoning and its usability is in question. 
 
 % RDF validation in the library domain
@@ -303,28 +303,40 @@ When defining books, conference proceedings, and journal articles as sub-classes
 we associate this constraint with the super-class publication and do not have to assign it to each of the publication sub-classes (which would lead to redundancy).
 When performing reasoning, it is inferred that instances of publication sub-classes are also publications which therefore must have a publication date
 (i.e., the constraint is also validated for instances of sub-classes).
+If we define that books must have at least one author, that publications must have at least one creator and that books are publications, books must also have at least one creator.
+Hence, we need to define authors as well as creators for books having identical values (which leads to redundancy).
+If we define {\em author} to be a sub-property of {\em creator} and if we relate a book to an author, the {\em creator} relationship is inferred when performing reasoning.
+As a consequence, reasoning resolves constraint violations when book creators are not stated explicitly. 
+If we define {\em editor} as a sub-property of {\em creator}, {\em creator} relationships can be inferred when conference proceedings and journal volumes (which are publications) have {\em editor} relationships.
 
+%-----
+%
+%OWL as constraint language / CWA vs. OWA
+%Validation is CW, reasoning is OW
+%OWL is a reasoning language but is also used for validation and because of this leads to this discussion
+%
+%-----
 
+{\em Description logics (DL)} is ... \tb{Erman, do you have a very short sentence to describe DL for someone who does not know DL?}. 
+DL can be used to specify constraints such as 
+(1) publications must have at least 1 author which must be a Person (\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}) and
+(2) books, conference proceedings, and journal articles are publications (\ms{Book $\sqcup$ ConferenceArticle $\sqcup$ JournalArticle $\sqsubseteq$ Publication}).
+We map each constraint type to DL to classify constraint types according to semantics, reasoning, and complexity and 
+to determine the expressivity of constraint languages.
 
+This paper addresses two main \textbf{audiences}: 
+(1) metadata practitioners seeking for the role of reasoning for validation and
+(2) reasoning experts to raise the awareness for practical applications of reasoning.
+The \textbf{contributions} of this paper are
+(1) to lay the ground for discussions on RDF validation,
+(2) to work out the role of reasoning for validation, to show why reasoning is important for validation, and therefore bridge the gap between these two worlds,
+(3) to explain the effects of reasoning on the computational complexity of typical constraint types, and
+(4) to evaluate the constraint type specific expressivity of constraint languages.
 
-If we define that publications must have at least one creator and books are publications, books must also have at least one creator.
-Hence, we need to define authors as well as creators for books with redundant values.
-If we define author to be a sub property of creator and we relate a book to an author, the creator relationship can be inferred by performing reasoning.
-As conference and journal proceedings are publications, we can also define editor as sub property of creator
+The remainder of the paper is structured as follows...
+\tb{ToDo}
 
-
-
------
-
-was hat reasoning mit validierung zu tun? --> avoid redundancy (example)
-
-OWL as constraint language / CWA vs. OWA
-Validation is CW, reasoning is OW
-OWL is a reasoning language but is also used for validation and because of this leads to this discussion
-
------
-
-
+\section{This sections temporally serves to collect examples...}
 
 \begin{itemize}
 	\item Books, conference proceedings, and journal articles are publications
@@ -338,36 +350,10 @@ OWL is a reasoning language but is also used for validation and because of this 
 	\item If no keyword is stated for semantic web publications, default keywords are 'Semantic Web' and 'Linked Data'
 \end{itemize}
 
-%conference proceedings contain articles / erschienen in
-%conference date
-%proceedings herausgegeben von Verlag
-
------
-
-reasoning and validation
-
------
-
-contributions:
-- diskussionsgrundlage schaffen für validierung in rdf
-- rolle herausarbeiten von reasoning für validierung / why is reasoning relevant for vaidation?
-- reasoning wift fragen bzgl der effekte typischer constraints auf die komplexität auf und wie wird das von aktuwllen sprachen unterstützt
-- create the ground
-- 2 welten zusammenbrungen (validation and reasoning) / zusaamenhang dieser communities
-- technical contribution: investigation of constraint languages regarding the role of reasoning for validation
-
-we addree the fowlling audieneces / zielgruppen)
-1. metadata practicioners seaking for the role of reasoning for validation
-2. reasoning experts to raise the awareness for practical applications of reasoning and validation
-
------
-
-\tb{replace current examples by following examples}
-
 {\em Subsumption}
 \begin{center}
 \begin{DL}
-Book $\sqcup$ ConferenceArticle $\sqcup$ JournalArticle &$\sqsubseteq$ Publication
+Book $\sqcup$ ConferenceArticle $\sqcup$ JournalArticle $\sqsubseteq$ Publication
 \end{DL}
 \end{center}
 
@@ -428,11 +414,6 @@ owl:Thing spin:rule [ a sp:Construct ; sp:text """
     CONSTRUCT { ?subject keyword "Semantic Web", "Linked Data" . }
     WHERE { ?subject a SemanticWebPublication . } """ ; ] .
 \end{ex}
-
-we map constraints to dl to investigate the expressivity of constraintlanguages
-explain dl syntax and knowledgebase / short example to explain simple constraints / explain why mapping to dl is used 
-
-In this paper, taking reasoning into account, our main focus will be on constraint expressivity. We leave an analysis of user-friendliness to a further work. Nevertheless, we will mention the known complexity results of those languages through out the paper. 
 
 %Example for RDF validation, really oriented at a real scenario. 
 %For example, a library wants to publish some datasets as
@@ -647,9 +628,8 @@ In this paper, taking reasoning into account, our main focus will be on constrai
 %\tb{+1 / this should be the 3 main contributions, maybe we should highlight them in the flow text / no itemization}
 %\er{We can reserve a paragraph (flowing text) for those  item as well. }
 
-\section{OWL as a Constraint Language / The Role of Reasoning for Validation / Reasoning for Validation}
-
-\tb{I would rather use the title 'The Role of Reasoning for Validation'}
+%\section{OWL as a Constraint Language / The Role of Reasoning for Validation / Reasoning for Validation}
+\section{The Role of Reasoning for RDF Validation}
 
 %\begin{itemize}
 	%\item advantages and disadvantages of OWL in terms of validation
@@ -715,7 +695,7 @@ entailment checking. The drawback of its expressive power results as a lack of c
 
 As a result of its expressive power, OWL 2 DL allows a large variety of sophisticated modeling capabilities for many application domains.  On the other hand, to maintain the decidability, OWL 2 DL has numerous syntactic restrictions. One example is that OWL 2 DL allows  expressing transitive properties as well as asymmetric properties, however a property to be both transitive and asymmetric (just like \emph{ancestor relation}) is not allowed. In the sequel, from RDF validation perspective, we will give some examples of constraints that remain still at the outside of its scope. 
 
-\section{Classification of RDF Constraints according to Reasoning and Complexity}
+\section{Classification of RDF Constraints according to Semantics, Reasoning and Complexity}
 \label{Classification-RDF-Constraints-Reasoning-Complexity}
 
 %We divide these constraints into three classes:
@@ -748,7 +728,7 @@ In this section, we show how to determine the performance (the computational com
 	\item The combination of DL constructs of a constraint type determines its complexity. By mapping each constraint type to DL and as the complexity of DL constructs are known (some DL constructs are only expressible by particular OWL 2 profile which are associated with a complexity class), we get an idea of the complexity for each constraint type in worst case.
 \end{enumerate}
 
-\subsection{CWA vs. OWA / Semantics}
+\subsection{Semantics}
 
 \tb{just inserted Christain's feedback so far}
 
