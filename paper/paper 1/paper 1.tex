@@ -250,15 +250,20 @@ Then, regarding a collected list of constraint types (requirements), we classify
 
 \section{Introduction}
 
+% How research about RDF validation started
+% -----
 For many RDF applications, the formulation of constraints and the automatic validation of data according to these constraints is a much sought-after feature. 
 In 2013, the W3C invited experts from industry, government, and academia to the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/RDF-val/}}, 
 where first use cases have been presented and discussed. 
 Two working groups (WGs) that follow up on this workshop and address RDF constraint formulation and validation, are established in 2014: 
 the W3C RDF Data Shapes WG\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles WG\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
-
+% RDF validation requirements database
+% -----
 As a part of our earlier work \cite{BoschEckert2014}, we initiated a comprehensive database  (publicly available at \url{http://purl.org/net/RDF-validation})  on RDF validation requirements to collect case studies and use cases. It is continuously updated, and used to evaluate and compare various existing solutions for RDF constraint formulation and validation. 
 Also, the requirements are classified to provide a high-level view on different solutions and to facilitate a better understanding of the problem domain \cite{BoschEckert2014}.  
 
+% constraint languages
+% -----
 For expressing RDF constraints, there are numerous constraint languages, each with its own syntax and semantics.  
 Yet none of them is all-purpose standard, the most popular ones are
 the SPARQL Inferencing Notation (SPIN)\footnote{\url{http://spinRDF.org/}} (representing SPARQL queries in RDF), 
@@ -266,19 +271,50 @@ the Web Ontology Language (OWL 2)\footnote{\url{http://www.w3.org/TR/owl2-syntax
 Shape Expressions (ShEx)\footnote{\url{http://www.w3.org/Submission/shex-primer/}}, 
 Resource Shapes (ReSh)\footnote{\url{http://www.w3.org/Submission/shapes/}}, 
 and Description Set Profiles (DSP)\footnote{\url{http://dublincore.org/documents/2008/03/31/dc-dsp/}}.
-Their relevance varies with respect to several foremost criteria in validation process, such as user-friendliness (how easy is it for a user to define constraints?), constraint expressivity (what kind of constraints can be expressed?) and performance (how efficient in terms of runtime can RDF be validated?). 
-Furthermore, the service of reasoning and its usability is in question. 
+Their relevance varies with respect to several foremost criteria in validation process, such as constraint expressivity (what kind of constraints can be expressed?), performance (how efficient in terms of runtime can RDF data be validated?), as well as intuitiveness and conciseness (how easy is it for a user to define constraints?). 
+%Furthermore, the service of reasoning and its usability is in question. 
+
+% RDF validation in the library domain
+% -----
+Libraries are used to publish data in form of XML documents for a long time.
+They model and validate data using quite complex and very detailed XML Schemas, DTDs, RELAX NG, or Schematron.
+Recently, libraries started to publish RDF data sets, since libraries have many use cases which are met by Semantic Web technologies and Linked Data. 
+A library wants to publish some data sets as RDF by extracting them from different relational databases. 
+In order to achieve high data quality some constraints are defined first on a very
+generic level written down in some natural language sentences.  
+Now it needs to be decided which formalism to use in order to formally express
+these constraints and to check their validity. 
+It is often needed to declare properties of given classes as mandatory. 
+Publications, e.g., must have publishing dates.
+Another common constraint is that literals of particular properties (e.g. ISBN identifiers) must correspond to some pattern.
+
+% Reasoning
+% - describe reasoning in general
+% - why is reasoning important for validation?
+% -----
+A major shortcoming when validating RDF data is redundancy.
+We can use reasoning before validating to overcome this shortcoming.
+Reasoning is the process of determining what follows from what has been
+stated. Reasoning ranges from simple (books are publications, {\em Foundations of Semantic Web Technologies} is a book, and therefore it is a publication) to the very complex. 
+Reasoning can also recognize impossibilities 
+(conference proceedings are publications, the {\em ESWC 2014 proceedings} are conference proceedings but not a publication, therefore leading to a contradiction).
+Books, conference proceedings, and journal articles must have a publication date.
+When defining books, conference proceedings, and journal articles as sub-classes of publication, 
+we associate this constraint with the super-class publication and do not have to assign it to each of the publication sub-classes (which would lead to redundancy).
+When performing reasoning, it is inferred that instances of publication sub-classes are also publications which therefore must have a publication date
+(i.e., the constraint is also validated for instances of sub-classes).
+
+
+
+
+If we define that publications must have at least one creator and books are publications, books must also have at least one creator.
+Hence, we need to define authors as well as creators for books with redundant values.
+If we define author to be a sub property of creator and we relate a book to an author, the creator relationship can be inferred by performing reasoning.
+As conference and journal proceedings are publications, we can also define editor as sub property of creator
+
+
 
 -----
-
-explain validation (example)
-examples:
-- check if pflichtfelder belegt sind
-- strings müssen einem komkretem pattern entsprechen
-
-describe reasoning in general
-
-why reasoning for validation?
 
 was hat reasoning mit validierung zu tun? --> avoid redundancy (example)
 
@@ -288,30 +324,7 @@ OWL is a reasoning language but is also used for validation and because of this 
 
 -----
 
-A library wants to publish some data sets as
-RDF by extracting them from different relational databases. In order to
-achieve high data quality some constraints are defined first on a very
-generic level written down some natural language sentences.  Now it
-needs to be decided which formalism to use in order to formally express
-these constraints and to check their validity. Moreover, it needs to be
-clarified what role reasoning play in this verification and publication
-process. 
 
-basic constraints to achieve high data quality:
-
-
-
-The major shortcoming when validation without reasoning is redundancy
-
-
-
-All publications must have a publishing date.
-As books, conference proceedings, and journal articles are publications, we do not have to state explicitly that publishing dates must be stated for each publication sub class.
-
-As we defined that each publication must have at least 1 creator and books are publications, books must also have at least one creator.
-Therefore, we need to define authors as well as creators for books with redundant values.
-If we define author to be a sub property of creator and we relate a book to an author, the creator relationship can be inferred by performing reasoning.
-As conference and journal proceedings are publications, we can also define the property editor as sub property of creator
 
 \begin{itemize}
 	\item Books, conference proceedings, and journal articles are publications
@@ -323,26 +336,11 @@ As conference and journal proceedings are publications, we can also define the p
   \item Journal of web semantics articles have the editors Finin, Staab, Horrocks, and Bernstein
 	\item Identifiers of publications are either ISBN (for books) or ISSN (for periodical publications), but not both
 	\item If no keyword is stated for semantic web publications, default keywords are 'Semantic Web' and 'Linked Data'
-	\item ISBN identifiers must conform to specific patterns
 \end{itemize}
 
 %conference proceedings contain articles / erschienen in
 %conference date
 %proceedings herausgegeben von Verlag
-
------
-
-library domain published their data in XML for a long time 
-
-sehr feine schemas 
-
-parallel to XML world
-
-viele anwendungsszenarien
-
-klare beschreibung der daten
-
-publication of closed data
 
 -----
 
