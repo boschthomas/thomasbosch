@@ -193,7 +193,7 @@
 %
 \author{Thomas Bosch\inst{1} \and Erman Acar\inst{2} \and Andreas Nolle\inst{3} \and Kai Eckert\inst{2}}
 %
-\authorrunning{XXXXX} % abbreviated author list (for running head)
+\authorrunning{} % abbreviated author list (for running head)
 %
 %%%% list of authors for the TOC (use if author list has to be modified)
 \institute{GESIS – Leibniz Institute for the Social Sciences, Germany\\
@@ -261,9 +261,9 @@ process.
 
 basic constraints to achieve high data quality:
 \begin{itemize}
-	\item Books, conference, and journal articles are publications (subsumption)
-	\item Only publications can have {\em author} relationships to persons (property domain)
-	\item Publications must have at least 1 author which must be a Person (qualified cardinality restrictions)
+	\item Books, conference, and journal articles are publications
+	\item Only publications can have {\em author} relationships to persons
+	\item Publications must have at least 1 author which must be a Person
 	\item Publications must have publishers (existential quantification)
 	\item Publications can only have persons as authors (universal quantification)
 	\item If a publication is related to a person via the property {\em writtenBy}, this publication is also related to this person via the property {\em author} (sub properties)
@@ -272,6 +272,38 @@ basic constraints to achieve high data quality:
 	\item If no keyword is stated for semantic web publications, default keywords are 'Semantic Web' and 'Linked Data' (default values)
 	\item ISBN identifiers must conform to specific patterns (Literal Pattern Matching)
 \end{itemize}
+
+-----
+
+\tb{replace current examples by following examples}
+
+{\em Subsumption}
+\begin{center}
+\begin{DL}
+Book $\sqcup$ ConferenceArticle $\sqcup$ JournalArticle &$\sqsubseteq$ Publication
+\end{DL}
+\end{center}
+
+{\em Property Domain}
+\begin{center}
+\begin{DL}
+$\exists$ author.$\top$ $\sqsubseteq$ Publication
+\end{DL}
+\end{center}
+
+{\em Property Range}
+\begin{center}
+\begin{DL}
+$\top$ $\sqsubseteq$ $\forall$ author.Person
+\end{DL}
+\end{center}
+
+{\em Qualified Cardinality Restrictions}
+\begin{center}
+\begin{DL}
+Publication $\sqsubseteq$ $\geq$1 author.Person
+\end{DL}
+\end{center}
 
 %Example for RDF validation, really oriented at a real scenario. 
 %For example, a library wants to publish some datasets as
@@ -731,7 +763,7 @@ These sub-class relationships can also be expressed by OWL 2 QL:
 
 \begin{ex}
 Jedi RDFs:subClassOf FeelingForce . 
-JediMaster RDFs:subClassOf Jedi . 
+JediMaster RDFS:subClassOf Jedi . 
 \end{ex}
 
 Valid data must contain the three class assignments \ms{JediMaster(Yoda)}, \ms{Jedi(Yoda)}, and \ms{FeelingForce(Yoda)}.
