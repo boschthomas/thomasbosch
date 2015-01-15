@@ -250,6 +250,44 @@ Then, regarding a collected list of constraint types (requirements), we classify
 
 \section{Introduction}
 
+For many RDF applications, the formulation of constraints and the automatic validation of data according to these constraints is a much sought-after feature. 
+In 2013, the W3C invited experts from industry, government, and academia to the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/RDF-val/}}, 
+where first use cases have been presented and discussed. 
+Two working groups (WGs) that follow up on this workshop and address RDF constraint formulation and validation, are established in 2014: 
+the W3C RDF Data Shapes WG\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles WG\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
+
+As a part of our earlier work \cite{BoschEckert2014}, we initiated a comprehensive database  (publicly available at \url{http://purl.org/net/RDF-validation})  on RDF validation requirements to collect case studies and use cases. It is continuously updated, and used to evaluate and compare various existing solutions for RDF constraint formulation and validation. 
+Also, the requirements are classified to provide a high-level view on different solutions and to facilitate a better understanding of the problem domain \cite{BoschEckert2014}.  
+
+For expressing RDF constraints, there are numerous constraint languages, each with its own syntax and semantics.  
+Yet none of them is all-purpose standard, the most popular ones are
+the SPARQL Inferencing Notation (SPIN)\footnote{\url{http://spinRDF.org/}} (representing SPARQL queries in RDF), 
+the Web Ontology Language (OWL 2)\footnote{\url{http://www.w3.org/TR/owl2-syntax/}}, 
+Shape Expressions (ShEx)\footnote{\url{http://www.w3.org/Submission/shex-primer/}}, 
+Resource Shapes (ReSh)\footnote{\url{http://www.w3.org/Submission/shapes/}}, 
+and Description Set Profiles (DSP)\footnote{\url{http://dublincore.org/documents/2008/03/31/dc-dsp/}}.
+Their relevance varies with respect to several foremost criteria in validation process, such as user-friendliness (how easy is it for a user to define constraints?), constraint expressivity (what kind of constraints can be expressed?) and performance (how efficient in terms of runtime can RDF be validated?). 
+Furthermore, the service of reasoning and its usability is in question. 
+
+-----
+
+explain validation (example)
+examples:
+- check if pflichtfelder belegt sind
+- strings müssen einem komkretem pattern entsprechen
+
+describe reasoning in general
+
+why reasoning for validation?
+
+was hat reasoning mit validierung zu tun? --> avoid redundancy (example)
+
+OWL as constraint language / CWA vs. OWA
+Validation is CW, reasoning is OW
+OWL is a reasoning language but is also used for validation and because of this leads to this discussion
+
+-----
+
 A library wants to publish some data sets as
 RDF by extracting them from different relational databases. In order to
 achieve high data quality some constraints are defined first on a very
@@ -260,18 +298,69 @@ clarified what role reasoning play in this verification and publication
 process. 
 
 basic constraints to achieve high data quality:
+
+
+
+The major shortcoming when validation without reasoning is redundancy
+
+
+
+All publications must have a publishing date.
+As books, conference proceedings, and journal articles are publications, we do not have to state explicitly that publishing dates must be stated for each publication sub class.
+
+As we defined that each publication must have at least 1 creator and books are publications, books must also have at least one creator.
+Therefore, we need to define authors as well as creators for books with redundant values.
+If we define author to be a sub property of creator and we relate a book to an author, the creator relationship can be inferred by performing reasoning.
+As conference and journal proceedings are publications, we can also define the property editor as sub property of creator
+
 \begin{itemize}
-	\item Books, conference, and journal articles are publications
+	\item Books, conference proceedings, and journal articles are publications
 	\item Only publications can have {\em author} relationships to persons
 	\item Publications must have at least 1 author which must be a Person
-	\item Publications must have publishers (existential quantification)
-	\item Publications can only have persons as authors (universal quantification)
-	\item If a publication is related to a person via the property {\em writtenBy}, this publication is also related to this person via the property {\em author} (sub properties)
-  \item Journal of web semantics articles have the editors 'Finin, 'Staab', 'Horrocks', and 'Bernstein' (allowed values)
-	\item Identifiers of publications are either ISBN (for books) or ISSN (for periodical publications), but not both (class-specific exclusive or of property groups)
-	\item If no keyword is stated for semantic web publications, default keywords are 'Semantic Web' and 'Linked Data' (default values)
-	\item ISBN identifiers must conform to specific patterns (Literal Pattern Matching)
+	\item Publications must have publishers
+	\item Publications can only have persons as authors
+	\item If a publication is related to a person via the property {\em writtenBy}, this publication is also related to this person via the property {\em author}
+  \item Journal of web semantics articles have the editors Finin, Staab, Horrocks, and Bernstein
+	\item Identifiers of publications are either ISBN (for books) or ISSN (for periodical publications), but not both
+	\item If no keyword is stated for semantic web publications, default keywords are 'Semantic Web' and 'Linked Data'
+	\item ISBN identifiers must conform to specific patterns
 \end{itemize}
+
+%conference proceedings contain articles / erschienen in
+%conference date
+%proceedings herausgegeben von Verlag
+
+-----
+
+library domain published their data in XML for a long time 
+
+sehr feine schemas 
+
+parallel to XML world
+
+viele anwendungsszenarien
+
+klare beschreibung der daten
+
+publication of closed data
+
+-----
+
+reasoning and validation
+
+-----
+
+contributions:
+- diskussionsgrundlage schaffen für validierung in rdf
+- rolle herausarbeiten von reasoning für validierung / why is reasoning relevant for vaidation?
+- reasoning wift fragen bzgl der effekte typischer constraints auf die komplexität auf und wie wird das von aktuwllen sprachen unterstützt
+- create the ground
+- 2 welten zusammenbrungen (validation and reasoning) / zusaamenhang dieser communities
+- technical contribution: investigation of constraint languages regarding the role of reasoning for validation
+
+we addree the fowlling audieneces / zielgruppen)
+1. metadata practicioners seaking for the role of reasoning for validation
+2. reasoning experts to raise the awareness for practical applications of reasoning and validation
 
 -----
 
@@ -305,6 +394,48 @@ Publication $\sqsubseteq$ $\geq$1 author.Person
 \end{DL}
 \end{center}
 
+{\em Existential Quantification}
+\begin{center}
+\begin{DL}
+Publication $\sqsubseteq$ $\exists$ publisher.Publisher
+\end{DL}
+\end{center}
+
+{\em Universal Quantification}
+\begin{center}
+\begin{DL}
+Publication $\sqsubseteq$ $\forall$ author.Person
+\end{DL}
+\end{center}
+
+{\em Allowed Values}
+\begin{center}
+\begin{DL}
+JournalOfWebSemanticsArticle $\equiv$ $\exists$ editor . \{Finin\} $\sqcup$ \{Staab\} $\sqcup$ \{Horrocks\} $\sqcup$ \{Bernstein\}
+\end{DL}
+\end{center}
+
+{\em Context-Specific Exclusive OR of Properties}
+\begin{center}
+\begin{DL}
+Publication &$\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
+A &$\equiv$ $\exists$ isbn.xsd:string \\
+B &$\equiv$ $\exists$ issn.xsd:string \\ 
+\end{DL} 
+\end{center}
+
+{\em Default Values}
+\begin{ex}
+owl:Thing spin:rule [ a sp:Construct ; sp:text """
+    CONSTRUCT { ?subject keyword "Semantic Web", "Linked Data" . }
+    WHERE { ?subject a SemanticWebPublication . } """ ; ] .
+\end{ex}
+
+we map constraints to dl to investigate the expressivity of constraintlanguages
+explain dl syntax and knowledgebase / short example to explain simple constraints / explain why mapping to dl is used 
+
+In this paper, taking reasoning into account, our main focus will be on constraint expressivity. We leave an analysis of user-friendliness to a further work. Nevertheless, we will mention the known complexity results of those languages through out the paper. 
+
 %Example for RDF validation, really oriented at a real scenario. 
 %For example, a library wants to publish some datasets as
 %RDF by extracting them from different relational databases. In order to
@@ -324,30 +455,30 @@ Publication $\sqsubseteq$ $\geq$1 author.Person
 %
 %research data / library data / institutions exchanging data
 
-\section{Introduction (old)}
+%\section{Introduction (old)}
 
-For many RDF applications, the formulation of constraints and the automatic validation of data according to these constraints is a much sought-after feature. 
-In 2013, the W3C invited experts from industry, government, and academia to the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/RDF-val/}}, 
-where first use cases have been presented and discussed. 
-Two working groups (WGs) that follow up on this workshop and address RDF constraint formulation and validation, are established in 2014: 
-the W3C RDF Data Shapes WG\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles WG\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
+%For many RDF applications, the formulation of constraints and the automatic validation of data according to these constraints is a much sought-after feature. 
+%In 2013, the W3C invited experts from industry, government, and academia to the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/RDF-val/}}, 
+%where first use cases have been presented and discussed. 
+%Two working groups (WGs) that follow up on this workshop and address RDF constraint formulation and validation, are established in 2014: 
+%the W3C RDF Data Shapes WG\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles WG\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
+%
+%As a part of our earlier work \cite{BoschEckert2014}, we initiated a comprehensive database  (publicly available at \url{http://purl.org/net/RDF-validation})  on RDF validation requirements to collect case studies and use cases. It is continuously updated, and used to evaluate and compare various existing solutions for RDF constraint formulation and validation. 
+%Also, the requirements are classified to provide a high-level view on different solutions and to facilitate a better understanding of the problem domain \cite{BoschEckert2014}.  
+%
+%For expressing RDF constraints, there are numerous constraint languages, each with its own syntax and semantics.  
+%Yet none of them is all-purpose standard, the most popular ones are
+%the SPARQL Inferencing Notation (SPIN)\footnote{\url{http://spinRDF.org/}} (representing SPARQL queries in RDF), 
+%the Web Ontology Language (OWL 2)\footnote{\url{http://www.w3.org/TR/owl2-syntax/}}, 
+%Shape Expressions (ShEx)\footnote{\url{http://www.w3.org/Submission/shex-primer/}}, 
+%Resource Shapes (ReSh)\footnote{\url{http://www.w3.org/Submission/shapes/}}, 
+%and Description Set Profiles (DSP)\footnote{\url{http://dublincore.org/documents/2008/03/31/dc-dsp/}}.
+%
+%Their relevance varies with respect to several foremost criteria in validation process, such as user-friendliness (how easy is it for a user to define constraints?), constraint expressivity (what kind of constraints can be expressed?) and performance (how efficient in terms of runtime can RDF be validated?). Furthermore, the service of reasoning and its usability is in question. 
+%
+%In this paper, taking reasoning into account, our main focus will be on constraint expressivity. We leave an analysis of user-friendliness to a further work. Nevertheless, we will mention the known complexity results of those languages through out the paper.  
 
-As a part of our earlier work \cite{BoschEckert2014}, we initiated a comprehensive database  (publicly available at \url{http://purl.org/net/RDF-validation})  on RDF validation requirements to collect case studies and use cases. It is continuously updated, and used to evaluate and compare various existing solutions for RDF constraint formulation and validation. 
-Also, the requirements are classified to provide a high-level view on different solutions and to facilitate a better understanding of the problem domain \cite{BoschEckert2014}.  
-
-For expressing RDF constraints, there are numerous constraint languages, each with its own syntax and semantics.  
-Yet none of them is all-purpose standard, the most popular ones are
-the SPARQL Inferencing Notation (SPIN)\footnote{\url{http://spinRDF.org/}} (representing SPARQL queries in RDF), 
-the Web Ontology Language (OWL 2)\footnote{\url{http://www.w3.org/TR/owl2-syntax/}}, 
-Shape Expressions (ShEx)\footnote{\url{http://www.w3.org/Submission/shex-primer/}}, 
-Resource Shapes (ReSh)\footnote{\url{http://www.w3.org/Submission/shapes/}}, 
-and Description Set Profiles (DSP)\footnote{\url{http://dublincore.org/documents/2008/03/31/dc-dsp/}}.
-
-Their relevance varies with respect to several foremost criteria in validation process, such as user-friendliness (how easy is it for a user to define constraints?), constraint expressivity (what kind of constraints can be expressed?) and performance (how efficient in terms of runtime can RDF be validated?). Furthermore, the service of reasoning and its usability is in question. 
-
-In this paper, taking reasoning into account, our main focus will be on constraint expressivity. We leave an analysis of user-friendliness to a further work. Nevertheless, we will mention the known complexity results of those languages through out the paper.  
-
-The rest of the paper goes as follows...
+%The rest of the paper goes as follows...
 % We take a deeper look at motivation in the next section. Then, in Section \ref{Expressivity-Complexity-OWL2}, we briefly mention the expressivity and complexity results in OWL 2 reasoning. Next, classification of RDF constraints according to reasoning and complexity follows.  In Section \ref{Classification-Constraint-Languages-Expressivity-Complexity}, we present a classification of constraint Languages concerning expressivity. In this section, we also discuss user-friendliness as an additional criteria. Furthermore, giving some examples, we present a perspective of RDF validation requirements with reasoning and without reasoning in Section 
 %\ref{sec:RDF-validation-requirements-and-reasoning} and Section 
 %\ref{RDF-Validation-Requirements-without-Reasoning}
@@ -1314,28 +1445,28 @@ From the table given above (with numbers), one can infer that in terms of expres
 %Although, SPIN is more adopted than ShEx, ShEx is a high-level compared to a low-level language, ShEx is more intuitive and concise than SPIN.
 %According to this evaluation, tools may recommend alternatives to the most expressive language SPIN.  
 
-\section{Implementation}
-\label{Implementation}
-
-SPARQL is generally seen as the method of choice to validate RDF data according to certain constraints, although it is not ideal for their formulation. 
-In contrast, OWL 2 DL constraints are comparatively easy to understand, but lack an implementation to validate RDF data. However, reasoning in OWL supports the identification of inconsistencies, which is also known as ontology debugging \cite{stuckenschmidt2008debugging}. Despite the fact that inconsistency detection especially in DL has already been studied extensively, it is not sufficient for constraint validation.
-Bosch and Eckert\cite{BoschEckert2014-2} use SPIN as basis to define a
-validation environment in which the validation of any constraint language\footnote{the only limitation is that constraint languages must be represented in RDF} can be implemented by representing them in SPARQL. 
-The validation implementation of constraint languages is fully declarative,
-consisting of a mapping from a constraint language to SPIN in form of SPARQL CONSTRUCT queries.
-SPIN represents both the SPIN mappings and the SPARQL queries in RDF. 
-Within the validation environment, we fully implemented the validation of all OWL 2 DL\footnote{and therefore all OWL 2 QL constructs} constructs. 
-The implementation can be tested at \url{http://purl.org/net/RDFval-demo} and
-the OWL 2 SPIN mapping is maintained at \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}.
-
-The developed constraint language classification according to the three dimensions expressivity, complexity, and user-friendliness leads to many possible extensions of the RDF validator and similar validation systems.
-Users may choose if they wish to execute reasoning as a pre-validation step and which reasoning axioms they want to use to express their inference rules.
-They may also select which constraints they need for their use cases.
-
-As we defined an ordering of constraint languages for each expressivity class, we assigned reasoning axioms and constraints to complexity classes, we evaluated constraint languages regarding multiple user-friendliness criteria, the validator can provide a list of constraint languages for which the expressivity is enough to express the wished constraints and axioms.
-The validator can also recommend a constraint language of that list whose user-friendliness is evaluated to be the highest according to the user-friendliness criteria.
-As reasoning may cause high complexity, the validator may show which axioms from the user's selection cause the determined complexity class 
-and it may provide solutions how to get to the next lower complexity class.
+%\section{Implementation}
+%\label{Implementation}
+%
+%SPARQL is generally seen as the method of choice to validate RDF data according to certain constraints, although it is not ideal for their formulation. 
+%In contrast, OWL 2 DL constraints are comparatively easy to understand, but lack an implementation to validate RDF data. However, reasoning in OWL supports the identification of inconsistencies, which is also known as ontology debugging \cite{stuckenschmidt2008debugging}. Despite the fact that inconsistency detection especially in DL has already been studied extensively, it is not sufficient for constraint validation.
+%Bosch and Eckert\cite{BoschEckert2014-2} use SPIN as basis to define a
+%validation environment in which the validation of any constraint language\footnote{the only limitation is that constraint languages must be represented in RDF} can be implemented by representing them in SPARQL. 
+%The validation implementation of constraint languages is fully declarative,
+%consisting of a mapping from a constraint language to SPIN in form of SPARQL CONSTRUCT queries.
+%SPIN represents both the SPIN mappings and the SPARQL queries in RDF. 
+%Within the validation environment, we fully implemented the validation of all OWL 2 DL\footnote{and therefore all OWL 2 QL constructs} constructs. 
+%The implementation can be tested at \url{http://purl.org/net/RDFval-demo} and
+%the OWL 2 SPIN mapping is maintained at \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}.
+%
+%The developed constraint language classification according to the three dimensions expressivity, complexity, and user-friendliness leads to many possible extensions of the RDF validator and similar validation systems.
+%Users may choose if they wish to execute reasoning as a pre-validation step and which reasoning axioms they want to use to express their inference rules.
+%They may also select which constraints they need for their use cases.
+%
+%As we defined an ordering of constraint languages for each expressivity class, we assigned reasoning axioms and constraints to complexity classes, we evaluated constraint languages regarding multiple user-friendliness criteria, the validator can provide a list of constraint languages for which the expressivity is enough to express the wished constraints and axioms.
+%The validator can also recommend a constraint language of that list whose user-friendliness is evaluated to be the highest according to the user-friendliness criteria.
+%As reasoning may cause high complexity, the validator may show which axioms from the user's selection cause the determined complexity class 
+%and it may provide solutions how to get to the next lower complexity class.
 
 \section{Related Work}
 \label{sec:related-Work}
@@ -1362,6 +1493,10 @@ In description logics, reasoning tasks like query answering or detection of inco
 %http://www2.informatik.uni-freiburg.de/~mschmidt/docs/sparql_constraints.pdf
 
 \section{Conclusion and Future Work}
+
+\tb{1/2 sentences how reasoning is implemented in the validator}
+
+\tb{Andy: 1 sentence about query expansion}
 
 In section \ref{Expressivity-Complexity-OWL2} we explained why reasoning is beneficial for validation and how reasoning interacts with validation.
 In section \ref{Classification-RDF-Constraints-Reasoning-Complexity} we classified RDF constraints according to reasoning and complexity.
