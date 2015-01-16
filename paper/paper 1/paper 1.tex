@@ -738,19 +738,22 @@ We classify constraint types according to the dependency on CWA and UNA:
 \end{enumerate}
 
 $\mathcal{C}_{CWA}$ contains constraint types for which it makes a difference if CWA/UNA or OWA/nUNA are assumed.
-example...
+If something is a publication, e.g., it has at least one author (\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}).
+This {\em qualified cardinality restriction} depends on CWA/UNA.
+In an CWA/UNA setting, a publication without an explicitly stated author violates the constraint  
+Assuming OWA/nUNA it's different, 
+the publication without an explicitly stated author does not raise a constraint violation, 
+as the axiom allows you to entail that there must be an (unknown) author.
 
 $\overline{\mathcal{C}_{CWA}}$ includes constraint types for which it does not make any difference if CWA/UNA or OWA/nUNA are assumed.
 example...
 
-I would expect that a constraint type can be
-independent of the CWA or it can make a difference. For example:
+
 
 ex1: An address is a field that stores a string and its end is substring
 that refers to a number.
 
-ex2: If someone is a mother, she has at least one child.
-ex2: If something is a publication, it has at least one author (\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}) ({\em qualified cardinality restriction})
+
 
 ex3: If someone is a women, it cannot be a man.
 ex3: If something is a book, it cannot be a journal article (\ms{Male $\sqcap$ Female $\sqsubseteq$ $\perp$}) ({\em disjoint classes})
@@ -758,10 +761,7 @@ ex3: If something is a book, it cannot be a journal article (\ms{Male $\sqcap$ F
 ex1 has nothing to do with CWA or UNA, if you accept the CWA or its
 opposite, it doe not nmake a difference here.
 
-ex2 depends on CWA, in the CWA setting a mother without an explictly
-stated child violates the constraint. In OWA its different, the mother
-withour explicitly stated child is not a problem. You just have an axiom
-that allows you to entail that there is an (unknown) child.
+
 
 ex3 again independent of CWA.
 
