@@ -223,7 +223,7 @@ Then, regarding a collected list of constraint types (requirements), we classify
 %As a next step, validators give some guidance how to get to lower expressivity and complexity classes.
 %If validators propose multiple constraint languages for a particular validation use case, additional rather subjective criteria regarding user-friendliness may be evaluated.
 
-\keywords{RDF Validation, RDF Constraints, OWL 2 QL, OWL 2 DL, Reasoning, RDF Validation Requirements, Linked Data, Semantic Web}
+\keywords{RDF Validation, RDF Constraints, OWL 2, Reasoning, RDF Validation Requirements, Linked Data, Semantic Web}
 \end{abstract}
 %
 
@@ -710,8 +710,8 @@ As a result of its expressive power, OWL 2 DL allows a large variety of sophisti
 %\end{itemize}
 
 For this paper, we identified in total 74 requirements to formulate RDF constraints; each of them corresponding to a constraint type. 
-We recently published a technical report\footnote{Available at: \url{https://github.com/boschthomas/RDF-validation-research/paper}} (serving as appendix of this paper) in which we explain each requirement in detail and in which we give examples for each (represented by listed constraint languages)\tb{citation}.
-This technical report also contains mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express which constraint type.
+We recently published a technical report\footnote{Available at: \url{https://github.com/boschthomas/RDF-validation-research/paper}} (serving as appendix of this paper) in which we explain each requirement in detail and in which we give examples for each (represented by listed constraint languages).
+This technical report also contains mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express which constraint type\tb{ToDo for Thomas: add reference}.
 %When the DL constructs  which are needed to express a particular constraint are known, the required expressivity and the computational complexity to perform reasoning for that constraint can be determined. 
 %The constraint \ms{Context-Specific Exclusive OR of Properties} (see section~\ref{sec:RDF-validation-requirements-without-reasoning-2}), e.g., can generically be expressed as follows:
 %\begin{center}
@@ -789,40 +789,35 @@ as all information needed for validation is explicitly available in both cases.
 %dictsinction between  C_R and C_R'.
 
 The W3C WG defines \emph{constraint} as a component of a schema what needs to be satisfied\footnote{See \url{https://www.w3.org/2014/data-shapes/wiki/Glossary}.}. 
-We denote the whole set of constraints (types) with $\mathcal{C}$. We divide it into two groups   to investigate the affect of reasoning to the validation process:
+We denote the whole set of constraint types with $\mathcal{C}$. We divide it into two groups   to investigate the affect of reasoning to the validation process:
 \begin{enumerate}
-	\item $\mathcal{C}_R$: constraints with reasoning
-	\item $\overline{\mathcal{C}_{R}}$: constraints without reasoning %\tb{why overline R?}
+	\item $\mathcal{C}_R$: constraint types with reasoning
+	\item $\overline{\mathcal{C}_{R}}$: constraint types without reasoning %\tb{why overline R?}
 \end{enumerate}
- which corresponds to two disjoint subsets of $\mathcal{C}$. $\mathcal{C}_R$ corresponds to set of constraints which can carry out the validation process via reasoning, especially when not all the knowledge is explicit.  
-Its complement, $\overline{\mathcal{C}_R}$, is the set of constraints for which reasoning cannot be done or does not improve the result in any obvious sense (e.g., the scenario with all the knowledge is already explicit).
+ which corresponds to two disjoint subsets of $\mathcal{C}$. $\mathcal{C}_R$ corresponds to the set of constraint types which can carry out the validation process via reasoning, especially when not all the knowledge is explicit.  
+Its complement, $\overline{\mathcal{C}_R}$, is the set of constraint types for which reasoning cannot be done or does not improve the result in any obvious sense (e.g., the scenario with all the knowledge is already explicit).
 
-
-As an example, consider \ms{Literal Pattern Matching}\footnote{See R-44-PATTERN-MATCHING-ON-RDF-LITERALS.} which  restricts literals to match given patterns e.g., 
-\emph{Luke's droids} can only have the numbers "R2-D2" or "C-3PO".
-The universal restriction \ms{LukesDroids $\sqsubseteq$ $\forall$ droidNumber} \\ \ms{.DroidNumber} can be expressed by OWL 2 DL.
+{\em Literal Pattern Matching}\footnote{See R-44-PATTERN-MATCHING-ON-RDF-LITERALS.}, restricting literals to match given patterns,
+is a $\overline{\mathcal{C}_R}$ constraint type.
+The universal restriction \ms{Book $\sqsubseteq$ $\forall$ identifier.ISBN}, e.g., ensures that books can only have valid ISBN identifiers, 
+i.e. strings that match a given regular expression. 
 %\er{This is no OWL.}\tb{resolved}
 A data range expression is restricted in OWL 2 QL to the predefined datatypes and the intersection of data ranges. 
-Thus, the restriction of the datatype \ms{DroidNumber} must be expressed by OWL 2 DL: % \er{DL can naturally express datatypes. All you need to do is to define \emph{DroidNumber} as a concrete domain.}\tb{resolved}  
+Thus, the restriction of the datatype {\em ISBN} cannot be expressed by OWL 2 QL, but by OWL 2 DL: % \er{DL can naturally express datatypes. All you need to do is to define \emph{DroidNumber} as a concrete domain.}\tb{resolved}  
 
 \begin{ex}
-DroidNumber 
-    a RDFs:Datatype ;
-    owl:equivalentClass [
-        a RDFs:Datatype ;
-        owl:onDatatype xsd:string ;
-        owl:withRestrictions ( 
-            [ xsd:pattern "R2-D2|C-3PO" ] ) ] .
+ISBN a RDFS:Datatype ; owl:equivalentClass [ a RDFS:Datatype ;
+    owl:onDatatype xsd:string ; owl:withRestrictions ([ xsd:pattern "^\d{9}[\d|X]\$" ])] .
 \end{ex}
 
-The first OWL axiom explicitly declares \ms{DroidNumber} to be a datatype. %\er{Why start from second and then first? Also better we say "owl axiom" when we talk axiom of owl, to prevent ambiguity.}\tb{resolved}
-The second OWL axiom defines \ms{DroidNumber} as an abbreviation for a datatype restriction on \ms{xsd:string}. 
-The datatype \ms{DroidNumber} can be used just like any other datatype like in the universal restriction above.
-The literal pattern matching constraint validates \ms{DroidNumber} literals according to the stated regular expression. 
-The triples \ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber} cause a constraint violation. 
-The triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}, however, lead to valid data. %\er{Let us divide this last sentence of the paragraph.}\tb{resolved}
+The first OWL axiom explicitly declares {\em ISBN} to be a datatype. %\er{Why start from second and then first? Also better we say "owl axiom" when we talk axiom of owl, to prevent ambiguity.}\tb{resolved}
+The second OWL axiom defines {\em ISBN} as an abbreviation for a datatype restriction on {\em xsd:string}. 
+The datatype {\em ISBN} can be used just like any other datatype like in the universal restriction above.
+The literal pattern matching constraint validates {\em ISBN} literals according to the stated regular expression. 
+%The triples \ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber} cause a constraint violation. 
+%The triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}, however, lead to valid data. %\er{Let us divide this last sentence of the paragraph.}\tb{resolved}
 
-Note that $C_R$ corresponds to axioms in OWL  e.g., subsumption, subproperties, cardinality restrictions, existential, and universal restrictions.
+Note that $C_R$ corresponds to axioms in OWL  e.g., subsumption, sub-properties, cardinality restrictions, existential, and universal restrictions.
 %As we are dealing with fields from different research communities, we define our own nomenclature for RDF validation instead of reusing the heavily overloaded term axiom.
 %For instance, for  many in DL community, axioms are only those which are statements of TBox (subsumption statements), if there is a TBox and ABox. 
 %In OWL community, an ABox statement  i.e., "class assertion" is also called "class membership axiom". 
@@ -830,13 +825,13 @@ Note that $C_R$ corresponds to axioms in OWL  e.g., subsumption, subproperties, 
 %One common thing everyone agrees is, axiom is something which has to hold (satisfied).  
 %See that this is overlapping with the definition of constraint (a component of a schema what needs to be satisfied). 
 %Actually from logic point of view, when a constraint is not satisfied it leads to no model, and when an axiom is not satisfied it leads to a superset of models.
-\ms{SubProperties}, e.g., are constraints for which reasoning may be performed.
+{\em Sub Properties}, e.g., are constraints for which reasoning may be performed.
 For instance, if an individual X has an \ms{attackingBySword} relationship to an individual Y, 
 then individual X must also have an \ms{attackingByWeapon} relationship to individual Y: \ms{attackingBySword $\sqsubseteq$ attackingByWeapon}.
-If we use subproperties without reasoning and our data contains the triple \ms{attackingBySword(Luke, DarthVader)},
+If we use sub-properties without reasoning and our data contains the triple \ms{attackingBySword(Luke, DarthVader)},
 then the triple \ms{attackingByWeapon(Luke, DarthVader)} has to be stated explicitly.
 If this triple is not stated, a constraint violation occurs.
-If we use subproperties with reasoning, the triple (which would cause a constraint violation) is inferred and therefore resolves the possible constraint violation.
+If we use sub-properties with reasoning, the triple (which would cause a constraint violation) is inferred and therefore resolves the possible constraint violation.
 
 \subsubsection{Constraints with Reasoning}
 \label{sec:RDF-validation-requirements-and-reasoning}
