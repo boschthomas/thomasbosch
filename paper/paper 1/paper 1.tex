@@ -729,13 +729,19 @@ In this section, we show how to determine the performance (the computational com
 \subsection{Semantics}
 
 The distinction of constraint types regarding the dependency on CWA and UNA is an important aspect when combining reasoning with validation,
-as OWL reasoning requires {\em OWA}, {\em nUNA} and RDF validation is based on {\em UNA} (different names represent different objects),
+as OWL reasoning requires {\em OWA} and {\em nUNA} and RDF validation is based on {\em UNA} (different names represent different objects) and
 {\em CWA} (a statement is inferred to be false if it cannot be proved to be true).
-We classify constraints according to the dependency on CWA and UNA:
+We classify constraint types according to the dependency on CWA and UNA:
 \begin{enumerate}
 	\item $\mathcal{C}_{CWA}$: CWA and UNA dependent constraint types
 	\item $\overline{\mathcal{C}_{CWA}}$: CWA and UNA independent constraint types
 \end{enumerate}
+
+$\mathcal{C}_{CWA}$ contains constraint types for which it makes a difference if CWA/UNA or OWA/nUNA are assumed.
+example...
+
+$\overline{\mathcal{C}_{CWA}}$ includes constraint types for which it does not make any difference if CWA/UNA or OWA/nUNA are assumed.
+example...
 
 I would expect that a constraint type can be
 independent of the CWA or it can make a difference. For example:
