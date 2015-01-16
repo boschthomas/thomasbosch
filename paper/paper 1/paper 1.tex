@@ -728,13 +728,14 @@ In this section, we show how to determine the performance (the computational com
 
 \subsection{Semantics}
 
-We classify constraints according to the dependency on the CWA and UNA:
+The distinction of constraint types regarding the dependency on CWA and UNA is an important aspect when combining reasoning with validation,
+as OWL reasoning requires {\em OWA}, {\em nUNA} and RDF validation is based on {\em UNA} (different names represent different objects),
+{\em CWA} (a statement is inferred to be false if it cannot be proved to be true).
+We classify constraints according to the dependency on CWA and UNA:
 \begin{enumerate}
 	\item $\mathcal{C}_{CWA}$: CWA and UNA dependent constraint types
 	\item $\overline{\mathcal{C}_{CWA}}$: CWA and UNA independent constraint types
 \end{enumerate}
-
-The UNA and CWA are important aspects
 
 I would expect that a constraint type can be
 independent of the CWA or it can make a difference. For example:
@@ -743,8 +744,10 @@ ex1: An address is a field that stores a string and its end is substring
 that refers to a number.
 
 ex2: If someone is a mother, she has at least one child.
+ex2: If something is a publication, it has at least one author (\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}) ({\em qualified cardinality restriction})
 
 ex3: If someone is a women, it cannot be a man.
+ex3: If something is a book, it cannot be a journal article (\ms{Male $\sqcap$ Female $\sqsubseteq$ $\perp$}) ({\em disjoint classes})
 
 ex1 has nothing to do with CWA or UNA, if you accept the CWA or its
 opposite, it doe not nmake a difference here.
