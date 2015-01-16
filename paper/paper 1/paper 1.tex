@@ -209,19 +209,27 @@ Albstadt-Sigmaringen University, Germany \\
 \maketitle              % typeset the title of the contribution
 
 \begin{abstract}
-There is no standard way to formulate RDF constraints for validation,
-however there are several popular constraint languages (i.e., SPIN, ReSh, ShEx) covering major requirements on RDF validation. Amongst others, the ontology language OWL 2 can also be considered as an expressive constraint language with a high level human-readable syntax.
-In this work, we discuss possible scenarios on how OWL 2 reasoning can actually be useful for RDF validation.
-%We take reasoning into account as a possible pre-validation step, 
-%(1) to infer triples resolving constraint violations, 
-%(2) to infer triples for which constraints can also be validated, and 
-%(3) to solve the major shortcoming of RDF validation: redundancy. 
-%\er{I simplified the long abstract a bit by commenting (\%) as well as little editing. The part starting with, "we investigate", cause lacking integrity in abstract,  I dropped 1, 2, 3 for simplification and better flow. We can write abstract in the end, which can also include a short part of introduction if necessary.}
-Then, regarding a collected list of constraint types (requirements), we classify their expressivity with an account to reasoning.   
-%Following this approach, one can clarify which constraint language to use to express constraints for specific validation scenarios, with and without reasoning.
-%Validators can determine which axioms cause high complexity and which constraints can only be expressed within a more sophisticated expressivity class.
-%As a next step, validators give some guidance how to get to lower expressivity and complexity classes.
-%If validators propose multiple constraint languages for a particular validation use case, additional rather subjective criteria regarding user-friendliness may be evaluated.
+
+For data practitioners embracing the world of RDF and Linked Data, the openness and flexibility is a mixed blessing. For them, data validation according to predefined constraints is a  much sought-after feature, particularly as this is taken for granted in the XML world. Several approaches exist to meet this requirement, ranging from using OWL as a constraint language to SPIN, a SPARQL-based way to formulate and check contraints. There are also specific constraint languages like Shape Expressions, Resource Shapes or Description Set Profiles that more or less explicitly address the aforementioned data practitioners.
+In this paper, we investigate the relationship of validation and reasoning and the role that reasoning plays in practical data validation. We formulate common types of constraints in Description Logic and use this formulation to determine their complexity when certain reasoning steps are involved. At last, we aggregate these findings for the most common constraint languages and show their commonalities and differences regarding constraint expressivity. We argue that so far no single best solution exists and that the results presented in this paper are crucial for a proper application of RDF validation.
+
+
+% There is no standard way to formulate RDF constraints for validation,
+% however there are several popular constraint languages (i.e., SPIN, ReSh, ShEx) covering major requirements on RDF validation. Amongst others, the ontology language OWL 2 can also be considered as an expressive constraint language with a high level human-readable syntax.
+% In this work, we discuss possible scenarios on how OWL 2 reasoning can actually be useful for RDF validation.
+
+%%We take reasoning into account as a possible pre-validation step, 
+%%(1) to infer triples resolving constraint violations, 
+%%(2) to infer triples for which constraints can also be validated, and 
+%%(3) to solve the major shortcoming of RDF validation: redundancy. 
+%%\er{I simplified the long abstract a bit by commenting (\%) as well as little editing. The part starting with, "we investigate", cause lacking integrity in abstract,  I dropped 1, 2, 3 for simplification and better flow. We can write abstract in the end, which can also include a short part of introduction if necessary.}
+
+% Then, regarding a collected list of constraint types (requirements), we classify their expressivity with an account to reasoning.   
+
+%%Following this approach, one can clarify which constraint language to use to express constraints for specific validation scenarios, with and without reasoning.
+%%Validators can determine which axioms cause high complexity and which constraints can only be expressed within a more sophisticated expressivity class.
+%%As a next step, validators give some guidance how to get to lower expressivity and complexity classes.
+%%If validators propose multiple constraint languages for a particular validation use case, additional rather subjective criteria regarding user-friendliness may be evaluated.
 
 \keywords{RDF Validation, RDF Constraints, OWL 2 QL, OWL 2 DL, Reasoning, RDF Validation Requirements, Linked Data, Semantic Web}
 \end{abstract}
