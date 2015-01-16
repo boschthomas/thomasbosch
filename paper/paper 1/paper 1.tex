@@ -850,7 +850,7 @@ then the triple \ms{creator(JWS14V29, Staab)} has to be stated explicitly.
 If this triple is not stated, a constraint violation occurs.
 If we use sub-properties with reasoning, the triple (which would cause a constraint violation) is inferred and therefore resolves the possible constraint violation.
 
-\subsubsection{Constraints with Reasoning}
+\subsubsection{Constraint Types with Reasoning}
 \label{sec:RDF-validation-requirements-and-reasoning}
 
 Reasoning and validation are very closely related. 
@@ -874,6 +874,7 @@ Reasoning may be a pre validation step to infer triples resolving constraint vio
 %If, however, our knowledge base contains the axiom \ms{JediMaster $\sqsubseteq$ Jedi}, the triple \ms{Jedi(Yoda)} is inferred and the existential restrictions is validated for the individual \ms{Yoda}, raising a constraint violation if a triple such as \ms{hasLaserSword(Yoda, GreenLaserSword)} is not included in the knowledge base. 
 
 \textbf{OWL 2 QL Reasoning.}
+There are many constraint types for which {\em OWL 2 QL reasoning} can be performed. 
 %{\em Subsumption}\footnote{Corresponds to {\em R-100-SUBSUMPTION}}
 %relationships of both classes and properties are part of basic reasoning.
 %
@@ -915,20 +916,33 @@ When reasoning is performed before validating, the class assignment \ms{TimBerne
 %Without reasoning, the data \ms{Anakin studentOf Obi-Wan} is invalid and causes a constraint violation, as it is not explicitly stated that \ms{Anakin} is assigned to the class \ms{Jedi}. 
 %When inferencing is performed before validating, the class assignment \ms{Anakin a Jedi} is inferred which prevents the constraint violation to be raised.
 
-The {\em Existential Quantification}\footnote{Corresponds to {\em R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}}
-\ms{Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword} let us refer to all those individuals that are connected by \ms{hasLaserSword} to an individual that is an instance of the class \ms{LaserSword}.
-In OWL 2 DL, this existential quantification can also be expressed:
-
+The {\em existential quantification}\footnote{Corresponds to {\em R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}}
+\ms{Publication $\equiv$ $\exists$ publisher.Publisher} restricts publications to have at least one publisher - which can be expressed in OWL 2 QL:
 \begin{ex}
 [ a owl:Restriction ;
-  owl:onProperty hasLaserSword ;
-  owl:someValuesFrom LaserSword ;
-  RDFs:subClassOf Jedi ] .
+  owl:onProperty publisher ;
+  owl:someValuesFrom Publisher ;
+  rdfs:subClassOf Publication ] .
 \end{ex}
+If we execute reasoning on data containing the triples \ms{ISWC-2014-Proceedings publisher Springer} and \ms{Springer a Publisher}, 
+it can be inferred that {\em ISWC-2014-Proceedings} is a {\em Publication}.
+Now, all constraints associated with the class {\em Publication} are also validated for the individual {\em ISWC-2014-Proceedings} (e.g. that publications must have at least one author).
+Without reasoning, these constraints are not validated as {\em ISWC-2014-Proceedings} is not within the class extension of {\em Publication}.
 
-When our data contains the triple \ms{Luke hasLaserSword BlueLaserSword} and we perform reasoning, we can infer that \ms{Luke} is a \ms{Jedi}, as he has a laser sword.
-As the individual \ms{Luke} is assigned to the class \ms{Jedi}, all constraint associated with this class are also validated, for example that Jedis must have blue laser swords.
-Without reasoning, these constraints won't be validated as \ms{Luke} is not within the class extension of \ms{Jedi}.
+%The {\em Existential Quantification}\footnote{Corresponds to {\em R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}}
+%\ms{Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword} let us refer to all those individuals that are connected by \ms{hasLaserSword} to an individual that is an instance of the class \ms{LaserSword}.
+%In OWL 2 DL, this existential quantification can also be expressed:
+%
+%\begin{ex}
+%[ a owl:Restriction ;
+  %owl:onProperty hasLaserSword ;
+  %owl:someValuesFrom LaserSword ;
+  %RDFs:subClassOf Jedi ] .
+%\end{ex}
+%
+%When our data contains the triple \ms{Luke hasLaserSword BlueLaserSword} and we perform reasoning, we can infer that \ms{Luke} is a \ms{Jedi}, as he has a laser sword.
+%As the individual \ms{Luke} is assigned to the class \ms{Jedi}, all constraint associated with this class are also validated, for example that Jedis must have blue laser swords.
+%Without reasoning, these constraints won't be validated as \ms{Luke} is not within the class extension of \ms{Jedi}.
 
 \textbf{OWL 2 DL Reasoning.}
 {\em Universal quantifications}\footnote{Corresponds to {\em R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}}
@@ -944,7 +958,7 @@ which cannot be expressed by OWL 2 QL, but by OWL 2 DL \cite{owl2profiles2008}:
 When performing reasoning, the triples \ms{DarthMaul hasMentor DarthSidious} and \ms{DarthSidious a Sith} infer that \ms{DarthMaul} is a Sith.
 When reasoning is not wished, these explicitly stated triples cause a constraint violation, as each resource having \ms{hasMentor} relationships to a Sith must also be a Sith (which is not explicitly stated in the data).
 
-\subsubsection{Constraints without Reasoning}
+\subsubsection{Constraint Types without Reasoning}
 \label{RDF-Validation-Requirements-without-Reasoning}
 
 For the majority of the requirements to formulate RDF constraints, reasoning is not related to the constraints and is therefore not needed to be performed prior to validation. 
