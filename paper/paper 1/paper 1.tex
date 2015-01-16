@@ -259,24 +259,13 @@ Two working groups (WGs) that follow up on this workshop and address RDF constra
 the W3C RDF Data Shapes WG\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles WG\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
 % RDF validation requirements database
 % -----
-As part of our earlier work \cite{BoschEckert2014}, we initiated a comprehensive database (publicly available at \url{http://purl.org/net/RDF-validation}) on RDF validation requirements to collect case studies, use cases, and requirements. It is continuously updated and used to evaluate and to compare various existing solutions for RDF constraint formulation and validation. 
+As a part of our earlier work \cite{BoschEckert2014}, we initiated a comprehensive database (publicly available at \url{http://purl.org/net/RDF-validation}) on RDF validation requirements to collect case studies, use cases, and requirements. It is continuously updated and used to evaluate and to compare various existing solutions for RDF constraint formulation and validation. 
 Requirements are classified to provide a high-level view on different solutions and to facilitate a better understanding of the problem domain.  
 
-% constraint languages
-% -----
-For expressing RDF constraints, there are numerous constraint languages, each with its own syntax and semantics.  
-Yet, none of them is a all-purpose standard, the most popular ones are
-the SPARQL Inferencing Notation (SPIN)\footnote{\url{http://spinRDF.org/}} (representing SPARQL queries in RDF), 
-the Web Ontology Language (OWL 2)\footnote{\url{http://www.w3.org/TR/owl2-syntax/}}, 
-Shape Expressions (ShEx)\footnote{\url{http://www.w3.org/Submission/shex-primer/}}, 
-Resource Shapes (ReSh)\footnote{\url{http://www.w3.org/Submission/shapes/}}, 
-and Description Set Profiles (DSP)\footnote{\url{http://dublincore.org/documents/2008/03/31/dc-dsp/}}.
-Their relevance varies with respect to several foremost criteria in the validation process, such as constraint expressivity (what kind of constraints can be expressed?), performance (how efficient in terms of runtime can RDF data be validated?), as well as intuitiveness and conciseness (how easy is it for a user to define constraints?). 
-%Furthermore, the service of reasoning and its usability is in question. 
 
 % RDF validation in the library domain
 % -----
-Libraries are used to publish data in form of XML documents for a long time.
+Rdf validation gained speed as a research field in recent years, as a result of a common need.  For instance, libraries are used to publish data in form of XML documents for a long time.
 They model and validate data using quite complex and very detailed XML Schemas, DTDs, RELAX NG, or Schematron.
 Recently, libraries started to publish RDF data sets, since libraries have many use cases which are met by Semantic Web technologies and Linked Data. 
 A library wants to publish some data sets as RDF by extracting them from different relational databases. 
@@ -284,19 +273,36 @@ In order to achieve high data quality some constraints are defined first on a ve
 generic level written down in some natural language sentences.  
 Now it needs to be decided which formalism to use in order to formally express
 these constraints and to check their validity. 
-It is often needed to declare properties of given classes as mandatory. 
-Publications, e.g., must have publishing dates.
-Another common constraint is that literals of particular properties (e.g. ISBN identifiers) must correspond to some pattern.
+It is often needed to declare properties of given classes as mandatory.  
+Publications, for instance, must have publishing dates.
+Another common constraint is that literals of particular properties (e.g., ISBN identifiers) must correspond to some pattern.
+
+% constraint languages
+% -----
+For expressing RDF constraints, there are numerous constraint languages, each with its own syntax and semantics.  
+Yet none of them is an all-purpose standard, the most popular ones are
+the SPARQL Inferencing Notation (SPIN)\footnote{\url{http://spinRDF.org/}} (representing SPARQL queries in RDF), 
+the Web Ontology Language (OWL 2)\footnote{\url{http://www.w3.org/TR/owl2-syntax/}}, 
+Shape Expressions (ShEx)\footnote{\url{http://www.w3.org/Submission/shex-primer/}}, 
+Resource Shapes (ReSh)\footnote{\url{http://www.w3.org/Submission/shapes/}}, 
+and Description Set Profiles (DSP)\footnote{\url{http://dublincore.org/documents/2008/03/31/dc-dsp/}}.
+Their relevance varies with respect to several foremost criteria in the validation process, such as constraint expressivity (\emph{what kind of constraints can be expressed?}), performance (\emph{how efficient in terms of runtime can RDF data be validated?}), as well as intuitiveness and conciseness (\emph{how easy is it for a user to define constraints?}). 
+%Furthermore, the service of reasoning and its usability is in question. 
+
+
 
 % Reasoning
 % - describe reasoning in general
 % - why is reasoning important for validation?
 % -----
+
+
+%Reasoning is the process of determining what follows from what has been
+%stated.
+
 A major shortcoming when validating RDF data is redundancy.
-We can use reasoning before validating to overcome this shortcoming.
-Reasoning is the process of determining what follows from what has been
-stated. Reasoning ranges from simple (books are publications, {\em Foundations of Semantic Web Technologies} is a book, and therefore it is a publication) to the very complex. 
-Reasoning can also recognize impossibilities 
+\emph{Reasoning} seems to be a promising solution as pre-validation step to overcome this shortcoming. Reasoning (logical) is used in order to make the implicit knowledge explicit  {e.g., \emph{modus ponens}, books are publications, \em Foundations of Semantic Web Technologies} is a book, and therefore it is a publication) in many different forms. 
+Reasoning can be used to recognize impossibilities 
 (conference proceedings are publications, the {\em ESWC 2014 proceedings} are conference proceedings but not a publication, therefore leading to a contradiction).
 Books, conference proceedings, and journal articles must have a publication date.
 When defining books, conference proceedings, and journal articles as sub-classes of publication, 
@@ -317,7 +323,7 @@ If we define {\em editor} as a sub-property of {\em creator}, {\em creator} rela
 %
 %-----
 
-{\em Description logics (DL)} is ... \tb{Erman, do you have a very short sentence to describe DL for someone who does not know DL?}. 
+{\em Description logics} (DL) is a family of formal knowledge representation languages which corresponds to decidable fragments of First-Order Logic. It is the foundational basis for the well-known semantic web language OWL. 
 DL can be used to specify constraints such as 
 (1) publications must have at least 1 author which must be a Person (\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}) and
 (2) books, conference proceedings, and journal articles are publications (\ms{Book $\sqcup$ ConferenceArticle $\sqcup$ JournalArticle $\sqsubseteq$ Publication}).
@@ -326,7 +332,7 @@ to determine the expressivity of constraint languages.
 
 This paper addresses two main \textbf{audiences}: 
 (1) metadata practitioners seeking for the role of reasoning for validation and
-(2) reasoning experts to raise the awareness for practical applications of reasoning.
+(2) reasoning experts to raise the awareness for practical applications on validation.
 The \textbf{contributions} of this paper are
 (1) to lay the ground for discussions on RDF validation,
 (2) to work out the role of reasoning for validation, to show why reasoning is important for validation, and therefore bridge the gap between these two worlds,
