@@ -834,10 +834,10 @@ $C_R$ corresponds to axioms in OWL. %  e.g., subsumption, sub-properties, cardin
 %If we use sub-properties with reasoning, the triple (which would cause a constraint violation) is inferred and therefore resolves the possible constraint violation.
 {\em Sub Properties}\footnote{Corresponds to {\em R-54-SUB-OBJECT-PROPERTIES}, {\em R-54-SUB-DATA-PROPERTIES}}, e.g., 
 is a constraint type for which reasoning may be performed.
-For instance, if an individual X has an \ms{attackingBySword} relationship to an individual Y, 
-then individual X must also have an \ms{attackingByWeapon} relationship to individual Y: \ms{attackingBySword $\sqsubseteq$ attackingByWeapon}.
-If we use sub-properties without reasoning and our data contains the triple \ms{attackingBySword(Luke, DarthVader)},
-then the triple \ms{attackingByWeapon(Luke, DarthVader)} has to be stated explicitly.
+For instance, if a journal volume has an {\em editor} relationship to a person, 
+then the journal volume must also have a {\em creator} relationship to the same person (\ms{editor $\sqsubseteq$ creator}.
+If we use sub-properties without reasoning and our data contains the triple \ms{editor(JWS14V29, Staab)},
+then the triple \ms{creator(JWS14V29, Staab)} has to be stated explicitly.
 If this triple is not stated, a constraint violation occurs.
 If we use sub-properties with reasoning, the triple (which would cause a constraint violation) is inferred and therefore resolves the possible constraint violation.
 
