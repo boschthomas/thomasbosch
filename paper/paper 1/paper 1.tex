@@ -797,7 +797,7 @@ We denote the whole set of constraint types with $\mathcal{C}$. We divide it int
  which corresponds to two disjoint subsets of $\mathcal{C}$. $\mathcal{C}_R$ corresponds to the set of constraint types which can carry out the validation process via reasoning, especially when not all the knowledge is explicit.  
 Its complement, $\overline{\mathcal{C}_R}$, is the set of constraint types for which reasoning cannot be done or does not improve the result in any obvious sense (e.g., the scenario with all the knowledge is already explicit).
 
-{\em Literal Pattern Matching}\footnote{See R-44-PATTERN-MATCHING-ON-RDF-LITERALS.}, restricting literals to match given patterns,
+{\em Literal Pattern Matching}\footnote{Corresponds to {\em R-44-PATTERN-MATCHING-ON-RDF-LITERALS}}, restricting literals to match given patterns,
 is a $\overline{\mathcal{C}_R}$ constraint type.
 The universal restriction \ms{Book $\sqsubseteq$ $\forall$ identifier.ISBN}, e.g., ensures that books can only have valid ISBN identifiers, 
 i.e. strings that match a given regular expression. 
@@ -817,7 +817,7 @@ The literal pattern matching constraint validates {\em ISBN} literals according 
 %The triples \ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber} cause a constraint violation. 
 %The triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}, however, lead to valid data. %\er{Let us divide this last sentence of the paragraph.}\tb{resolved}
 
-Note that $C_R$ corresponds to axioms in OWL  e.g., subsumption, sub-properties, cardinality restrictions, existential, and universal restrictions.
+$C_R$ corresponds to axioms in OWL. %  e.g., subsumption, sub-properties, cardinality restrictions, existential, and universal restrictions.
 %As we are dealing with fields from different research communities, we define our own nomenclature for RDF validation instead of reusing the heavily overloaded term axiom.
 %For instance, for  many in DL community, axioms are only those which are statements of TBox (subsumption statements), if there is a TBox and ABox. 
 %In OWL community, an ABox statement  i.e., "class assertion" is also called "class membership axiom". 
@@ -825,7 +825,15 @@ Note that $C_R$ corresponds to axioms in OWL  e.g., subsumption, sub-properties,
 %One common thing everyone agrees is, axiom is something which has to hold (satisfied).  
 %See that this is overlapping with the definition of constraint (a component of a schema what needs to be satisfied). 
 %Actually from logic point of view, when a constraint is not satisfied it leads to no model, and when an axiom is not satisfied it leads to a superset of models.
-{\em Sub Properties}, e.g., are constraints for which reasoning may be performed.
+%{\em Sub Properties}, e.g., is a constraint type for which reasoning may be performed.
+%For instance, if an individual X has an \ms{attackingBySword} relationship to an individual Y, 
+%then individual X must also have an \ms{attackingByWeapon} relationship to individual Y: \ms{attackingBySword $\sqsubseteq$ attackingByWeapon}.
+%If we use sub-properties without reasoning and our data contains the triple \ms{attackingBySword(Luke, DarthVader)},
+%then the triple \ms{attackingByWeapon(Luke, DarthVader)} has to be stated explicitly.
+%If this triple is not stated, a constraint violation occurs.
+%If we use sub-properties with reasoning, the triple (which would cause a constraint violation) is inferred and therefore resolves the possible constraint violation.
+{\em Sub Properties}\footnote{Corresponds to {\em R-54-SUB-OBJECT-PROPERTIES}, {\em R-54-SUB-DATA-PROPERTIES}}, e.g., 
+is a constraint type for which reasoning may be performed.
 For instance, if an individual X has an \ms{attackingBySword} relationship to an individual Y, 
 then individual X must also have an \ms{attackingByWeapon} relationship to individual Y: \ms{attackingBySword $\sqsubseteq$ attackingByWeapon}.
 If we use sub-properties without reasoning and our data contains the triple \ms{attackingBySword(Luke, DarthVader)},
@@ -858,7 +866,7 @@ Reasoning may be a pre validation step to infer triples resolving constraint vio
 
 \textbf{OWL 2 QL Reasoning}
 
-{\em Subsumption}\footnote{corresponds to R-100-SUBSUMPTION}
+{\em Subsumption}\footnote{Corresponds to {\em R-100-SUBSUMPTION}}
 relationships of both classes and properties are part of basic reasoning.
 
 \begin{center}
@@ -881,7 +889,7 @@ These class assignments can be either explicitly stated or implicitly inferred w
 When only the triple \ms{Yoda a JediMaster} is given and reasoning is not executed, then a constraint violation is raised.
 After reasoning, however, the triples \ms{Yoda a Jedi , FeelingForce} are inferred resulting in valid data. 
 
-The {\em Property Domain}\footnote{corresponds to R-25-PROPERTY-DOMAIN} constraint
+The {\em Property Domain}\footnote{Corresponds to {\em R-25-PROPERTY-DOMAIN}} constraint
 \ms{$\exists$ studentOf.$\top$ $\sqsubseteq$ JediStudent}
 restricts that individuals having studentOf relationships must be Jedi students.
 This property domain constraint can also be expressed by OWL 2 QL:
@@ -893,7 +901,7 @@ studentOf RDFs:domain JediStudent .
 Without reasoning, the data \ms{Anakin studentOf Obi-Wan} is invalid and causes a constraint violation, as it is not explicitly stated that \ms{Anakin} is assigned to the class \ms{Jedi}. 
 When inferencing is performed before validating, the class assignment \ms{Anakin a Jedi} is inferred which prevents the constraint violation to be raised.
 
-The {\em Existential Quantification}\footnote{corresponds to R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}
+The {\em Existential Quantification}\footnote{Corresponds to {\em R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}}
 \ms{Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword} let us refer to all those individuals that are connected by \ms{hasLaserSword} to an individual that is an instance of the class \ms{LaserSword}.
 In OWL 2 DL, this existential quantification can also be expressed:
 
@@ -909,7 +917,7 @@ As the individual \ms{Luke} is assigned to the class \ms{Jedi}, all constraint a
 Without reasoning, these constraints won't be validated as \ms{Luke} is not within the class extension of \ms{Jedi}.
 
 \textbf{OWL 2 DL Reasoning.}
-{\em Universal quantifications}\footnote{corresponds to R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}
+{\em Universal quantifications}\footnote{Corresponds to {\em R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}}
 contain all those individuals that are connected by a particular property only to individuals that are instances of a specific class.
 Siths, e.g., can only have Siths as mentors (\ms{Sith $\sqsubseteq$ $\forall$ hasMentor.Sith}), 
 which cannot be expressed by OWL 2 QL, but by OWL 2 DL \cite{owl2profiles2008}:
@@ -955,7 +963,7 @@ If we do reasoning by query rewriting in terms of backward chaining and if we ru
 %The literal pattern matching constraint validates \ms{DroidNumber} literals according to the stated regular expression causing a constraint violation for the triples 
 %\ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber}, 
 %but not for the triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}.
-{\em Allowed Values}\footnote{corresponds to R-30-ALLOWED-VALUES}.
+{\em Allowed Values}\footnote{Corresponds to {\em R-30-ALLOWED-VALUES}}.
 It is a common requirement to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resources). This is often rendered in drop down boxes or radio buttons in user interfaces. 
 The constraint 'Jedis can only have blue, green, or white laser swords' can be expressed by OWL 2 DL, DSP, ReSh, ShEx, SPIN, and SPARQL.
 \begin{center}
@@ -991,7 +999,7 @@ laserSwordColors
 Data containing the triples \ms{Yoda a Jedi ; laserSwordColor 'blue'} is valid, 
 whereas data including the triples \ms{DarthMaul a Jedi ; laserSwordColor 'red'} is invalid.
 
-{\em Context-Specific Exclusive OR of Properties}\footnote{corresponds to  R-11-CONTEXT-SPECIFIC-EXCLUSIVE-OR-OF-PROPERTIES}.
+{\em Context-Specific Exclusive OR of Properties}\footnote{Corresponds to {\em R-11-CONTEXT-SPECIFIC-EXCLUSIVE-OR-OF-PROPERTIES}}.
 An individual can either have a relationship via property A or via property B, but not both.
 To take an example, a Jedi is either attacking by sword or by force but not both (such a fight would not be fair):
 
@@ -1036,7 +1044,7 @@ As Darth Sidious has both relationships, a constraint Violation is raised.
 The majority of constraints can neither be expressed by OWL 2 QL nor by OWL 2 DL. 
 In such cases, these constraints are represented by other constraint languages like DSP, ShEx, ReSh, or SPIN.
 
-{\em Default Values}\footnote{Corresponds to R-31-DEFAULT-VALUES-OF-RDF-OBJECTS and R-38-DEFAULT-VALUES-OF-RDF-LITERALS}.
+{\em Default Values}\footnote{Corresponds to {\em R-31-DEFAULT-VALUES-OF-RDF-OBJECTS}, {\em R-38-DEFAULT-VALUES-OF-RDF-LITERALS}}.
 It should be possible to declare the default value for a given object and data property, e.g. so that input forms can be pre-populated and to insert a required property that is missing in a web service call. 
 Siths have per default two red laser swords.
 If there is only stated that Darth Maul is a Sith (\ms{DarthMaul a Sith .}), then additional default triples should be inferred: 
