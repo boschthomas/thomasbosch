@@ -904,8 +904,8 @@ The {\em Property Domain}\footnote{Corresponds to {\em R-25-PROPERTY-DOMAIN}} co
 \ms{$\exists$ author.$\top$ $\sqsubseteq$ Publication}
 ensures that only publications can have {\em author} relationships to persons.
 This constraint can be expressed by OWL 2 QL: \ms{author rdfs:domain Publication}.
-Without reasoning, the triple \ms{WeavingTheWeb author TimBernersLee} causes a constraint violation, when it is not explicitly stated that \ms{TimBernersLee} is a \ms{Person}. 
-When reasoning is performed before validating, the class assignment \ms{TimBernersLee a Person} is inferred which prevents the constraint violation to be raised.
+Without reasoning, the triple \ms{Alices-Adventures-In-Wonderland author Lewis-Carroll} causes a constraint violation, when it is not explicitly stated that \ms{Lewis-Carroll} is a \ms{Person}. 
+When reasoning is performed before validating, the class assignment \ms{rdf:type(Lewis-Carroll, Person)} is inferred which prevents the constraint violation to be raised.
 
 %The {\em Property Domain}\footnote{Corresponds to {\em R-25-PROPERTY-DOMAIN}} constraint
 %\ms{$\exists$ studentOf.$\top$ $\sqsubseteq$ JediStudent}
@@ -927,7 +927,7 @@ The {\em existential quantification}\footnote{Corresponds to {\em R-86-EXISTENTI
   owl:someValuesFrom Publisher ;
   rdfs:subClassOf Publication ] .
 \end{ex}
-If we execute reasoning on data containing the triples \ms{ISWC-2014-Proceedings publisher Springer} and \ms{Springer a Publisher}, 
+If we execute reasoning on data containing the triples \ms{publisher(ISWC-2014-Proceedings, Springer)} and \ms{rdf:type(Springer, Publisher)}, 
 it can be inferred that {\em ISWC-2014-Proceedings} is a {\em Publication}.
 Now, all constraints associated with the class {\em Publication} are also validated for the individual {\em ISWC-2014-Proceedings} (e.g. that publications must have at least one author).
 Without reasoning, these constraints are not validated as {\em ISWC-2014-Proceedings} is not within the class extension of {\em Publication}.
@@ -1123,7 +1123,7 @@ One of those constraint types is
 for given object and data properties, 
 so that input forms can be pre-populated and to insert a required property that is missing in a web service call. 
 If, e.g., no keyword is stated for semantic web publications, default keywords should be 'Semantic Web' and 'Linked Data'
-If there is only stated that this paper is a Semantic Web publication (\ms{ThisPaper a SemanticWebPublication .}), 
+If there is only stated that this paper is a Semantic Web publication (\ms{rdf:type(ThisPaper, SemanticWebPublication)}), 
 then additional default triples are inferred: 
 \ms{keyword(ThisPaper,"Semantic Web")} and \ms{keyword(ThisPaper,"Linked Data")}.
 Default values constraints can be expressed by ReSh and SPIN.
