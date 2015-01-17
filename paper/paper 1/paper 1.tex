@@ -752,7 +752,7 @@ We classify constraint types according to the dependency on CWA and UNA:
 	\item $\overline{\mathcal{C}_{CWA}}$: CWA and UNA independent constraint types
 \end{enumerate}
 
-$\mathcal{C}_{CWA}$ contains constraint types for which it makes a difference if CWA/UNA or OWA/nUNA are assumed.
+$\mathcal{C}_{CWA}$ contains constraint types for which it makes a difference if CWA/UNA or OWA/nUNA is assumed.
 $\mathcal{C}_{CWA}$ is defined as follows:
 For a given constraint type, if there exists no RDF data set that would be inconsistent under CWA/UNA and
 consistent under OWA/nUNA, then the constraint type is dependent of CWA/UNA.
@@ -763,7 +763,7 @@ With OWA/nUNA semantics, however,
 the publication without an explicitly stated author does not raise a constraint violation, 
 as the axiom allows you to entail that there must be an (unknown) author.
 
-$\overline{\mathcal{C}_{CWA}}$ includes constraint types for which it does not make any difference if CWA/UNA or OWA/nUNA are assumed.
+$\overline{\mathcal{C}_{CWA}}$ includes constraint types for which it does not make any difference if CWA/UNA or OWA/nUNA is assumed.
 $\mathcal{C}_{CWA}$ is defined as follows:
 For a given constraint type, if there exists no RDF data set that would be consistent/inconsistent under CWA/UNA and
 consistent/inconsistent under OWA/nUNA, then the constraint type is independent of CWA/UNA.
@@ -771,10 +771,9 @@ If something is a book, e.g., it cannot be a journal article (\ms{Book $\sqcap$ 
 For this {\em disjoint classes} constraint, it does not make any difference if the semantics CWA/UNA or OWA/nUNA is taken,
 as all information needed for validation is explicitly available in both cases. 
 
-%ex1: An address is a field that stores a string and its end is substring
-%that refers to a number.
-
-\tb{ToDO: evaluation}
+For this paper, we evaluated for each constraint type (74 in total) if it is dependent or independent on CWA/UNA (for a detailed analysis see \cite{BoschNolleAcarEckert2015}). 
+The result of this evaluation is that we distinguish between 42 $\mathcal{C}_{CWA}$ constraint types and 32 $\overline{\mathcal{C}_{CWA}}$ constraint types.
+Hence, for the majority of constraint types it makes a difference if CWA/UNA or OWA/nUNA is assumed.
 
 \subsection{Reasoning}
 
@@ -1226,7 +1225,7 @@ The  relation between those complexity classes is well-known \cite{Arora:2009:CC
  
  In this section, we concern ourselves with the expressivity of constraint languages, or constraint specific expressivity.
 Therefore, we evaluated the five most popular constraint languages on fulfilling each requirement to formulate RDF constraints.
-We also evaluated if a specific requirement is expressed by OWL 2 QL or the more expressive OWL 2 DL is needed.\cite{BoschNolleAcarEckert2015}.
+We also evaluated if a specific requirement is expressed by OWL 2 QL or the more expressive OWL 2 DL is needed\cite{BoschNolleAcarEckert2015}.
  
 %As we identified three constraint-specific complexity classes in the previous section, we are now able to determine the performance (i.e. complexity) of constraint languages.  It can be beneficial not using the most expressive constraint languages when additional rather subjective criteria are evaluated.
 
