@@ -876,7 +876,7 @@ Reasoning may be a pre validation step to infer triples resolving constraint vio
 %The existential restriction is not checked for the triple \ms{YediMaster(Yoda)}, as \ms{Yoda} is a \ms{JediMaster} and not a \ms{Jedi} as well.
 %If, however, our knowledge base contains the axiom \ms{JediMaster $\sqsubseteq$ Jedi}, the triple \ms{Jedi(Yoda)} is inferred and the existential restrictions is validated for the individual \ms{Yoda}, raising a constraint violation if a triple such as \ms{hasLaserSword(Yoda, GreenLaserSword)} is not included in the knowledge base. 
 
-\textbf{OWL 2 QL Reasoning.}
+\textbf{With OWL 2 QL}
 There are many constraint types for which {\em OWL 2 QL reasoning} can be performed. 
 %{\em Subsumption}\footnote{Corresponds to {\em R-100-SUBSUMPTION}}
 %relationships of both classes and properties are part of basic reasoning.
@@ -947,7 +947,7 @@ Without reasoning, these constraints are not validated as {\em ISWC-2014-Proceed
 %As the individual \ms{Luke} is assigned to the class \ms{Jedi}, all constraint associated with this class are also validated, for example that Jedis must have blue laser swords.
 %Without reasoning, these constraints won't be validated as \ms{Luke} is not within the class extension of \ms{Jedi}.
 
-\textbf{OWL 2 DL Reasoning.}
+\textbf{With OWL 2 DL}
 {\em Universal quantifications}\footnote{Corresponds to {\em R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}}
 are used to build anonymous classes containing all individuals that are connected by a particular property only to instances of a specific class.
 Publications, e.g., can only have persons as authors (\ms{Publication $\sqsubseteq$ $\forall$ author.Person}), 
