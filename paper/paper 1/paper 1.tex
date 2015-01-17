@@ -1176,51 +1176,50 @@ SemanticWebPublication a ResourceShape ; property [
 
 \subsection{Complexity}
 \label{sec:constraints-complexity}
-
-Recall that, to evaluate RDF validation requirements, we had the classes of constraints: \emph{constraints without reasoning}  ($\overline{\mathcal{C_R}}$)and \emph{constraints with reasoning} ($\mathcal{C_R}$). 
+\tb{I think this sub section is not that fluently to read}
+Recall that, to evaluate RDF validation requirements, we had the classes of constraint types \emph{constraints without reasoning} ($\overline{\mathcal{C_R}}$) and \emph{constraints with reasoning} ($\mathcal{C_R}$). 
 In addition, to have a further evaluation on the latter and to refer easily, we divide $\mathcal{C}_R$ into two classes (not disjoint). 
 Overall, we have the following. Since, OWL 2 DL is more expressive than OWL 2 QL,  $\mathcal{C}_R ^{\mathcal{QL}} \subseteq \mathcal{C}_R ^{\mathcal{DL}}$ follows. 
-\begin{enumerate}\itemsep1em
+\begin{enumerate}\itemsep0.5em
 	\item $\overline{\mathcal{C}_R}$: validation by query answering without reasoning
 	\item $\mathcal{C}_R ^{\mathcal{QL}}$: validation by query answering with OWL 2 QL reasoning
 	\item $\mathcal{C}_R ^{\mathcal{DL}}$: validation by query answering with OWL 2 DL reasoning
 \end{enumerate}
-Recall that, in this work we limit $C_R$ to the ones which can be expressed by OWL 2 DL and still requires reasoning  (i.e., $C_R = C_R ^{\mathcal{DL}}$). This is due the fact that, OWL 2 DL is still quite expressive\footnote{It could alternatively be set to a more expressive language (e.g., OWL 2 Full). Such treatment can be done in future work, if it is understood that we require that.}. 
-Some of those constraints can still be expressed in some constraint languages, which will be the focus of next section.
-
+Recall that, in this work we limit $C_R$ to the constraint types which can be expressed by OWL 2 DL and still requires reasoning  (i.e., $C_R = C_R ^{\mathcal{DL}}$). This is due the fact that, OWL 2 DL is still quite expressive\footnote{It could alternatively be set to a more expressive language (e.g., OWL 2 Full). Such treatment can be done in future work, if it is understood that we require that.}. 
+Some of those constraint types can still be expressed in some constraint languages, which will be the focus of next section.
 %The complexity class $\mathcal{C}_R$ encompasses all \emph{constraints with reasoning} for which reasoning can be executed but cannot be expressed by OWL 2.  \er{What/Why can't  be expressed by OWL 2  while being inferred? }\tb{e.g. class-specific property ranges or class-specific reflexive object properties cannot be expressed in OWL / these 2 axioms can only be stated globally for the properties, we cannot restrict it to individuals of specific classes}
 Table \ref{tab:constraint-type-specific-complexity-classes} gives an overview of the computational complexity for RDF validation when reasoning is performed and when reasoning is not performed:
-
-
+\tb{Erman, in this table we need more spacing between the rows}
 %\begin{center}
 \begin{table}
 \centering
-\begin{tabular}{| c | c |}
-\hline
-\textbf{Constraint Class}  & \textbf{Complexity Class}\\
+%\begin{tabular}{| c | c |}
+\begin{tabular}{c | c}
+%\hline
+\textbf{Constraint Type Class}  & \textbf{Complexity Class}\\
 \hline
 $\overline{\mathcal{C}_R}$ & \textsc{Pspace}-Complete \\
 \hline
 $\mathcal{C}_R ^{\mathcal{QL}}$ & \textsc{Ptime} \\
 \hline
 $\mathcal{C}_R ^{\mathcal{DL}}$ & \textsc{N2exptime} \\
-\hline
+%\hline
 \end{tabular}
 \caption{Constraint Type Specific Complexity Classes}
 \label{tab:constraint-type-specific-complexity-classes}
 \end{table}
 %\end{center}
 \tb{Erman, can you reduce the space between the table caption and the following text please? and expand the space between the table and the caption?}
-What is considered by RDF validation with or without reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on \textit{DL-Lite} family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox-reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
-The  relation between those complexity classes is well-known \cite{Arora:2009:CCM:1540612} and as follows:
 
+What is considered by RDF validation with or without reasoning corresponds to performing SPARQL queries.  
+It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on \textit{DL-Lite} family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox-reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
+The  relation between those complexity classes is well-known \cite{Arora:2009:CCM:1540612} and as follows:
 %\begin{eqnarray*}
 %\overline{\mathcal{C}_R} \subset \mathcal{C}_R ^{\mathcal{QL}} \subset \mathcal{C}_R \subseteq \mathcal{C}_R ^{\mathcal{DL}}
 %\end{eqnarray*}
 \begin{eqnarray*}
 \textsc{LogSpace} \subseteq \textsc{Ptime} \subseteq \textsc{Pspace-}\text{Complete} \subseteq \textsc{N2exptime} 
 \end{eqnarray*}
-
 %There are constraints (e.g., class-specific property range, class-specific reflexive object properties) for which reasoning could be executed even though there is currently no implementation supported by any constraint language. 
 %We leave it as future work to write SPARQL CONSTRUCT queries in order to provide reasoning for these constraints.
 
