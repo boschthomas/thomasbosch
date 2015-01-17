@@ -710,7 +710,7 @@ As a result of its expressive power, OWL 2 DL allows a large variety of sophisti
 
 \section{Classification of RDF Constraints according to Semantics, Reasoning and Complexity}
 \label{Classification-RDF-Constraints-Reasoning-Complexity}
-
+\tb{ToDo: describe why semantics is a dimension of the classification}
 %We divide these constraints into three classes:
 %\begin{itemize}
 	%\item constraints expressible by OWL 2 QL
@@ -1594,6 +1594,7 @@ For $\mathcal{C}_{R}$ constraints we consider the effects of reasoning on valida
 We implemented the validation of all OWL 2 QL, OWL 2 DL, DSP (and the major ReSh and ShEx) constructs
 within our SPIN validation environment in form of SPARQL CONSTRUCT queries (\url{http://purl.org/net/RDFval-demo}).
 %\cite{BoschEckert2014-2}\footnote{SPIN mappings: \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}, \url{https://github.com/dcmi/DSP-SPIN-Mapping}}.
+For $\mathcal{C}_{R}$ constraint types (represented in OWL 2), you can choose if reasoning should be performed prior to validation.
 
 As part of future work we extend the validator to provide a list of constraint languages for which the expressivity is enough to express selected constraints.
 The validator may also recommend one of these constraint languages having the highest expressivity and lowest complexity.

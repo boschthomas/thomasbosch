@@ -166,6 +166,23 @@
 	\end{center}
 }
 
+\newenvironment{evaluation-cwa-una-dependency}{
+  \scriptsize
+  \sffamily
+  \vspace{0cm}
+	\begin{center}
+  \begin{tabular}{l|c}
+  \hline
+  \textbf{Constraint Type} & \textbf{CWA/UNA Dependent} \\
+  \hline
+
+}{
+  \hline
+  \end{tabular}
+  \linebreak
+	\end{center}
+}
+
 \usepackage{xspace}
 % Einfache und doppelte Anfuehrungszeichen
 \newcommand{\qs}{``} 
@@ -3845,6 +3862,92 @@ Almost two thirds are simple constraints, a quarter are complex constraints.
 Almost 15 percent are complex constraints which can be formulated as simple constraints when using them in terms of syntactic sugar.
 Constraints can either be expressible in DL or not.
 The majority - nearly 70\% - of the overall constraints are expressible in DL.
+
+\subsection{Evaluation of CWA/UNA Dependency}
+
+
+
+\begin{evaluation-cwa-una-dependency}
+*Subsumption & $\checkmark$ \\
+*Class Equivalence & \ding{55} \\
+*Sub Properties & $\checkmark$ \\
+*Property Domain & $\checkmark$ \\ 
+*Property Range & $\checkmark$ \\ 
+*Inverse Object Properties & $\checkmark$ \\ 
+*Symmetric Object Properties & $\checkmark$ \\ 
+*Asymmetric Object Properties & $\checkmark$ \\ 
+*Reflexive Object Properties & $\checkmark$ \\ 
+*Irreflexive Object Properties & $\checkmark$ \\
+Disjoint Properties & \ding{55} \\ 
+Disjoint Classes & \ding{55} \\
+Context-Sp. Property Groups & \ding{55} \\ 
+Context-Sp. Inclusive OR of P. & \ding{55} \\
+Context-Sp. Inclusive OR of P. Groups & \ding{55} \\ 
+Recursive Queries & \ding{55} \\ 
+Individual Inequality & $\checkmark$ \\ 
+*Equivalent Properties & \ding{55} \\ 
+Property Assertions & \ding{55} \\ 
+Data Property Facets & \ding{55} \\ 
+Literal Pattern Matching & \ding{55} \\ 
+Negative Literal Pattern Matching & \ding{55} \\ 
+*Object Property Paths & $\checkmark$ \\ 
+*Intersection & $\checkmark$ \\ 
+*Disjunction & $\checkmark$ \\ 
+*Negation & $\checkmark$ \\ 
+*Existential Quantification & $\checkmark$ \\ 
+*Universal Quantification & $\checkmark$ \\ 
+*Minimum Unqualified Cardinality & $\checkmark$ \\ 
+*Minimum Qualified Cardinality & $\checkmark$ \\ 
+*Maximum Unqualified Cardinality & $\checkmark$ \\ 
+*Maximum Qualified Cardinality & $\checkmark$ \\ 
+*Exact Unqualified Cardinality & $\checkmark$ \\ 
+*Exact Qualified Cardinality & $\checkmark$ \\ 
+*Transitive Object Properties & $\checkmark$ \\ 
+Context-Sp. Exclusive OR of P. & $\checkmark$ \\ 
+Context-Sp. Exclusive OR of P. Groups & $\checkmark$ \\
+Allowed Values & $\checkmark$ \\ 
+Not Allowed Values & $\checkmark$ \\ 
+Literal Ranges & \ding{55} \\ 
+Negative Literal Ranges & \ding{55} \\ 
+Required Properties & $\checkmark$ \\ 
+Optional Properties & \ding{55} \\
+Repeatable Properties & $\checkmark$ \\ 
+Negative Property Constraints & $\checkmark$ \\ 
+*Individual Equality & $\checkmark$ \\ 
+*Functional Properties & $\checkmark$ \\
+*Inverse-Functional Properties & $\checkmark$ \\ 
+*Value Restrictions & $\checkmark$ \\
+*Self Restrictions & $\checkmark$ \\
+Primary Key Properties & $\checkmark$ \\ 
+*Class-Specific Property Range & $\checkmark$ \\ 
+*Class-Sp. Reflexive Object P. & $\checkmark$ \\ 
+Membership in Controlled Vocabularies & $\checkmark$ \\ 
+IRI Pattern Matching & \ding{55} \\ 
+Literal Value Comparison & \ding{55} \\ 
+Define Order & \ding{55} \\ 
+Validation Levels & \ding{55} \\ 
+String Operations & \ding{55} \\ 
+\end{evaluation-cwa-una-dependency}
+
+\begin{evaluation-cwa-una-dependency}
+Context-Specific Valid Classes & \ding{55} \\
+Context-Specific Valid Properties & \ding{55} \\ 
+Default Values & \ding{55} \\ 
+Mathematical Operations & \ding{55} \\ 
+Language Tag Matching & \ding{55} \\ 
+Language Tag Cardinality & $\checkmark$ \\ 
+Whitespace Handling & \ding{55} \\ 
+HTML Handling & \ding{55} \\ 
+Conditional Properties & $\checkmark$ \\ 
+Recommended Properties & \ding{55} \\ 
+Handle RDF Collections & \ding{55} \\ 
+Value is Valid for Datatype & \ding{55} \\ 
+*Exploiting Class/Property Specialization Ontology Axioms & \ding{55} \\ 
+*Cardinality Shortcuts & $\checkmark$ \\ 
+Aggregations & \ding{55} \\ 
+\end{evaluation-cwa-una-dependency}
+
+% -----
 
 %\begin{evaluation-generic}
 %*Subsumption 
