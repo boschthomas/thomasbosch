@@ -741,11 +741,7 @@ The subsequent steps are needed to determine the performance (i.e. computational
 	\item The combination of DL constructs of a constraint type determines its complexity. By mapping each constraint type to DL and as the complexity of DL constructs are known (some DL constructs are only expressible by particular OWL 2 profiles which are associated with a given complexity class), we get an idea of the complexity for each constraint type in worst case.
 \end{enumerate}
 
-
-
-
-
-\subsection{Semantics}
+\subsection{CWA/UNA Dependency}
 
 The distinction of constraint types regarding the dependency on CWA and UNA is an important aspect when combining reasoning with validation,
 as OWL reasoning requires {\em OWA} and {\em nUNA} and RDF validation is based on {\em UNA} (different names represent different objects) and
@@ -1193,10 +1189,12 @@ Recall that, in this work we limit $C_R$ to the ones which can be expressed by O
 Some of those constraints can still be expressed in some constraint languages, which will be the focus of next section.
 
 %The complexity class $\mathcal{C}_R$ encompasses all \emph{constraints with reasoning} for which reasoning can be executed but cannot be expressed by OWL 2.  \er{What/Why can't  be expressed by OWL 2  while being inferred? }\tb{e.g. class-specific property ranges or class-specific reflexive object properties cannot be expressed in OWL / these 2 axioms can only be stated globally for the properties, we cannot restrict it to individuals of specific classes}
-The next table gives an overview of the computational complexity for RDF validation when reasoning is performed and when reasoning is not performed:
+Table \ref{tab:constraint-type-specific-complexity-classes} gives an overview of the computational complexity for RDF validation when reasoning is performed and when reasoning is not performed:
 
 
-\begin{center}
+%\begin{center}
+\begin{table}
+\centering
 \begin{tabular}{| c | c |}
 \hline
 \textbf{Constraint Class}  & \textbf{Complexity Class}\\
@@ -1208,9 +1206,11 @@ $\mathcal{C}_R ^{\mathcal{QL}}$ & \textsc{Ptime} \\
 $\mathcal{C}_R ^{\mathcal{DL}}$ & \textsc{N2exptime} \\
 \hline
 \end{tabular}
-\end{center}
-
-
+\caption{Constraint Type Specific Complexity Classes}
+\label{tab:constraint-type-specific-complexity-classes}
+\end{table}
+%\end{center}
+\tb{Erman, can you reduce the space between the table caption and the following text please? and expand the space between the table and the caption?}
 What is considered by RDF validation with or without reasoning, corresponds to performing SPARQL queries.  It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on \textit{DL-Lite} family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox-reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
 The  relation between those complexity classes is well-known \cite{Arora:2009:CCM:1540612} and as follows:
 
@@ -1227,43 +1227,48 @@ The  relation between those complexity classes is well-known \cite{Arora:2009:CC
 \section{Classification of Constraint Languages according to Expressivity}
 \label{Classification-Constraint-Languages-Expressivity-Complexity}
  
- In this section, we concern ourselves with the expressivity of constraint languages, or constraint specific expressivity.
+In this section, we concern ourselves with the expressivity of constraint languages, or constraint type specific expressivity.
 Therefore, we evaluated the five most popular constraint languages on fulfilling each requirement to formulate RDF constraints.
-We also evaluated if a specific requirement is expressed by OWL 2 QL or the more expressive OWL 2 DL is needed\cite{BoschNolleAcarEckert2015}.
- 
-%As we identified three constraint-specific complexity classes in the previous section, we are now able to determine the performance (i.e. complexity) of constraint languages.  It can be beneficial not using the most expressive constraint languages when additional rather subjective criteria are evaluated.
-
-
-
-
-
-In evaluating the expressivity,  we introduce the intuitive notion of \emph{expressivity scores}. Expressivity score of a constraint language is how many of constraints can be expressed by this particular constraint language.
-While we evaluate expressivity scores, we use two sets of constraints (constraint types) as before: $C_R$ and $\overline{C_R}$. The main motivation in that is, one may want to perform reasoning before actually validating the data. 
+We also evaluated if a specific requirement is expressed by OWL 2 QL or if the more expressive OWL 2 DL is needed\cite{BoschNolleAcarEckert2015}.
+ %As we identified three constraint-specific complexity classes in the previous section, we are now able to determine the performance (i.e. complexity) of constraint languages.  It can be beneficial not using the most expressive constraint languages when additional rather subjective criteria are evaluated.
+In evaluating the expressivity,  we introduce the intuitive notion of \emph{expressivity scores}. 
+The expressivity score of a constraint language is how many constraint types can be expressed by this particular constraint language.
+While we evaluate expressivity scores, we use two sets of constraint types as before: $C_R$ and $\overline{C_R}$. The main motivation in that is, one may want to perform reasoning before actually validating the data. 
 \begin{enumerate}
   %\item $Expr(\mathcal{C})$: set of all constraints
-	\item $Expr(\overline{\mathcal{C}_R})$: constraints without reasoning 
-	\item $Expr(\mathcal{C}_R)$: constraints with reasoning
+	\item $Expr(\overline{\mathcal{C}_R})$: constraint types without reasoning 
+	\item $Expr(\mathcal{C}_R)$: constraint types with reasoning
 \end{enumerate}
 
 %\emph{constraints with reasoning} can be used as axioms to infer new triples out of explicitly stated triples (see section \ref{sec:RDF-validation-requirements-and-reasoning}), but also to express constraints without reasoning. \er{Also to express constraints?}\tb{also to express constraints without reasoning}
 %If in our knowledge base it is stated that \ms{DarthVader} is a \ms{Sith} (e.g., \ms{Sith(DarthVader)}) and  Siths feel the force of the dark side (e.g., \ms{Sith $\sqsubseteq$ FeelingForceDarkSide}), it is either possible to infer that \ms{DarthVader} feels the force of the dark side (\ms{FeelingForceDarkSide(DarthVader)}) 
 %or to check if this class assignment is explicitly stated in the data without reasoning. 
 Although  OWL 2  is the only implementation (which can be used/considered as a constraint language) with reasoning features, 
-some requirements in $\mathcal{C}_R$ is not only expressed by OWL 2  but also by other constraint languages. 
+some constraint types in $\mathcal{C}_R$ are not only expressible by OWL 2  but also by other constraint languages. 
 %\er{This is again the part I don't understand.}\tb{but also by other constraint languages}
-
-\tb{Make the tables floating such that the have figure caption andnnumber
-and refer to these numbers from the text}
-
-\begin{center}
-\begin{evaluation}
-%$Expr(\mathcal{C})$ & & & & & & \\
-$Expr(\overline{\mathcal{C}_R})$ (42) & 6 & 18(4) & 7(4) & 8 & 12 & 41(1)\\
-$Expr(\mathcal{C}_R)$ (32) & 8 & 29 & 11 & 11(2) & 11(1) & 32 \\ 
-\end{evaluation}
-\end{center}
+%\begin{center}
+%\begin{evaluation}
+%%$Expr(\mathcal{C})$ & & & & & & \\
+%$Expr(\overline{\mathcal{C}_R})$ (42) & 6 & 18(4) & 7(4) & 8 & 12 & 41(1)\\
+%$Expr(\mathcal{C}_R)$ (32) & 8 & 29 & 11 & 11(2) & 11(1) & 32 \\ 
+%\end{evaluation}
+%\end{center}
+%\begin{center}
+\begin{table}
+	\centering
+		\begin{tabular}{l|c|c|c|c|c|c}
+      \textbf{Constraint Class} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\		
+      \hline
+      $Expr(\overline{\mathcal{C}_R})$ (42) & 6 & 18(4) & 7(4) & 8 & 12 & 41(1)\\
+      $Expr(\mathcal{C}_R)$ (32) & 8 & 29 & 11 & 11(2) & 11(1) & 32 \\ 	
+		\end{tabular}
+	\caption{Constraint Type Specific Expressivity}
+	\label{tab:constraint-type-specific-expressivity}
+\end{table}
+%\end{center}
 %\tb{this is indeed a misunderstanding. I only took into account that is DSP supports 6 EXPR-C constraints and OWL 2 DL 5, then DSP is more expressive than OWL 2 DL regarding the expressivity class EXPR-C / but this is not right?}
-In the table above, the total amount of constraints per constraint type is shown by numbers in round brackets in the first column.
+
+In table \ref{tab:constraint-type-specific-expressivity}, the total amount of constraints per constraint type is shown by numbers in round brackets in the first column.
 Numbers in round brackets in the other columns indicate the number of constraints which may be expressed by that particular constraint language - either by limitations, workarounds, or extensions.  
 %\er{One possible misunderstanding (maybe not) is the ordering. It is not only based on the size of the number of the constrains that they satisfies right? For instance, if there are 6 constraints (from EXPR-C) that  DSP satisfies and OWL2-DL  can satisfy lets say only 5 of them but 13 other, in such scenario OWL2 DL and DSP would be incomparable (no ordering). It is more expressive only if it contains those 6 and extras.}
 The total orderings derived from expressivity scores are:
@@ -1292,17 +1297,33 @@ For a validation labourer, it is relevant to question the expressivity interrela
 	%\item \emph{Expr(ShEx)}: constraints expressible by ShEx
 	%\item \emph{Expr(SPIN)}: constraints expressible by SPIN
 %\end{itemize}
-The next table shows the expressivity scores of languages according to expressivity classes again defined by those languages:
-\begin{center}
-\begin{evaluation}
-\emph{Expr(DSP)} (14) & 14 & 13 & 1 & 7(6) & 13 & 13(1) \\
-\emph{Expr(OWL2DL)} (49) & 13 & 49 & 16(1) & 9(9) & 13(1) & 48(1) \\
-\emph{Expr(OWL2QL)} (16) & 1 & 16 & 16 & 1(2) & 2 & 15(1) \\
-\emph{Expr(ReSh)} (12) & 7 & 9(2) & 1(1) & 12 & 11 & 11(1) \\
-\emph{Expr(ShEx)} (23) & 13 & 19(2) & 2(1) & 11(7) & 23 & 22(1) \\
-\emph{Expr(SPIN)} (73) & 13 & 50(4) & 15(4) & 12(9) & 23(1) & 73 \\
-\end{evaluation}
-\end{center}
+Table \ref{tab:expressivity-sores} shows the expressivity scores of languages according to expressivity classes again defined by those languages:
+%\begin{center}
+%\begin{evaluation}
+%\emph{Expr(DSP)} (14) & 14 & 13 & 1 & 7(6) & 13 & 13(1) \\
+%\emph{Expr(OWL2DL)} (49) & 13 & 49 & 16(1) & 9(9) & 13(1) & 48(1) \\
+%\emph{Expr(OWL2QL)} (16) & 1 & 16 & 16 & 1(2) & 2 & 15(1) \\
+%\emph{Expr(ReSh)} (12) & 7 & 9(2) & 1(1) & 12 & 11 & 11(1) \\
+%\emph{Expr(ShEx)} (23) & 13 & 19(2) & 2(1) & 11(7) & 23 & 22(1) \\
+%\emph{Expr(SPIN)} (73) & 13 & 50(4) & 15(4) & 12(9) & 23(1) & 73 \\
+%\end{evaluation}
+%\end{center}
+\begin{table}
+	\centering
+		\begin{tabular}{l|c|c|c|c|c|c}
+      \textbf{Constraint Class} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\		
+      \hline
+			\emph{Expr(DSP)} (14) & 14 & 13 & 1 & 7(6) & 13 & 13(1) \\
+			\emph{Expr(OWL2DL)} (49) & 13 & 49 & 16(1) & 9(9) & 13(1) & 48(1) \\
+			\emph{Expr(OWL2QL)} (16) & 1 & 16 & 16 & 1(2) & 2 & 15(1) \\
+			\emph{Expr(ReSh)} (12) & 7 & 9(2) & 1(1) & 12 & 11 & 11(1) \\
+			\emph{Expr(ShEx)} (23) & 13 & 19(2) & 2(1) & 11(7) & 23 & 22(1) \\
+			\emph{Expr(SPIN)} (73) & 13 & 50(4) & 15(4) & 12(9) & 23(1) & 73 \\
+		\end{tabular}
+	\caption{Expressivity Scores}
+	\label{tab:expressivity-sores}
+\end{table}
+
 If we rank them according their scores, just as before we get the following as a brief picture:
 \begin{eqnarray*} 
 \emph{Expr(DSP):} OWL2QL \prec ReSh \prec ShEx \preceq OWL2DL \prec SPIN \prec DSP \\
