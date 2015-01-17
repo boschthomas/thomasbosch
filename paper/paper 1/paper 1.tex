@@ -211,7 +211,7 @@ Albstadt-Sigmaringen University, Germany \\
 
 \begin{abstract}
 
-For data practitioners embracing the world of RDF and Linked Data, the openness and flexibility is a mixed blessing. For them, data validation according to predefined constraints is a  much sought-after feature, particularly as this is taken for granted in the XML world. Several approaches exist to meet this requirement, ranging from using OWL as a constraint language to SPIN, a SPARQL-based way to formulate and check contraints. There are also specific constraint languages like Shape Expressions, Resource Shapes or Description Set Profiles that more or less explicitly address the aforementioned data practitioners.
+For data practitioners embracing the world of RDF and Linked Data, the openness and flexibility is a mixed blessing. For them, data validation according to predefined constraints is a  much sought-after feature, particularly as this is taken for granted in the XML world. Several approaches exist to meet this requirement, ranging from using OWL as a constraint language to SPIN, a SPARQL-based way to formulate and check constraints. There are also specific constraint languages like Shape Expressions, Resource Shapes or Description Set Profiles that more or less explicitly address the aforementioned data practitioners.
 In this paper, we investigate the relationship of validation and reasoning and the role that reasoning plays in practical data validation. We formulate common types of constraints in Description Logic and use this formulation to determine their complexity when certain reasoning steps are involved. At last, we aggregate these findings for the most common constraint languages and show their commonalities and differences regarding constraint expressivity. We argue that so far no single best solution exists and that the results presented in this paper are crucial for a proper application of RDF validation.
 
 
@@ -351,84 +351,84 @@ The \textbf{contributions} of this paper are
 The remainder of the paper is structured as follows...
 \tb{ToDo}
 
-\section{This sections temporally serves to collect examples...}
+%\section{This sections temporally serves to collect examples...}
 
-\begin{itemize}
-	\item Books, conference proceedings, and journal articles are publications
-	\item Only publications can have {\em author} relationships to persons
-	\item Publications must have at least 1 author which must be a Person
-	\item Publications must have publishers
-	\item Publications can only have persons as authors
-	\item If a publication is related to a person via the property {\em writtenBy}, this publication is also related to this person via the property {\em author}
-  \item Journal of web semantics articles have the editors Finin, Staab, Horrocks, and Bernstein
-	\item Identifiers of publications are either ISBN (for books) or ISSN (for periodical publications), but not both
-	\item If no keyword is stated for semantic web publications, default keywords are 'Semantic Web' and 'Linked Data'
-\end{itemize}
+%\begin{itemize}
+	%\item Books, conference proceedings, and journal articles are publications
+	%\item Only publications can have {\em author} relationships to persons
+	%\item Publications must have at least 1 author which must be a Person
+	%\item Publications must have publishers
+	%\item Publications can only have persons as authors
+	%\item If a publication is related to a person via the property {\em writtenBy}, this publication is also related to this person via the property {\em author}
+  %\item Journal of web semantics articles have the editors Finin, Staab, Horrocks, and Bernstein
+	%\item Identifiers of publications are either ISBN (for books) or ISSN (for periodical publications), but not both
+	%\item If no keyword is stated for semantic web publications, default keywords are 'Semantic Web' and 'Linked Data'
+%\end{itemize}
 
-{\em Subsumption}
-\begin{center}
-\begin{DL}
-Book $\sqcup$ ConferenceArticle $\sqcup$ JournalArticle $\sqsubseteq$ Publication
-\end{DL}
-\end{center}
+%{\em Subsumption}
+%\begin{center}
+%\begin{DL}
+%Book $\sqcup$ ConferenceArticle $\sqcup$ JournalArticle $\sqsubseteq$ Publication
+%\end{DL}
+%\end{center}
 
-{\em Property Domain}
-\begin{center}
-\begin{DL}
-$\exists$ author.$\top$ $\sqsubseteq$ Publication
-\end{DL}
-\end{center}
+%{\em Property Domain}
+%\begin{center}
+%\begin{DL}
+%$\exists$ author.$\top$ $\sqsubseteq$ Publication
+%\end{DL}
+%\end{center}
 
-{\em Property Range}
-\begin{center}
-\begin{DL}
-$\top$ $\sqsubseteq$ $\forall$ author.Person
-\end{DL}
-\end{center}
+%{\em Property Range}
+%\begin{center}
+%\begin{DL}
+%$\top$ $\sqsubseteq$ $\forall$ author.Person
+%\end{DL}
+%\end{center}
 
-{\em Qualified Cardinality Restrictions}
-\begin{center}
-\begin{DL}
-Publication $\sqsubseteq$ $\geq$1 author.Person
-\end{DL}
-\end{center}
+%{\em Qualified Cardinality Restrictions}
+%\begin{center}
+%\begin{DL}
+%Publication $\sqsubseteq$ $\geq$1 author.Person
+%\end{DL}
+%\end{center}
 
-{\em Existential Quantification}
-\begin{center}
-\begin{DL}
-Publication $\sqsubseteq$ $\exists$ publisher.Publisher
-\end{DL}
-\end{center}
+%{\em Existential Quantification}
+%\begin{center}
+%\begin{DL}
+%Publication $\sqsubseteq$ $\exists$ publisher.Publisher
+%\end{DL}
+%\end{center}
 
-{\em Universal Quantification}
-\begin{center}
-\begin{DL}
-Publication $\sqsubseteq$ $\forall$ author.Person
-\end{DL}
-\end{center}
+%{\em Universal Quantification}
+%\begin{center}
+%\begin{DL}
+%Publication $\sqsubseteq$ $\forall$ author.Person
+%\end{DL}
+%\end{center}
 
-{\em Allowed Values}
-\begin{center}
-\begin{DL}
-JournalOfWebSemanticsArticle $\equiv$ $\exists$ editor . \{Finin\} $\sqcup$ \{Staab\} $\sqcup$ \{Horrocks\} $\sqcup$ \{Bernstein\}
-\end{DL}
-\end{center}
+%{\em Allowed Values}
+%\begin{center}
+%\begin{DL}
+%JournalOfWebSemanticsArticle $\equiv$ $\exists$ editor . \{Finin\} $\sqcup$ \{Staab\} $\sqcup$ \{Horrocks\} $\sqcup$ \{Bernstein\}
+%\end{DL}
+%\end{center}
 
-{\em Context-Specific Exclusive OR of Properties}
-\begin{center}
-\begin{DL}
-Publication &$\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
-A &$\equiv$ $\exists$ isbn.xsd:string \\
-B &$\equiv$ $\exists$ issn.xsd:string \\ 
-\end{DL} 
-\end{center}
+%{\em Context-Specific Exclusive OR of Properties}
+%\begin{center}
+%\begin{DL}
+%Publication &$\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
+%A &$\equiv$ $\exists$ isbn.xsd:string \\
+%B &$\equiv$ $\exists$ issn.xsd:string \\ 
+%\end{DL} 
+%\end{center}
 
-{\em Default Values}
-\begin{ex}
-owl:Thing spin:rule [ a sp:Construct ; sp:text """
-    CONSTRUCT { ?subject keyword "Semantic Web", "Linked Data" . }
-    WHERE { ?subject a SemanticWebPublication . } """ ; ] .
-\end{ex}
+%{\em Default Values}
+%\begin{ex}
+%owl:Thing spin:rule [ a sp:Construct ; sp:text """
+    %CONSTRUCT { ?subject keyword "Semantic Web", "Linked Data" . }
+    %WHERE { ?subject a SemanticWebPublication . } """ ; ] .
+%\end{ex}
 
 %Example for RDF validation, really oriented at a real scenario. 
 %For example, a library wants to publish some datasets as
@@ -845,8 +845,8 @@ $C_R$ corresponds to axioms in OWL. %  e.g., subsumption, sub-properties, cardin
 is a constraint type for which reasoning may be performed.
 For instance, if a journal volume has an {\em editor} relationship to a person, 
 then the journal volume must also have a {\em creator} relationship to the same person (\ms{editor $\sqsubseteq$ creator}).
-If we use sub-properties without reasoning and our data contains the triple \ms{editor(JWS14V29, Staab)},
-then the triple \ms{creator(JWS14V29, Staab)} has to be stated explicitly.
+If we use sub-properties without reasoning and our data contains the triple \ms{editor(JWS-2014-V29, Staab)},
+then the triple \ms{creator(JWS-2014-V29, Staab)} has to be stated explicitly.
 If this triple is not stated, a constraint violation occurs.
 If we use sub-properties with reasoning, the triple (which would cause a constraint violation) is inferred and therefore resolves the possible constraint violation.
 
@@ -946,27 +946,43 @@ Without reasoning, these constraints are not validated as {\em ISWC-2014-Proceed
 
 \textbf{OWL 2 DL Reasoning.}
 {\em Universal quantifications}\footnote{Corresponds to {\em R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}}
-contain all those individuals that are connected by a particular property only to individuals that are instances of a specific class.
-Siths, e.g., can only have Siths as mentors (\ms{Sith $\sqsubseteq$ $\forall$ hasMentor.Sith}), 
+are used to build anonymous classes containing all individuals that are connected by a particular property only to instances of a specific class.
+Publications, e.g., can only have persons as authors (\ms{Publication $\sqsubseteq$ $\forall$ author.Person}), 
 which cannot be expressed by OWL 2 QL, but by OWL 2 DL \cite{owl2profiles2008}:
 \begin{ex}
 [ a owl:Restriction ;
-  owl:onProperty hasMentor ;
-  owl:allValuesFrom Sith ;
-  RDFs:subClassOf Sith ] .
+  owl:onProperty author ;
+  owl:allValuesFrom Person ;
+  RDFs:subClassOf Publication ] .
 \end{ex}
-When performing reasoning, the triples \ms{DarthMaul hasMentor DarthSidious} and \ms{DarthSidious a Sith} infer that \ms{DarthMaul} is a Sith.
-When reasoning is not wished, these explicitly stated triples cause a constraint violation, as each resource having \ms{hasMentor} relationships to a Sith must also be a Sith (which is not explicitly stated in the data).
+When performing reasoning, the triples \ms{The-Lord-Of-The-Rings author} \ms{JRR-Tolkien} and \ms{The-Lord-Of-The-Rings a Publication} infer that \ms{JRR-Tolkien} is a person.
+When reasoning is not executed, a constraint violation is raised, 
+as it is not explicitly stated that \ms{JRR-Tolkien} is a person and
+as each publication can only have \ms{author} relationships to persons.
+
+%{\em Universal quantifications}\footnote{Corresponds to {\em R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}}
+%contain all those individuals that are connected by a particular property only to individuals that are instances of a specific class.
+%Siths, e.g., can only have Siths as mentors (\ms{Sith $\sqsubseteq$ $\forall$ hasMentor.Sith}), 
+%which cannot be expressed by OWL 2 QL, but by OWL 2 DL \cite{owl2profiles2008}:
+%\begin{ex}
+%[ a owl:Restriction ;
+  %owl:onProperty hasMentor ;
+  %owl:allValuesFrom Sith ;
+  %RDFs:subClassOf Sith ] .
+%\end{ex}
+%When performing reasoning, the triples \ms{DarthMaul hasMentor DarthSidious} and \ms{DarthSidious a Sith} infer that \ms{DarthMaul} is a Sith.
+%When reasoning is not wished, these explicitly stated triples cause a constraint violation, as each resource having \ms{hasMentor} relationships to a Sith must also be a Sith (which is not explicitly stated in the data).
 
 \subsubsection{Constraint Types without Reasoning}
 \label{RDF-Validation-Requirements-without-Reasoning}
 
-For the majority of the requirements to formulate RDF constraints, reasoning is not related to the constraints and is therefore not needed to be performed prior to validation. 
-It is also possible, however, to reason before validating constraints for which reasoning does not affect validation results.
+For the majority of the constraint types, reasoning is not needed to be performed prior to validation. 
+It is possible, however, to reason before validating constraints for which reasoning does not affect validation results.
+\tb{ToDo for Andy: I think we should shift backward chaining to related work}
 If we do reasoning by query rewriting in terms of backward chaining and if we run a constraint validation query through an engine like the --ontop-- framework\footnote{\url{http://ontop.inf.unibz.it}} or ELITE (federated query engine) \cite{nolle2013elite}, the engine will only do some rewritings if it is possible, and if you just check e.g. pattern matching there will be no rewriting.
 
-\textbf{Expressible by OWL 2.}
-\label{sec:RDF-validation-requirements-without-reasoning-2}
+%\textbf{Expressible by OWL 2.}
+%\label{sec:RDF-validation-requirements-without-reasoning-2}
 %\textbf{Literal Pattern Matching}\footnote{corresponds to R-44-PATTERN-MATCHING-ON-RDF-LITERALS}\textbf{.} 
 %There are multiple use cases associated with the requirement to match literals according to given patterns.
 %
@@ -991,118 +1007,173 @@ If we do reasoning by query rewriting in terms of backward chaining and if we ru
 %The literal pattern matching constraint validates \ms{DroidNumber} literals according to the stated regular expression causing a constraint violation for the triples 
 %\ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber}, 
 %but not for the triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}.
-{\em Allowed Values}\footnote{Corresponds to {\em R-30-ALLOWED-VALUES}}.
-It is a common requirement to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resources). This is often rendered in drop down boxes or radio buttons in user interfaces. 
-The constraint 'Jedis can only have blue, green, or white laser swords' can be expressed by OWL 2 DL, DSP, ReSh, ShEx, SPIN, and SPARQL.
-\begin{center}
-\begin{DL}
-Jedi $\equiv$ $\exists$ laserSwordColor . \{blue, green, white\} \\
-\end{DL}
-\end{center}
-%In DSP, the constraint does not look that concise:
+%{\em Allowed Values}\footnote{Corresponds to {\em R-30-ALLOWED-VALUES}}.
+%It is a common requirement to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resources). This is often rendered in drop down boxes or radio buttons in user interfaces. 
+%The constraint 'Jedis can only have blue, green, or white laser swords' can be expressed by OWL 2 DL, DSP, ReSh, ShEx, SPIN, and SPARQL.
+%\begin{center}
+%\begin{DL}
+%Jedi $\equiv$ $\exists$ laserSwordColor . \{blue, green, white\} \\
+%\end{DL}
+%\end{center}
+%%In DSP, the constraint does not look that concise:
+%%
+%%\begin{ex}
+%%personDescriptionTemplate
+    %%a dsp:DescriptionTemplate ;
+    %%dsp:resourceClass Jedi ;
+    %%dsp:statementTemplate [
+        %%a dsp:LiteralStatementTemplate ;
+        %%dsp:property laserSwordColor ;
+        %%dsp:literalConstraint [
+            %%a dsp:LiteralConstraint ;
+            %%dsp:literal "blue" ;
+            %%dsp:literal "green" ;
+            %%dsp:literal "white"] ] .
+%%\end{ex}
+%
+%When representing the constraint by OWL2 DL a new datatype is defined by simply enumerating its literals:
 %
 %\begin{ex}
-%personDescriptionTemplate
-    %a dsp:DescriptionTemplate ;
-    %dsp:resourceClass Jedi ;
-    %dsp:statementTemplate [
-        %a dsp:LiteralStatementTemplate ;
-        %dsp:property laserSwordColor ;
-        %dsp:literalConstraint [
-            %a dsp:LiteralConstraint ;
-            %dsp:literal "blue" ;
-            %dsp:literal "green" ;
-            %dsp:literal "white"] ] .
+%laserSwordColor RDFs:range laserSwordColors . 
+%laserSwordColors
+    %a RDFs:Datatype .
+    %owl:oneOf ( "blue" "green" "white" ) .
 %\end{ex}
+%
+%Data containing the triples \ms{Yoda a Jedi ; laserSwordColor 'blue'} is valid, 
+%whereas data including the triples \ms{DarthMaul a Jedi ; laserSwordColor 'red'} is invalid.
 
-When representing the constraint by OWL2 DL a new datatype is defined by simply enumerating its literals:
-
-\begin{ex}
-laserSwordColor RDFs:range laserSwordColors . 
-laserSwordColors
-    a RDFs:Datatype .
-    owl:oneOf ( "blue" "green" "white" ) .
-\end{ex}
-
-Data containing the triples \ms{Yoda a Jedi ; laserSwordColor 'blue'} is valid, 
-whereas data including the triples \ms{DarthMaul a Jedi ; laserSwordColor 'red'} is invalid.
-
-{\em Context-Specific Exclusive OR of Properties}\footnote{Corresponds to {\em R-11-CONTEXT-SPECIFIC-EXCLUSIVE-OR-OF-PROPERTIES}}.
-An individual can either have a relationship via property A or via property B, but not both.
-To take an example, a Jedi is either attacking by sword or by force but not both (such a fight would not be fair):
-
+With the constraint type {\em Context-Specific Exclusive OR of Properties}\footnote{Corresponds to {\em R-11-CONTEXT-SPECIFIC-EXCLUSIVE-OR-OF-PROPERTIES}} 
+it can be defined that an individual can either have a relationship via property A or via property B to given classes, but not both.
+Identifiers of publications, e.g., are either ISBNs (for books) or ISSNs (for periodical publications), but it should not be possible to assign both identifiers to a publication:
 \begin{center}
 \begin{DL}
-Jedi &$\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
-A &$\equiv$ $\exists$ attackingBySword . xsd:boolean \\
-B &$\equiv$ $\exists$ attackingByForce . xsd:boolean \\ 
+Publication &$\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
+A &$\equiv$ $\exists$ isbn.xsd:string \\
+B &$\equiv$ $\exists$ issn.xsd:string \\ 
 \end{DL} 
 \end{center}
-
-Context-specific exclusive OR of properties can be expressed by ShEx. 
-In this case, the constraint context is the class \ms{Jedi}.
-
+Expressing this constraint by OWL 2 DL can be seen as a workaround, 
+as anonymous classes are built for each of the exclusive properties:
 \begin{ex}
-Jedi { (  
-    attackingBySword xsd:boolean | 
-    attackingByForce xsd:boolean ) }
+Publication owl:disjointUnionOf ( CC1 CC2 ) . 
+CC1 rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty isbn ;
+    owl:someValuesFrom xsd:string ] .
+CC2 rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty issn ;
+    owl:someValuesFrom xsd:string ] .
+\end{ex}
+The same constraint can be expressed by ShEx more intuitively and concisely:
+\begin{ex}
+Publication { (  
+    isbn xsd:string | issn xsd:string ) }
 \end{ex}
 
-The same constraint may be expressed by OWL 2 DL, but not very intuitively and concisely.
-This can rather be seen as a workaround, as anonymous classes are built for each of the exclusive properties.
+%With the constraint type {\em Context-Specific Exclusive OR of Properties}\footnote{Corresponds to {\em R-11-CONTEXT-SPECIFIC-EXCLUSIVE-OR-OF-PROPERTIES}} 
+%it can be defined that an individual can either have a relationship via property A or via property B, but not both.
+%To take an example, a Jedi is either attacking by sword or by force but not both (such a fight would not be fair):
+%
+%\begin{center}
+%\begin{DL}
+%Jedi &$\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
+%A &$\equiv$ $\exists$ attackingBySword . xsd:boolean \\
+%B &$\equiv$ $\exists$ attackingByForce . xsd:boolean \\ 
+%\end{DL} 
+%\end{center}
+%
+%Context-specific exclusive OR of properties can be expressed by ShEx. 
+%In this case, the constraint context is the class \ms{Jedi}.
+%
+%\begin{ex}
+%Jedi { (  
+    %attackingBySword xsd:boolean | 
+    %attackingByForce xsd:boolean ) }
+%\end{ex}
+%
+%The same constraint may be expressed by OWL 2 DL, but not very intuitively and concisely.
+%This can rather be seen as a workaround, as anonymous classes are built for each of the exclusive properties.
+%
+%\begin{ex}
+%Jedi owl:disjointUnionOf ( CC1 CC2 ) . 
+%CC1 RDFs:subClassOf [
+    %a owl:Restriction ;
+    %owl:onProperty attackingBySword ;
+    %owl:someValuesFrom xsd:boolean ] .
+%CC2 RDFs:subClassOf [
+    %a owl:Restriction ;
+    %owl:onProperty attackingByForce ;
+    %owl:someValuesFrom xsd:boolean ] .
+%\end{ex}
+%
+%Consider the triples \ms{Jedi(Luke)}, \ms{attackingBySword(Luke,true)}, \ms{Jedi(DarthSidious)},
+%\ms{attackingByForce(DarthSidious,true)}, and \ms{attackingBySword(DarthSidious,true)}
+%Luke as well as Darth Sidious are associated with the class \ms{Jedi}.
+%As Darth Sidious has both relationships, a constraint Violation is raised.
 
-\begin{ex}
-Jedi owl:disjointUnionOf ( CC1 CC2 ) . 
-CC1 RDFs:subClassOf [
-    a owl:Restriction ;
-    owl:onProperty attackingBySword ;
-    owl:someValuesFrom xsd:boolean ] .
-CC2 RDFs:subClassOf [
-    a owl:Restriction ;
-    owl:onProperty attackingByForce ;
-    owl:someValuesFrom xsd:boolean ] .
-\end{ex}
-
-Consider the triples \ms{Jedi(Luke)}, \ms{attackingBySword(Luke,true)}, \ms{Jedi(DarthSidious)},
-\ms{attackingByForce(DarthSidious,true)}, and \ms{attackingBySword(DarthSidious,true)}
-Luke as well as Darth Sidious are associated with the class \ms{Jedi}.
-As Darth Sidious has both relationships, a constraint Violation is raised.
-
-\textbf{Expressible by Other Constraint Languages.}
-The majority of constraints can neither be expressed by OWL 2 QL nor by OWL 2 DL. 
-In such cases, these constraints are represented by other constraint languages like DSP, ShEx, ReSh, or SPIN.
-
-{\em Default Values}\footnote{Corresponds to {\em R-31-DEFAULT-VALUES-OF-RDF-OBJECTS}, {\em R-38-DEFAULT-VALUES-OF-RDF-LITERALS}}.
-It should be possible to declare the default value for a given object and data property, e.g. so that input forms can be pre-populated and to insert a required property that is missing in a web service call. 
-Siths have per default two red laser swords.
-If there is only stated that Darth Maul is a Sith (\ms{DarthMaul a Sith .}), then additional default triples should be inferred: 
-\ms{laserSwordColor(DarthMaul,"red")} and \ms{numberLaserSwords(DarthMaul,2)}.
-
-The default values constraint can only be expressed by ReSh, SPIN, and SPARQL.
-In SPIN, we can define a rule associated with the class \ms{owl:Thing}.
-This rule is applicable for each resource, as each resource is implicitly of the type \ms{owl:Thing}. 
-
+%\textbf{Expressible by Other Constraint Languages.}
+The majority of constraints can neither be expressed by OWL 2 QL nor by OWL 2 DL, but by other constraint languages like DSP, ShEx, ReSh, or SPIN.
+One of those constraint types is
+{\em default values}\footnote{Corresponds to {\em R-31-DEFAULT-VALUES-OF-RDF-OBJECTS}, {\em R-38-DEFAULT-VALUES-OF-RDF-LITERALS}}
+for given object and data properties, 
+so that input forms can be pre-populated and to insert a required property that is missing in a web service call. 
+If, e.g., no keyword is stated for semantic web publications, default keywords should be 'Semantic Web' and 'Linked Data'
+If there is only stated that this paper is a Semantic Web publication (\ms{ThisPaper a SemanticWebPublication .}), 
+then additional default triples are inferred: 
+\ms{keyword(ThisPaper,"Semantic Web")} and \ms{keyword(ThisPaper,"Linked Data")}.
+Default values constraints can be expressed by ReSh and SPIN.
+In SPIN, we define a rule associated with the class {\em owl:Thing}:
 \begin{ex}
 owl:Thing spin:rule [ a sp:Construct ; sp:text """
-    CONSTRUCT {
-        ?this laserSwordColor "red" ;
-              numberLaserSwords 2 . }
-    WHERE {             
-        ?this a Sith . } """ ; ] .
+    CONSTRUCT { ?subject keyword "Semantic Web", "Linked Data" . }
+    WHERE { ?subject a SemanticWebPublication . } """ ; ] .
 \end{ex}
-
-For each resource, the SPARQL CONSTRUCT query within the rule is executed creating the default triples.
-ReSh can also be used to express default values:
-
+This rule is applicable for each resource, as each resource is implicitly of the type {\em owl:Thing}. 
+For each resource, the SPARQL CONSTRUCT query within the rule body is executed creating the default triples.
+ReSh can also be used to represent default values:
 \begin{ex}
-Sith a ResourceShape ;
-    property [
-        name "laserSwordColor" ;
-        propertyDefinition laserSwordColor ;
-        valueType xsd:string ;
-        defaultValue "red"'
-        occurs Exactly-one ; ] .
+SemanticWebPublication a ResourceShape ; property [
+    name "keyword" ; propertyDefinition keyword ; valueType xsd:string ;
+    defaultValue "Semantic Web", "Linked Data" ; ] .
 \end{ex}
+
+%Siths have per default two red laser swords.
+%If there is only stated that Darth Maul is a Sith (\ms{DarthMaul a Sith .}), then additional default triples should be inferred: 
+%\ms{laserSwordColor(DarthMaul,"red")} and \ms{numberLaserSwords(DarthMaul,2)}.
+%
+%The default values constraint can only be expressed by ReSh, SPIN, and SPARQL.
+%In SPIN, we can define a rule associated with the class \ms{owl:Thing}.
+%This rule is applicable for each resource, as each resource is implicitly of the type \ms{owl:Thing}. 
+%
+%\begin{ex}
+%owl:Thing spin:rule [ a sp:Construct ; sp:text """
+    %CONSTRUCT {
+        %?this laserSwordColor "red" ;
+              %numberLaserSwords 2 . }
+    %WHERE {             
+        %?this a Sith . } """ ; ] .
+%\end{ex}
+%
+%\begin{ex}
+%owl:Thing spin:rule [ a sp:Construct ; sp:text """
+    %CONSTRUCT { ?subject keyword "Semantic Web", "Linked Data" . }
+    %WHERE { ?subject a SemanticWebPublication . } """ ; ] .
+%\end{ex}
+%
+%For each resource, the SPARQL CONSTRUCT query within the rule is executed creating the default triples.
+%ReSh can also be used to express default values:
+%
+%\begin{ex}
+%Sith a ResourceShape ;
+    %property [
+        %name "laserSwordColor" ;
+        %propertyDefinition laserSwordColor ;
+        %valueType xsd:string ;
+        %defaultValue "red"'
+        %occurs Exactly-one ; ] .
+%\end{ex}
 
 \subsection{Complexity}
 \label{sec:constraints-complexity}
