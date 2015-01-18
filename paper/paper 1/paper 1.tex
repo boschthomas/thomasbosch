@@ -659,6 +659,16 @@ In practice, OWL 2 is well-spread and RDFS/OWL constructs are widely used to tel
 RDF documents follow the structure of RDFS/OWL ontologies which can therefore be reused for validation. In particular, most of the constraint languages except OWL, have a major shortcoming of redundancy. Consider the following DL knowledge base $\mathcal{K}$\footnote{A  knowledge base is a collection of formal statements which corresponds to \emph{facts} or  \emph{what is known}.}:
 \begin{center}
 \begin{DL} 
+$\mathcal{K}=\{$ & \ms{Book $\sqsubseteq \exists$ author.Person}, \ms{Book $\sqsubseteq \forall$ author.Person }\\
+ &(\ms{funct (title)}),\\
+ &\ms{Book(Huckleberry-Finn)},\\
+ &\ms{title(Huckleberry-Finn, The-Adventures-of-Huckleberry-Finn)}\\
+ &\ms{title(Huckleberry-Finn, Die-Abenteuer-von-Huckleberry-Finn)},\\ 
+\end{DL}
+\end{center}
+
+\begin{center}
+\begin{DL} 
 $\mathcal{K}=\{$ & \ms{Person $\sqsubseteq \exists$ hasAncestor.Person}, \\
   & \ms{Jedi $\sqsubseteq \forall$ hasWeapon. JediWeapon }\\
   & \ms{Jedi $\sqsubseteq$ Person} \\
