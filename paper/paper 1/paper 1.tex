@@ -645,6 +645,7 @@ The remainder of the paper is structured as follows...
 
 %\section{OWL as a Constraint Language / The Role of Reasoning for Validation / Reasoning for Validation}
 \section{The Role of Reasoning for RDF Validation}
+\label{the-role-of-reasoning-for-rdf-validation}
 
 %\begin{itemize}
 	%\item advantages and disadvantages of OWL in terms of validation
@@ -683,7 +684,6 @@ OWL's semantics is based on the {\em open-world assumption (OWA)}, i.e., a state
 On the other hand, many RDF validation scenarios require the {\em closed-world assumption (CWA)} (i.e., a statement is inferred to be false if it cannot be proved to be true), therefore  classical constraint languages are based on CWA where  the constraint needs to be satisfied only by named individuals which yields in return of a constraint violation. This would be a shortcoming of OWA in RDF validation. We can further observe that there is a clash caused by the functional role $\ms{hasAncestor}$ and the UNA. However, in OWA there is no UNA by default, therefore the reasoning will conclude that $\ms{Anakin}$ is the same individual as \ms{Shmi} ($\ms{Anakin} \equiv \ms{Shmi}$). This is not a problem if we add the UNA to the OWA, like in the \textit{DL-Lite} family \cite{Calvanese2007,Artale2009} which is the basis for OWL 2 QL. 
 
 \subsection{Expressivity and Complexity in OWL 2}
-\label{Expressivity-Complexity-OWL2}
 
 \tb{I would briefly describe them (2paragraphs) in complexity subsection of next chapter / less than half page}
 
@@ -708,8 +708,8 @@ entailment checking. The drawback of its expressive power results as a lack of c
 
 As a result of its expressive power, OWL 2 DL allows a large variety of sophisticated modeling capabilities for many application domains.  On the other hand, to maintain the decidability, OWL 2 DL has numerous syntactic restrictions. One example is that OWL 2 DL allows  expressing transitive properties as well as asymmetric properties, however a property to be both transitive and asymmetric (just like \emph{ancestor relation}) is not allowed. In the sequel, from RDF validation perspective, we will give some examples of constraints that remain still at the outside of its scope. 
 
-\section{Classification of RDF Constraints according to Semantics, Reasoning and Complexity}
-\label{Classification-RDF-Constraints-Reasoning-Complexity}
+\section{Classification of RDF Constraints according to CWA/UNA Dependency, Reasoning and Complexity}
+\label{classification-rdf-constraints}
 
 %We divide these constraints into three classes:
 %\begin{itemize}
@@ -1224,7 +1224,7 @@ The  relation between those complexity classes is well-known \cite{Arora:2009:CC
 %We leave it as future work to write SPARQL CONSTRUCT queries in order to provide reasoning for these constraints.
 
 \section{Classification of Constraint Languages according to Expressivity}
-\label{Classification-Constraint-Languages-Expressivity-Complexity}
+\label{classification-constraint-languages}
  
 In this section, we concern ourselves with the expressivity of constraint languages, or constraint type specific expressivity.
 Therefore, we evaluated the five most popular constraint languages on fulfilling each requirement to formulate RDF constraints.
@@ -1597,28 +1597,26 @@ In description logics, reasoning tasks like query answering or detection of inco
 
 \section{Conclusion and Future Work}
 
-In section \ref{Expressivity-Complexity-OWL2} we explained why reasoning is beneficial for validation and how reasoning interacts with validation.
-In section \ref{Classification-RDF-Constraints-Reasoning-Complexity} we classified RDF constraints according to reasoning and complexity.
-We distinguish two disjoint constraint types $\mathcal{C}_{R}$ (constraints with reasoning) and $\overline{\mathcal{C}_{R}}$ (constraints without reasoning) to investigate the affect of reasoning to the validation process.
+In section \ref{the-role-of-reasoning-for-rdf-validation} we explained why reasoning is beneficial for validation and how reasoning interacts with validation.
+In section \ref{classification-rdf-constraints} we classified RDF constraints according to CWA/UNA dependency, reasoning, and complexity.
+Constraint types can either be CWA/UNA dependent ($\mathcal{C}_{CWA}$), when it makes a difference if CWA/UNA or OWA/nUNA is assumed, or CWA/UNA independent ($\overline{\mathcal{C}_{CWA}}$).
+We distinguish two disjoint sets of constraint types $\mathcal{C}_{R}$ ({\em constraints with reasoning}) and $\overline{\mathcal{C}_{R}}$ ({\em constraints without reasoning}).
+For each of them, ee presented representative constraint types to investigate the effects of reasoning to the validation process.
 Regarding the performance of constraints, we refer to worst case complexity.
 We divide $\mathcal{C}_R$ into two not disjoint classes ($\mathcal{C}_R ^{\mathcal{QL}} \subseteq \mathcal{C}_R ^{\mathcal{DL}}$) for the validation by query answering with OWL 2 QL and OWL 2 DL reasoning respectively.
-It is well known known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}, 
+It is well known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}, 
 which is assigned to $\overline{\mathcal{C}_R}$ (validation by query answering without reasoning).
-In section \ref{Classification-Constraint-Languages-Expressivity-Complexity} we classified constraint languages according to expressivity. Later, we discussed briefly the important aspects of the friendliness of a constraint language, which would require a further investigation.
-In sections 
-\ref{sec:RDF-validation-requirements-and-reasoning} and
-\ref{RDF-Validation-Requirements-without-Reasoning},
-we present some constraints for each of the two constraint types $\mathcal{C}_{R}$ and $\overline{\mathcal{C}_{R}}$.
-For $\mathcal{C}_{R}$ constraints we consider the effects of reasoning on validation.
-We implemented the validation of all OWL 2 QL, OWL 2 DL, DSP (and the major ReSh and ShEx) constructs
+In section \ref{classification-constraint-languages} we classified constraint languages according to expressivity. 
+\tb{needs to be described more}
+We implemented the validation of all OWL 2 QL, OWL 2 DL, DSP (and major ReSh and ShEx) constructs
 within our SPIN validation environment in form of SPARQL CONSTRUCT queries (\url{http://purl.org/net/RDFval-demo}).
 %\cite{BoschEckert2014-2}\footnote{SPIN mappings: \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}, \url{https://github.com/dcmi/DSP-SPIN-Mapping}}.
 For $\mathcal{C}_{R}$ constraint types (represented in OWL 2), you can choose if reasoning should be performed prior to validation.
 
-As part of future work we extend the validator to provide a list of constraint languages for which the expressivity is enough to express selected constraints.
-The validator may also recommend one of these constraint languages having the highest expressivity and lowest complexity.
-As reasoning may cause high complexity, the validator may show which constraints from the user's selection cause the higher complexity class 
-and it may provide solutions how to get to the next lower complexity class. In this regard, it would be charming to have an estimation on which group of constraints would demand what class of complexity. However, this is not an easy question, since complexity results are language specific and operational semantics is involved as well. Therefore, it is hard to maintain a general complexity result for a constraint independent of the language chosen. Yet, providing an estimation for particular cases can still be straightforward.
+As part of future work we will extend our validator to provide a list of constraint languages for which the expressivity is enough to express selected constraint types.
+The validator may also recommend one of these constraint languages having the highest expressivity score and lowest complexity.
+As reasoning may cause high complexity, the validator may show which constraint types from the user's selection cause the higher complexity class 
+and it may provide solutions how to get to the next lower complexity class. In this regard, it would be charming to have an estimation on which group of constraint types would demand what class of complexity. However, this is not an easy question, since complexity results are language specific and operational semantics is involved as well. Therefore, it is hard to maintain a general complexity result for a constraint type independent of the language chosen. Yet, providing an estimation for particular cases can still be straightforward.
 
 %\section{Christian's Feedback}
 %
