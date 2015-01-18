@@ -697,8 +697,8 @@ In an OWA setting, in the given knowledge base above, we infer that {\em Huckleb
 
 On the other hand, many RDF validation scenarios require the {\em closed-world assumption (CWA)} (i.e., a statement is inferred to be false if it cannot be proved to be true).
 Hence, classical constraint languages are based on CWA where constraints need to be satisfied only by named individuals which yields in return to a constraint violation. This would be a shortcoming of OWA in RDF validation. \tb{needs further explanation}
-We can further observe that there is a clash caused by the functional role $\ms{hasAncestor}$ and the UNA. \tb{explain why? surely not obvious to everybody}
-However, in OWA there is no UNA by default, therefore the reasoning will conclude that $\ms{Anakin}$ is the same individual as \ms{Shmi} ($\ms{Anakin} \equiv \ms{Shmi}$). This is not a problem if we add the UNA to the OWA, like in the \textit{DL-Lite} family \cite{Calvanese2007,Artale2009} which is the basis for OWL 2 QL. 
+We can further observe that there is a clash caused by the functional property $\ms{title}$ and the UNA. \tb{explain why? surely not obvious to everybody}
+However, in OWA there is no UNA by default, therefore the reasoning will conclude that {\em The-Adventures-of-Huckleberry-Finn} is the same individual as {\em Die-Abenteuer-des-Huckleberry-Finn} (\ms{The-Adventures-of-Huckleberry-Finn $\equiv$ Die-Abenteuer-des-Huckleberry-Finn}). This is not a problem if we add the UNA to the OWA, like in the \textit{DL-Lite} family \cite{Calvanese2007,Artale2009} which is the basis for OWL 2 QL. 
 
 \subsection{Expressivity and Complexity in OWL 2}
 
