@@ -348,8 +348,11 @@ The \textbf{contributions} of this paper are
 (3) to explain the effects of reasoning on the computational complexity of typical constraint types, and
 (4) to evaluate the constraint type specific expressivity of constraint languages.
 
-The remainder of the paper is structured as follows...
-\tb{ToDo}
+The remainder of the paper is structured as follows.
+In section \ref{the-role-of-reasoning-for-rdf-validation}, we show why reasoning is important for validation and how reasoning and validation interact.
+In section \ref{classification-rdf-constraints}, we classify RDF constraints according to CWA/UNA dependency, reasoning, and complexity.
+In section \ref{classification-constraint-languages}, we investigate the expressivity of constraint languages. 
+Related work, conclusion and future work finalize the paper.
 
 %\section{This sections temporally serves to collect examples...}
 
@@ -1625,7 +1628,7 @@ In section \ref{the-role-of-reasoning-for-rdf-validation} we explained why reaso
 In section \ref{classification-rdf-constraints} we classified RDF constraints according to CWA/UNA dependency, reasoning, and complexity.
 Constraint types can either be CWA/UNA dependent ($\mathcal{C}_{CWA}$), when it makes a difference if CWA/UNA or OWA/nUNA is assumed, or CWA/UNA independent ($\overline{\mathcal{C}_{CWA}}$).
 We distinguish two disjoint sets of constraint types $\mathcal{C}_{R}$ ({\em constraints with reasoning}) and $\overline{\mathcal{C}_{R}}$ ({\em constraints without reasoning}).
-For each of them, ee presented representative constraint types to investigate the effects of reasoning to the validation process.
+For each of them, we presented representative constraint types to investigate the effects of reasoning to the validation process.
 Regarding the performance of constraints, we refer to worst case complexity.
 We divide $\mathcal{C}_R$ into two not disjoint classes ($\mathcal{C}_R ^{\mathcal{QL}} \subseteq \mathcal{C}_R ^{\mathcal{DL}}$) for the validation by query answering with OWL 2 QL and OWL 2 DL reasoning respectively.
 It is well known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}, 
