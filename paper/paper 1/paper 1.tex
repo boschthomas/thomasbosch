@@ -695,7 +695,9 @@ But if we apply a reasoner before validating, this constraint violation is resol
 OWL is based on the {\em non-unique name assumption (nUNA)} whereas RDF validation requires that different names represent different objects (a.k.a. {\em unique name assumption (UNA)}). 
 This ambiguity in semantics is one of the main reasons why OWL has not been adopted as a standard constraint language for RDF validation in the past.  
 OWL's semantics is also based on the {\em open-world assumption (OWA)}, i.e., a statement cannot be inferred to be false if it cannot be proved to be true  which fits its primary design purpose: to represent knowledge on the World Wide Web. With its open-world semantics, used as a constraint language, OWL seems to solve the redundancy problem. 
-In an OWA setting, in the given knowledge base above, we infer that {\em Huckleberry-Finn} has a title (since {\em Huckleberry-Finn} is a book e.g.,\ms{Book(Huckleberry-Finn)}), but we do not know which exactly, and $\mathcal{K}$ is consistent. \tb{k is consistent does not fit into the text flow}
+As each book must have a title (\ms{Book $\sqsubseteq \exists$ title.$\top$}}) and as {\em Huckleberry-Finn} is a book (\ms{Book(Huckleberry-Finn)}),
+the book {\em Huckleberry-Finn} must have at least one title.
+In an OWA setting, this axiom does not cause a constraint violation (even if there is no explicitly defined title), since there must be a title for this book which we may not know ($\mathcal{K}$ is consistent). 
 
 On the other hand, many RDF validation scenarios require the {\em closed-world assumption (CWA)} (i.e., a statement is inferred to be false if it cannot be proved to be true).
 Hence, classical constraint languages are based on CWA where constraints need to be satisfied only by named individuals which yields in return to a constraint violation. This would be a shortcoming of OWA in RDF validation. \tb{needs further explanation}
