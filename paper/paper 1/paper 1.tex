@@ -800,21 +800,21 @@ The subsequent steps are needed to determine the performance (i.e. computational
 
 \subsection{Dependency on CWA with UNA}
 
-The distinction of constraint types regarding the dependency on the CWA and the UNA is an important aspect when combining reasoning with validation,
+The distinction of constraint types regarding the dependency on the CWA with the UNA is an important aspect when combining reasoning with validation,
 as OWL 2 reasoning requires the OWA with the nUNA and RDF validation is based on the UNA (different names represent different objects) and
 the CWA (a statement is inferred to be false if it cannot be proved to be true).
 We classify constraint types according to the dependency on the CWA with UNA:
 \begin{enumerate}
-	\item $\mathcal{C}_{CWA}$: set of constraint types dependent on the CWA with UNA
-	\item $\overline{\mathcal{C}_{CWA}}$: set of constraint types independent on the CWA with UNA
+	\item $\mathcal{C}_{CWA}$: constraint types dependent on the CWA with UNA
+	\item $\overline{\mathcal{C}_{CWA}}$: constraint types independent on the CWA with UNA
 \end{enumerate}
 
-$\mathcal{C}_{CWA}$ contains constraint types for which it makes a difference if the CWA/ UNA or the OWA/nUNA is assumed.
+$\mathcal{C}_{CWA}$ encompasses constraint types for which it makes a difference if the CWA/UNA or the OWA/nUNA is assumed.
 $\mathcal{C}_{CWA}$ is defined as follows:
 For a given constraint type, if there exists no RDF data set that would be inconsistent under the CWA/UNA and
 consistent under the OWA/nUNA, then the constraint type is dependent on the CWA/UNA.
-If something is a \emph{publication}, e.g., it has at least one \emph{author} (\ms{Publica} \ms{tion $\sqsubseteq$ $\geq$1 author.Person}).
-This {\em qualified cardinality restriction} depends on the CWA/ UNA.
+If something is a \emph{publication}, e.g., it has at least one \emph{author} (\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}).
+This {\em qualified cardinality restriction} depends on the CWA/UNA.
 In a CWA/UNA setting, a \emph{publication} without an explicitly stated author violates this constraint.  
 With OWA/nUNA semantics, however,
 the \emph{publication} without an explicitly stated \emph{author} does not raise a constraint violation, 
@@ -823,7 +823,7 @@ as the axiom allows you to entail that there must be an (unknown) \emph{author}.
 $\overline{\mathcal{C}_{CWA}}$ includes constraint types for which it does not make any difference if the CWA/UNA or the OWA/nUNA is assumed.
 $\mathcal{C}_{CWA}$ is defined as follows:
 For a given constraint type, if there exists no RDF data set that would be consistent/inconsistent under the CWA/UNA and
-consistent/inconsistent under the OWA/ nUNA, then the constraint type is independent of the CWA/UNA.
+consistent/inconsistent under the OWA/nUNA, then the constraint type is independent of the CWA/UNA.
 If something is a \emph{book}, e.g., it cannot be a \emph{journal article} (\ms{Book $\sqcap$ JournalArticle $\sqsubseteq$ $\perp$}).
 For this {\em disjoint classes} constraint, it does not make any difference if the CWA/UNA or the OWA/nUNA semantics is taken,
 as all information needed for validation is explicitly available in both cases. 
@@ -980,7 +980,7 @@ The {\em existential quantification}\footnote{Corresponds to {\em R-86-EXISTENTI
   owl:someValuesFrom Publisher ;
   rdfs:subClassOf Publication ] .
 \end{ex}
-If we execute reasoning on data containing the triples \ms{publisher(ISWC-2014-Proceedings, Springer)} and \ms{rdf:type(Springer, Publisher)}, 
+If we execute reasoning on data containing the triples \ms{publisher(ISWC-2014-Pro} \ms{ceedings, Springer)} and \ms{rdf:type(Springer, Publisher)}, 
 it can be inferred that {\em ISWC-2014-Proceedings} is a {\em publication}.
 Now, all constraints associated with the class {\em publication} are also validated for the individual {\em ISWC-2014-Proceedings} (e.g. that \emph{publications} must have at least one \emph{author}).
 Without reasoning, these constraints are not validated as {\em ISWC-2014-Proceedings} is not within the class extension of {\em publication}.
