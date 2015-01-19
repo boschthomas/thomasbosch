@@ -793,12 +793,12 @@ This technical report also contains mappings to DL to logically underpin each re
 The subsequent steps are needed to determine the performance (i.e. computational complexity) to validate simple (atomic) and complex (composed) constraint types:
 \begin{enumerate}
 	\item As reasoning may be performed as a pre-validation step, we determine for each constraint type if it makes sense to perform reasoning prior to validation.
-	\item When combining reasoning and validation, the distinction if it makes a difference if CWA/UNA or OWA/nUNA is assumed is a very important aspect. Thus, we evaluate each constraint type regarding CWA/UNA dependency.
+	\item When combining reasoning and validation, the distinction if it makes a difference if the CWA/UNA (by CWA/UNA, we mean CWA with UNA) or the OWA/nUNA is assumed is a very important aspect. Thus, we evaluate each constraint type regarding the CWA/UNA dependency.
 	\item As validation can be performed without reasoning, but also by means of different reasoning types, we assign each constraint type to a validation type (which is associated with a particular complexity class).
 	\item The combination of DL constructs of a constraint type determines its complexity. By mapping each constraint type to DL and as the complexity of DL constructs are known (some DL constructs are only expressible by particular OWL 2 profiles which are associated with a given complexity class), we get an idea of the complexity for each constraint type in worst case.
 \end{enumerate}
 
-\subsection{CWA/UNA Dependency}
+\subsection{Dependency on CWA with UNA}
 
 The distinction of constraint types regarding the dependency on CWA and UNA is an important aspect when combining reasoning with validation,
 as OWL 2 reasoning requires {\em OWA} and {\em nUNA} and RDF validation is based on {\em UNA} (different names represent different objects) and
