@@ -813,8 +813,8 @@ $\mathcal{C}_{CWA}$ contains constraint types for which it makes a difference if
 $\mathcal{C}_{CWA}$ is defined as follows:
 For a given constraint type, if there exists no RDF data set that would be inconsistent under CWA/UNA and
 consistent under OWA/nUNA, then the constraint type is dependent of CWA/UNA.
-If something is a publication, e.g., it has at least one author (\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}).
-This {\em qualified cardinality restriction} depends on CWA/UNA.
+If something is a publication, e.g., it has at least one author (\ms{Publica} \ms{tion $\sqsubseteq$ $\geq$1 author.Person}).
+This {\em qualified cardinality restriction} depends on CWA/ UNA.
 In a CWA/UNA setting, a publication without an explicitly stated author violates this constraint.  
 With OWA/nUNA semantics, however,
 the publication without an explicitly stated author does not raise a constraint violation, 
@@ -823,7 +823,7 @@ as the axiom allows you to entail that there must be an (unknown) author.
 $\overline{\mathcal{C}_{CWA}}$ includes constraint types for which it does not make any difference if CWA/UNA or OWA/nUNA is assumed.
 $\mathcal{C}_{CWA}$ is defined as follows:
 For a given constraint type, if there exists no RDF data set that would be consistent/inconsistent under CWA/UNA and
-consistent/inconsistent under OWA/nUNA, then the constraint type is independent of CWA/UNA.
+consistent/inconsistent under OWA/ nUNA, then the constraint type is independent of CWA/UNA.
 If something is a book, e.g., it cannot be a journal article (\ms{Book $\sqcap$ JournalArticle $\sqsubseteq$ $\perp$}).
 For this {\em disjoint classes} constraint, it does not make any difference if the semantics CWA/UNA or OWA/nUNA is taken,
 as all information needed for validation is explicitly available in both cases. 
@@ -901,7 +901,7 @@ $C_R$ corresponds to axioms in OWL. %  e.g., subsumption, sub-properties, cardin
 is a constraint type for which reasoning may be performed.
 For instance, if a journal volume has an {\em editor} relationship to a person, 
 then the journal volume must also have a {\em creator} relationship to the same person (\ms{editor $\sqsubseteq$ creator}).
-If we use sub-properties without reasoning and our data contains the triple \ms{editor(JWS-2014-V29, Staab)},
+If we use sub-properties without reasoning and our data contains the triple \ms{editor(JWS-2014-} \ms{V29, Staab)},
 then the triple \ms{creator(JWS-2014-V29, Staab)} has to be stated explicitly.
 If this triple is not stated, a constraint violation occurs.
 If we use sub-properties with reasoning, the triple (which would cause a constraint violation) is inferred and therefore resolves the possible constraint violation.
@@ -980,7 +980,7 @@ The {\em existential quantification}\footnote{Corresponds to {\em R-86-EXISTENTI
   owl:someValuesFrom Publisher ;
   rdfs:subClassOf Publication ] .
 \end{ex}
-If we execute reasoning on data containing the triples \ms{publisher(ISWC-2014-Proceedings, Springer)} and \ms{rdf:type(Springer, Publisher)}, 
+If we execute reasoning on data containing the triples \ms{publisher(ISWC-2014-} \ms{Proceedings, Springer)} and \ms{rdf:type(Springer, Publisher)}, 
 it can be inferred that {\em ISWC-2014-Proceedings} is a {\em Publication}.
 Now, all constraints associated with the class {\em Publication} are also validated for the individual {\em ISWC-2014-Proceedings} (e.g. that publications must have at least one author).
 Without reasoning, these constraints are not validated as {\em ISWC-2014-Proceedings} is not within the class extension of {\em Publication}.
@@ -1011,7 +1011,7 @@ which cannot be expressed by OWL 2 QL, but by OWL 2 DL \cite{owl2profiles2008}:
   owl:allValuesFrom Person ;
   RDFs:subClassOf Publication ] .
 \end{ex}
-When performing reasoning, the triples \ms{The-Lord-Of-The-Rings author} \ms{JRR-Tolkien} and \ms{The-Lord-Of-The-Rings a Publication} infer that \ms{JRR-Tolkien} is a person.
+When performing reasoning, the triples \ms{The-Lord-Of-The-Rings author} \ms{JRR-} \ms{Tolkien} and \ms{The-Lord-Of-The-Rings a Publication} infer that \ms{JRR-Tolkien} is a person.
 When reasoning is not executed, a constraint violation is raised, 
 as it is not explicitly stated that \ms{JRR-Tolkien} is a person and
 as each publication can only have \ms{author} relationships to persons.
