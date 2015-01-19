@@ -1630,9 +1630,8 @@ This OWL 2 semantics, however, was never submitted to a standards organization s
 In description logics, reasoning tasks like query answering or detection of inconsistencies require the consideration of knowledge that is not only defined explicitly but also implicitly. To do so there are two different ways called forward- and backward-chaining. The first implies a materialized knowledge base, where the original knowledge base is extended by all assertions that can be inferred. State-of-the-art DL or OWL reasoners following this approach are e.g. FaCT++ \cite{tsarkov2006fact++}, Pellet \cite{sirin2007pellet},  RacerPro \cite{haarslev2001racer}, or HermiT \cite{horrocks2012hermit}. 
 On the second approach, the original knowledge base is kept in its original state and before queries are evaluated against the knowledge base, the queries are rewritten such that the rewritings also consider the implicit knowledge in the result set. 
 Approaches following this way are \emph{PerfectRef} given by Calvanese et al. \cite{Calvanese2007} or \emph{TreeWitness} proposed by Kontchakov et al. \cite{kontchakov2011combined}, which are both implemented in the --ontop-- framework\footnote{\url{http://ontop.inf.unibz.it}} for ontology-based data access. 
-
-The choice between these two different ways depends on the specific application case. So the first kind is probably applied on local knowledge bases whereas the second is more appropriated for federative environments like in \cite{nolle2014efficient,nolle2013elite}. 
-So, even if reasoning is performed by query rewriting in terms of backward-chaining and constraint validation queries are evaluated through such an engine, rewritings will only be generated if possible and will not affect constraint validation that are checked e.g. by pattern matching.
+The first solution is applied on local knowledge bases whereas the second is more appropriated for federative environments like in \cite{nolle2014efficient,nolle2013elite}. 
+%So, even if reasoning is performed by query rewriting in terms of backward-chaining and constraint validation queries are evaluated through such an engine, rewritings will only be generated if possible and will not affect constraint validation that are checked e.g. by pattern matching.
 
 
 % additional papers
