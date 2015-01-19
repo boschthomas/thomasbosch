@@ -800,21 +800,21 @@ The subsequent steps are needed to determine the performance (i.e. computational
 
 \subsection{Dependency on CWA with UNA}
 
-The distinction of constraint types regarding the dependency on the CWA and the UNA is an important aspect when combining reasoning with validation,
+The distinction of constraint types regarding the dependency on the CWA with the UNA is an important aspect when combining reasoning with validation,
 as OWL 2 reasoning requires the OWA with the nUNA and RDF validation is based on the UNA (different names represent different objects) and
 the CWA (a statement is inferred to be false if it cannot be proved to be true).
 We classify constraint types according to the dependency on the CWA with UNA:
 \begin{enumerate}
-	\item $\mathcal{C}_{CWA}$: set of constraint types dependent on the CWA with UNA
-	\item $\overline{\mathcal{C}_{CWA}}$: set of constraint types independent on the CWA with UNA
+	\item $\mathcal{C}_{CWA}$: constraint types dependent on the CWA with UNA
+	\item $\overline{\mathcal{C}_{CWA}}$: constraint types independent on the CWA with UNA
 \end{enumerate}
 
-$\mathcal{C}_{CWA}$ contains constraint types for which it makes a difference if the CWA/ UNA or the OWA/nUNA is assumed.
+$\mathcal{C}_{CWA}$ encompasses constraint types for which it makes a difference if the CWA/UNA or the OWA/nUNA is assumed.
 $\mathcal{C}_{CWA}$ is defined as follows:
 For a given constraint type, if there exists no RDF data set that would be inconsistent under the CWA/UNA and
 consistent under the OWA/nUNA, then the constraint type is dependent on the CWA/UNA.
-If something is a \emph{publication}, e.g., it has at least one \emph{author} (\ms{Publica} \ms{tion $\sqsubseteq$ $\geq$1 author.Person}).
-This {\em qualified cardinality restriction} depends on the CWA/ UNA.
+If something is a \emph{publication}, e.g., it has at least one \emph{author} (\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}).
+This {\em qualified cardinality restriction} depends on the CWA/UNA.
 In a CWA/UNA setting, a \emph{publication} without an explicitly stated author violates this constraint.  
 With OWA/nUNA semantics, however,
 the \emph{publication} without an explicitly stated \emph{author} does not raise a constraint violation, 
@@ -823,7 +823,7 @@ as the axiom allows you to entail that there must be an (unknown) \emph{author}.
 $\overline{\mathcal{C}_{CWA}}$ includes constraint types for which it does not make any difference if the CWA/UNA or the OWA/nUNA is assumed.
 $\mathcal{C}_{CWA}$ is defined as follows:
 For a given constraint type, if there exists no RDF data set that would be consistent/inconsistent under the CWA/UNA and
-consistent/inconsistent under the OWA/ nUNA, then the constraint type is independent of the CWA/UNA.
+consistent/inconsistent under the OWA/nUNA, then the constraint type is independent of the CWA/UNA.
 If something is a \emph{book}, e.g., it cannot be a \emph{journal article} (\ms{Book $\sqcap$ JournalArticle $\sqsubseteq$ $\perp$}).
 For this {\em disjoint classes} constraint, it does not make any difference if the CWA/UNA or the OWA/nUNA semantics is taken,
 as all information needed for validation is explicitly available in both cases. 
@@ -878,7 +878,7 @@ ISBN a RDFS:Datatype ; owl:equivalentClass [ a RDFS:Datatype ;
 The first OWL 2 axiom explicitly declares {\em ISBN} to be a datatype. %\er{Why start from second and then first? Also better we say "owl axiom" when we talk axiom of owl, to prevent ambiguity.}\tb{resolved}
 The second OWL 2 axiom defines {\em ISBN} as an abbreviation for a datatype restriction on {\em xsd:string}. 
 The datatype {\em ISBN} can be used just like any other datatype like in the universal restriction above.
-The literal pattern matching constraint validates {\em ISBN} literals according to the stated regular expression. 
+%The literal pattern matching constraint validates {\em ISBN} literals according to the stated regular expression. 
 %The triples \ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber} cause a constraint violation. 
 %The triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}, however, lead to valid data. %\er{Let us divide this last sentence of the paragraph.}\tb{resolved}
 
@@ -897,14 +897,14 @@ $C_R$ corresponds to axioms in OWL 2. %  e.g., subsumption, sub-properties, card
 %then the triple \ms{attackingByWeapon(Luke, DarthVader)} has to be stated explicitly.
 %If this triple is not stated, a constraint violation occurs.
 %If we use sub-properties with reasoning, the triple (which would cause a constraint violation) is inferred and therefore resolves the possible constraint violation.
-{\em Sub-Properties}\footnote{Corresponds to \emph{R-54-SUB-OBJECT-PROPERTIES~}, \emph{R-54-SUB-DATA-PROPERTIES}}~, e.g., 
+{\em Sub-Properties}\footnote{Corresponds to \emph{R-54-SUB-OBJECT-PROPERTIES~}, \emph{R-54-SUB-DATA-PROPERTIES}}, e.g., 
 is a constraint type for which reasoning may be performed.
 For instance, if a \emph{journal volume} has an {\em editor} relationship to a \emph{person}, 
 then the \emph{journal volume} must also have a {\em creator} relationship to the same \emph{person} (\ms{editor $\sqsubseteq$ creator}).
-If we use sub-properties without reasoning and our data contains the triple \ms{editor(JWS-2014-} \ms{V29, Staab)},
+If we use \emph{sub-properties} without reasoning and the data contains the triple \ms{editor(JWS-2014-} \ms{V29, Staab)},
 then the triple \ms{creator(JWS-2014-V29, Staab)} has to be stated explicitly.
 If this triple is not stated, a constraint violation occurs.
-If we use sub-properties with reasoning, the triple (which would cause a constraint violation) is inferred and therefore resolves the possible constraint violation.
+But if we use \emph{sub-properties} with reasoning, the triple (which would cause a constraint violation) is inferred and therefore resolves the constraint violation.
 
 \subsubsection{Constraint Types with Reasoning}
 \label{sec:RDF-validation-requirements-and-reasoning}
@@ -955,9 +955,9 @@ There are many constraint types for which {\em OWL 2 QL reasoning} can be perfor
 %After reasoning, however, the triples \ms{Yoda a Jedi , FeelingForce} are inferred resulting in valid data. 
 The {\em Property Domain}\footnote{Corresponds to {\em R-25-PROPERTY-DOMAIN}} constraint
 \ms{$\exists$ author.$\top$ $\sqsubseteq$ Publication}
-ensures that only publications can have {\em author} relationships to persons.
+ensures that only \emph{publications} can have {\em author} relationships to \emph{persons}.
 This constraint can be expressed by OWL 2 QL: \ms{author rdfs:domain Publication}.
-Without reasoning, the triple \ms{Alices-Adventures-In-Wonderland author Lewis-Carroll} causes a constraint violation, when it is not explicitly stated that \ms{Lewis-Carroll} is a \ms{Person}. 
+Without reasoning, the triple \ms{Alices-Adventures-In-Wonderland author Lewis-Carroll} causes a constraint violation, when it is not explicitly stated that \emph{Lewis-Carroll} is a \emph{person}. 
 When reasoning is performed before validating, the class assignment \ms{rdf:type(Lewis-Carroll, Person)} is inferred which prevents the constraint violation to be raised.
 
 %The {\em Property Domain}\footnote{Corresponds to {\em R-25-PROPERTY-DOMAIN}} constraint
@@ -980,10 +980,10 @@ The {\em existential quantification}\footnote{Corresponds to {\em R-86-EXISTENTI
   owl:someValuesFrom Publisher ;
   rdfs:subClassOf Publication ] .
 \end{ex}
-If we execute reasoning on data containing the triples \ms{publisher(ISWC-2014-Proceedings, Springer)} and \ms{rdf:type(Springer, Publisher)}, 
-it can be inferred that {\em ISWC-2014-Proceedings} is a {\em Publication}.
-Now, all constraints associated with the class {\em Publication} are also validated for the individual {\em ISWC-2014-Proceedings} (e.g. that publications must have at least one author).
-Without reasoning, these constraints are not validated as {\em ISWC-2014-Proceedings} is not within the class extension of {\em Publication}.
+If we execute reasoning on data containing the triples \ms{publisher(ISWC-2014-Pro} \ms{ceedings, Springer)} and \ms{rdf:type(Springer, Publisher)}, 
+it can be inferred that {\em ISWC-2014-Proceedings} is a {\em publication}.
+Now, all constraints associated with the class {\em publication} are also validated for the individual {\em ISWC-2014-Proceedings} (e.g. that \emph{publications} must have at least one \emph{author}).
+Without reasoning, these constraints are not validated as {\em ISWC-2014-Proceedings} is not within the class extension of {\em publication}.
 
 %The {\em Existential Quantification}\footnote{Corresponds to {\em R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}}
 %\ms{Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword} let us refer to all those individuals that are connected by \ms{hasLaserSword} to an individual that is an instance of the class \ms{LaserSword}.
@@ -1003,7 +1003,7 @@ Without reasoning, these constraints are not validated as {\em ISWC-2014-Proceed
 \textbf{With OWL 2 DL}
 {\em Universal quantifications}\footnote{Corresponds to {\em R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}}
 are used to build anonymous classes containing all individuals that are connected by a particular property only to instances of a specific class.
-Publications, e.g., can only have persons as authors (\ms{Publication $\sqsubseteq$ $\forall$ author.Person}), 
+\emph{Publications}, e.g., can only have \emph{persons} as \emph{authors} (\ms{Publication $\sqsubseteq$ $\forall$ author.Person}), 
 which cannot be expressed by OWL 2 QL, but by OWL 2 DL \cite{owl2profiles2008}:
 \begin{ex}
 [ a owl:Restriction ;
@@ -1011,10 +1011,10 @@ which cannot be expressed by OWL 2 QL, but by OWL 2 DL \cite{owl2profiles2008}:
   owl:allValuesFrom Person ;
   RDFs:subClassOf Publication ] .
 \end{ex}
-When performing reasoning, the triples \ms{The-Lord-Of-The-Rings author} \ms{JRR-Tolkien} and \ms{The-Lord-Of-The-Rings a Publication} infer that \ms{JRR-Tolkien} is a person.
+When performing reasoning, the triples \ms{The-Lord-Of-The-Rings author} \ms{JRR-} \ms{Tolkien} and \ms{rdf:type(The-Lord-Of-The-Rings, Publication)} infer that \emph{JRR-Tolkien} is a \emph{person}.
 When reasoning is not executed, a constraint violation is raised, 
-as it is not explicitly stated that \ms{JRR-Tolkien} is a person and
-as each publication can only have \ms{author} relationships to persons.
+as it is not explicitly stated that \emph{JRR-Tolkien} is a \emph{person} and
+as each \emph{publication} can only have \emph{author} relationships to \emph{persons}.
 
 %{\em Universal quantifications}\footnote{Corresponds to {\em R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}}
 %contain all those individuals that are connected by a particular property only to individuals that are instances of a specific class.
@@ -1033,7 +1033,7 @@ as each publication can only have \ms{author} relationships to persons.
 \label{RDF-Validation-Requirements-without-Reasoning}
 
 For the majority of the constraint types, reasoning is not needed to be performed prior to validation. 
-It is possible, however, to reason before validating constraints for which reasoning does not affect validation results.
+It is possible, however, to execute reasoning before validating constraints for which reasoning does not affect validation results.
 %\textbf{Expressible by OWL 2.}
 %\label{sec:RDF-validation-requirements-without-reasoning-2}
 %\textbf{Literal Pattern Matching}\footnote{corresponds to R-44-PATTERN-MATCHING-ON-RDF-LITERALS}\textbf{.} 
@@ -1171,8 +1171,8 @@ One of those constraint types is
 {\em default values}\footnote{Corresponds to {\em R-31-DEFAULT-VALUES-OF-RDF-OBJECTS}, {\em R-38-DEFAULT-VALUES-OF-RDF-LITERALS}}
 for given object and data properties, 
 so that input forms can be pre-populated and to insert a required property that is missing in a web service call. 
-If, e.g., no keyword is stated for semantic web publications, default keywords should be 'Semantic Web' and 'Linked Data'
-If there is only stated that this paper is a Semantic Web publication (\ms{rdf:type(ThisPaper, SemanticWebPublication)}), 
+If, e.g., no keyword is stated for \emph{Semantic Web publications}, default \emph{keywords} should be 'Semantic Web' and 'Linked Data'
+If there is only stated that this paper is a \emph{Semantic Web publication} (\ms{rdf:type(ThisPaper, SemanticWebPublication)}), 
 then additional default triples are inferred: 
 \ms{keyword(ThisPaper,"Semantic Web")} and \ms{keyword(ThisPaper,"Linked Data")}.
 Default values constraints can be expressed by ReSh and SPIN.
