@@ -671,9 +671,9 @@ OWL is an expressive Semantic Web language which is based on Description logics,
 This has lead to claims that OWL 2 cannot be used for validation. 
 There have been long and controversial discussions\footnote{\url{http://lists.w3.org/Archives/Public/public-data-shapes-wg/}\\ \url{https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=dc-architecture}} in the W3C and DCMI WGs if OWL 2 should be used for RDF validation.
 %However, OWL 2 is high-level  expressive  language with a compact human-readable syntax.
-In practice, OWL 2 is well-spread and RDFS/OWL constructs are widely used to tell people and applications about how valid instances should be created.
+In practice, OWL 2 is well-spread and RDFS/OWL 2 constructs are widely used to tell people and applications about how valid instances should be created.
 
-RDF documents follow the structure of RDFS/OWL ontologies which can therefore be reused for validation. 
+RDF documents follow the structure of RDFS/OWL 2 ontologies which can therefore be reused for validation. 
 %In particular, most of the constraint languages except OWL, have a major shortcoming of redundancy.\tb{the following example is not about solving the redundancy problem, it is about how constraint violations cab be resolved when performing reasoning / we should delete this sentence here, as we starting talking about redundancy problem below}
 Reasoning is beneficial for RDF validation as 
 (1) it may resolve constraint violations, 
@@ -715,15 +715,15 @@ we conclude that \emph{Mark Twain} must be a \emph{person}.
 As \emph{Mark Twain} is not explicitly defined to be a \emph{person}, however, a constraint violation is raised.
 But if we apply a reasoner before validating, this constraint violation is resolved since the implicit triple \ms{Person(Mark-Twain)} is inferred. 
 Reasoning may cause additional constraint violations needed to enhance data quality, e.g., as \emph{books} are \emph{publications}, constraints on publications are also validated for \emph{books} (e.g. each publication must have a publisher).
-Most of the constraint languages except OWL, have a major shortcoming of redundancy.
-With its open-world semantics, used as a constraint language, OWL solves the redundancy problem (see introduction). 
+Most of the constraint languages except OWL 2, have a major shortcoming of redundancy.
+With its open-world semantics, used as a constraint language, OWL 2 solves the redundancy problem (see introduction). 
 %\tb{there is no example for solving redundancy problem / can we use the one of the introduction (just referring to this example in 1 sentence)}
 %\tb{we have no example why R causes new valuable constraint violations}
 
 %\tb{the next 2 paragraphs are about differences in semantics}
-OWL is based on the {\em non-unique name assumption (nUNA)} whereas RDF validation requires that different names represent different objects (a.k.a. {\em unique name assumption (UNA)}). 
-This ambiguity in semantics is one of the main reasons why OWL has not been adopted as a standard constraint language for RDF validation in the past.  
-OWL's semantics is also based on the {\em open-world assumption (OWA)}, i.e., a statement cannot be inferred to be false if it cannot be proved to be true  which fits its primary design purpose: to represent knowledge on the World Wide Web. 
+OWL 2 is based on the {\em non-unique name assumption (nUNA)} whereas RDF validation requires that different names represent different objects (a.k.a. {\em unique name assumption (UNA)}). 
+This ambiguity in semantics is one of the main reasons why OWL 2 has not been adopted as a standard constraint language for RDF validation in the past.  
+OWL 2's semantics is also based on the {\em open-world assumption (OWA)}, i.e., a statement cannot be inferred to be false if it cannot be proved to be true  which fits its primary design purpose: to represent knowledge on the World Wide Web. 
 %Most of the constraint languages except OWL, have a major shortcoming of redundancy.
 %With its open-world semantics, used as a constraint language, OWL solves the redundancy problem. 
 %\tb{the following example does not show the redundancy problem!}
@@ -752,8 +752,8 @@ In this section, we will briefly mention the expressivity and complexity of OWL 
 OWL 2 QL is an OWL 2 profile which focuses on reasoning in the context of query answering with very large size of instance data. The acronym QL stands for query language as query answering in this profile can be done by rewriting queries into a standard relational query language (also known as First-Order Rewritability). Also, conjunctive query answering can be done by using conventional relational database systems. Aiming at efficiency on working with large size data, the expressive power of the profile is quite limited as expected. As a result of this, reasoning in OWL 2 QL is highly efficient so that sound and complete conjunctive query answering can be performed in \textsc{LogSpace} in the size of the data assertions as well as  the ontology consistency and class expression subsumption can be performed in polynomial time.
 
 OWL 2 QL is based on the \textit{DL-Lite} family of description logics, a tractable family of fragments of first-order logic \cite{Artale2009,Calvanese2007}. 
-However, an important difference between the \textit{DL-Lite} family and OWL is the
-unique name assumption (UNA). The UNA is common in data management, therefore it is adopted in the \textit{DL-Lite} family whereas not adopted in OWL. In OWL, one uses the constructs \textbf{sameAs} or \textbf{differentFrom} explicitly to state that two individuals, say  $a$ and $b$, are the \emph{same} or \emph{different} respectively. For that reason in OWL 2 QL, any construct e.g., number restrictions or functionality constraints which can interfere with the UNA and also which can cause higher complexity without the UNA, has been avoided.\footnote{Some extensions of \textit{DL-Lite}$_\mathcal{R}$ like \textit{DL-Lite}$_\mathcal{A}$ comprises for example also functionality, for further readings see the work of Poggi et al. \cite{poggi2008linking}}
+However, an important difference between the \textit{DL-Lite} family and OWL 2 is the
+unique name assumption (UNA). The UNA is common in data management, therefore it is adopted in the \textit{DL-Lite} family whereas not adopted in OWL 2. In OWL, one uses the constructs \textbf{sameAs} or \textbf{differentFrom} explicitly to state that two individuals, say  $a$ and $b$, are the \emph{same} or \emph{different} respectively. For that reason in OWL 2 QL, any construct e.g., number restrictions or functionality constraints which can interfere with the UNA and also which can cause higher complexity without the UNA, has been avoided.\footnote{Some extensions of \textit{DL-Lite}$_\mathcal{R}$ like \textit{DL-Lite}$_\mathcal{A}$ comprises for example also functionality, for further readings see the work of Poggi et al. \cite{poggi2008linking}}
 
 Among the members of \textit{DL-Lite} family, \textit{DL-Lite}$_\mathcal{R}$ is the one that OWL 2 QL is based on. The reason is to avoid any problematic issue which might appear in the explicit axiomatization of the UNA, since  \textit{DL-Lite}$_\mathcal{R}$ in general does not require the UNA, because making this assumption has no semantic affect on a \textit{DL-Lite}$_\mathcal{R}$ ontology.
 
@@ -801,7 +801,7 @@ The subsequent steps are needed to determine the performance (i.e. computational
 \subsection{CWA/UNA Dependency}
 
 The distinction of constraint types regarding the dependency on CWA and UNA is an important aspect when combining reasoning with validation,
-as OWL reasoning requires {\em OWA} and {\em nUNA} and RDF validation is based on {\em UNA} (different names represent different objects) and
+as OWL 2 reasoning requires {\em OWA} and {\em nUNA} and RDF validation is based on {\em UNA} (different names represent different objects) and
 {\em CWA} (a statement is inferred to be false if it cannot be proved to be true).
 We classify constraint types according to the dependency on CWA and UNA:
 \begin{enumerate}
@@ -875,14 +875,14 @@ ISBN a RDFS:Datatype ; owl:equivalentClass [ a RDFS:Datatype ;
     owl:onDatatype xsd:string ; owl:withRestrictions ([ xsd:pattern "^\d{9}[\d|X]\$" ])] .
 \end{ex}
 
-The first OWL axiom explicitly declares {\em ISBN} to be a datatype. %\er{Why start from second and then first? Also better we say "owl axiom" when we talk axiom of owl, to prevent ambiguity.}\tb{resolved}
-The second OWL axiom defines {\em ISBN} as an abbreviation for a datatype restriction on {\em xsd:string}. 
+The first OWL 2 axiom explicitly declares {\em ISBN} to be a datatype. %\er{Why start from second and then first? Also better we say "owl axiom" when we talk axiom of owl, to prevent ambiguity.}\tb{resolved}
+The second OWL 2 axiom defines {\em ISBN} as an abbreviation for a datatype restriction on {\em xsd:string}. 
 The datatype {\em ISBN} can be used just like any other datatype like in the universal restriction above.
 The literal pattern matching constraint validates {\em ISBN} literals according to the stated regular expression. 
 %The triples \ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber} cause a constraint violation. 
 %The triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}, however, lead to valid data. %\er{Let us divide this last sentence of the paragraph.}\tb{resolved}
 
-$C_R$ corresponds to axioms in OWL. %  e.g., subsumption, sub-properties, cardinality restrictions, existential, and universal restrictions.
+$C_R$ corresponds to axioms in OWL 2. %  e.g., subsumption, sub-properties, cardinality restrictions, existential, and universal restrictions.
 %As we are dealing with fields from different research communities, we define our own nomenclature for RDF validation instead of reusing the heavily overloaded term axiom.
 %For instance, for  many in DL community, axioms are only those which are statements of TBox (subsumption statements), if there is a TBox and ABox. 
 %In OWL community, an ABox statement  i.e., "class assertion" is also called "class membership axiom". 
@@ -897,7 +897,7 @@ $C_R$ corresponds to axioms in OWL. %  e.g., subsumption, sub-properties, cardin
 %then the triple \ms{attackingByWeapon(Luke, DarthVader)} has to be stated explicitly.
 %If this triple is not stated, a constraint violation occurs.
 %If we use sub-properties with reasoning, the triple (which would cause a constraint violation) is inferred and therefore resolves the possible constraint violation.
-{\em Sub Properties}\footnote{Corresponds to \emph{R-54-SUB-OBJECT-PROPERTIES~}, \emph{R-54-SUB-DATA-PROPERTIES}}~, e.g., 
+{\em Sub-Properties}\footnote{Corresponds to \emph{R-54-SUB-OBJECT-PROPERTIES~}, \emph{R-54-SUB-DATA-PROPERTIES}}~, e.g., 
 is a constraint type for which reasoning may be performed.
 For instance, if a \emph{journal volume} has an {\em editor} relationship to a \emph{person}, 
 then the \emph{journal volume} must also have a {\em creator} relationship to the same \emph{person} (\ms{editor $\sqsubseteq$ creator}).
@@ -980,7 +980,7 @@ The {\em existential quantification}\footnote{Corresponds to {\em R-86-EXISTENTI
   owl:someValuesFrom Publisher ;
   rdfs:subClassOf Publication ] .
 \end{ex}
-If we execute reasoning on data containing the triples \ms{publisher(ISWC-2014-} \ms{Proceedings, Springer)} and \ms{rdf:type(Springer, Publisher)}, 
+If we execute reasoning on data containing the triples \ms{publisher(ISWC-2014-Proceedings, Springer)} and \ms{rdf:type(Springer, Publisher)}, 
 it can be inferred that {\em ISWC-2014-Proceedings} is a {\em Publication}.
 Now, all constraints associated with the class {\em Publication} are also validated for the individual {\em ISWC-2014-Proceedings} (e.g. that publications must have at least one author).
 Without reasoning, these constraints are not validated as {\em ISWC-2014-Proceedings} is not within the class extension of {\em Publication}.
@@ -1011,7 +1011,7 @@ which cannot be expressed by OWL 2 QL, but by OWL 2 DL \cite{owl2profiles2008}:
   owl:allValuesFrom Person ;
   RDFs:subClassOf Publication ] .
 \end{ex}
-When performing reasoning, the triples \ms{The-Lord-Of-The-Rings author} \ms{JRR-} \ms{Tolkien} and \ms{The-Lord-Of-The-Rings a Publication} infer that \ms{JRR-Tolkien} is a person.
+When performing reasoning, the triples \ms{The-Lord-Of-The-Rings author} \ms{JRR-Tolkien} and \ms{The-Lord-Of-The-Rings a Publication} infer that \ms{JRR-Tolkien} is a person.
 When reasoning is not executed, a constraint violation is raised, 
 as it is not explicitly stated that \ms{JRR-Tolkien} is a person and
 as each publication can only have \ms{author} relationships to persons.
@@ -1627,13 +1627,13 @@ From table \ref{tab:expressivity-sores-according-to-expressivity-classes} (with 
 \section{Related Work}
 \label{sec:related-Work}
 
-Tao \cite{tao2012integrity} proposed an OWL 2 DL extension to support integrity constraints and enables thereby the use of OWL as a constraint language for validation including the closed-world assumption. Beside a solution to explanation and repair of constraint violations, i.e. for integrity constraints, the author describes a sound and complete approach for constraint validation by conjunctive query answering.
+Tao \cite{tao2012integrity} proposed an OWL 2 DL extension to support integrity constraints and enables thereby the use of OWL 2 as a constraint language for validation including the closed-world assumption. Beside a solution to explanation and repair of constraint violations, i.e. for integrity constraints, the author describes a sound and complete approach for constraint validation by conjunctive query answering.
 
-Siren and Tao proposed an alternate semantics for OWL using CWA so that it could be used to validate integrity constraints.
+Siren and Tao proposed an alternate semantics for OWL 2 using CWA so that it could be used to validate integrity constraints.
 This semantics is implemented in the Stardog database\footnote{\url{http://stardog.com/}}\cite{SirinTao2009}. 
 They examined integrity constraint semantics proposed in the deductive databases literature and adopted them for OWL
 by reducing the validation of integrity constraints to SPARQL query answering by means of reasoners.
-This OWL semantics, however, was never submitted to a standards organization such as the W3C.
+This OWL 2 semantics, however, was never submitted to a standards organization such as the W3C.
 
 In description logics, reasoning tasks like query answering or detection of inconsistencies require the consideration of knowledge that is not only defined explicitly but also implicitly. To do so there are two different ways called forward- and backward-chaining. The first implies a materialized knowledge base, where the original knowledge base is extended by all assertions that can be inferred. State-of-the-art DL or OWL reasoners that following this approach are e.g. FaCT++ \cite{tsarkov2006fact++}, Pellet \cite{sirin2007pellet},  RacerPro \cite{haarslev2001racer}, or HermiT \cite{horrocks2012hermit}. On the second approach, the original knowledge base is kept in its original state and before queries are evaluated against the knowledge base, the queries will be rewritten such that its rewritings will consider also the implicit knowledge in the returned result set. Approaches following this way are e.g., \emph{ PerfectRef} given by Calvanese et al. \cite{Calvanese2007} or \emph{TreeWitness} proposed by Kontchakov et al. \cite{kontchakov2011combined}, which are both implemented in the --ontop-- framework\footnote{\url{http://ontop.inf.unibz.it}} for ontology-based data access. The choice between these two different ways depends on the specific application case. So the first kind is probably applied on local knowledge bases whereas the second is more appropriated for federative environments like in \cite{nolle2014efficient,nolle2013elite}. 
 So, even if reasoning is performed by query rewriting in terms of backward-chaining and constraint validation queries are evaluated through such an engine, rewritings will only be generated if possible and will not affect constraint validation that are checked e.g. by pattern matching.
