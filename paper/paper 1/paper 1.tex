@@ -954,10 +954,10 @@ There are many constraint types for which {\em OWL 2 QL reasoning} can be perfor
 %When only the triple \ms{Yoda a JediMaster} is given and reasoning is not executed, then a constraint violation is raised.
 %After reasoning, however, the triples \ms{Yoda a Jedi , FeelingForce} are inferred resulting in valid data. 
 The {\em Property Domain}\footnote{Corresponds to {\em R-25-PROPERTY-DOMAIN}} constraint
-\ms{$\exists$ author.$\top$ $\sqsubseteq$ Publication}
+\ms{$\exists$ author.$\top$ $\sqsubseteq$ Publication}, e.g., 
 ensures that only \emph{publications} can have {\em author} relationships to \emph{persons}.
 This constraint can be expressed by OWL 2 QL: \ms{author rdfs:domain Publication}.
-Without reasoning, the triple \ms{Alices-Adventures-In-Wonderland author Lewis-Carroll} causes a constraint violation, when it is not explicitly stated that \emph{Lewis-Carroll} is a \emph{person}. 
+Without reasoning, the triple \ms{Alices-Adventures-} \ms{In-Wonderland author Lewis-Carroll} causes a constraint violation, when it is not explicitly stated that \emph{Lewis-Carroll} is a \emph{person}. 
 When reasoning is performed before validating, the class assignment \ms{rdf:type(Lewis-Carroll, Person)} is inferred which prevents the constraint violation to be raised.
 
 %The {\em Property Domain}\footnote{Corresponds to {\em R-25-PROPERTY-DOMAIN}} constraint
@@ -982,8 +982,8 @@ The {\em existential quantification}\footnote{Corresponds to {\em R-86-EXISTENTI
 \end{ex}
 If we execute reasoning on data containing the triples \ms{publisher(ISWC-2014-Pro} \ms{ceedings, Springer)} and \ms{rdf:type(Springer, Publisher)}, 
 it can be inferred that {\em ISWC-2014-Proceedings} is a {\em publication}.
-Now, all constraints associated with the class {\em publication} are also validated for the individual {\em ISWC-2014-Proceedings} (e.g. that \emph{publications} must have at least one \emph{author}).
-Without reasoning, these constraints are not validated as {\em ISWC-2014-Proceedings} is not within the class extension of {\em publication}.
+Now, all constraints associated with {\em publications} are also validated for the individual {\em ISWC-2014-Proceedings} (e.g. that \emph{publications} must have at least one \emph{author}).
+Without reasoning, constraints on {\em publications} are not validated as {\em ISWC-2014-Proceedings} is not part of the class extension of {\em publication}.
 
 %The {\em Existential Quantification}\footnote{Corresponds to {\em R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}}
 %\ms{Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword} let us refer to all those individuals that are connected by \ms{hasLaserSword} to an individual that is an instance of the class \ms{LaserSword}.
@@ -1011,10 +1011,10 @@ which cannot be expressed by OWL 2 QL, but by OWL 2 DL \cite{owl2profiles2008}:
   owl:allValuesFrom Person ;
   RDFs:subClassOf Publication ] .
 \end{ex}
-When performing reasoning, the triples \ms{The-Lord-Of-The-Rings author} \ms{JRR-} \ms{Tolkien} and \ms{rdf:type(The-Lord-Of-The-Rings, Publication)} infer that \emph{JRR-Tolkien} is a \emph{person}.
+When performing reasoning, the triples \ms{author(The-Lord-Of-The-Rings,} \ms{Tol} \ms{kien} and \ms{rdf:type(The-Lord-Of-The-Rings, Publication)} infer that \emph{Tolkien} is a \emph{person}.
 When reasoning is not executed, a constraint violation is raised, 
-as it is not explicitly stated that \emph{JRR-Tolkien} is a \emph{person} and
-as each \emph{publication} can only have \emph{author} relationships to \emph{persons}.
+as it is not explicitly stated that \emph{Tolkien} is a \emph{person} and
+each \emph{publication} can only have \emph{author} relationships to \emph{persons}.
 
 %{\em Universal quantifications}\footnote{Corresponds to {\em R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}}
 %contain all those individuals that are connected by a particular property only to individuals that are instances of a specific class.
@@ -1097,24 +1097,21 @@ It is possible, however, to execute reasoning before validating constraints for 
 %whereas data including the triples \ms{DarthMaul a Jedi ; laserSwordColor 'red'} is invalid.
 With the constraint type {\em Context-Specific Exclusive OR of Properties}\footnote{Corresponds to {\em R-11-CONTEXT-SPECIFIC-EXCLUSIVE-OR-OF-PROPERTIES}} 
 it can be defined that an individual can either have a relationship via property A or via property B to given classes, but not both.
-Identifiers of publications, e.g., are either ISBNs (for books) or ISSNs (for periodical publications), but it should not be possible to assign both identifiers to a publication:
+Identifiers of publications, e.g., can either be ISBNs (for books) or ISSNs (for periodical publications), but it should not be possible to assign both identifiers to a given publication:
 \begin{center}
 \begin{DL}
 Publication &$\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
-A &$\equiv$ $\exists$ isbn.xsd:string \\
-B &$\equiv$ $\exists$ issn.xsd:string \\ 
+A &$\equiv$ $\exists$ isbn.xsd:string , B $\equiv$ $\exists$ issn.xsd:string \\ 
 \end{DL} 
 \end{center}
 Expressing this constraint by OWL 2 DL can be seen as a workaround, 
 as anonymous classes are built for each of the exclusive properties:
 \begin{ex}
 Publication owl:disjointUnionOf ( CC1 CC2 ) . 
-CC1 rdfs:subClassOf [
-    a owl:Restriction ;
+CC1 rdfs:subClassOf [ a owl:Restriction ;
     owl:onProperty isbn ;
     owl:someValuesFrom xsd:string ] .
-CC2 rdfs:subClassOf [
-    a owl:Restriction ;
+CC2 rdfs:subClassOf [ a owl:Restriction ;
     owl:onProperty issn ;
     owl:someValuesFrom xsd:string ] .
 \end{ex}
@@ -1167,26 +1164,23 @@ Publication { (
 
 %\textbf{Expressible by Other Constraint Languages.}
 The majority of constraints can neither be expressed by OWL 2 QL nor by OWL 2 DL, but by other constraint languages like DSP, ShEx, ReSh, or SPIN.
-One of those constraint types is
-{\em default values}\footnote{Corresponds to {\em R-31-DEFAULT-VALUES-OF-RDF-OBJECTS}, {\em R-38-DEFAULT-VALUES-OF-RDF-LITERALS}}
-for given object and data properties, 
-so that input forms can be pre-populated and to insert a required property that is missing in a web service call. 
-If, e.g., no keyword is stated for \emph{Semantic Web publications}, default \emph{keywords} should be 'Semantic Web' and 'Linked Data'
-If there is only stated that this paper is a \emph{Semantic Web publication} (\ms{rdf:type(ThisPaper, SemanticWebPublication)}), 
-then additional default triples are inferred: 
-\ms{keyword(ThisPaper,"Semantic Web")} and \ms{keyword(ThisPaper,"Linked Data")}.
-Default values constraints can be expressed by ReSh and SPIN.
-In SPIN, we define a rule associated with the class {\em owl:Thing}:
+{\em Default values}\footnote{Corresponds to {\em R-31-DEFAULT-VALUES-OF-RDF-OBJECTS}, {\em R-38-DEFAULT-VALUES-OF-RDF-LITERALS}}
+for properties, e.g., can be represented by ReSh and SPIN,
+so that input forms can be pre-populated. % and to insert a required property that is missing in a web service call. 
+If, e.g., no keyword is stated for \emph{Semantic Web publications}, default \emph{keywords} could be 'Semantic Web' and 'Linked Data'.
+As this paper is a \emph{Semantic Web publication} (\ms{rdf:type(This-Paper, Semantic-Web-Publication)}), 
+default triples for keywords like (\ms{keyword(This-} \ms{Paper,"Semantic Web")} could be inferred.
+In SPIN, rules can be associated with the class {\em owl:Thing}:
 \begin{ex}
 owl:Thing spin:rule [ a sp:Construct ; sp:text """
     CONSTRUCT { ?subject keyword "Semantic Web", "Linked Data" . }
-    WHERE { ?subject a SemanticWebPublication . } """ ; ] .
+    WHERE { ?subject a Semantic-Web-Publication . } """ ; ] .
 \end{ex}
 This rule is applicable for each resource, as each resource is implicitly of the type {\em owl:Thing}. 
 For each resource, the SPARQL CONSTRUCT query within the rule body is executed creating the default triples.
 ReSh can also be used to represent default values:
 \begin{ex}
-SemanticWebPublication a ResourceShape ; property [
+Semantic-Web-Publication a ResourceShape ; property [
     name "keyword" ; propertyDefinition keyword ; valueType xsd:string ;
     defaultValue "Semantic Web", "Linked Data" ; ] .
 \end{ex}
@@ -1627,15 +1621,17 @@ From table \ref{tab:expressivity-sores-according-to-expressivity-classes} (with 
 \section{Related Work}
 \label{sec:related-Work}
 
-Tao \cite{tao2012integrity} proposed an OWL 2 DL extension to support integrity constraints and enables thereby the use of OWL 2 as a constraint language for validation including the closed-world assumption. Beside a solution to explanation and repair of constraint violations, i.e. for integrity constraints, the author describes a sound and complete approach for constraint validation by conjunctive query answering.
-
-Siren and Tao proposed an alternate semantics for OWL 2 using CWA so that it could be used to validate integrity constraints.
-This semantics is implemented in the Stardog database\footnote{\url{http://stardog.com/}}\cite{SirinTao2009}. 
+Tao \cite{tao2012integrity} proposed an OWL 2 DL extension to support integrity constraints and enables thereby the use of OWL 2 as a constraint language for validation including the CWA by conjunctive query answering. Tao also provides a solution to explain and repair integrity constraint violations.
+Siren and Tao proposed an alternate semantics for OWL 2 using CWA so that it could be used to validate integrity constraints\footnote{This semantics is implemented in the Stardog database: \url{http://stardog.com/}}\cite{SirinTao2009}. 
 They examined integrity constraint semantics proposed in the deductive databases literature and adopted them for OWL
 by reducing the validation of integrity constraints to SPARQL query answering by means of reasoners.
 This OWL 2 semantics, however, was never submitted to a standards organization such as the W3C.
 
-In description logics, reasoning tasks like query answering or detection of inconsistencies require the consideration of knowledge that is not only defined explicitly but also implicitly. To do so there are two different ways called forward- and backward-chaining. The first implies a materialized knowledge base, where the original knowledge base is extended by all assertions that can be inferred. State-of-the-art DL or OWL reasoners that following this approach are e.g. FaCT++ \cite{tsarkov2006fact++}, Pellet \cite{sirin2007pellet},  RacerPro \cite{haarslev2001racer}, or HermiT \cite{horrocks2012hermit}. On the second approach, the original knowledge base is kept in its original state and before queries are evaluated against the knowledge base, the queries will be rewritten such that its rewritings will consider also the implicit knowledge in the returned result set. Approaches following this way are e.g., \emph{ PerfectRef} given by Calvanese et al. \cite{Calvanese2007} or \emph{TreeWitness} proposed by Kontchakov et al. \cite{kontchakov2011combined}, which are both implemented in the --ontop-- framework\footnote{\url{http://ontop.inf.unibz.it}} for ontology-based data access. The choice between these two different ways depends on the specific application case. So the first kind is probably applied on local knowledge bases whereas the second is more appropriated for federative environments like in \cite{nolle2014efficient,nolle2013elite}. 
+In description logics, reasoning tasks like query answering or detection of inconsistencies require the consideration of knowledge that is not only defined explicitly but also implicitly. To do so there are two different ways called forward- and backward-chaining. The first implies a materialized knowledge base, where the original knowledge base is extended by all assertions that can be inferred. State-of-the-art DL or OWL reasoners following this approach are e.g. FaCT++ \cite{tsarkov2006fact++}, Pellet \cite{sirin2007pellet},  RacerPro \cite{haarslev2001racer}, or HermiT \cite{horrocks2012hermit}. 
+On the second approach, the original knowledge base is kept in its original state and before queries are evaluated against the knowledge base, the queries are rewritten such that the rewritings also consider the implicit knowledge in the result set. 
+Approaches following this way are \emph{PerfectRef} given by Calvanese et al. \cite{Calvanese2007} or \emph{TreeWitness} proposed by Kontchakov et al. \cite{kontchakov2011combined}, which are both implemented in the --ontop-- framework\footnote{\url{http://ontop.inf.unibz.it}} for ontology-based data access. 
+
+The choice between these two different ways depends on the specific application case. So the first kind is probably applied on local knowledge bases whereas the second is more appropriated for federative environments like in \cite{nolle2014efficient,nolle2013elite}. 
 So, even if reasoning is performed by query rewriting in terms of backward-chaining and constraint validation queries are evaluated through such an engine, rewritings will only be generated if possible and will not affect constraint validation that are checked e.g. by pattern matching.
 
 
