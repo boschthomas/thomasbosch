@@ -267,26 +267,19 @@ In this paper, we investigate the relationship of validation and reasoning and t
 In 2013, the W3C invited experts from industry, government, and academia to the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/RDF-val/}}, 
 where first use cases on RDF validation have been presented and discussed. 
 Two working groups (WGs) that follow up on this workshop and address RDF constraint formulation and validation, are established in 2014: 
-the W3C RDF Data Shapes WG\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles WG\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
+the W3C RDF Data Shapes WG\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles TG\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
 % RDF validation requirements database
 % -----
-As a part of our earlier work \cite{BoschEckert2014}, we initiated a comprehensive database (publicly available at \url{http://purl.org/net/RDF-validation}) on RDF validation requirements to collect case studies, use cases, and requirements. It is continuously updated and used to evaluate and to compare various existing solutions for RDF constraint formulation and validation. 
+As a part of our earlier work \cite{BoschEckert2014}, we initiated a comprehensive database\footnote{Publicly available at \url{http://purl.org/net/RDF-validation}.} on RDF validation requirements to collect case studies, use cases, and requirements. It is continuously updated and used to evaluate and to compare various existing solutions for RDF constraint formulation and validation. 
 Requirements are classified to provide a high-level view on different solutions and to facilitate a better understanding of the problem domain.  
 
 
 % RDF validation in the library domain
 % -----
-Rdf validation gained speed as a research field in recent years, as a result of common needs.  For instance, libraries are used to publish data in form of XML documents for a long time.
-They model and validate data using quite complex and very detailed XML Schemas, DTDs, RELAX NG, or Schematron.
-Recently, libraries started to publish RDF data sets, since libraries have many use cases which are met by Semantic Web technologies and Linked Data. 
-A library wants to publish some data sets as RDF by extracting them from different relational databases. 
-In order to achieve high data quality some constraints are defined first on a very
-generic level written down in some natural language sentences.  
-Now it needs to be decided which formalism to use in order to formally express
-these constraints and to check their validity. 
-It is often needed to declare properties of given classes as mandatory.  
-Publications, for instance, must have publishing dates.
-Another common constraint is that literals of particular properties (e.g., ISBN identifiers) must correspond to some pattern.
+Recently, RDF validation as a research field gained speed due to common needs of data practitioners. A typical example is the library domain that co-developed and adopted Linked Data principles very early. For libraries, the common description of resources are key business and they have a long tradition in developing and using interoperable data formats. While they embrace the openness of Linked Data and the data modeling principles provided by RDF, the data is still mostly represented in XML and this is unlikely to change soon. 
+Among the reasons for the success of XML is the possibility to formulate fine-grained constraints to be met by the data and to validate the data according to these constraints using powerful systems like DTDs, XML Schemas, RELAX NG, or Schematron.
+
+A typical example is the definition of a library record describing a book. There are clear rules which information has to be available to describe a book properly (required fields, like a title), but also how information like an ISBN number is properly represented. Libraries seek to make their own data reusable for general purposes, but also to enrich and interlink their own data. Checking if third-party data meets own requirements or validating existing data according to new needs for a Linked Data application are among common use cases for RDF validation.
 
 % constraint languages
 % -----
