@@ -706,7 +706,7 @@ $\mathcal{K}=\{$ & \ms{Book $\sqsubseteq \exists$ title.$\top$}, \ms{Book $\sqsu
 %\end{DL}
 %\end{center}
 
-As we know that \emph{books} can only have \emph{persons} as \emph{authors} (\ms{Book $\sqsubseteq \forall$ author.Person}), 
+As we know that \emph{books} can only have \emph{persons} as \emph{authors} (\ms{Book $\sqsubseteq \forall$} \ms{author.} \ms{Person}), 
 {\em Huckleberry-Finn} is a \emph{book}  (\ms{Book(Huckleberry-Finn)}), 
 and \emph{Mark Twain} is its \emph{author} (\ms{author(Huckleberry-Finn, Mark-Twain)}),
 we conclude that \emph{Mark Twain} must be a \emph{person}.
@@ -737,7 +737,7 @@ Hence, classical constraint languages are based on CWA where constraints need to
 We can further observe that there is a clash caused by the functional property {\em title} (\ms{funct (title)}) and the UNA,
 since the book {\em Huckleberry-Finn} has more than one title
 (\ms{title(Huckleberry-Finn, The-Adventures-of-Huckleberry-Finn)}, \ms{title(Huckleberry-Finn, Die-Abenteuer-des-Huckleberry-Finn)}).
-In OWA, however, there is no UNA by default, therefore reasoning will conclude that {\em The-Adventures-of-Huckleberry-Finn} is the same as {\em Die-Abenteuer-des-Huckleberry-Finn} (\ms{\{The-Adventures-of-Huckleberry-Finn\}} = \ms{\{Die-Abenteuer-des-Huckleberry-Finn\}}). 
+In OWA, however, there is no UNA by default, therefore reasoning will conclude that {\em The-Adventures-of-Huckleberry-Finn} is the same as {\em Die-Abenteuer-des-Huckleberry-Finn} (\ms{\{The-Adventures-of-Huckleberry-Finn\}} = \ms{\{Die-Abenteuer-des-Huckle} \ms{berry-}\ms{Finn\}}). 
 This is not a problem if we add the UNA to the OWA, like in the \textit{DL-Lite} family \cite{Calvanese2007,Artale2009}, which is the basis for OWL 2 QL. 
 
 \subsection{Expressivity and Complexity in OWL 2}
