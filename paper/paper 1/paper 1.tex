@@ -1289,9 +1289,9 @@ some constraint types in $\mathcal{C}_R$ are not only expressible by OWL 2  but 
 %\end{center}
 %\tb{this is indeed a misunderstanding. I only took into account that is DSP supports 6 EXPR-C constraints and OWL 2 DL 5, then DSP is more expressive than OWL 2 DL regarding the expressivity class EXPR-C / but this is not right?}
 In Table \ref{tab:constraint-type-specific-expressivity}, the total amount of constraint types per constraint type specific expressivity is shown by numbers in round brackets in the first column.
-Numbers in round brackets in the other columns indicate the number of constraint types which may be expressed by that particular constraint language - either by limitations, workarounds, or extensions.  
+Numbers in paranthesis in the other columns indicate the number of constraint types which may be expressed by that particular constraint language - either by limitations, workarounds, or extensions.  
 %\er{One possible misunderstanding (maybe not) is the ordering. It is not only based on the size of the number of the constrains that they satisfies right? For instance, if there are 6 constraints (from EXPR-C) that  DSP satisfies and OWL2-DL  can satisfy lets say only 5 of them but 13 other, in such scenario OWL2 DL and DSP would be incomparable (no ordering). It is more expressive only if it contains those 6 and extras.}
-The total orderings derived from expressivity scores are:
+The following ordered is derived from expressivity scores:
 \begin{eqnarray*}
 %Expr(\mathcal{C}): ... \\
 Expr(\overline{\mathcal{C}_R}): DSP \prec OWL2QL \prec ReSh \prec ShEx \prec OWL2DL \prec SPIN \\
@@ -1299,12 +1299,12 @@ Expr(\mathcal{C}_R): DSP \prec OWL2QL \prec ShEx \prec ReSh \prec OWL2DL \prec S
 \end{eqnarray*}
 It depends on the individual use case which constraint language to use in order to fulfill related requirements, i.e., to express associated constraint types.
 If, e.g., many constraint types in $\mathcal{C_R}$ are needed, the constraint language SPIN is the most expressive one.
-If, on the other hand, only specific requirements in $\overline{\mathcal{C_R}}$ or $\mathcal{C_R}$ are needed, 
+On the other hand, if only specific requirements in $\overline{\mathcal{C_R}}$ or $\mathcal{C_R}$ are needed, 
 it can be more reasonable to use a more compact one like ShEx.
 
 For a validation labourer, it is relevant to question the expressivity interrelation between those constraint languages, e.g., "which constraint language could contain the whole DSP or  could be used instead?". This can also maintain the future development plans and directions of those languages in the way of achieving to be a solid standard constraint language.
 
- With the aforementioned concern, let us introduce  \emph{Expr(DSP)}  which denotes the all constraint types which are expressible by DSP.  We can consider \emph{Expr(DSP)} as an expressivity class for the constraint language DSP. Using the same fashion, one can obtain an expressivity class  per constraint language, including all the constraints expressible by that constraint language.
+ With the aforementioned concern, let us introduce  \emph{Expr(DSP)}  which denotes the all constraint types which are expressible by DSP.  We can consider \emph{Expr(DSP)} as an expressivity class for the constraint language DSP. Using the same fashion, one can obtain an expressivity class  per each constraint language, which denotes the set of constraints which  are expressible by that constraint language.
 %\begin{itemize}
 	%\item \emph{Expr(DSP)}: constraints expressible by DSP
 	%\item \emph{Expr(OWL2-DL)}: constraints expressible by OWL2-DL
@@ -1350,7 +1350,7 @@ If we rank them according their scores, just as before we get the following as a
 \emph{Expr(SPIN):} ReSh \prec DSP \prec OWL2QL \prec ShEx \prec OWL2DL \prec SPIN
 \end{eqnarray*}
 
-From table \ref{tab:expressivity-sores-according-to-expressivity-classes} (with numbers), one can infer that in terms of expressivity on constraint types, DSP can be fully covered by SPIN if we ignore one last constraint type (i.e., the recursive queries which is partly implemented in SPIN). Yet another interesting message is that, none of those languages with mediocre expressivity covers the other so far. As we keep the validation requirements updated and those languages are further developed, it is likely that this list will change as well in the direction of needs of the validation community.
+From Table \ref{tab:expressivity-sores-according-to-expressivity-classes} (with numbers), one can infer that in terms of expressivity on constraint types, DSP can be fully covered by SPIN if we ignore one last constraint type (i.e., the recursive queries which is partly implemented in SPIN). Yet another interesting message is that, none of those languages with mediocre expressivity covers the other so far. As we keep the validation requirements updated and those languages are further developed, it is likely that this list will change as well in the direction of needs of the validation community.
 
 %\subsection{Classification Dimension Expressivity [Old]}
 %
