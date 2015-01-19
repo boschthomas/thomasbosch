@@ -1249,7 +1249,7 @@ The  relation between those complexity classes is well-known \cite{Arora:2009:CC
 \end{eqnarray*}
 %There are constraints (e.g., class-specific property range, class-specific reflexive object properties) for which reasoning could be executed even though there is currently no implementation supported by any constraint language. 
 %We leave it as future work to write SPARQL CONSTRUCT queries in order to provide reasoning for these constraints.
-Note that there is also the OWL 2 Full (which is not a DL) for reasoning that we will not include in our classification, since its high worst case complexity (undecidability) as well as interesting RDF constraint types with reasoning is already available in aforementioned OWLs (OWL 2 DL/QL).
+Note that there is also OWL 2 Full (which is not a DL) for reasoning that we will not include in our classification, since its high worst case complexity (undecidability) as well as interesting RDF constraint types with reasoning is already available in aforementioned OWLs (OWL 2 DL/QL).
 \section{Classification of Constraint Languages according to Expressivity}
 \label{classification-constraint-languages}
  
@@ -1293,7 +1293,7 @@ some constraint types in $\mathcal{C}_R$ are not only expressible by OWL 2  but 
 \end{table}
 %\end{center}
 %\tb{this is indeed a misunderstanding. I only took into account that is DSP supports 6 EXPR-C constraints and OWL 2 DL 5, then DSP is more expressive than OWL 2 DL regarding the expressivity class EXPR-C / but this is not right?}
-In Table\ref{tab:constraint-type-specific-expressivity}, the total amount of constraint types per constraint type specific expressivity is shown by numbers in round brackets in the first column.
+In Table \ref{tab:constraint-type-specific-expressivity}, the total amount of constraint types per constraint type specific expressivity is shown by numbers in round brackets in the first column.
 Numbers in round brackets in the other columns indicate the number of constraint types which may be expressed by that particular constraint language - either by limitations, workarounds, or extensions.  
 %\er{One possible misunderstanding (maybe not) is the ordering. It is not only based on the size of the number of the constrains that they satisfies right? For instance, if there are 6 constraints (from EXPR-C) that  DSP satisfies and OWL2-DL  can satisfy lets say only 5 of them but 13 other, in such scenario OWL2 DL and DSP would be incomparable (no ordering). It is more expressive only if it contains those 6 and extras.}
 The total orderings derived from expressivity scores are:
