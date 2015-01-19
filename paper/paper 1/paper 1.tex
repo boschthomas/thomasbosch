@@ -1291,7 +1291,7 @@ some constraint types in $\mathcal{C}_R$ are not only expressible by OWL 2  but 
 In Table \ref{tab:constraint-type-specific-expressivity}, the total amount of constraint types per constraint type specific expressivity is shown by numbers in round brackets in the first column.
 Numbers in paranthesis in the other columns indicate the number of constraint types which may be expressed by that particular constraint language - either by limitations, workarounds, or extensions.  
 %\er{One possible misunderstanding (maybe not) is the ordering. It is not only based on the size of the number of the constrains that they satisfies right? For instance, if there are 6 constraints (from EXPR-C) that  DSP satisfies and OWL2-DL  can satisfy lets say only 5 of them but 13 other, in such scenario OWL2 DL and DSP would be incomparable (no ordering). It is more expressive only if it contains those 6 and extras.}
-The following ordered is derived from expressivity scores:
+The following order is derived from expressivity scores:
 \begin{eqnarray*}
 %Expr(\mathcal{C}): ... \\
 Expr(\overline{\mathcal{C}_R}): DSP \prec OWL2QL \prec ReSh \prec ShEx \prec OWL2DL \prec SPIN \\
@@ -1304,7 +1304,7 @@ it can be more reasonable to use a more compact one like ShEx.
 
 For a validation labourer, it is relevant to question the expressivity interrelation between those constraint languages, e.g., "which constraint language could contain the whole DSP or  could be used instead?". This can also maintain the future development plans and directions of those languages in the way of achieving to be a solid standard constraint language.
 
- With the aforementioned concern, let us introduce  \emph{Expr(DSP)}  which denotes the all constraint types which are expressible by DSP.  We can consider \emph{Expr(DSP)} as an expressivity class for the constraint language DSP. Using the same fashion, one can obtain an expressivity class  per each constraint language, which denotes the set of constraints which  are expressible by that constraint language.
+ With the aforementioned concern, let us introduce  \emph{Expr(DSP)}  which denotes the all constraint types which are expressible by DSP.  We can consider \emph{Expr(DSP)} as an expressivity class for the constraint language DSP. Using the same fashion, one can obtain an expressivity class  per constraint language, which denotes the set of constraint types which  are expressible by that constraint language.
 %\begin{itemize}
 	%\item \emph{Expr(DSP)}: constraints expressible by DSP
 	%\item \emph{Expr(OWL2-DL)}: constraints expressible by OWL2-DL
@@ -1634,7 +1634,7 @@ We divide $\mathcal{C}_R$ into two not disjoint classes ($\mathcal{C}_R ^{\mathc
 It is well known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}, 
 which is assigned to $\overline{\mathcal{C}_R}$ (validation by query answering without reasoning).
 In section \ref{classification-constraint-languages} we classified constraint languages according to expressivity. 
-\tb{needs to be described more}
+%\tb{needs to be described more}
 We implemented the validation of all OWL 2 QL, OWL 2 DL, DSP (and major ReSh and ShEx) constructs
 within our SPIN validation environment in form of SPARQL CONSTRUCT queries (\url{http://purl.org/net/RDFval-demo}).
 %\cite{BoschEckert2014-2}\footnote{SPIN mappings: \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}, \url{https://github.com/dcmi/DSP-SPIN-Mapping}}.
