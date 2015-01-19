@@ -667,7 +667,7 @@ Related work, conclusion and future work finalize the paper.
 %\begin{itemize}
 	%\item advantages and disadvantages of OWL in terms of validation
 %\end{itemize}
-OWL is an expressive semantic web language which is based on description logics, offering knowledge representation and reasoning services. OWL 2 is an extended new version of it. Validation, however, is not the primary purpose of its design. 
+OWL is an expressive Semantic Web language which is based on Description logics, offering knowledge representation and reasoning services. OWL 2 is an extended new version of it. Validation, however, is not the primary purpose of its design. 
 This has lead to claims that OWL 2 cannot be used for validation. 
 There have been long and controversial discussions\footnote{\url{http://lists.w3.org/Archives/Public/public-data-shapes-wg/}\\ \url{https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=dc-architecture}} in the W3C and DCMI WGs if OWL 2 should be used for RDF validation.
 %However, OWL 2 is high-level  expressive  language with a compact human-readable syntax.
@@ -679,16 +679,16 @@ Reasoning is beneficial for RDF validation as
 (1) it may resolve constraint violations, 
 (2) it may cause additional constraint violations, and 
 (3) it solves the redundancy problem. 
-Consider the following DL knowledge base $\mathcal{K}$:
+Consider the following DL knowledge base $\mathcal{K}$\footnote{A knowledge base is a collection of formal statements  which corresponds to \emph{facts} or  \emph{what is known} explicitly.}
 
 \begin{center}
 \begin{DL} 
 $\mathcal{K}=\{$ & \ms{Book $\sqsubseteq \exists$ title.$\top$}, \ms{Book $\sqsubseteq \forall$ author.Person }\\
  &(\ms{funct (title)}),\\
- &\ms{Book(Huckleberry-Finn)}, \ms{Book(Hamlet)}\\
+ &\ms{Book(Huckleberry-Finn)}, \ms{Book(Hamlet)},\\
  &\ms{author(Huckleberry-Finn, Mark-Twain)},\\
  &\ms{title(Huckleberry-Finn, The-Adventures-of-Huckleberry-Finn)},\\
- &\ms{title(Huckleberry-Finn, Die-Abenteuer-des-Huckleberry-Finn)}\\ 
+ &\ms{title(Huckleberry-Finn, Die-Abenteuer-des-Huckleberry-Finn)}\}\\ 
 \end{DL}
 \end{center}
 
