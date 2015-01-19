@@ -772,7 +772,7 @@ This is not a problem if we add the UNA to the OWA, like in the \textit{DL-Lite}
 	%\item constraints only expressible by other constraint languages
 %\end{itemize}
 For this paper, we identified in total 74 requirements to formulate RDF constraints; each of them corresponding to a constraint type. 
-We recently published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} (serving as appendix of this paper) in which we explain each requirement/constraint type in detail and give examples for each (represented by listed constraint languages).
+We recently published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} (serving as appendix of this paper) in which we explain each requirement (constraint type) in detail and give examples for each (represented by listed constraint languages).
 This technical report also contains mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
 %When the DL constructs  which are needed to express a particular constraint are known, the required expressivity and the computational complexity to perform reasoning for that constraint can be determined. 
 %The constraint \ms{Context-Specific Exclusive OR of Properties} (see section~\ref{sec:RDF-validation-requirements-without-reasoning-2}), e.g., can generically be expressed as follows:
@@ -1253,18 +1253,13 @@ Note that there is also OWL 2 Full (which is not a DL) for reasoning that we wil
 \section{Classification of Constraint Languages according to Expressivity}
 \label{classification-constraint-languages}
  
-In this section, we concern ourselves with the expressivity of constraint languages, or constraint type specific expressivity.
+In this section, we concern ourselves with the expressivity of constraint languages, or constraint type (requirement) specific expressivity.
 Therefore, we evaluated the five most popular constraint languages on fulfilling each requirement to formulate RDF constraints.
 We also evaluated if a specific requirement is expressed by OWL 2 QL or if the more expressive OWL 2 DL is needed\cite{BoschNolleAcarEckert2015}.
  %As we identified three constraint-specific complexity classes in the previous section, we are now able to determine the performance (i.e. complexity) of constraint languages.  It can be beneficial not using the most expressive constraint languages when additional rather subjective criteria are evaluated.
-In evaluating the expressivity,  we introduce the intuitive notion of \emph{expressivity scores}. 
+In evaluating the expressivity,  we introduce the intuitive notion of \emph{expressivity scores} rather than classical expressivity. The main motivation in that is, the list of constraint types is an updated list, and almost none (except SPIN) of the aforementioned languages contains one another.
 The expressivity score of a constraint language is how many constraint types can be expressed by this particular constraint language.
-While we evaluate expressivity scores, we use two sets of constraint types as before: $C_R$ and $\overline{C_R}$. The main motivation in that is, one may want to perform reasoning before actually validating the data. 
-\begin{enumerate}
-  %\item $Expr(\mathcal{C})$: set of all constraints
-	\item $Expr(\overline{\mathcal{C}_R})$: constraint types without reasoning 
-	\item $Expr(\mathcal{C}_R)$: constraint types with reasoning
-\end{enumerate}
+While we evaluate expressivity scores, we use two sets of constraint types as before: $C_R$ and $\overline{C_R}$. The main motivation in that is, one may want to perform reasoning before actually validating the data.  For the sake of simplicity, we abbreviate \emph{expressing $C_R$} as $Expr(C_R)$, and \emph{expressing $\overline{C_R}$} as $Expr(\overline{C_R})$.
 
 %\emph{constraints with reasoning} can be used as axioms to infer new triples out of explicitly stated triples (see section \ref{sec:RDF-validation-requirements-and-reasoning}), but also to express constraints without reasoning. \er{Also to express constraints?}\tb{also to express constraints without reasoning}
 %If in our knowledge base it is stated that \ms{DarthVader} is a \ms{Sith} (e.g., \ms{Sith(DarthVader)}) and  Siths feel the force of the dark side (e.g., \ms{Sith $\sqsubseteq$ FeelingForceDarkSide}), it is either possible to infer that \ms{DarthVader} feels the force of the dark side (\ms{FeelingForceDarkSide(DarthVader)}) 
