@@ -800,10 +800,10 @@ The subsequent steps are needed to get an idea about the performance (i.e. compu
 
 \subsection{Dependency on CWA with UNA}
 
-The distinction of constraint types regarding the dependency on the CWA with the UNA is an important aspect when combining reasoning with validation,
-as OWL 2 reasoning requires the OWA with the nUNA and RDF validation is based on the UNA (different names represent different objects) and
-the CWA (a statement is inferred to be false if it cannot be proved to be true).
-We classify constraint types according to the dependency on the CWA with UNA: (1) $\mathcal{C}_{CWA}$ which is  the set of constraint types dependent on the CWA with UNA, (2) $\overline{\mathcal{C}_{CWA}}$, the set of constraint types independent on the CWA with UNA.  $\mathcal{C}_{CWA}$ includes constraint types for which it makes a difference if the CWA/UNA or the OWA/nUNA is assumed.
+The distinction of constraint types regarding the dependency on the CWA with the UNA is an important aspect when combining reasoning with validation;
+ OWL 2 reasoning requires the OWA without the UNA  whereas RDF validation is classically based on the UNA (different names represent different objects) and
+the CWA.
+We classify constraint types according to the dependency on the CWA with UNA; (1) $\mathcal{C}_{CWA}$ which is  the set of constraint types dependent on the CWA with UNA,  and (2) $\overline{\mathcal{C}_{CWA}}$, its complement (set of constraint types independent on the CWA with UNA).  Therefore, $\mathcal{C}_{CWA}$ includes constraint types for which it makes a difference if the CWA/UNA or the OWA/nUNA is assumed.
 If something is a \emph{publication}, e.g., it has at least one \emph{author} (\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}).
 This {\em qualified cardinality restriction} depends on the CWA/UNA.
 In a CWA/UNA setting, a \emph{publication} without an explicitly stated author violates this constraint.  
