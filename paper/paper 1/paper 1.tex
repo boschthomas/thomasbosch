@@ -740,30 +740,27 @@ since the book {\em Huckleberry-Finn} has more than one title
 In OWA, however, there is no UNA by default, therefore reasoning will conclude that {\em The-Adventures-of-Huckleberry-Finn} is the same as {\em Die-Abenteuer-des-Huckleberry-Finn} (\ms{\{The-Adventures-of-Huckleberry-Finn\}} = \ms{\{Die-Abenteuer-des-Huckle} \ms{berry-}\ms{Finn\}}). 
 This is not a problem if we add the UNA to the OWA, like in the \textit{DL-Lite} family \cite{Calvanese2007,Artale2009}, which is the basis for OWL 2 QL. 
 
-\subsection{Expressivity and Complexity in OWL 2}
+%\subsection{Expressivity and Complexity in OWL 2}
 
-\tb{I would briefly describe them (2paragraphs) in complexity subsection of next chapter / less than half page}
+%\tb{I would briefly describe them (2paragraphs) in complexity subsection of next chapter / less than half page}
 
-OWL 2 profiles (or fragments in logic literature) are restricted (sublanguage) versions of OWL 2 that offer different trade-offs regarding expressivity  vs. efficiency in reasoning. There are three main  profiles of OWL 2, which are OWL 2 QL, OWL 2 RL and OWL 2 EL namely, each designed to  be useful for different purposes and application scenarios. The choice of which profile to use is purpose-specific on what to express and to perform the reasoning about. We refer the reader to \cite{owl2profiles2008} for a comprehensive treatment of those profiles.
+%OWL 2 profiles (or fragments in logic literature) are restricted (sublanguage) versions of OWL 2 that offer different trade-offs regarding expressivity  vs. efficiency in reasoning. There are three main  profiles of OWL 2, which are OWL 2 QL, OWL 2 RL and OWL 2 EL namely, each designed to  be useful for different purposes and application scenarios. The choice of which profile to use is purpose-specific on what to express and to perform the reasoning about. We refer the reader to \cite{owl2profiles2008} for a comprehensive treatment of those profiles.
 
-In this section, we will briefly mention the expressivity and complexity of OWL 2. This will also be the base for our classification of RDF validation requirements with reasoning. In this regard, we will  mainly focus on  OWL 2 QL as well as OWL 2 DL. Note that there is also the very expressive web ontology language OWL 2 Full (which is not a DL) for reasoning that we will not include in our classification, since its high worst case complexity (undecidability) as well as interesting RDF requirements with reasoning is already available in aforementioned OWLs (OWL 2 DL/QL).
+%In this section, we will briefly mention the expressivity and complexity of OWL 2. This will also be the base for our classification of RDF validation requirements with reasoning. In this regard, we will  mainly focus on  OWL 2 QL as well as OWL 2 DL. 
 
-\textbf{OWL 2 QL Reasoning.}
-OWL 2 QL is an OWL 2 profile which focuses on reasoning in the context of query answering with very large size of instance data. The acronym QL stands for query language as query answering in this profile can be done by rewriting queries into a standard relational query language (also known as First-Order Rewritability). Also, conjunctive query answering can be done by using conventional relational database systems. Aiming at efficiency on working with large size data, the expressive power of the profile is quite limited as expected. As a result of this, reasoning in OWL 2 QL is highly efficient so that sound and complete conjunctive query answering can be performed in \textsc{LogSpace} in the size of the data assertions as well as  the ontology consistency and class expression subsumption can be performed in polynomial time.
+%\textbf{OWL 2 QL Reasoning.}
+%OWL 2 QL is an OWL 2 profile which focuses on reasoning in the context of query answering with very large size of instance data. The acronym QL stands for query language as query answering in this profile can be done by rewriting queries into a standard relational query language (also known as First-Order Rewritability). Also, conjunctive query answering can be done by using conventional relational database systems. Aiming at efficiency on working with large size data, the expressive power of the profile is quite limited as expected. As a result of this, reasoning in OWL 2 QL is highly efficient so that sound and complete conjunctive query answering can be performed in \textsc{LogSpace} in the size of the data assertions as well as  the ontology consistency and class expression subsumption can be performed in polynomial time.
 
-OWL 2 QL is based on the \textit{DL-Lite} family of description logics, a tractable family of fragments of first-order logic \cite{Artale2009,Calvanese2007}. 
-However, an important difference between the \textit{DL-Lite} family and OWL 2 is the
-unique name assumption (UNA). The UNA is common in data management, therefore it is adopted in the \textit{DL-Lite} family whereas not adopted in OWL 2. In OWL, one uses the constructs \textbf{sameAs} or \textbf{differentFrom} explicitly to state that two individuals, say  $a$ and $b$, are the \emph{same} or \emph{different} respectively. For that reason in OWL 2 QL, any construct e.g., number restrictions or functionality constraints which can interfere with the UNA and also which can cause higher complexity without the UNA, has been avoided.\footnote{Some extensions of \textit{DL-Lite}$_\mathcal{R}$ like \textit{DL-Lite}$_\mathcal{A}$ comprises for example also functionality, for further readings see the work of Poggi et al. \cite{poggi2008linking}}
+%OWL 2 QL is based on the \textit{DL-Lite} family of description logics, a tractable family of fragments of first-order logic \cite{Artale2009,Calvanese2007}. 
+%However, an important difference between the \textit{DL-Lite} family and OWL 2 is the
+%unique name assumption (UNA). The UNA is common in data management, therefore it is adopted in the \textit{DL-Lite} family whereas not adopted in OWL 2. In OWL, one uses the constructs \textbf{sameAs} or \textbf{differentFrom} explicitly to state that two individuals, say  $a$ and $b$, are the \emph{same} or \emph{different} respectively. For that reason in OWL 2 QL, any construct e.g., number restrictions or functionality constraints which can interfere with the UNA and also which can cause higher complexity without the UNA, has been avoided.\footnote{Some extensions of \textit{DL-Lite}$_\mathcal{R}$ like \textit{DL-Lite}$_\mathcal{A}$ comprises for example also functionality, for further readings see the work of Poggi et al. \cite{poggi2008linking}}
 
-Among the members of \textit{DL-Lite} family, \textit{DL-Lite}$_\mathcal{R}$ is the one that OWL 2 QL is based on. The reason is to avoid any problematic issue which might appear in the explicit axiomatization of the UNA, since  \textit{DL-Lite}$_\mathcal{R}$ in general does not require the UNA, because making this assumption has no semantic affect on a \textit{DL-Lite}$_\mathcal{R}$ ontology.
+%Among the members of \textit{DL-Lite} family, \textit{DL-Lite}$_\mathcal{R}$ is the one that OWL 2 QL is based on. The reason is to avoid any problematic issue which might appear in the explicit axiomatization of the UNA, since  \textit{DL-Lite}$_\mathcal{R}$ in general does not require the UNA, because making this assumption has no semantic affect on a \textit{DL-Lite}$_\mathcal{R}$ ontology.
 
-\textbf{OWL 2 DL Reasoning.}
-The Semantic Web ontology language OWL 2 DL\footnote{See \url{http://www.w3.org/TR/owl2-direct-semantics/}.} was standardised by
-the World Wide Web Consortium (W3C) in 2009 (and updated in 2012) as a
-description logic-like formalism.  OWL 2 DL has high expressivity, yet maintains  decidability for main reasoning tasks e.g., ontology satisability, 
-entailment checking. The drawback of its expressive power results as a lack of computational efficiency in performance. In general, reasoning in OWL 2 DL is in \textsc{N2exptime}~ \cite{owl2profiles2008}. 
+%\textbf{OWL 2 DL Reasoning.}
+%The Semantic Web ontology language OWL 2 DL\footnote{See \url{http://www.w3.org/TR/owl2-direct-semantics/}.} was standardised by the World Wide Web Consortium (W3C) in 2009 (and updated in 2012) as a description logic-like formalism.  OWL 2 DL has high expressivity, yet maintains  decidability for main reasoning tasks e.g., ontology satisability,  entailment checking. The drawback of its expressive power results as a lack of computational efficiency in performance. In general, reasoning in OWL 2 DL is in \textsc{N2exptime}~ \cite{owl2profiles2008}. 
 
-As a result of its expressive power, OWL 2 DL allows a large variety of sophisticated modeling capabilities for many application domains.  On the other hand, to maintain the decidability, OWL 2 DL has numerous syntactic restrictions. One example is that OWL 2 DL allows  expressing transitive properties as well as asymmetric properties, however a property to be both transitive and asymmetric (just like \emph{ancestor relation}) is not allowed. In the sequel, from RDF validation perspective, we will give some examples of constraints that remain still at the outside of its scope. 
+%As a result of its expressive power, OWL 2 DL allows a large variety of sophisticated modeling capabilities for many application domains.  On the other hand, to maintain the decidability, OWL 2 DL has numerous syntactic restrictions. One example is that OWL 2 DL allows  expressing transitive properties as well as asymmetric properties, however a property to be both transitive and asymmetric (just like \emph{ancestor relation}) is not allowed. In the sequel, from RDF validation perspective, we will give some examples of constraints that remain still at the outside of its scope. 
 
 \section{Classification of RDF Constraints according to CWA/UNA Dependency, Reasoning and Complexity}
 \label{classification-rdf-constraints}
@@ -1205,11 +1202,11 @@ Semantic-Web-Publication a ResourceShape ; property [
         %occurs Exactly-one ; ] .
 %\end{ex}
 
-\subsection{Complexity}
+\subsection{About the Complexity}
 \label{sec:constraints-complexity}
 \tb{I think this sub section is not that fluently to read}
-Recall that, to evaluate RDF validation requirements, we had the classes of constraint types \emph{constraints without reasoning} ($\overline{\mathcal{C_R}}$) and \emph{constraints with reasoning} ($\mathcal{C_R}$). 
-In addition, to have a further evaluation on the latter and to refer easily, we divide $\mathcal{C}_R$ into two classes (not disjoint). 
+
+To have a further evaluation on the latter and to refer easily, we divide $\mathcal{C}_R$ into two classes (not disjoint). 
 Overall, we have the following. Since, OWL 2 DL is more expressive than OWL 2 QL,  $\mathcal{C}_R ^{\mathcal{QL}} \subseteq \mathcal{C}_R ^{\mathcal{DL}}$ follows. 
 \begin{enumerate}\itemsep0.5em
 	\item $\overline{\mathcal{C}_R}$: validation by query answering without reasoning
@@ -1242,7 +1239,7 @@ $\mathcal{C}_R ^{\mathcal{DL}}$ & \textsc{N2exptime} \\
 
 
 What is considered by RDF validation with or without reasoning corresponds to performing SPARQL queries.  
-It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on \textit{DL-Lite} family and query answering in OWL 2 QL is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox-reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
+It is known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}. Since OWL 2 profiles are based on \textit{DL-Lite} family and query answering in OWL 2 QL (which is based on \textit{DL-Lit}$e_R$ is in \textsc{LogSpace} (or rather in AC$^0$ ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. Furthermore, TBox-reasoning in OWL 2 QL is in \textsc{Ptime} \cite{Calvanese2007}, hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  With the more expressive profile OWL 2 DL, reasoning is in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
 The  relation between those complexity classes is well-known \cite{Arora:2009:CCM:1540612} and as follows:
 %\begin{eqnarray*}
 %\overline{\mathcal{C}_R} \subset \mathcal{C}_R ^{\mathcal{QL}} \subset \mathcal{C}_R \subseteq \mathcal{C}_R ^{\mathcal{DL}}
@@ -1252,7 +1249,7 @@ The  relation between those complexity classes is well-known \cite{Arora:2009:CC
 \end{eqnarray*}
 %There are constraints (e.g., class-specific property range, class-specific reflexive object properties) for which reasoning could be executed even though there is currently no implementation supported by any constraint language. 
 %We leave it as future work to write SPARQL CONSTRUCT queries in order to provide reasoning for these constraints.
-
+Note that there is also the very expressive web ontology language OWL 2 Full (which is not a DL) for reasoning that we will not include in our classification, since its high worst case complexity (undecidability) as well as interesting RDF requirements with reasoning is already available in aforementioned OWLs (OWL 2 DL/QL).
 \section{Classification of Constraint Languages according to Expressivity}
 \label{classification-constraint-languages}
  
