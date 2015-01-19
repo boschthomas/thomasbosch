@@ -955,9 +955,9 @@ There are many constraint types for which {\em OWL 2 QL reasoning} can be perfor
 %After reasoning, however, the triples \ms{Yoda a Jedi , FeelingForce} are inferred resulting in valid data. 
 The {\em Property Domain}\footnote{Corresponds to {\em R-25-PROPERTY-DOMAIN}} constraint
 \ms{$\exists$ author.$\top$ $\sqsubseteq$ Publication}
-ensures that only publications can have {\em author} relationships to persons.
+ensures that only \emph{publications} can have {\em author} relationships to \emph{persons}.
 This constraint can be expressed by OWL 2 QL: \ms{author rdfs:domain Publication}.
-Without reasoning, the triple \ms{Alices-Adventures-In-Wonderland author Lewis-Carroll} causes a constraint violation, when it is not explicitly stated that \ms{Lewis-Carroll} is a \ms{Person}. 
+Without reasoning, the triple \ms{Alices-Adventures-In-Wonderland author Lewis-Carroll} causes a constraint violation, when it is not explicitly stated that \emph{Lewis-Carroll} is a \emph{person}. 
 When reasoning is performed before validating, the class assignment \ms{rdf:type(Lewis-Carroll, Person)} is inferred which prevents the constraint violation to be raised.
 
 %The {\em Property Domain}\footnote{Corresponds to {\em R-25-PROPERTY-DOMAIN}} constraint
@@ -981,9 +981,9 @@ The {\em existential quantification}\footnote{Corresponds to {\em R-86-EXISTENTI
   rdfs:subClassOf Publication ] .
 \end{ex}
 If we execute reasoning on data containing the triples \ms{publisher(ISWC-2014-Proceedings, Springer)} and \ms{rdf:type(Springer, Publisher)}, 
-it can be inferred that {\em ISWC-2014-Proceedings} is a {\em Publication}.
-Now, all constraints associated with the class {\em Publication} are also validated for the individual {\em ISWC-2014-Proceedings} (e.g. that publications must have at least one author).
-Without reasoning, these constraints are not validated as {\em ISWC-2014-Proceedings} is not within the class extension of {\em Publication}.
+it can be inferred that {\em ISWC-2014-Proceedings} is a {\em publication}.
+Now, all constraints associated with the class {\em publication} are also validated for the individual {\em ISWC-2014-Proceedings} (e.g. that \emph{publications} must have at least one \emph{author}).
+Without reasoning, these constraints are not validated as {\em ISWC-2014-Proceedings} is not within the class extension of {\em publication}.
 
 %The {\em Existential Quantification}\footnote{Corresponds to {\em R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}}
 %\ms{Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword} let us refer to all those individuals that are connected by \ms{hasLaserSword} to an individual that is an instance of the class \ms{LaserSword}.
@@ -1003,7 +1003,7 @@ Without reasoning, these constraints are not validated as {\em ISWC-2014-Proceed
 \textbf{With OWL 2 DL}
 {\em Universal quantifications}\footnote{Corresponds to {\em R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}}
 are used to build anonymous classes containing all individuals that are connected by a particular property only to instances of a specific class.
-Publications, e.g., can only have persons as authors (\ms{Publication $\sqsubseteq$ $\forall$ author.Person}), 
+\emph{Publications}, e.g., can only have \emph{persons} as \emph{authors} (\ms{Publication $\sqsubseteq$ $\forall$ author.Person}), 
 which cannot be expressed by OWL 2 QL, but by OWL 2 DL \cite{owl2profiles2008}:
 \begin{ex}
 [ a owl:Restriction ;
@@ -1011,10 +1011,10 @@ which cannot be expressed by OWL 2 QL, but by OWL 2 DL \cite{owl2profiles2008}:
   owl:allValuesFrom Person ;
   RDFs:subClassOf Publication ] .
 \end{ex}
-When performing reasoning, the triples \ms{The-Lord-Of-The-Rings author} \ms{JRR-Tolkien} and \ms{The-Lord-Of-The-Rings a Publication} infer that \ms{JRR-Tolkien} is a person.
+When performing reasoning, the triples \ms{The-Lord-Of-The-Rings author} \ms{JRR-} \ms{Tolkien} and \ms{rdf:type(The-Lord-Of-The-Rings, Publication)} infer that \emph{JRR-Tolkien} is a \emph{person}.
 When reasoning is not executed, a constraint violation is raised, 
-as it is not explicitly stated that \ms{JRR-Tolkien} is a person and
-as each publication can only have \ms{author} relationships to persons.
+as it is not explicitly stated that \emph{JRR-Tolkien} is a \emph{person} and
+as each \emph{publication} can only have \emph{author} relationships to \emph{persons}.
 
 %{\em Universal quantifications}\footnote{Corresponds to {\em R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}}
 %contain all those individuals that are connected by a particular property only to individuals that are instances of a specific class.
@@ -1171,8 +1171,8 @@ One of those constraint types is
 {\em default values}\footnote{Corresponds to {\em R-31-DEFAULT-VALUES-OF-RDF-OBJECTS}, {\em R-38-DEFAULT-VALUES-OF-RDF-LITERALS}}
 for given object and data properties, 
 so that input forms can be pre-populated and to insert a required property that is missing in a web service call. 
-If, e.g., no keyword is stated for semantic web publications, default keywords should be 'Semantic Web' and 'Linked Data'
-If there is only stated that this paper is a Semantic Web publication (\ms{rdf:type(ThisPaper, SemanticWebPublication)}), 
+If, e.g., no keyword is stated for \emph{Semantic Web publications}, default \emph{keywords} should be 'Semantic Web' and 'Linked Data'
+If there is only stated that this paper is a \emph{Semantic Web publication} (\ms{rdf:type(ThisPaper, SemanticWebPublication)}), 
 then additional default triples are inferred: 
 \ms{keyword(ThisPaper,"Semantic Web")} and \ms{keyword(ThisPaper,"Linked Data")}.
 Default values constraints can be expressed by ReSh and SPIN.
