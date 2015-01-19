@@ -854,13 +854,9 @@ Hence, for the majority of constraint types it makes a difference if the CWA/UNA
 %dictsinction between  C_R and C_R'.
 
 The W3C WG defines \emph{constraint} as a component of a schema what needs to be satisfied\footnote{See \url{https://www.w3.org/2014/data-shapes/wiki/Glossary}.}. 
-We denote the whole set of constraint types with $\mathcal{C}$. We divide it into two groups   to investigate the affect of reasoning to the validation process:
-\begin{enumerate}
-	\item $\mathcal{C}_R$: constraint types with reasoning
-	\item $\overline{\mathcal{C}_{R}}$: constraint types without reasoning %\tb{why overline R?}
-\end{enumerate}
- which corresponds to two disjoint subsets of $\mathcal{C}$. $\mathcal{C}_R$ corresponds to the set of constraint types which can carry out the validation process via reasoning, especially when not all the knowledge is explicit.  
-Its complement, $\overline{\mathcal{C}_R}$, is the set of constraint types for which reasoning cannot be done or does not improve the result in any obvious sense (e.g., the scenario with all the knowledge is already explicit).
+We denote the whole set of constraint types with $\mathcal{C}$. We divide it into two disjoint sets  to investigate the affect of reasoning to the validation process; (1) $\mathcal{C}_R$ which denotes the constraint types with reasoning that can carry out the validation process via reasoning, especially when not all the knowledge is explicit.  
+(2) $\overline{\mathcal{C}_{R}}$. Its complement, $\overline{\mathcal{C}_R}$, which denotes the set of constraint types for which reasoning cannot be done or does not improve the result in any obvious sense.
+
 
 {\em Literal Pattern Matching}\footnote{Corresponds to {\em R-44-PATTERN-MATCHING-ON-RDF-LITERALS}}, restricting literals to match given patterns,
 is a $\overline{\mathcal{C}_R}$ constraint type.
