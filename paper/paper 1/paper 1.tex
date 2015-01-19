@@ -885,8 +885,8 @@ $C_R$ corresponds to axioms in OWL 2. %  e.g., subsumption, sub-properties, card
 is a constraint type for which reasoning may be performed.
 For instance, if a \emph{journal volume} has an {\em editor} relationship to a \emph{person}, 
 then the \emph{journal volume} must also have a {\em creator} relationship to the same \emph{person} (\ms{editor $\sqsubseteq$ creator}).
-If we use \emph{sub-properties} without reasoning and the data contains the triple \ms{editor(JWS-2014-} \ms{V29, Staab)},
-then the triple \ms{creator(JWS-2014-V29, Staab)} has to be stated explicitly.
+If we use \emph{sub-properties} without reasoning and the data contains the triple \ms{editor(A+Journal} \ms{Volume, A+Editor)},
+then the triple \ms{creator(A+JournalVolume, A+Editor)} has to be stated explicitly.
 If this triple is not stated, a constraint violation occurs.
 But if we use \emph{sub-properties} with reasoning, the triple (which would cause a constraint violation) is inferred and therefore resolves the constraint violation.
 
