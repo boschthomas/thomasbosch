@@ -800,37 +800,37 @@ The subsequent steps are needed to determine the performance (i.e. computational
 
 \subsection{Dependency on CWA with UNA}
 
-The distinction of constraint types regarding the dependency on CWA and UNA is an important aspect when combining reasoning with validation,
-as OWL 2 reasoning requires {\em OWA} and {\em nUNA} and RDF validation is based on {\em UNA} (different names represent different objects) and
-{\em CWA} (a statement is inferred to be false if it cannot be proved to be true).
-We classify constraint types according to the dependency on CWA and UNA:
+The distinction of constraint types regarding the dependency on the CWA and the UNA is an important aspect when combining reasoning with validation,
+as OWL 2 reasoning requires the OWA with the nUNA and RDF validation is based on the UNA (different names represent different objects) and
+the CWA (a statement is inferred to be false if it cannot be proved to be true).
+We classify constraint types according to the dependency on the CWA with UNA:
 \begin{enumerate}
-	\item $\mathcal{C}_{CWA}$: CWA and UNA dependent constraint types
-	\item $\overline{\mathcal{C}_{CWA}}$: CWA and UNA independent constraint types
+	\item $\mathcal{C}_{CWA}$: set of constraint types dependent on the CWA with UNA
+	\item $\overline{\mathcal{C}_{CWA}}$: set of constraint types independent on the CWA with UNA
 \end{enumerate}
 
-$\mathcal{C}_{CWA}$ contains constraint types for which it makes a difference if CWA/UNA or OWA/nUNA is assumed.
+$\mathcal{C}_{CWA}$ contains constraint types for which it makes a difference if the CWA/ UNA or the OWA/nUNA is assumed.
 $\mathcal{C}_{CWA}$ is defined as follows:
-For a given constraint type, if there exists no RDF data set that would be inconsistent under CWA/UNA and
-consistent under OWA/nUNA, then the constraint type is dependent of CWA/UNA.
+For a given constraint type, if there exists no RDF data set that would be inconsistent under the CWA/UNA and
+consistent under the OWA/nUNA, then the constraint type is dependent on the CWA/UNA.
 If something is a \emph{publication}, e.g., it has at least one \emph{author} (\ms{Publica} \ms{tion $\sqsubseteq$ $\geq$1 author.Person}).
-This {\em qualified cardinality restriction} depends on CWA/ UNA.
+This {\em qualified cardinality restriction} depends on the CWA/ UNA.
 In a CWA/UNA setting, a \emph{publication} without an explicitly stated author violates this constraint.  
 With OWA/nUNA semantics, however,
 the \emph{publication} without an explicitly stated \emph{author} does not raise a constraint violation, 
 as the axiom allows you to entail that there must be an (unknown) \emph{author}.
 
-$\overline{\mathcal{C}_{CWA}}$ includes constraint types for which it does not make any difference if CWA/UNA or OWA/nUNA is assumed.
+$\overline{\mathcal{C}_{CWA}}$ includes constraint types for which it does not make any difference if the CWA/UNA or the OWA/nUNA is assumed.
 $\mathcal{C}_{CWA}$ is defined as follows:
-For a given constraint type, if there exists no RDF data set that would be consistent/inconsistent under CWA/UNA and
-consistent/inconsistent under OWA/ nUNA, then the constraint type is independent of CWA/UNA.
+For a given constraint type, if there exists no RDF data set that would be consistent/inconsistent under the CWA/UNA and
+consistent/inconsistent under the OWA/ nUNA, then the constraint type is independent of the CWA/UNA.
 If something is a \emph{book}, e.g., it cannot be a \emph{journal article} (\ms{Book $\sqcap$ JournalArticle $\sqsubseteq$ $\perp$}).
-For this {\em disjoint classes} constraint, it does not make any difference if the semantics CWA/UNA or OWA/nUNA is taken,
+For this {\em disjoint classes} constraint, it does not make any difference if the CWA/UNA or the OWA/nUNA semantics is taken,
 as all information needed for validation is explicitly available in both cases. 
 
-For this paper, we evaluated for each constraint type (74 in total) if it is dependent or independent on CWA/UNA (for a detailed analysis see \cite{BoschNolleAcarEckert2015}). 
+For this paper, we evaluated for each constraint type (74 in total) if it is dependent or independent on the CWA/UNA (for a detailed analysis see \cite{BoschNolleAcarEckert2015}). 
 The result of this evaluation is that we distinguish between 42 $\mathcal{C}_{CWA}$ constraint types and 32 $\overline{\mathcal{C}_{CWA}}$ constraint types.
-Hence, for the majority of constraint types it makes a difference if CWA/UNA or OWA/nUNA is assumed.
+Hence, for the majority of constraint types it makes a difference if the CWA/UNA or the OWA/nUNA is assumed.
 
 \subsection{Reasoning}
 
