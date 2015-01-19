@@ -878,7 +878,7 @@ ISBN a RDFS:Datatype ; owl:equivalentClass [ a RDFS:Datatype ;
 The first OWL 2 axiom explicitly declares {\em ISBN} to be a datatype. %\er{Why start from second and then first? Also better we say "owl axiom" when we talk axiom of owl, to prevent ambiguity.}\tb{resolved}
 The second OWL 2 axiom defines {\em ISBN} as an abbreviation for a datatype restriction on {\em xsd:string}. 
 The datatype {\em ISBN} can be used just like any other datatype like in the universal restriction above.
-The literal pattern matching constraint validates {\em ISBN} literals according to the stated regular expression. 
+%The literal pattern matching constraint validates {\em ISBN} literals according to the stated regular expression. 
 %The triples \ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber} cause a constraint violation. 
 %The triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}, however, lead to valid data. %\er{Let us divide this last sentence of the paragraph.}\tb{resolved}
 
@@ -897,14 +897,14 @@ $C_R$ corresponds to axioms in OWL 2. %  e.g., subsumption, sub-properties, card
 %then the triple \ms{attackingByWeapon(Luke, DarthVader)} has to be stated explicitly.
 %If this triple is not stated, a constraint violation occurs.
 %If we use sub-properties with reasoning, the triple (which would cause a constraint violation) is inferred and therefore resolves the possible constraint violation.
-{\em Sub-Properties}\footnote{Corresponds to \emph{R-54-SUB-OBJECT-PROPERTIES~}, \emph{R-54-SUB-DATA-PROPERTIES}}~, e.g., 
+{\em Sub-Properties}\footnote{Corresponds to \emph{R-54-SUB-OBJECT-PROPERTIES~}, \emph{R-54-SUB-DATA-PROPERTIES}}, e.g., 
 is a constraint type for which reasoning may be performed.
 For instance, if a \emph{journal volume} has an {\em editor} relationship to a \emph{person}, 
 then the \emph{journal volume} must also have a {\em creator} relationship to the same \emph{person} (\ms{editor $\sqsubseteq$ creator}).
-If we use sub-properties without reasoning and our data contains the triple \ms{editor(JWS-2014-} \ms{V29, Staab)},
+If we use \emph{sub-properties} without reasoning and the data contains the triple \ms{editor(JWS-2014-} \ms{V29, Staab)},
 then the triple \ms{creator(JWS-2014-V29, Staab)} has to be stated explicitly.
 If this triple is not stated, a constraint violation occurs.
-If we use sub-properties with reasoning, the triple (which would cause a constraint violation) is inferred and therefore resolves the possible constraint violation.
+But if we use \emph{sub-properties} with reasoning, the triple (which would cause a constraint violation) is inferred and therefore resolves the constraint violation.
 
 \subsubsection{Constraint Types with Reasoning}
 \label{sec:RDF-validation-requirements-and-reasoning}
