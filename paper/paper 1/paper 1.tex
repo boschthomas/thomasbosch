@@ -716,11 +716,11 @@ As Mark Twain is not explicitly defined to be a \emph{person}, however, a constr
 But if we apply a reasoner before validating, this constraint violation is resolved since the implicit triple \ms{Person(Mark-Twain)} is inferred. 
 Reasoning may cause additional constraint violations needed to enhance data quality, e.g., as \emph{books} are \emph{publications}, constraints on publications are also validated for \emph{books} (e.g. each publication must have a publisher).
 Most of the constraint languages except OWL, have a major shortcoming of redundancy.
-With its open-world semantics, used as a constraint language, OWL solves the redundancy problem. 
-\tb{there is no example for solving redundancy problem / can we use the one of the introduction (just referring to this example in 1 sentence)}
+With its open-world semantics, used as a constraint language, OWL solves the redundancy problem (see introduction). 
+%\tb{there is no example for solving redundancy problem / can we use the one of the introduction (just referring to this example in 1 sentence)}
 %\tb{we have no example why R causes new valuable constraint violations}
 
-\tb{the next 2 paragraphs are about differences in semantics}
+%\tb{the next 2 paragraphs are about differences in semantics}
 OWL is based on the {\em non-unique name assumption (nUNA)} whereas RDF validation requires that different names represent different objects (a.k.a. {\em unique name assumption (UNA)}). 
 This ambiguity in semantics is one of the main reasons why OWL has not been adopted as a standard constraint language for RDF validation in the past.  
 OWL's semantics is also based on the {\em open-world assumption (OWA)}, i.e., a statement cannot be inferred to be false if it cannot be proved to be true  which fits its primary design purpose: to represent knowledge on the World Wide Web. 
@@ -728,9 +728,9 @@ OWL's semantics is also based on the {\em open-world assumption (OWA)}, i.e., a 
 %With its open-world semantics, used as a constraint language, OWL solves the redundancy problem. 
 %\tb{the following example does not show the redundancy problem!}
 %\tb{2. benefit: reasoning solves redundancy problem}
-As each book must have a title (\ms{Book $\sqsubseteq \exists$ title.$\top$}) and {\em Hamlet} is a book (\ms{Book(Hamlet)}),
-the book {\em Hamlet} must have at least one title.
-In an OWA setting, this axiom does not cause a constraint violation (even if there is no explicitly defined title), since there must be a title for this book which we may not know ($\mathcal{K}$ is consistent). 
+As each \emph{book} must have a title (\ms{Book $\sqsubseteq \exists$ title.$\top$}) and {\em Hamlet} is a book (\ms{Book(Hamlet)}),
+the \emph{book} {\em Hamlet} must have at least one title.
+In an OWA setting, this axiom does not cause a constraint violation (even if there is no explicitly defined title), since there must be a title for this \emph{book} which we may not know ($\mathcal{K}$ is consistent). 
 
 On the other hand, many RDF validation scenarios require the {\em closed-world assumption (CWA)} (i.e., a statement is inferred to be false if it cannot be proved to be true).
 Hence, classical constraint languages are based on CWA where constraints need to be satisfied only by named individuals which yields in return to a constraint violation. This would be a shortcoming of OWA in RDF validation. 
