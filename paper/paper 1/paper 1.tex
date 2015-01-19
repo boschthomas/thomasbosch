@@ -813,18 +813,18 @@ $\mathcal{C}_{CWA}$ contains constraint types for which it makes a difference if
 $\mathcal{C}_{CWA}$ is defined as follows:
 For a given constraint type, if there exists no RDF data set that would be inconsistent under CWA/UNA and
 consistent under OWA/nUNA, then the constraint type is dependent of CWA/UNA.
-If something is a publication, e.g., it has at least one author (\ms{Publica} \ms{tion $\sqsubseteq$ $\geq$1 author.Person}).
+If something is a \emph{publication}, e.g., it has at least one \emph{author} (\ms{Publica} \ms{tion $\sqsubseteq$ $\geq$1 author.Person}).
 This {\em qualified cardinality restriction} depends on CWA/ UNA.
-In a CWA/UNA setting, a publication without an explicitly stated author violates this constraint.  
+In a CWA/UNA setting, a \emph{publication} without an explicitly stated author violates this constraint.  
 With OWA/nUNA semantics, however,
-the publication without an explicitly stated author does not raise a constraint violation, 
-as the axiom allows you to entail that there must be an (unknown) author.
+the \emph{publication} without an explicitly stated \emph{author} does not raise a constraint violation, 
+as the axiom allows you to entail that there must be an (unknown) \emph{author}.
 
 $\overline{\mathcal{C}_{CWA}}$ includes constraint types for which it does not make any difference if CWA/UNA or OWA/nUNA is assumed.
 $\mathcal{C}_{CWA}$ is defined as follows:
 For a given constraint type, if there exists no RDF data set that would be consistent/inconsistent under CWA/UNA and
 consistent/inconsistent under OWA/ nUNA, then the constraint type is independent of CWA/UNA.
-If something is a book, e.g., it cannot be a journal article (\ms{Book $\sqcap$ JournalArticle $\sqsubseteq$ $\perp$}).
+If something is a \emph{book}, e.g., it cannot be a \emph{journal article} (\ms{Book $\sqcap$ JournalArticle $\sqsubseteq$ $\perp$}).
 For this {\em disjoint classes} constraint, it does not make any difference if the semantics CWA/UNA or OWA/nUNA is taken,
 as all information needed for validation is explicitly available in both cases. 
 
@@ -864,7 +864,7 @@ Its complement, $\overline{\mathcal{C}_R}$, is the set of constraint types for w
 
 {\em Literal Pattern Matching}\footnote{Corresponds to {\em R-44-PATTERN-MATCHING-ON-RDF-LITERALS}}, restricting literals to match given patterns,
 is a $\overline{\mathcal{C}_R}$ constraint type.
-The universal restriction \ms{Book $\sqsubseteq$ $\forall$ identifier.ISBN}, e.g., ensures that books can only have valid ISBN identifiers, 
+The universal restriction \ms{Book $\sqsubseteq$ $\forall$ identifier.ISBN}, e.g., ensures that \emph{books} can only have valid ISBN identifiers, 
 i.e. strings that match a given regular expression. 
 %\er{This is no OWL.}\tb{resolved}
 A data range expression is restricted in OWL 2 QL to the predefined datatypes and the intersection of data ranges. 
@@ -899,8 +899,8 @@ $C_R$ corresponds to axioms in OWL. %  e.g., subsumption, sub-properties, cardin
 %If we use sub-properties with reasoning, the triple (which would cause a constraint violation) is inferred and therefore resolves the possible constraint violation.
 {\em Sub Properties}\footnote{Corresponds to \emph{R-54-SUB-OBJECT-PROPERTIES~}, \emph{R-54-SUB-DATA-PROPERTIES}}~, e.g., 
 is a constraint type for which reasoning may be performed.
-For instance, if a journal volume has an {\em editor} relationship to a person, 
-then the journal volume must also have a {\em creator} relationship to the same person (\ms{editor $\sqsubseteq$ creator}).
+For instance, if a \emph{journal volume} has an {\em editor} relationship to a \emph{person}, 
+then the \emph{journal volume} must also have a {\em creator} relationship to the same \emph{person} (\ms{editor $\sqsubseteq$ creator}).
 If we use sub-properties without reasoning and our data contains the triple \ms{editor(JWS-2014-} \ms{V29, Staab)},
 then the triple \ms{creator(JWS-2014-V29, Staab)} has to be stated explicitly.
 If this triple is not stated, a constraint violation occurs.
