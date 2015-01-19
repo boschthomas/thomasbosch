@@ -267,10 +267,10 @@ In this paper, we investigate the relationship of validation and reasoning and t
 In 2013, the W3C invited experts from industry, government, and academia to the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/RDF-val/}}, 
 where first use cases on RDF validation have been presented and discussed. 
 Two working groups (WGs) that follow up on this workshop and address RDF constraint formulation and validation, are established in 2014: 
-the W3C RDF Data Shapes WG\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles TG\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
+the W3C RDF Data Shapes WG\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles task group\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
 % RDF validation requirements database
 % -----
-As a part of our earlier work \cite{BoschEckert2014}, we initiated a comprehensive database\footnote{Publicly available at \url{http://purl.org/net/RDF-validation}.} on RDF validation requirements to collect case studies, use cases, and requirements. It is continuously updated and used to evaluate and to compare various existing solutions for RDF constraint formulation and validation. 
+As a part of our earlier work \cite{BoschEckert2014}, we initiated a comprehensive database\footnote{Publicly available at \url{http://purl.org/net/rdf-validation}.} on RDF validation requirements to collect case studies, use cases, and requirements. It is continuously updated and used to evaluate and to compare various existing solutions for RDF constraint formulation and validation. 
 Requirements are classified to provide a high-level view on different solutions and to facilitate a better understanding of the problem domain.  
 
 
@@ -305,19 +305,20 @@ Their relevance varies with respect to several foremost criteria in the validati
 %stated.
 
 A major shortcoming when validating RDF data is redundancy.
-\emph{Reasoning} seems to be a promising solution as pre-validation step to overcome this shortcoming. Reasoning (logical) is used in order to make the implicit knowledge explicit  {e.g., \emph{modus ponens}, books are publications, \em Foundations of Semantic Web Technologies} is a book, and therefore it is a publication) in many different forms. 
+\emph{Reasoning} is a promising solution as pre-validation step to overcome this weakness. Reasoning (logical) is used in order to make the implicit knowledge explicit 
+(e.g., as books are publications and {\em Foundations of Semantic Web Technologies} is a book, it is also a publication). 
 Reasoning can be used to recognize impossibilities 
-(conference proceedings are publications, the {\em ESWC 2014 proceedings} are conference proceedings but not a publication, therefore leading to a contradiction).
+(e.g., conference proceedings are publications, the {\em ESWC 2014 proceedings} are conference proceedings but not a publication, therefore leading to a contradiction).
 Books, conference proceedings, and journal articles must have a publication date.
 When defining books, conference proceedings, and journal articles as sub-classes of publication, 
-we associate this constraint with the super-class publication and do not have to assign it to each of the publication sub-classes (which would lead to redundancy).
+we associate this constraint with the super-class {\em Publication} and do not have to assign it to each of its sub-classes (which would lead to redundancy).
 When performing reasoning, it is inferred that instances of publication sub-classes are also publications which therefore must have a publication date
 (i.e., the constraint is also validated for instances of sub-classes).
-If we define that books must have at least one author, that publications must have at least one creator and that books are publications, books must also have at least one creator.
-Hence, we need to define authors as well as creators for books having identical values (which leads to redundancy).
-If we define {\em author} to be a sub-property of {\em creator} and if we relate a book to an author, the {\em creator} relationship is inferred when performing reasoning.
+If we define that books must have at least one author, publications must have at least one creator, and books are publications, books must also have at least one creator.
+Hence, we need to define authors as well as creators for books having identical values.
+But if we define {\em author} as sub-property of {\em creator} and if we relate a book to an author, the {\em creator} relationship is inferred when performing reasoning.
 As a consequence, reasoning resolves constraint violations when book creators are not stated explicitly. 
-If we define {\em editor} as a sub-property of {\em creator}, {\em creator} relationships can be inferred when conference proceedings and journal volumes (which are publications) have {\em editor} relationships.
+%If we define {\em editor} as a sub-property of {\em creator}, {\em creator} relationships can be inferred when conference proceedings and journal volumes (which are publications) have {\em editor} relationships.
 
 %-----
 %
