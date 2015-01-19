@@ -964,10 +964,10 @@ The {\em existential quantification}\footnote{Corresponds to {\em R-86-EXISTENTI
   owl:someValuesFrom Publisher ;
   rdfs:subClassOf Publication ] .
 \end{ex}
-If we execute reasoning on data containing the triples \ms{publisher(ISWC-2014-Pro} \ms{ceedings, Springer)} and \ms{rdf:type(Springer, Publisher)}, 
-it can be inferred that {\em ISWC-2014-Proceedings} is a {\em publication}.
-Now, all constraints associated with {\em publications} are also validated for the individual {\em ISWC-2014-Proceedings} (e.g. that \emph{publications} must have at least one \emph{author}).
-Without reasoning, constraints on {\em publications} are not validated as {\em ISWC-2014-Proceedings} is not part of the class extension of {\em publication}.
+If we execute reasoning on data containing the triples \ms{publisher(A+Conference} \ms{Proceedings, A+Publisher)} and \ms{rdf:type(A+Publisher, Publisher)}, 
+it can be inferred that {\em A+ConferenceProceedings} is a {\em publication}.
+Now, all constraints associated with {\em publications} are also validated for the individual {\em A+Conference} \emph{Proceedings} (e.g. that \emph{publications} must have at least one \emph{author}).
+Without reasoning, constraints on {\em publications} are not validated as {\em A+ConferenceProceedings} is not part of the class extension of {\em publication}.
 
 %The {\em Existential Quantification}\footnote{Corresponds to {\em R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}}
 %\ms{Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword} let us refer to all those individuals that are connected by \ms{hasLaserSword} to an individual that is an instance of the class \ms{LaserSword}.
