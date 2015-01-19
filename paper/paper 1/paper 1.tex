@@ -790,12 +790,12 @@ This technical report also contains mappings to DL to logically underpin each re
 %The DL constructs \ms{property inclusion}, \ms{complement}, \ms{intersection}, \ms{union}, and \ms{existential restriction} are used to express this constraint.  
 % As existential restrictions are part of OWL 2 DL reasoning, the constraint's complexity is \textsc{N2exptime}.
 % \er{Now computational complexity? Existential restrictions are not necessarily \textsc{N2Exptime}}
-The subsequent steps are needed to have an idea about the performance (i.e. computational complexity) to validate simple (atomic) and complex (composed) constraint types:
+The subsequent steps are needed to get an idea about the performance (i.e. computational complexity) to validate simple (atomic) and complex (composed) constraint types:
 \begin{enumerate}
 	\item As reasoning may be performed as a pre-validation step, we determine for each constraint type if it makes sense to perform reasoning prior to validation.
 	\item When combining reasoning and validation, the distinction between the CWA with UNA (CWA/UNA ) or the OWA without UNA (OWA/nUNA)  is an important aspect. Thus, we evaluate each constraint type regarding the CWA/UNA dependency.
 	\item  Since reasoning makes difference  for some validation types, we note them with the computational complexity  of  the language that they are expressed in.
-	\item Since the combination of DL constructs of a constraint type determines its complexity,  by mapping each constraint we get an idea of the complexity for each constraint type in worst case.
+	\item Since the combination of DL constructs of a constraint type determines its complexity, by mapping to DL we get an idea of the complexity for each constraint type in worst case.
 \end{enumerate}
 
 \subsection{Dependency on CWA with UNA}
