@@ -1,0 +1,368 @@
+% This is LLNCS.DEM the demonstration file of
+% the LaTeX macro package from Springer-Verlag
+% for Lecture Notes in Computer Science,
+% version 2.4 for LaTeX2e as of 16. April 2010
+%
+\documentclass{llncs}
+
+% allows for temporary adjustment of side margins
+\usepackage{chngpage}
+
+% just makes the table prettier (see \toprule, \bottomrule, etc. commands below)
+\usepackage{booktabs}
+
+\usepackage[utf8]{inputenc}
+%\usepackage[font=small,skip=0pt]{caption}
+
+% footnotes
+\usepackage{scrextend}
+
+% URL handling
+\usepackage{url}
+\urlstyle{same}
+
+%\usepackage{makeidx}  % allows for indexgeneration
+
+%\usepackage{amsmath}
+\usepackage{amsmath, amssymb}
+\usepackage{mathabx}
+\usepackage{caption} 
+\captionsetup[table]{skip=10pt}
+
+% monospace within text
+\newcommand{\ms}[1]{\texttt{#1}}
+
+% examples
+\usepackage{fancyvrb}
+\DefineVerbatimEnvironment{ex}{Verbatim}{numbers=left,numbersep=2mm,frame=single,fontsize=\scriptsize}
+
+\usepackage{xspace}
+% Einfache und doppelte Anfuehrungszeichen
+\newcommand{\qs}{``} 
+\newcommand{\qe}{''\xspace} 
+\newcommand{\sqs}{`} 
+\newcommand{\sqe}{'\xspace} 
+
+% checkmark
+\usepackage{tikz}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+
+% Xs
+\usepackage{pifont}
+
+% Tabellenabstände kleiner
+\setlength{\intextsep}{10pt} % Vertical space above & below [h] floats
+\setlength{\textfloatsep}{10pt} % Vertical space below (above) [t] ([b]) floats
+% \setlength{\abovecaptionskip}{0pt}
+% \setlength{\belowcaptionskip}{0pt}
+
+\usepackage{tabularx}
+\newcommand{\hr}{\hline\noalign{\smallskip}} % für die horizontalen linien in tabellen
+
+% Todos
+\usepackage[colorinlistoftodos]{todonotes}
+\newcommand{\ke}[1]{\todo[size=\small, color=orange!40]{\textbf{Kai:} #1}}
+\newcommand{\tb}[1]{\todo[size=\small, color=green!40]{\textbf{Thomas:} #1}}
+\newcommand{\er}[1]{\todo[size=\small, color=red!40]{\textbf{Erman:} #1}}
+\newcommand{\an}[1]{\todo[size=\small, color=blue!40]{\textbf{Andy:} #1}}
+
+\newenvironment{table-1cols}{
+  \scriptsize
+  \sffamily
+  \vspace{0.3cm}
+  \begin{tabular}{l}
+  \hline
+  \textbf{Requirements} \\
+  \hline
+
+}{
+  \hline
+  \end{tabular}
+  \linebreak
+}
+
+\newenvironment{table-2cols}{
+  \scriptsize
+  \sffamily
+  \vspace{0.3cm}
+  \begin{tabular}{l|l}
+  \hline
+  \textbf{Requirements} & \textbf{Covering DSCLs} \\
+  \hline
+
+}{
+  \hline
+  \end{tabular}
+  \linebreak
+}
+
+\newenvironment{complexity}{
+  %\scriptsize
+  %\sffamily
+  %\vspace{0.3cm}
+  \begin{tabular}{l|l}
+  \hline
+  \textbf{Complexity Class} & \textbf{Complexity} \\
+  \hline
+
+}{
+  \hline
+  \end{tabular}
+  \linebreak
+}
+
+\newenvironment{DL}{
+  %\scriptsize
+  %\sffamily
+  \vspace{0cm}
+  \begin{tabular}{r l}
+
+}{
+  \end{tabular}
+  %\linebreak
+}
+
+
+\newenvironment{evaluation}{
+  %\scriptsize
+  %\sffamily
+  %\vspace{0.3cm}
+  \begin{tabular}{l|c|c|c|c|c|c}
+  \hline
+  \textbf{Constraint Class} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\
+  \hline
+
+}{
+  \hline
+  \end{tabular}
+  \linebreak
+}
+
+\newenvironment{constraint-languages-complexity}{
+  %\scriptsize
+  %\sffamily
+  %\vspace{0.3cm}
+  \begin{tabular}{l|c|c|c|c|c|c}
+  \hline
+  \textbf{Complexity Class} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\
+  \hline
+
+}{
+  \hline
+  \end{tabular}
+  \linebreak
+}
+
+\newenvironment{user-fiendliness}{
+  %\scriptsize
+  %\sffamily
+  %\vspace{0.3cm}
+  \begin{tabular}{l|c|c|c|c|c}
+  \hline
+  \textbf{criterion} & \textbf{DSP} & \textbf{OWL2} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\
+  \hline
+
+}{
+  \hline
+  \end{tabular}
+  \linebreak
+}
+
+\setcounter{secnumdepth}{5}
+
+\begin{document}
+\renewcommand{\arraystretch}{1.3}
+%
+%
+\title{RDF Validation of Metadata \\ on Highly-Complex Person-Level Data}
+\subtitle{}
+
+\titlerunning{XXXXX}  % abbreviated title (for running head)
+%                                     also used for the TOC unless
+%                                     \toctitle is used
+%
+\author{Thomas Bosch\inst{1} \and Benjamin Zapilko\inst{1} \and Joachim Wackerow\inst{1} \and Kai Eckert\inst{2}}
+%
+\authorrunning{} % abbreviated author list (for running head)
+%
+%%%% list of authors for the TOC (use if author list has to be modified)
+\institute{GESIS – Leibniz Institute for the Social Sciences, Germany\\
+\email{\{firstname.lastname\}@gesis.org},\\ 
+\and
+University of Mannheim, Germany \\
+\email{kai@informatik.uni-mannheim.de} 
+}
+
+\maketitle              % typeset the title of the contribution
+
+\begin{abstract}
+For research institutes, data libraries, and data archives,
+RDF data validation according to predefined constraints is a much sought-after feature, 
+particularly as this is taken for granted in the XML world.
+The data most often used in research within the community around research data for the social, behavioural, and economic sciences is person-level data, i.e. data collected about individuals (households, businesses). 
+%The DDI-RDF Discovery Vocabulary is used to describe and to discover this kind of research data.
+While performing research, the detailed, often access restricted person-level
+data is aggregated into less confidential publicly available multi-dimensional tables which answer particular research questions and whose purpose is to gain an interest in further more detailed analyses on the underlying person-level data.
+To ensure high quality and trust, metadata and data must satisfy certain criteria - specified in terms of RDF constraints. 
+
+In this paper, we show how metadata and underlying data on different level of aggregation as well as collections of these data sets are represented in RDF and how therefore used vocabularies are interrelated.
+We explain why RDF validation is important in this context and how (meta)data is validated against RDF constraints to ensure high quality and trust. 
+
+\keywords{RDF Validation, RDF Constraints, DDI-RDF Discovery Vocabulary, Disco, RDF Data Cube Vocabulary, Linked Data, Semantic Web}
+\end{abstract}
+
+\section{Introduction}
+
+\tb{we use data in singular form / we use data set instead of dataset / We use person-level data and not microdata}
+
+For more than a decade, members of the community around research data for the social, behavioural, and economic (SBE) sciences have been developing and using a
+metadata standard (composed of almost twelve hundred metadata fields) known as the \emph{Data Documentation Initiative (DDI)} \cite{Vardigan2008}.
+DDI is an XML format designed for the purposes of supporting the dissemination, management,
+and reuse of the data collected and archived for research purposes.  
+DDI is heavily used by the CESSDA community of European national data archives, 
+the International Household Survey Network community (made up of more than 90 statistical agencies),
+and ICPSR - the largest SBE data archive in the US.
+Recently, members of the SBE and Linked Data community developed the \emph{DDI-RDF Discovery Vocabulary (Disco)}\footnote{\url{http://rdf-vocabulary.ddialliance.org/discovery.html}}, 
+an effort to leverage the mature DDI metadata model for the purposes of exposing DDI metadata as resources within the Web of Linked Data. 
+For data archives, research institutes, and data libraries,
+RDF data validation according to predefined constraints is a much sought-after feature, 
+particularly as this is taken for granted in the XML world (DDI-XML documents are validated against diverse XSDs\footnote{\url{http://www.ddialliance.org/Specification/}}).
+Several approaches exist to meet this requirement, ranging from using \emph{OWL 2} as a constraint language to \emph{SPIN}\footnote{\url{http://spinRDF.org/}}, a SPARQL-based way to formulate and check constraints. 
+There are also specific constraint languages like \emph{Shape Expressions}\footnote{\url{http://www.w3.org/Submission/shex-primer/}}, \emph{Resource Shapes}\footnote{\url{http://www.w3.org/Submission/shapes/}} or \emph{Description Set Profiles}\footnote{\url{http://dublincore.org/documents/2008/03/31/dc-dsp/}} that more or less explicitly address the aforementioned SBE community.
+Bosch and Eckert\cite{BoschEckert2014-2} use SPIN as basis to define a
+validation environment (\url{http://purl.org/net/rdfval-demo}) in which the validation of any constraint language\footnote{the only limitation is that constraint languages must be represented in RDF} can be implemented by representing them in SPARQL. 
+The SPIN engine checks for each resource if it satisfies all constraints (associated with its assigned classes) and generates a result RDF graph containing information about all constraint violations.
+
+The data most often used in research within the SBE community is \emph{person-level data}, i.e. data collected about individuals 
+(and sometimes also businesses and households) in the form of responses to surveys or taken from administrative registers
+(such as hospital records, registers of births and deaths). 
+The range of person-level data is very broad (covering many different domains), 
+including census, education, and health data as well as all types of business, social, and labor force surveys.  
+Increasingly, this type of research data is
+held within data archives or data libraries after it has been collected, so that it may be
+reused by future researchers. 
+In performing their research, the detailed person-level
+data is aggregated into less confidential multi-dimensional tables which answer particular research questions.
+Portals harvest metadata (as well as publicly available data) from multiple data providers in form of RDF.
+To ensure high quality, the metadata must satisfy certain criteria - specified in terms of RDF constraints.  
+After validating the metadata according to these constraints, portals offer added values to their customers, e.g. by searching over and comparing metadata of multiple providers. 
+
+By its nature, person-level data is highly confidential, and access is often only permitted for qualified researchers who must apply for access. 
+The purpose of publicly available aggregated data, on the other hand, is to get a first overview and to gain an interest in further analyses on the underlying person-level data.
+Researchers typically represent their results as aggregated data in form of two-dimensional tables with only a few columns (so-called \emph{variables} such as \emph{sex} or \emph{age}).
+The \emph{RDF Data Cube Vocabulary (Data Cube)}\footnote{http://www.w3.org/TR/vocab-data-cube/} is a W3C recommendation for representing \emph{data cubes}, i.e. multi-dimensional aggregate data, in RDF \cite{Cyganiak2010}. 
+Aggregate data is derived from person-level data by statistics on groups or aggregates such as counts, means, and frequencies.
+The SDMX metadata standard\footnote{http://sdmx.org/} – used as the basis for \emph{Data Cube} – and DDI have traditionally made efforts to align their content. 
+Similarly, some of the developers of \emph{Disco} were also involved in the development of \emph{Data Cube}, 
+allowing the RDF versions of these standards to retain that alignment.
+While \emph{Disco} and \emph{Data Cube} provide terms for the description of data sets, 
+both on a different level of aggregation, 
+the \emph{Data Catalog Vocabulary (DCAT)}\footnote{\url{http://www.w3.org/TR/vocab-dcat/}} enables the representation of these data sets inside of data collections like repositories, catalogs, or archives. 
+The relationship between data collections and their contained data sets is useful, since such collections are a typical entry point when searching for data.
+Although, in most cases aggregated data is still published in form of PDFs, 
+it is more and more common to publish aggregated data as CSV files,
+allowing to perform first calculations (either using all variables or only a subset).
+%For these calculations, definitions of the columns are needed (e.g. is a given variable interpreted numerically or as a string).
+In 2014, SBE and Linked Data community members developed the \emph{Physical Data Description (PHDD)}\footnote{\url{https://github.com/linked-statistics/physical-data-description}} vocabulary to represent aggregated data in a rectangular format. 
+The data could be either represented in records with character-separated values (CSV) or in records with fixed length. 
+
+For more detailed analyses, researchers refer to person-level data from which aggregated data is derived from, 
+as person-level data include additional variables needed for further research.
+%Although not that common, the other direction is also possible, 
+%i.e. researchers may use metadata on person-level data to search for aggregated data.
+One very common example for detailed analyses on person-level data is the content-driven comparison of multiple surveys.
+Researchers get promising findings (in form of published tables with a few columns) within a metadata portal leading to subsequent research questions 
+like 'How to compare the unemployment rate of different countries (e.g. Germany, UK, and France) in the last 10 years grouped by age?'.
+The first step is to determine in which countries the unemployment rate is collected and which other variables of each country-specific survey are theoretically comparable and can therefore be used to answer the underlying research question.
+Variables are constructed out of values (of one or multiple datatypes) and/or code lists.
+The variable \emph{age}, e.g., may be represented by values of the datatype \emph{xsd:nonNegativeInteger}, or by a code list including multiple age clusters (such as '0 to 10' and '11 to 20'). 
+To determine if variables measuring \emph{age} 
+- collected within multiple surveys of different countries (\emph{$age_{DE}$}, \emph{$age_{UK}$}) - 
+are comparable, both content-driven and technology-driven validation is performed either
+within our developed validation environment or by matching algorithms. 
+An example for a content-driven validation is to investigate if variables are represented in a compatible way,
+i.e. are the variables' code lists theoretically comparable.
+Technically, it can be validated (1) if variable definitions are available, (2) if code lists are properly structured, and (3) if for each code an associated category (a human-readable label) is specified.
+
+\tb{maybe this paragraph should be moved to one of the subsequent sections and not be part of introduction}
+Data providers and harvesters do not only offer metadata but also publicly available data on different level of detail.
+To ensure high data quality and trust, they have to analyze and validate the data (are fundamental data fragments available?, how does valid data look like?). 
+%They validate, e.g., if fundamental data parts are available and define how valid data should look like (using syntactic rules).
+Provenance (where does the data come from?) is an important aspect in evaluating data quality.
+As data searchers know exactly which data sources they trust and which are reasonable to meet their individual use cases, 
+data validation can only be performed semi-automatically, i.e. an automatic approach serves as basis for intellectual decisions. 
+
+This paper aims to address two main \textbf{audiences}: 
+(1) metadata practitioners seeking for how to represent metadata on data sets on different aggregation levels and
+(2) metadata providers and harvesters ensuring high quality metadata by validating metadata on highly complex RDF data sets.
+In this paper, we show in form of a complete real world running example how to represent metadata on highly complex person-level data (\emph{Disco}), metadata on aggregated data (\emph{Data Cube}), and aggregated data in a rectangular format (\emph{PHDD}) in RDF and how therefore used vocabularies are interrelated (\textbf{contribution 1}).
+We explain why RDF validation is important in this context and how (meta)data is validated against RDF constraints to ensure high quality (meta)data within this complex of data sets on different levels of aggregation (\textbf{contribution 2}). 
+The remainder of the paper is structured as follows.
+
+\section{Running Example}
+
+- European data in Missy
+
+- multiple countries (+) $-->$ region in query
+
+\section{ideas}
+
+- different sets of constraints for different use cases / use case specific constraints
+
+- validation against minimal set of requirements / constraints
+
+\section{Use Cases}
+
+\textbf{application of matching algorithms.}
+- the value for a specific data property (e.g. birth date) is needed as prerequisite to perform matching algorithms
+- 1. step: validation
+- 2. step: matching
+- validation as reasonable extension of pattern of Ben (e.g. for pattern: is this digit correct?)
+
+\textbf{Data Integration.}
+use RDF validation for data integration
+
+\textbf{XKOS validation}
+only 1 sentence / only special case / e.g. profession classification ISCO
+
+extended version of SKOS – XKOS – to describe formal statistical classifications.
+
+\section{RDF Validation}
+
+RDF validation scenarios require the closed-world assumption (CWA) (i.e., a statement is inferred to be false if it cannot be proved to be true).
+
+- different severity levels for different validation types
+
+\subsection{Content-Driven Validation}
+
+\textbf{Theoretical Concepts.}
+Variables must have at least one relation to a theoretical concept.
+The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
+
+\textbf{Search for Studies.}
+Each study must have an abstract. 
+If an abstract is missing a study title may be sufficient in many cases.
+
+\subsection{Technology-Driven Validation}
+
+
+
+\section{Related Work}
+
+With RDF validation, one can overcome the drawbacks when validating XML documents.
+Certain things cannot be validated using XSDs.
+As a consequence, so-called secondary-level validation tools like Schematron have been introduced to overcome the limitations of XSDs.
+Schematron generated validation rules and validates XML documents according to them.
+It cannot be validated if each code of a variable's code list is associated with a category \tb{further explanation needed}.
+It cannot be validated that if an element has a specific value, then certain child elements must be present.  
+
+\tb{Achim, which kind of things cannot be validated using XSDs / we also need references}
+
+
+\section{Conclusion and Future Work}
+
+\bibliography{../../literature/literature}{}
+\bibliographystyle{plain}
+\setcounter{tocdepth}{1}
+%\listoftodos
+\end{document}

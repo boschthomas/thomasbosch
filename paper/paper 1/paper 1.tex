@@ -1341,7 +1341,7 @@ Table \ref{tab:expressivity-sores-according-to-expressivity-classes} shows the e
 	\label{tab:expressivity-sores-according-to-expressivity-classes}
 \end{table}
 
-If we rank them according their scores, just as before we get the following as a brief picture:
+If we rank them according to their scores, just as before we get the following as a brief picture:
 \begin{eqnarray*} 
 \emph{Expr(DSP):} OWL2QL \prec ReSh \prec ShEx \preceq OWL2DL \prec SPIN \prec DSP \\
 \emph{Expr(OWL2DL):} ReSh \prec ShEx \prec DSP \prec OWL2QL \prec SPIN \prec OWL2DL \\
@@ -1351,10 +1351,11 @@ If we rank them according their scores, just as before we get the following as a
 \emph{Expr(SPIN):} ReSh \prec DSP \prec OWL2QL \prec ShEx \prec OWL2DL \prec SPIN
 \end{eqnarray*}
 
-From Table \ref{tab:expressivity-sores-according-to-expressivity-classes} (with numbers), one can infer that in terms of expressivity on constraint types, 
+From Table \ref{tab:expressivity-sores-according-to-expressivity-classes} (with numbers), one important finding is that in terms of expressivity on constraint types, 
 all constraint languages can be fully covered by SPIN if we ignore one last constraint type (i.e., the recursive queries which is partly implemented in SPIN). 
 Except for SPIN, all supported constraint types are already implemented by particular constraint languages.
-Yet another interesting message is that, none of those languages with mediocre expressivity covers the other so far. As we keep the validation requirements updated and those languages are further developed, it is likely that this list will change as well in the direction of needs of the validation community.
+Yet another interesting message is that, none of other languages covers the other so far in terms of expressivity.
+As we keep the validation requirements updated and those languages are further developed, it is likely that this list will change as well in the direction of needs of the validation community.
 
 %\subsection{Classification Dimension Expressivity [Old]}
 %
@@ -1637,8 +1638,11 @@ Regarding the performance of constraints, we refer to worst case complexity.
 We divide $\mathcal{C}_R$ into two not disjoint classes ($\mathcal{C}_R ^{\mathcal{QL}} \subseteq \mathcal{C}_R ^{\mathcal{DL}}$) for the validation by query answering with OWL 2 QL and OWL 2 DL reasoning respectively.
 It is well known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}, 
 which is assigned to $\overline{\mathcal{C}_R}$ (validation by query answering without reasoning).
-In section \ref{classification-constraint-languages} we classified constraint languages according to expressivity. 
-%\tb{needs to be described more}
+In section \ref{classification-constraint-languages} we classified constraint languages according to expressivity scores and classes. 
+An interesting results is that in terms of expressivity on constraint types, 
+all constraint languages can be fully covered by SPIN (except one constraint type which is partly implemented).
+All supported constraint types are already implemented by particular constraint languages (except for SPIN).
+Another important finding is that, none of other languages covers the other so far in terms of expressivity.
 We implemented the validation of all OWL 2 QL, OWL 2 DL, DSP (and major ReSh and ShEx) constructs
 within our SPIN validation environment in form of SPARQL CONSTRUCT queries (\url{http://purl.org/net/RDFval-demo}).
 %\cite{BoschEckert2014-2}\footnote{SPIN mappings: \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}, \url{https://github.com/dcmi/DSP-SPIN-Mapping}}.
