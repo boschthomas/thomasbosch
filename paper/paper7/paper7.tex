@@ -311,7 +311,13 @@ The remainder of the paper is structured as follows.
 
 - validation against minimal set of requirements / constraints
 
-\section{Use Cases}
+\section{RDF Representation of Metadata}
+
+\section{RDF Validation of Metadata}
+
+RDF validation scenarios require the closed-world assumption (CWA) (i.e., a statement is inferred to be false if it cannot be proved to be true).
+
+- different severity levels for different validation types
 
 \textbf{application of matching algorithms.}
 - the value for a specific data property (e.g. birth date) is needed as prerequisite to perform matching algorithms
@@ -319,19 +325,10 @@ The remainder of the paper is structured as follows.
 - 2. step: matching
 - validation as reasonable extension of pattern of Ben (e.g. for pattern: is this digit correct?)
 
-\textbf{Data Integration.}
-use RDF validation for data integration
-
 \textbf{XKOS validation}
 only 1 sentence / only special case / e.g. profession classification ISCO
 
 extended version of SKOS – XKOS – to describe formal statistical classifications.
-
-\section{RDF Validation}
-
-RDF validation scenarios require the closed-world assumption (CWA) (i.e., a statement is inferred to be false if it cannot be proved to be true).
-
-- different severity levels for different validation types
 
 \subsection{Content-Driven Validation}
 
@@ -345,7 +342,25 @@ If an abstract is missing a study title may be sufficient in many cases.
 
 \subsection{Technology-Driven Validation}
 
+\section{RDF Validation of Data}
 
+\textbf{Data Integration.}
+use RDF validation for data integration
+
+\section{Implementation}
+
+\textbf{Validation of Data Cube instances.}
+\begin{itemize}
+	\item \textcolor{blue}{is there an implementation available yet? If not I implement it in our validation environment}
+	\item \textcolor{blue}{example QB data set / we could use the one from the QB spec}
+\end{itemize}
+
+\section{Evaluation}
+
+\begin{itemize}
+	\item validate constraints on complex example data set
+	\item count Disco, QB, PHDD, XKOS, DCAT constraints by constraint groups 
+\end{itemize}
 
 \section{Related Work}
 
@@ -357,6 +372,15 @@ It cannot be validated if each code of a variable's code list is associated with
 It cannot be validated that if an element has a specific value, then certain child elements must be present.  
 
 \tb{Achim, which kind of things cannot be validated using XSDs / we also need references}
+
+\textbf{RDF Data Cube Vocabulary.}
+A well-formed RDF Data Cube is an a RDF graph describing one or more instances of {\em qb:DataSet} for which each of the defined integrity constraints passes.
+Each integrity constraint is expressed as narrative prose and, where possible, a SPARQL ASK query or query template. 
+If the ASK query is applied to an RDF graph then it will return true if that graph contains one or more Data Cube instances which violate the corresponding constraint.
+\cite{CyganiakReynolds2014}
+
+\textbf{DCAT.}
+\textcolor{blue}{are there already constraints defined for DCAT?}
 
 
 \section{Conclusion and Future Work}
