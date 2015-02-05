@@ -216,6 +216,7 @@ We state at least one Disco constraint for the majority of the constraint types.
 Where appropriate constraint types are related to complementary requirements of the RDF validation requirements database.
 Constraint types marked with an asterisk can be used as OWL 2 axioms.
 Thus, reasoners may be used to infer implicit triples resolving constraint violations caused when these constraints are validated.
+When constraint types are mapped to DL, we do not state namespace prefixes for simplicity reasons.
 
 \subsection{Data Model Consistency}
 
@@ -430,7 +431,7 @@ Role composition can only appear on the left-hand side of complex role inclusion
 
 \subsection{Disjunction*}
 
-A \emph{union class expression}\footnote{{\em R-17-DISJUNCTION-OF-CLASS-EXPRESSIONS} and {\em R-18-DISJUNCTION-OF-DATA-RANGES}} contains all individuals that are instances of at least one class $C_{i}$ for 1 $\leq$ i $\leq$ n. 
+A \emph{union class expression}\footnote{{\em R-17-DISJUNCTION-OF-CLASS-EXPRESSIONS}, {\em R-18-DISJUNCTION-OF-DATA-RANGES}} contains all individuals that are instances of at least one class $C_{i}$ for 1 $\leq$ i $\leq$ n. 
 A \emph{union data range} contains all tuples of literals that are contained in at least one data range $DR_{i}$ for 1 $\leq$ i $\leq$ n.
 Synonyms of {\em disjunction} are {\em union} and {\em inclusive or}.
 
@@ -443,59 +444,186 @@ Variable $\sqcup$ Question $\sqcup$ RepresentedVariable $\sqsubseteq$ $\forall$ 
 \end{DL}
 \end{itemize}
 
+\subsection{Negation*}
 
+\subsection{Existential Quantifications*}
 
+An \emph{existential class expression}\footnote{{\em R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}} ({\em existential restriction} in DL terminology) contains all those individuals that are connected by the property \emph{P} to an individual \emph{x} that is an instance of the class \emph{C} or to literals that are in the data range \emph{DR}.
 
-
-
-\subsection{Unqualified Cardinality Restrictions}
-
-\subsection{Minimum Qualified Cardinality Restrictions}
-
-A minimum cardinality restrictions contains all those individuals that are connected by a property to at least n different individuals/literals 
-that are instances of a particular class or data range. If the class is missing, it is taken to be owl:Thing. 
-If the data range is missing, it is taken to be rdfs:Literal.
-$\geq n R. C$ is a minimum qualified cardinality restriction where $n \in \mathbb{N}$\footnote{{\em R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES} and {\em R-211-CARDINALITY-CONSTRAINTS}}.
-\textbf{{\em DISCO-C-XX:}}
-A {\em disco:Questionnaire} has at least 1 {\em disco:question} relationship to {\em disco:Question}\footnote{When mapped to DL, we do not state namespace prefixes for simplicity reasons}.
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-XX:}} 
+There must be at least one {\em disco:universe} relationship from {\em disco:Studies} or {\em disco:StudyGroups} to {\em disco:Universe}.
 
 \begin{DL}
-Questionnaire $\sqsubseteq$ $\geq$1 question.Question
+Study $\sqcup$ StudyGroup $\sqsubseteq$ $\exists$ universe.Universe \\
 \end{DL}
-
-\subsection{Exact Qualified Cardinality Restrictions}
-
-An exact cardinality restriction contains all those individuals that are connected by a property to exactly n different individuals that are instances of a particular class or data range. 
-If the class is missing, it is taken to be owl:Thing. 
-If the data range is not present, it is taken to be rdfs:Literal.
-$\geq n R. C \sqcap \leq n R. C $ is an exact qualified cardinality restriction where $n \in \mathbb{N}$\footnote{{\em R-74-EXACT-QUALIFIED-CARDINALITY-ON-PROPERTIES} and {\em R-211-CARDINALITY-CONSTRAINTS}.}.
-\textbf{{\em DISCO-C-XX:}}
-A {\em disco:Question} has exactly 1 {\em disco:universe} relationship to {\em disco:Universe}.
-
-\begin{DL}
-Question $\sqsubseteq$ \\
-$\geq$1 universe.Universe $\sqcap$ $\leq$1 universe.Universe \\
-\end{DL}
+\end{itemize}
 
 \subsection{Universal Quantifications*}
 
-A universal class expression ({\em value restriction} in DL) contains all those individuals that are connected by an object property only to individuals that are instances of a particular class\footnote{{\em R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}}.
-\textbf{{\em DISCO-C-XX:}}
+A \emph{universal class expression}\footnote{{\em R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}} ({\em value restriction} in DL) contains all those individuals that are connected by an object property only to individuals that are instances of a particular class.
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-XX:}}
 Only {\em disco:LogicalDataSet}s can have {\em disco:aggregation} relationships to {\em qb:DataSet}s.
 
 \begin{DL}
 LogicalDataSet $\sqsubseteq$ $\forall$ aggregation.DataSet \\
 \end{DL}
+\end{itemize}
 
-\subsection{Existential Quantifications}
+\subsection{Minimum Unqualified Cardinality Restrictions*}
 
-An existential class expression ({\em existential restriction} in DL terminology) contains all those individuals that are connected by the property P to an individual x that is an instance of the class C or to literals that are in the data range DR\footnote{{\em R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}}.
-\textbf{{\em DISCO-C-XX:}} 
-There must be at least 1 {\em disco:universe} relationship from {\em disco:Studies} or {\em disco:StudyGroups} to {\em disco:Universe}.
+\subsection{Minimum Qualified Cardinality Restrictions*}
+
+A \emph{minimum cardinality restriction}\footnote{{\em R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES}, {\em R-211-CARDINALITY-CONSTRAINTS}} contains all those individuals that are connected by a property to at least n different individuals/literals 
+that are instances of a particular class or data range. If the class is missing, it is taken to be \emph{owl:Thing}. 
+If the data range is missing, it is taken to be \emph{rdfs:Literal}.
+$\geq n R. C$ is a minimum qualified cardinality restriction where $n \in \mathbb{N}$.
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-XX:}}
+A {\em disco:Questionnaire} has at least one {\em disco:question} relationship to {\em disco:Question}.
 
 \begin{DL}
-Study $\sqcup$ StudyGroup $\sqsubseteq$ $\exists$ universe.Universe \\
+Questionnaire $\sqsubseteq$ $\geq$1 question.Question
 \end{DL}
+\end{itemize}
+
+\subsection{Maximum Unqualified Cardinality Restrictions*}
+
+\subsection{Maximum Qualified Cardinality Restrictions*}
+
+\subsection{Exact Unqualified Cardinality Restrictions*}
+
+\subsection{Exact Qualified Cardinality Restrictions*}
+
+An \emph{exact cardinality restriction}\footnote{{\em R-74-EXACT-QUALIFIED-CARDINALITY-ON-PROPERTIES}, {\em R-211-CARDINALITY-CONSTRAINTS}} contains all those individuals that are connected by a property to exactly n different individuals that are instances of a particular class or data range. 
+If the class is missing, it is taken to be \emph{owl:Thing}. 
+If the data range is not present, it is taken to be \emph{rdfs:Literal}.
+$\geq n R. C \sqcap \leq n R. C $ is an exact qualified cardinality restriction where $n \in \mathbb{N}$.
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-XX:}}
+A {\em disco:Question} has exactly 1 {\em disco:universe} relationship to {\em disco:Universe}.
+
+\begin{DL}
+Question $\sqsubseteq$ $\geq$1 universe.Universe $\sqcap$ $\leq$1 universe.Universe \\
+\end{DL}
+\end{itemize}
+
+\subsection{Transitive Object Properties*}
+
+\subsection{Context-Specific Exclusive OR of Properties}		
+
+\subsection{Context-Specific Exclusive OR of Property Groups}
+
+\emph{Exclusive or} is a logical operation that outputs true whenever both inputs differ (one is true, the other is false).
+Only one of multiple property groups leads to valid data\footnote{{\em R-13-DISJOINT-GROUP-OF-PROPERTIES-CLASS-SPECIFIC}}.
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-XX:}}
+Within the context of \emph{Disco}, \emph{skos:Concept}s can have either \emph{skos:definition} (when interpreted as DDI concepts) or \emph{skos:notation} and \emph{skos:prefLabel} properties (when interpreted as DDI codes and categories), but not both.
+
+\begin{DL}
+Concept $\sqsubseteq$ ($\neg$ D $\sqcap$ C) $\sqcup$ (D $\sqcap$ $\neg$ C) \\ 
+D $\equiv$ A $\sqcap$ B \\
+A $\sqsubseteq$ $\geq$ 1 notation.string $\sqcap$ $\leq$ 1 notation.string \\
+B $\sqsubseteq$ $\geq$ 1 prefLabel.string $\sqcap$ $\leq$ 1 prefLabel.string \\
+C $\sqsubseteq$ $\geq$ 1 definition.string $\sqcap$ $\leq$ 1 definition.string \\
+\end{DL}
+\end{itemize}
+
+\subsection{Allowed Values}
+
+It is a common requirement to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resources). 
+This is often rendered in drop down boxes or radio buttons in user interfaces. 
+Allowed values\footnote{{\em R-30-ALLOWED-VALUES-FOR-RDF-OBJECTS} and 
+{\em R-37-ALLOWED-VALUES-FOR-RDF-LITERALS}} for properties can be IRIs, IRIs (matching one or multiple patterns), (any) literals, literals of a list of allowed literals (e.g. 'red' 'blue' 'green'), typed literals of one or multiple type(s) (e.g. xsd:string).
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-XX}}.
+{\em disco:CategoryStatistics} can only have {\em disco:computationBase} relationships to the values \emph{valid} and \emph{invalid} of the datatype {\em rdf:langString}.
+
+\begin{DL}
+CategoryStatistics $\equiv$ $\forall$ computationBase.\{valid,invalid\} $\sqcap$ langString \\
+\end{DL}
+\end{itemize}
+
+\subsection{Not Allowed Values}
+
+A matching triple has any literal / object except those explicitly excluded\footnote{\emph{R-33-NEGATIVE-OBJECT-CONSTRAINTS}, \emph{R-200-NEGATIVE-LITERAL-CONSTRAINTS}}.
+
+\subsection{Literal Ranges}
+
+\emph{P1} is a data property (of an instance of class \emph{C1}) and its literal value must be between the range of [$V_{min}$,$V_{max}$]\footnote{{\em R-45-RANGES-OF-RDF-LITERAL-VALUES}}.
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-XX:}}
+{\em disco:percentage} (domain: {\em disco:CategoryStatistics}) literals must be of the datatype {\em xsd:double} whose range should be restricted to be between 0 and 100 (not expressible in DL).
+\end{itemize}
+
+\subsection{Negative Literal Ranges}
+
+\subsection{Required Properties}
+
+\subsection{Optional Properties}
+
+\subsection{Repeatable Properties}
+
+\subsection{Negative Property Constraints}
+
+Instances of a specific class must not have some object property\footnote{\emph{R-52-NEGATIVE-OBJECT-PROPERTY-CONSTRAINTS}, \emph{R-53-NEGATIVE-DATA-PROPERTY-CONSTRAINTS}}.
+
+\subsection{Individual Equality*}
+
+\subsection{Functional Properties*}
+
+An \emph{object property functionality axiom}\footnote{\emph{R-57-FUNCTIONAL-OBJECT-PROPERTIES}} \emph{FunctionalObjectProperty( OPE )} states that the object property expression \emph{OPE} is functional — that is, for each individual \emph{x}, there can be at most one distinct individual \emph{y} such that \emph{x} is connected by \emph{OPE} to \emph{y}. Each such axiom can be seen as a syntactic shortcut for the following axiom: \emph{SubClassOf( owl:Thing ObjectMaxCardinality( 1 OPE ) )}.
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-XX:}} for each \emph{rdfs:Resource x}, there can be at most one distinct \emph{rdfs:Resource y} such that \emph{x} is connected by \emph{adms:identifier} to \emph{y}.
+	
+\begin{DL}
+$(\textsf{funct } \textsf{identifier})$
+\end{DL}
+\end{itemize}
+
+\tb{Achim, we created an open issue for DDI 4 how keys should be defined}
+
+\subsection{Inverse-Functional Properties*}
+
+An \emph{object property inverse functionality axiom}\footnote{\emph{R-58-INVERSE-FUNCTIONAL-OBJECT-PROPERTIES}} \emph{InverseFunctionalObjectProperty( OPE )} states that the object property expression \emph{OPE} is inverse-functional - that is, for each individual \emph{x}, there can be at most one individual \emph{y} such that \emph{y} is connected by \emph{OPE} with \emph{x}. Each such axiom can be seen as a syntactic shortcut for the following axiom: \emph{SubClassOf( owl:Thing ObjectMaxCardinality( 1 ObjectInverseOf( OPE ) ) )}.
+
+\subsection{Value Restrictions*}
+
+\emph{Individual Value Restrictions}\footnote{\emph{R-88-VALUE-RESTRICTIONS}}: A has-value class expression \emph{ObjectHasValue( OPE a )} consists of an object property expression \emph{OPE} and an individual \emph{a}, and it contains all those individuals that are connected by \emph{OPE} to \emph{a}. Each such class expression can be seen as a syntactic shortcut for the class expression \emph{ObjectSomeValuesFrom( OPE ObjectOneOf( a ) )}. 
+\emph{Literal Value Restrictions}: A has-value class expression \emph{DataHasValue( DPE lt )} consists of a data property expression \emph{DPE} and a literal \emph{lt}, and it contains all those individuals that are connected by \emph{DPE} to \emph{lt}. Each such class expression can be seen as a syntactic shortcut for the class expression \emph{DataSomeValuesFrom( DPE DataOneOf( lt ) )}.
+
+\subsection{Self Restrictions*}
+
+A \emph{self-restriction} \emph{ObjectHasSelf( OPE )} consists of an object property expression \emph{OPE}, and it contains all those individuals that are connected by \emph{OPE} to themselves. 
+
+\subsection{Primary Key Properties}
+
+The \emph{Primary Key Properties} constraint is often useful to declare a given (datatype) property as the "primary key" of a class, so that a system can enforce uniqueness and also automatically build URIs from user input and data imported from relational databases or spreadsheets.. 
+Starfleet officers, e.g., are uniquely identified by their command authorization code (e.g. to activate and cancel auto-destruct sequences).
+It means that the property \emph{commandAuthorizationCode} is inverse functional - mapped to DL as follows:
+$(\ms{funct commandAuthorizationCode}\sp{\overline{\ }})$
+Keys, however, are even more general, i.e., a generalization of inverse functional properties \cite{Schneider2009}.
+A key can be a datatype property, an object property, or a chain of properties.
+For this generalization purposes, as there are different sorts of key, and as keys can lead to undecidability, 
+DL is extended with \emph{key boxes} and a special \emph{keyfor} construct\cite{Lutz2005}.
+This leads to the following DL mapping (only one simple property constraint):
+\ms{commandAuthorizationCode \ms{keyfor} StarfleetOfficer}
+
+\begin{itemize}
+	\item see \emph{functional properties}
+\end{itemize}
+
+
+
+
 
 \subsection{Class-Specific Property Ranges}		
 
@@ -508,34 +636,7 @@ Only {\em disco:Question}s can have {\em disco:questionText} relationships to li
 $\neg$Question $\sqsubseteq$ $\neg\exists$ questionText.langString
 \end{DL}
 
-\subsection{Context-Specific Exclusive OR of Property Groups}
 
-Exclusive or is a logical operation that outputs true whenever both inputs differ (one is true, the other is false).
-Only one of multiple property groups leads to valid data\footnote{{\em R-13-DISJOINT-GROUP-OF-PROPERTIES-CLASS-SPECIFIC}}.
-\textbf{{\em DISCO-C-XX:}}
-Within the context of Disco, skos:Concepts can have either skos:definition (when interpreted as DDI concepts) or skos:notation and skos:prefLabel properties (when interpreted as DDI codes and categories), but not both.
-
-\begin{DL}
-Concept $\sqsubseteq$ ($\neg$ D $\sqcap$ C) $\sqcup$ (D $\sqcap$ $\neg$ C) \\ 
-D $\equiv$ A $\sqcap$ B \\
-A $\sqsubseteq$ $\geq$ 1 notation.string $\sqcap$ $\leq$ 1 notation.string \\
-B $\sqsubseteq$ $\geq$ 1 prefLabel.string $\sqcap$ $\leq$ 1 prefLabel.string \\
-C $\sqsubseteq$ $\geq$ 1 definition.string $\sqcap$ $\leq$ 1 definition.string \\
-\end{DL}
-
-\subsection{Allowed Values}
-
-It is a common requirement to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resource). 
-This is often rendered in drop down boxes or radio buttons in user interfaces. 
-Allowed values for properties can be IRIs, IRIs (matching one or multiple patterns), (any) literals, literals of a list of allowed literals (e.g. 'red' 'blue' 'green'), typed literals one or multiple type(s) (e.g. xsd:string)\footnote{{\em R-30-ALLOWED-VALUES-FOR-RDF-OBJECTS} and 
-{\em R-37-ALLOWED-VALUES-FOR-RDF-LITERALS}}.
-
-\textbf{{\em DISCO-C-XX}}.
-{\em disco:CategoryStatistics} can only have {\em disco:computationBase} relationships to the values 'valid' and 'invalid' of the datatype {\em rdf:langString}.
-
-\begin{DL}
-CategoryStatistics $\equiv$ \\ $\forall$ computationBase.\{valid,invalid\} $\sqcap$ langString \\
-\end{DL}
 
 \subsection{Membership in Controlled Vocabularies.}
 
@@ -570,12 +671,6 @@ SELECT ?s WHERE {
 \textbf{{\em DISCO-C-XX}}.
 {\em disco:startDate}s must be before (‘\textless’) the {\em disco:endDate}s.
 To validate this constraint we bind the variables as follows (P1: {\em disco:startDate}, P2: {\em disco:endDate}, OP: \textless). 
-
-\subsection{Literal Ranges}
-
-P1 is a data property (of an instance of class C1) and its literal value must be between the range of [$V_{min}$,$V_{max}$].
-\textbf{{\em DISCO-C-XX:}}
-{\em disco:percentage} (domain: {\em disco:CategoryStatistics}) literals must be of the datatype {\em xsd:double} whose range should be restricted to be between 0 and 100 (not expressible in DL)\footnote{{\em R-45-RANGES-OF-RDF-LITERAL-VALUES}}.
 
 \subsection{Mathematical Operations}
 
@@ -626,8 +721,6 @@ Make sure that a value is valid for its datatype.
 It has to be ensured, e.g., that a date is really a date, or that a xsd:nonNegativeInteger value is not negative. 
 \textbf{{\em DISCO-C-XX:}}
 Check if literal values of the property {\em disco:startDate} are really of the datatype {\em xsd:date}(not expressible in DL).
-
-\subsection{Functional Properties}
 
 \subsection{Hierarchies}
 
