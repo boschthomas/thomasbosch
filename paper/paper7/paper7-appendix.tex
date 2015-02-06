@@ -229,12 +229,8 @@ A \emph{subclass axiom}\footnote{{\em R-100-SUBSUMPTION}} ({\em concept inclusio
 i.e. each resources of the class \emph{C1} must also be part of the class extension of \emph{C2}.
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-XX:}} 
-All {\em disco:Universe}s must also be {\em skos:Concept}s:
-
-\begin{DL}
-Universe $\sqsubseteq$ Concept
-\end{DL}
+	\item \textbf{{\em DISCO-C-SUBSUMPTION-01:}} 
+All {\em disco:Universe}s must also be {\em skos:Concept}s (\ms{Universe $\sqsubseteq$ Concept}).
 \end{itemize}
 
 \subsection{Class Equivalence*}
@@ -245,13 +241,8 @@ often uses concept equivalence to give a name to complex expressions \cite{Kroet
 Concept equivalence is indeed subsumption from left and right ($A \sqsubseteq B$ and $B \sqsubseteq A$ implies $A \equiv B$).
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-XX:}}
-All {\em sio:SIO\_000367} resources must also be {\em disco:Variable}s:
-
-\begin{DL}
-Variable $\equiv$ SIO\_000367
-\end{DL}
-
+	\item \textbf{{\em DISCO-C-CLASS-EQUIVALENCE-01:}}
+All {\em sio:SIO\_000367} resources must also be {\em disco:Variable}s (\ms{Variable $\equiv$ SIO\_000367}).
 The Semanticscience Integrated Ontology (SIO)\footnote{https://code.google.com/p/semanticscience/wiki/SIO} provides a simple, integrated ontology of types and relations for rich description of objects, processes and their attributes.
 {\em sio:SIO\_000367} is a variable defined as a value that may change within the scope of a given problem or set of operations.
 Thus, {\em sio:SIO\_000367} is equivalent to {\em disco:Variable}.
@@ -262,12 +253,8 @@ Thus, {\em sio:SIO\_000367} is equivalent to {\em disco:Variable}.
 {\em Sub Properties}\footnote{\emph{R-54-SUB-OBJECT-PROPERTIES}, \emph{R-54-SUB-DATA-PROPERTIES}} state that the property \emph{P1} is a sub property of the property \emph{P2} - that is, if an individual \emph{x} is connected by \emph{P1} to an individual or a literal \emph{y}, then \emph{x} is also connected by \emph{P2} to \emph{y}. 
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-XX:}}
-If an individual \emph{x} is connected by {\em disco:fundedBy} to an individual \emph{y}, then \emph{x} is also connected by {\em dcterms:contributor} to \emph{y}. 
-
-\begin{DL}
-fundedBy $\sqsubseteq$ contributor 
-\end{DL}
+	\item \textbf{{\em DISCO-C-SUB-PROPERTIES-01:}}
+If an individual \emph{x} is connected by {\em disco:fundedBy} to an individual \emph{y}, then \emph{x} is also connected by {\em dcterms:contributor} to \emph{y} (\ms{fundedBy $\sqsubseteq$ contributor}). 
 \end{itemize}
 
 \subsection{Property Domains*}
@@ -279,12 +266,8 @@ $\exists R. \top \sqsubseteq C$ is the object property restriction where $R$ is 
 {\em Property Domain} constraints are defined for each \emph{Disco} object and data property.
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-XX:}} 
-Only {\em disco:Question}s can have {\em disco:responseDomain} relationships.
-
-\begin{DL}
-$\exists$ responseDomain.$\top$ $\sqsubseteq$ Question 
-\end{DL}
+	\item \textbf{{\em DISCO-C-PROPERTY-DOMAIN-01:}} 
+Only {\em disco:Question}s can have {\em disco:responseDomain} relationships (\ms{$\exists$ responseDomain.$\top$ $\sqsubseteq$ Question}).
 \end{itemize}
 
 \subsection{Property Ranges*}
@@ -293,12 +276,8 @@ $\exists$ responseDomain.$\top$ $\sqsubseteq$ Question
 $\top \sqsubseteq \forall R . C$ is the range restriction to the object property $R$ (restricted by the concept $C$). 
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-XX:}} 
-{\em disco:caseQuantity} relationships can only point to literals of the datatype {\em xsd:nonNegativeInteger}.
-
-\begin{DL}
-$\top$ $\sqsubseteq$ $\forall$ caseQuantity.nonNegativeInteger \\
-\end{DL}
+	\item \textbf{{\em DISCO-C-PROPERTY-RANGES-01:}} 
+{\em disco:caseQuantity} relationships can only point to literals of the datatype {\em xsd:nonNegativeInteger} (\ms{$\top$ $\sqsubseteq$ $\forall$ caseQuantity.nonNegativeInteger}).
 \end{itemize}
 
 \subsection{Inverse Object Properties*}
@@ -311,14 +290,10 @@ A property is asymmetric\footnote{{\em R-62-ASYMMETRIC-OBJECT-PROPERTIES}} if it
 An object property asymmetry axiom states that the object property \emph{OP} is asymmetric - that is, if an individual \emph{x} is connected by \emph{OP} to an individual \emph{y}, then \emph{y} cannot be connected by \emph{OP} to \emph{x}. 
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-XX:}} 
+	\item \textbf{{\em DISCO-C-ASYMMETRIC-OBJECT-PROPERTIES-01:}} 
 A {\em disco:Variable} may be based on a {\em disco:RepresentedVariable}.
 A {\em disco:RepresentedVariable}, however, cannot be based on a {\em disco:Variable}.
-This is a kind of mistake which may occur as a semantically equivalent object property for the other direction may also be possible ({\em disco:basisOf}).
-
-\begin{DL}
-$basedOn \sqcap basedOn^{-} \sqsubseteq \bot$ 
-\end{DL}
+This is a kind of mistake which may occur as a semantically equivalent object property for the other direction may also be possible ({\em disco:basisOf}) (\ms{$basedOn \sqcap basedOn^{-} \sqsubseteq \bot$}).
 \end{itemize}
 
 \subsection{Reflexive Object Properties*}
@@ -332,12 +307,8 @@ An object property irreflexivity axiom \emph{IrreflexiveObjectProperty( OPE )} s
 In \emph{Disco}, every object property is irreflexive.
 
 \begin{itemize}
-  \item \textbf{{\em DISCO-C-XX:}}
-Within the Disco context, no individual is connected by the object property {\em instrument} to itself
-
-\begin{DL}
-$\top$ $\sqsubseteq$ $\neg$ $\exists  instrument . Self$ 
-\end{DL}
+  \item \textbf{{\em DISCO-C-IRREFLEXIVE-OBJECT-PROPERTIES-01:}}
+Within the Disco context, no individual is connected by the object property {\em instrument} to itself (\ms{$\top$ $\sqsubseteq$ $\neg$ $\exists  instrument . Self$}).
 \end{itemize}
 
 \subsection{Class-Specific Irreflexive Object Properties*}
@@ -347,19 +318,10 @@ An object property irreflexivity axiom states that the object property \emph{OP}
 \emph{Class-Specific Irreflexive Object Properties} are object properties which are irreflexive within a given context, e.g. a class. 
 
 \begin{itemize}
-  \item \textbf{{\em DISCO-C-XX:}}
-Within the Disco context, {\em skos:Concept}s cannot be related via the object property {\em skos:boader} to themselves
-
-\begin{DL}
-Concept $\sqsubseteq$ $\neg$$\exists$ broader.Self. 
-\end{DL}
-
-	\item \textbf{{\em DISCO-C-XX:}}
-Within the Disco context, {\em skos:Concept}s cannot be related via the object property {\em skos:narrower} to themselves. 
-
-\begin{DL}
-Concept $\sqsubseteq$ $\neg$$\exists$ narrower.Self. 
-\end{DL}
+  \item \textbf{{\em DISCO-C-CLASS-SPECIFIC-IRREFLEXIVE-OBJECT-PROPERTIES-01:}}
+Within the Disco context, {\em skos:Concept}s cannot be related via the object property {\em skos:boader} to themselves (\ms{Concept $\sqsubseteq$ $\neg$$\exists$ broader.Self.}). 
+	\item \textbf{{\em DISCO-C-CLASS-SPECIFIC-IRREFLEXIVE-OBJECT-PROPERTIES-02:}}
+Within the Disco context, {\em skos:Concept}s cannot be related via the object property {\em skos:narrower} to themselves (\ms{Concept $\sqsubseteq$ $\neg$$\exists$ narrower.Self.}). 
 \end{itemize}
 
 \subsection{Disjoint Properties}
@@ -373,13 +335,9 @@ that is, no individual \emph{x} can be connected to an individual \emph{y} by th
 that is, no individual can be at the same time an instance of these disjoint classes.
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-XX:}} 
+	\item \textbf{{\em DISCO-C-DISJOINT-CLASSES-01:}} 
 All \emph{Disco} classes are defined to be pairwise disjoint.
-The following DL statements holds for each pair of Disco classes:
-
-\begin{DL}
-Study $\sqcap$ Variable $\sqsubseteq$ $\perp$\\
-\end{DL}
+The following DL statements holds for each pair of Disco classes (\ms{Study $\sqcap$ Variable $\sqsubseteq$ $\perp$}).
 \end{itemize}
 
 \subsection{Context-Specific Property Groups}
@@ -404,7 +362,7 @@ For datatype properties it should be possible to declare frequently needed \emph
 Constraining facets, to restrict datatypes of RDF literals, may be: \emph{xsd:length}, \emph{xsd:minLength}, \emph{xsd:maxLength}, \emph{xsd:pattern}, \emph{xsd:enumeration}, \emph{xsd:whiteSpace}, \\ \emph{xsd:maxInclusive}, \emph{xsd:maxExclusive}, \emph{xsd:minExclusive}, \emph{xsd:minInclusive}, \emph{xsd:total} \emph{Digits}, \emph{xsd:fractionDigits}.
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-XX:}} The abstract of a study (\emph{disco:purpose}) should have a minimum length (\emph{xsd:minInclusive}) of x. 
+	\item \textbf{{\em DISCO-C-DATA-PROPERTY-FACETS-01:}} The abstract of a study (\emph{disco:purpose}) should have a minimum length (\emph{xsd:minInclusive}) of x. 
 \end{itemize}
 
 \subsection{Literal Pattern Matching}
@@ -412,13 +370,13 @@ Constraining facets, to restrict datatypes of RDF literals, may be: \emph{xsd:le
 There are multiple use cases associated with the requirement to match literals according to given patterns\footnote{\emph{R-44-PATTERN-MATCHING-ON-RDF-LITERALS}}.
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-XX:}} Each \emph{disco:Variable} of a given \emph{disco:LogicalDataSet} must have a given prefix for its variable name (\emph{skos:notation}). 
+	\item \textbf{{\em DISCO-C-LITERAL-PATTERN-MATCHING-01:}} Each \emph{disco:Variable} of a given \emph{disco:LogicalDataSet} must have a given prefix for its variable name (\emph{skos:notation}). 
 \end{itemize}
 
 \subsection{Negative Literal Pattern Matching}
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-XX:}} 
+	\item \textbf{{\em DISCO-C-NEGATIVE-LITERAL-PATTERN-MATCHING-01:}} 
 \end{itemize}
 
 \subsection{Object Property Paths*}
@@ -436,7 +394,7 @@ A \emph{union data range} contains all tuples of literals that are contained in 
 Synonyms of {\em disjunction} are {\em union} and {\em inclusive or}.
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-XX:}} 
+	\item \textbf{{\em DISCO-C-DISJUNCTION-01:}} 
 Only {\em disco:Variable}s or {\em disco:Question}s or {\em disco:RepresentedVariable}s can have {\em disco:concept} relationships to {\em skos:Concept}s.
 
 \begin{DL}
@@ -451,12 +409,8 @@ Variable $\sqcup$ Question $\sqcup$ RepresentedVariable $\sqsubseteq$ $\forall$ 
 An \emph{existential class expression}\footnote{{\em R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}} ({\em existential restriction} in DL terminology) contains all those individuals that are connected by the property \emph{P} to an individual \emph{x} that is an instance of the class \emph{C} or to literals that are in the data range \emph{DR}.
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-XX:}} 
-There must be at least one {\em disco:universe} relationship from {\em disco:Studies} or {\em disco:StudyGroups} to {\em disco:Universe}.
-
-\begin{DL}
-Study $\sqcup$ StudyGroup $\sqsubseteq$ $\exists$ universe.Universe \\
-\end{DL}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-01:}} 
+There must be at least one {\em disco:universe} relationship from {\em disco:Studies} or {\em disco:StudyGroups} to {\em disco:Universe} (\ms{Study $\sqcup$ StudyGroup $\sqsubseteq$ $\exists$ universe.Universe}).
 \end{itemize}
 
 \subsection{Universal Quantifications*}
@@ -464,12 +418,8 @@ Study $\sqcup$ StudyGroup $\sqsubseteq$ $\exists$ universe.Universe \\
 A \emph{universal class expression}\footnote{{\em R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}} ({\em value restriction} in DL) contains all those individuals that are connected by an object property only to individuals that are instances of a particular class.
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-XX:}}
-Only {\em disco:LogicalDataSet}s can have {\em disco:aggregation} relationships to {\em qb:DataSet}s.
-
-\begin{DL}
-LogicalDataSet $\sqsubseteq$ $\forall$ aggregation.DataSet \\
-\end{DL}
+	\item \textbf{{\em DISCO-C-UNIVERSAL-QUANTIFICATIONS-01:}}
+Only {\em disco:LogicalDataSet}s can have {\em disco:aggregation} relationships to {\em qb:DataSet}s (\ms{LogicalDataSet $\sqsubseteq$ $\forall$ aggregation.DataSet}).
 \end{itemize}
 
 \subsection{Minimum Unqualified Cardinality Restrictions*}
@@ -482,12 +432,8 @@ If the data range is missing, it is taken to be \emph{rdfs:Literal}.
 $\geq n R. C$ is a minimum qualified cardinality restriction where $n \in \mathbb{N}$.
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-XX:}}
-A {\em disco:Questionnaire} has at least one {\em disco:question} relationship to {\em disco:Question}.
-
-\begin{DL}
-Questionnaire $\sqsubseteq$ $\geq$1 question.Question
-\end{DL}
+	\item \textbf{{\em DISCO-C-MINIMUM-QUALIFIED-CARDINALITY-RESTRICTIONS-01:}}
+A {\em disco:Questionnaire} has at least one {\em disco:question} relationship to {\em disco:Question} (\ms{Questionnaire $\sqsubseteq$ $\geq$1 question.Question}).
 \end{itemize}
 
 \subsection{Maximum Unqualified Cardinality Restrictions*}
@@ -504,12 +450,8 @@ If the data range is not present, it is taken to be \emph{rdfs:Literal}.
 $\geq n R. C \sqcap \leq n R. C $ is an exact qualified cardinality restriction where $n \in \mathbb{N}$.
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-XX:}}
-A {\em disco:Question} has exactly 1 {\em disco:universe} relationship to {\em disco:Universe}.
-
-\begin{DL}
-Question $\sqsubseteq$ $\geq$1 universe.Universe $\sqcap$ $\leq$1 universe.Universe \\
-\end{DL}
+	\item \textbf{{\em DISCO-C-EXACT-QUALIFIED-CARDINALITY-RESTRICTIONS-01:}}
+A {\em disco:Question} has exactly 1 {\em disco:universe} relationship to {\em disco:Universe} (\ms{Question $\sqsubseteq$ $\geq$1 universe.Universe $\sqcap$ $\leq$1 universe.Universe}).
 \end{itemize}
 
 \subsection{Transitive Object Properties*}
@@ -522,7 +464,7 @@ Question $\sqsubseteq$ $\geq$1 universe.Universe $\sqcap$ $\leq$1 universe.Unive
 Only one of multiple property groups leads to valid data\footnote{{\em R-13-DISJOINT-GROUP-OF-PROPERTIES-CLASS-SPECIFIC}}.
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-XX:}}
+	\item \textbf{{\em DISCO-C-CONTEXT-SPECIFIC-EXCLUSIVE-OR-OF-PROPERTY-GROUPS-01:}}
 Within the context of \emph{Disco}, \emph{skos:Concept}s can have either \emph{skos:definition} (when interpreted as DDI concepts) or \emph{skos:notation} and \emph{skos:prefLabel} properties (when interpreted as DDI codes and categories), but not both.
 
 \begin{DL}
@@ -542,12 +484,8 @@ Allowed values\footnote{{\em R-30-ALLOWED-VALUES-FOR-RDF-OBJECTS} and
 {\em R-37-ALLOWED-VALUES-FOR-RDF-LITERALS}} for properties can be IRIs, IRIs (matching one or multiple patterns), (any) literals, literals of a list of allowed literals (e.g. 'red' 'blue' 'green'), typed literals of one or multiple type(s) (e.g. xsd:string).
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-XX}}.
-{\em disco:CategoryStatistics} can only have {\em disco:computationBase} relationships to the values \emph{valid} and \emph{invalid} of the datatype {\em rdf:langString}.
-
-\begin{DL}
-CategoryStatistics $\equiv$ $\forall$ computationBase.\{valid,invalid\} $\sqcap$ langString \\
-\end{DL}
+	\item \textbf{{\em DISCO-C-ALLOWED-VALUES-01}}.
+{\em disco:CategoryStatistics} can only have {\em disco:computationBase} relationships to the values \emph{valid} and \emph{invalid} of the datatype {\em rdf:langString} (\ms{CategoryStatistics $\equiv$ $\forall$ computationBase.\{valid,invalid\} $\sqcap$ langString}).
 \end{itemize}
 
 \subsection{Not Allowed Values}
@@ -559,8 +497,8 @@ A matching triple has any literal / object except those explicitly excluded\foot
 \emph{P1} is a data property (of an instance of class \emph{C1}) and its literal value must be between the range of [$V_{min}$,$V_{max}$]\footnote{{\em R-45-RANGES-OF-RDF-LITERAL-VALUES}}.
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-XX:}}
-{\em disco:percentage} (domain: {\em disco:CategoryStatistics}) literals must be of the datatype {\em xsd:double} whose range should be restricted to be between 0 and 100 (not expressible in DL).
+	\item \textbf{{\em DISCO-C-LITERAL-RANGES-01:}}
+{\em disco:percentage} (domain: {\em disco:CategoryStatistics}) literals must be of the datatype {\em xsd:double} whose range should be restricted to be between 0 and 100.
 \end{itemize}
 
 \subsection{Negative Literal Ranges}
@@ -582,11 +520,7 @@ Instances of a specific class must not have some object property\footnote{\emph{
 An \emph{object property functionality axiom}\footnote{\emph{R-57-FUNCTIONAL-OBJECT-PROPERTIES}} \emph{FunctionalObjectProperty( OPE )} states that the object property expression \emph{OPE} is functional — that is, for each individual \emph{x}, there can be at most one distinct individual \emph{y} such that \emph{x} is connected by \emph{OPE} to \emph{y}. Each such axiom can be seen as a syntactic shortcut for the following axiom: \emph{SubClassOf( owl:Thing ObjectMaxCardinality( 1 OPE ) )}.
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-XX:}} for each \emph{rdfs:Resource x}, there can be at most one distinct \emph{rdfs:Resource y} such that \emph{x} is connected by \emph{adms:identifier} to \emph{y}.
-	
-\begin{DL}
-$(\textsf{funct } \textsf{identifier})$
-\end{DL}
+	\item \textbf{{\em DISCO-C-FUNCTIONAL-PROPERTIES-01:}} for each \emph{rdfs:Resource x}, there can be at most one distinct \emph{rdfs:Resource y} such that \emph{x} is connected by \emph{adms:identifier} to \emph{y} (\ms{$(\textsf{funct } \textsf{identifier})$}).
 \end{itemize}
 
 \tb{Achim, we created an open issue for DDI 4 how keys should be defined}
@@ -627,12 +561,8 @@ This leads to the following DL mapping (only one simple property constraint):
 The values of each member property of a class may be limited by their value type, such as \emph{xsd:string} or \emph{foaf:Person}. 
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-XX:}} 
-Only {\em disco:Question}s can have {\em disco:questionText} relationships to literals of the datatype {\em rdf:langString}.
-
-\begin{DL}
-$\neg$Question $\sqsubseteq$ $\neg\exists$ questionText.langString
-\end{DL}
+	\item \textbf{{\em DISCO-C-CLASS-SPECIFIC-PROPERTY-RANGE-01:}} 
+Only {\em disco:Question}s can have {\em disco:questionText} relationships to literals of the datatype {\em rdf:langString} (\ms{$\neg$Question $\sqsubseteq$ $\neg\exists$ questionText.langString}).
 \end{itemize}
 
 \subsection{Class-Specific Reflexive Object Properties*}
@@ -645,7 +575,7 @@ Resources can only be members of listed controlled vocabularies\footnote{{\em R-
 {\em R-39-MEMBERSHIP-OF-RDF-LITERALS-IN-CONTROLLED-VOCABULARIES}}.
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-XX}}:
+	\item \textbf{{\em DISCO-C-MEMBERSHIP-IN-CONTROLLED-VOCABULARIES-01}}:
 {\em disco:SummaryStatistics} can only have {\em disco:summaryStatisticType} relationships to {\em skos:Concept}s which must be members of the controlled vocabulary {\em ddicv:SummaryStatisticType} which is a {\em skos:ConceptScheme}.
 
 \begin{DL}
@@ -660,7 +590,7 @@ $B \equiv ConceptScheme \sqcap \{SummaryStatisticType\}$
 IRI pattern matching applied on subjects, properties, and objects\footnote{\emph{R-21-IRI-PATTERN-MATCHING-ON-RDF-SUBJECTS}, \emph{R-22-IRI-PATTERN-MATCHING-ON-RDF-OBJECTS}, \emph{R-23-IRI-PATTERN-MATCHING-ON-RDF-PROPERTIES}}.
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-XX}}: \emph{disco:Study} resources must match a given IRI pattern.
+	\item \textbf{{\em DISCO-C-IRI-PATTERN-MATCHING}}: \emph{disco:Study} resources must match a given IRI pattern.
 \end{itemize}
 
 \subsection{Literal Value Comparison}
@@ -680,7 +610,7 @@ SELECT ?s WHERE {
 \end{ex}
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-XX}}:
+	\item \textbf{{\em DISCO-C-LITERAL-VALUE-COMPARISON-01}}:
 {\em disco:startDate}s must be before (‘\textless’) {\em disco:endDate}s.
 To validate this constraint we bind the variables as follows (P1: {\em disco:startDate}, P2: {\em disco:endDate}, OP: \textless). 
 \end{itemize}
@@ -840,24 +770,41 @@ It has to be ensured, e.g., that a date is really a date, or that a \emph{xsd:no
 
 The validation of instances data (direct or indirect) exploits the sub-class or sub-property link in a given ontology.
 This validation can indicate when the data is verbose (redundant) or expressed at a too general level, and could be improved.
-If dcterms:date and one of its sub-properties dcterms:created or dcterms:issued are present, check that the value in dcterms:date is not redundant with dcterms:created or dcterms:issued for ingestion.
+If \emph{dcterms:date} and one of its sub-properties \emph{dcterms:created} or \emph{dcterms:issued} are present, e.g., check that the value in \emph{dcterms:date} is not redundant with \emph{dcterms:created} or \emph{dcterms:issued} for ingestion.
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-USE-SUB-SUPER-RELATIONS-IN-VALIDATION-01}}: 
 	If one or more \emph{dcterms:coverage} properties are present, suggest the use of one of its sub-properties \emph{dcterms:spatial} or \emph{dcterms:temporal}.
+	\item \textbf{{\em DISCO-C-USE-SUB-SUPER-RELATIONS-IN-VALIDATION-02}}: 
+	If the \emph{dcterms:contributor} property is present, suggest the use of one of its sub-properties, e.g. \emph{disco:fundedBy}.
 \end{itemize}
 
 \subsection{Cardinality Shortcuts*}
 
+In most library applications, cardinality shortcuts tend to appear in pairs, with repeatable/non-repeatable establishing maximum cardinality and optional/mandatory establishing minimum cardinality.
+These are shortcuts for more detailed \emph{cardinality restrictions}.
+
 \subsection{Aggregation}
 
-\subsection{Hierarchies}
-
-Hierarchies of DDI concepts
+Some constraints require aggregating multiple values, especially via \emph{COUNT}, \emph{MIN} and \emph{MAX}.
 
 \begin{itemize}
-	\item root?
-\end{itemize}
+	\item \textbf{{\em DISCO-C-AGGREGATION-01}}: calculate the number of theoretical concepts in the thematic classification of a given study.
+  \item \textbf{{\em DISCO-C-AGGREGATION-02}}: calculate the number of variables of a data set.
+	\item \textbf{{\em DISCO-C-AGGREGATION-03}}: calculate the number of questions in a given questionnaire.
+	\item \textbf{{\em DISCO-C-AGGREGATION-04}}: the number of codes of a given variable must be below a maximum value.
+	\item \textbf{{\em DISCO-C-AGGREGATION-05}}: the number of questions of a given questionnaire must exactly be a given value.
+	\item \textbf{{\em DISCO-C-AGGREGATION-06}}: the cumulative percentage of all codes of a given variable must be 100.
+  \item \textbf{{\em DISCO-C-AGGREGATION-07}}: the absolute frequency of all valid codes of a given variable must be equal to a given value.
+\end{itemize} 
+
+\section{SKOS-Related RDF Validation Requirements / Constraint Types}
+\tb{from other paper of Antoine}
+\subsection{Hierarchies}
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-HIERARCHIES-01}}: there must be exactly one root in the hierarchy of DDI concepts. 
+\end{itemize} 
 
 \section{Validation in Combination with other Vocabularies}
 
