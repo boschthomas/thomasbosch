@@ -621,45 +621,56 @@ This leads to the following DL mapping (only one simple property constraint):
 	\item see \emph{functional properties}
 \end{itemize}
 
+\subsection{Class-Specific Property Range*}		
 
+{\em Class-Specific Property Range}\footnote{{\em R-29-CLASS-SPECIFIC-RANGE-OF-RDF-OBJECTS}, {\em R-36-CLASS-SPECIFIC-RANGE-OF-RDF-LITERALS}} restricts the range of object and data properties for individuals within a specific context (e.g. class, shape, application profile).
+The values of each member property of a class may be limited by their value type, such as \emph{xsd:string} or \emph{foaf:Person}. 
 
-
-
-\subsection{Class-Specific Property Ranges}		
-
-{\em Class-Specific Property Range} restricts the range of object and data properties for individuals within a specific context (e.g. class, shape, application profile).
-The values of each member property of a class may be limited by their value type, such as xsd:string or foaf:Person\footnote{{\em R-29-CLASS-SPECIFIC-RANGE-OF-RDF-OBJECTS} and {\em R-36-CLASS-SPECIFIC-RANGE-OF-RDF-LITERALS}}. 
-\textbf{{\em DISCO-C-XX:}} 
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-XX:}} 
 Only {\em disco:Question}s can have {\em disco:questionText} relationships to literals of the datatype {\em rdf:langString}.
 
 \begin{DL}
 $\neg$Question $\sqsubseteq$ $\neg\exists$ questionText.langString
 \end{DL}
+\end{itemize}
 
+\subsection{Class-Specific Reflexive Object Properties*}
 
+Using DL terminology \emph{Class-Specific Reflexive Object Properties} is called local reflexivity - a set of individuals (of a specific class) that are related to themselves via a given role \cite{Kroetzsch2012}.
 
 \subsection{Membership in Controlled Vocabularies.}
 
-Resources can only be members of listed controlled vocabularies\footnote{{\em R-32-MEMBERSHIP-OF-RDF-OBJECTS-IN-CONTROLLED-VOCABULARIES} and
+Resources can only be members of listed controlled vocabularies\footnote{{\em R-32-MEMBERSHIP-OF-RDF-OBJECTS-IN-CONTROLLED-VOCABULARIES}, 
 {\em R-39-MEMBERSHIP-OF-RDF-LITERALS-IN-CONTROLLED-VOCABULARIES}}.
 
-\textbf{{\em DISCO-C-XX}}.
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-XX}}:
 {\em disco:SummaryStatistics} can only have {\em disco:summaryStatisticType} relationships to {\em skos:Concept}s which must be members of the controlled vocabulary {\em ddicv:SummaryStatisticType} which is a {\em skos:ConceptScheme}.
 
 \begin{DL}
-SummaryStatistics $\sqsubseteq$ \\
-$\forall summaryStatisticType.Concept \sqcap \forall inScheme . A$ \\
-$A \equiv ConceptScheme \sqcap \{SummaryStatisticType\}$
+SummaryStatistics $\sqsubseteq$ $\forall summaryStatisticType.A$ \\
+$A \equiv Concept \sqcap \forall inScheme . B$ \\
+$B \equiv ConceptScheme \sqcap \{SummaryStatisticType\}$
 \end{DL}
+\end{itemize}
+
+\subsection{IRI Pattern Matching}
+
+IRI pattern matching applied on subjects, properties, and objects\footnote{\emph{R-21-IRI-PATTERN-MATCHING-ON-RDF-SUBJECTS}, \emph{R-22-IRI-PATTERN-MATCHING-ON-RDF-OBJECTS}, \emph{R-23-IRI-PATTERN-MATCHING-ON-RDF-PROPERTIES}}.
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-XX}}: \emph{disco:Study} resources must match a given IRI pattern.
+\end{itemize}
 
 \subsection{Literal Value Comparison}
 
 Depending on the property semantics,
 there are cases where two different literal values must have
 a specific ordering with respect to an operator. 
-P1 and P2 are the datatype properties we need to compare and 
-OP is the comparison operator (\textless, \textless=, \textgreater, \textgreater=, =, !=)\footnote{{\em R-43-LITERAL-VALUE-COMPARISON}}.
-The {\em COMP Pattern}, one of the Data Quality Test Pattern, can be used to validate the {\em Literal Value Comparison} constraint \cite{Kontokostas2014}:
+\emph{P1} and \emph{P2} are the datatype properties we need to compare and 
+\emph{OP} is the comparison operator (\textless, \textless=, \textgreater, \textgreater=, =, !=)\footnote{{\em R-43-LITERAL-VALUE-COMPARISON}}.
+The {\em COMP Pattern}, one of the Data Quality Test Patterns, can be used to validate the {\em Literal Value Comparison} constraint \cite{Kontokostas2014}:
 
 \begin{ex}
 SELECT ?s WHERE { 
@@ -668,30 +679,94 @@ SELECT ?s WHERE {
     FILTER ( ?v1 %%OP%% ?v2 ) }
 \end{ex}
 
-\textbf{{\em DISCO-C-XX}}.
-{\em disco:startDate}s must be before (‘\textless’) the {\em disco:endDate}s.
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-XX}}:
+{\em disco:startDate}s must be before (‘\textless’) {\em disco:endDate}s.
 To validate this constraint we bind the variables as follows (P1: {\em disco:startDate}, P2: {\em disco:endDate}, OP: \textless). 
+\end{itemize}
 
-\subsection{Mathematical Operations}
+\subsection{Ordering}
 
-Examples for {\em Mathematical Operations} are the addition of two dates, the addition of days to a start date, and statistical computations (e.g. average, mean, sum).
-\textbf{{\em DISCO-C-XX:}}
-The sum of {\em disco:percentage} {\em xsd:double} values of all codes (represented as {\em skos:Concept}s) of a code list ({\em skos:ConceptScheme} or {\em skos:OrderedCollection}), serving as representation of a particular {\em disco:Variable}, must exactly be 100  
-(not expressible in DL)\footnote{{\em R-42-MATHEMATICAL-OPERATIONS} and {\em R-41-STATISTICAL-COMPUTATIONS}}.
+With this constraint objects of object properties can be ordered as well as literals of data properties and objects of object properties\footnote{\emph{R-121-SPECIFY-ORDER-OF-RDF-RESOURCES}, \emph{R-217-DEFINE-ORDER-FOR-FORMS/DISPLAY}}.
+
+In DDI, variables, questions, and codes/categories are typically organized in a particular order. 
+For obtaining this order, {\em skos:OrderedCollection} resources are used. 
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-ORDERING-01}}: If \emph{disco:Variable}s of a given \emph{disco:LogicalDataSet} should be ordered, a collection of variables must be present in the data and connected with the data set. The collection of variables is of the type {\em skos:OrderedCollection} containing multiple variables (each represented as {\em skos:Concept}) in a {\em skos:memberList}. 
+	\item \textbf{{\em DISCO-C-ORDERING-02}}: If \emph{disco:Question}s of a given \emph{disco:Questionnaire} should be ordered, a collection of questions must be present in the data and connected with the questionnaire. The collection of questions is of the type {\em skos:OrderedCollection} containing multiple questions (each represented as {\em skos:Concept}) in a {\em skos:memberList}. 
+	\item \textbf{{\em DISCO-C-ORDERING-03}}: If codes/categories (\emph{skos:Concept}s) of a given \emph{disco:Representation} of a given \emph{disco:Variable} should be ordered, the variable representation should also be of the type {\em skos:OrderedCollection} containing multiple codes/categories (each represented as {\em skos:Concept}) in a {\em skos:memberList}. 
+\end{itemize}
+
+\section{Validation Levels}
+
+Different levels of severity (priority)\footnote{\emph{R-205-VARYING-LEVELS-OF-ERROR}, \emph{R-135-CONSTRAINT-LEVELS}, \emph{R-158-SEVERITY-LEVELS-OF-CONSTRAINT-VIOLATIONS}, \emph{R-193-MULTIPLE-CONSTRAINT-VALIDATION-EXECUTION-LEVELS}} should be assigned to constraints.
+Possible validation levels could be: informational, warning, error, fail, should, recommended, must, may, optional, closed (only this) constraints, open (at least this) constraint.
+
+For \emph{Disco} each constraint should be assigned to exactly one \emph{validation level}.
+
+\section{String Operations}
+
+Many different \emph{string operations}\footnote{\emph{R-194-PROVIDE-STRING-FUNCTIONS-FOR-RDF-LITERALS}} are possible.
+Some constraints require building new strings out of other strings.
+Calculating the string length would also be another constraint of this type.
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-STRING-OPERATIONS-01}}: The title of a study (\emph{dcterms:title}) (e.g. 'EU-SILC 2005') may be calculated out of the title of the containing series (\emph{dcterms:title}) (e.g. 'EU-SILC') and the human-readable label of the study (\emph{rdfs:label}) (e.g. '2005').   
+\end{itemize}
+
+\subsection{Context-Specific Valid Classes}
+
+What types are valid in a specific context?\footnote{\emph{R-209-VALID-CLASSES}} 
+Context can be an input stream, a data creation function, or an API.
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-CONTEXT-SPECIFIC-VALID-CLASSES-01}}: For future versions of \emph{Disco}, out-dated classes can be marked as deprecated.
+\end{itemize}
+
+\subsection{Context-Specific Valid Properties}
+
+What properties can be used within this context?\footnote{\emph{R-210-VALID-PROPERTIES}} 
+Context can be an data receipt function, data creation function, or API.
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-CONTEXT-SPECIFIC-VALID-PROPERTIES-01}}: For future versions of \emph{Disco}, out-dated properties can be marked as deprecated.
+\end{itemize}
 
 \subsection{Default Values}
 
-Default values for objects and literals are inferred automatically.
-It should be possible to declare the default value for a given property, e.g. so that input forms can be pre-populated and to insert a required property that is missing in a web service call\footnote{{\em R-31-DEFAULT-VALUES-OF-RDF-OBJECTS} and {\em R-38-DEFAULT-VALUES-OF-RDF-LITERALS}}.
-\textbf{{\em DISCO-C-XX:}}
+\emph{Default values}\footnote{{\em R-31-DEFAULT-VALUES-OF-RDF-OBJECTS}, {\em R-38-DEFAULT-VALUES-OF-RDF-LITERALS}} for objects and literals are inferred automatically.
+It should be possible to declare the default value for a given property, e.g. so that input forms can be pre-populated and to insert a required property that is missing in a web service call.
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-DEFAULT-VALUES-01:}}
 The value 'true' for the property {\em disco:isPublic} ({\em xsd:boolean}) indicates that the data set ({\em disco:LogicalDataSet}) can be accessed (usually downloaded) by anyone.
 Per default, access to data sets should be restricted ('false').
+\end{itemize}
+
+
+
+
+
+
+
+\subsection{Mathematical Operations}
+
+Examples for {\em Mathematical Operations}\footnote{{\em R-42-MATHEMATICAL-OPERATIONS}, {\em R-41-STATISTICAL-COMPUTATIONS}} are the addition of two dates, the addition of days to a start date, and statistical computations (e.g. average, mean, sum).
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-MATHEMATICAL-OPERATIONS-01:}}
+The sum of {\em disco:percentage} (datatype: {\em xsd:double}) values of all codes (represented as {\em skos:Concept}s) of a code list ({\em skos:ConceptScheme} or {\em skos:OrderedCollection}), serving as representation of a particular {\em disco:Variable}, must exactly be 100.
+\end{itemize}
 
 \subsection{Language Tag Matching}
 
-For particular data properties, values must be stated for predefined languages (not expressible in DL)\footnote{{\em R-47-LANGUAGE-TAG-MATCHING}}.
-\textbf{{\em DISCO-C-XX:}}
+For particular data properties, values must be stated for predefined languages\footnote{{\em R-47-LANGUAGE-TAG-MATCHING}}.
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-LANGUAGE-TAG-MATCHING:}}
 There must be an English variable name ({\em skos:notation}) for each {\em disco:Variable} within {\em disco:LogicalDataSet}s.
+\end{itemize}
 
 \subsection{Language Tag Cardinality}
 
@@ -701,6 +776,10 @@ For particular data properties, values of predefined languages must be stated fo
 There must be at least one English {\em disco:questionText} for each {\em disco:Question} within {\em disco:LogicalDataSet}s.
 \textbf{{\em DISCO-C-XX:}}
 There should be at most one English literal value for variable names ({\em skos:notation}, domain: {\em disco:Variable}).
+
+\subsection{Whitespace Handling}
+
+\subsection{HTML Handling}
 
 \subsection{Conditional Properties}
 
@@ -715,12 +794,20 @@ Which properties are not required but recommended within a particular context\fo
 \textbf{{\em DISCO-C-XX:}}
 The property ({\em skos:notation} is not mandatory for {\em disco:Variable}s, but recommended to indicate variable names.
 
+\subsection{Handle RDF Collections}
+
 \subsection{Value is Valid for Datatype}
 
 Make sure that a value is valid for its datatype.
 It has to be ensured, e.g., that a date is really a date, or that a xsd:nonNegativeInteger value is not negative. 
 \textbf{{\em DISCO-C-XX:}}
 Check if literal values of the property {\em disco:startDate} are really of the datatype {\em xsd:date}(not expressible in DL).
+
+\subsection{Exploiting Class/Property Specialization Ontology Axioms}
+
+\subsection{Cardinality Shortcuts*}
+
+\subsection{Aggregation}
 
 \subsection{Hierarchies}
 
@@ -729,12 +816,6 @@ Hierarchies of DDI concepts
 \begin{itemize}
 	\item root?
 \end{itemize}
-
-\subsection{Ordering}
-
-In DDI, variables, questions, and categories are typically organized in a particular order. 
-For obtaining this order, {\em skos:OrderedCollection} resources are used. 
-A collection of variables, e.g, is represented as being of the type {\em skos:OrderedCollection} containing multiple variables (each represented as {\em skos:Concept}) in a {\em skos:memberList}. 
 
 \section{Validation in Combination with other Vocabularies}
 
