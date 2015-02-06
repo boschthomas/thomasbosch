@@ -698,14 +698,14 @@ For obtaining this order, {\em skos:OrderedCollection} resources are used.
 	\item \textbf{{\em DISCO-C-ORDERING-03}}: If codes/categories (\emph{skos:Concept}s) of a given \emph{disco:Representation} of a given \emph{disco:Variable} should be ordered, the variable representation should also be of the type {\em skos:OrderedCollection} containing multiple codes/categories (each represented as {\em skos:Concept}) in a {\em skos:memberList}. 
 \end{itemize}
 
-\section{Validation Levels}
+\subsection{Validation Levels}
 
 Different levels of severity (priority)\footnote{\emph{R-205-VARYING-LEVELS-OF-ERROR}, \emph{R-135-CONSTRAINT-LEVELS}, \emph{R-158-SEVERITY-LEVELS-OF-CONSTRAINT-VIOLATIONS}, \emph{R-193-MULTIPLE-CONSTRAINT-VALIDATION-EXECUTION-LEVELS}} should be assigned to constraints.
 Possible validation levels could be: informational, warning, error, fail, should, recommended, must, may, optional, closed (only this) constraints, open (at least this) constraint.
 
 For \emph{Disco} each constraint should be assigned to exactly one \emph{validation level}.
 
-\section{String Operations}
+\subsection{String Operations}
 
 Many different \emph{string operations}\footnote{\emph{R-194-PROVIDE-STRING-FUNCTIONS-FOR-RDF-LITERALS}} are possible.
 Some constraints require building new strings out of other strings.
@@ -770,40 +770,82 @@ There must be an English variable name ({\em skos:notation}) for each {\em disco
 
 \subsection{Language Tag Cardinality}
 
-For particular data properties, values of predefined languages must be stated for determined number of times (not expressible in DL)
-\footnote{{\em R-49-RDF-LITERALS-HAVING-AT-MOST-ONE-LANGUAGE-TAG} and {\em R-48-MISSING-LANGUAGE-TAGS}}.
-\textbf{{\em DISCO-C-XX:}}
+For particular data properties, values of predefined languages must be stated for determined number of times\footnote{{\em R-49-RDF-LITERALS-HAVING-AT-MOST-ONE-LANGUAGE-TAG}, {\em R-48-MISSING-LANGUAGE-TAGS}}.
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-LANGUAGE-TAG-CARDINALITY-01:}}
 There must be at least one English {\em disco:questionText} for each {\em disco:Question} within {\em disco:LogicalDataSet}s.
-\textbf{{\em DISCO-C-XX:}}
+  \item \textbf{{\em DISCO-C-LANGUAGE-TAG-CARDINALITY-02:}}
 There should be at most one English literal value for variable names ({\em skos:notation}, domain: {\em disco:Variable}).
+\end{itemize}
 
 \subsection{Whitespace Handling}
 
+Avoid whitespaces in literals neither leading nor trailing white spaces\footnote{\emph{R-50-WHITESPACE-HANDLING-OF-RDF-LITERALS}}.
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-WHITESPACE-HANDLING-01:}} Delete whitespaces of series and study abstracts (\emph{dcterms:abstract}; domain: \emph{disco:StudyGroup}, \emph{disco:Study}) automatically.
+\end{itemize}
+
 \subsection{HTML Handling}
+
+Check if all HTML tags, included in literals (of specific data properties within the context of specific classes)\footnote{\emph{R-51-HTML-HANDLING-OF-RDF-LITERALS}}, are closed properly.
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-HTML-HANDLING-01:}} Check if all HTML tags, included in literals of all \emph{Disco} data properties, are closed properly.
+	\item \textbf{{\em DISCO-C-HTML-HANDLING-02:}} Check if all HTML tags, included in literals of all data properties whose domains are \emph{Disco} classes, are closed properly.
+\end{itemize}
+
 
 \subsection{Conditional Properties}
 
-If specific properties exist, then specific other properties also have to be present\footnote{{\em R-71-CONDITIONAL-PROPERTIES}}.
-\textbf{{\em DISCO-C-XX:}}
-If a {\em skos:Concept represents a code (having a {\em skos:notation} property) and a category (having a {\em skos:prefLabel} property), 
+If specific properties exist, then specific other properties must also be present\footnote{{\em R-71-CONDITIONAL-PROPERTIES}}.
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-CONDITIONAL-PROPERTIES-01:}}
+If a {\em skos:Concept} represents a code (having a {\em skos:notation} property) and a category (having a {\em skos:prefLabel} property), 
 then the property {\em disco:isValid} has to be stated indicating if the code is valid ('true') or missing ('false').
+\end{itemize}
 
 \subsection{Recommended Properties}
 
-Which properties are not required but recommended within a particular context\footnote{{\em R-72-RECOMMENDED-PROPERTIES}}.
-\textbf{{\em DISCO-C-XX:}}
-The property ({\em skos:notation} is not mandatory for {\em disco:Variable}s, but recommended to indicate variable names.
+Which properties are not necessarily required but recommended within a particular context\footnote{{\em R-72-RECOMMENDED-PROPERTIES}}.
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-RECOMMENDED-PROPERTIES-01:}}
+The property {\em skos:notation} is not mandatory for {\em disco:Variable}s, but recommended to indicate variable names.
+\end{itemize}
 
 \subsection{Handle RDF Collections}
+
+Examples of the \emph{Handle RDF Collections}\footnote{\emph{R-120-HANDLE-RDF-COLLECTIONS}} constraint are: a collection must have a specific size; the first/last element of a given list must be a specific literal; the elements of collections are compared; are collections identical?; actions on RDF lists\footnote{See \url{http://www.snee.com/bobdc.blog/2014/04/rdf-lists-and-sparql.html}}; the 2. list element must be equal to 'XXX'; does the list have more than 10 elements?
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-HANDLE-RDF-COLLECTIONS-01}}: Have comparable \emph{disco:Variable}s the same number of codes in their code lists?
+	\item \textbf{{\em DISCO-C-HANDLE-RDF-COLLECTIONS-02}}: Does the actual number of \emph{disco:Variable}s within an (un)ordered collection of a given \emph{disco:LogicalDataSet} match the expected number? 
+\end{itemize}
 
 \subsection{Value is Valid for Datatype}
 
 Make sure that a value is valid for its datatype.
-It has to be ensured, e.g., that a date is really a date, or that a xsd:nonNegativeInteger value is not negative. 
-\textbf{{\em DISCO-C-XX:}}
-Check if literal values of the property {\em disco:startDate} are really of the datatype {\em xsd:date}(not expressible in DL).
+It has to be ensured, e.g., that a date is really a date, or that a \emph{xsd:nonNegativeInteger} value is not negative. 
 
-\subsection{Exploiting Class/Property Specialization Ontology Axioms}
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-VALUE-IS-VALID-FOR-DATATYPE-01}}: Check if all literal values of properties used within the \emph{Disco} context of the datatype {\em xsd:date} (e.g. {\em disco:startDate}, {\em disco:endDate}, {\em dcterms:date}) are really of the datatype {\em xsd:date}.
+\end{itemize}
+
+\subsection{Use Sub-Super Relations in Validation}
+
+\footnote{\emph{R-224-USE-SUB-SUPER-RELATIONS-IN-VALIDATION}}
+
+The validation of instances data (direct or indirect) exploits the sub-class or sub-property link in a given ontology.
+This validation can indicate when the data is verbose (redundant) or expressed at a too general level, and could be improved.
+If dcterms:date and one of its sub-properties dcterms:created or dcterms:issued are present, check that the value in dcterms:date is not redundant with dcterms:created or dcterms:issued for ingestion.
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-USE-SUB-SUPER-RELATIONS-IN-VALIDATION-01}}: 
+	If one or more \emph{dcterms:coverage} properties are present, suggest the use of one of its sub-properties \emph{dcterms:spatial} or \emph{dcterms:temporal}.
+\end{itemize}
 
 \subsection{Cardinality Shortcuts*}
 
