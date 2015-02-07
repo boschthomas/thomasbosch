@@ -17,6 +17,46 @@
 % footnotes
 \usepackage{scrextend}
 
+% colors
+\usepackage[usenames, dvipsnames]{color}
+
+% underline
+\usepackage{tikz}
+\newcommand{\udensdot}[1]{%
+    \tikz[baseline=(todotted.base)]{
+        \node[inner sep=1pt,outer sep=0pt] (todotted) {#1};
+        \draw[densely dotted] (todotted.south west) -- (todotted.south east);
+    }%
+}%
+
+\newcommand{\uloosdot}[1]{%
+    \tikz[baseline=(todotted.base)]{
+        \node[inner sep=1pt,outer sep=0pt] (todotted) {#1};
+        \draw[loosely dotted] (todotted.south west) -- (todotted.south east);
+    }%
+}%
+
+\newcommand{\udash}[1]{%
+    \tikz[baseline=(todotted.base)]{
+        \node[inner sep=1pt,outer sep=0pt] (todotted) {#1};
+        \draw[dashed] (todotted.south west) -- (todotted.south east);
+    }%
+}%
+
+\newcommand{\udensdash}[1]{%
+    \tikz[baseline=(todotted.base)]{
+        \node[inner sep=1pt,outer sep=0pt] (todotted) {#1};
+        \draw[densely dashed] (todotted.south west) -- (todotted.south east);
+    }%
+}%
+
+\newcommand{\uloosdash}[1]{%
+    \tikz[baseline=(todotted.base)]{
+        \node[inner sep=1pt,outer sep=0pt] (todotted) {#1};
+        \draw[loosely dashed] (todotted.south west) -- (todotted.south east);
+    }%
+}%
+
 % URL handling
 \usepackage{url}
 \urlstyle{same}
@@ -174,7 +214,7 @@
 \renewcommand{\arraystretch}{1.3}
 %
 %
-\title{RDF Validation of Metadata \\ on Highly-Complex Person-Level Data}
+\title{RDF Constraint Types to Validate Metadata \\ on Highly-Complex Person-Level and Aggregated Data}
 \subtitle{}
 
 \titlerunning{XXXXX}  % abbreviated title (for running head)
@@ -209,19 +249,53 @@ It is continuously updated and used to evaluate and to compare various existing 
 Requirements are classified to provide a high-level view on different solutions and to facilitate a better understanding of the problem domain.
 Bosch et al. identified in total 74 requirements to formulate RDF constraints; each of them corresponding to a constraint type. 
 They recently published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} in which they explain each requirement (constraint type) in detail and give examples for each (represented by listed constraint languages) \cite{BoschNolleAcarEckert2015}.
-
-\section{Validation of Metadata on Person-Level Data Sets}
-
 We state at least one Disco constraint for the majority of the constraint types.
 Where appropriate constraint types are related to complementary requirements of the RDF validation requirements database.
-Constraint types marked with an asterisk can be used as OWL 2 axioms.
-Thus, reasoners may be used to infer implicit triples resolving constraint violations caused when these constraints are validated.
 When constraint types are mapped to DL, we do not state namespace prefixes for simplicity reasons.
 
-\subsection{Data Model Consistency}
+\section{Validation Types}
 
+\textbf{Content-Driven Validation / Data Model Consistency}.
 Is the data consistent with the intended semantics of the data model?
 Such validation rules ensure the integrity of the data according to the data model.
+
+\textbf{Technology-Driven Validation}.
+Some validation rules can be generated automatically out of the defined data model, such as cardinality restrictions, universal quantifications, domains, ranges.
+
+\section{Validation of Metadata on Person-Level and Aggregated Data}
+
+\begin{itemize}
+  \item Constraint types marked with an asterisk (*) can be used as OWL 2 axioms. Thus, reasoners may be used to infer implicit triples resolving constraint violations caused when these constraints are validated.
+	\item \underline{Underlined subsections} are data  model specific constraint types and do not correspond to RDF validation requirements (constraint types).
+%	\item \underline{Underlined constraints} are part of content-driven validation.
+%	\item \udash{Dashed underlined constraints} are part of technology-driven validation.
+\end{itemize}
+
+\subsection{\underline{Comparison}}
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-COMPARISON-VARIABLES-01}}: 
+	are compared variables represented in a compatible way, i.e. are the variables' code lists theoretically comparable?
+	\item \textbf{{\em DISCO-C-COMPARISON-VARIABLES-02}}: 
+	are variable definitions (\emph{dcterms:description}) available for each variable (\emph{disco:Variable}) to compare?
+	\item \textbf{{\em DISCO-C-COMPARISON-VARIABLES-03}}:
+	are code lists structured properly for each variable (\emph{disco:Variable}) to compare?
+	\item \textbf{{\em DISCO-C-COMPARISON-VARIABLES-04}}:
+	is for each code (for each variable (\emph{disco:Variable}) to compare) an associated category (a human-readable label) specified?
+\end{itemize}
+
+\subsection{\underline{Data Model Consistency}}.
+Is the data consistent with the intended semantics of the data model?
+Such validation rules ensure the integrity of the data according to the data model.
+
+\begin{itemize}
+	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-01:}}
+	Only attributes may be optional (\emph{IC-6} \cite{CyganiakReynolds2014}) - 
+	The only components of a \emph{qb:DataStructureDefinition} that may be marked as optional, using \emph{qb:componentRequired} are attributes. 
+	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-02:}}
+	No duplicate observations (\emph{IC-12} \cite{CyganiakReynolds2014}) - 
+	No two \emph{qb:Observations} in the same \emph{qb:DataSet} may have the same value for all dimensions. 
+\end{itemize}
 
 \subsection{Subsumption*}
 
@@ -413,6 +487,27 @@ An \emph{existential class expression}\footnote{{\em R-86-EXISTENTIAL-QUANTIFICA
 There must be at least one {\em disco:universe} relationship from {\em disco:Studies} or {\em disco:StudyGroups} to {\em disco:Universe} (\ms{Study $\sqcup$ StudyGroup $\sqsubseteq$ $\exists$ universe.Universe}).
 \end{itemize}
 
+\begin{itemize}
+	\item \textbf{{\em DATA-CUBE-C-EXISTENTIAL-QUANTIFICATIONS-01:}}
+	Dimensions have range (\emph{IC-4} \cite{CyganiakReynolds2014}) - 
+	Every dimension declared in a \emph{qb:DataStructureDefinition} must have a declared \emph{rdfs:range}. 
+	\item \textbf{{\em DATA-CUBE-C-EXISTENTIAL-QUANTIFICATIONS-02:}}
+	Concept dimensions have code lists (\emph{IC-5} \cite{CyganiakReynolds2014}) - 
+	Every dimension with range \emph{skos:Concept} must have a \emph{qb:codeList}. 
+	\item \textbf{{\em DATA-CUBE-C-EXISTENTIAL-QUANTIFICATIONS-03:}} 
+	Slice dimensions complete (\emph{IC-10} \cite{CyganiakReynolds2014}) - 
+	Every \emph{qb:Slice} must have a value for every dimension declared in its \emph{qb:sliceStructure}. 
+	\item \textbf{{\em DATA-CUBE-C-EXISTENTIAL-QUANTIFICATIONS-04:}}
+	All dimensions required (\emph{IC-11} \cite{CyganiakReynolds2014}) - 
+	Every \emph{qb:Observation} has a value for each dimension declared in its associated \emph{qb:DataStructureDefinition}. 
+  \item \textbf{{\em DATA-CUBE-C-EXISTENTIAL-QUANTIFICATIONS-05:}}
+	DSD includes measure (\emph{IC-3} \cite{CyganiakReynolds2014}) -  
+	Every \emph{qb:DataStructureDefinition} must include (\emph{qb:component}, \emph{qb:componentProperty}) at least one declared measure. 
+	\item \textbf{{\em DATA-CUBE-C-EXISTENTIAL-QUANTIFICATIONS-06:}}
+	Slice Keys must be declared (\emph{IC-7} \cite{CyganiakReynolds2014}) -
+	Every \emph{qb:SliceKey} must be associated with (\emph{qb:sliceKey}) a \emph{qb:DataStructureDefinition}. 
+\end{itemize}
+
 \subsection{Universal Quantifications*}
 
 A \emph{universal class expression}\footnote{{\em R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}} ({\em value restriction} in DL) contains all those individuals that are connected by an object property only to individuals that are instances of a particular class.
@@ -442,6 +537,18 @@ A {\em disco:Questionnaire} has at least one {\em disco:question} relationship t
 
 \subsection{Exact Unqualified Cardinality Restrictions*}
 
+An \emph{exact cardinality restriction}\footnote{{\em R-80-EXACT-UNQUALIFIED-CARDINALITY-ON-PROPERTIES}, {\em R-211-CARDINALITY-CONSTRAINTS}} contains all those individuals that are connected by a property to exactly n different individuals that are instances of a particular class or data range. 
+If the class is missing, it is taken to be \emph{owl:Thing}. 
+If the data range is not present, it is taken to be \emph{rdfs:Literal}.
+Unqualified means that the class respective data range is not stated. 
+$\geq n R. \top \sqcap \leq n R. \top $ is an exact unqualified cardinality restriction where $n \in \mathbb{N}$.
+
+\begin{itemize}
+	\item \textbf{{\em DATA-CUBE-C-EXACT-UNQUALIFIED-CARDINALITY-RESTRICTIONS-01:}}
+	Unique slice structure (\emph{IC-9} \cite{CyganiakReynolds2014}) -  
+	Each \emph{qb:Slice} must have exactly one associated \emph{qb:sliceStructure}. 
+\end{itemize}
+
 \subsection{Exact Qualified Cardinality Restrictions*}
 
 An \emph{exact cardinality restriction}\footnote{{\em R-74-EXACT-QUALIFIED-CARDINALITY-ON-PROPERTIES}, {\em R-211-CARDINALITY-CONSTRAINTS}} contains all those individuals that are connected by a property to exactly n different individuals that are instances of a particular class or data range. 
@@ -452,6 +559,15 @@ $\geq n R. C \sqcap \leq n R. C $ is an exact qualified cardinality restriction 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-EXACT-QUALIFIED-CARDINALITY-RESTRICTIONS-01:}}
 A {\em disco:Question} has exactly 1 {\em disco:universe} relationship to {\em disco:Universe} (\ms{Question $\sqsubseteq$ $\geq$1 universe.Universe $\sqcap$ $\leq$1 universe.Universe}).
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em DATA-CUBE-C-EXACT-QUALIFIED-CARDINALITY-RESTRICTIONS-01:}}
+	Unique data set (\emph{IC-1} \cite{CyganiakReynolds2014}) -  
+	Every \emph{qb:Observation} has (\emph{qb:dataSet}) exactly one associated \emph{qb:DataSet}. 
+	\item \textbf{{\em DATA-CUBE-C-EXACT-QUALIFIED-CARDINALITY-RESTRICTIONS-02:}}
+	Unique DSD (\emph{IC-2} \cite{CyganiakReynolds2014}) -  
+	Every \emph{qb:DataSet} has (\emph{qb:structure}) exactly one associated \emph{qb:DataStructureDefinition}. 
 \end{itemize}
 
 \subsection{Transitive Object Properties*}
@@ -583,6 +699,12 @@ SummaryStatistics $\sqsubseteq$ $\forall summaryStatisticType.A$ \\
 $A \equiv Concept \sqcap \forall inScheme . B$ \\
 $B \equiv ConceptScheme \sqcap \{SummaryStatisticType\}$
 \end{DL}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em DATA-CUBE-C-MEMBERSHIP-IN-CONTROLLED-VOCABULARIES-01:}}
+	Codes from code list (\emph{IC-19} \cite{CyganiakReynolds2014}) - 
+	If a dimension property has a \emph{qb:codeList}, then the value of the dimension property on every \emph{qb:Observation} must be in the code list. 
 \end{itemize}
 
 \subsection{IRI Pattern Matching}
