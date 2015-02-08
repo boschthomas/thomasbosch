@@ -284,7 +284,7 @@ Some validation rules can be generated automatically out of the defined data mod
 	is for each code (for each variable (\emph{disco:Variable}) to compare) an associated category (a human-readable label) specified?
 \end{itemize}
 
-\subsection{\underline{Data Model Consistency}}.
+\subsection{\underline{Data Model Consistency}}
 Is the data consistent with the intended semantics of the data model?
 Such validation rules ensure the integrity of the data according to the data model.
 
@@ -377,7 +377,23 @@ $\top \sqsubseteq \forall R . C$ is the range restriction to the object property
 
 \subsection{Inverse Object Properties*}
 
+In many cases, properties are used bi-directionally and then accessed in the inverse direction, e.g. parent $\equiv$ child$^{-}$. There should be a way to declare value type, cardinality etc of those inverse relations without having to declare a new property URI. 
+The object property \emph{OP1} is an inverse\footnote{\emph{R-56-INVERSE-OBJECT-PROPERTIES}} of the object property \emph{OP2}. 
+Thus, if an individual \emph{x} is connected by \emph{OP1} to an individual \emph{y}, then \emph{y} is also connected by \emph{OP2} to \emph{x}, and vice versa.
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-INVERSE-OBJECT-PROPERTIES-01}}:
+	\emph{disco:CategoryStatistics} resources are accessed from codes (\emph{skos:Concept}s) via \emph{disco:statisticsCategory}$^{-}$.
+	\item \textbf{{\em DISCO-C-INVERSE-OBJECT-PROPERTIES-02}}:
+	\emph{disco:SummaryStatistics} resources are accessed from \emph{disco:Variable}s via \emph{disco:statisticsVariable}$^{-}$.
+	\item \textbf{{\em DISCO-C-INVERSE-OBJECT-PROPERTIES-03}}:
+	\emph{disco:Variable}s are accessed from \emph{disco:Question}s via \emph{disco:question}$^{-}$.
+\end{itemize}
+
 \subsection{Symmetric Object Properties*}
+
+A role is symmetric if it is equivalent to its own inverse \cite{Kroetzsch2012}.
+An object property symmetry axiom\footnote{\emph{R-61-SYMMETRIC-OBJECT-PROPERTIES}} states that the object property expression \emph{OPE} is symmetric - that is, if an individual \emph{x} is connected by \emph{OPE} to an individual \emph{y}, then \emph{y} is also connected by \emph{OPE} to \emph{x}. 	
 
 \subsection{Asymmetric Object Properties*}
 
@@ -424,6 +440,18 @@ Within the Disco context, {\em skos:Concept}s cannot be related via the object p
 A \emph{disjoint properties axiom}\footnote{\emph{R-9-DISJOINT-PROPERTIES}} states that all of the properties are pairwise disjoint; 
 that is, no individual \emph{x} can be connected to an individual \emph{y} by these properties. 
 
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-DISJOINT-PROPERTIES-01:}} 
+All \emph{Disco} properties (not having the same domain and range classes) are defined to be pairwise disjoint.
+The following DL statements holds for each pair of \emph{Disco} properties (not having the same domain and range classes) ($variable \sqsubseteq \neg question$).
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em DATA-CUBE-C-DISJOINT-PROPERTIES-01:}} 
+All \emph{Data Cube} properties (not having the same domain and range classes) are defined to be pairwise disjoint.
+The following DL statements holds for each pair of \emph{Data Cube} properties (not having the same domain and range classes) ($dataSet \sqsubseteq \neg structure$).
+\end{itemize}
+
 \subsection{Disjoint Classes}
 
 {\em Disjoint Classes}\footnote{{\em R-7-DISJOINT-CLASSES}} state that all of the classes are pairwise disjoint; 
@@ -441,15 +469,58 @@ The \emph{Context-Specific Property Groups}\footnote{\emph{R-66-PROPERTY-GROUPS}
 
 \subsection{Context-Specific Inclusive OR of Properties}
 
+\emph{Inclusive or} is a logical connective joining two or more predicates that yields the logical value "true" when at least one of the predicates is true.
+\emph{Context-Specific Inclusive OR of Properties}\footnote{\emph{R-202-CONTEXT-SPECIFIC-INCLUSIVE-OR-OF-PROPERTIES}} constraints specify that individuals are valid if they have at least one property relationship of one or multiple properties stated within a given context.
+The context can be an application profile, a shape, or a class, i.e., the constraint applies for individuals of this specific class.
+
 \subsection{Context-Specific Inclusive OR of Property Groups}
+
+At least one property group must match for individuals of a specific context. 
+Context may be a class, a shape, or an application profile.
 
 \subsection{Recursive Queries}
 
+Resource Shapes is a recursive language\footnote{\emph{R-222-RECURSIVE-QUERIES}} (the value shape of a Resource Shape is in turn another Resource Shape). 
+There is no way to express that in SPARQL without hand-waving "and then you call the function again here" or "and then you embed this operation here" text.  
+The embedding trick doesn't work
+in the general case because SPARQL can't express recursive queries,
+e.g. "test that this Issue is valid and all of the Issues that references, recursively".
+Most SPARQL engines already have
+functions that go beyond the official SPARQL 1.1 spec. 
+The cost of that sounds manageable.
+
 \subsection{Individual Inequality}
+
+An \emph{individual inequality axiom}\footnote{\emph{R-14-DISJOINT-INDIVIDUALS}} DifferentIndividuals( a$_1$ ... a$_n$ ) states that all of the individuals a$_i$, 1 $\leq$ i $\leq$ n, are different from each other; 
+that is, no individuals a$_i$ and a$_j$ with i $\neq$ j can be derived to be equal. 
+This axiom can be used to axiomatize the unique name assumption — the assumption that all different individual names denote different individuals. 
 
 \subsection{Equivalent Properties*}
 
+An \emph{equivalent object properties axiom}\footnote{\emph{R-4-EQUIVALENT-OBJECT-PROPERTIES}} \emph{EquivalentObjectProperties( OPE$_1$ ... OPE$_n$ )} states that all of the object property expressions \emph{OPE$_i$, 1 $\leq$ i $\leq$ n}, are semantically equivalent to each other. This axiom allows one to use each \emph{OPE$_i$} as a synonym for each \emph{OPE$_j$} — that is, in any expression in the ontology containing such an axiom, \emph{OPE$_i$} can be replaced with \emph{OPE$_j$} without affecting the meaning of the ontology. The axiom \emph{EquivalentObjectProperties( OPE$_1$ OPE$_2$ )} is equivalent to the following two axioms \emph{SubObjectPropertyOf( OPE$_1$ OPE$_2$ )} and \emph{SubObjectPropertyOf( OPE$_1$ OPE$_2$ )}.
+
+An \emph{equivalent data properties axiom}\footnote{\emph{R-5-EQUIVALENT-DATA-PROPERTIES}} \emph{EquivalentDataProperties( DPE$_1$ ... DPE$_n$ )} states that all the data property expressions \emph{DPE$_i$, 1 $\leq$ i $\leq$ n}, are semantically equivalent to each other. This axiom allows one to use each \emph{DPE$_i$} as a synonym for each \emph{DPE$_j$} — that is, in any expression in the ontology containing such an axiom, DPE$_i$ can be replaced with \emph{DPE$_j$} without affecting the meaning of the ontology. The axiom \emph{EquivalentDataProperties( DPE$_1$ DPE$_2$ )} can be seen as a syntactic shortcut for the following axiom \emph{SubDataPropertyOf( DPE$_1$ DPE$_2$ )} and \emph{SubDataPropertyOf( DPE$_1$ DPE$_2$ )}.
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-EQUIVALENT-PROPERTIES-01:}}
+	Equivalent properties from different versions of \emph{Disco} can be marked as equivalent, e.g. \emph{disco:containsVariable} and \emph{disco:variable}. 
+	As a consequence, the properties can be replaced by each other without affecting the meaning.
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em DATA-CUBE-C-EQUIVALENT-PROPERTIES-01:}}
+	Equivalent properties from different versions of \emph{Data Cube} can be marked as equivalent. 
+	As a consequence, the properties can be replaced by each other without affecting the meaning.
+\end{itemize}
+
 \subsection{Property Assertions}
+
+\emph{{Property Assertions}}\footnote{\emph{R-96-PROPERTY-ASSERTIONS}}
+and includes positive property assertions and negative property assertions.
+A \emph{positive object property assertion ObjectPropertyAssertion( OPE a$_1$ a$_2$ )} states that the individual a$_1$ is connected by the object property expression \emph{OPE} to the individual a$_2$. 
+A \emph{negative object property assertion NegativeObjectPropertyAssertion( OPE a$_1$ a$_2$ )} states that the individual a$_1$ is not connected by the object property expression \emph{OPE} to the individual a$_2$. 
+A \emph{positive data property assertion DataPropertyAssertion( DPE a lt )} states that the individual a is connected by the data property expression DPE to the literal \emph{lt}. 
+A \emph{negative data property assertion NegativeDataPropertyAssertion( DPE a lt )} states that the individual a is not connected by the data property expression \emph{DPE} to the literal \emph{lt}.
 
 \subsection{Data Property Facets}
 
@@ -470,6 +541,8 @@ There are multiple use cases associated with the requirement to match literals a
 
 \subsection{Negative Literal Pattern Matching}
 
+Literals of given data properties within given contexts do not have to match given patterns\footnote{\emph{R-44-PATTERN-MATCHING-ON-RDF-LITERALS}}. 
+
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-NEGATIVE-LITERAL-PATTERN-MATCHING-01:}} 
 \end{itemize}
@@ -481,6 +554,14 @@ This axiom states that, if an individual \emph{x} is connected by a sequence of 
 Role composition can only appear on the left-hand side of complex role inclusions \cite{Kroetzsch2012}.
 
 \subsection{Intersection*}
+
+Concept inclusions allow us to state that all mothers are female and that
+all mothers are parents, but what we really mean is that mothers are exactly the female
+parents. DLs support such statements by allowing us to form complex concepts such as
+the \emph{intersection}\footnote{\ms{R-15-CONJUNCTION-OF-CLASS-EXPRESSIONS}, \ms{R-16-CONJUNCTION-OF-DATA-RANGES}} (also called \emph{conjunction})
+which denotes the set of individuals that are both female and parents. A complex concept
+can be used in axioms in exactly the same way as an atomic concept, e.g., in the
+equivalence Mother $\equiv$ Female $\sqcap$ Parent .
 
 \subsection{Disjunction*}
 
@@ -498,6 +579,8 @@ Variable $\sqcup$ Question $\sqcup$ RepresentedVariable $\sqsubseteq$ $\forall$ 
 \end{itemize}
 
 \subsection{Negation*}
+
+A \emph{complement class expression}\footnote{\emph{R-19-NEGATION-OF-CLASS-EXPRESSIONS}, \emph{R-20-NEGATION-OF-DATA-RANGES}} \emph{ObjectComplementOf( CE )} contains all individuals that are not instances of the class expression \emph{CE}. 
 
 \subsection{Existential Quantifications*}
 
@@ -540,6 +623,12 @@ Only {\em disco:LogicalDataSet}s can have {\em disco:aggregation} relationships 
 
 \subsection{Minimum Unqualified Cardinality Restrictions*}
 
+A \emph{minimum cardinality restriction}\footnote{{\em R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES}, {\em R-211-CARDINALITY-CONSTRAINTS}} contains all those individuals that are connected by a property to at least n different individuals/literals 
+that are instances of a particular class or data range. If the class is missing, it is taken to be \emph{owl:Thing}. 
+If the data range is missing, it is taken to be \emph{rdfs:Literal}.
+$\leq n R. \top$ is the minimum unqualified cardinality restriction where $n \in \mathbb{N}$ (written $\leq  n R$ in short).
+For unqualified cardinality restrictions, classes respective data ranges are not stated.
+
 \subsection{Minimum Qualified Cardinality Restrictions*}
 
 A \emph{minimum cardinality restriction}\footnote{{\em R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES}, {\em R-211-CARDINALITY-CONSTRAINTS}} contains all those individuals that are connected by a property to at least n different individuals/literals 
@@ -554,7 +643,15 @@ A {\em disco:Questionnaire} has at least one {\em disco:question} relationship t
 
 \subsection{Maximum Unqualified Cardinality Restrictions*}
 
+A \emph{maximum cardinality restriction} contains all those individuals that are connected by a property to at most n different individuals/literals that are instances of a particular class or data range. If the class is missing, it is taken to be \emph{owl:Thing}. If the data range is not present, it is taken to be \emph{rdfs:Literal}.
+Unqualified means that the class respective the data range is not stated. 
+$\geq n R. \top$ is a \emph{maximum unqualified cardinality restriction}\footnote{\emph{R-82-MAXIMUM-UNQUALIFIED-CARDINALITY-ON-PROPERTIES}, \emph{R-211-CARDINALITY-CONSTRAINTS}} where $n \in \mathbb{N}$ (written $\geq  n R$ in short).
+
 \subsection{Maximum Qualified Cardinality Restrictions*}
+
+A \emph{maximum cardinality restriction} contains all those individuals that are connected by a property to at most n different individuals/literals that are instances of a particular class or data range. If the class is missing, it is taken to be \emph{owl:Thing}. If the data range is not present, it is taken to be \emph{rdfs:Literal}.
+Qualified means that the class respective the data range is stated. 
+$\leq n R. C$ is a \emph{maximum qualified cardinality restriction}\footnote{\emph{R-76-MAXIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES}, \emph{R-211-CARDINALITY-CONSTRAINTS}} where $n \in \mathbb{N}$.
 
 \subsection{Exact Unqualified Cardinality Restrictions*}
 
@@ -651,6 +748,8 @@ A matching triple has any literal / object except those explicitly excluded\foot
 Instances of a specific class must not have some object property\footnote{\emph{R-52-NEGATIVE-OBJECT-PROPERTY-CONSTRAINTS}, \emph{R-53-NEGATIVE-DATA-PROPERTY-CONSTRAINTS}}.
 
 \subsection{Individual Equality*}
+
+\emph{Individual equality}\footnote{\emph{R-6-EQUIVALENT-INDIVIDUALS}} states that two different names are known to refer to the same individual \cite{Kroetzsch2012}.
 
 \subsection{Functional Properties*}
 
