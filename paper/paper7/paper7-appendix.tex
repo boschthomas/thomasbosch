@@ -295,6 +295,27 @@ Such validation rules ensure the integrity of the data according to the data mod
 	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-02:}}
 	No duplicate observations (\emph{IC-12} \cite{CyganiakReynolds2014}) - 
 	No two \emph{qb:Observations} in the same \emph{qb:DataSet} may have the same value for all dimensions. 
+	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-03:}}
+	Slice Keys consistent with DSD (\emph{IC-8} \cite{CyganiakReynolds2014}) -
+	Every \emph{qb:componentProperty} on a \emph{qb:SliceKey} must also be declared as a \emph{qb:component} of the associated \emph{qb:DataStructureDefinition}. 
+	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-04:}}
+	Required attributes (\emph{IC-13} \cite{CyganiakReynolds2014}) -
+	Every \emph{qb:Observation} has a value for each declared attribute that is marked as required. 
+	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-05:}}
+	All measures present (\emph{IC-14} \cite{CyganiakReynolds2014}) -
+	In a \emph{qb:DataSet} which does not use a Measure dimension then each individual \emph{qb:Observation} must have a value for every declared measure. 
+	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-06:}}
+	Measure dimension consistent (\emph{IC-15} \cite{CyganiakReynolds2014}) -
+	In a \emph{qb:DataSet} which uses a Measure dimension then each qb:Observation must have a value for the measure corresponding to its given \emph{qb:measureType}. 
+	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-07:}}
+	Single measure on measure dimension observation (\emph{IC-16} \cite{CyganiakReynolds2014}) -
+	In a \emph{qb:DataSet} which uses a Measure dimension then each \emph{qb:Observation} must only have a value for one measure (by \emph{IC-15} this will be the measure corresponding to its \emph{qb:measureType}). 
+	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-08:}}
+	All measures present in measures dimension cube (\emph{IC-17} \cite{CyganiakReynolds2014}) -
+	In a \emph{qb:DataSet} which uses a Measure dimension then if there is a Observation for some combination of non-measure dimensions then there must be other Observations with the same non-measure dimension values for each of the declared measures. 
+	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-09:}}
+	Consistent data set links (\emph{IC-18} \cite{CyganiakReynolds2014}) -
+	If a \emph{qb:DataSet} \emph{D} has a \emph{qb:slice} \emph{S}, and \emph{S} has an \emph{qb:observation} \emph{O}, then the \emph{qb:dataSet} corresponding to \emph{O} must be \emph{D}. 
 \end{itemize}
 
 \subsection{Subsumption*}
@@ -886,6 +907,12 @@ It has to be ensured, e.g., that a date is really a date, or that a \emph{xsd:no
 	\item \textbf{{\em DISCO-C-VALUE-IS-VALID-FOR-DATATYPE-01}}: Check if all literal values of properties used within the \emph{Disco} context of the datatype {\em xsd:date} (e.g. {\em disco:startDate}, {\em disco:endDate}, {\em dcterms:date}) are really of the datatype {\em xsd:date}.
 \end{itemize}
 
+\begin{itemize}
+	\item \textbf{{\em DATA-CUBE-C-VALUE-IS-VALID-FOR-DATATYPE-01:}}
+	Datatype consistency (\emph{IC-0} \cite{CyganiakReynolds2014}) -  
+	The RDF graph must be consistent under RDF D-entailment using a datatype map containing all the datatypes used within the graph. 
+\end{itemize}
+
 \subsection{Use Sub-Super Relations in Validation}
 
 \footnote{\emph{R-224-USE-SUB-SUPER-RELATIONS-IN-VALIDATION}}
@@ -920,70 +947,27 @@ Some constraints require aggregating multiple values, especially via \emph{COUNT
   \item \textbf{{\em DISCO-C-AGGREGATION-07}}: the absolute frequency of all valid codes of a given variable must be equal to a given value.
 \end{itemize} 
 
-\section{SKOS-Related RDF Validation Requirements / Constraint Types}
-\tb{from other paper of Antoine}
-\subsection{Hierarchies}
+\subsection{\underline{Hierarchies}}
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-HIERARCHIES-01}}: there must be exactly one root in the hierarchy of DDI concepts. 
 \end{itemize} 
 
+\begin{itemize}
+	\item \textbf{{\em DATA-CUBE-C-HIERARCHIES-01:}}
+	Codes from hierarchy (\emph{IC-20} \cite{CyganiakReynolds2014}) -  
+	If a dimension property has a \emph{qb:HierarchicalCodeList} with a non-blank \emph{qb:parentChildProperty} then the value of that dimension property on every \emph{qb:Observation} must be reachable from a root of the hierarchy using zero or more hops along the \emph{qb:parentChildProperty} links. 
+	\item \textbf{{\em DATA-CUBE-C-HIERARCHIES-02:}}
+	Codes from hierarchy (inverse) (\emph{IC-21} \cite{CyganiakReynolds2014}) -  
+	If a dimension property has a \emph{qb:HierarchicalCodeList} with an inverse \emph{qb:parentChildProperty} then the value of that dimension property on every \emph{qb:Observation} must be reachable from a root of the hierarchy using zero or more hops along the inverse \emph{qb:parentChildProperty} links. 
+\end{itemize}
+
+\section{SKOS-Related RDF Validation Requirements / Constraint Types}
+\tb{from other paper of Antoine}
+
 \section{Validation in Combination with other Vocabularies}
 
 \subsection{RDF Data Cube Vocabulary}
-
-There are 22 RDF Data Cube integrity constraints\footnote{http://www.w3.org/TR/vocab-data-cube/\#wf} \cite{CyganiakReynolds2014}.
-
-\begin{itemize}
-	\item \textcolor{blue}{describe 1 constraint of each type in detail with Datalog query}
-\end{itemize}
-
-\textbf{Data Model Consistency.}
-{\em IC-0}, \textcolor{red}{{\em IC-8}}, {\em IC-13}, {\em IC-14}, {\em IC-15}, {\em IC-16}, {\em IC-17}, \textcolor{red}{{\em IC-18}}
-%\begin{itemize}
-	%\item {\em IC-0:} Datatypes must be consistent under RDF D-entailment using a datatype map containing all the datatypes used within the graph.
-	%\item \textcolor{red}{{\em IC-8:} Every {\em qb:componentProperty} on a {\em qb:SliceKey} must also be declared as a {\em qb:component} of the associated {\em qb:DataStructureDefinition}.} 
-%\end{itemize}
-
-\textbf{Unqualified Cardinality Restrictions.}
-{\em IC-4}, {\em IC-5}, {\em IC-10}, {\em IC-11}
-%\begin{itemize}
-	%\item {\em IC-4:} Every dimension declared in a {\em qb:DataStructureDefinition} must have a declared {\em rdfs:range}. 
-	%\item {\em IC-5:} Every dimension with range {\em skos:Concept} must have a {\em qb:codeList}. 
-	%\item {\em IC-10:} Every {\em qb:Slice} must have a value for every dimension declared in its {\em qb:sliceStructure}. 
-	%\item {\em IC-11:} All dimensions required - Every {\em qb:Observation} has a value for each dimension declared in its associated {\em qb:DataStructureDefinition}.
-%\end{itemize}
-
-\textbf{Qualified Cardinality Restrictions.}
-{\em IC-1}, {\em IC-2}, {\em IC-3}, {\em IC-6}, {\em IC-7}, {\em IC-9} 
-%\begin{itemize}
-	%\item {\em IC-1:} Every {\em qb:Observation} has exactly one associated {\em qb:DataSet}. 
-	%\item {\em IC-2:} Every {\em qb:DataSet} has exactly one associated {\em qb:DataStructureDefinition}. 
-	%\item {\em IC-3:} Every {\em qb:DataStructureDefinition} must include at least one declared measure. 
-	%\item {\em IC-6:} The only components of a {\em qb:DataStructureDefinition} that may be marked as optional, using {\em qb:componentRequired} are attributes. 
-	%\item {\em IC-7:} Every {\em qb:SliceKey} must be associated with a {\em qb:DataStructureDefinition}. 
-	%\item {\em IC-9:} Each {\em qb:Slice} must have exactly one associated {\em qb:sliceStructure}. 
-%\end{itemize}
-
-\textbf{Duplicate Detection.}
-{\em IC-12}
-%\begin{itemize}
-	%\item {\em IC-12:} No duplicate observations - No two {\em qb:Observations} in the same {\em qb:DataSet} may have the same value for all dimensions. 
-%\end{itemize}
-
-\textbf{Membership in Controlled Vocabularies.}
-\textcolor{red}{{\em IC-19}}
-
-\textbf{SKOS Hierarchies.}
-{\em IC-20}, {\em IC-21}
-
-%\textbf{Mandatory Properties.}
-
-%\textbf{Optional Properties.}
-
-\begin{itemize}
-	\item \textcolor{blue}{are there further constraints which can be described in this paper?}
-\end{itemize}
 
 \subsection{SKOS and XKOS}
 
