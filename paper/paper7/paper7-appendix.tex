@@ -690,7 +690,15 @@ A {\em disco:Question} has exactly 1 {\em disco:universe} relationship to {\em d
 
 \subsection{Transitive Object Properties*}
 
+\emph{Transitivity} is a special form of \emph{complex role inclusion}.
+An \emph{object property transitivity axiom}\footnote{\emph{R-63-TRANSITIVE-OBJECT-PROPERTIES}} states that the object property is transitive — that is, if an individual \emph{x} is connected by the object property to an individual \emph{y} that is connected by the object property to an individual \emph{z}, then \emph{x} is also connected by the object property to \emph{z}.
+
 \subsection{Context-Specific Exclusive OR of Properties}		
+
+\emph{Exclusive or} is a logical operation that outputs true whenever both inputs differ (one is true, the other is false).
+%In OWL 2, inclusive OR of properties would be possible to express, but not exclusive OR of data properties
+Only one of multiple properties within some context (e.g. a class, a shape, or an  application profile) leads to valid data\footnote{\emph{R-11-CONTEXT-SPECIFIC-EXCLUSIVE-OR-OF-PROPERTIES}}.
+This constraint is generally expressed in DL as follows: \ms{$C \sqsubseteq (\neg A \sqcap B) \sqcup (A \sqcap \neg B)$}.
 
 \subsection{Context-Specific Exclusive OR of Property Groups}
 
@@ -737,11 +745,19 @@ A matching triple has any literal / object except those explicitly excluded\foot
 
 \subsection{Negative Literal Ranges}
 
+\emph{P1} is a data property (of an instance of class \emph{C1}) and its literal value must not be between the range of [$V_{min}$,$V_{max}$]\footnote{{\em R-142-NEGATIVE-RANGES-OF-RDF-LITERAL-VALUES}}.
+
 \subsection{Required Properties}
+
+Properties may be required\footnote{\emph{R-68-REQUIRED-PROPERTIES}}.
 
 \subsection{Optional Properties}
 
+Properties may be optional\footnote{\emph{R-69-OPTIONAL-PROPERTIES}}.
+
 \subsection{Repeatable Properties}
+
+Properties may be repeatable\footnote{\emph{R-70-REPEATABLE-PROPERTIES}}.
 
 \subsection{Negative Property Constraints}
 
