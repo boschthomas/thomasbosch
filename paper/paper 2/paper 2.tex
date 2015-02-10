@@ -573,46 +573,93 @@ This has to be done once for each \emph{generic constraint type} which cannot be
 
 \subsection{Complex Constraints}
 
-\ms{Complex constraints} encompass simple constraints and/or complex constraints.
-Exclusive or is a logical operation that outputs true whenever both inputs differ (one is true, the other is false).
-The \ms{Context-Specific Exclusive OR of Property Groups}\footnote{Corresponds to R-13-DISJOINT-GROUP-OF-PROPERTIES-CLASS-SPECIFIC} 
-constraint restricts the data to contain only one of multiple property groups.
-Half-Klingons, e.g., either have a klingon mother and a human father or a human mother and a klingon father, which can be expressed by ShEx:
+\textbf{\emph{Complex constraints}} encompass \emph{simple constraints} and/or \emph{complex constraints}.
+\emph{Exclusive or} is a logical operation that outputs true whenever both inputs differ (one is true, the other is false).
+The \emph{Context-Specific Exclusive OR of Property Groups}\footnote{Corresponds to R-13-DISJOINT-GROUP-OF-PROPERTIES-CLASS-SPECIFIC} 
+is a \emph{complex constraint} restricting individuals of a given context (here a class) to contain only one of multiple property groups.
+Publications, e.g., are either identified by an ISBN and a title (for books) or by an ISSN and a title (for periodical publications), but it should not be possible to assign both identifiers to a given publication, which can be represented in ShEx:
+
+%Half-Klingons, e.g., either have a klingon mother and a human father or a human mother and a klingon father, which can be expressed by ShEx:
+
+%\begin{ex}
+%Half-Klingon { 
+    %( klingonMother Klingon , humanFather Human ) |
+    %( humanMother Human , klingonFather Klingon ) }
+%\end{ex}
 
 \begin{ex}
-Half-Klingon { 
-    ( klingonMother Klingon , humanFather Human ) |
-    ( humanMother Human , klingonFather Klingon ) }
+Publication { 
+    ( isbn string , title string ) |
+    ( issn string , title string ) }
 \end{ex}
 
-As \ms{B'Elanna Torres} is a \ms{Half-Klingon} with a klingon mother and a human father, the following data is valid:
+%As \ms{B'Elanna Torres} is a \ms{Half-Klingon} with a klingon mother and a human father, the following data is valid:
 
-\begin{ex}
-BElannaTorres a Half-Klingon ;
-    klingonMother Miral ; humanFather JohnTorres .
-\end{ex}
+%\begin{ex}
+%BElannaTorres a Half-Klingon ;
+    %klingonMother Miral ; humanFather JohnTorres .
+%\end{ex}
 
+As, e.g., the \emph{The-Great-Gatsby} is a \emph{publication} (\ms{rdf:type(The-Great-Gatsby, Publication)}) having an \emph{ISBN} number (\ms{isbn(The-Great-Gatsby, '978-0241965672')}) and a \emph{title} (\ms{title(The-Great-Gatsby, 'The Great Gatsby')}) and not an additional \emph{ISSN} identifier, the data is valid.
 %\begin{DL}
 %rdf:type(BElannaTorres,Half-Klingon) \\
 %klingonMother(BElannaTorres,Miral) \\
 %klingonMother(BElannaTorres,JohnTorres)
 %\end{DL}
+The \emph{complex constraint} above is mapped to DL as follows:
 
-This complex constraint can be mapped to DL:
+%\begin{DL}
+%Half-Klingon $\sqsubseteq$ ($\neg$E $\sqcap$ F) $\sqcup$ (E $\sqcap$ $\neg$F) \\ 
+%E $\equiv$ A $\sqcap$ B \\
+%F $\equiv$ C $\sqcap$ D \\
+%A $\sqsubseteq$ $\geq$ 1 klingonMother.Klingon $\sqcap$ $\leq$ 1 klingonMother.Klingon \\
+%B $\sqsubseteq$ $\geq$ 1 humanFather.Human $\sqcap$ $\leq$ 1 humanFather.Human \\
+%C $\sqsubseteq$ $\geq$ 1 humanMother.Human $\sqcap$ $\leq$ 1 humanMother.Human \\
+%D $\sqsubseteq$ $\geq$ 1 klingonFather.Klingon $\sqcap$ $\leq$ 1 klingonFather.Klingon \\
+%\end{DL}
 
 \begin{DL}
-Half-Klingon $\sqsubseteq$ ($\neg$E $\sqcap$ F) $\sqcup$ (E $\sqcap$ $\neg$F) \\ 
+Publication $\sqsubseteq$ ($\neg$E $\sqcap$ F) $\sqcup$ (E $\sqcap$ $\neg$F) \\ 
 E $\equiv$ A $\sqcap$ B \\
 F $\equiv$ C $\sqcap$ D \\
-A $\sqsubseteq$ $\geq$ 1 klingonMother.Klingon $\sqcap$ $\leq$ 1 klingonMother.Klingon \\
-B $\sqsubseteq$ $\geq$ 1 humanFather.Human $\sqcap$ $\leq$ 1 humanFather.Human \\
-C $\sqsubseteq$ $\geq$ 1 humanMother.Human $\sqcap$ $\leq$ 1 humanMother.Human \\
-D $\sqsubseteq$ $\geq$ 1 klingonFather.Klingon $\sqcap$ $\leq$ 1 klingonFather.Klingon \\
+A $\sqsubseteq$ $\geq$ 1 isbn.string $\sqcap$ $\leq$ 1 isbn.string \\
+B $\sqsubseteq$ $\geq$ 1 title.string $\sqcap$ $\leq$ 1 title.string \\
+C $\sqsubseteq$ $\geq$ 1 issn.string $\sqcap$ $\leq$ 1 issn.string \\
+D $\sqsubseteq$ $\geq$ 1 title.string $\sqcap$ $\leq$ 1 title.string \\
 \end{DL}
 
-The complex constraint (expressed in DL) is mapped to a generic constraint:
+The \emph{complex constraint} (expressed in DL) is mapped to a \emph{generic constraint} using the \emph{RDF-CV} (see table \ref{tab:complex-constraints}).
 
-\begin{gcotable}
+%\begin{gcotable}
+%class & Half-Klingon & - & - & $\neg$E $\sqcap$ F, E $\sqcap$ $\neg$F & $\sqcup$ & - \\
+%class & $\neg$E $\sqcap$ F & - & - & $\neg$E, F & $\sqcap$ & - \\
+%class & E $\sqcap$ $\neg$F & - & - & E, $\neg$F & $\sqcap$ & - \\
+%class & $\neg$E & - & - & E & $\neg$ & - \\
+%class & E & - & - & A, B & $\sqcap$ & - \\
+%class & $\neg$F & - & - & F & $\neg$ & - \\
+%class & F & - & - & C, D & $\sqcap$ & - \\
+%class & A & - & - & A1, A2 & $\sqcap$ & - \\
+%property & A1 & klingonMother & - & Klingon & $\geq$ & 1 \\
+%property & A2 & klingonMother & - & Klingon & $\leq$ & 1 \\
+%class & B & - & - & B1, B2 & $\sqcap$ & - \\
+%property & B1 & humanFather & - & Human & $\geq$ & 1 \\
+%property & B2 & humanFather & - & Human & $\leq$ & 1 \\
+%class & C & - & - & C1, C2 & $\sqcap$ & - \\
+%property & C1 & humanMother & - & Human & $\geq$ & 1 \\
+%property & C2 & humanMother & - & Human & $\leq$ & 1 \\
+%class & D & - & - & D1, D2 & $\sqcap$ & - \\
+%property & D1 & klingonFather & - & Klingon & $\geq$ & 1 \\
+%property & D2 & klingonFather & - & Klingon & $\leq$ & 1 \\
+%\end{gcotable}
+
+\begin{table}
+  \scriptsize
+  \sffamily
+  \vspace{0cm}
+	\centering
+		\begin{tabular}{l|l|l|l|l|l|l}
+      \textbf{c. type} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
+      \hline
 class & Half-Klingon & - & - & $\neg$E $\sqcap$ F, E $\sqcap$ $\neg$F & $\sqcup$ & - \\
 class & $\neg$E $\sqcap$ F & - & - & $\neg$E, F & $\sqcap$ & - \\
 class & E $\sqcap$ $\neg$F & - & - & E, $\neg$F & $\sqcap$ & - \\
@@ -621,33 +668,56 @@ class & E & - & - & A, B & $\sqcap$ & - \\
 class & $\neg$F & - & - & F & $\neg$ & - \\
 class & F & - & - & C, D & $\sqcap$ & - \\
 class & A & - & - & A1, A2 & $\sqcap$ & - \\
-property & A1 & klingonMother & - & Klingon & $\geq$ & 1 \\
-property & A2 & klingonMother & - & Klingon & $\leq$ & 1 \\
+property & A1 & isbn & - & string & $\geq$ & 1 \\
+property & A2 & isbn & - & string & $\leq$ & 1 \\
 class & B & - & - & B1, B2 & $\sqcap$ & - \\
-property & B1 & humanFather & - & Human & $\geq$ & 1 \\
-property & B2 & humanFather & - & Human & $\leq$ & 1 \\
+property & B1 & title & - & string & $\geq$ & 1 \\
+property & B2 & title & - & string & $\leq$ & 1 \\
 class & C & - & - & C1, C2 & $\sqcap$ & - \\
-property & C1 & humanMother & - & Human & $\geq$ & 1 \\
-property & C2 & humanMother & - & Human & $\leq$ & 1 \\
+property & C1 & issn & - & string & $\geq$ & 1 \\
+property & C2 & issn & - & string & $\leq$ & 1 \\
 class & D & - & - & D1, D2 & $\sqcap$ & - \\
-property & D1 & klingonFather & - & Klingon & $\geq$ & 1 \\
-property & D2 & klingonFather & - & Klingon & $\leq$ & 1 \\
-\end{gcotable}
+property & D1 & title & - & string & $\geq$ & 1 \\
+property & D2 & title & - & string & $\leq$ & 1 \\
+		\end{tabular}
+	\caption{Complex Constraints}
+	\label{tab:complex-constraints}
+\end{table}
 
-Even though, tools may generate generic constraints automatically, this complex constraint is composed of many other complex (e.g. minimum and maximum qualified cardinality restrictions) and simple constraints (e.g. constraints on sets).
-As \ms{exact (un)qualified cardinality restrictions} and \ms{exclusive or} are frequently used complex constraints,
-we propose using them as simple constraints - 	in terms of syntactic sugar.
-As a consequence, the \ms{Context-Specific Exclusive OR of Property Groups} constraint above is represented as a generic constraint more intuitively and concisely:
+Even though, tools may generate \emph{generic constraints} automatically, this \emph{complex constraint} is composed of many other \emph{complex} (e.g. minimum and maximum qualified cardinality restrictions) and \emph{simple constraints} (e.g. constraints on sets).
+As \emph{exact (un)qualified cardinality restrictions (=n)} and \emph{exclusive or (XOR)} are frequently used \emph{complex constraints},
+we propose using them as \emph{simple constraints} - in terms of syntactic sugar.
+As a consequence, the \emph{Context-Specific Exclusive OR of Property Groups} constraint above is represented as a \emph{generic constraint} more intuitively and concisely (see table \ref{tab:complex-constraints-as-simple-constraints}).
 
-\begin{gcotable}
-class & Half-Klingon & - & - & E, F & XOR \\
+%\begin{gcotable}
+%class & Half-Klingon & - & - & E, F & XOR \\
+%class & E & - & - & A, B & $\sqcap$ \\
+%class & F & - & - & C, D & $\sqcap$ \\
+%property & A & klingonMother & - & Klingon & = & 1 \\
+%property & B & humanFather & - & Human & = & 1 \\
+%property & C & humanMother & - & Human & = & 1 \\
+%property & D & klingonFather & - & Klingon & = & 1 \\
+%\end{gcotable}
+
+\begin{table}
+  \scriptsize
+  \sffamily
+  \vspace{0cm}
+	\centering
+		\begin{tabular}{l|l|l|l|l|l|l}
+      \textbf{c. type} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
+      \hline
+class & Publication & - & - & E, F & XOR \\
 class & E & - & - & A, B & $\sqcap$ \\
 class & F & - & - & C, D & $\sqcap$ \\
-property & A & klingonMother & - & Klingon & = & 1 \\
-property & B & humanFather & - & Human & = & 1 \\
-property & C & humanMother & - & Human & = & 1 \\
-property & D & klingonFather & - & Klingon & = & 1 \\
-\end{gcotable}
+property & A & isbn & - & string & = & 1 \\
+property & B & title & - & string & = & 1 \\
+property & C & issn & - & string & = & 1 \\
+property & D & title & - & string & = & 1 \\
+		\end{tabular}
+	\caption{Complex Constraints as Simple Constraints}
+	\label{tab:complex-constraints-as-simple-constraints}
+\end{table}
 
 \subsection{Complex Constraints as Simple Constraints (Syntactic Sugar)}
 
