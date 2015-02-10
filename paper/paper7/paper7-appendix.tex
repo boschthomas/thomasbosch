@@ -358,11 +358,11 @@ If an individual \emph{x} is connected by {\em disco:fundedBy} to an individual 
 The purpose is to declare that a given property is associated with a class. 
 In OO terms this is the declaration of a member, field, attribute or association. 
 $\exists R. \top \sqsubseteq C$ is the object property restriction where $R$ is the object property (role) whose domain is restricted to concept $C$.
-{\em Property Domain} constraints are defined for each \emph{Disco} object and data property.
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-PROPERTY-DOMAIN-01:}} 
-Only {\em disco:Question}s can have {\em disco:responseDomain} relationships (\ms{$\exists$ responseDomain.$\top$ $\sqsubseteq$ Question}).
+	{\em Property Domain} constraints are defined for each \emph{Disco} object and data property.
+  Only {\em disco:Question}s, e.g., can have {\em disco:responseDomain} relationships (\ms{$\exists$ responseDomain.$\top$ $\sqsubseteq$ Question}).
 \end{itemize}
 
 \subsection{Property Ranges*}
@@ -372,7 +372,8 @@ $\top \sqsubseteq \forall R . C$ is the range restriction to the object property
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-PROPERTY-RANGES-01:}} 
-{\em disco:caseQuantity} relationships can only point to literals of the datatype {\em xsd:nonNegativeInteger} (\ms{$\top$ $\sqsubseteq$ $\forall$ caseQuantity.nonNegativeInteger}).
+	{\em Property Range} constraints are defined for each \emph{Disco} object and data property.
+  {\em disco:caseQuantity} relationships, e.g., can only point to literals of the datatype {\em xsd:nonNegativeInteger} (\ms{$\top$ $\sqsubseteq$ $\forall$ caseQuantity.nonNegativeInteger}).
 \end{itemize}
 
 \subsection{Inverse Object Properties*}

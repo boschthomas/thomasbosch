@@ -238,7 +238,7 @@ and the Web Ontology Language (OWL 2)\footnote{\url{http://www.w3.org/TR/owl2-sy
 % - constraint / constraint elements / constraint design patterns / constraint language
 %dependency between requirements / when this requirements is fulfilled then this is also fulfilled (e.g. min card and requ. car)
 %min car more powerful than req. propery
-The idea behind this paper is to express any constraint type (corresponding to a requirement to formulate RDF constraints) in a generic way using a lightweight ontology (consisting of only a few terms).
+The idea behind this paper is to express any constraint type (corresponding to a requirement to formulate RDF constraints) in a generic way using a lightweight vocabulary (consisting of only a few terms).
 
 Cardinality restrictions, e.g., can be expressed either generically (\emph{generic constraints}) by \emph{description logics (DL)} 
 %and extensions  
@@ -312,13 +312,10 @@ The remainder of the paper is as follows.
 	%\item Any specific constraint (expressed by any constraint language) can be validated automatically (if an automatic validation is defined only once for corresponding generic constraint)
 %\end{itemize}
 
-\section{include this in next section}
+\section{Running Example}
 
-With minimum qualified cardinality restrictions, researchers from the library domain can state
-that \emph{publications} must have at least one \emph{author} which must be a \emph{person}.
-This constraint can be represented generically in DL as follows: \ms{Publication $\sqsubseteq$ $\geq$1 author.Person}.
-
-The same constraint may also be represented specifically by multiple constraint languages like OWL 2, ShEx, ReSh, or DSP:
+With minimum qualified cardinality restrictions, \emph{publications} can be enforced to have at least one \emph{author} which must be a \emph{person}.
+This constraint can be represented generically (\emph{generic constraint}) using DL (\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}), but also specifically (\emph{specific constraint}) by multiple constraint languages like OWL 2, ShEx, ReSh, or DSP:
 
 \begin{ex}
 # OWL 2:
@@ -347,36 +344,40 @@ Publication a rs:ResourceShape ; rs:property [
             dsp:valueClass Person ] ] ] .
 \end{ex}
 
-As \ms{Janeway} commands the vessel \ms{Voyager} (\ms{commandsVessel(Janeway,Voyager)}) and \ms{Voyager} is a \ms{Vessel} (\ms{rdf:type(Voyager,Vessel)}), the assignment of \ms{Janeway} to the class \ms{StarfleetCaptain} (\ms{rdf:type(Janeway,StarfleetCaptain)}) does not cause a constraint violation.
-A constraint violation is raised, however, when there is not at least one \ms{commandsVessel} relationship with \ms{Janeway} as the subject. 
-A constraint violation is also raised, when there is a triple \ms{commandsVessel(Janeway,Voyager)}, but \ms{Voyager} is not explicitly defined to be a \ms{Vessel}, 
-i.e. the triple \ms{rdf:type(Voyager,Vessel)} is not present in the data. 
-As \ms{DS9 is not a} \ms{Vessel}, 
-the triples \ms{commandsVessel(Sisko,DS9)}, \ms{rdf:type(Sisko,StarfleetCaptain)}, and \ms{rdf:type(DS9,SpaceStation)}  
-also cause a constraint violation. 
+As each \emph{publication} must have at least one \emph{author} relationship to a \emph{person} 
+and as the book \emph{The-Lord-Of-The-Rings} is a \emph{publication} \ms{rdf:type(The-Lord-Of-The-Rings, Publication)}, 
+\emph{The-Lord-Of-The-Rings} must have at least one \emph{author} relationship to a \emph{person}.
+If \emph{The-Lord-Of-The-Rings} has no \emph{author} relationship, a constraint violation is raised. 
+It leads to invalid data, if \emph{The-Lord-Of-The-Rings} has an \emph{author} property pointing to some resource which is assigned to another class than \emph{Person}
+(\ms{author(The-Lord-Of-The-Rings, Tolkien)}, \ms{rdf:type(Tolkien, Human)}).
+It also causes a constraint violation, if \emph{The-Lord-Of-The-Rings} has an \emph{author} relation to an object for which no class is associated
+(\ms{author(The-Lord-Of-The-Rings, Tolkien)}).
+The data is valid, if \emph{The-Lord-Of-The-Rings} is connected to a \emph{person} via the object property \emph{author}
+(\ms{author(The-Lord-Of-The-Rings, Tolkien)}, \ms{rdf:type(Tolkien, Person)}).
 
 The following table shows the mapping between the cardinality restriction expressed in DL 
-and the cardinality restriction expressed by our developed ontology to describe any RDF constraint generically (see section~\ref{sec:ontology}):
+and the cardinality restriction expressed by our developed vocabulary to describe any RDF constraint generically (see section~\ref{sec:ontology}):
 
 \begin{gcotable}
-property & StarfleetCaptain & commandsVessel & - & Vessel & $\geq$ & 1 \\
+property & Publication & author & - & Person & $\geq$ & 1 \\
 \end{gcotable}
 
-According to this ontology, each constraint is either a constraint on classes or a constraint on properties.
+According to this vocabulary, each constraint is either a constraint on classes or a constraint on properties.
 The generically expressed cardinality restriction is represented in RDF as follows:
 
 \begin{ex}
 [   a PropertyConstraint ;
-    contextClass StarfleetCaptain ;
-    leftProperties ( commandsVessel ) ;
-    classes ( Vessel ) ;
+    contextClass Publication ;
+    leftProperties ( author ) ;
+    classes ( Person ) ;
     constrainingElement ">=" ;
     constrainingValue 1 ] .
 \end{ex}
 
------
-
-The generically expressed cardinality restriction is validated within our validation environment (see section \ref{sec:validation}) by means of a SPARQL query:
+Bosch and Eckert\cite{BoschEckert2014-2} use SPIN as basis to define a
+validation environment (available at \url{http://purl.org/net/rdfval-demo}) in which the validation of any constraint language\footnote{the only limitation is that constraint languages must be represented in RDF} can be implemented by representing them in SPARQL. 
+The SPIN engine checks for each resource if it satisfies all constraints (associated with its assigned classes) and generates a result RDF graph containing information about all constraint violations.
+The generically expressed cardinality restriction above is validated within our validation environment (see section \ref{sec:validation}) by means of a SPARQL CONSTRUCT query:
 \begin{ex}
 [   a PropertyConstraint ;
     contextClass ?cc ;
@@ -389,10 +390,10 @@ BIND ( qualifiedCardinality( ?subject, ?p1, ?c1 ) AS ?c ) .
 FILTER ( ?c < ?cv ) .		  
 \end{ex}
 
-\section{Ontology to Describe RDF Constraints Generically} 
+\section{A Vocabulary to Describe RDF Constraints Generically} 
 \label{sec:ontology}
 
-In order to define an ontology to describe RDF constraints generically, it is needed to define the terminology for the formulation of RDF constraints and to classify them. 
+In order to define a vocabulary to describe RDF constraints generically, it is needed to define the terminology for the formulation of RDF constraints and to classify them. 
 A \ms{constraint language} is a language which is used to formulate constraints.
 The W3C Data Shapes working group defines \ms{constraint} as a component of a schema what needs to be satisfied\footnote{\url{https://www.w3.org/2014/data-shapes/wiki/Glossary}}.
 We identified four dimensions to classify constraints:
@@ -405,7 +406,7 @@ We identified four dimensions to classify constraints:
 
 As there are already five promising constraint languages, our purpose is not to invent a new constraint language.
 We rather developed a very simple ontology (only three classes, three object properties, and three data properties) which is universal enough to describe any RDF constraint expressible by any RDF constraint language (see the conceptual model in figure \ref{fig:RDF-CO-conceptual-model}).
-We call this ontology the \ms{RDF constraints ontology (RDF-CO)}\footnote{Available at: \url{https://github.com/boschthomas/RDF-constraints-ontology}}.
+We call this vocabulary the \ms{RDF constraints ontology (RDF-CO)}\footnote{Available at: \url{https://github.com/boschthomas/RDF-constraints-ontology}}.
 
 \begin{figure}
 	\centering
