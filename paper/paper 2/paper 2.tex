@@ -355,7 +355,7 @@ It also causes a constraint violation, if \emph{The-Lord-Of-The-Rings} has an \e
 The data is valid, if \emph{The-Lord-Of-The-Rings} is connected to a \emph{person} via the object property \emph{author}
 (\ms{author(The-Lord-Of-The-Rings, Tolkien)}, \ms{rdf:type(Tolkien, Person)}).
 
-The following table shows the mapping between the cardinality restriction expressed in DL 
+Table \ref{tab:cardinality-restriction-mapped-to-vocabulary} shows the mapping between the cardinality restriction expressed in DL 
 and the cardinality restriction expressed by our developed vocabulary to describe any RDF constraint generically (see section~\ref{sec:ontology}):
 
 \begin{table}
@@ -368,8 +368,8 @@ and the cardinality restriction expressed by our developed vocabulary to describ
       \hline
       property & Publication & author & - & Person & $\geq$ & 1 \\
 		\end{tabular}
-	\caption{Property Constraint}
-	\label{tab:property-constraint}
+	\caption{Cardinality Restriction Mapped to Vocabulary}
+	\label{tab:cardinality-restriction-mapped-to-vocabulary}
 \end{table}
 
 According to this vocabulary, each constraint is either a constraint on classes or a constraint on properties.
@@ -385,7 +385,7 @@ The generically expressed cardinality restriction is represented in RDF as follo
 \end{ex}
 
 Bosch and Eckert\cite{BoschEckert2014-2} use SPIN as basis to define a
-validation environment (available at \url{http://purl.org/net/rdfval-demo}) in which the validation of any constraint language\footnote{the only limitation is that constraint languages must be represented in RDF} can be implemented by representing them in SPARQL. 
+validation environment (available at \url{http://purl.org/net/rdfval-demo}) in which the validation of any constraint language\footnote{The only limitation is that constraint languages must be represented in RDF} can be implemented by representing them in SPARQL. 
 The SPIN engine checks for each resource if it satisfies all constraints (associated with its assigned classes) and generates a result RDF graph containing information about all constraint violations.
 The generically expressed cardinality restriction above is validated within our validation environment (see section \ref{sec:validation}) by means of a SPARQL CONSTRUCT query:
 \begin{ex}
@@ -453,7 +453,7 @@ Consider, e.g., the following minimum qualified cardinality restriction on the o
 \begin{DL}
 $Publication \sqsubseteq \geq1 author . Person $
 \end{DL}
-Mapped to the \emph{RDF-CV}, the cardinality restriction is classified as a \emph{property constraint} which holds for all individuals of the class \emph{Publication}:
+Mapped to the \emph{RDF-CV} (see table \ref{tab:property-constraint-cardinality-restriction}), the cardinality restriction is classified as a \emph{property constraint} which holds for all individuals of the class \emph{Publication}:
 
 \begin{table}
   \scriptsize
@@ -481,7 +481,7 @@ i.e. restricts the objects, the property \emph{author} points to, to be of the c
 
 For \emph{property constraints}, \emph{left} and \emph{right property lists} (\textbf{\emph{leftProperties}}, \textbf{\emph{rightProperties}}) are specified.
 The assignment of properties to these lists happens relative to the \emph{constraining element} - which may be an operator (e.g. $\sqsubseteq$ in case of object property paths).
-\emph{Object Property Paths}\footnote{corresponds to the requirement \emph{R-55-OBJECT-PROPERTY-PATHS}} (also called \emph{complex role inclusion axioms} in DL terminology)
+\emph{Object Property Paths}\footnote{Corresponds to the requirement \emph{R-55-OBJECT-PROPERTY-PATHS}} (also called \emph{complex role inclusion axioms} in DL terminology)
 state that, if an individual \emph{x} is connected by a sequence of object properties with an individual \emph{y}, 
 then \emph{x} is also connected with \emph{y} by a particular object property. 
 According to the following object property path and some instance data, \emph{Stephen-Hawking} is an author of the genre \emph{Popular-Science} 
@@ -491,7 +491,7 @@ According to the following object property path and some instance data, \emph{St
 authorOf $\circ$ genre $\sqsubseteq$ authorOfGenre 
 \end{DL}
 
-When mapped to the \emph{RDF-CV}, the properties \emph{authorOf} and \emph{genre} are on the left side of the \emph{constraining element} \emph{$\sqsubseteq$},
+When mapped to the \emph{RDF-CV} (see table \ref{tab:property-constraint-object-property-paths}), the properties \emph{authorOf} and \emph{genre} are on the left side of the \emph{constraining element} \emph{$\sqsubseteq$},
 and the property \emph{authorOfGenre} is on the right side:
 
 \begin{table}
@@ -510,45 +510,72 @@ and the property \emph{authorOfGenre} is on the right side:
 
 \subsection{Simple Constraints (Not Expressible in DL)}
 
-There are simple constraints which cannot be expressed by DL such as literal pattern matching, literal value comparison, literal ranges, default values, and language tag cardinality \cite{BoschNolleAcarEckert2015}.
+There are \emph{simple constraints} which cannot be expressed in DL such as \emph{literal pattern matching}, \emph{literal value comparison}, \emph{literal ranges}, \emph{default values}, and \emph{language tag cardinality} \cite{BoschNolleAcarEckert2015}.
 % maybe additional constraint default values:
 % ear shape of races, e.g. vulcans / teeth color
 % mathematical operations
-There are multiple use cases associated with the requirement to match literals according to given patterns (\ms{Literal Pattern Matching}\footnote{corresponds to the requirement \ms{R-44-PATTERN-MATCHING-ON-RDF-LITERALS}}).
-The enterprise vessel, e.g.,  can only have the registry numbers "NCC-1701", "NCC-1701-A", "NCC-1701-B", "NCC-1701-C", "NCC-1701-D", or "NCC-1701-E".
-The universal restriction can be represented in DL:
-\ms{Enterprise $\sqsubseteq$ $\forall$ registryNumber.RegistryNumber}.
-The restriction of the datatype \ms{RegistryNumber}, however, cannot be expressed in DL, but OWL 2 DL can be used anyway to express the literal pattern matching constraint:
+
+{\em Literal pattern matching}\footnote{Corresponds to {\em R-44-PATTERN-MATCHING-ON-RDF-LITERALS}} restricts literals to match given patterns.
+The universal restriction \ms{Book $\sqsubseteq$ $\forall$ identifier.ISBN}, e.g., ensures that \emph{books} can only have valid ISBN identifiers, 
+i.e. strings that match a given regular expression. 
+The restriction of the datatype \emph{ISBN}, however, cannot be expressed in DL, but OWL 2 DL can be used anyway to express the \emph{literal pattern matching} constraint:
 
 \begin{ex}
-RegistryNumber
-    a rdfs:Datatype ; owl:equivalentClass [ a rdfs:Datatype ;
-        owl:onDatatype xsd:string ;
-        owl:withRestrictions ( [ xsd:pattern "NCC-1701([-][A-E])?" ] ) ] .
+ISBN a RDFS:Datatype ; owl:equivalentClass [ a RDFS:Datatype ;
+    owl:onDatatype xsd:string ; owl:withRestrictions ([ xsd:pattern "^\d{9}[\d|X]\$" ])] .
 \end{ex}
+\tb{Erman, can you please delete the slash in front of the dollar sign from the output of the code fragment above (in the stated pattern)?}
+The first OWL 2 axiom explicitly declares {\em ISBN} to be a datatype. %\er{Why start from second and then first? Also better we say "owl axiom" when we talk axiom of owl, to prevent ambiguity.}\tb{resolved}
+The second OWL 2 axiom defines {\em ISBN} as an abbreviation for a datatype restriction on {\em xsd:string}. 
+The datatype {\em ISBN} can be used just like any other datatype like in the universal restriction above.
+%There are multiple use cases associated with the requirement to match literals according to given patterns (\emph{Literal Pattern Matching}\footnote{Corresponds to \emph{R-44-PATTERN-MATCHING-ON-RDF-LITERALS}}).
+%The enterprise vessel, e.g.,  can only have the registry numbers "NCC-1701", "NCC-1701-A", "NCC-1701-B", "NCC-1701-C", "NCC-1701-D", or "NCC-1701-E".
+%The universal restriction can be represented in DL:
+%\ms{Enterprise $\sqsubseteq$ $\forall$ registryNumber.RegistryNumber}.
+%The restriction of the datatype \ms{RegistryNumber}, however, cannot be expressed in DL, but OWL 2 DL can be used anyway to express the literal pattern matching constraint:
+%
+%\begin{ex}
+%RegistryNumber
+    %a rdfs:Datatype ; owl:equivalentClass [ a rdfs:Datatype ;
+        %owl:onDatatype xsd:string ;
+        %owl:withRestrictions ( [ xsd:pattern "NCC-1701([-][A-E])?" ] ) ] .
+%\end{ex}
+%The second axiom defines \ms{RegistryNumber} as an abbreviation for a datatype restriction on \ms{xsd:string}. 
+%The first axiom explicitly declares \ms{RegistryNumber} to be a datatype. 
+%The datatype \ms{RegistryNumber} can be used just like any other datatype like in the universal restriction above.
+The \emph{literal pattern matching} constraint validates \emph{ISBN} literals according to the stated regular expression causing constraint violations for triples not matching the regular expression. 
+%\ms{Janeway commandsEnterprise Voyager} and \ms{Voyager registryNumber "NCC-74656"\textasciicircum{}\textasciicircum{}RegistryNumber}, 
+%but not for the triples \ms{Picard commandsEnterprise Enterprise} and \ms{Enterprise registryNumber "NCC-1701-E"\textasciicircum{}\textasciicircum{}RegistryNumber}.
+In table \ref{tab:simple-constraint-not-expressible-in-dl)}, the \emph{simple constraint} (\emph{literal pattern matching}) and the \emph{complex constraint} (\emph{universal restriction}) are mapped to the \emph{RDF-CV}.
 
-The second axiom defines \ms{RegistryNumber} as an abbreviation for a datatype restriction on \ms{xsd:string}. 
-The first axiom explicitly declares \ms{RegistryNumber} to be a datatype. 
-The datatype \ms{RegistryNumber} can be used just like any other datatype like in the universal restriction above.
-The literal pattern matching constraint validates \ms{RegistryNumber} literals according to the stated regular expression causing a constraint violation for the triples 
-\ms{Janeway commandsEnterprise Voyager} and \ms{Voyager registryNumber "NCC-74656"\textasciicircum{}\textasciicircum{}RegistryNumber}, 
-but not for the triples \ms{Picard commandsEnterprise Enterprise} and \ms{Enterprise registryNumber "NCC-1701-E"\textasciicircum{}\textasciicircum{}RegistryNumber}.
-The simple constraints - universal restriction and literal pattern matching - are mapped to the RDF-CO as follows:
+%\begin{gcotable}
+%property & Enterprise & registryNumber & - & RegistryNumber & $\forall$ & - \\
+%class & RegistryNumber & - & - & xsd:string & regex & 'NCC-1701([-][A-E])?' \\
+%\end{gcotable}
 
-\begin{gcotable}
-property & Enterprise & registryNumber & - & RegistryNumber & $\forall$ & - \\
-class & RegistryNumber & - & - & xsd:string & regex & 'NCC-1701([-][A-E])?' \\
-\end{gcotable}
-
-The \ms{Literal Pattern Matching} constraint introduces the new constraining element \ms{regex}.
-For this new constraining element, the validation must be implemented.
-This has to be done once for each constraint which cannot be expressed in DL.
+\begin{table}
+  \scriptsize
+  \sffamily
+  \vspace{0cm}
+	\centering
+		\begin{tabular}{l|l|l|l|l|l|l}
+      \textbf{c. type} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
+      \hline
+      property & Book & identifier & - & ISBN & $\forall$ & - \\
+      class & ISBN & - & - & xsd:string & regex & '\string^\d{9}[\d|X]\$' \\
+		\end{tabular}
+	\caption{Simple Constraint (Not Expressible in DL)}
+	\label{tab:simple-constraint-not-expressible-in-dl)}
+\end{table} \tb{Erman, can you please format the regular expression in the table above correctly?}
+The \emph{literal pattern matching} constraint introduces the new \emph{constraining element} \emph{regex}.
+For this new \emph{constraining element}, the validation must be implemented.
+This has to be done once for each \emph{generic constraint type} which cannot be expressed in DL.
 
 \subsection{Complex Constraints}
 
 \ms{Complex constraints} encompass simple constraints and/or complex constraints.
 Exclusive or is a logical operation that outputs true whenever both inputs differ (one is true, the other is false).
-The \ms{Context-Specific Exclusive OR of Property Groups}\footnote{corresponds to R-13-DISJOINT-GROUP-OF-PROPERTIES-CLASS-SPECIFIC} 
+The \ms{Context-Specific Exclusive OR of Property Groups}\footnote{Corresponds to R-13-DISJOINT-GROUP-OF-PROPERTIES-CLASS-SPECIFIC} 
 constraint restricts the data to contain only one of multiple property groups.
 Half-Klingons, e.g., either have a klingon mother and a human father or a human mother and a klingon father, which can be expressed by ShEx:
 
@@ -632,7 +659,7 @@ These are sometimes considered as basic axiom types in DL as well, using some su
 \ms{Trans(ancestorOf)} to express that the role ancestorOf is transitive. 
 However, such axioms are just syntactic sugar; 
 all role characteristics can be expressed using the basic features of DL.
-\ms{Irreflexive Object Properties}\footnote{corresponds to the requirement \ms{R-60-IRREFLEXIVE-OBJECT-PROPERTIES}}
+\ms{Irreflexive Object Properties}\footnote{Corresponds to \emph{R-60-IRREFLEXIVE-OBJECT-PROPERTIES}}
 restricts that an object property is irreflexive if it is never locally reflexive, i.e. no individual is connected by the object property to itself \cite{Kroetzsch2012}.
 The irreflexivity constraint, stating that individuals cannot be married to themselves, can be represented in DL:
 
@@ -733,7 +760,7 @@ With an intermediate generic constraint, we only need to define \ms{n} mappings 
 %\( {n \choose 2} \)
 %\end{DL}
 
-\ms{Allowed Values}\footnote{corresponds to the requirements \ms{R-30-ALLOWED-VALUES-FOR-RDF-OBJECTS} and \ms{R-37-ALLOWED-VALUES-FOR-RDF-LITERALS}}
+\ms{Allowed Values}\footnote{corresponds to \emph{R-30-ALLOWED-VALUES-FOR-RDF-OBJECTS} and \emph{R-37-ALLOWED-VALUES-FOR-RDF-LITERALS}}
 is a common requirement to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resources). 
 The Enterprise, e.g., is only commanded by the captains Archer, Kirk, and Picard.
 This complex constraint is composed of the two simple constraints \ms{universal quantification} and \ms{allowed values} which can be represented in DL:
@@ -817,7 +844,7 @@ As a consequence, we only have to define one SPIN mapping for each constraint co
 19 of 74 RDF constraints can be expressed by at least four constraint languages \cite{BoschNolleAcarEckert2015}.
 This means, that there must be 76 (four for each constraint) implementations to validate 76 specific constraints - instead of only 19 implementations (one for each generic constraint).
 
-Within our SPIN validation environment, we define a SPIN construct template for each generic constraint\footnote{for details about the SPIN validation environment see \cite{BoschEckert2014-2}}.
+Within our SPIN validation environment, we define a SPIN construct template for each generic constraint\footnote{For details about the SPIN validation environment see \cite{BoschEckert2014-2}}.
 A SPIN construct template contains a SPARQL CONSTRUCT query which generates constraint violation triples (\ms{spin:ConstraintViolation}) indicating the subject (\ms{spin:violationRoot}) and the properties (\ms{spin:violationPath}), causing constraint violations, and the reason why constraint violations have been raised (\ms{rdfs:label}).
 A SPIN construct template creates constraint violation triples if all triple patterns within the SPARQL WHERE clause match.
 The SPARQL CONSTRUCT query for the universal quantification (of the previous example in section \ref{sec:transformations}) is shown below:
@@ -851,7 +878,7 @@ as we provide only one validation implementation for each generic constraint.
 SPARQL is generally seen as the method of choice to validate RDF data according to certain constraints, although it is not ideal for their formulation. 
 In contrast, OWL 2 and DSP constraints are comparatively easy to understand, but lack an implementation to validate RDF data. 
 Bosch and Eckert\cite{BoschEckert2014-2} use SPIN as basis to define a
-validation environment in which the validation of any constraint language\footnote{the only limitation is that constraint languages must be represented in RDF} can be implemented by representing them in SPARQL. 
+validation environment in which the validation of any constraint language\footnote{The only limitation is that constraint languages must be represented in RDF} can be implemented by representing them in SPARQL. 
 The validation implementation of constraint languages is fully declarative,
 consisting of a mapping from constraint languages to SPIN in form of SPARQL CONSTRUCT queries.
 SPIN represents both the SPIN mappings and the SPARQL queries in RDF. 
