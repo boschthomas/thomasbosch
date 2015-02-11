@@ -899,25 +899,26 @@ property & Book & isbn & - & - & keyfor & - \\
 
 %\section{Transformations and Automatic Validation of Specific Constraints}
 %\section{Transformations between Specific Constraints (Expressed by Different Constraint Languages)}
-\section{Transformations between Specific Constraints}
+%\section{Transformations between Specific Constraints}
+\section{How to Improve the Interoperability of Constraints}
 \label{sec:transformations}
 
-RDF data providers ensure that their data conforms to constraints which are part of the contract between the providers and the consumers of that data.
-As there is no standard way, these constraints may be represented by multiple constraint languages (there are even more than the five promising ones\footnote{i.a. Bibframe, DQTP, Pellet ICV, RDFUnit, SPARQL, Stardog ICV}).
-There is an obvious need to transform a specific constraint (\ms{$sc_{\alpha}$}) (expressed by any constraint language \ms{$\alpha$}) into a specific constraint (\ms{$sc_{\beta}$}) (expressed by any constraint language \ms{$\beta$}) - when they have the same semantics.
-We use the RDF-CO as intermediate representation for these transformations.
-If we define mappings ($m(sc_{\alpha}), m(sc_{\beta})$) from two equivalent specific constraints to the corresponding generic constraint (\ms{gc}),
+RDF data providers have to ensure that their data conforms to constraints which are part of explicitly or implicitly concluded contracts between data providers and consumers.
+As there is no standard way, these constraints may be represented by a variety of possible constraint languages (there are even more than the five promising ones\footnote{i.a. Bibframe, Data Quality Test Patterns, Pellet ICV, RDFUnit, SPARQL, Stardog ICV}).
+There is an obvious need to transform any \emph{specific constraint} (\emph{$sc_{\alpha}$}) (expressed by any constraint language \emph{$\alpha$}) into any other \emph{specific constraint} (\emph{$sc_{\beta}$}) (expressed by any constraint language \emph{$\beta$}) - when they have the same semantics.
+We use the \emph{RDF-CV} as an intermediate representation vocabulary for these transformations.
+If we define mappings ($m(sc_{\alpha}), m(sc_{\beta})$) between equivalent \emph{specific constraints} and the corresponding \emph{generic constraint} (\emph{gc}),
 we can convert them automatically:
 
 \begin{DL}
 $ gc = m(sc_{\alpha}) = m(sc_{\beta}) $
 \end{DL}
 
-We do not need to define mappings for each pair of semantically equivalent specific constraints.
-Let's assume we are able to express a constraint by 5/6/7/8/9/10 constraint languages.
-Without the intermediate generic constraint, we would have to define one mapping for each pair of specific constraints expressed by a different constraint languages
-- that are \ms{\( {n \choose 2} \)} mappings for each constraint (10/15/21/28/36/45 mappings).
-With an intermediate generic constraint, we only need to define \ms{n} mappings (one mapping for each specific constraint) from the specific constraints to the generic constraint (5/6/7/8/9/10 mappings).
+We do not need to define mappings for each pair of semantically equivalent \emph{specific constraints}.
+Let's assume we are able to express a constraint type by 5/6/7/8/9/10 constraint languages.
+Without the intermediate \emph{generic constraint}, we would have to define for each constraint type \emph{1} mapping for each pair of \emph{specific constraints} (expressed by different constraint languages)
+- that are \emph{\( {n \choose 2} \)} mappings (10/15/21/28/36/45 mappings).
+With an intermediate \emph{generic constraint}, however, we only need to define for each constraint type \emph{n} mappings (one mapping for each \emph{specific constraint}) from \emph{n} \emph{specific constraints} to the corresponding \emph{generic constraint} (5/6/7/8/9/10 mappings).
 
 %(n(n+1))/2
 
@@ -928,49 +929,103 @@ With an intermediate generic constraint, we only need to define \ms{n} mappings 
 %\( {n \choose 2} \)
 %\end{DL}
 
-\ms{Allowed Values}\footnote{corresponds to \emph{R-30-ALLOWED-VALUES-FOR-RDF-OBJECTS} and \emph{R-37-ALLOWED-VALUES-FOR-RDF-LITERALS}}
-is a common requirement to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resources). 
-The Enterprise, e.g., is only commanded by the captains Archer, Kirk, and Picard.
-This complex constraint is composed of the two simple constraints \ms{universal quantification} and \ms{allowed values} which can be represented in DL:
+The {\em existential quantification}\footnote{Corresponds to {\em R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}}
+\ms{Publication $\equiv$ $\exists$ publisher.Publisher} restricts publications to have at least one publisher and can be expressed by at least 10 constraint languages\footnote{at least by OWL2, SPARQL, ShEx, Bibframe, DSP, ReSh, SPIN, DQTP, Pellet IVC, Stardog ICV}:
+
+\begin{ex}
+# OWL 2:
+[ a owl:Restriction ;
+  owl:onProperty publisher ;
+  owl:someValuesFrom Publisher ;
+  rdfs:subClassOf Publication ] .
+	
+# SPARQL:
+ASK { ?x a Publication . FILTER NOT EXISTS { ?x publisher [ a Publisher ] } . }
+	
+# ShEx:
+Publication {
+    publisher @Publisher{1,} }
+		
+# DSP:
+descriptionTemplate a dsp:DescriptionTemplate ;
+    dsp:resourceClass Publication ; 
+    dsp:statementTemplate [ a dsp:NonLiteralStatementTemplate ;
+        dsp:minOccur 1 ; dsp:maxOccur "infinity" ; 
+        dsp:property publisher ; 
+        dsp:nonLiteralConstraint [ a dsp:NonLiteralConstraint ;
+            dsp:valueClass Publisher ] ] .
+		
+# ReSh:
+Publication a rs:ResourceShape ; rs:property [
+    rs:propertyDefinition :publisher ;
+    rs:valueShape :Publisher ;
+    se:min 1 ; se:maxundefined true ; ] .
+		
+# SPIN:
+CONSTRUCT {
+    _:cv a spin:ConstraintViolation ; spin:violationRoot ?subject ;
+         rdfs:label ?violationMessage ; spin:violationPath ?property . } WHERE 
+{ ?subject a ?classSubject . FILTER NOT EXISTS { ?subject ?property [ a ?classObject ] } . }
+\end{ex}
+
+%\emph{Allowed Values}\footnote{corresponds to \emph{R-30-ALLOWED-VALUES-FOR-RDF-OBJECTS} and \emph{R-37-ALLOWED-VALUES-FOR-RDF-LITERALS}}
+%is a common requirement (constraint type) to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resources). 
+%The Enterprise, e.g., is only commanded by the captains Archer, Kirk, and Picard.
+%This \emph{complex constraint} is composed of the two \emph{simple constraints} \emph{universal quantification} and \emph{allowed values} which can be represented in DL:
 
 %\begin{DL}
 %StarfleetCaptain $\equiv$ $\forall$ overruledBy . \{Commodore\} $\sqcup$ \{Admiral\}
 %\end{DL}
 
-\begin{DL}
-Enterprise $\equiv$ $\forall$ commandedBy . \{Archer\} $\sqcup$ \{Kirk\} $\sqcup$ \{Picard\}
-\end{DL}
+%\begin{DL}
+%Enterprise $\equiv$ $\forall$ commandedBy . \{Archer\} $\sqcup$ \{Kirk\} $\sqcup$ \{Picard\}
+%\end{DL}
 
-First, we map these DL statements to two simple generic constraints corresponding to the RDF-CO (we define the class \ms{EnterpriseCaptains} by simply enumerating its instances):
+%First, we map these DL statements to two \emph{simple generic constraints} corresponding to the \emph{RDF-CV} (we define the class \ms{EnterpriseCaptains} by simply enumerating its instances):
+
+First, the DL statement \ms{Publication $\equiv$ $\exists$ publisher.Publisher} is mapped to a \emph{simple generic constraint} according to the \emph{RDF-CV} (see table \ref{tab:existential-quantification-as-simple-constraints}).
 
 %\begin{gcotable}
 %property & StarfleetCaptain & overruledBy & - & CaptainOverruler & $\forall$ & - \\
 %class & CaptainOverruler & - & - & \{Commodore\},\{Admiral\} & $\sqcup$ & - \\
 %\end{gcotable}
 
-\begin{gcotable}
-property & Enterprise & commandedBy & - & EnterpriseCaptains & $\forall$ & - \\
-class & EnterpriseCaptains & - & - & \{Archer\},\{Kirk\},\{Picard\} & $\sqcup$ & - \\
-\end{gcotable}
+%\begin{gcotable}
+%property & Enterprise & commandedBy & - & EnterpriseCaptains & $\forall$ & - \\
+%class & EnterpriseCaptains & - & - & \{Archer\},\{Kirk\},\{Picard\} & $\sqcup$ & - \\
+%\end{gcotable}
 
-The next step is to define one mapping for each specific constraint to the generic constraint.
-The specific constraints (\ms{$sc_{OWL 2}$}, \ms{$sc_{ReSh}$}, and \ms{$sc_{ShEx}$}) expressed by OWL 2, ReSh, and ShEx look like this:
+\begin{table}
+  \scriptsize
+  \sffamily
+  \vspace{0cm}
+	\centering
+		\begin{tabular}{l|l|l|l|l|l|l}
+      \textbf{c. type} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
+      \hline
+property & Publication & publisher & - & Publisher & $\exists$ \\
+		\end{tabular}
+	\caption{Existential Quantification as Simple Constraints}
+	\label{tab:existential-quantification-as-simple-constraints}
+\end{table}
 
-\begin{ex}
-# OWL 2:
-Enterprise rdfs:subClassOf [ a owl:Restriction .
-    owl:onProperty commandedBy .
-    owl:allValuesFrom [ a owl:Class ;
-        owl:oneOf ( Archer Kirk Picard ) ] ] .
-# ReSh:
-Enterprise a rs:ResourceShape ; rs:property [
-    rs:name "commandedBy" ; rs:propertyDefinition commandedBy ;
-    rs:allowedValue Archer , Kirk , Picard ;
-    rs:occurs rs:Exactly-one ; ] .
-# ShEx:
-Enterprise {
-    commandedBy (Archer Kirk Picard) }
-\end{ex}
+The next step is to define one mapping for each \emph{specific constraint} (\emph{$sc_{OWL 2}$}, \emph{$sc_{ReSh}$}, \emph{$sc_{ShEx}$}, ...) to the \emph{generic constraint}.
+
+%\begin{ex}
+%# OWL 2:
+%Enterprise rdfs:subClassOf [ a owl:Restriction .
+    %owl:onProperty commandedBy .
+    %owl:allValuesFrom [ a owl:Class ;
+        %owl:oneOf ( Archer Kirk Picard ) ] ] .
+%# ReSh:
+%Enterprise a rs:ResourceShape ; rs:property [
+    %rs:name "commandedBy" ; rs:propertyDefinition commandedBy ;
+    %rs:allowedValue Archer , Kirk , Picard ;
+    %rs:occurs rs:Exactly-one ; ] .
+%# ShEx:
+%Enterprise {
+    %commandedBy (Archer Kirk Picard) }
+%\end{ex}
 
 %\begin{ex}
 %# DSP:
@@ -998,7 +1053,8 @@ Enterprise {
     %:overruledBy @:Commodore* , :overruledBy @:Admiral* }
 %\end{ex}
 
-\section{Validation of Specific and Generic Constraints}
+%\section{Validation of Specific and Generic Constraints}
+\section{How to Provide Constraint Validation Out-Of-The-Box}
 \label{sec:validation}
 
 We can provide the validation of all specific constraints (expressed by any constraint language) by defining a mapping to SPIN.
