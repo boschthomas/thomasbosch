@@ -687,7 +687,7 @@ property & D2 & title & - & string & $\leq$ & 1 \\
 Even though, tools may generate \emph{generic constraints} automatically, this \emph{complex constraint} is composed of many other \emph{complex} (e.g. minimum and maximum qualified cardinality restrictions) and \emph{simple constraints} (e.g. constraints on sets).
 As \emph{exact (un)qualified cardinality restrictions (=n)} and \emph{exclusive or (XOR)} are frequently used \emph{complex constraints},
 we propose using them as \emph{simple constraints} - in terms of syntactic sugar.
-As a consequence, the \emph{Context-Specific Exclusive OR of Property Groups} constraint above is represented as a \emph{generic constraint} more intuitively and concisely (see table \ref{tab:complex-constraints-as-simple-constraints}).
+As a consequence, the \emph{Context-Specific Exclusive OR of Property Groups} constraint above is represented as a \emph{generic constraint} more intuitively and concisely (see table \ref{tab:simplified-complex-constraints}).
 
 %\begin{gcotable}
 %class & Half-Klingon & - & - & E, F & XOR \\
@@ -715,69 +715,167 @@ property & B & title & - & string & = & 1 \\
 property & C & issn & - & string & = & 1 \\
 property & D & title & - & string & = & 1 \\
 		\end{tabular}
-	\caption{Complex Constraints as Simple Constraints}
-	\label{tab:complex-constraints-as-simple-constraints}
+	\caption{Simplified Complex Constraints}
+	\label{tab:simplified-complex-constraints}
 \end{table}
 
 \subsection{Complex Constraints as Simple Constraints (Syntactic Sugar)}
 
-Almost 15 percent of all RDF constraints are complex constraints which can be simplified and therefore formulated as simple constraints when using them in terms of syntactic sugar (see section \ref{sec:evaluation}).
+Almost 15 percent of all RDF constraint types are \emph{complex constraints} which can be simplified and therefore formulated as \emph{simple constraints} when using them in terms of syntactic sugar (see section \ref{sec:evaluation}).
 
-There are three forms of RBox axioms: role inclusions, equivalences and disjointness. 
-OWL provides a variety of others, namely role transitivity, symmetry, asymmetry, reflexivity and irreflexivity. 
+There are three forms of \emph{OWL RBox axioms}: \emph{role inclusions}, \emph{equivalence} and \emph{disjointness}. 
+OWL provides a variety of others, namely \emph{role transitivity}, \emph{symmetry}, \emph{asymmetry}, \emph{reflexivity} and \emph{irreflexivity}. 
 These are sometimes considered as basic axiom types in DL as well, using some suggestive notation such as
-\ms{Trans(ancestorOf)} to express that the role ancestorOf is transitive. 
+\ms{Trans(ancestorOf)} to express that the role \emph{ancestorOf} is transitive. \tb{transitive property example from the library domain}
 However, such axioms are just syntactic sugar; 
 all role characteristics can be expressed using the basic features of DL.
-\ms{Irreflexive Object Properties}\footnote{Corresponds to \emph{R-60-IRREFLEXIVE-OBJECT-PROPERTIES}}
+The \emph{Irreflexive Object Properties} constraint type\footnote{Corresponds to \emph{R-60-IRREFLEXIVE-OBJECT-PROPERTIES}}, e.g., 
 restricts that an object property is irreflexive if it is never locally reflexive, i.e. no individual is connected by the object property to itself \cite{Kroetzsch2012}.
-The irreflexivity constraint, stating that individuals cannot be married to themselves, can be represented in DL:
+The irreflexivity constraint \ms{$\top$ $\sqsubseteq$ $\neg$ $\exists authorOf.Self$}
+states that individuals cannot be authors of themselves.
+When mapped to the \emph{RDF-CV} (see table \ref{tab:irreflexive-object-properties-as-complex-constraints}), the \emph{complex constraint} aggregates three \emph{simple constraints} (one \emph{property} and two \emph{class constraints}).
 
-\begin{DL}
-$\top$ $\sqsubseteq$ $\neg$ $\exists  marriedTo . Self$
-\end{DL}
+%\begin{gcotable}
+%property & $\exists$ marriedTo . Self & marriedTo & - & Self & $\exists$ & - \\
+%class & $\neg$ $\exists$ marriedTo . Self & - & - & $\exists$ marriedTo . Self & $\neg$ & - \\
+%class & $\top$ & - & - & $\top$, $\neg$ $\exists$ marriedTo . Self & $\sqsubseteq$ & - \\
+%\end{gcotable}
 
-When mapped to the RDF-CO, the complex constraint aggregates three simple constraints (one property and two class constraints):
+\begin{table}
+  \scriptsize
+  \sffamily
+  \vspace{0cm}
+	\centering
+		\begin{tabular}{l|l|l|l|l|l|l}
+      \textbf{c. type} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
+      \hline
+property & $\exists$ authorOf.Self & marriedTo & - & Self & $\exists$ & - \\
+class & $\neg$ $\exists$ authorOf.Self & - & - & $\exists$ authorOf.Self & $\neg$ & - \\
+class & $\top$ & - & - & $\top$, $\neg$ $\exists$ authorOf.Self & $\sqsubseteq$ & - \\
+		\end{tabular}
+	\caption{Irreflexive Object Properties as Complex Constraints}
+	\label{tab:irreflexive-object-properties-as-complex-constraints}
+\end{table}
 
-\begin{gcotable}
-property & $\exists$ marriedTo . Self & marriedTo & - & Self & $\exists$ & - \\
-class & $\neg$ $\exists$ marriedTo . Self & - & - & $\exists$ marriedTo . Self & $\neg$ & - \\
-class & $\top$ & - & - & $\top$, $\neg$ $\exists$ marriedTo . Self & $\sqsubseteq$ & - \\
-\end{gcotable}
+When using the OWL RBox axiom \emph{role irreflexivity} as syntactic sugar, 
+the \emph{complex constraint} transforms into a \emph{simple property constraint} with exactly the same semantics (see table \ref{tab:irreflexive-object-properties-as-simple-constraints}).
 
-When using the RBox axiom \ms{role irreflexivity} as syntactic sugar, 
-the complex constraint transforms into a simple property constraint with exactly the same semantics:
+%\begin{gcotable}
+%property & $\top$ & marriedTo & - & - & irreflexive & - \\
+%\end{gcotable}
 
-\begin{gcotable}
-property & $\top$ & marriedTo & - & - & irreflexive & - \\
-\end{gcotable}
+\begin{table}
+  \scriptsize
+  \sffamily
+  \vspace{0cm}
+	\centering
+		\begin{tabular}{l|l|l|l|l|l|l}
+      \textbf{c. type} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
+      \hline
+property & $\top$ & authorOf & - & - & irreflexive & - \\
+		\end{tabular}
+	\caption{Irreflexive Object Properties as Simple Constraints}
+	\label{tab:irreflexive-object-properties-as-simple-constraints}
+\end{table}
 
-The \ms{Primary Key Properties} constraint is often useful to declare a given (datatype) property as the "primary key" of a class, so that a system can enforce uniqueness. 
-Starfleet officers, e.g., are uniquely identified by their command authorization code (e.g. to activate and cancel auto-destruct sequences).
-It means that the property \ms{commandAuthorizationCode} is inverse functional - mapped to DL and the RDF-CO as follows:
+The \emph{Primary Key Properties}\footnote{Corresponds to \emph{R-226-PRIMARY-KEY-PROPERTIES}} constraint type is often useful to declare a given (datatype) property as the "primary key" of a class, so that a system can enforce uniqueness. 
+Books, e.g., are uniquely identified by their ISBN, i.e. the property \emph{isbn} is inverse functional \ms{$(\ms{funct } isbn\sp{\overline{\ }})$}, 
+which can be mapped to the \emph{RDF-CV} (see table \ref{tab:primary-key-properties-as-complex-constraints}).
 
-\begin{DL}
-$(\ms{funct } commandAuthorizationCode\sp{\overline{\ }})$
-\end{DL}
+%\begin{gcotable}
+%property & $\top$ & commandAuthorizationCode$^{-}$ & commandAuthorizationCode$^{-}$ & - & inverse & - \\
+%property & $\top$ & commandAuthorizationCode$^{-}$ & - & - & functional & - \\
+%\end{gcotable}
 
-\begin{gcotable}
-property & $\top$ & commandAuthorizationCode$^{-}$ & commandAuthorizationCode$^{-}$ & - & inverse & - \\
-property & $\top$ & commandAuthorizationCode$^{-}$ & - & - & functional & - \\
-\end{gcotable}
+\begin{table}
+  \scriptsize
+  \sffamily
+  \vspace{0cm}
+	\centering
+		\begin{tabular}{l|l|l|l|l|l|l}
+      \textbf{c. type} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
+      \hline
+property & $\top$ & isbn$^{-}$ & isbn$^{-}$ & - & inverse & - \\
+property & Book & isbn$^{-}$ & - & - & functional & - \\
+		\end{tabular}
+	\caption{Primary Key Properties as Complex Constraints}
+	\label{tab:primary-key-properties-as-complex-constraints}
+\end{table}
 
-Keys, however, are even more general, i.e., a generalization of inverse functional properties \cite{Schneider2009}.
+\emph{Keys}, however, are even more general, i.e. a generalization of inverse functional properties \cite{Schneider2009}.
 A key can be a datatype property, an object property, or a chain of properties.
-For this generalization purposes, as there are different sorts of key, and as keys can lead to undecidability, 
-DL is extended with \ms{key boxes} and a special \ms{keyfor} construct\cite{Lutz2005}.
-This leads to the following DL and RDF-CO mappings (only one simple property constraint):
+For these generalization purposes, as there are different sorts of keys, and as keys can lead to undecidability, 
+DL is extended with \emph{key boxes} and a special construct \emph{keyfor} \cite{Lutz2005}.
+When using the \emph{keyfor} DL construct (\ms{isbn keyfor Book}), the \emph{complex constraint} can be expressed by only one \emph{simple property constraint} (see table \ref{tab:primary-key-properties-as-simple-constraints} for the mapping to the \emph{RDF-CV}).
 
-\begin{DL}
-commandAuthorizationCode \ms{keyfor} StarfleetOfficer
-\end{DL}
+%\begin{gcotable}
+%property & StarFleetOfficer & commandAuthorizationCode & - & - & keyfor & - \\
+%\end{gcotable}
 
-\begin{gcotable}
-property & StarFleetOfficer & commandAuthorizationCode & - & - & keyfor & - \\
-\end{gcotable}
+\begin{table}
+  \scriptsize
+  \sffamily
+  \vspace{0cm}
+	\centering
+		\begin{tabular}{l|l|l|l|l|l|l}
+      \textbf{c. type} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
+      \hline
+property & Book & isbn & - & - & keyfor & - \\
+		\end{tabular}
+	\caption{Primary Key Properties as Simple Constraints}
+	\label{tab:primary-key-properties-as-simple-constraints}
+\end{table}
+
+%Starfleet officers, e.g., are uniquely identified by their command authorization code (e.g. to activate and cancel auto-destruct sequences).
+%It means that the property \emph{commandAuthorizationCode} is inverse functional - mapped to DL and the \emph{RDF-CV} as follows:
+%
+%\begin{DL}
+%$(\ms{funct } commandAuthorizationCode\sp{\overline{\ }})$
+%\end{DL}
+%
+%%\begin{gcotable}
+%%property & $\top$ & commandAuthorizationCode$^{-}$ & commandAuthorizationCode$^{-}$ & - & inverse & - \\
+%%property & $\top$ & commandAuthorizationCode$^{-}$ & - & - & functional & - \\
+%%\end{gcotable}
+%
+%\begin{table}
+  %\scriptsize
+  %\sffamily
+  %\vspace{0cm}
+	%\centering
+		%\begin{tabular}{l|l|l|l|l|l|l}
+      %\textbf{c. type} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
+      %\hline
+%property & $\top$ & commandAuthorizationCode$^{-}$ & commandAuthorizationCode$^{-}$ & - & inverse & - \\
+%property & $\top$ & commandAuthorizationCode$^{-}$ & - & - & functional & - \\
+		%\end{tabular}
+	%\caption{Primary Key Properties as Complex Constraints}
+	%\label{tab:primary-key-properties-as-complex-constraints}
+%\end{table}
+%
+%Keys, however, are even more general, i.e., a generalization of inverse functional properties \cite{Schneider2009}.
+%A key can be a datatype property, an object property, or a chain of properties.
+%For this generalization purposes, as there are different sorts of key, and as keys can lead to undecidability, 
+%DL is extended with \emph{key boxes} and a special \emph{keyfor} construct\cite{Lutz2005}.
+%This leads to the following DL and \emph{RDF-CV} mappings (only one \emph{simple property constraint}):
+%
+%\begin{DL}
+%commandAuthorizationCode \ms{keyfor} StarfleetOfficer
+%\end{DL}
+
+%\begin{table}
+  %\scriptsize
+  %\sffamily
+  %\vspace{0cm}
+	%\centering
+		%\begin{tabular}{l|l|l|l|l|l|l}
+      %\textbf{c. type} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
+      %\hline
+%property & StarFleetOfficer & commandAuthorizationCode & - & - & keyfor & - \\
+		%\end{tabular}
+	%\caption{Primary Key Properties as Simple Constraints}
+	%\label{tab:primary-key-properties-as-simple-constraints}
+%\end{table}
 
 %\begin{itemize}
   %\item domain and range
