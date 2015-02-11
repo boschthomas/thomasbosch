@@ -1057,42 +1057,36 @@ The next step is to define one mapping for each \emph{specific constraint} (\emp
 \section{How to Provide Constraint Validation Out-Of-The-Box}
 \label{sec:validation}
 
-We can provide the validation of all specific constraints (expressed by any constraint language) by defining a mapping to SPIN.
-That's what we have done for all OWL 2 and DSP constructs (see section \ref{sec:implementation}).
+We are able to offer the validation of all \emph{specific constraints} (expressed by any constraint language) by defining mappings from each \emph{specific constraint} to SPIN, 
+what we have done for all OWL 2 and DSP constructs and for some constructs of other constraint languages (see section \ref{sec:implementation}).
 %We do not have to define a mapping to SPIN for each specific constraint. 
 %when we define a mapping to SPIN for each generic constraint.
-But, if we define a mapping from a specific constraint to the corresponding generic constraint and if we define a mapping from the generic constraint to SPIN,
-we do not have to define a mapping to SPIN for that specific constraint - 
-we are able to validate the generic as well as the specific constraint.
-As a consequence, we only have to define one SPIN mapping for each constraint corresponding to a requirement within the RDF validation requirements database.
-19 of 74 RDF constraints can be expressed by at least four constraint languages \cite{BoschNolleAcarEckert2015}.
-This means, that there must be 76 (four for each constraint) implementations to validate 76 specific constraints - instead of only 19 implementations (one for each generic constraint).
+We do not have to map each \emph{specific constraint} to SPIN and we get identical validation results for semantically equivalent \emph{specific constraints},
+(1) if we map semantically equivalent \emph{specific constraints} to the corresponding \emph{generic constraint} and 
+(2) if we map the \emph{generic constraint} to SPIN.
+As a consequence, we only have to define one SPIN mapping for each constraint type corresponding to a requirement within the RDF validation requirements database.
+19 of 74 RDF constraint types can be expressed by at least four constraint languages \cite{BoschNolleAcarEckert2015}.
+This means that there must be 76 (four for each constraint type) implementations to validate 76 \emph{specific constraints} - instead of only 19 implementations (one for each \emph{generic constraint}).
 
-Within our SPIN validation environment, we define a SPIN construct template for each generic constraint\footnote{For details about the SPIN validation environment see \cite{BoschEckert2014-2}}.
-A SPIN construct template contains a SPARQL CONSTRUCT query which generates constraint violation triples (\ms{spin:ConstraintViolation}) indicating the subject (\ms{spin:violationRoot}) and the properties (\ms{spin:violationPath}), causing constraint violations, and the reason why constraint violations have been raised (\ms{rdfs:label}).
+Within our validation environment, we define one SPIN construct template for each \emph{generic constraint}\footnote{For details about the validation environment see \cite{BoschEckert2014-2}}.
+A SPIN construct template contains a SPARQL CONSTRUCT query which generates constraint violation triples (\emph{spin:ConstraintViolation}) indicating the subject (\emph{spin:violationRoot}) and the properties (\emph{spin:violationPath}), causing constraint violations, and the reason why constraint violations have been raised (\emph{rdfs:label}).
 A SPIN construct template creates constraint violation triples if all triple patterns within the SPARQL WHERE clause match.
-The SPARQL CONSTRUCT query for the universal quantification (of the previous example in section \ref{sec:transformations}) is shown below:
+The SPARQL CONSTRUCT query for validating \emph{universal quantifications}\footnote{Corresponds to \emph{R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}}, e.g. \emph{authors} of \emph{publications} must be \emph{persons} (\ms{Publication $\equiv$ $\forall$ author.Person}), is shown below:
 
 \begin{ex}
 CONSTRUCT {
     [   a spin:ConstraintViolation ; spin:violationRoot ?subject ;
-        rdfs:label ?violationMessage ; spin:violationPath ?p1 . }
+        rdfs:label ?violationMessage ; spin:violationPath ?lp1 . ] }
 WHERE {	  
     [   a gclo:PropertyConstraint ;
         gclo:contextClass ?cc ;
-        gclo:leftProperties ( ?p1 ) ;
+        gclo:leftProperties ( ?lp1 ) ;
         gclo:classes ( ?c1 ) ;
         gclo:constrainingElement "universal quantification" ] .
-    [   a gclo:ClassConstraint ;
-        gclo:contextClass ?c1 ;
-        gclo:classes ( ?i1 ?i2 ?i3 ) ;
-        gclo:constrainingElement "union" ] .				
-    ?subject a ?cc ; ?p1 ?i .
-    FILTER ( ?i != ?i1 && ?i != ?i2 && ?i != ?i3 ) . }
+    ?subject a ?cc .
+    ?subject ?lp1 ?o .
+    FILTER NOT EXISTS { ?o a ?c1 } . }
 \end{ex}
-
-As a consequence, the validation results do not differ for semantically equivalent constraints expressed by multiple constraint languages,
-as we provide only one validation implementation for each generic constraint.
 
 %\subsection{Not Allowed Values}
 
@@ -1106,11 +1100,11 @@ validation environment in which the validation of any constraint language\footno
 The validation implementation of constraint languages is fully declarative,
 consisting of a mapping from constraint languages to SPIN in form of SPARQL CONSTRUCT queries.
 SPIN represents both the SPIN mappings and the SPARQL queries in RDF. 
-Within the validation environment, we fully implemented the validation of all OWL 2 DL\footnote{OWL 2 SPIN mapping: \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}} and DSP\footnote{DSP SPIN mapping: \url{https://github.com/dcmi/DSP-SPIN-Mapping}} constructs (for the complete DSP validation see \cite{BoschEckert2014-2}). 
+Within the validation environment, we fully implemented the validation of all OWL 2 DL\footnote{OWL to SPIN: \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}} and DSP\footnote{DSP to SPIN: \url{https://github.com/dcmi/DSP-SPIN-Mapping}} constructs (for the complete DSP validation see \cite{BoschEckert2014-2}). 
 The implementation can be tested at \url{http://purl.org/net/rdfval-demo}.
 The SPIN engine checks for each resource if it satisfies all constraints (associated with its assigned classes) and generates a result RDF graph containing information about all constraint violations.
 
-We provide a mapping from RDF-CO to SPIN\footnote{RDF-CO SPIN mapping: \url{https://github.com/boschthomas/RDF-CO-SPIN-Mapping}} in order to automatically validate each type of generic constraint (simple, complex, property, and class constraints).
+We provide a mapping from RDF-CO to SPIN\footnote{RDF-CV to SPIN: \url{https://github.com/boschthomas/RDF-CV-2-SPIN}} in order to automatically validate each type of generic constraint (simple, complex, property, and class constraints).
 Part of future work will be 
 (1) to provide a GUI which generates generic constraints automatically according to inputs of domain experts who are not familiar with the formulation of constraints; 
 (2) to offer bidirectional transformations between specific constraints (expressed by multiple constraint languages) and generic constraints;
