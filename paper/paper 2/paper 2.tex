@@ -217,7 +217,7 @@ The requirements are classified to better evaluate existing solutions and each r
 Bosch et al. identified in total 74 requirements to formulate RDF constraints; each of them corresponding to a constraint type. 
 They recently published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} in which they explain each requirement in detail and give examples for each (represented by different constraint languages) \cite{BoschNolleAcarEckert2015}.
 
-\tb{I copied this paragraph from the ESWC paper, we have to modify it a bit}
+\tb{I copied this paragraph from the ESWC paper, we have to modify it}
 Recently, RDF validation as a research field gained speed due to common needs of data practitioners. A typical example is the library domain that co-developed and adopted Linked Data principles very early. For libraries, the common description of resources are key business and they have a long tradition in developing and using interoperable data formats. While they embrace the openness of Linked Data and the data modeling principles provided by RDF, the data is still mostly represented in XML and this is unlikely to change soon. 
 Among the reasons for the success of XML is the possibility to formulate fine-grained constraints to be met by the data and to validate the data according to these constraints using powerful systems like DTDs, XML Schemas, RELAX NG, or Schematron.
 A typical example is the definition of a library record describing a book. There are clear rules which information has to be available to describe a book properly (required fields, like a title), but also how information like an ISBN number is properly represented. Libraries seek to make their own data reusable for general purposes, but also to enrich and interlink their own data. Checking if third-party data meets own requirements or validating existing data according to new needs for a Linked Data application are among common use cases for RDF validation.
@@ -314,7 +314,7 @@ The remainder of the paper is as follows.
 
 \section{Running Example}
 
-With minimum qualified cardinality restrictions, \emph{publications} can be enforced to have at least one \emph{author} which must be a \emph{person}.
+With \emph{minimum qualified cardinality restrictions}, \emph{publications} can be enforced to have at least one \emph{author} which must be a \emph{person}.
 This constraint can be represented generically (\emph{generic constraint}) using DL (\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}), but also specifically (\emph{specific constraint}) by multiple constraint languages like OWL 2, ShEx, ReSh, or DSP:
 
 \begin{ex}
@@ -347,16 +347,16 @@ Publication a rs:ResourceShape ; rs:property [
 As each \emph{publication} must have at least one \emph{author} relationship to a \emph{person} 
 and as the book \emph{The-Lord-Of-The-Rings} is a \emph{publication} \ms{rdf:type(The-Lord-Of-The-Rings, Publication)}, 
 \emph{The-Lord-Of-The-Rings} must have at least one \emph{author} relationship to a \emph{person}.
-If \emph{The-Lord-Of-The-Rings} has no \emph{author} relationship, a constraint violation is raised. 
-It leads to invalid data, if \emph{The-Lord-Of-The-Rings} has an \emph{author} property pointing to some resource which is assigned to another class than \emph{Person}
+If \emph{The-Lord-Of-The-Rings} does not have an \emph{author} relationship, a constraint violation is raised. 
+It leads to invalid data, if \emph{The-Lord-Of-The-Rings} has an \emph{author} property pointing to some resource which is assigned to other classes than \emph{person}
 (\ms{author(The-Lord-Of-The-Rings, Tolkien)}, \ms{rdf:type(Tolkien, Human)}).
 It also causes a constraint violation, if \emph{The-Lord-Of-The-Rings} has an \emph{author} relation to an object for which no class is associated
 (\ms{author(The-Lord-Of-The-Rings, Tolkien)}).
-The data is valid, if \emph{The-Lord-Of-The-Rings} is connected to a \emph{person} via the object property \emph{author}
+The data is valid, however, if \emph{The-Lord-Of-The-Rings} is connected to a \emph{person} via the object property \emph{author}
 (\ms{author(The-Lord-Of-The-Rings, Tolkien)}, \ms{rdf:type(Tolkien, Person)}).
 
-Table \ref{tab:cardinality-restriction-mapped-to-vocabulary} shows the mapping between the cardinality restriction expressed in DL 
-and the cardinality restriction expressed by our developed vocabulary to describe any RDF constraint generically (see section~\ref{sec:ontology}):
+Table \ref{tab:cardinality-restriction-mapped-to-vocabulary} shows the mapping between the \emph{cardinality restriction} represented in DL 
+and the \emph{cardinality restriction} expressed by our developed vocabulary to describe any RDF constraint generically (see section~\ref{sec:ontology}):
 
 \begin{table}
   \scriptsize
@@ -368,37 +368,38 @@ and the cardinality restriction expressed by our developed vocabulary to describ
       \hline
       property & Publication & author & - & Person & $\geq$ & 1 \\
 		\end{tabular}
-	\caption{Cardinality Restriction Mapped to Vocabulary}
+	\caption{Cardinality Restriction Expressed Generically}
 	\label{tab:cardinality-restriction-mapped-to-vocabulary}
 \end{table}
 
-According to this vocabulary, each constraint is either a constraint on classes or a constraint on properties.
-The generically expressed cardinality restriction is represented in RDF as follows:
-
-\begin{ex}
-[   a PropertyConstraint ;
-    contextClass Publication ;
-    leftProperties ( author ) ;
-    classes ( Person ) ;
-    constrainingElement ">=" ;
-    constrainingValue 1 ] .
-\end{ex}
+%According to this vocabulary, each constraint is either a constraint on classes or a constraint on properties.
+%The generically expressed cardinality restriction is represented in RDF as follows:
+%
+%\begin{ex}
+%[   a PropertyConstraint ;
+    %contextClass Publication ;
+    %leftProperties ( author ) ;
+    %classes ( Person ) ;
+    %constrainingElement ">=" ;
+    %constrainingValue 1 ] .
+%\end{ex}
 
 Bosch and Eckert\cite{BoschEckert2014-2} use SPIN as basis to define a
 validation environment (available at \url{http://purl.org/net/rdfval-demo}) in which the validation of any constraint language\footnote{The only limitation is that constraint languages must be represented in RDF} can be implemented by representing them in SPARQL. 
 The SPIN engine checks for each resource if it satisfies all constraints (associated with its assigned classes) and generates a result RDF graph containing information about all constraint violations.
-The generically expressed cardinality restriction above is validated within our validation environment (see section \ref{sec:validation}) by means of a SPARQL CONSTRUCT query:
-\begin{ex}
-[   a PropertyConstraint ;
-    contextClass ?cc ;
-    leftProperties ( ?p1 ) ;
-    classes ( ?c1 ) ;
-    constrainingElement ">=" ;
-    constrainingValue ?cv ] .
-?subject rdf:type ?cc .
-BIND ( qualifiedCardinality( ?subject, ?p1, ?c1 ) AS ?c ) .
-FILTER ( ?c < ?cv ) .		  
-\end{ex}
+The generically expressed \emph{cardinality restriction} above is validated within the validation environment (see section \ref{sec:validation}) by means of a SPARQL CONSTRUCT query.
+
+%\begin{ex}
+%[   a PropertyConstraint ;
+    %contextClass ?cc ;
+    %leftProperties ( ?p1 ) ;
+    %classes ( ?c1 ) ;
+    %constrainingElement ">=" ;
+    %constrainingValue ?cv ] .
+%?subject rdf:type ?cc .
+%BIND ( qualifiedCardinality( ?subject, ?p1, ?c1 ) AS ?c ) .
+%FILTER ( ?c < ?cv ) .		  
+%\end{ex}
 
 \section{A Vocabulary to Describe RDF Constraints Generically} 
 \label{sec:ontology}
@@ -1190,14 +1191,12 @@ nearly 15 percent are \emph{complex constraints} which can be formulated as \emp
 Constraint types can either be \emph{expressible in DL} or \emph{not} (classification dimension \emph{DL expressivity}).
 The majority - nearly 70\% - of the overall constraint types are expressible in DL.	
 \emph{Literal pattern matching} is an example of a constraint type which cannot be represented in DL.
-\tb{examples}
 
 \section{Related Work}
 
 \section{Conclusion and Future Work}
 
-\tb{ToDO: too much space before and after DL and table environments}
-\tb{ToDo: there are no line breaks for ms environment}
+\tb{Erman, there is too much space before and after DL and table environments / can your resolve that please?}
 
 \bibliography{../../literature/literature}{}
 \bibliographystyle{plain}
