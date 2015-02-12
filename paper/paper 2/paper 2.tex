@@ -1116,34 +1116,81 @@ Part of future work will be
 \section{Evaluation}
 \label{sec:evaluation}
 
-We evaluated to which extend the most promising five constraint languages fulfill each of the overall 74 requirements to formulate RDF constraints \cite{BoschNolleAcarEckert2015}.
-If a constraint can be expressed in DL, we added the mapping to DL and to the generic constraint.
-If a constraint cannot be expressed in DL, we only added the mapping to the generic constraint.
-Therefore, we show that each constraint can be mapped to a generic constraint.
-The following table shows the absolute numbers and the relative percentages for each of the three dimensions to classify constraints:
+We evaluated to which extend the most promising five constraint languages fulfill each of the overall 74 requirements to formulate RDF constraints; each of them corresponding to a constraint type.
+We recently published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} (serving as appendix of this paper) in which we explain each requirement (constraint type) in detail and give examples for each (represented by listed constraint languages).
+This technical report also contains mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
+If a constraint type can be expressed in DL, we added the mapping to DL and to the \emph{generic constraint}.
+If a constraint type cannot be expressed in DL, we only added the mapping to the \emph{generic constraint}.
+Therefore, we show that each constraint type can be mapped to a \emph{generic constraint}.
+Table \ref{tab:evaluation} shows the absolute numbers and the relative percentages for each of the three dimensions to classify constraint types \emph{context}, \emph{complexity}, and \emph{DL expressivity}:
 
-\begin{evaluation-generic-overview}
-Property Constraints & 48 & 65 (64.86) \\
-Class Constraints & 17 & 23 (22.96) \\
-Property and Class Constraints & 9 & 12 (12.16) \\
+%\begin{evaluation-generic-overview}
+%\emph{Property Constraints} & 48 & 65 (64.86) \\
+%\emph{Class Constraints} & 17 & 23 (22.96) \\
+%\emph{Property and Class Constraints} & 9 & 12 (12.16) \\
+%\hline
+%\emph{Simple Constraints} & 46 & 62 (62.16) \\
+%\emph{Simple Constraints} (Syntactic Sugar) & 10 & 14 (13.51) \\
+%\emph{Complex Constraints} & 18 & 24 (24.32) \\
+%\hline
+%\emph{DL Expressible} & 51 & 69 (68.92) \\
+%\emph{DL Not Expressible} & 23 & 31 (31.08) \\
+%\hline
+%Total & 74 & 100 \\
+%\end{evaluation-generic-overview}
+
+\begin{table}
+  %\scriptsize
+  %\sffamily
+  \vspace{0cm}
+	\centering
+		\begin{tabular}{l|c|c}
+      \textbf{Constraint Classes} & \textbf{\#} & \textbf{\%} \\
+      \hline
+\emph{Property Constraints} & 48 & 65 (64.86) \\
+\emph{Class Constraints} & 17 & 23 (22.96) \\
+\emph{Property and Class Constraints} & 9 & 12 (12.16) \\
 \hline
-Simple Constraints & 46 & 62 (62.16) \\
-Simple Constraints (Syntactic Sugar) & 10 & 14 (13.51) \\
-Complex Constraints & 18 & 24 (24.32) \\
+\emph{Simple Constraints} & 46 & 62 (62.16) \\
+\emph{Simple Constraints} (Syntactic Sugar) & 10 & 14 (13.51) \\
+\emph{Complex Constraints} & 18 & 24 (24.32) \\
 \hline
-DL Expressible & 51 & 69 (68.92) \\
-DL Not Expressible & 23 & 31 (31.08) \\
+\emph{DL Expressible} & 51 & 69 (68.92) \\
+\emph{DL Not Expressible} & 23 & 31 (31.08) \\
 \hline
 Total & 74 & 100 \\
-\end{evaluation-generic-overview}
+		\end{tabular}
+	\caption{Evaluation}
+	\label{tab:evaluation}
+\end{table}
 
-Constraints can be classified as \ms{property constraints} and \ms{class constraints}.
-Two thirds of the total amount of constraints are property constraints, one fifth are class constraints, and approx. 10\% are composed of both property and class constraints.
-Constraints may be either atomic (\ms{simple constraints}) or created out of simple and/or complex constraints (\ms{complex constraints}).
-Almost two thirds are simple constraints, a quarter are complex constraints.
-Almost 15 percent are complex constraints which can be formulated as simple constraints when using them in terms of syntactic sugar.
-Constraints can either be expressible in DL or not.
-The majority - nearly 70\% - of the overall constraints are expressible in DL.	
+%\newenvironment{evaluation-generic-overview}{
+  %%\scriptsize
+  %%\sffamily
+  %\vspace{0cm}
+	%\begin{center}
+  %\begin{tabular}{l|c|c}
+  %\hline
+  %\textbf{Constraint Classes} & \textbf{\#} & \textbf{\%} \\
+  %\hline
+%
+%}{
+  %\hline
+  %\end{tabular}
+  %%\linebreak
+	%\end{center}
+%}
+
+Constraints types can be classified as \emph{property constraints} and \emph{class constraints} (classification dimension \emph{context}).
+Two thirds of the total amount of constraint types are \emph{property constraints} (e.g. \emph{existential} and \emph{universal quantification}), one fifth are \emph{class constraints} (e.g. \emph{allowed values}\footnote{Corresponds to \emph{R-30-ALLOWED-VALUES-FOR-RDF-OBJECTS} and
+\emph{R-37-ALLOWED-VALUES-FOR-RDF-LITERALS}} for literals and objects), and approx. 10\% are composed of both \emph{property and class constraints} (e.g. \emph{context-specific exclusive or of property groups}).
+Constraint types may be either atomic (\emph{simple constraints}) or created out of \emph{simple} and/or \emph{complex constraints} (\emph{complex constraints}) (classification dimension \emph{complexity}).
+Almost two thirds of the constraint types are \emph{simple constraints} (e.g. \emph{object property paths}), a quarter are \emph{complex constraints} (e.g. \emph{ranges of literal values}\footnote{Corresponds to \emph{R-45-RANGES-OF-RDF-LITERAL-VALUES}}), and
+nearly 15 percent are \emph{complex constraints} which can be formulated as \emph{simple constraints} when using them in terms of syntactic sugar (e.g. \emph{(un)qualified cardinality restrictions}).
+Constraint types can either be \emph{expressible in DL} or \emph{not} (classification dimension \emph{DL expressivity}).
+The majority - nearly 70\% - of the overall constraint types are expressible in DL.	
+\emph{Literal pattern matching} is an example of a constraint type which cannot be represented in DL.
+\tb{examples}
 
 \section{Related Work}
 
