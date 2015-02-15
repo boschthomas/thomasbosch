@@ -180,16 +180,16 @@ University of Mannheim, Germany \\
 \begin{abstract}
 
 More and more domains adopt Linked Data principles
-and seek now for ways to ensure data quality by validating RDF data, as they are used to have this functionality in the XML world.
+and seek now for ways to ensure data quality by validating RDF data according to constraints, as they are used to have this functionality in the XML world.
 For XML, XML Schema is the standard constraint language to validate XML documents.
 For RDF, however, there are multiple candidates for languages to express constraints on RDF data - but there is no standard language for RDF validation.
 We identified requirements to formulate and validate RDF constraints and mapped each requirement to a constraint type.
-The majority of these constraint types can be represented in description logics providing a logical underpinning.
+The majority of these constraint types can be represented in description logics providing their logical underpinning.
 
 In this paper, we provide a basic terminology and classification system for RDF constraint types,
-we developed a vocabulary describing any RDF constraint type generically (whether expressible in DL or not),
+we developed a vocabulary describing any RDF constraint type generically (whether expressible in description logics or not),
 we show how to transform \emph{specific constraints} (expressed by any constraint language \ms{$\alpha$}) into \emph{generic constraints} and \emph{specific constraints} (expressed by any other constraint language \ms{$\beta$}), and
-we explain how to provide the validation of any \emph{specific constraint} immediately and why this is important. 
+we explain how to provide the validation of any \emph{specific constraint} out-of-the-box. 
 
 \keywords{RDF Validation, RDF Constraints, RDF Validation Requirements, Transformation, Linked Data, Semantic Web}
 \end{abstract}
@@ -311,7 +311,7 @@ This paper aims to address two main \textbf{audiences}:
 (1) RDF data providers and consumers seeking how to ensure high quality (meta)data and thus for ways to enhance the interoperability and communication of RDF constraints expressed by multiple constraint languages and  
 (2) RDF practitioners thinking of how to implement the validation of existing an newly developed constraint languages.
 The \textbf{contributions} of this paper are:
-(1) We provide a basic terminology and classification system for RDF constraint types,
+(1) we provide a basic terminology and classification system for RDF constraint types,
 (2) we developed a vocabulary describing any RDF constraint type generically (whether expressible in DL or not),
 (3) we show how to transform \emph{specific constraints} (expressed by any constraint language \ms{$\alpha$}) into \emph{generic constraints} and \emph{specific constraints} (expressed by any other constraint language \ms{$\beta$}), and
 (4) we explain how to provide the validation of any \emph{specific constraint} immediately. 
@@ -401,7 +401,7 @@ We identified four dimensions to classify RDF constraints:
 As there are already five promising constraint languages, our purpose is not to invent a new constraint language.
 We rather developed a very simple vocabulary (only three classes, three object properties, and three data properties) which is universal enough to describe any RDF constraint\footnote{Bosch et al. identified in total 74 requirements to formulate RDF constraints; each of them corresponds to a constraint type \cite{BoschNolleAcarEckert2015}} expressible by any constraint language (see the conceptual model in figure \ref{fig:RDF-CV-conceptual-model}).
 We call this vocabulary the \textbf{\emph{RDF Constraints Vocabulary (RDF-CV)}}\footnote{Available at: \url{https://github.com/boschthomas/RDF-Constraints-Vocabulary}}.
-
+\tb{make entry in LOV?}
 \begin{figure}
 	\centering
 		\includegraphics[width=0.80\textwidth]{images/RDF-CV-conceptual-model.png}
