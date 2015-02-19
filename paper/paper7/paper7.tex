@@ -301,15 +301,71 @@ The remainder of the paper is structured as follows.
 
 \section{Running Example}
 
-- European data in Missy
+- DESCRIPTION OF EUROSTAT -
+Eurostat\footnote{\url{http://ec.europa.eu/eurostat}} provides publicly available European aggregated data.
+ 
+SBE researchers have a strong interest in the availability of childcare services across the EU Member States.
 
-- multiple countries (+) $-->$ region in query
+The aggregated variable \emph{formal childcare} \footnote{\url{http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=ilc_caindformal&lang=en}}
+stores the measured formal childcare in percent over the population of each age group.
+
+
+The present data collection refers to data on formal childcare and other types of care by \emph{year}, \emph{duration} (0 hours, 1 to 29 hours a usual week; 30 hours or more a usual week), \emph{age} of the child (0-2 years; 3 to admission age for compulsory school; admission age for compulsory school to 12) and \emph{country}.
+
+The metadata on the aggregated data can be downloaded in different forms like CSV files.
+
+For a broader view of the data framework and more detailed analyses we have to refer to the metadata on person-level data collected for the series EU-SILC (European Union Statistics on Income and Living Conditions)\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC}}.
+\emph{Formal childcare} is calculated/composed out of six person-level variables: 
+(1) Education at pre-school\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC/2011/Cross-sectional/original#2011-Cross-sectional-RL010}},
+(2) Education at compulsory school,
+(3) Child care at centre-based services,
+(4) Child care at day-care centre,
+(5) Child care by a professional child-minder, and
+(6) Child care by grand-parents, household members, relatives, friends, neighbours.
+For each person-level variable detailed metadata (definitions, descriptions, theoretical concepts, questions, code lists, frequencies, countries) is given which enables the researchers to replicate the results shown in the aggregated data table from Eurostat.
+
+
+
+\emph{MISSY (Microdata Information System)}\footnote{\url{http://www.gesis.org/missy/eu/missy-home}} is an online service platform that provides systematically structured metadata for official statistics. This includes data documentation at the study and variable level as well as documentation materials, tools and further information. 
+Missy provides metadata on European person-level data sets.
+
+-----
+
+comparisons:
+
+- compare formal childcare for available countries (for which the variable is collected for the survey) with other countries in Europe
+
+- compare with non European countries e.g. OSCE
+
+prerequisites / validation for comparison:
+
+- variable must be present
+
+- code lists must be similar or ideally identical (strong severity level / or weaker severity level if one wants to have only an overview)
+
+-----
+
+use of XKOS:
+
+- classification system e.g. NACE
+
+- ask Franck if INSEE already expressed well known classification systems with XKOS
+
+-----
 
 \section{ideas}
 
 - different sets of constraints for different use cases / use case specific constraints
 
 - validation against minimal set of requirements / constraints
+
+-----
+
+severity level:
+
+- use case specific severity levels
+- users specify severity level of constraint types according to their individual use case
+- for some use case the severity level of a given constraint type may be different as for another use case
 
 \section{RDF Representation of Metadata}
 
@@ -332,9 +388,12 @@ extended version of SKOS – XKOS – to describe formal statistical classificat
 
 \subsection{Content-Driven Validation}
 
+- variable does not have associated codes / categories
+
 \textbf{Theoretical Concepts.}
 Variables must have at least one relation to a theoretical concept.
 The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
+The severity level of this constraint is a warning and not an error, as research can be continued without an associated theoretical concept.
 
 \textbf{Search for Studies.}
 Each study must have an abstract. 
@@ -376,6 +435,10 @@ It cannot be validated if each code of a variable's code list is associated with
 It cannot be validated that if an element has a specific value, then certain child elements must be present.  
 
 \tb{Achim, which kind of things cannot be validated using XSDs / we also need references}
+
+\url{http://www.xmlmind.com/xmleditor/_distrib/doc/xmltool/xsd_structure_limitations.html}
+
+\url{https://msdn.microsoft.com/en-us/library/aa468554.aspx}
 
 \textbf{RDF Data Cube Vocabulary.}
 A well-formed RDF Data Cube is an a RDF graph describing one or more instances of {\em qb:DataSet} for which each of the 22 defined integrity constraints\footnote{http://www.w3.org/TR/vocab-data-cube/\#wf} passes.
