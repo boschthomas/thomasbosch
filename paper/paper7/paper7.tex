@@ -213,7 +213,7 @@ We explain why RDF validation is important in this context and how (meta)data is
 
 \section{Introduction}
 
-\tb{we use data in singular form / we use data set instead of dataset / We use person-level data and not microdata}
+\tb{terminology: we use data in singular form / we use data set instead of dataset / We use person-level data and not microdata}
 
 For more than a decade, members of the community around research data for the social, behavioural, and economic (SBE) sciences have been developing and using a
 metadata standard (composed of almost twelve hundred metadata fields) known as the \emph{Data Documentation Initiative (DDI)} \cite{Vardigan2008}.
@@ -365,27 +365,31 @@ EXAMPLE
 
 \section{RDF Validation of Metadata and Data}
 
+Bosch et al. identified in total 74 requirements to formulate RDF constraints; each of them corresponding to a constraint type. 
+We published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} in which we explain each requirement (constraint type) in detail and give examples for each (represented by different constraint languages).
+This technical report also contains mappings to description logics to logically underpin each requirement and to determine which description logics constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
+Bosch et al. recently published a technical report\footnote{Available at: \url{http://arxiv.org/abs/XXXXX}} (serving as appendix of this paper) in which we describe RDF constraints to validate metadata on person-level and aggregated data.
+We assign each constraint to constraint types corresponding to RDF validation requirements or to data model specific constraint types
+\cite{BoschZapilkoWackerowEckert2015}.
+
+We distinguish two validation types:
+\emph{Content-Driven Validation} contains the set of constraints ensuring that the data is consistent with the intended semantics of data models,
+i.e. the integrity of the data according to data models.
+\emph{Technology-Driven Validation} includes the set of constraints which can be generated automatically out of defined data models, such as cardinality restrictions, universal and existential quantifications, domains, and ranges.
+We determined the default \emph{severity level}\footnote{Corresponds to \emph{R-158-SEVERITY-LEVELS-OF-CONSTRAINT-VIOLATIONS}} for each constraint indicating how serious the violation of the constraint is.
+The continuum of \emph{severity levels} ranges from informational via warning and error to fatal error. 
+Although we provide default \emph{severity levels} for each constraint, users should be able to specify \emph{severity levels} of constraints they need to validate within the context of their individual use cases.
+Therefore, use case specific \emph{severity levels} can be defined for constraints.
+
 -----
-
-- different sets of constraints for different use cases / use case specific constraints
-
-- validation against minimal set of requirements / constraints
-
------
-
-severity level:
-
-- use case specific severity levels
-
-- users specify severity level of constraint types according to their individual use case
-
-- for some use case the severity level of a given constraint type may be different as for another use case
-
------
+%
+%- different sets of constraints for different use cases / use case specific constraints
+%
+%- validation against minimal set of requirements / constraints
+%
+%-----
 
 RDF validation scenarios require the closed-world assumption (CWA) (i.e., a statement is inferred to be false if it cannot be proved to be true).
-
-- different severity levels for different validation types
 
 \textbf{application of matching algorithms.}
 - the value for a specific data property (e.g. birth date) is needed as prerequisite to perform matching algorithms
@@ -401,9 +405,9 @@ RDF validation scenarios require the closed-world assumption (CWA) (i.e., a stat
 
 \subsection{Person-Level (Meta)Data}
 
-\textbf{Studies.}
-Each study must have an abstract. 
-If an abstract is missing a study title may be sufficient in many cases.
+\textbf{Surveys.}
+Each survey must have an abstract\footnote{\emph{ DISCO-C-DATA-PROPERTY-FACETS-01}}. 
+If the abstract of the survey is missing, a title of the survey has to be stated\footnote{\emph{DISCO-C-CONDITIONAL-PROPERTIES-02}}.
 
 \textbf{Variables.}
 
@@ -414,17 +418,17 @@ Variables must have at least one relation to a theoretical concept.
 The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
 The severity level of this constraint is a warning and not an error, as research can be continued without an associated theoretical concept.
 
-\textbf{Comparison.}
-
-- variable must be present
-
-- code lists must be similar or ideally identical (strong severity level / or weaker severity level if one wants to have only an overview)
-
-(1) variable definitions are available
-
-(2) if code lists are properly structured
-
-(3) if for each code an associated category (a human-readable label) is specified.
+\textbf{Variable Comparisons\footnote{Constraint types: \emph{DISCO-C-COMPARISON-VARIABLES-XX}}.}
+One very common research question is to compare variables of multiple surveys or countries.
+To compare variables, 
+(1) variables and (2) variable definitions must be present,
+(3) code lists must be structured properly,
+(4) for each code an associated category (human-readable label) must be specified, and
+(5) code lists must either be identical or at least similar.
+If a researcher wants to get a first overview over comparable variables (use case 1), 
+the first three constraints may be sufficient for this purpose.
+Thus, the \emph{severity level} of the first three constraints is stronger than the \emph{severity level} of the next constraints.
+If the intention of the researcher is to perform more detailed comparisons (use case 2), however, the violation of the remaining constraints is also more serious.
 
 \textbf{DCAT Validation}
 
@@ -440,10 +444,12 @@ XKOS Validation:
 
 - ask Franck if INSEE already expressed well known classification systems with XKOS
 
-%\subsection{Technology-Driven Validation}
-
 \textbf{Data Integration.}
 use RDF validation for data integration
+
+\subsection{Technology-Driven Validation}
+
+
 
 \section{Implementation}
 

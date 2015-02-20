@@ -266,7 +266,7 @@ Some validation rules can be generated automatically out of the defined data mod
 
 \begin{itemize}
   \item Constraint types marked with an asterisk (*) can be used as OWL 2 axioms. Thus, reasoners may be used to infer implicit triples resolving constraint violations caused when these constraints are validated.
-	\item \underline{Underlined subsections} are data  model specific constraint types and do not correspond to RDF validation requirements (constraint types).
+	\item \underline{Underlined subsections} are data model specific constraint types and do not correspond to RDF validation requirements (constraint types).
 %	\item \underline{Underlined constraints} are part of content-driven validation.
 %	\item \udash{Dashed underlined constraints} are part of technology-driven validation.
 \end{itemize}
@@ -276,12 +276,29 @@ Some validation rules can be generated automatically out of the defined data mod
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-COMPARISON-VARIABLES-01}}: 
 	are compared variables represented in a compatible way, i.e. are the variables' code lists theoretically comparable?
+		\begin{itemize}
+		\item severity level: WARNING
+	\end{itemize}
 	\item \textbf{{\em DISCO-C-COMPARISON-VARIABLES-02}}: 
 	are variable definitions (\emph{dcterms:description}) available for each variable (\emph{disco:Variable}) to compare?
+		\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 	\item \textbf{{\em DISCO-C-COMPARISON-VARIABLES-03}}:
 	are code lists structured properly for each variable (\emph{disco:Variable}) to compare?
+		\begin{itemize}
+		\item severity level: WARNING
+	\end{itemize}
 	\item \textbf{{\em DISCO-C-COMPARISON-VARIABLES-04}}:
 	is for each code (for each variable (\emph{disco:Variable}) to compare) an associated category (a human-readable label) specified?
+		\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-COMPARISON-VARIABLES-05}}:
+	each (\emph{disco:Variable}) to compare must be present.
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \subsection{\underline{Data Model Consistency}}
@@ -1048,9 +1065,11 @@ Check if all HTML tags, included in literals (of specific data properties within
 If specific properties exist, then specific other properties must also be present\footnote{{\em R-71-CONDITIONAL-PROPERTIES}}.
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-CONDITIONAL-PROPERTIES-01:}}
-If a {\em skos:Concept} represents a code (having a {\em skos:notation} property) and a category (having a {\em skos:prefLabel} property), 
+	\item \textbf{{\em DISCO-C-CONDITIONAL-PROPERTIES-01}}:
+  If a {\em skos:Concept} represents a code (having a {\em skos:notation} property) and a category (having a {\em skos:prefLabel} property), 
 then the property {\em disco:isValid} has to be stated indicating if the code is valid ('true') or missing ('false').
+	\item \textbf{{\em DISCO-C-CONDITIONAL-PROPERTIES-02}}:
+	If the abstract (\emph{dcterms:abstract}) of a \emph{disco:Study} is missing, a study title (\emph{dcterms:title}) has to be stated.
 \end{itemize}
 
 \subsection{Recommended Properties}
