@@ -303,57 +303,69 @@ The remainder of the paper is structured as follows.
 
 - DESCRIPTION OF EUROSTAT -
 Eurostat\footnote{\url{http://ec.europa.eu/eurostat}} provides publicly available European aggregated data.
- 
-SBE researchers have a strong interest in the availability of childcare services across the EU Member States.
-
-The aggregated variable \emph{formal childcare} \footnote{\url{http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=ilc_caindformal&lang=en}}
+ SBE researchers have a strong interest in the availability of childcare services across the European Union Member States.
+The variable \emph{formal childcare}\footnote{\url{http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=ilc_caindformal&lang=en}}
 stores the measured formal childcare in percent over the population of each age group.
+The present data collection refers to data on formal childcare and other types of care by the variables \emph{year}, \emph{duration} (0 hours, 1 to 29 hours a usual week; 30 hours or more a usual week), \emph{age} of the child (0-2 years; 3 to admission age for compulsory school; admission age for compulsory school to 12) and \emph{country}.
+Eurostat provides the metadata on the aggregated data in different forms like CSV files.
 
-
-The present data collection refers to data on formal childcare and other types of care by \emph{year}, \emph{duration} (0 hours, 1 to 29 hours a usual week; 30 hours or more a usual week), \emph{age} of the child (0-2 years; 3 to admission age for compulsory school; admission age for compulsory school to 12) and \emph{country}.
-
-The metadata on the aggregated data can be downloaded in different forms like CSV files.
-
-For a broader view of the data framework and more detailed analyses we have to refer to the metadata on person-level data collected for the series EU-SILC (European Union Statistics on Income and Living Conditions)\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC}}.
-\emph{Formal childcare} is calculated/composed out of six person-level variables: 
+For a broader view of the data framework and more detailed analyses we have to refer to the metadata on person-level data collected for the series \emph{EU-SILC (European Union Statistics on Income and Living Conditions)}\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC}}.
+The \emph{Microdata Information System (MISSY)}\footnote{\url{http://www.gesis.org/missy/eu/missy-home}} is an online service platform that provides systematically structured metadata for official statistics on European person-level data sets. This includes data documentation at the study and variable level as well as documentation materials, tools and further information. 
+The calculation of the aggregated variable \emph{formal childcare} is based on six person-level variables: 
 (1) Education at pre-school\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC/2011/Cross-sectional/original#2011-Cross-sectional-RL010}},
 (2) Education at compulsory school,
 (3) Child care at centre-based services,
 (4) Child care at day-care centre,
 (5) Child care by a professional child-minder, and
 (6) Child care by grand-parents, household members, relatives, friends, neighbours.
-For each person-level variable detailed metadata (definitions, descriptions, theoretical concepts, questions, code lists, frequencies, countries) is given which enables the researchers to replicate the results shown in the aggregated data table from Eurostat.
+For each person-level variable detailed metadata (definitions, descriptions, theoretical concepts, questions, code lists, frequencies, countries) is given which enables the researchers to replicate the results shown in the aggregated data tables from Eurostat.
 
+Metadata on person-level data enables researchers to investigate further research questions based on promising findings of other researchers in form of aggregated data.
+One common research question is to compare 
+\emph{formal childcare} between countries, for which the variable is collected for the individual survey, and other European or non European countries (e.g. OSCE).
 
+\section{Represent Metadata and Data in RDF}
 
-\emph{MISSY (Microdata Information System)}\footnote{\url{http://www.gesis.org/missy/eu/missy-home}} is an online service platform that provides systematically structured metadata for official statistics. This includes data documentation at the study and variable level as well as documentation materials, tools and further information. 
-Missy provides metadata on European person-level data sets.
+\emph{Data Cube} is a vocabulary to represent metadata on multi-dimensional aggregate data.
+
+\begin{ex}
+EXAMPLE
+\end{ex}
+
+\emph{PHDD} is a vocabulary to represent aggregated data in a rectangular format. 
+The data could be either represented in records with character-separated values (CSV) or in records with fixed length. 
+
+\begin{ex}
+EXAMPLE
+\end{ex}
+
+\emph{Disco} is a vocabulary to represent person-level data in RDF.
+
+\begin{ex}
+EXAMPLE
+\end{ex}
+
+\emph{DCAT} enables to represent aggregated and person-level data inside of data collections like repositories, catalogs, or archives. 
+
+\begin{ex}
+EXAMPLE
+\end{ex}
+
+The \emph{Simple Knowledge Organization System (SKOS)}...
+
+\begin{ex}
+EXAMPLE
+\end{ex}
+
+\emph{XKOS}\footnote{\url{https://github.com/linked-statistics/xkos}} is a \emph{SKOS} extension to describe formal statistical classifications like the profession classification \emph{ISCO}.
+
+\begin{ex}
+EXAMPLE
+\end{ex}
+
+\section{RDF Validation of Metadata and Data}
 
 -----
-
-comparisons:
-
-- compare formal childcare for available countries (for which the variable is collected for the survey) with other countries in Europe
-
-- compare with non European countries e.g. OSCE
-
-prerequisites / validation for comparison:
-
-- variable must be present
-
-- code lists must be similar or ideally identical (strong severity level / or weaker severity level if one wants to have only an overview)
-
------
-
-use of XKOS:
-
-- classification system e.g. NACE
-
-- ask Franck if INSEE already expressed well known classification systems with XKOS
-
------
-
-\section{ideas}
 
 - different sets of constraints for different use cases / use case specific constraints
 
@@ -364,12 +376,12 @@ use of XKOS:
 severity level:
 
 - use case specific severity levels
+
 - users specify severity level of constraint types according to their individual use case
+
 - for some use case the severity level of a given constraint type may be different as for another use case
 
-\section{RDF Representation of Metadata}
-
-\section{RDF Validation of Metadata}
+-----
 
 RDF validation scenarios require the closed-world assumption (CWA) (i.e., a statement is inferred to be false if it cannot be proved to be true).
 
@@ -381,12 +393,19 @@ RDF validation scenarios require the closed-world assumption (CWA) (i.e., a stat
 - 2. step: matching
 - validation as reasonable extension of pattern of Ben (e.g. for pattern: is this digit correct?)
 
-\textbf{XKOS validation}
-only 1 sentence / only special case / e.g. profession classification ISCO
+%\subsection{Content-Driven Validation}
 
-extended version of SKOS – XKOS – to describe formal statistical classifications.
+\subsection{Aggregated (Meta)Data}
 
-\subsection{Content-Driven Validation}
+
+
+\subsection{Person-Level (Meta)Data}
+
+\textbf{Studies.}
+Each study must have an abstract. 
+If an abstract is missing a study title may be sufficient in many cases.
+
+\textbf{Variables.}
 
 - variable does not have associated codes / categories
 
@@ -395,13 +414,33 @@ Variables must have at least one relation to a theoretical concept.
 The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
 The severity level of this constraint is a warning and not an error, as research can be continued without an associated theoretical concept.
 
-\textbf{Search for Studies.}
-Each study must have an abstract. 
-If an abstract is missing a study title may be sufficient in many cases.
+\textbf{Comparison.}
 
-\subsection{Technology-Driven Validation}
+- variable must be present
 
-\section{RDF Validation of Data}
+- code lists must be similar or ideally identical (strong severity level / or weaker severity level if one wants to have only an overview)
+
+(1) variable definitions are available
+
+(2) if code lists are properly structured
+
+(3) if for each code an associated category (a human-readable label) is specified.
+
+\textbf{DCAT Validation}
+
+
+
+\textbf{SKOS and XKOS Validation}
+
+- SKOS validation of hierarchies of theoretical concepts
+
+XKOS Validation:
+
+- classification system e.g. NACE, profession classification ISCO
+
+- ask Franck if INSEE already expressed well known classification systems with XKOS
+
+%\subsection{Technology-Driven Validation}
 
 \textbf{Data Integration.}
 use RDF validation for data integration
