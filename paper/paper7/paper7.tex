@@ -367,7 +367,8 @@ EXAMPLE
 
 Bosch et al. identified in total 74 requirements to formulate RDF constraints; each of them corresponding to a constraint type. 
 We published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} in which we explain each requirement (constraint type) in detail and give examples for each (represented by different constraint languages).
-This technical report also contains mappings to description logics to logically underpin each requirement and to determine which description logics constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
+The knowledge representation formalism {\em Description logics (DL)}, with its  well-studied theoretical properties, provides the foundational basis for each constraint type.
+Therefore, this technical report contains mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
 Bosch et al. recently published a technical report\footnote{Available at: \url{http://arxiv.org/abs/XXXXX}} (serving as appendix of this paper) in which we describe RDF constraints to validate metadata on person-level and aggregated data.
 We assign each constraint to constraint types corresponding to RDF validation requirements or to data model specific constraint types
 \cite{BoschZapilkoWackerowEckert2015}.
@@ -377,9 +378,9 @@ We distinguish two validation types:
 i.e. the integrity of the data according to data models.
 \emph{Technology-Driven Validation} includes the set of constraints which can be generated automatically out of defined data models, such as cardinality restrictions, universal and existential quantifications, domains, and ranges.
 We determined the default \emph{severity level}\footnote{Corresponds to \emph{R-158-SEVERITY-LEVELS-OF-CONSTRAINT-VIOLATIONS}} for each constraint indicating how serious the violation of the constraint is.
-The continuum of \emph{severity levels} ranges from informational via warning and error to fatal error. 
-Although we provide default \emph{severity levels} for each constraint, users should be able to specify \emph{severity levels} of constraints they need to validate within the context of their individual use cases.
-Therefore, use case specific \emph{severity levels} can be defined for constraints.
+The continuum of severity levels ranges from informational via warning and error to fatal error. 
+Although we provide default severity levels for each constraint, users should be able to specify severity levels of constraints they need to validate within the context of their individual use cases.
+Therefore, use case specific severity levels can be defined for constraints.
 
 -----
 %
@@ -406,7 +407,7 @@ RDF validation scenarios require the closed-world assumption (CWA) (i.e., a stat
 \subsection{Person-Level (Meta)Data}
 
 \textbf{Surveys.}
-Each survey must have an abstract\footnote{\emph{ DISCO-C-DATA-PROPERTY-FACETS-01}}. 
+Each survey must have an abstract\footnote{\emph{DISCO-C-DATA-PROPERTY-FACETS-01}}. 
 If the abstract of the survey is missing, a title of the survey has to be stated\footnote{\emph{DISCO-C-CONDITIONAL-PROPERTIES-02}}.
 
 \textbf{Variables.}
@@ -414,12 +415,12 @@ If the abstract of the survey is missing, a title of the survey has to be stated
 - variable does not have associated codes / categories
 
 \textbf{Theoretical Concepts.}
-Variables must have at least one relation to a theoretical concept.
-The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
-The severity level of this constraint is a warning and not an error, as research can be continued without an associated theoretical concept.
+Variables must have at least one relationship to a theoretical concept\footnote{{\em DISCO-C-MINIMUM-QUALIFIED-CARDINALITY-RESTRICTIONS-01}}.
+%The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
+The variable \emph{Education at pre-school}, e.g., is associated with the theoretical concept \emph{education}. 
+The severity level of this constraint is \emph{warning} and not \emph{error}, as research can be continued without an associated theoretical concept.
 
-\textbf{Variable Comparisons\footnote{Constraint types: \emph{DISCO-C-COMPARISON-VARIABLES-XX}}.}
-One very common research question is to compare variables of multiple surveys or countries.
+One very common research question is to \emph{compare variables}\footnote{Constraint types: \emph{DISCO-C-COMPARISON-VARIABLES-XX}} of multiple surveys or countries.
 To compare variables, 
 (1) variables and (2) variable definitions must be present,
 (3) code lists must be structured properly,
@@ -427,8 +428,20 @@ To compare variables,
 (5) code lists must either be identical or at least similar.
 If a researcher wants to get a first overview over comparable variables (use case 1), 
 the first three constraints may be sufficient for this purpose.
-Thus, the \emph{severity level} of the first three constraints is stronger than the \emph{severity level} of the next constraints.
+Thus, the severity level of the first three constraints is stronger than the severity level of the next constraints.
 If the intention of the researcher is to perform more detailed comparisons (use case 2), however, the violation of the remaining constraints is also more serious.
+
+Constraints of the constraint type \emph{Context-Specific Exclusive OR of Property Groups}
+restrict individuals of given classes to have only one of multiple property groups\footnote{{\em R-13-DISJOINT-GROUP-OF-PROPERTIES-CLASS-SPECIFIC}}.
+Within the context of \emph{Disco}, \emph{skos:Concept}s can have either \emph{skos:definition} (when interpreted as theoretical concepts) or \emph{skos:notation} and \emph{skos:prefLabel} properties (when interpreted as codes and categories), but not both\footnote{\emph{DISCO-C-CONTEXT-SPECIFIC-EXCLUSIVE-OR-OF-PROPERTY-GROUPS-01:}}.
+
+\begin{DL}
+Concept $\sqsubseteq$ ($\neg$ D $\sqcap$ C) $\sqcup$ (D $\sqcap$ $\neg$ C) \\ 
+D $\equiv$ A $\sqcap$ B \\
+A $\sqsubseteq$ $\geq$ 1 notation.string $\sqcap$ $\leq$ 1 notation.string \\
+B $\sqsubseteq$ $\geq$ 1 prefLabel.string $\sqcap$ $\leq$ 1 prefLabel.string \\
+C $\sqsubseteq$ $\geq$ 1 definition.string $\sqcap$ $\leq$ 1 definition.string \\
+\end{DL}
 
 \textbf{DCAT Validation}
 
@@ -449,7 +462,26 @@ use RDF validation for data integration
 
 \subsection{Technology-Driven Validation}
 
+Constraints of some constraint types are directly and automatically derived from conceptual models of multiple vocabularies.
+This way, \emph{property domains and ranges, universal and existential quantifications, minimum, maximum, and exact cardinality restrictions} are defined for each object and data property of vocabularies against which one wish to validate.
+As these constraints directly depend on the intended semantics of data models, associated severity levels are very strong.
 
+{\em Property Domains}\footnote{{\em R-25-OBJECT-PROPERTY-DOMAIN}, {\em R-26-DATA-PROPERTY-DOMAIN}} and {\em Ranges}\footnote{{\em R-28-OBJECT-PROPERTY-RANGE}, {\em R-35-DATA-PROPERTY-RANGE}}restrict domains and ranges of properties.
+Only {\em skos:ConceptSchemes}, e.g., can have {\em skos:hasTopConcept} relationships (\ms{$\exists$ hasTopConcept.$\top$ $\sqsubseteq$ ConceptScheme}) and
+{\em xkos:belongsTo} relationships can only point to instances of the class {\em skos:Concept} (\ms{$\top$ $\sqsubseteq$ $\forall$ belongsTo.Concept}).
+A \emph{universal quantification}\footnote{{\em R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}} contains all those individuals that are connected by a property only to individuals/literals that are instances of particular classes  or data ranges.
+Only {\em dcat:Catalogs}, e.g., can have {\em dcat:dataset} relationships to {\em dcat:Datasets} (\ms{Catalog $\sqsubseteq$ $\forall$ dataset.Dataset}).
+An \emph{existential quantification}\footnote{{\em R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}} contains all those individuals that are connected by a property to individuals/literals that are instances of given classes or data ranges.
+Every \emph{qb:SliceKey}, e.g., must be associated with (\emph{qb:sliceKey}) a \emph{qb:DataStructureDefinition} (\ms{SliceKey $\sqsubseteq$ $\exists$ sliceKey$^{-}$.DataStructureDefinition}).
+\emph{Minimum/maximum/exact qualified cardinality restrictions}\footnote{\emph{R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES, \\ R-76-MAXIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES, \\ R-74-EXACT-QUALIFIED-CARDINALITY-ON-PROPERTIES}} contain all those individuals that are connected by a property to at least/at most/exactly n different individuals/literals that are instances of particular classes or data ranges.
+\emph{Minimum qualified cardinality restrictions} are defined for each property of multiple vocabularies like \emph{Disco}.
+A \emph{disco:Questionnaire}, e.g., has at least one {\em disco:question} relationship to {\em disco:Questions} (\ms{Questionnaire $\sqsubseteq$ $\geq$1 question.Question}),
+a {\em disco:Variable} has at most one {\em disco:concept} relationship to a theoretical concept ({\em skos:Concept}) (\ms{Variable $\sqsubseteq$ $\leq$1 concept.Concept}), and every \emph{qb:DataSet} has (\emph{qb:structure}) exactly one associated \emph{qb:DataStructureDefinition} (\ms{DataSet $\sqsubseteq$ $\geq$1 structure.DataStructureDefinition $\sqcap$ $\leq$1 structure.DataStructureDefinition}).
+%\footnote{\emph{DATA-CUBE-C-EXACT-QUALIFIED-CARDINALITY-RESTRICTIONS-02}}.
+
+-----
+
+reasoning constraints / sub-classes / sub-properties
 
 \section{Implementation}
 

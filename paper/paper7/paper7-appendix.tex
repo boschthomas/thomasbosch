@@ -380,28 +380,53 @@ $\exists R. \top \sqsubseteq C$ is the object property restriction where $R$ is 
 	\item \textbf{{\em DISCO-C-PROPERTY-DOMAIN-01:}} 
 	{\em Property Domain} constraints are defined for each \emph{Disco} object and data property.
   Only {\em disco:Question}s, e.g., can have {\em disco:responseDomain} relationships (\ms{$\exists$ responseDomain.$\top$ $\sqsubseteq$ Question}).
-	Severity level: ERROR
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em DATA-CUBE-C-PROPERTY-DOMAIN-01:}} 
 	{\em Property Domain} constraints are defined for each \emph{Data Cube} object and data property.
   Only {\em qb:Observation}s, e.g., can have {\em qb:dataSet} relationships (\ms{$\exists$ dataSet.$\top$ $\sqsubseteq$ Observation}).
-	Severity level: ERROR
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em DCAT-C-PROPERTY-DOMAIN-01:}} 
 	{\em Property Domain} constraints are defined for each \emph{DCAT} object and data property.
   Only {\em dcat:Catalog}s, e.g., can have {\em dcat:dataset} relationships (\ms{$\exists$ dataset.$\top$ $\sqsubseteq$ Catalog}).
-	Severity level: ERROR
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em PHDD-C-PROPERTY-DOMAIN-01:}} 
 	{\em Property Domain} constraints are defined for each \emph{PHDD} object and data property.
   Only {\em phdd:Table}s, e.g., can have {\em phdd:isStructuredBy} relationships (\ms{$\exists$ isStructuredBy.$\top$ $\sqsubseteq$ Table}).
-	Severity level: ERROR
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em SKOS-C-PROPERTY-DOMAIN-01:}} 
+	{\em Property Domain} constraints are defined for each \emph{SKOS} object and data property.
+	Only {\em skos:ConceptSchemes}, e.g., can have {\em skos:hasTopConcept} relationships (\ms{$\exists$ hasTopConcept.$\top$ $\sqsubseteq$ ConceptScheme}).
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em XKOS-C-PROPERTY-DOMAIN-01:}} 
+	{\em Property Domain} constraints are defined for each \emph{XKOS} object and data property.
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \subsection{Property Ranges*}
@@ -413,28 +438,53 @@ $\top \sqsubseteq \forall R . C$ is the range restriction to the object property
 	\item \textbf{{\em DISCO-C-PROPERTY-RANGES-01:}} 
 	{\em Property Range} constraints are defined for each \emph{Disco} object and data property.
   {\em disco:caseQuantity} relationships, e.g., can only point to literals of the datatype {\em xsd:nonNegativeInteger} (\ms{$\top$ $\sqsubseteq$ $\forall$ caseQuantity.nonNegativeInteger}).
-	Severity level: ERROR
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em DATA-CUBE-C-PROPERTY-RANGES-01:}} 
 	{\em Property Range} constraints are defined for each \emph{Data Cube} object and data property.
   {\em qb:order} relationships, e.g., can only point to literals of the datatype {\em xsd:string} (\ms{$\top$ $\sqsubseteq$ $\forall$ order.string}).
-	Severity level: ERROR
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em DCAT-C-PROPERTY-RANGES-01:}} 
 	{\em Property Range} constraints are defined for each \emph{DCAT} object and data property.
   {\em dcat:bytes} relationships, e.g., can only point to literals of the datatype {\em xsd:integer} (\ms{$\top$ $\sqsubseteq$ $\forall$ bytes.integer}).
-	Severity level: ERROR
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em PHDD-C-PROPERTY-RANGES-01:}} 
 	{\em Property Range} constraints are defined for each \emph{PHDD} object and data property.
   {\em phdd:caseQuantity} relationships, e.g., can only point to literals of the datatype {\em xsd:nonNegativeInteger} (\ms{$\top$ $\sqsubseteq$ $\forall$ caseQuantity.nonNegativeInteger}).
-	Severity level: ERROR
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em SKOS-C-PROPERTY-RANGES-01:}} 
+	{\em Property Range} constraints are defined for each \emph{SKOS} object and data property.
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em XKOS-C-PROPERTY-RANGES-01:}} 
+	{\em Property Range} constraints are defined for each \emph{XKOS} object and data property.
+  {\em xkos:belongsTo} relationships, e.g., can only point to instances of the class {\em skos:Concept} (\ms{$\top$ $\sqsubseteq$ $\forall$ belongsTo.Concept}).
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \subsection{Inverse Object Properties*}
@@ -620,7 +670,7 @@ Role composition can only appear on the left-hand side of complex role inclusion
 Concept inclusions allow us to state that all mothers are female and that
 all mothers are parents, but what we really mean is that mothers are exactly the female
 parents. DLs support such statements by allowing us to form complex concepts such as
-the \emph{intersection}\footnote{\ms{R-15-CONJUNCTION-OF-CLASS-EXPRESSIONS}, \ms{R-16-CONJUNCTION-OF-DATA-RANGES}} (also called \emph{conjunction})
+the \emph{intersection}\footnote{\emph{R-15-CONJUNCTION-OF-CLASS-EXPRESSIONS}, \emph{R-16-CONJUNCTION-OF-DATA-RANGES}} (also called \emph{conjunction})
 which denotes the set of individuals that are both female and parents. A complex concept
 can be used in axioms in exactly the same way as an atomic concept, e.g., in the
 equivalence Mother $\equiv$ Female $\sqcap$ Parent .
@@ -671,7 +721,7 @@ There must be at least one {\em disco:universe} relationship from {\em disco:Stu
 	Every \emph{qb:DataStructureDefinition} must include (\emph{qb:component}, \emph{qb:componentProperty}) at least one declared measure. 
 	\item \textbf{{\em DATA-CUBE-C-EXISTENTIAL-QUANTIFICATIONS-06:}}
 	Slice Keys must be declared (\emph{IC-7} \cite{CyganiakReynolds2014}) -
-	Every \emph{qb:SliceKey} must be associated with (\emph{qb:sliceKey}) a \emph{qb:DataStructureDefinition}. 
+	Every \emph{qb:SliceKey} must be associated with (\emph{qb:sliceKey}) a \emph{qb:DataStructureDefinition} (\ms{SliceKey $\sqsubseteq$ $\exists$ sliceKey$^{-}$.DataStructureDefinition}). 
 \end{itemize}
 
 \subsection{Universal Quantifications*}
@@ -679,8 +729,53 @@ There must be at least one {\em disco:universe} relationship from {\em disco:Stu
 A \emph{universal class expression}\footnote{{\em R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}} ({\em value restriction} in DL) contains all those individuals that are connected by an object property only to individuals that are instances of a particular class.
 
 \begin{itemize}
+	\item \textbf{{\em DATA-CUBE-C-UNIVERSAL-QUANTIFICATIONS-01:}}
+	\emph{Universal quantifications} are defined for each \emph{Data Cube} object and data property.
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em DCAT-C-UNIVERSAL-QUANTIFICATIONS-01:}}
+	\emph{Universal quantifications} are defined for each \emph{DCAT} object and data property.
+	Only {\em dcat:Catalogs} can have {\em dcat:dataset} relationships to {\em dcat:Datasets} (\ms{Catalog $\sqsubseteq$ $\forall$ dataset.Dataset}).
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
 	\item \textbf{{\em DISCO-C-UNIVERSAL-QUANTIFICATIONS-01:}}
-Only {\em disco:LogicalDataSet}s can have {\em disco:aggregation} relationships to {\em qb:DataSet}s (\ms{LogicalDataSet $\sqsubseteq$ $\forall$ aggregation.DataSet}).
+	\emph{Universal quantifications} are defined for each \emph{Disco} object and data property.
+  Only {\em disco:LogicalDataSet}s can have {\em disco:aggregation} relationships to {\em qb:DataSet}s (\ms{LogicalDataSet $\sqsubseteq$ $\forall$ aggregation.DataSet}).
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em PHDD-C-UNIVERSAL-QUANTIFICATIONS-01:}}
+	\emph{Universal quantifications} are defined for each \emph{PHDD} object and data property.
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em SKOS-C-UNIVERSAL-QUANTIFICATIONS-01:}}
+	\emph{Universal quantifications} are defined for each \emph{SKOS} object and data property.
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em XKOS-C-UNIVERSAL-QUANTIFICATIONS-01:}}
+	\emph{Universal quantifications} are defined for each \emph{XKOS} object and data property.
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \subsection{Minimum Unqualified Cardinality Restrictions*}
@@ -699,8 +794,36 @@ If the data range is missing, it is taken to be \emph{rdfs:Literal}.
 $\geq n R. C$ is a minimum qualified cardinality restriction where $n \in \mathbb{N}$.
 
 \begin{itemize}
+	\item \textbf{{\em DATA-CUBE-C-MINIMUM-QUALIFIED-CARDINALITY-RESTRICTIONS-01:}}
+	{\em Minimum Qualified Cardinality Restrictions} constraints are defined for each \emph{Data Cube} object and data property.
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em DCAT-C-MINIMUM-QUALIFIED-CARDINALITY-RESTRICTIONS-01:}}
+	{\em Minimum Qualified Cardinality Restrictions} constraints are defined for each \emph{DCAT} object and data property.
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
 	\item \textbf{{\em DISCO-C-MINIMUM-QUALIFIED-CARDINALITY-RESTRICTIONS-01:}}
-A {\em disco:Questionnaire} has at least one {\em disco:question} relationship to {\em disco:Question} (\ms{Questionnaire $\sqsubseteq$ $\geq$1 question.Question}).
+	{\em Minimum Qualified Cardinality Restrictions} constraints are defined for each \emph{Disco} object and data property.
+  A {\em disco:Questionnaire}, e.g., has at least one {\em disco:question} relationship to {\em disco:Questions} (\ms{Questionnaire $\sqsubseteq$ $\geq$1 question.Question}).
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em PHDD-C-MINIMUM-QUALIFIED-CARDINALITY-RESTRICTIONS-01:}}
+	{\em Minimum Qualified Cardinality Restrictions} constraints are defined for each \emph{PHDD} object and data property.
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \subsection{Maximum Unqualified Cardinality Restrictions*}
@@ -715,6 +838,14 @@ A \emph{maximum cardinality restriction} contains all those individuals that are
 Qualified means that the class respective the data range is stated. 
 $\leq n R. C$ is a \emph{maximum qualified cardinality restriction}\footnote{\emph{R-76-MAXIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES}, \emph{R-211-CARDINALITY-CONSTRAINTS}} where $n \in \mathbb{N}$.
 
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-MAXIMUM-QUALIFIED-CARDINALITY-RESTRICTIONS-01:}}
+	A {\em disco:Variable} has at most one {\em disco:concept} relationship to a theoretical concept ({\em skos:Concept}) (\ms{Variable $\sqsubseteq$ $\leq$1 concept.Concept}).
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
+\end{itemize}
+
 \subsection{Exact Unqualified Cardinality Restrictions*}
 
 An \emph{exact cardinality restriction}\footnote{{\em R-80-EXACT-UNQUALIFIED-CARDINALITY-ON-PROPERTIES}, {\em R-211-CARDINALITY-CONSTRAINTS}} contains all those individuals that are connected by a property to exactly n different individuals that are instances of a particular class or data range. 
@@ -727,6 +858,9 @@ $\geq n R. \top \sqcap \leq n R. \top $ is an exact unqualified cardinality rest
 	\item \textbf{{\em DATA-CUBE-C-EXACT-UNQUALIFIED-CARDINALITY-RESTRICTIONS-01:}}
 	Unique slice structure (\emph{IC-9} \cite{CyganiakReynolds2014}) -  
 	Each \emph{qb:Slice} must have exactly one associated \emph{qb:sliceStructure}. 
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \subsection{Exact Qualified Cardinality Restrictions*}
@@ -739,15 +873,24 @@ $\geq n R. C \sqcap \leq n R. C $ is an exact qualified cardinality restriction 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-EXACT-QUALIFIED-CARDINALITY-RESTRICTIONS-01:}}
 A {\em disco:Question} has exactly 1 {\em disco:universe} relationship to {\em disco:Universe} (\ms{Question $\sqsubseteq$ $\geq$1 universe.Universe $\sqcap$ $\leq$1 universe.Universe}).
+  \begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em DATA-CUBE-C-EXACT-QUALIFIED-CARDINALITY-RESTRICTIONS-01:}}
 	Unique data set (\emph{IC-1} \cite{CyganiakReynolds2014}) -  
-	Every \emph{qb:Observation} has (\emph{qb:dataSet}) exactly one associated \emph{qb:DataSet}. 
+	Every \emph{qb:Observation} has (\emph{qb:dataSet}) exactly one associated \emph{qb:DataSet} (\ms{Observation $\sqsubseteq$ $\geq$1 dataSet.DataSet $\sqcap$ $\leq$1 dataSet.DataSet}). 
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
 	\item \textbf{{\em DATA-CUBE-C-EXACT-QUALIFIED-CARDINALITY-RESTRICTIONS-02:}}
 	Unique DSD (\emph{IC-2} \cite{CyganiakReynolds2014}) -  
-	Every \emph{qb:DataSet} has (\emph{qb:structure}) exactly one associated \emph{qb:DataStructureDefinition}. 
+	Every \emph{qb:DataSet} has (\emph{qb:structure}) exactly one associated \emph{qb:DataStructureDefinition} (\ms{DataSet $\sqsubseteq$ $\geq$1 structure.DataStructureDefinition $\sqcap$ $\leq$1 structure.DataStructureDefinition}). 
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \subsection{Transitive Object Properties*}
@@ -769,7 +912,7 @@ Only one of multiple property groups leads to valid data\footnote{{\em R-13-DISJ
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-CONTEXT-SPECIFIC-EXCLUSIVE-OR-OF-PROPERTY-GROUPS-01:}}
-Within the context of \emph{Disco}, \emph{skos:Concept}s can have either \emph{skos:definition} (when interpreted as DDI concepts) or \emph{skos:notation} and \emph{skos:prefLabel} properties (when interpreted as DDI codes and categories), but not both.
+Within the context of \emph{Disco}, \emph{skos:Concept}s can have either \emph{skos:definition} (when interpreted as theoretical concepts) or \emph{skos:notation} and \emph{skos:prefLabel} properties (when interpreted as codes and categories), but not both.
 
 \begin{DL}
 Concept $\sqsubseteq$ ($\neg$ D $\sqcap$ C) $\sqcup$ (D $\sqcap$ $\neg$ C) \\ 
