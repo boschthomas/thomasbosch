@@ -338,7 +338,7 @@ Such validation rules ensure the integrity of the data according to the data mod
 \subsection{Subsumption*}
 
 A \emph{subclass axiom}\footnote{{\em R-100-SUBSUMPTION}} ({\em concept inclusion} in DL) states that the class \emph{C1} is a subclass of the class \emph{C2} - \emph{C1} is more specific than \emph{C2}, 
-i.e. each resources of the class \emph{C1} must also be part of the class extension of \emph{C2}.
+i.e. each resource of the class \emph{C1} must also be part of the class extension of \emph{C2}.
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-SUBSUMPTION-01:}} 
@@ -527,11 +527,11 @@ This is a kind of mistake which may occur as a semantically equivalent object pr
 
 An object property is irreflexive\footnote{\emph{R-60-IRREFLEXIVE-OBJECT-PROPERTIES}} (\emph{irreflexive role} in DL) if it is never locally reflexive \cite{Kroetzsch2012}.
 An object property irreflexivity axiom \emph{IrreflexiveObjectProperty( OPE )} states that the object property expression \emph{OPE} is irreflexive - that is, no individual is connected by \emph{OPE} to itself. 
-In \emph{Disco}, every object property is irreflexive.
 
 \begin{itemize}
   \item \textbf{{\em DISCO-C-IRREFLEXIVE-OBJECT-PROPERTIES-01:}}
-Within the Disco context, no individual is connected by the object property {\em instrument} to itself (\ms{$\top$ $\sqsubseteq$ $\neg$ $\exists  instrument . Self$}).
+	In \emph{Disco}, every object property is irreflexive.
+  No individual is connected by the object property {\em instrument} to itself (\ms{$\top$ $\sqsubseteq$ $\neg$ $\exists  instrument . Self$}).
 \end{itemize}
 
 \subsection{Class-Specific Irreflexive Object Properties*}
@@ -550,18 +550,39 @@ Within the Disco context, {\em skos:Concept}s cannot be related via the object p
 \subsection{Disjoint Properties}
 
 A \emph{disjoint properties axiom}\footnote{\emph{R-9-DISJOINT-PROPERTIES}} states that all of the properties are pairwise disjoint; 
-that is, no individual \emph{x} can be connected to an individual \emph{y} by these properties. 
-
-\begin{itemize}
-	\item \textbf{{\em DISCO-C-DISJOINT-PROPERTIES-01:}} 
-All \emph{Disco} properties (not having the same domain and range classes) are defined to be pairwise disjoint.
-The following DL statements holds for each pair of \emph{Disco} properties (not having the same domain and range classes) ($variable \sqsubseteq \neg question$).
-\end{itemize}
+that is, no individual \emph{x} can be connected to an individual/literal \emph{y} by these properties. 
 
 \begin{itemize}
 	\item \textbf{{\em DATA-CUBE-C-DISJOINT-PROPERTIES-01:}} 
-All \emph{Data Cube} properties (not having the same domain and range classes) are defined to be pairwise disjoint.
-The following DL statements holds for each pair of \emph{Data Cube} properties (not having the same domain and range classes) ($dataSet \sqsubseteq \neg structure$).
+	All \emph{Data Cube} properties (not having the same domain and range classes) are defined to be pairwise disjoint.
+  The properties \emph{qb:dataSet} and \emph{qb:structure} are disjoint ($dataSet \sqsubseteq \neg structure$).
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em DCAT-C-DISJOINT-PROPERTIES-01:}} 
+	All \emph{DCAT} properties (not having the same domain and range classes) are defined to be pairwise disjoint.
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-DISJOINT-PROPERTIES-01:}} 
+	All \emph{Disco} properties (not having the same domain and range classes) are defined to be pairwise disjoint.
+  The properties \emph{disco:variable} and \emph{disco:question} are disjoint ($variable \sqsubseteq \neg question$).
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em PHDD-C-DISJOINT-PROPERTIES-01:}} 
+	All \emph{PHDD} properties (not having the same domain and range classes) are defined to be pairwise disjoint.
+	The properties \emph{phdd:isStructuredBy} and \emph{phdd:column} are disjoint ($isStructuredBy \sqsubseteq \neg column$)
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em SKOS-C-DISJOINT-PROPERTIES-01:}} 
+	All \emph{SKOS} properties (not having the same domain and range classes) are defined to be pairwise disjoint.
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em XKOS-C-DISJOINT-PROPERTIES-01:}} 
+	All \emph{XKOS} properties (not having the same domain and range classes) are defined to be pairwise disjoint.
 \end{itemize}
 
 \subsection{Disjoint Classes}
@@ -570,9 +591,33 @@ The following DL statements holds for each pair of \emph{Data Cube} properties (
 that is, no individual can be at the same time an instance of these disjoint classes.
 
 \begin{itemize}
+	\item \textbf{{\em DATA-CUBE-C-DISJOINT-CLASSES-01:}} 
+All \emph{Data Cube} classes are defined to be pairwise disjoint.
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em DCAT-C-DISJOINT-CLASSES-01:}} 
+All \emph{DCAT} classes are defined to be pairwise disjoint.
+\end{itemize}
+
+\begin{itemize}
 	\item \textbf{{\em DISCO-C-DISJOINT-CLASSES-01:}} 
-All \emph{Disco} classes are defined to be pairwise disjoint.
-The following DL statements holds for each pair of Disco classes (\ms{Study $\sqcap$ Variable $\sqsubseteq$ $\perp$}).
+All \emph{Disco} classes are defined to be pairwise disjoint (e.g. \ms{Study $\sqcap$ Variable $\sqsubseteq$ $\perp$}).
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em PHDD-C-DISJOINT-CLASSES-01:}} 
+All \emph{PHDD} classes are defined to be pairwise disjoint.
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em SKOS-C-DISJOINT-CLASSES-01:}} 
+All \emph{SKOS} classes are defined to be pairwise disjoint.
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em XKOS-C-DISJOINT-CLASSES-01:}} 
+All \emph{XKOS} classes are defined to be pairwise disjoint.
 \end{itemize}
 
 \subsection{Context-Specific Property Groups}
@@ -614,14 +659,38 @@ An \emph{equivalent object properties axiom}\footnote{\emph{R-4-EQUIVALENT-OBJEC
 An \emph{equivalent data properties axiom}\footnote{\emph{R-5-EQUIVALENT-DATA-PROPERTIES}} \emph{EquivalentDataProperties( DPE$_1$ ... DPE$_n$ )} states that all the data property expressions \emph{DPE$_i$, 1 $\leq$ i $\leq$ n}, are semantically equivalent to each other. This axiom allows one to use each \emph{DPE$_i$} as a synonym for each \emph{DPE$_j$} — that is, in any expression in the ontology containing such an axiom, DPE$_i$ can be replaced with \emph{DPE$_j$} without affecting the meaning of the ontology. The axiom \emph{EquivalentDataProperties( DPE$_1$ DPE$_2$ )} can be seen as a syntactic shortcut for the following axiom \emph{SubDataPropertyOf( DPE$_1$ DPE$_2$ )} and \emph{SubDataPropertyOf( DPE$_1$ DPE$_2$ )}.
 
 \begin{itemize}
+	\item \textbf{{\em DATA-CUBE-C-EQUIVALENT-PROPERTIES-01:}}
+	Equivalent properties from different versions of \emph{Data Cube} can be marked as equivalent. 
+	As a consequence, the properties can be replaced by each other without affecting the meaning.
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em DCAT-C-EQUIVALENT-PROPERTIES-01:}}
+	Equivalent properties from different versions of \emph{DCAT} can be marked as equivalent. 
+	As a consequence, the properties can be replaced by each other without affecting the meaning.
+\end{itemize}
+
+\begin{itemize}
 	\item \textbf{{\em DISCO-C-EQUIVALENT-PROPERTIES-01:}}
 	Equivalent properties from different versions of \emph{Disco} can be marked as equivalent, e.g. \emph{disco:containsVariable} and \emph{disco:variable}. 
 	As a consequence, the properties can be replaced by each other without affecting the meaning.
 \end{itemize}
 
 \begin{itemize}
-	\item \textbf{{\em DATA-CUBE-C-EQUIVALENT-PROPERTIES-01:}}
-	Equivalent properties from different versions of \emph{Data Cube} can be marked as equivalent. 
+	\item \textbf{{\em PHDD-C-EQUIVALENT-PROPERTIES-01:}}
+	Equivalent properties from different versions of \emph{PHDD} can be marked as equivalent. 
+	As a consequence, the properties can be replaced by each other without affecting the meaning.
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em SKOS-C-EQUIVALENT-PROPERTIES-01:}}
+	Equivalent properties from different versions of \emph{SKOS} can be marked as equivalent. 
+	As a consequence, the properties can be replaced by each other without affecting the meaning.
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em XKOS-C-EQUIVALENT-PROPERTIES-01:}}
+	Equivalent properties from different versions of \emph{XKOS} can be marked as equivalent. 
 	As a consequence, the properties can be replaced by each other without affecting the meaning.
 \end{itemize}
 
@@ -927,8 +996,8 @@ C $\sqsubseteq$ $\geq$ 1 definition.string $\sqcap$ $\leq$ 1 definition.string \
 
 It is a common requirement to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resources). 
 This is often rendered in drop down boxes or radio buttons in user interfaces. 
-Allowed values\footnote{{\em R-30-ALLOWED-VALUES-FOR-RDF-OBJECTS} and 
-{\em R-37-ALLOWED-VALUES-FOR-RDF-LITERALS}} for properties can be IRIs, IRIs (matching one or multiple patterns), (any) literals, literals of a list of allowed literals (e.g. 'red' 'blue' 'green'), typed literals of one or multiple type(s) (e.g. xsd:string).
+\emph{Allowed values}\footnote{{\em R-30-ALLOWED-VALUES-FOR-RDF-OBJECTS} and 
+{\em R-37-ALLOWED-VALUES-FOR-RDF-LITERALS}} for properties can be IRIs, IRIs (matching one or multiple patterns), (any) literals, literals of a list of allowed literals (e.g. 'red' 'blue' 'green'), typed literals of one or multiple type(s) (e.g. \emph{xsd:string}).
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-ALLOWED-VALUES-01}}.
@@ -976,15 +1045,15 @@ Instances of a specific class must not have some object property\footnote{\emph{
 
 An \emph{object property functionality axiom}\footnote{\emph{R-57-FUNCTIONAL-OBJECT-PROPERTIES}} \emph{FunctionalObjectProperty( OPE )} states that the object property expression \emph{OPE} is functional — that is, for each individual \emph{x}, there can be at most one distinct individual \emph{y} such that \emph{x} is connected by \emph{OPE} to \emph{y}. Each such axiom can be seen as a syntactic shortcut for the following axiom: \emph{SubClassOf( owl:Thing ObjectMaxCardinality( 1 OPE ) )}.
 
-\begin{itemize}
-	\item \textbf{{\em DISCO-C-FUNCTIONAL-PROPERTIES-01:}} for each \emph{rdfs:Resource x}, there can be at most one distinct \emph{rdfs:Resource y} such that \emph{x} is connected by \emph{adms:identifier} to \emph{y} (\ms{$(\textsf{funct } \textsf{identifier})$}).
-\end{itemize}
-
-\tb{Achim, we created an open issue for DDI 4 how keys should be defined}
-
 \subsection{Inverse-Functional Properties*}
 
 An \emph{object property inverse functionality axiom}\footnote{\emph{R-58-INVERSE-FUNCTIONAL-OBJECT-PROPERTIES}} \emph{InverseFunctionalObjectProperty( OPE )} states that the object property expression \emph{OPE} is inverse-functional - that is, for each individual \emph{x}, there can be at most one individual \emph{y} such that \emph{y} is connected by \emph{OPE} with \emph{x}. Each such axiom can be seen as a syntactic shortcut for the following axiom: \emph{SubClassOf( owl:Thing ObjectMaxCardinality( 1 ObjectInverseOf( OPE ) ) )}.
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-INVERSE-FUNCTIONAL-PROPERTIES-01:}} for each \emph{rdfs:Resource x}, there can be at most one distinct \emph{rdfs:Resource y} such that \emph{y} is connected by \emph{adms:identifier} to \emph{x} $(\ms{funct identifier}\sp{\overline{\ }})$.
+\end{itemize}
+
+\tb{Achim, we created an open issue for DDI 4 how keys should be defined}
 
 \subsection{Value Restrictions*}
 
@@ -1009,7 +1078,7 @@ This leads to the following DL mapping (only one simple property constraint):
 \ms{commandAuthorizationCode \ms{keyfor} StarfleetOfficer}
 
 \begin{itemize}
-	\item see \emph{functional properties}
+	\item see \emph{inverse-functional properties}
 \end{itemize}
 
 \subsection{Class-Specific Property Range*}		

@@ -443,6 +443,24 @@ B $\sqsubseteq$ $\geq$ 1 prefLabel.string $\sqcap$ $\leq$ 1 prefLabel.string \\
 C $\sqsubseteq$ $\geq$ 1 definition.string $\sqcap$ $\leq$ 1 definition.string \\
 \end{DL}
 
+-----
+
+Restricting data property ranges [$V_{min}$,$V_{max}$] within the context of given classes is a very common requirement (\emph{Literal Ranges}\footnote{{\em R-45-RANGES-OF-RDF-LITERAL-VALUES}}) 
+- disco:CategoryStatistics resources, e.g., point to percentage values via the data property {\em disco:percentage}; 
+these values must be of the datatype {\em xsd:double} and must be between 0 and 100.
+
+-----
+
+The \emph{Primary Key Properties} constraint is often useful to declare a given (datatype) property as the "primary key" of a class, so that a system can enforce uniqueness and also automatically build URIs from user input and data imported from relational databases or spreadsheets.. 
+Within the context of \emph{Disco}, resources are uniquely identified by the property \emph{adms:identifier},
+which is therefore inverse-functional
+$(\ms{funct identifier}\sp{\overline{\ }})$,
+i.e. for each \emph{rdfs:Resource x}, there can be at most one distinct \emph{rdfs:Resource y} such that \emph{y} is connected by \emph{adms:identifier} to \emph{x}.
+Keys, however, are even more general, i.e., a generalization of inverse-functional properties\footnote{\emph{R-58-INVERSE-FUNCTIONAL-OBJECT-PROPERTIES}} \cite{Schneider2009}.
+A key can be a data or an object property, or a chain of properties.
+For this generalization purposes, as there are different sorts of key, and as keys can lead to undecidability, 
+DL is extended with \emph{key boxes} and a special \emph{keyfor} (\ms{identifier \ms{keyfor} Resource}) construct\cite{Lutz2005}.
+
 \textbf{DCAT Validation}
 
 
@@ -463,7 +481,7 @@ use RDF validation for data integration
 \subsection{Technology-Driven Validation}
 
 Constraints of some constraint types are directly and automatically derived from conceptual models of multiple vocabularies.
-This way, \emph{property domains and ranges, universal and existential quantifications, minimum, maximum, and exact cardinality restrictions} are defined for each object and data property of vocabularies against which one wish to validate.
+This way, \emph{property domains and ranges, universal and existential quantifications, minimum, maximum, and exact cardinality restrictions} are defined for each property of vocabularies against which one wish to validate.
 As these constraints directly depend on the intended semantics of data models, associated severity levels are very strong.
 
 {\em Property Domains}\footnote{{\em R-25-OBJECT-PROPERTY-DOMAIN}, {\em R-26-DATA-PROPERTY-DOMAIN}} and {\em Ranges}\footnote{{\em R-28-OBJECT-PROPERTY-RANGE}, {\em R-35-DATA-PROPERTY-RANGE}}restrict domains and ranges of properties.
@@ -479,9 +497,26 @@ A \emph{disco:Questionnaire}, e.g., has at least one {\em disco:question} relati
 a {\em disco:Variable} has at most one {\em disco:concept} relationship to a theoretical concept ({\em skos:Concept}) (\ms{Variable $\sqsubseteq$ $\leq$1 concept.Concept}), and every \emph{qb:DataSet} has (\emph{qb:structure}) exactly one associated \emph{qb:DataStructureDefinition} (\ms{DataSet $\sqsubseteq$ $\geq$1 structure.DataStructureDefinition $\sqcap$ $\leq$1 structure.DataStructureDefinition}).
 %\footnote{\emph{DATA-CUBE-C-EXACT-QUALIFIED-CARDINALITY-RESTRICTIONS-02}}.
 
------
+All properties, not having the same domain and range classes, are defined to be pairwise disjoint
+(\emph{disjoint properties}\footnote{\emph{R-9-DISJOINT-PROPERTIES}}), stating that no individual \emph{x} can be connected to an individual/literal \emph{y} by disjoint properties like \emph{phdd:isStructuredBy} and \emph{phdd:column} ($isStructuredBy \sqsubseteq \neg column$).
+All \emph{Disco} classes are defined to be pairwise disjoint ({\em Disjoint Classes}\footnote{{\em R-7-DISJOINT-CLASSES}}; e.g. \ms{Study $\sqcap$ Variable $\sqsubseteq$ $\perp$}),
+i.e. no individual can be at the same time an instance of more than one disjoint class.
+It is a common requirement to narrow down the value space of properties by an exhaustive enumeration of valid values.  
+\emph{Allowed values}\footnote{{\em R-30-ALLOWED-VALUES-FOR-RDF-OBJECTS}, 
+{\em R-37-ALLOWED-VALUES-FOR-RDF-LITERALS}} for properties can be IRIs (matching one or multiple patterns), any literals, allowed literals (e.g. 'red' 'blue' 'green'), and typed literals of one or multiple type(s) (e.g. \emph{xsd:string}) - 
+{\em disco:CategoryStatistics}, e.g., can only have {\em disco:computationBase} relationships to the values \emph{valid} and \emph{invalid} of the datatype {\em rdf:langString} (\ms{CategoryStatistics $\equiv$ $\forall$ computationBase.\{valid,invalid\} $\sqcap$ langString}).
 
-reasoning constraints / sub-classes / sub-properties
+
+Constraints of some constraint types can be derived from vocabularies' data models for which reasoning can be performed prior to validation which enables to resolve possible constraint violations.
+\emph{Subsumption}\footnote{{\em R-100-SUBSUMPTION}} states that the class \emph{C1} is a sub-class of the class \emph{C2} - \emph{C1} is more specific than \emph{C2}, 
+i.e. each resource of the class \emph{C1} must also be part of the class extension of \emph{C2}. 
+All {\em disco:Universe}s, e.g., must also be {\em skos:Concept}s (\ms{Universe $\sqsubseteq$ Concept}).
+{\em Sub Properties}\footnote{\emph{R-54-SUB-OBJECT-PROPERTIES}, \emph{R-54-SUB-DATA-PROPERTIES}} state that the property \emph{P1} is a sub-property of the property \emph{P2} - that is, if individual \emph{x} is connected by \emph{P1} to individual/literal \emph{y}, then \emph{x} is also connected by \emph{P2} to \emph{y}. 
+If \emph{x} is connected by {\em disco:fundedBy} to \emph{y}, then \emph{x} is also connected by {\em dcterms:contributor} to \emph{y} (\ms{fundedBy $\sqsubseteq$ contributor}).
+\emph{Asymmetric object properties}\footnote{{\em R-62-ASYMMETRIC-OBJECT-PROPERTIES}} restrict that if individual \emph{x} is connected by the object property \emph{OP} to individual \emph{y}, then \emph{y} cannot be connected by \emph{OP} to \emph{x}. 
+\emph{Asymmetric object properties} are defined for each asymmetric object property for which a semantically equivalent object property pointing from the other direction may also be possible to be specified in the appropriate vocabulary.
+A {\em disco:Variable}, e.g., may be based on (\emph{disco:basedOn}) a {\em disco:RepresentedVariable}.
+A {\em disco:RepresentedVariable}, however, cannot be based on a {\em disco:Variable} (\ms{$basedOn \sqcap basedOn^{-} \sqsubseteq \bot$}).
 
 \section{Implementation}
 
