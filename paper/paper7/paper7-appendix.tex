@@ -1149,7 +1149,7 @@ To validate this constraint we bind the variables as follows (P1: {\em disco:sta
 
 \subsection{Ordering}
 
-With this constraint objects of object properties can be ordered as well as literals of data properties and objects of object properties\footnote{\emph{R-121-SPECIFY-ORDER-OF-RDF-RESOURCES}, \emph{R-217-DEFINE-ORDER-FOR-FORMS/DISPLAY}}.
+With this constraint objects of object properties can be ordered as well as literals of data properties\footnote{\emph{R-121-SPECIFY-ORDER-OF-RDF-RESOURCES}, \emph{R-217-DEFINE-ORDER-FOR-FORMS/DISPLAY}}.
 
 In DDI, variables, questions, and codes/categories are typically organized in a particular order. 
 For obtaining this order, {\em skos:OrderedCollection} resources are used. 
@@ -1183,7 +1183,45 @@ What types are valid in a specific context?\footnote{\emph{R-209-VALID-CLASSES}}
 Context can be an input stream, a data creation function, or an API.
 
 \begin{itemize}
+	\item \textbf{{\em DATA-CUBE-C-CONTEXT-SPECIFIC-VALID-CLASSES-01}}: For future versions of \emph{Data Cube}, out-dated classes can be marked as deprecated.
+	\begin{itemize}
+		\item severity level: RECOMMENDED
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em DCAT-C-CONTEXT-SPECIFIC-VALID-CLASSES-01}}: For future versions of \emph{DCAT}, out-dated classes can be marked as deprecated.
+	\begin{itemize}
+		\item severity level: RECOMMENDED
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
 	\item \textbf{{\em DISCO-C-CONTEXT-SPECIFIC-VALID-CLASSES-01}}: For future versions of \emph{Disco}, out-dated classes can be marked as deprecated.
+	\begin{itemize}
+		\item severity level: RECOMMENDED
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em PHDD-C-CONTEXT-SPECIFIC-VALID-CLASSES-01}}: For future versions of \emph{PHDD}, out-dated classes can be marked as deprecated.
+	\begin{itemize}
+		\item severity level: RECOMMENDED
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em SKOS-C-CONTEXT-SPECIFIC-VALID-CLASSES-01}}: For future versions of \emph{SKOS}, out-dated classes can be marked as deprecated.
+	\begin{itemize}
+		\item severity level: RECOMMENDED
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em XKOS-C-CONTEXT-SPECIFIC-VALID-CLASSES-01}}: For future versions of \emph{XKOS}, out-dated classes can be marked as deprecated.
+	\begin{itemize}
+		\item severity level: RECOMMENDED
+	\end{itemize}
 \end{itemize}
 
 \subsection{Context-Specific Valid Properties}
@@ -1192,10 +1230,48 @@ What properties can be used within this context?\footnote{\emph{R-210-VALID-PROP
 Context can be an data receipt function, data creation function, or API.
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-CONTEXT-SPECIFIC-VALID-PROPERTIES-01}}: For future versions of \emph{Disco}, out-dated properties can be marked as deprecated.
+	\item \textbf{{\em DATA-CUBE-C-CONTEXT-SPECIFIC-VALID-PROPERTIES-01}}: For future versions of \emph{Data Cube}, out-dated properties can be marked as deprecated.
+	\begin{itemize}
+		\item severity level: RECOMMENDED
+	\end{itemize}
 \end{itemize}
 
-\subsection{Default Values}
+\begin{itemize}
+	\item \textbf{{\em DCAT-C-CONTEXT-SPECIFIC-VALID-PROPERTIES-01}}: For future versions of \emph{DCAT}, out-dated properties can be marked as deprecated.
+	\begin{itemize}
+		\item severity level: RECOMMENDED
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-CONTEXT-SPECIFIC-VALID-PROPERTIES-01}}: For future versions of \emph{Disco}, out-dated properties can be marked as deprecated.
+	\begin{itemize}
+		\item severity level: RECOMMENDED
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em PHDD-C-CONTEXT-SPECIFIC-VALID-PROPERTIES-01}}: For future versions of \emph{PHDD}, out-dated properties can be marked as deprecated.
+	\begin{itemize}
+		\item severity level: RECOMMENDED
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em SKOS-C-CONTEXT-SPECIFIC-VALID-PROPERTIES-01}}: For future versions of \emph{SKOS}, out-dated properties can be marked as deprecated.
+	\begin{itemize}
+		\item severity level: RECOMMENDED
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em XKOS-C-CONTEXT-SPECIFIC-VALID-PROPERTIES-01}}: For future versions of \emph{XKOS}, out-dated properties can be marked as deprecated.
+	\begin{itemize}
+		\item severity level: RECOMMENDED
+	\end{itemize}
+\end{itemize}
+
+\subsection{Default Values*}
 
 \emph{Default values}\footnote{{\em R-31-DEFAULT-VALUES-OF-RDF-OBJECTS}, {\em R-38-DEFAULT-VALUES-OF-RDF-LITERALS}} for objects and literals are inferred automatically.
 It should be possible to declare the default value for a given property, e.g. so that input forms can be pre-populated and to insert a required property that is missing in a web service call.
@@ -1205,12 +1281,6 @@ It should be possible to declare the default value for a given property, e.g. so
 The value 'true' for the property {\em disco:isPublic} ({\em xsd:boolean}) indicates that the data set ({\em disco:LogicalDataSet}) can be accessed (usually downloaded) by anyone.
 Per default, access to data sets should be restricted ('false').
 \end{itemize}
-
-
-
-
-
-
 
 \subsection{Mathematical Operations}
 
@@ -1289,8 +1359,46 @@ then the property {\em disco:isValid} has to be stated indicating if the code is
 Which properties are not necessarily required but recommended within a particular context\footnote{{\em R-72-RECOMMENDED-PROPERTIES}}.
 
 \begin{itemize}
+	\item \textbf{{\em DATA-CUBE-C-RECOMMENDED-PROPERTIES-01:}}
+	\begin{itemize}
+		\item severity level: RECOMMENDED
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em DCAT-C-RECOMMENDED-PROPERTIES-01:}}
+	\begin{itemize}
+		\item severity level: RECOMMENDED
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
 	\item \textbf{{\em DISCO-C-RECOMMENDED-PROPERTIES-01:}}
-The property {\em skos:notation} is not mandatory for {\em disco:Variable}s, but recommended to indicate variable names.
+  The property {\em skos:notation} is not mandatory for {\em disco:Variable}s, but recommended to indicate variable names.
+	\begin{itemize}
+		\item severity level: RECOMMENDED
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em PHDD-C-RECOMMENDED-PROPERTIES-01:}}
+	\begin{itemize}
+		\item severity level: RECOMMENDED
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em SKOS-C-RECOMMENDED-PROPERTIES-01:}}
+	\begin{itemize}
+		\item severity level: RECOMMENDED
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em XKOS-C-RECOMMENDED-PROPERTIES-01:}}
+	\begin{itemize}
+		\item severity level: RECOMMENDED
+	\end{itemize}
 \end{itemize}
 
 \subsection{Handle RDF Collections}
