@@ -174,7 +174,7 @@
 \renewcommand{\arraystretch}{1.3}
 %
 %
-\title{RDF Validation of Metadata \\ on Highly-Complex Person-Level Data}
+\title{RDF Validation of Metadata \\ on Person-Level and Aggregated Data}
 \subtitle{}
 
 \titlerunning{XXXXX}  % abbreviated title (for running head)
@@ -302,27 +302,27 @@ The remainder of the paper is structured as follows.
 \section{Running Example}
 
 - DESCRIPTION OF EUROSTAT -
-Eurostat\footnote{\url{http://ec.europa.eu/eurostat}} provides publicly available European aggregated data.
-SBE researchers have a strong interest in the availability of childcare services across European Union Member States.
-The variable \emph{formal childcare}\footnote{\url{http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=ilc_caindformal&lang=en}}
-stores the measured formal childcare in percent over the population of each age group.
-The present data collection refers to data on formal childcare and other types of care by the variables \emph{year}, \emph{duration} (0 hours, 1 to 29 hours a usual week; 30 hours or more a usual week), \emph{age} of the child (0-2 years; 3 to admission age for compulsory school; admission age for compulsory school to 12) and \emph{country}.
-Eurostat provides the metadata on the aggregated data in different forms like CSV files.
+Eurostat\footnote{\url{http://ec.europa.eu/eurostat}} provides publicly available European aggregated data.\tb{aggregated (meta)data ?}
+SBE researchers have a strong interest, e.g., in the availability of childcare services across European Union Member States.
+The variable \emph{formal childcare}\footnote{\url{http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=ilc_caindformal&lang=en}} (in contrast to childcare at home)
+captures the measured availability of childcare services in percent over the population.
+The present data collection refers to data on formal childcare and other types of care by the \tb{aggregated?}variables \emph{year}, \emph{duration} (0 hours, 1 - 29 h/week; 30 h/week)\tb{HPW ?}, \emph{age} of the child (0-2 years; 3 to admission age for compulsory school; admission age for compulsory school to 12) and \emph{country}.
+Eurostat provides the metadata on the aggregated data in different forms like CSV files.\tb{some metadata in form of SDMX and data in form of CSV files?}
 
-For a broader view of the data framework and more detailed analyses we have to refer to the metadata on person-level data collected for the series \emph{EU-SILC (European Union Statistics on Income and Living Conditions)}\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC}}.
+For a broader view of the data framework and more detailed analyses we refer to the metadata on person-level data collected for the series \emph{EU-SILC (European Union Statistics on Income and Living Conditions)}\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC}}.
 The \emph{Microdata Information System (MISSY)}\footnote{\url{http://www.gesis.org/missy/eu/missy-home}} is an online service platform that provides systematically structured metadata for official statistics on European person-level data sets. This includes data documentation at the study and variable level as well as documentation materials, tools and further information. 
-The calculation of the aggregated variable \emph{formal childcare} is based on six person-level variables: 
-(1) Education at pre-school\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC/2011/Cross-sectional/original#2011-Cross-sectional-RL010}},
-(2) Education at compulsory school,
-(3) Child care at centre-based services,
-(4) Child care at day-care centre,
-(5) Child care by a professional child-minder, and
-(6) Child care by grand-parents, household members, relatives, friends, neighbours.
-For each person-level variable detailed metadata (definitions, descriptions, theoretical concepts, questions, code lists, frequencies, countries) is given which enables the researchers to replicate the results shown in the aggregated data tables from Eurostat.
+The aggregated variable \emph{formal childcare} is calculated on the basis of six person-level variables like 
+\emph{Education at pre-school}\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC/2011/Cross-sectional/original#2011-Cross-sectional-RL010}}.
+%(2) Education at compulsory school,
+%(3) Child care at centre-based services,
+%(4) Child care at day-care centre,
+%(5) Child care by a professional child-minder, and
+%(6) Child care by grand-parents, household members, relatives, friends, neighbours.
+For each person-level variable detailed metadata is given (definitions and descriptions, theoretical concepts, underlying questions, code lists, frequencies and descriptive statistics, countries, year of data collection, classifications) enabling researchers to replicate the results shown in the aggregated data tables from Eurostat.
 
 Metadata on person-level data enables researchers to investigate further research questions based on promising findings of other researchers in form of aggregated data.
-One common research question is to compare 
-\emph{formal childcare} between countries, for which the variable is collected for the individual survey, and other European or non European countries (e.g. OSCE).
+One common research question is ,e.g., the comparison of variables like 
+\emph{formal childcare} between countries, for which the variable is collected within the context of an individual survey, and other European or non European countries (e.g. OSCE).
 
 \section{Represent Metadata and Data in RDF}
 
@@ -338,7 +338,7 @@ The data could be either represented in records with character-separated values 
 \begin{ex}
 EXAMPLE
 \end{ex}
-
+\tb{Achim, can we start with the PHDD representation?}
 \emph{Disco} is a vocabulary to represent person-level data in RDF.
 
 \begin{ex}
