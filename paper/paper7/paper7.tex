@@ -507,6 +507,12 @@ The sum of {\em disco:percentage} (datatype: {\em xsd:double}) values of all cod
 
 \textbf{SKOS and XKOS Validation}
 
+SKOS is based on RDF, which is a graph-based data model. Therefore, we can concentrate on the vocabulary's graph-based structure for assessing the quality of SKOS vocabularies and apply graph- and network-analysis techniques (\emph{structure}) like 
+(1) a vocabulary should provide entry points (top concepts) to the data to provide efficient access and guidance for human users and
+(2) concepts, internal to the tree, should not be indicated as top concepts, and
+(3) a vocabulary should not contain many orphan concepts 
+(An orphan concept is a concept without any associative or hierarchical relations lacking valuable context information. A controlled vocabulary that contains many orphan concepts is less usable for search and retrieval use cases, as, e.g., no hierarchical query expansion can be performed on search terms to find documents with more general content.) \cite{MaderHaslhoferIsaac2012}. 
+\tb{add disco example}
 - SKOS validation of hierarchies of theoretical concepts
 
 XKOS Validation:
@@ -524,6 +530,8 @@ Constraints of some constraint types are directly and automatically derived from
 This way, \emph{property domains and ranges, universal and existential quantifications, minimum, maximum, and exact cardinality restrictions} are defined for each property of vocabularies against which one wish to validate.
 As these constraints directly depend on the intended semantics of data models, associated severity levels are very strong.
 
+Vocabularies should not invent any new terms or use deprecated elements.
+The \emph{vocabulary} constraint should be the first one to be checked for each reused vocabulary.
 \emph{Property Domains}\footnote{\emph{R-25-OBJECT-PROPERTY-DOMAIN}, \emph{R-26-DATA-PROPERTY-DOMAIN}} and \emph{Ranges}\footnote{\emph{R-28-OBJECT-PROPERTY-RANGE}, \emph{R-35-DATA-PROPERTY-RANGE}}restrict domains and ranges of properties.
 Only \emph{skos:ConceptSchemes}, e.g., can have \emph{skos:hasTopConcept} relationships (\ms{$\exists$ hasTopConcept.$\top$ $\sqsubseteq$ ConceptScheme}) and
 \emph{xkos:belongsTo} relationships can only point to instances of the class \emph{skos:Concept} (\ms{$\top$ $\sqsubseteq$ $\forall$ belongsTo.Concept}).
