@@ -335,6 +335,35 @@ Such validation rules ensure the integrity of the data according to the data mod
 	If a \emph{qb:DataSet} \emph{D} has a \emph{qb:slice} \emph{S}, and \emph{S} has an \emph{qb:observation} \emph{O}, then the \emph{qb:dataSet} corresponding to \emph{O} must be \emph{D}. 
 \end{itemize}
 
+\begin{itemize}
+
+	\item \textbf{{\em SKOS-C-DATA-MODEL-CONSISTENCY-01\footnote{Corresponds to qSKOS Quality Issues - SKOS Semi-Formal Consistency Issues - Relation Clashes}:}}
+	Relation Clashes:
+  Covers condition S27 from the SKOS reference document, that has not been defined formally. 
+	\begin{itemize}
+	  \item Implementation:
+		In a first step, all pairs of concepts are found that are associatively connected, using a SPARQL query. In the second step, a graph is created, containing only hierarchically related concepts and the respective relations. For each concept pair from the first step, we check for a path in the graph from step two. If such a path is found, a clash has been identified and the causing concepts are returned. 
+		\item Severity level: 
+	\end{itemize}
+	
+	\item \textbf{{\em SKOS-C-DATA-MODEL-CONSISTENCY-02\footnote{Corresponds to qSKOS Quality Issues - SKOS Semi-Formal Consistency Issues - Mapping Clashes}:}}
+	Mapping Clashes:
+  Covers condition S46 from the SKOS reference document, that has not been defined formally. 
+	\begin{itemize}
+	  \item Implementation:
+		Can be solved by issuing a SPARQL query. 
+		\item Severity level: 
+	\end{itemize}
+	
+	\item \textbf{{\em SKOS-C-DATA-MODEL-CONSISTENCY-03\footnote{Corresponds to qSKOS Quality Issues - SKOS Semi-Formal Consistency Issues - Mapping Relations Misuse}:}}
+	Mapping Relations Misuse:
+  According to the SKOS reference documentation, mapping relations (e.g., \emph{skos:broadMatch} or \emph{skos:relatedMatch}) should be asserted to concepts being members of different concept schemes. This check finds concepts that are related by a mapping property and are either members of the same concept scheme or members of no concept scheme at all. 
+	\begin{itemize}
+		\item Severity level: 
+	\end{itemize}
+	
+\end{itemize}
+
 \subsection{Subsumption*}
 
 A \emph{subclass axiom}\footnote{{\em R-100-SUBSUMPTION}} ({\em concept inclusion} in DL) states that the class \emph{C1} is a subclass of the class \emph{C2} - \emph{C1} is more specific than \emph{C2}, 
@@ -576,8 +605,19 @@ that is, no individual \emph{x} can be connected to an individual/literal \emph{
 \end{itemize}
 
 \begin{itemize}
+
 	\item \textbf{{\em SKOS-C-DISJOINT-PROPERTIES-01:}} 
 	All \emph{SKOS} properties (not having the same domain and range classes) are defined to be pairwise disjoint.
+	
+	\item \textbf{{\em SKOS-C-DISJOINT-PROPERTIES-02\footnote{Corresponds to qSKOS Quality Issues - SKOS Semi-Formal Consistency Issues - Disjoint Labels Violation}:}}
+	Disjoint Labels Violation:
+  Covers condition S13 from the SKOS reference document stating that "\emph{skos:prefLabel}, \emph{skos:altLabel} and \emph{skos:hiddenLabel} are pairwise disjoint properties". 
+	\begin{itemize}
+	  \item Implementation:
+		A SPARQL query collects all labels of all concepts, building an in-memory structure. This structure is then checked for disjoint entries. 
+		\item Severity level: 
+	\end{itemize}
+	
 \end{itemize}
 
 \begin{itemize}
@@ -1312,16 +1352,29 @@ There should be at most one English literal value for variable names ({\em skos:
 \end{itemize}
 
 \begin{itemize}
+
 	\item \textbf{{\em SKOS-C-LANGUAGE-TAG-CARDINALITY-01\footnote{Corresponds to qSKOS Quality Issues - Labeling and Documentation Issues - Omitted or Invalid Language Tags}:}}
 Some controlled vocabularies contain literals in natural language, but without information what language has actually been used. Language tags might also not conform to language standards, such as RFC 3066. 
 Iteration over all triples in the vocabulary that have a predicate which is a (subclass of) \emph{rdfs:label} or \emph{skos:note}. 
 Severity level: INFO
+
   \item \textbf{{\em SKOS-C-LANGUAGE-TAG-CARDINALITY-02\footnote{Corresponds to qSKOS Quality Issues - Labeling and Documentation Issues - Incomplete Language Coverage}:}}
 	Some concepts in a thesaurus are labeled in only one language, some in multiple languages. It may be desirable to have each concept labeled in each of the languages that also are used on the other concepts. This is not always possible, but incompleteness of language coverage for some concepts can indicate shortcomings of the vocabulary. 
 	Severity level: INFO
+	
 	\item \textbf{{\em SKOS-C-LANGUAGE-TAG-CARDINALITY-03\footnote{Corresponds to qSKOS Quality Issues - Labeling and Documentation Issues - No Common Language}:}}
 	Checks if all concepts have at least one common language, i.e. they have assigned at least one literal in the same language. 
 	Severity level: INFO
+	
+	\item \textbf{{\em SKOS-C-LANGUAGE-TAG-CARDINALITY-04\footnote{Corresponds to qSKOS Quality Issues - SKOS Semi-Formal Consistency Issues - Inconsistent Preferred Labels}:}}
+	Inconsistent Preferred Labels:
+  According to the SKOS reference document, "A resource has no more than one value of skos:prefLabel per language tag".  
+	\begin{itemize}
+	  \item Implementation:
+		A SPARQL query is used to find concepts with at least two prefLabels. In a second step, the language tags of these prefLabels are analyzed and an ambiguity is detected if they are equal.  
+		\item Severity level: INFO
+	\end{itemize}
+	
 \end{itemize}
 
 \subsection{Whitespace Handling}
