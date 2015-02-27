@@ -379,14 +379,14 @@ We published a technical report\footnote{Available at: \url{http://arxiv.org/abs
 The knowledge representation formalism \emph{Description logics (DL)}, with its  well-studied theoretical properties, provides the foundational basis for each constraint type.
 Therefore, this technical report contains mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
 Bosch et al. recently published a technical report\footnote{Available at: \url{http://arxiv.org/abs/XXXXX}} (serving as appendix of this paper) in which we describe RDF constraints to validate metadata on person-level and aggregated data.
-We assign each constraint to constraint types corresponding to RDF validation requirements or to data model specific constraint types
-\cite{BoschZapilkoWackerowEckert2015}.
+We assign each constraint to constraint types corresponding to RDF validation requirements or to data model specific constraint types\footnote{Requirements/Constraint types and constraints are uniquely identified by alphanumeric technical identifiers like \emph{R-1}}
+\cite{BoschZapilkoWackerowEckert2015}\tb{ToDo: publish technical report}.
 
 We distinguish two validation types:
 \emph{Content-Driven Validation} contains the set of constraints ensuring that the data is consistent with the intended semantics of data models,
 i.e. the integrity of the data according to data models.
 \emph{Technology-Driven Validation} includes the set of constraints which can be generated automatically out of defined data models, such as cardinality restrictions, universal and existential quantifications, domains, and ranges.
-We determined the default \emph{severity level}\footnote{Corresponds to \emph{R-158-SEVERITY-LEVELS-OF-CONSTRAINT-VIOLATIONS}} for each constraint indicating how serious the violation of the constraint is.
+We determined the default \emph{severity level} (\emph{R-158}) for each constraint indicating how serious the violation of the constraint is.
 The continuum of severity levels ranges from informational via warning and error to fatal error. 
 Although we provide default severity levels for each constraint, users should be able to specify the severity levels of constraints they need to validate for their individual use cases, i.e., users should be able to define use case specific severity levels for constraints.
 
@@ -400,7 +400,7 @@ Although we provide default severity levels for each constraint, users should be
 
 RDF validation scenarios require the closed-world assumption (CWA) (i.e., a statement is inferred to be false if it cannot be proved to be true).
 
-\textbf{application of matching algorithms.}
+\textbf{application of matching algorithms.}\tb{@Ben ToDo: macht es sinn matching algorithmen anzuwenden?}
 - the value for a specific data property (e.g. birth date) is needed as prerequisite to perform matching algorithms
 - 1. step: validation
 - 2. step: matching
@@ -421,20 +421,20 @@ RDF validation scenarios require the closed-world assumption (CWA) (i.e., a stat
 \subsection{Person-Level (Meta)Data}
 
 \textbf{Surveys.}
-Each survey must have an abstract\footnote{\emph{DISCO-C-DATA-PROPERTY-FACETS-01}}. 
-If the abstract of the survey is missing, a title of the survey has to be stated\footnote{\emph{DISCO-C-CONDITIONAL-PROPERTIES-02}}.
+Each survey must have an abstract ({\emph{R-46: data property facets}). 
+If the abstract of the survey is missing, a title of the survey has to be stated (\emph{R-71: conditional properties}).
 
 \textbf{Variables.}
 
 - variable does not have associated codes / categories
 
 \textbf{Theoretical Concepts.}
-Variables must have at least one relationship to a theoretical concept\footnote{\emph{DISCO-C-MINIMUM-QUALIFIED-CARDINALITY-RESTRICTIONS-01}}.
+Variables must have at least one relationship to a theoretical concept ({\emph{R-75: minimum qualified cardinality restrictions}).
 %The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
 The variable \emph{Education at pre-school}, e.g., is associated with the theoretical concept \emph{education}. 
 The severity level of this constraint is \emph{warning} and not \emph{error}, as research can be continued without an associated theoretical concept.
 
-One very common research question is to \emph{compare variables}\footnote{Constraint types: \emph{DISCO-C-COMPARISON-VARIABLES-XX}} of multiple surveys or countries.
+A very common research question is to compare variables (\emph{comparison}) of multiple surveys or countries.
 To compare variables, 
 (1) variables and (2) variable definitions must be present,
 (3) code lists must be structured properly,
@@ -445,9 +445,9 @@ the first three constraints may be sufficient for this purpose.
 Thus, the severity level of the first three constraints is stronger than the severity level of the next constraints.
 If the intention of the researcher is to perform more detailed comparisons (use case 2), however, the violation of the remaining constraints is also more serious.
 
-Constraints of the constraint type \emph{Context-Specific Exclusive OR of Property Groups}
-restrict individuals of given classes to have only one of multiple property groups\footnote{\emph{R-13-DISJOINT-GROUP-OF-PROPERTIES-CLASS-SPECIFIC}}.
-Within the context of \emph{Disco}, \emph{skos:Concept}s can have either \emph{skos:definition} (when interpreted as theoretical concepts) or \emph{skos:notation} and \emph{skos:prefLabel} properties (when interpreted as codes and categories), but not both\footnote{\emph{DISCO-C-CONTEXT-SPECIFIC-EXCLUSIVE-OR-OF-PROPERTY-GROUPS-01:}}.
+Constraints of the constraint type \emph{Context-Specific Exclusive OR of Property Groups} (\emph{R-11})
+restrict individuals of given classes to have only one of multiple property groups.
+Within the context of \emph{Disco}, \emph{skos:Concept}s can have either \emph{skos:definition} (when interpreted as theoretical concepts) or \emph{skos:notation} and \emph{skos:prefLabel} properties (when interpreted as codes and categories), but not both.
 
 \begin{DL}
 Concept $\sqsubseteq$ ($\neg$ D $\sqcap$ C) $\sqcup$ (D $\sqcap$ $\neg$ C) \\ 
@@ -457,33 +457,32 @@ B $\sqsubseteq$ $\geq$ 1 prefLabel.string $\sqcap$ $\leq$ 1 prefLabel.string \\
 C $\sqsubseteq$ $\geq$ 1 definition.string $\sqcap$ $\leq$ 1 definition.string \\
 \end{DL}
 
-It is useful to declare properties to be conditional, i.e. if particular properties exist, then specific other properties must also be present (\emph{conditional properties})\footnote{{\em R-71-CONDITIONAL-PROPERTIES}\label{R-71-CONDITIONAL-PROPERTIES}}.
+It is useful to declare properties to be conditional, i.e. if particular properties exist, then specific other properties must also be present (\emph{R-71: conditional properties}).
 If a {\em skos:Concept} represents a code (having a {\em skos:notation} property) and a category (having a {\em skos:prefLabel} property), 
 then the property {\em disco:isValid} has to be stated indicating if the code is valid (\emph{true}) or missing (\emph{false}).
 %\footref{R-71-CONDITIONAL-PROPERTIES}
 
 -----
 
-Restricting data property ranges [$V_{min}$,$V_{max}$] within the context of given classes is a very common requirement (\emph{Literal Ranges}\footnote{\emph{R-45-RANGES-OF-RDF-LITERAL-VALUES}}) 
+Restricting data property ranges [$V_{min}$,$V_{max}$] within the context of given classes is a very common requirement (\emph{R-45: literal ranges}) 
 - disco:CategoryStatistics resources, e.g., point to percentage values via the data property \emph{disco:percentage}; 
 these values must be of the datatype \emph{xsd:double} and must be between 0 and 100.
 
 -----
 
-It is often useful to declare a given (data) property as the \emph{primary key} of a class (\emph{Primary Key Properties}), so that a system can enforce uniqueness and also automatically build URIs from user inputs and imported data. 
+It is often useful to declare a given (data) property as the \emph{primary key} (\emph{R-226}) of a class, so that a system can enforce uniqueness and also automatically build URIs from user inputs and imported data. 
 In \emph{Disco}, resources are uniquely identified by the property \emph{adms:identifier},
 which is therefore inverse-functional
 $(\ms{funct identifier}\sp{\overline{\ }})$,
 i.e. for each \emph{rdfs:Resource x}, there can be at most one distinct \emph{rdfs:Resource y} such that \emph{y} is connected by \emph{adms:identifier$\sp{\overline{\ }}$} to \emph{x}.
-Keys, however, are even more general than inverse-functional properties\footnote{\emph{R-58-INVERSE-FUNCTIONAL-OBJECT-PROPERTIES}},
+Keys, however, are even more general than inverse-functional properties (\emph{R-58}),
 as a key can be a data, an object property, or a chain of properties \cite{Schneider2009}.
 For this generalization purposes, as there are different sorts of key, and as keys can lead to undecidability, 
 DL is extended with \emph{key boxes} and a special \emph{keyfor} construct (\ms{identifier \ms{keyfor} Resource}) \cite{Lutz2005}.
 
 -----
 
-In many cases, resources must be members of listed controlled vocabularies\footnote{\emph{R-32-MEMBERSHIP-OF-RDF-OBJECTS-IN-CONTROLLED-VOCABULARIES}, 
-\emph{R-39-MEMBERSHIP-OF-RDF-LITERALS-IN-CONTROLLED-VOCABULARIES}}.
+In many cases, resources must be members of listed controlled vocabularies (\emph{R-32}).
 \emph{disco:SummaryStatistics}, e.g., can only have \emph{disco:summaryStatisticType} relationships to \emph{skos:Concept}s which must be members of the controlled vocabulary \emph{ddicv:SummaryStatisticType} which is a \emph{skos:ConceptScheme}.
 
 \begin{DL}
@@ -498,19 +497,19 @@ Depending on property datatypes,
 two different literal values have
 a specific ordering with respect to an operator. 
 \emph{P1} and \emph{P2} are the data properties we need to compare and 
-\emph{OP} is the comparison operator (e.g. \textless, \textless=, \textgreater, \textgreater=, =, !=) (\emph{Literal Value Comparison}\footnote{\emph{R-43-LITERAL-VALUE-COMPARISON}}).
+\emph{OP} is the comparison operator (e.g. \textless, \textless=, \textgreater, \textgreater=, =, !=) (\emph{R-43: literal value comparison}).
 \emph{disco:startDate}s, e.g., must be before (\emph{\textless}) \emph{disco:endDate}s.
 To validate this constraint we bind the variables (P1: \emph{disco:startDate}, P2: \emph{disco:endDate}, OP: \emph{\textless}).
 
 -----
 
-Objects/literals can be ordered\footnote{\emph{R-121-SPECIFY-ORDER-OF-RDF-RESOURCES}, \emph{R-217-DEFINE-ORDER-FOR-FORMS/DISPLAY}} for given properties.
+Objects/literals can be ordered (\emph{R-121, R-217}) for given properties.
 \emph{Disco }variables, questions, and codes/categories are typically organized in a particular order. 
 If codes/categories of a \emph{disco:Representation} of a \emph{disco:Variable} should be ordered, the variable representation should also be of the type \emph{skos:OrderedCollection} containing multiple codes/categories (each represented as \emph{skos:Concept}) in a \emph{skos:memberList}. 
 
 -----
 
-{\em Mathematical Operations}\footnote{{\em R-42-MATHEMATICAL-OPERATIONS}, {\em R-41-STATISTICAL-COMPUTATIONS}} (e.g. date calculations and statistical computations like average, mean, and sum) are performed to ensure the integrity of data models.
+{\em Mathematical Operations} (\emph{R-41, R-42}; e.g. date calculations and statistical computations like average, mean, and sum) are performed to ensure the integrity of data models.
 The sum of {\em disco:percentage} (datatype: {\em xsd:double}) values of all codes ({\em skos:Concept}s) of a code list ({\em skos:ConceptScheme} or {\em skos:OrderedCollection}), serving as representation of a particular {\em disco:Variable} must exactly be 100.
 
 -----
@@ -544,44 +543,43 @@ As these constraints directly depend on the intended semantics of data models, a
 
 Vocabularies should not invent any new terms or use deprecated elements.
 The \emph{vocabulary} constraint should be the first one to be checked for each reused vocabulary.
-\emph{Property Domains}\footnote{\emph{R-25-OBJECT-PROPERTY-DOMAIN}, \emph{R-26-DATA-PROPERTY-DOMAIN}} and \emph{Ranges}\footnote{\emph{R-28-OBJECT-PROPERTY-RANGE}, \emph{R-35-DATA-PROPERTY-RANGE}}restrict domains and ranges of properties.
+\emph{Property Domains} (\emph{R-25, R-26}) and \emph{Ranges} (\emph{R-28, R-35}) restrict domains and ranges of properties.
 Only \emph{skos:ConceptSchemes}, e.g., can have \emph{skos:hasTopConcept} relationships (\ms{$\exists$ hasTopConcept.$\top$ $\sqsubseteq$ ConceptScheme}) and
 \emph{xkos:belongsTo} relationships can only point to instances of the class \emph{skos:Concept} (\ms{$\top$ $\sqsubseteq$ $\forall$ belongsTo.Concept}).
-A \emph{universal quantification}\footnote{\emph{R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}} contains all those individuals that are connected by a property only to individuals/literals that are instances of particular classes  or data ranges.
+A \emph{universal quantification} (\emph{R-91}) contains all those individuals that are connected by a property only to individuals/literals that are instances of particular classes  or data ranges.
 Only \emph{dcat:Catalogs}, e.g., can have \emph{dcat:dataset} relationships to \emph{dcat:Datasets} (\ms{Catalog $\sqsubseteq$ $\forall$ dataset.Dataset}).
-An \emph{existential quantification}\footnote{\emph{R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}} contains all those individuals that are connected by a property to individuals/literals that are instances of given classes or data ranges.
+An \emph{existential quantification} (\emph{R-86}) contains all those individuals that are connected by a property to individuals/literals that are instances of given classes or data ranges.
 Every \emph{qb:SliceKey}, e.g., must be associated with (\emph{qb:sliceKey}) a \emph{qb:DataStructureDefinition} (\ms{SliceKey $\sqsubseteq$ $\exists$ sliceKey$^{-}$.DataStructureDefinition}).
 
-\emph{Minimum/maximum/exact qualified cardinality restrictions}\footnote{\emph{R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES, \\ R-76-MAXIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES, \\ R-74-EXACT-QUALIFIED-CARDINALITY-ON-PROPERTIES}} contain all those individuals that are connected by a property to at least/at most/exactly n different individuals/literals that are instances of particular classes or data ranges.
+\emph{Minimum/maximum/exact qualified cardinality restrictions} (\emph{R-74, R-75, R-76}) contain all those individuals that are connected by a property to at least/at most/exactly n different individuals/literals that are instances of particular classes or data ranges.
 \emph{Minimum qualified cardinality restrictions} are defined for each property of multiple vocabularies like \emph{Disco}.
 A \emph{disco:Questionnaire}, e.g., has at least one \emph{disco:question} relationship to \emph{disco:Questions} (\ms{Questionnaire $\sqsubseteq$ $\geq$1 question.Question}),
 a \emph{disco:Variable} has at most one \emph{disco:concept} relationship to a theoretical concept (\emph{skos:Concept}) (\ms{Variable $\sqsubseteq$ $\leq$1 concept.Concept}), and every \emph{qb:DataSet} has (\emph{qb:structure}) exactly one associated \emph{qb:DataStructureDefinition} (\ms{DataSet $\sqsubseteq$ $\geq$1 structure.DataStructureDefinition $\sqcap$ $\leq$1 structure.DataStructureDefinition}).
 %\footnote{\emph{DATA-CUBE-C-EXACT-QUALIFIED-CARDINALITY-RESTRICTIONS-02}}.
-For particular data properties, values of predefined languages must be stated for determined number of times\footnote{{\em R-49-RDF-LITERALS-HAVING-AT-MOST-ONE-LANGUAGE-TAG}, {\em R-48-MISSING-LANGUAGE-TAGS}}.
+For particular data properties, values of predefined languages must be stated for determined number of times (\emph{R-48, R-49}).
 Some controlled vocabularies contain literals in natural language, but without information what language has actually been used. Language tags might also not conform to language standards. 
 Some concepts in a thesaurus are labeled in only one language, some in multiple languages. It may be desirable to have each concept labeled in each of the languages that also are used on the other concepts. This is not always possible, but incompleteness of language coverage for some concepts can indicate shortcomings of the vocabulary
 (severity level: informational) \cite{MaderHaslhoferIsaac2012}.
 
 All properties, not having the same domain and range classes, are defined to be pairwise disjoint
-(\emph{disjoint properties}\footnote{\emph{R-9-DISJOINT-PROPERTIES}}), stating that no individual \emph{x} can be connected to an individual/literal \emph{y} by disjoint properties like \emph{phdd:isStructuredBy} and \emph{phdd:column} ($isStructuredBy \sqsubseteq \neg column$).
-All \emph{Disco} classes are defined to be pairwise disjoint (\emph{Disjoint Classes}\footnote{\emph{R-7-DISJOINT-CLASSES}}; e.g. \ms{Study $\sqcap$ Variable $\sqsubseteq$ $\perp$}),
+(\emph{R-9: disjoint properties}), stating that no individual \emph{x} can be connected to an individual/literal \emph{y} by disjoint properties like \emph{phdd:isStructuredBy} and \emph{phdd:column} ($isStructuredBy \sqsubseteq \neg column$).
+All \emph{Disco} classes are defined to be pairwise disjoint (\emph{R-7: disjoint classes}; e.g. \ms{Study $\sqcap$ Variable $\sqsubseteq$ $\perp$}),
 i.e. no individual can be at the same time an instance of more than one disjoint class.
 It is a common requirement to narrow down the value space of properties by an exhaustive enumeration of valid values.  
-\emph{Allowed values}\footnote{\emph{R-30-ALLOWED-VALUES-FOR-RDF-OBJECTS}, 
-\emph{R-37-ALLOWED-VALUES-FOR-RDF-LITERALS}} for properties can be IRIs (matching one or multiple patterns), any literals, allowed literals (e.g. 'red' 'blue' 'green'), and typed literals of one or multiple type(s) (e.g. \emph{xsd:string}) - 
+\emph{Allowed values} (\emph{R-30, R-37}) for properties can be IRIs (matching one or multiple patterns), any literals, allowed literals (e.g. 'red' 'blue' 'green'), and typed literals of one or multiple type(s) (e.g. \emph{xsd:string}) - 
 \emph{disco:CategoryStatistics}, e.g., can only have \emph{disco:computationBase} relationships to the values \emph{valid} and \emph{invalid} of the datatype \emph{rdf:langString} (\ms{CategoryStatistics $\equiv$ $\forall$ computationBase.\{valid,invalid\} $\sqcap$ langString}).
 
 Constraints of some constraint types can be derived from vocabularies' data models for which reasoning can be performed prior to validation which enables to resolve possible constraint violations.
-\emph{Subsumption}\footnote{\emph{R-100-SUBSUMPTION}} states that the class \emph{C1} is a sub-class of the class \emph{C2} - \emph{C1} is more specific than \emph{C2}, 
+\emph{Subsumption} (\emph{R-100}) states that the class \emph{C1} is a sub-class of the class \emph{C2} - \emph{C1} is more specific than \emph{C2}, 
 i.e. each resource of the class \emph{C1} must also be part of the class extension of \emph{C2}. 
 All \emph{disco:Universe}s, e.g., must also be \emph{skos:Concept}s (\ms{Universe $\sqsubseteq$ Concept}).
-\emph{Sub Properties}\footnote{\emph{R-54-SUB-OBJECT-PROPERTIES}, \emph{R-54-SUB-DATA-PROPERTIES}} state that the property \emph{P1} is a sub-property of the property \emph{P2} - that is, if individual \emph{x} is connected by \emph{P1} to individual/literal \emph{y}, then \emph{x} is also connected by \emph{P2} to \emph{y}. 
+\emph{Sub Properties} (\emph{R-54, R-64}) state that the property \emph{P1} is a sub-property of the property \emph{P2} - that is, if individual \emph{x} is connected by \emph{P1} to individual/literal \emph{y}, then \emph{x} is also connected by \emph{P2} to \emph{y}. 
 If \emph{x} is connected by \emph{disco:fundedBy} to \emph{y}, then \emph{x} is also connected by \emph{dcterms:contributor} to \emph{y} (\ms{fundedBy $\sqsubseteq$ contributor}).
-\emph{Asymmetric object properties}\footnote{\emph{R-62-ASYMMETRIC-OBJECT-PROPERTIES}} restrict that if individual \emph{x} is connected by the object property \emph{OP} to individual \emph{y}, then \emph{y} cannot be connected by \emph{OP} to \emph{x}. 
+\emph{Asymmetric object properties} (\emph{R-62}) restrict that if individual \emph{x} is connected by the object property \emph{OP} to individual \emph{y}, then \emph{y} cannot be connected by \emph{OP} to \emph{x}. 
 \emph{Asymmetric object properties} are defined for each asymmetric object property for which a semantically equivalent object property pointing from the other direction may also be possible to be specified in the appropriate vocabulary.
 A \emph{disco:Variable}, e.g., may be based on (\emph{disco:basedOn}) a \emph{disco:RepresentedVariable}.
 A \emph{disco:RepresentedVariable}, however, cannot be based on a \emph{disco:Variable} (\ms{$basedOn \sqcap basedOn^{-} \sqsubseteq \bot$}).
-\emph{Default values}\footnote{{\em R-31-DEFAULT-VALUES-OF-RDF-OBJECTS}, {\em R-38-DEFAULT-VALUES-OF-RDF-LITERALS}} for objects/literals of given prooperties are inferred automatically when properties are not stated, in order to pre-populate input forms and to insert a required property that is missing in a web service call.
+\emph{Default values} (\emph{R-31, R-38}) for objects/literals of given prooperties are inferred automatically when properties are not stated, in order to pre-populate input forms and to insert a required property that is missing in a web service call.
 The value \emph{true} for the property {\em disco:isPublic} ({\em xsd:boolean}) indicates that the data set ({\em disco:LogicalDataSet}) can be accessed by anyone.
 Per default, access to data sets should be restricted (\emph{false}).
 

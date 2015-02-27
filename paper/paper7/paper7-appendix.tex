@@ -391,7 +391,7 @@ Thus, {\em sio:SIO\_000367} is equivalent to {\em disco:Variable}.
 
 \subsection{Sub Properties*}
 
-{\em Sub Properties}\footnote{\emph{R-54-SUB-OBJECT-PROPERTIES}, \emph{R-54-SUB-DATA-PROPERTIES}} state that the property \emph{P1} is a sub property of the property \emph{P2} - that is, if an individual \emph{x} is connected by \emph{P1} to an individual or a literal \emph{y}, then \emph{x} is also connected by \emph{P2} to \emph{y}. 
+{\em Sub Properties}\footnote{\emph{R-54-SUB-OBJECT-PROPERTIES}, \emph{R-64-SUB-DATA-PROPERTIES}} state that the property \emph{P1} is a sub property of the property \emph{P2} - that is, if an individual \emph{x} is connected by \emph{P1} to an individual or a literal \emph{y}, then \emph{x} is also connected by \emph{P2} to \emph{y}. 
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-SUB-PROPERTIES-01:}}
@@ -889,7 +889,7 @@ A \emph{universal class expression}\footnote{{\em R-91-UNIVERSAL-QUANTIFICATION-
 
 \subsection{Minimum Unqualified Cardinality Restrictions*}
 
-A \emph{minimum cardinality restriction}\footnote{{\em R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES}, {\em R-211-CARDINALITY-CONSTRAINTS}} contains all those individuals that are connected by a property to at least n different individuals/literals 
+A \emph{minimum cardinality restriction}\footnote{{\em R-81-MINIMUM-UNQUALIFIED-CARDINALITY-ON-PROPERTIES}, {\em R-211-CARDINALITY-CONSTRAINTS}} contains all those individuals that are connected by a property to at least n different individuals/literals 
 that are instances of a particular class or data range. If the class is missing, it is taken to be \emph{owl:Thing}. 
 If the data range is missing, it is taken to be \emph{rdfs:Literal}.
 $\leq n R. \top$ is the minimum unqualified cardinality restriction where $n \in \mathbb{N}$ (written $\leq  n R$ in short).
@@ -1106,7 +1106,7 @@ A \emph{self-restriction} \emph{ObjectHasSelf( OPE )} consists of an object prop
 
 \subsection{Primary Key Properties}
 
-The \emph{Primary Key Properties} constraint is often useful to declare a given (datatype) property as the "primary key" of a class, so that a system can enforce uniqueness and also automatically build URIs from user input and data imported from relational databases or spreadsheets.. 
+The \emph{Primary Key Properties}\footnote{R-226-PRIMARY-KEY-PROPERTIES} constraint is often useful to declare a given (datatype) property as the "primary key" of a class, so that a system can enforce uniqueness and also automatically build URIs from user input and data imported from relational databases or spreadsheets.. 
 Starfleet officers, e.g., are uniquely identified by their command authorization code (e.g. to activate and cancel auto-destruct sequences).
 It means that the property \emph{commandAuthorizationCode} is inverse functional - mapped to DL as follows:
 $(\ms{funct commandAuthorizationCode}\sp{\overline{\ }})$
