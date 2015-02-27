@@ -1328,7 +1328,35 @@ Examples for {\em Mathematical Operations}\footnote{{\em R-42-MATHEMATICAL-OPERA
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-MATHEMATICAL-OPERATIONS-01:}}
-The sum of {\em disco:percentage} (datatype: {\em xsd:double}) values of all codes (represented as {\em skos:Concept}s) of a code list ({\em skos:ConceptScheme} or {\em skos:OrderedCollection}), serving as representation of a particular {\em disco:Variable}, must exactly be 100.
+  The sum of {\em disco:percentage} (datatype: {\em xsd:double}) values of all codes (represented as {\em skos:Concept}s) of a code list ({\em skos:ConceptScheme} or {\em skos:OrderedCollection}), serving as representation of a particular {\em disco:Variable}, must exactly be 100.
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+
+	\item \textbf{{\em DISCO-C-MATHEMATICAL-OPERATIONS-02}}:
+	For a given variable, the sum of all category statistics (frequency) has to be equal to the 'total' value of summary statistics.
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	
+	\item \textbf{{\em DISCO-C-MATHEMATICAL-OPERATIONS-03}}:
+	For a given variable, the sum of 'valid total' and 'missing total' has to be equal to 'total'.
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	
+	\item \textbf{{\em DISCO-C-MATHEMATICAL-OPERATIONS-04}}:
+	For a given variable, the 'total' value for country 'All' must be equal to the sum of the 'total' value for all Countries.
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	
+	\item \textbf{{\em DISCO-C-MATHEMATICAL-OPERATIONS-05}}:
+	Minimum values do not have to be greater than maximum values (\emph{disco:SummaryStatistics}).
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+
 \end{itemize}
 
 \subsection{Language Tag Matching}
@@ -1345,10 +1373,16 @@ There must be an English variable name ({\em skos:notation}) for each {\em disco
 For particular data properties, values of predefined languages must be stated for determined number of times\footnote{{\em R-49-RDF-LITERALS-HAVING-AT-MOST-ONE-LANGUAGE-TAG}, {\em R-48-MISSING-LANGUAGE-TAGS}}.
 
 \begin{itemize}
+
 	\item \textbf{{\em DISCO-C-LANGUAGE-TAG-CARDINALITY-01:}}
-There must be at least one English {\em disco:questionText} for each {\em disco:Question} within {\em disco:LogicalDataSet}s.
+  There must be at least one English {\em disco:questionText} for each {\em disco:Question} within {\em disco:LogicalDataSet}s.
+
   \item \textbf{{\em DISCO-C-LANGUAGE-TAG-CARDINALITY-02:}}
-There should be at most one English literal value for variable names ({\em skos:notation}, domain: {\em disco:Variable}).
+  There should be at most one English literal value for variable names ({\em skos:notation}, domain: {\em disco:Variable}).
+
+  \item \textbf{{\em DISCO-C-LANGUAGE-TAG-CARDINALITY-03}}:
+	For each question (\emph{disco:Question}), there must be at least one question text (\emph{disco:questionText}) associated with a language tag of an arbitrary language or with an English language tag.
+
 \end{itemize}
 
 \begin{itemize}

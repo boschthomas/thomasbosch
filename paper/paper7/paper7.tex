@@ -222,6 +222,9 @@ and reuse of the data collected and archived for research purposes.
 DDI is heavily used by the CESSDA community of European national data archives, 
 the International Household Survey Network community (made up of more than 90 statistical agencies),
 and ICPSR - the largest SBE data archive in the US.
+Increasingly, data professionals, national statistical institutes, data archives, data libraries, and government statisticians (e.g. \url{data.gov}, \url{data.gov.uk})
+are very interested in having their data be discovered and used by providing their metadata on the web in form of RDF (e.g. metadata about unemployment rates or income).
+
 Recently, members of the SBE and Linked Data community developed the \emph{DDI-RDF Discovery Vocabulary (Disco)}\footnote{\url{http://rdf-vocabulary.ddialliance.org/discovery.html}}, 
 an effort to leverage the mature DDI metadata model for the purposes of exposing DDI metadata as resources within the Web of Linked Data. 
 For data archives, research institutes, and data libraries,
@@ -232,6 +235,8 @@ There are also specific constraint languages like \emph{Shape Expressions}\footn
 Bosch and Eckert\cite{BoschEckert2014-2} use SPIN as basis to define a
 validation environment (\url{http://purl.org/net/rdfval-demo}) in which the validation of any constraint language\footnote{the only limitation is that constraint languages must be represented in RDF} can be implemented by representing them in SPARQL. 
 The SPIN engine checks for each resource if it satisfies all constraints (associated with its assigned classes) and generates a result RDF graph containing information about all constraint violations.
+
+\section{Motivation}
 
 The data most often used in research within the SBE community is \emph{person-level data}, i.e. data collected about individuals 
 (and sometimes also businesses and households) in the form of responses to surveys or taken from administrative registers
@@ -263,7 +268,7 @@ Although, in most cases aggregated data is still published in form of PDFs,
 it is more and more common to publish aggregated data as CSV files,
 allowing to perform first calculations (either using all variables or only a subset).
 %For these calculations, definitions of the columns are needed (e.g. is a given variable interpreted numerically or as a string).
-In 2014, SBE and Linked Data community members developed the \emph{Physical Data Description (PHDD)}\footnote{\url{https://github.com/linked-statistics/physical-data-description}} vocabulary to represent aggregated data in a rectangular format. 
+In 2014, SBE and Linked Data community members developed the \emph{Physical Data Description (PHDD)}\footnote{\url{https://github.com/linked-statistics/physical-data-description}} vocabulary to represent aggregated and person-level data in a rectangular format. 
 The data could be either represented in records with character-separated values (CSV) or in records with fixed length. 
 
 For more detailed analyses, researchers refer to person-level data from which aggregated data is derived from, 
@@ -295,19 +300,22 @@ data validation can only be performed semi-automatically, i.e. an automatic appr
 This paper aims to address two main \textbf{audiences}: 
 (1) metadata practitioners seeking for how to represent metadata on data sets on different aggregation levels and
 (2) metadata providers and harvesters ensuring high quality metadata by validating metadata on highly complex RDF data sets.
-In this paper, we show in form of a complete real world running example how to represent metadata on highly complex person-level data (\emph{Disco}), metadata on aggregated data (\emph{Data Cube}), and aggregated data in a rectangular format (\emph{PHDD}) in RDF and how therefore used vocabularies are interrelated (\textbf{contribution 1}).
-We explain why RDF validation is important in this context and how (meta)data is validated against RDF constraints to ensure high quality (meta)data within this complex of data sets on different levels of aggregation (\textbf{contribution 2}). 
+In this paper, we show in form of a complete real world running example how to represent metadata on highly complex person-level data (\emph{Disco}), metadata on aggregated data (\emph{Data Cube}), and aggregated data in a rectangular format (\emph{PHDD}) in RDF and how therefore used vocabularies are interrelated (\textbf{contribution 1}, sections \ref{running-example}-\ref{rdf-representation}).
+We explain why RDF validation is important in this context and how (meta)data is validated against RDF constraints to ensure high quality (meta)data within this complex of data sets on different levels of aggregation (\textbf{contribution 2}, section \ref{rdf-validation}). 
 The remainder of the paper is structured as follows.
 
 \section{Running Example}
+\label{running-example}
 
-- DESCRIPTION OF EUROSTAT -
-Eurostat\footnote{\url{http://ec.europa.eu/eurostat}} provides publicly available European aggregated data.\tb{aggregated (meta)data ?}
+Eurostat\footnote{\url{http://ec.europa.eu/eurostat}} is the statistical office of the European Union. Its task is to provide statistics at European level that enable comparisons between countries and regions.
+Eurostat provides publicly available European aggregated data (downloadable in machine-readable format like CSV files) and its metadata (only textual descriptions).
 SBE researchers have a strong interest, e.g., in the availability of childcare services across European Union Member States.
 The variable \emph{formal childcare}\footnote{\url{http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=ilc_caindformal&lang=en}} (in contrast to childcare at home)
 captures the measured availability of childcare services in percent over the population.
-The present data collection refers to data on formal childcare and other types of care by the \tb{aggregated?}variables \emph{year}, \emph{duration} (0 hours, 1 - 29 h/week; 30 h/week)\tb{HPW ?}, \emph{age} of the child (0-2 years; 3 to admission age for compulsory school; admission age for compulsory school to 12) and \emph{country}.
-Eurostat provides the metadata on the aggregated data in different forms like CSV files.\tb{some metadata in form of SDMX and data in form of CSV files?}
+The present data collection refers to data on formal childcare and other types of care by the variables \emph{year}, \emph{duration} (0 hours, 1 - 29 HPW; 30 HPW), \emph{age} of the child (0-2 years; 3 to admission age for compulsory school; admission age for compulsory school to 12) and \emph{country}.
+As Eurostat provides aggregated data (here a two-dimensional table) as CSV files, we can easily represent the aggregated data with \emph{PHDD} in RDF. 
+This conversion enables further aggregations and calculations, e.g., in order to compare \emph{formal childcare} between Northern and Southern Europe or between otherwise grouped countries.
+% macht mehr sinn wenn Tabelle in mehreren Dimensionen vorhanden ist ode wenn Klassifikationen wie ISCO verwendet werden 
 
 For a broader view of the data framework and more detailed analyses we refer to the metadata on person-level data collected for the series \emph{EU-SILC (European Union Statistics on Income and Living Conditions)}\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC}}.
 The \emph{Microdata Information System (MISSY)}\footnote{\url{http://www.gesis.org/missy/eu/missy-home}} is an online service platform that provides systematically structured metadata for official statistics on European person-level data sets. This includes data documentation at the study and variable level as well as documentation materials, tools and further information. 
@@ -319,12 +327,12 @@ The aggregated variable \emph{formal childcare} is calculated on the basis of si
 %(5) Child care by a professional child-minder, and
 %(6) Child care by grand-parents, household members, relatives, friends, neighbours.
 For each person-level variable detailed metadata is given (definitions and descriptions, theoretical concepts, underlying questions, code lists, frequencies and descriptive statistics, countries, year of data collection, classifications) enabling researchers to replicate the results shown in the aggregated data tables from Eurostat.
-
 Metadata on person-level data enables researchers to investigate further research questions based on promising findings of other researchers in form of aggregated data.
 One common research question is ,e.g., the comparison of variables like 
 \emph{formal childcare} between countries, for which the variable is collected within the context of an individual survey, and other European or non European countries (e.g. OSCE).
 
 \section{Represent Metadata and Data in RDF}
+\label{rdf-representation}
 
 \emph{Data Cube} is a vocabulary to represent metadata on multi-dimensional aggregate data.
 
@@ -338,7 +346,7 @@ The data could be either represented in records with character-separated values 
 \begin{ex}
 EXAMPLE
 \end{ex}
-\tb{Achim, can we start with the PHDD representation?}
+
 \emph{Disco} is a vocabulary to represent person-level data in RDF.
 
 \begin{ex}
@@ -351,19 +359,20 @@ EXAMPLE
 EXAMPLE
 \end{ex}
 
-The \emph{Simple Knowledge Organization System (SKOS)}...
+The \emph{Simple Knowledge Organization System (SKOS)} is used multiple times within the context of aggregated and person-level (meta)data, e.g., to represent controlled vocabularies or hierarchies of \emph{SBE theoretical concepts} (e.g. education).
 
 \begin{ex}
 EXAMPLE
 \end{ex}
 
-\emph{XKOS}\footnote{\url{https://github.com/linked-statistics/xkos}} is a \emph{SKOS} extension to describe formal statistical classifications like the profession classification \emph{ISCO}.
+\emph{XKOS}\footnote{\url{https://github.com/linked-statistics/xkos}} is a \emph{SKOS} extension to describe formal statistical classifications like the International Standard Classification of Occupations (\emph{ISCO}) and the Statistical classification of economic activities in the European Community \emph{NACE}.
 
 \begin{ex}
 EXAMPLE
 \end{ex}
 
 \section{RDF Validation of Metadata and Data}
+\label{rdf-validation}
 
 Bosch et al. identified in total 74 requirements to formulate RDF constraints; each of them corresponding to a constraint type. 
 We published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} in which we explain each requirement (constraint type) in detail and give examples for each (represented by different constraint languages).
@@ -379,8 +388,7 @@ i.e. the integrity of the data according to data models.
 \emph{Technology-Driven Validation} includes the set of constraints which can be generated automatically out of defined data models, such as cardinality restrictions, universal and existential quantifications, domains, and ranges.
 We determined the default \emph{severity level}\footnote{Corresponds to \emph{R-158-SEVERITY-LEVELS-OF-CONSTRAINT-VIOLATIONS}} for each constraint indicating how serious the violation of the constraint is.
 The continuum of severity levels ranges from informational via warning and error to fatal error. 
-Although we provide default severity levels for each constraint, users should be able to specify severity levels of constraints they need to validate within the context of their individual use cases.
-Therefore, use case specific severity levels can be defined for constraints.
+Although we provide default severity levels for each constraint, users should be able to specify the severity levels of constraints they need to validate for their individual use cases, i.e., users should be able to define use case specific severity levels for constraints.
 
 -----
 %
@@ -402,7 +410,13 @@ RDF validation scenarios require the closed-world assumption (CWA) (i.e., a stat
 
 \subsection{Aggregated (Meta)Data}
 
+\tb{ToDo}
 
+- for each dimension there should be a description and code lists.
+
+- for each code list there should be a description.
+
+- there should be a relationship to the underlying person-level data.
 
 \subsection{Person-Level (Meta)Data}
 
@@ -517,9 +531,7 @@ SKOS is based on RDF, which is a graph-based data model. Therefore, we can conce
 
 XKOS Validation:
 
-- classification system e.g. NACE, profession classification ISCO
-
-- ask Franck if INSEE already expressed well known classification systems with XKOS
+\tb{ToDO: ask Franck if INSEE already expressed well known classification systems with XKOS}
 
 \textbf{Data Integration.}
 use RDF validation for data integration
