@@ -22,3 +22,83 @@
     phdd:textQualifier 'double quote'^^xsd:string ;
     phdd:consecutiveDelimitersAsOne 'false'^^xsd:boolean ;
     phdd:namesOnFirstRow 'true'^^xsd:boolean ;
+    phdd:firstDataLine '2'^^xsd:positiveInteger ;
+    phdd:column :columnTime , :columnGeography , :columnAge , :columnDuration , :columnValue , :columnFlagsAndFootnotes .
+    
+:columnTime
+    a phdd:Column ;
+    phdd:isDescribedBy :columnDescriptionTime .
+    
+:columnDescriptionTime
+    a phdd:ColumnDescription , phdd:DelimitedColumnDescription ;
+    phdd:columnposition '1'^^xsd:positiveInteger ;
+    phdd:recommendedDataType 'xsd:string'^^xsd:string ;
+    phdd:storageFormat 'VARCHAR'^^xsd:string ;
+    phdd:recommendedDisplayDataFormat 'string'^^xsd:string ;
+    phdd:decimalPositions '0'^^xsd:positiveInteger ;
+    phdd:recordNumber '1'^^xsd:positiveInteger .
+    
+:columnGeography
+    a phdd:Column ;
+    phdd:isDescribedBy :columnDescriptionGeography .
+    
+:columnDescriptionGeography
+    a phdd:ColumnDescription , phdd:DelimitedColumnDescription ;
+    phdd:columnposition '2'^^xsd:positiveInteger ;
+    phdd:recommendedDataType 'xsd:string'^^xsd:string ;
+    phdd:storageFormat 'VARCHAR'^^xsd:string ;
+    phdd:recommendedDisplayDataFormat 'string'^^xsd:string ;
+    phdd:decimalPositions '0'^^xsd:positiveInteger ;
+    phdd:recordNumber '1'^^xsd:positiveInteger .
+    
+:columnAge
+    a phdd:Column ;
+    phdd:isDescribedBy :columnDescriptionAge .
+    
+:columnDescriptionAge
+    a phdd:ColumnDescription , phdd:DelimitedColumnDescription ;
+    phdd:columnposition '3'^^xsd:positiveInteger ;
+    phdd:recommendedDataType 'xsd:string'^^xsd:string ;
+    phdd:storageFormat 'VARCHAR'^^xsd:string ;
+    phdd:recommendedDisplayDataFormat 'string'^^xsd:string ;
+    phdd:decimalPositions '0'^^xsd:positiveInteger ;
+    phdd:recordNumber '1'^^xsd:positiveInteger .
+    
+:columnDuration
+    a phdd:Column ;
+    phdd:isDescribedBy :columnDescriptionDuration .
+    
+:columnDescriptionDuration
+    a phdd:ColumnDescription , phdd:DelimitedColumnDescription ;
+    phdd:columnposition '4'^^xsd:positiveInteger ;
+    phdd:recommendedDataType 'xsd:string'^^xsd:string ;
+    phdd:storageFormat 'VARCHAR'^^xsd:string ;
+    phdd:recommendedDisplayDataFormat 'string'^^xsd:string ;
+    phdd:decimalPositions '0'^^xsd:positiveInteger ;
+    phdd:recordNumber '1'^^xsd:positiveInteger .
+    
+:columnValue
+    a phdd:Column ;
+    phdd:isDescribedBy :columnDescriptionValue .
+    
+:columnDescriptionValue
+    a phdd:ColumnDescription , phdd:DelimitedColumnDescription ;
+    phdd:columnposition '5'^^xsd:positiveInteger ;
+    phdd:recommendedDataType 'xsd:nonNegativeInteger'^^xsd:string ;
+    phdd:storageFormat 'TINYINT'^^xsd:string ;
+    phdd:recommendedDisplayDataFormat 'string'^^xsd:string ;
+    phdd:decimalPositions '0'^^xsd:positiveInteger ;
+    phdd:recordNumber '1'^^xsd:positiveInteger .
+    
+:columnFlagsAndFootnotes
+    a phdd:Column ;
+    phdd:isDescribedBy :columnDescriptionFlagsAndFootnotes .
+    
+:columnDescriptionFlagsAndFootnotes
+    a phdd:ColumnDescription , phdd:DelimitedColumnDescription ;
+    phdd:columnposition '6'^^xsd:positiveInteger ;
+    phdd:recommendedDataType 'xsd:string'^^xsd:string ;
+    phdd:storageFormat 'CHAR (1)'^^xsd:string ;
+    phdd:recommendedDisplayDataFormat 'string'^^xsd:string ;
+    phdd:decimalPositions '0'^^xsd:positiveInteger ;
+    phdd:recordNumber '1'^^xsd:positiveInteger .
