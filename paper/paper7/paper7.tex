@@ -342,10 +342,11 @@ EXAMPLE
 
 \emph{PHDD} is a vocabulary to represent aggregated data in a rectangular format. 
 The data could be either represented in records with character-separated values (CSV) or in records with fixed length. 
-
-\begin{ex}
-EXAMPLE
-\end{ex}
+The two-dimensional table about \emph{formal childcare} can be downloaded as CSV file\footnote{CSV file and complete PHDD representation available at: \url{XXXXX}}. 
+The table is represented as \emph{phdd:Table} and structured by a table structure (\emph{phdd:TableStructure}, \emph{phdd:Delimited}).
+The running example table structure includes information about the character set (\emph{ASCII}), the variable delimiter (\emph{,}), the new line marker (\emph{CRLF}), and the first line where the data starts (\emph{2}).
+The table structure relates to the table columns (\emph{phdd:Column}) which are described by column descriptions (\emph{phdd:DelimitedColumnDescription}).
+For the column containing the cell values in percent, e.g., the CSV column position (\emph{5}), the recommended data type (\emph{xsd:nonNegativeInteger}), and the storage format (\emph{TINYINT}) is stated.
 
 \emph{Disco} is a vocabulary to represent person-level data in RDF.
 

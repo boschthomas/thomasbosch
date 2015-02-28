@@ -31,7 +31,7 @@
     
 :columnDescriptionTime
     a phdd:ColumnDescription , phdd:DelimitedColumnDescription ;
-    phdd:columnposition '1'^^xsd:positiveInteger ;
+    phdd:columnPosition '1'^^xsd:positiveInteger ;
     phdd:recommendedDataType 'xsd:string'^^xsd:string ;
     phdd:storageFormat 'VARCHAR'^^xsd:string ;
     phdd:recommendedDisplayDataFormat 'string'^^xsd:string ;
@@ -44,7 +44,7 @@
     
 :columnDescriptionGeography
     a phdd:ColumnDescription , phdd:DelimitedColumnDescription ;
-    phdd:columnposition '2'^^xsd:positiveInteger ;
+    phdd:columnPosition '2'^^xsd:positiveInteger ;
     phdd:recommendedDataType 'xsd:string'^^xsd:string ;
     phdd:storageFormat 'VARCHAR'^^xsd:string ;
     phdd:recommendedDisplayDataFormat 'string'^^xsd:string ;
@@ -57,7 +57,7 @@
     
 :columnDescriptionAge
     a phdd:ColumnDescription , phdd:DelimitedColumnDescription ;
-    phdd:columnposition '3'^^xsd:positiveInteger ;
+    phdd:columnPosition '3'^^xsd:positiveInteger ;
     phdd:recommendedDataType 'xsd:string'^^xsd:string ;
     phdd:storageFormat 'VARCHAR'^^xsd:string ;
     phdd:recommendedDisplayDataFormat 'string'^^xsd:string ;
@@ -70,7 +70,7 @@
     
 :columnDescriptionDuration
     a phdd:ColumnDescription , phdd:DelimitedColumnDescription ;
-    phdd:columnposition '4'^^xsd:positiveInteger ;
+    phdd:columnPosition '4'^^xsd:positiveInteger ;
     phdd:recommendedDataType 'xsd:string'^^xsd:string ;
     phdd:storageFormat 'VARCHAR'^^xsd:string ;
     phdd:recommendedDisplayDataFormat 'string'^^xsd:string ;
@@ -83,7 +83,7 @@
     
 :columnDescriptionValue
     a phdd:ColumnDescription , phdd:DelimitedColumnDescription ;
-    phdd:columnposition '5'^^xsd:positiveInteger ;
+    phdd:columnPosition '5'^^xsd:positiveInteger ;
     phdd:recommendedDataType 'xsd:nonNegativeInteger'^^xsd:string ;
     phdd:storageFormat 'TINYINT'^^xsd:string ;
     phdd:recommendedDisplayDataFormat 'string'^^xsd:string ;
@@ -96,7 +96,7 @@
     
 :columnDescriptionFlagsAndFootnotes
     a phdd:ColumnDescription , phdd:DelimitedColumnDescription ;
-    phdd:columnposition '6'^^xsd:positiveInteger ;
+    phdd:columnPosition '6'^^xsd:positiveInteger ;
     phdd:recommendedDataType 'xsd:string'^^xsd:string ;
     phdd:storageFormat 'CHAR (1)'^^xsd:string ;
     phdd:recommendedDisplayDataFormat 'string'^^xsd:string ;
