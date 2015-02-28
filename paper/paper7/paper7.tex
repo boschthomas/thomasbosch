@@ -300,23 +300,45 @@ data validation can only be performed semi-automatically, i.e. an automatic appr
 This paper aims to address two main \textbf{audiences}: 
 (1) metadata practitioners seeking for how to represent metadata on data sets on different aggregation levels and
 (2) metadata providers and harvesters ensuring high quality metadata by validating metadata on highly complex RDF data sets.
-In this paper, we show in form of a complete real world running example how to represent metadata on highly complex person-level data (\emph{Disco}), metadata on aggregated data (\emph{Data Cube}), and aggregated data in a rectangular format (\emph{PHDD}) in RDF and how therefore used vocabularies are interrelated (\textbf{contribution 1}, sections \ref{running-example}-\ref{rdf-representation}).
+In this paper, we show in form of a complete real world running example how to represent metadata on highly complex person-level data (\emph{Disco}), metadata on aggregated data (\emph{Data Cube}), and aggregated as well as person-level data in a rectangular format (\emph{PHDD}) in RDF and how therefore used vocabularies are interrelated (\textbf{contribution 1}, section \ref{rdf-representation}).
 We explain why RDF validation is important in this context and how (meta)data is validated against RDF constraints to ensure high quality (meta)data within this complex of data sets on different levels of aggregation (\textbf{contribution 2}, section \ref{rdf-validation}). 
 The remainder of the paper is structured as follows.
 
-\section{Running Example}
-\label{running-example}
+%\section{Running Example}
+%\label{running-example}
+\section{Represent Metadata and Data in RDF}
+\label{rdf-representation}
 
 Eurostat\footnote{\url{http://ec.europa.eu/eurostat}} is the statistical office of the European Union. Its task is to provide statistics at European level that enable comparisons between countries and regions.
 Eurostat provides publicly available European aggregated data (downloadable in machine-readable format like CSV files) and its metadata (only textual descriptions).
 SBE researchers have a strong interest, e.g., in the availability of childcare services across European Union Member States.
+
+\textbf{Metadata on Aggregated Data in RDF.}
 The variable \emph{formal childcare}\footnote{\url{http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=ilc_caindformal&lang=en}} (in contrast to childcare at home)
 captures the measured availability of childcare services in percent over the population.
 The present data collection refers to data on formal childcare and other types of care by the variables \emph{year}, \emph{duration} (0 hours, 1 - 29 HPW; 30 HPW), \emph{age} of the child (0-2 years; 3 to admission age for compulsory school; admission age for compulsory school to 12) and \emph{country}.
-As Eurostat provides aggregated data (here a two-dimensional table) as CSV files, we can easily represent the aggregated data with \emph{PHDD} in RDF. 
-This conversion enables further aggregations and calculations, e.g., in order to compare \emph{formal childcare} between Northern and Southern Europe or between otherwise grouped countries.
+
+\tb{ToDO: insert how example is represented in Data Cube in this paragraph}
+
+\emph{Data Cube} is a vocabulary to represent metadata on multi-dimensional aggregate data.
+
+\begin{ex}
+EXAMPLE
+\end{ex}
+
+\textbf{Aggregated Data in RDF.}
+As Eurostat provides aggregated data as CSV files, we can easily represent the two-dimensional table in RDF by means of \emph{PHDD}.
+\emph{PHDD} is a vocabulary to represent aggregated and person-level data in a rectangular format. 
+The data could be either represented in records with character-separated values (CSV) or in records with fixed length. 
+The two-dimensional table about \emph{formal childcare} can be downloaded as CSV file\footnote{CSV file and complete PHDD representation available at: \url{XXXXX}}. 
+The table is represented as \emph{phdd:Table} and structured by a table structure (\emph{phdd:TableStructure}, \emph{phdd:Delimited}).
+The running example table structure includes information about the character set (\emph{ASCII}), the variable delimiter (\emph{,}), the new line marker (\emph{CRLF}), and the first line where the data starts (\emph{2}).
+The table structure relates to the table columns (\emph{phdd:Column}) which are described by column descriptions (\emph{phdd:DelimitedColumnDescription}).
+For the column containing the cell values in percent, e.g., the CSV column position (\emph{5}), the recommended data type (\emph{xsd:nonNegativeInteger}), and the storage format (\emph{TINYINT}) is stated. 
+The RDFication enables further aggregations and calculations, e.g., in order to compare \emph{formal childcare} between Northern and Southern Europe or between otherwise grouped countries.
 % macht mehr sinn wenn Tabelle in mehreren Dimensionen vorhanden ist ode wenn Klassifikationen wie ISCO verwendet werden 
 
+\textbf{Metadata on Person-Level Data in RDF.}
 For a broader view of the data framework and more detailed analyses we refer to the metadata on person-level data collected for the series \emph{EU-SILC (European Union Statistics on Income and Living Conditions)}\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC}}.
 The \emph{Microdata Information System (MISSY)}\footnote{\url{http://www.gesis.org/missy/eu/missy-home}} is an online service platform that provides systematically structured metadata for official statistics on European person-level data sets. This includes data documentation at the study and variable level as well as documentation materials, tools and further information. 
 The aggregated variable \emph{formal childcare} is calculated on the basis of six person-level variables like 
@@ -331,22 +353,7 @@ Metadata on person-level data enables researchers to investigate further researc
 One common research question is ,e.g., the comparison of variables like 
 \emph{formal childcare} between countries, for which the variable is collected within the context of an individual survey, and other European or non European countries (e.g. OSCE).
 
-\section{Represent Metadata and Data in RDF}
-\label{rdf-representation}
 
-\emph{Data Cube} is a vocabulary to represent metadata on multi-dimensional aggregate data.
-
-\begin{ex}
-EXAMPLE
-\end{ex}
-
-\emph{PHDD} is a vocabulary to represent aggregated data in a rectangular format. 
-The data could be either represented in records with character-separated values (CSV) or in records with fixed length. 
-The two-dimensional table about \emph{formal childcare} can be downloaded as CSV file\footnote{CSV file and complete PHDD representation available at: \url{XXXXX}}. 
-The table is represented as \emph{phdd:Table} and structured by a table structure (\emph{phdd:TableStructure}, \emph{phdd:Delimited}).
-The running example table structure includes information about the character set (\emph{ASCII}), the variable delimiter (\emph{,}), the new line marker (\emph{CRLF}), and the first line where the data starts (\emph{2}).
-The table structure relates to the table columns (\emph{phdd:Column}) which are described by column descriptions (\emph{phdd:DelimitedColumnDescription}).
-For the column containing the cell values in percent, e.g., the CSV column position (\emph{5}), the recommended data type (\emph{xsd:nonNegativeInteger}), and the storage format (\emph{TINYINT}) is stated.
 
 \emph{Disco} is a vocabulary to represent person-level data in RDF.
 
