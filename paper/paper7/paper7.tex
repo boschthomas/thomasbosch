@@ -199,11 +199,12 @@ University of Mannheim, Germany \\
 For research institutes, data libraries, and data archives,
 RDF data validation according to predefined constraints is a much sought-after feature, 
 particularly as this is taken for granted in the XML world.
-The data most often used in research within the community around research data for the social, behavioural, and economic sciences is person-level data, i.e. data collected about individuals (households, businesses). 
+The data most often used in research within the community around research data for the social, behavioural, and economic sciences (\emph{SBE}) is person-level data, i.e. data collected about individuals (households, businesses). 
 %The DDI-RDF Discovery Vocabulary is used to describe and to discover this kind of research data.
 While performing research, the detailed, often access restricted person-level
 data is aggregated into less confidential publicly available multi-dimensional tables which answer particular research questions and whose purpose is to gain an interest in further more detailed analyses on the underlying person-level data.
 To ensure high quality and trust, metadata and data must satisfy certain criteria - specified in terms of RDF constraints. 
+From 2012 to 2015 together with other Linked Data community members and \emph{SBE} experts, we developed diverse vocabularies to represent \emph{SBE} metadata and data in RDF.
 
 In this paper, we show how metadata and underlying data on different level of aggregation as well as collections of these data sets are represented in RDF and how therefore used vocabularies are interrelated.
 We explain why RDF validation is important in this context and how (meta)data is validated against RDF constraints to ensure high quality and trust. 
@@ -344,6 +345,7 @@ The RDFication enables further aggregations and calculations, e.g., in order to 
 For a broader view of the data framework and more detailed analyses we refer to the metadata on person-level data collected for the series \emph{EU-SILC (European Union Statistics on Income and Living Conditions)}\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC}} 
 and publicly provided by the \emph{Microdata Information System (MISSY)}\footnote{\url{http://www.gesis.org/missy/eu/missy-home}}.
 \emph{Missy} is an online service platform that provides systematically structured metadata for official statistics on European person-level data sets. This includes data documentation at the study and variable level as well as documentation materials, tools and further information. 
+Aggregated (qb:DataSet) and underlying person-level data sets (\emph{disco:LogicalDataSet}) are connected by \emph{prov:wasDerivedFrom}. 
 The aggregated variable \emph{formal childcare} is calculated on the basis of six person-level variables like 
 \emph{Education at pre-school}\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC/2011/Cross-sectional/original#2011-Cross-sectional-RL010}}.
 %(2) Education at compulsory school,
@@ -357,13 +359,12 @@ The series (\emph{disco:StudyGroup}) \emph{EU-SILC} contains (\emph{disco:inGrou
 The property \emph{dcterms:spatial} points to the countries (\emph{dcterms:Location} resources which are the same as \emph{GeoNames} resources representing these countries) for which the data has been collected.
 The study \emph{EU-SILC 2011} contains (\emph{disco:product}) eight person-level data sets (\emph{disco:LogicalDataSet}).
 Data sets include (\emph{disco:variable}) person-level variables (\emph{disco:Variable}) like the six ones needed to calculate the aggregated variable \emph{formal childcare}.
-\emph{DCAT} enables to represent aggregated and person-level data inside of data collections like repositories, catalogs, or archives. 
-\tb{ToDo: DCAT example}
-
 Metadata on person-level data enables researchers to investigate further research questions based on promising findings of other researchers in form of aggregated data.
 One common research question is ,e.g., the comparison of variables like 
 \emph{formal childcare} between countries, for which the variable is collected within the context of an individual survey, and other European or non European countries (e.g. OSCE).
 
+\textbf{Organizations, Hierarchies, and Classifications.}
+%\textbf{Reusing SKOS.}
 The \emph{Simple Knowledge Organization System (SKOS)} is used multiple times within the context of aggregated and person-level (meta)data.
 Variables, e.g., are constructed (\emph{disco:representation}) out of values (of one or multiple datatypes) and/or code lists.
 The values of the variable \emph{Education at pre-school}, representing the number of education hours during a usual week, are expressed as \emph{skos:Concepts}. 
@@ -373,7 +374,19 @@ The compete hierarchy (\emph{skos:ConceptScheme}) of theoretical concepts (\emph
 The variable \emph{Education at pre-school} is assigned to the theoretical concept \emph{Child Care} which is a narrower concept of \emph{Education} - one of the top concept of the series \emph{EU-SILC}.
 Controlled vocabularies serve as extension and reuse mechanism.
 For \emph{Disco}, concepts (\emph{skos:Concepts}), organized within controlled vocabularies (\emph{skos:ConceptSchemes}), indicate types of descriptive statistics (\emph{\emph{disco:SummaryStatistics}}) like minimum, maximum, mean, and standard deviation.
-From 2012 to 2015, SBE and Linked Data community members developed \emph{XKOS}\footnote{\url{https://github.com/linked-statistics/xkos}} - a SKOS extension to describe formal statistical classifications like the International Standard Classification of Occupations (\emph{ISCO}) and the Statistical Classification of Economic Activities in the European Community \emph{NACE}.
+From 2012 to 2015, SBE and Linked Data community members developed \emph{XKOS}\footnote{\url{https://github.com/linked-statistics/xkos}} - a SKOS extension to describe formal statistical classifications like the International Standard Classification of Occupations (\emph{ISCO}). 
+%and the Statistical Classification of Economic Activities in the European Community \emph{NACE}.
+
+\textbf{Searching for (Meta)data.}
+\emph{DCAT} enables to represent aggregated and person-level data inside of data collections like portals, repositories, catalogs, or archives
+serving as typical entry points when searching for data.
+Users search for aggregated and person-level data records (\emph{dcat:CatalogRecord}) inside data catalogs (\emph{dcat:Catalog}). 
+This search differs depending on the users’ information need. 
+While it is possible to search for metadata provided inside such a record (e.g. \emph{dcterms:title}, \emph{dcterms:description}), 
+users can also formulate more sophisticated queries on aggregated and person-level data sets (\emph{dcat:Dataset}) or their
+distributions (\emph{dcat:Distribution}), which are part of the records. 
+Users may want to search for data sets covering particular topical (\emph{dcat:keyword}, \emph{dcat:theme}), temporal (\emph{dcterms:temporal}),  or  spatial  coverages (\emph{dcterms:spatial}), 
+or certain formats in which the data distribution is available (\emph{dcterms:format}). 
 
 \section{RDF Validation of Metadata and Data}
 \label{rdf-validation}
