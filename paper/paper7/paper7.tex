@@ -214,7 +214,7 @@ We explain why RDF validation is important in this context and how (meta)data is
 
 \section{Introduction}
 
-\tb{terminology: we use data in singular form / we use data set instead of dataset / We use person-level data and not microdata}
+\tb{terminology: data in singular form / data set - NOT dataset / person-level data - NOT microdata / study - NOT survey}
 
 For more than a decade, members of the community around research data for the social, behavioural, and economic (SBE) sciences have been developing and using a
 metadata standard (composed of almost twelve hundred metadata fields) known as the \emph{Data Documentation Initiative (DDI)} \cite{Vardigan2008}.
@@ -240,7 +240,7 @@ The SPIN engine checks for each resource if it satisfies all constraints (associ
 \section{Motivation}
 
 The data most often used in research within the SBE community is \emph{person-level data}, i.e. data collected about individuals 
-(and sometimes also businesses and households) in the form of responses to surveys or taken from administrative registers
+(and sometimes also businesses and households) in the form of responses to studies or taken from administrative registers
 (such as hospital records, registers of births and deaths). 
 The range of person-level data is very broad (covering many different domains), 
 including census, education, and health data as well as all types of business, social, and labor force surveys.  
@@ -276,14 +276,14 @@ For more detailed analyses, researchers refer to person-level data from which ag
 as person-level data include additional variables needed for further research.
 %Although not that common, the other direction is also possible, 
 %i.e. researchers may use metadata on person-level data to search for aggregated data.
-One very common example for detailed analyses on person-level data is the content-driven comparison of multiple surveys.
+One very common example for detailed analyses on person-level data is the content-driven comparison of multiple studies.
 Researchers get promising findings (in form of published tables with a few columns) within a metadata portal leading to subsequent research questions 
 like 'How to compare the unemployment rate of different countries (e.g. Germany, UK, and France) in the last 10 years grouped by age?'.
-The first step is to determine in which countries the unemployment rate is collected and which other variables of each country-specific survey are theoretically comparable and can therefore be used to answer the underlying research question.
+The first step is to determine in which countries the unemployment rate is collected and which other variables of each country-specific study are theoretically comparable and can therefore be used to answer the underlying research question.
 Variables are constructed out of values (of one or multiple datatypes) and/or code lists.
 The variable \emph{age}, e.g., may be represented by values of the datatype \emph{xsd:nonNegativeInteger}, or by a code list including multiple age clusters (such as '0 to 10' and '11 to 20'). 
 To determine if variables measuring \emph{age} 
-- collected within multiple surveys of different countries (\emph{$age_{DE}$}, \emph{$age_{UK}$}) - 
+- collected within multiple studies of different countries (\emph{$age_{DE}$}, \emph{$age_{UK}$}) - 
 are comparable, both content-driven and technology-driven validation is performed either
 within our developed validation environment or by matching algorithms. 
 An example for a content-driven validation is to investigate if variables are represented in a compatible way,
@@ -361,7 +361,7 @@ The study \emph{EU-SILC 2011} contains (\emph{disco:product}) eight person-level
 Data sets include (\emph{disco:variable}) person-level variables (\emph{disco:Variable}) like the six ones needed to calculate the aggregated variable \emph{formal childcare}.
 Metadata on person-level data enables researchers to investigate further research questions based on promising findings of other researchers in form of aggregated data.
 One common research question is ,e.g., the comparison of variables like 
-\emph{formal childcare} between countries, for which the variable is collected within the context of an individual survey, and other European or non European countries (e.g. OSCE).
+\emph{formal childcare} between countries, for which the variable is collected within the context of an individual study, and other European or non European countries (e.g. OSCE).
 
 \textbf{Organizations, Hierarchies, and Classifications.}
 %\textbf{Reusing SKOS.}
@@ -437,13 +437,18 @@ RDF validation scenarios require the closed-world assumption (CWA) (i.e., a stat
 
 \subsection{Person-Level (Meta)Data}
 
-\textbf{Surveys.}
-Each survey must have an abstract ({\emph{R-46: data property facets}). 
-If the abstract of the survey is missing, a title of the survey has to be stated (\emph{R-71: conditional properties}).
+\textbf{Studies.}
+A \emph{study} represents the process by which a data set was generated or collected.
+Each study must have an abstract ({\emph{R-46: data property facets}), or if the abstract is missing, a title (\emph{R-71: conditional properties}).
 
 \textbf{Variables.}
 
 - variable does not have associated codes / categories
+
+It is useful to declare properties to be conditional, i.e. if particular properties exist, then specific other properties must also be present (\emph{R-71: conditional properties}).
+If a {\em skos:Concept} represents a code (having a {\em skos:notation} property) and a category (having a {\em skos:prefLabel} property), 
+then the property {\em disco:isValid} has to be stated indicating if the code is valid (\emph{true}) or missing (\emph{false}).
+%\footref{R-71-CONDITIONAL-PROPERTIES}
 
 \textbf{Theoretical Concepts.}
 Variables must have at least one relationship to a theoretical concept ({\emph{R-75: minimum qualified cardinality restrictions}).
@@ -451,7 +456,8 @@ Variables must have at least one relationship to a theoretical concept ({\emph{R
 The variable \emph{Education at pre-school}, e.g., is associated with the theoretical concept \emph{education}. 
 The severity level of this constraint is \emph{warning} and not \emph{error}, as research can be continued without an associated theoretical concept.
 
-A very common research question is to compare variables (\emph{comparison}) of multiple surveys or countries.
+\textbf{Comparison.}
+A very common research question is to compare variables (\emph{comparison}) of multiple studies or countries.
 To compare variables, 
 (1) variables and (2) variable definitions must be present,
 (3) code lists must be structured properly,
@@ -462,6 +468,7 @@ the first three constraints may be sufficient for this purpose.
 Thus, the severity level of the first three constraints is stronger than the severity level of the next constraints.
 If the intention of the researcher is to perform more detailed comparisons (use case 2), however, the violation of the remaining constraints is also more serious.
 
+\textbf{Reusability.}
 Constraints of the constraint type \emph{Context-Specific Exclusive OR of Property Groups} (\emph{R-11})
 restrict individuals of given classes to have only one of multiple property groups.
 Within the context of \emph{Disco}, \emph{skos:Concept}s can have either \emph{skos:definition} (when interpreted as theoretical concepts) or \emph{skos:notation} and \emph{skos:prefLabel} properties (when interpreted as codes and categories), but not both.
@@ -474,19 +481,15 @@ B $\sqsubseteq$ $\geq$ 1 prefLabel.string $\sqcap$ $\leq$ 1 prefLabel.string \\
 C $\sqsubseteq$ $\geq$ 1 definition.string $\sqcap$ $\leq$ 1 definition.string \\
 \end{DL}
 
-It is useful to declare properties to be conditional, i.e. if particular properties exist, then specific other properties must also be present (\emph{R-71: conditional properties}).
-If a {\em skos:Concept} represents a code (having a {\em skos:notation} property) and a category (having a {\em skos:prefLabel} property), 
-then the property {\em disco:isValid} has to be stated indicating if the code is valid (\emph{true}) or missing (\emph{false}).
-%\footref{R-71-CONDITIONAL-PROPERTIES}
-
------
-
+\textbf{Frequencies and Descriptive Statistics.}
 Restricting data property ranges [$V_{min}$,$V_{max}$] within the context of given classes is a very common requirement (\emph{R-45: literal ranges}) 
 - disco:CategoryStatistics resources, e.g., point to percentage values via the data property \emph{disco:percentage}; 
 these values must be of the datatype \emph{xsd:double} and must be between 0 and 100.
 
------
+{\em Mathematical Operations} (\emph{R-41, R-42}; e.g. date calculations and statistical computations like average, mean, and sum) are performed to ensure the integrity of data models.
+The sum of {\em disco:percentage} (datatype: {\em xsd:double}) values of all codes ({\em skos:Concept}s) of a code list ({\em skos:ConceptScheme} or {\em skos:OrderedCollection}), serving as representation of a particular {\em disco:Variable} must exactly be 100.
 
+\textbf{Unique Identification.}
 It is often useful to declare a given (data) property as the \emph{primary key} (\emph{R-226}) of a class, so that a system can enforce uniqueness and also automatically build URIs from user inputs and imported data. 
 In \emph{Disco}, resources are uniquely identified by the property \emph{adms:identifier},
 which is therefore inverse-functional
@@ -497,8 +500,7 @@ as a key can be a data, an object property, or a chain of properties \cite{Schne
 For this generalization purposes, as there are different sorts of key, and as keys can lead to undecidability, 
 DL is extended with \emph{key boxes} and a special \emph{keyfor} construct (\ms{identifier \ms{keyfor} Resource}) \cite{Lutz2005}.
 
------
-
+\textbf{Membership in Controlled Vocabularies.}
 In many cases, resources must be members of listed controlled vocabularies (\emph{R-32}).
 \emph{disco:SummaryStatistics}, e.g., can only have \emph{disco:summaryStatisticType} relationships to \emph{skos:Concept}s which must be members of the controlled vocabulary \emph{ddicv:SummaryStatisticType} which is a \emph{skos:ConceptScheme}.
 
@@ -508,8 +510,7 @@ $A \equiv Concept \sqcap \forall inScheme . B$ \\
 $B \equiv ConceptScheme \sqcap \{SummaryStatisticType\}$
 \end{DL}
 
------
-
+\textbf{Coverage.}
 Depending on property datatypes,
 two different literal values have
 a specific ordering with respect to an operator. 
@@ -518,36 +519,25 @@ a specific ordering with respect to an operator.
 \emph{disco:startDate}s, e.g., must be before (\emph{\textless}) \emph{disco:endDate}s.
 To validate this constraint we bind the variables (P1: \emph{disco:startDate}, P2: \emph{disco:endDate}, OP: \emph{\textless}).
 
------
-
-Objects/literals can be ordered (\emph{R-121, R-217}) for given properties.
-\emph{Disco }variables, questions, and codes/categories are typically organized in a particular order. 
-If codes/categories of a \emph{disco:Representation} of a \emph{disco:Variable} should be ordered, the variable representation should also be of the type \emph{skos:OrderedCollection} containing multiple codes/categories (each represented as \emph{skos:Concept}) in a \emph{skos:memberList}. 
-
------
-
-{\em Mathematical Operations} (\emph{R-41, R-42}; e.g. date calculations and statistical computations like average, mean, and sum) are performed to ensure the integrity of data models.
-The sum of {\em disco:percentage} (datatype: {\em xsd:double}) values of all codes ({\em skos:Concept}s) of a code list ({\em skos:ConceptScheme} or {\em skos:OrderedCollection}), serving as representation of a particular {\em disco:Variable} must exactly be 100.
-
------
-
-\textbf{DCAT Validation}
-
-
-
-\textbf{SKOS and XKOS Validation}
-
+\textbf{Organizations, Hierarchies, Classifications, and Ordering.}
 SKOS is based on RDF, which is a graph-based data model. Therefore, we can concentrate on the vocabulary's graph-based structure for assessing the quality of SKOS vocabularies and apply graph- and network-analysis techniques (\emph{structure}) like 
 (1) a vocabulary should provide entry points (top concepts) to the data to provide efficient access and guidance for human users and
 (2) concepts, internal to the tree, should not be indicated as top concepts, and
 (3) a vocabulary should not contain many orphan concepts 
 (An orphan concept is a concept without any associative or hierarchical relations lacking valuable context information. A controlled vocabulary that contains many orphan concepts is less usable for search and retrieval use cases, as, e.g., no hierarchical query expansion can be performed on search terms to find documents with more general content.) \cite{MaderHaslhoferIsaac2012}. 
 \tb{add disco example}
+
+Objects/literals can be ordered (\emph{R-121, R-217}) for given properties.
+\emph{Disco }variables, questions, and codes/categories are typically organized in a particular order. 
+If codes/categories of a \emph{disco:Representation} of a \emph{disco:Variable} should be ordered, the variable representation should also be of the type \emph{skos:OrderedCollection} containing multiple codes/categories (each represented as \emph{skos:Concept}) in a \emph{skos:memberList}. 
+
 - SKOS validation of hierarchies of theoretical concepts
 
-XKOS Validation:
-
 \tb{ToDO: ask Franck if INSEE already expressed well known classification systems with XKOS}
+
+\textbf{Searching for (Meta)data.}
+
+- DCAT
 
 \textbf{Data Integration.}
 use RDF validation for data integration
