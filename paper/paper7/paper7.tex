@@ -614,22 +614,39 @@ it is checked that \emph{dcterms:coverage} is not redundant with its sub-propert
 
 \section{Implementation}
 
-- Missy / DDI-RDF export / multiple concrete syntaxes / Triple store / content negotiation / reference implementation of the Disco data model / Missy data model is based in Disco data model
+With \emph{Missy}, we provide comprehensive Linked Data services\footnote{\textcolor{red}{\url{www.gesis.org/en/missy/linked-data}}} like a \textcolor{red}{triple store} and exports of person-level metadata to Disco RDF in multiple concrete syntaxes (e.g. turtle). 
 
-- RDF validator
+SPARQL is generally seen as the method of choice to validate RDF data according to certain constraints.
+We use the \emph{SPIN}\footnote{\url{http://spinrdf.org/}}, 
+a SPARQL-based way to formulate and check constraints, as basis to define a
+validation environment (available at \url{http://purl.org/net/rdfval-demo}) \cite{BoschEckert2014-2}.
+The SPIN engine checks for each resource if it satisfies all constraints (associated with its assigned classes) and generates a result RDF graph containing information about all constraint violations.
+Within the validation environment, we define one SPIN construct template for each constraint type (corresponding to a requirement) and vocabulary-specific constraint \footnote{For details about the validation environment see \cite{BoschEckert2014-2}}.
+A SPIN construct template contains a SPARQL CONSTRUCT query which generates constraint violation triples (\emph{spin:ConstraintViolation}) indicating the subject (\emph{spin:violationRoot}) and the properties (\emph{spin:violationPath}), causing constraint violations, and the reason why constraint violations have been raised (\emph{rdfs:label}).
+A SPIN construct template creates constraint violation triples if all triple patterns within the SPARQL WHERE clause match.
 
-\textbf{Validation of Data Cube instances.}
-\begin{itemize}
-	\item \textcolor{blue}{is there an implementation available yet? If not I implement it in our validation environment}
-	\item \textcolor{blue}{example QB data set / we could use the one from the QB spec}
-\end{itemize}
+- Validation of Data Cube instances
 
 \section{Evaluation}
+
+For \emph{Disco} RDF data, we validated XX series, XX studies, XX data sets, XX theoretical concepts, XX variables, XX questions, XX codes, XX category statistics (frequencies), and XX summary statistics (descriptive statistics like minimum).
 
 \begin{itemize}
 	\item validate constraints on complex example data set
 	\item count Disco, QB, PHDD, XKOS, DCAT constraints by constraint groups 
 \end{itemize}
+
+%\begin{table}
+	%\centering
+		%\begin{tabular}{l|c|c|c|c|c|c}
+      %\textbf{Expressivity Class} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\		
+      %\hline
+      %$Expr(\overline{\mathcal{C}_R})$ (42) & 6 & 18(4) & 7(4) & 8 & 12 & 41(1)\\
+      %$Expr(\mathcal{C}_R)$ (32) & 8 & 29 & 11 & 11(2) & 11(1) & 32 \\ 	
+		%\end{tabular}
+	%\caption{Constraint Type Specific Expressivity}
+	%\label{tab:constraint-type-specific-expressivity}
+%\end{table}
 
 \section{Related Work}
 
