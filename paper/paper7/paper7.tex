@@ -450,12 +450,9 @@ It is useful to declare properties to be conditional, i.e., if particular proper
 If the abstract of a study is missing, a title has to be stated.
 
 \textbf{Variables.}
-
-- variable does not have associated codes / categories
-
- (\emph{R-71: conditional properties}).
+Each variable should have a variable representation (\emph{R-86: existential quantification}), which is either an (un)ordered code list or a union of XML Schema datatypes.
 If a {\em skos:Concept} represents a code (having a {\em skos:notation} property) and a category (having a {\em skos:prefLabel} property), 
-then the property {\em disco:isValid} has to be stated indicating if the code is valid (\emph{true}) or missing (\emph{false}).
+then the property {\em disco:isValid} has to be stated indicating if the code is valid (\emph{true}) or missing (\emph{false}) (\emph{R-71: conditional properties}).
 %\footref{R-71-CONDITIONAL-PROPERTIES}
 
 \textbf{Theoretical Concepts.}
