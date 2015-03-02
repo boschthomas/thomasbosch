@@ -391,21 +391,20 @@ or certain formats in which the data distribution is available (\emph{dcterms:fo
 \section{RDF Validation of Metadata and Data}
 \label{rdf-validation}
 
-Bosch et al. identified in total 74 requirements to formulate RDF constraints; each of them corresponding to a constraint type. 
+Bosch et al. identified in total \textcolor{red}{74} requirements to formulate RDF constraints; each of them corresponding to a constraint type. 
 We published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} in which we explain each requirement (constraint type) in detail and give examples for each (represented by different constraint languages).
 The knowledge representation formalism \emph{Description logics (DL)}, with its  well-studied theoretical properties, provides the foundational basis for each constraint type.
 Therefore, this technical report contains mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
-Bosch et al. recently published a technical report\footnote{Available at: \url{http://arxiv.org/abs/XXXXX}} (serving as appendix of this paper) in which we describe RDF constraints to validate metadata on person-level and aggregated data.
+We recently published a technical report\footnote{\textcolor{red}{Available at: \url{http://arxiv.org/abs/XXXXX}}} (serving as appendix of this paper) in which we describe RDF constraints to validate metadata on person-level and aggregated data.
 We assign each constraint to constraint types corresponding to RDF validation requirements or to data model specific constraint types\footnote{Requirements/Constraint types and constraints are uniquely identified by alphanumeric technical identifiers like \emph{R-1}}
-\cite{BoschZapilkoWackerowEckert2015}\tb{ToDo: publish technical report}.
+\cite{BoschZapilkoWackerowEckert2015}.
 
 We distinguish two validation types:
-\emph{Content-Driven Validation} contains the set of constraints ensuring that the data is consistent with the intended semantics of data models,
-i.e. the integrity of the data according to data models.
-\emph{Technology-Driven Validation} includes the set of constraints which can be generated automatically out of defined data models, such as cardinality restrictions, universal and existential quantifications, domains, and ranges.
-We determined the default \emph{severity level} (\emph{R-158}) for each constraint indicating how serious the violation of the constraint is.
+(1) \emph{Content-Driven Validation} $\mathcal{C}_{C}$ contains the set of constraints ensuring that the data is consistent with the intended syntax, semantics, and integrity of given data models (sections \ref{aggregated-metadata-and-data}-\ref{person-level-metadata-and-data}).
+(2) \emph{Technology-Driven Validation} $\mathcal{C}_{T}$ includes the set of constraints which can be generated automatically out of data models, such as cardinality restrictions, universal and existential quantifications, domains, and ranges (section \ref{technology-driven-validation}).
+We determined the default \emph{severity level} (corresponds to requirement \emph{R-158}) for each constraint to indicate how serious the violation of the constraint is.
 The continuum of severity levels ranges from informational via warning and error to fatal error. 
-Although we provide default severity levels for each constraint, users should be able to specify the severity levels of constraints they need to validate for their individual use cases, i.e., users should be able to define use case specific severity levels for constraints.
+Although we provide default severity levels for each constraint, users should be able to specify severity levels of constraints they need to validate for their individual use cases, i.e., users should be able to define use case specific severity levels for constraints.
 
 -----
 %
@@ -414,6 +413,8 @@ Although we provide default severity levels for each constraint, users should be
 %- validation against minimal set of requirements / constraints
 %
 %-----
+
+further ideas:
 
 RDF validation scenarios require the closed-world assumption (CWA) (i.e., a statement is inferred to be false if it cannot be proved to be true).
 
@@ -425,7 +426,8 @@ RDF validation scenarios require the closed-world assumption (CWA) (i.e., a stat
 
 %\subsection{Content-Driven Validation}
 
-\subsection{Aggregated (Meta)Data}
+\subsection{Aggregated Metadata and Data}
+\label{aggregated-metadata-and-data}
 
 \tb{ToDo}
 
@@ -435,7 +437,8 @@ RDF validation scenarios require the closed-world assumption (CWA) (i.e., a stat
 
 - there should be a relationship to the underlying person-level data.
 
-\subsection{Person-Level (Meta)Data}
+\subsection{Person-Level Metadata and Data}
+\label{person-level-metadata-and-data}
 
 \textbf{Studies.}
 A \emph{study} represents the process by which a data set was generated or collected.
@@ -543,6 +546,7 @@ If codes/categories of a \emph{disco:Representation} of a \emph{disco:Variable} 
 use RDF validation for data integration
 
 \subsection{Technology-Driven Validation}
+\label{technology-driven-validation}
 
 Constraints of some constraint types are directly and automatically derived from conceptual models of multiple vocabularies.
 This way, \emph{property domains and ranges, universal and existential quantifications, minimum, maximum, and exact cardinality restrictions} are defined for each property of vocabularies against which one wish to validate.
