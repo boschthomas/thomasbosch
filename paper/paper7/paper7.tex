@@ -280,6 +280,7 @@ One very common example for detailed analyses on person-level data is the conten
 Researchers get promising findings (in form of published tables with a few columns) within a metadata portal leading to subsequent research questions 
 like 'How to compare the unemployment rate of different countries (e.g. Germany, UK, and France) in the last 10 years grouped by age?'.
 The first step is to determine in which countries the unemployment rate is collected and which other variables of each country-specific study are theoretically comparable and can therefore be used to answer the underlying research question.
+A \emph{study} represents the process by which a data set was generated or collected.
 Variables are constructed out of values (of one or multiple datatypes) and/or code lists.
 The variable \emph{age}, e.g., may be represented by values of the datatype \emph{xsd:nonNegativeInteger}, or by a code list including multiple age clusters (such as '0 to 10' and '11 to 20'). 
 To determine if variables measuring \emph{age} 
@@ -344,6 +345,8 @@ The RDFication enables further aggregations and calculations, e.g., in order to 
 \textbf{Metadata on Person-Level Data in RDF.}
 For a broader view of the data framework and more detailed analyses we refer to the metadata on person-level data collected for the series \emph{EU-SILC (European Union Statistics on Income and Living Conditions)}\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC}} 
 and publicly provided by the \emph{Microdata Information System (MISSY)}\footnote{\url{http://www.gesis.org/missy/eu/missy-home}}.
+Where data collection is cyclic, data sets may be released as a \emph{series}, 
+where each cycle of the data collection activity produces one or more data sets. 
 \emph{Missy} is an online service platform that provides systematically structured metadata for official statistics on European person-level data sets. This includes data documentation at the study and variable level as well as documentation materials, tools and further information. 
 Aggregated (qb:DataSet) and underlying person-level data sets (\emph{disco:LogicalDataSet}) are connected by \emph{prov:wasDerivedFrom}. 
 The aggregated variable \emph{formal childcare} is calculated on the basis of six person-level variables like 
@@ -441,14 +444,16 @@ RDF validation scenarios require the closed-world assumption (CWA) (i.e., a stat
 \label{person-level-metadata-and-data}
 
 \textbf{Studies.}
-A \emph{study} represents the process by which a data set was generated or collected.
-Each study must have an abstract ({\emph{R-46: data property facets}), or if the abstract is missing, a title (\emph{R-71: conditional properties}).
+For datatype properties it should be possible to declare frequently needed \emph{facets} to drive user interfaces and validate input against simple conditions, including min/max values, regular expressions, and string length ({\emph{R-46: data property facets}).
+Each study must have an abstract, i.e., the abstract (\emph{disco:purpose}) should have a minimum length (\emph{xsd:minLength}) of 0.
+It is useful to declare properties to be conditional, i.e., if particular properties exist (or do not exist), then specific other properties must also be present (\emph{R-71: conditional properties}).
+If the abstract of a study is missing, a title has to be stated.
 
 \textbf{Variables.}
 
 - variable does not have associated codes / categories
 
-It is useful to declare properties to be conditional, i.e. if particular properties exist, then specific other properties must also be present (\emph{R-71: conditional properties}).
+ (\emph{R-71: conditional properties}).
 If a {\em skos:Concept} represents a code (having a {\em skos:notation} property) and a category (having a {\em skos:prefLabel} property), 
 then the property {\em disco:isValid} has to be stated indicating if the code is valid (\emph{true}) or missing (\emph{false}).
 %\footref{R-71-CONDITIONAL-PROPERTIES}
