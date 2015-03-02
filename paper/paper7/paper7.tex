@@ -406,7 +406,7 @@ We distinguish two validation types:
 (1) \emph{Content-Driven Validation} $\mathcal{C}_{C}$ contains the set of constraints ensuring that the data is consistent with the intended syntax, semantics, and integrity of given data models (sections \ref{aggregated-metadata-and-data}-\ref{person-level-metadata-and-data}).
 (2) \emph{Technology-Driven Validation} $\mathcal{C}_{T}$ includes the set of constraints which can be generated automatically out of data models, such as cardinality restrictions, universal and existential quantifications, domains, and ranges (section \ref{technology-driven-validation}).
 We determined the default \emph{severity level} (corresponds to requirement \emph{R-158}) for each constraint to indicate how serious the violation of the constraint is.
-The continuum of severity levels ranges from informational via warning and error to fatal error. 
+We propose an extensible metric to measure the continuum of severity levels ranging from $\mathcal{SL}_{0}$ (informational) via $\mathcal{SL}_{1}$ (warning) to $\mathcal{SL}_{2}$ (error). 
 Although we provide default severity levels for each constraint, users should be able to specify severity levels of constraints they need to validate for their individual use cases, i.e., users should be able to define use case specific severity levels for constraints.
 
 -----
@@ -445,21 +445,22 @@ RDF validation scenarios require the closed-world assumption (CWA) (i.e., a stat
 
 \textbf{Studies.}
 For datatype properties it should be possible to declare frequently needed \emph{facets} to drive user interfaces and validate input against simple conditions, including min/max values, regular expressions, and string length ({\emph{R-46: data property facets}).
-Each study must have an abstract, i.e., the abstract (\emph{disco:purpose}) should have a minimum length (\emph{xsd:minLength}) of 0.
+Each study must have an abstract, i.e., the abstract (\emph{disco:purpose}) should have a minimum length (\emph{xsd:minLength}) of 0 ($\mathcal{SL}_{1}$).
 It is useful to declare properties to be conditional, i.e., if particular properties exist (or do not exist), then specific other properties must also be present (\emph{R-71: conditional properties}).
-If the abstract of a study is missing, a title has to be stated.
+If the abstract of a study is missing, a title has to be stated ($\mathcal{SL}_{2}$).
 
 \textbf{Variables.}
-Each variable should have a variable representation (\emph{R-86: existential quantification}), which is either an (un)ordered code list or a union of XML Schema datatypes.
+Each variable should have a variable representation (\emph{R-86}; $\mathcal{SL}_{1}$), which is either an (un)ordered code list or a union of XML Schema datatypes.
+In case of a code list, associated categories should be stated (\emph{R-71}; $\mathcal{SL}_{0}$).
+As the variable \emph{Education at pre-school} has an associated code list, the constraint is not violated.
 If a {\em skos:Concept} represents a code (having a {\em skos:notation} property) and a category (having a {\em skos:prefLabel} property), 
-then the property {\em disco:isValid} has to be stated indicating if the code is valid (\emph{true}) or missing (\emph{false}) (\emph{R-71: conditional properties}).
-%\footref{R-71-CONDITIONAL-PROPERTIES}
+then the property {\em disco:isValid} has to be stated indicating if the code is valid (\emph{true}) or missing (\emph{false}) (\emph{R-71}; $\mathcal{SL}_{1}$).
 
 \textbf{Theoretical Concepts.}
 Variables must have at least one relationship to a theoretical concept ({\emph{R-75: minimum qualified cardinality restrictions}).
 %The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
-The variable \emph{Education at pre-school}, e.g., is associated with the theoretical concept \emph{education}. 
-The severity level of this constraint is \emph{warning} and not \emph{error}, as research can be continued without an associated theoretical concept.
+The variable \emph{Education at pre-school} is associated with the theoretical concept \emph{education}. 
+The default severity level of this constraint is \emph{warning} and not \emph{error}, as in most cases research can be continued without an associated theoretical concept of a given variable.
 
 \textbf{Comparison.}
 A very common research question is to compare variables (\emph{comparison}) of multiple studies or countries.
