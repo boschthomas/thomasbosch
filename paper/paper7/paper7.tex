@@ -476,11 +476,8 @@ If the intention of the researcher is to perform more detailed comparisons (use 
 Percentage values are valid when they are between 0 and 100.
 The constraint type \emph{literal ranges} (\emph{R-45}) restricts data property ranges [$V_{min}$,$V_{max}$] within the context of given classes.
 A constraint of this type applies to the property \emph{disco:percentage} standing for the number of cases of a given code in relation to the total number of cases for a particular variable within a data set ($\mathcal{SL}_{2}$).
-
------
-
 {\em Mathematical Operations} (\emph{R-41, R-42}; e.g. date calculations and statistical computations like average, mean, and sum) are performed to ensure the integrity of data models.
-The sum of {\em disco:percentage} (datatype: {\em xsd:double}) values of all codes ({\em skos:Concept}s) of a code list ({\em skos:ConceptScheme} or {\em skos:OrderedCollection}), serving as representation of a particular {\em disco:Variable} must exactly be 100.
+The sum of {\em disco:percentage} (datatype: {\em xsd:double}) values of all codes ({\em skos:Concept}) of a variable code list ({\em skos:ConceptScheme} or {\em skos:OrderedCollection}), e.g., must exactly be 100 ($\mathcal{SL}_{2}$).
 
 \textbf{Unique Identification.}
 It is often useful to declare a given (data) property as the \emph{primary key} (\emph{R-226}) of a class, so that a system can enforce uniqueness and also automatically build URIs from user inputs and imported data. 
