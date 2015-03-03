@@ -450,20 +450,18 @@ It is useful to declare properties to be conditional, i.e., if particular proper
 If the abstract of a study is missing, a title has to be stated ($\mathcal{SL}_{2}$).
 
 \textbf{Variables.}
-Each variable should have a variable representation (\emph{R-86}; $\mathcal{SL}_{1}$), which is either an (un)ordered code list or a union of XML Schema datatypes.
+Each variable should have a variable representation (\emph{R-86}; $\mathcal{SL}_{1}$), which is either an (un)ordered code list or a union of datatypes.
 In case of a code list, associated categories should be stated (\emph{R-71}; $\mathcal{SL}_{0}$).
-As the variable \emph{Education at pre-school} has an associated code list, the constraint is not violated.
+The variable \emph{Education at pre-school} has an associated code list, but without any associated categories.
 If a {\em skos:Concept} represents a code (having a {\em skos:notation} property) and a category (having a {\em skos:prefLabel} property), 
 then the property {\em disco:isValid} has to be stated indicating if the code is valid (\emph{true}) or missing (\emph{false}) (\emph{R-71}; $\mathcal{SL}_{1}$).
-
-\textbf{Theoretical Concepts.}
-Variables must have at least one relationship to a theoretical concept ({\emph{R-75: minimum qualified cardinality restrictions}).
+Variables must have at least one relationship to a theoretical concept ({\emph{R-75: minimum qualified cardinality restrictions}; $\mathcal{SL}_{1}$).
 %The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
-The variable \emph{Education at pre-school} is associated with the theoretical concept \emph{education}. 
-The default severity level of this constraint is \emph{warning} and not \emph{error}, as in most cases research can be continued without an associated theoretical concept of a given variable.
+The variable \emph{Education at pre-school} is associated with the theoretical concept \emph{Child Care}. 
+The default severity level of this constraint is $\mathcal{SL}_{1}$ and not $\mathcal{SL}_{2}$, as in most cases research can be continued without associated theoretical concepts of given variables.
 
-\textbf{Comparison.}
-A very common research question is to compare variables (\emph{comparison}) of multiple studies or countries.
+\textbf{Variable Comparison.}
+A very common research question is to compare variables of multiple studies or countries (\emph{comparison}).
 To compare variables, 
 (1) variables and (2) variable definitions must be present,
 (3) code lists must be structured properly,
@@ -471,21 +469,8 @@ To compare variables,
 (5) code lists must either be identical or at least similar.
 If a researcher wants to get a first overview over comparable variables (use case 1), 
 the first three constraints may be sufficient for this purpose.
-Thus, the severity level of the first three constraints is stronger than the severity level of the next constraints.
-If the intention of the researcher is to perform more detailed comparisons (use case 2), however, the violation of the remaining constraints is also more serious.
-
-\textbf{Reusability.}
-Constraints of the constraint type \emph{Context-Specific Exclusive OR of Property Groups} (\emph{R-11})
-restrict individuals of given classes to have only one of multiple property groups.
-Within the context of \emph{Disco}, \emph{skos:Concept}s can have either \emph{skos:definition} (when interpreted as theoretical concepts) or \emph{skos:notation} and \emph{skos:prefLabel} properties (when interpreted as codes and categories), but not both.
-
-\begin{DL}
-Concept $\sqsubseteq$ ($\neg$ D $\sqcap$ C) $\sqcup$ (D $\sqcap$ $\neg$ C) \\ 
-D $\equiv$ A $\sqcap$ B \\
-A $\sqsubseteq$ $\geq$ 1 notation.string $\sqcap$ $\leq$ 1 notation.string \\
-B $\sqsubseteq$ $\geq$ 1 prefLabel.string $\sqcap$ $\leq$ 1 prefLabel.string \\
-C $\sqsubseteq$ $\geq$ 1 definition.string $\sqcap$ $\leq$ 1 definition.string \\
-\end{DL}
+Thus, the severity level of the first three constraints is stronger ($\mathcal{SL}_{2}$) than the severity level of the next two constraints ($\mathcal{SL}_{1}$).
+If the intention of the researcher is to perform more detailed comparisons (use case 2), however, the violation of the remaining constraints is getting more serious ($\mathcal{SL}_{2}$).
 
 \textbf{Frequencies and Descriptive Statistics.}
 Restricting data property ranges [$V_{min}$,$V_{max}$] within the context of given classes is a very common requirement (\emph{R-45: literal ranges}) 
@@ -510,11 +495,13 @@ DL is extended with \emph{key boxes} and a special \emph{keyfor} construct (\ms{
 In many cases, resources must be members of listed controlled vocabularies (\emph{R-32}).
 \emph{disco:SummaryStatistics}, e.g., can only have \emph{disco:summaryStatisticType} relationships to \emph{skos:Concept}s which must be members of the controlled vocabulary \emph{ddicv:SummaryStatisticType} which is a \emph{skos:ConceptScheme}.
 
+\begin{center}
 \begin{DL}
 SummaryStatistics $\sqsubseteq$ $\forall summaryStatisticType.A$ \\
 $A \equiv Concept \sqcap \forall inScheme . B$ \\
 $B \equiv ConceptScheme \sqcap \{SummaryStatisticType\}$
 \end{DL}
+\end{center}
 
 \textbf{Coverage.}
 Depending on property datatypes,
@@ -540,6 +527,20 @@ If codes/categories of a \emph{disco:Representation} of a \emph{disco:Variable} 
 - SKOS validation of hierarchies of theoretical concepts
 
 \tb{ToDO: ask Franck if INSEE already expressed well known classification systems with XKOS}
+
+\textbf{Reusability.}
+Within the context of \emph{Disco}, \emph{skos:Concept}s can have either \emph{skos:definition} (when interpreted as theoretical concepts) or \emph{skos:notation} and \emph{skos:prefLabel} properties (when interpreted as codes and categories), but not both ($\mathcal{SL}_{2}$).
+Constraints of the constraint type \emph{context-specific exclusive or of property groups} (\emph{R-11})
+restrict individuals of given classes to have exactly one of multiple property groups.
+
+\begin{center}
+\begin{DL}
+Concept $\sqsubseteq$ ($\neg$ D $\sqcap$ C) $\sqcup$ (D $\sqcap$ $\neg$ C), D $\equiv$ A $\sqcap$ B \\
+A $\sqsubseteq$ $\geq$ 1 notation.string $\sqcap$ $\leq$ 1 notation.string \\
+B $\sqsubseteq$ $\geq$ 1 prefLabel.string $\sqcap$ $\leq$ 1 prefLabel.string \\
+C $\sqsubseteq$ $\geq$ 1 definition.string $\sqcap$ $\leq$ 1 definition.string \\
+\end{DL}
+\end{center}
 
 \textbf{Searching for (Meta)data.}
 
@@ -621,7 +622,7 @@ it is checked that \emph{dcterms:coverage} is not redundant with its sub-propert
 
 \section{Implementation}
 
-In \emph{Missy}, we provide comprehensive Linked Data services\footnote{\textcolor{red}{\url{www.gesis.org/en/missy/linked-data}}} like a \textcolor{red}{triple store} and diverse RDF exports of person-level metadata conforming to the \emph{Disco} vocabulary in multiple concrete syntaxes (e.g. turtle). 
+In \emph{Missy}, we provide comprehensive Linked Data services\footnote{\textcolor{red}{\url{http://www.gesis.org/missy/eu/general-information/linked-data/}}} like a \textcolor{red}{triple store} and diverse RDF exports of person-level metadata conforming to the \emph{Disco} vocabulary in multiple concrete syntaxes (e.g. turtle). 
 
 SPARQL is generally seen as the method of choice to validate RDF data according to certain constraints.
 We use \emph{SPIN}\footnote{\url{http://spinrdf.org/}}, 
