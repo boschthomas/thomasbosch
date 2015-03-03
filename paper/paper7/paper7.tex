@@ -473,9 +473,11 @@ Thus, the severity level of the first three constraints is stronger ($\mathcal{S
 If the intention of the researcher is to perform more detailed comparisons (use case 2), however, the violation of the remaining constraints is getting more serious ($\mathcal{SL}_{2}$).
 
 \textbf{Frequencies and Descriptive Statistics.}
-Restricting data property ranges [$V_{min}$,$V_{max}$] within the context of given classes is a very common requirement (\emph{R-45: literal ranges}) 
-- disco:CategoryStatistics resources, e.g., point to percentage values via the data property \emph{disco:percentage}; 
-these values must be of the datatype \emph{xsd:double} and must be between 0 and 100.
+Percentage values are valid when they are between 0 and 100.
+The constraint type \emph{literal ranges} (\emph{R-45}) restricts data property ranges [$V_{min}$,$V_{max}$] within the context of given classes.
+A constraint of this type applies to the property \emph{disco:percentage} standing for the number of cases of a given code in relation to the total number of cases for a particular variable within a data set ($\mathcal{SL}_{2}$).
+
+-----
 
 {\em Mathematical Operations} (\emph{R-41, R-42}; e.g. date calculations and statistical computations like average, mean, and sum) are performed to ensure the integrity of data models.
 The sum of {\em disco:percentage} (datatype: {\em xsd:double}) values of all codes ({\em skos:Concept}s) of a code list ({\em skos:ConceptScheme} or {\em skos:OrderedCollection}), serving as representation of a particular {\em disco:Variable} must exactly be 100.
