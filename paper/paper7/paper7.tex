@@ -403,11 +403,13 @@ We assign each constraint to constraint types corresponding to RDF validation re
 \cite{BoschZapilkoWackerowEckert2015}.
 
 We distinguish two validation types:
-(1) \emph{Content-Driven Validation} $\mathcal{C}_{C}$ contains the set of constraints ensuring that the data is consistent with the intended syntax, semantics, and integrity of given data models (sections \ref{aggregated-metadata-and-data}-\ref{person-level-metadata-and-data}).
+(1) \emph{Content-Driven Validation} $\mathcal{C}_{C}$ contains the set of constraints ensuring that the data is consistent with the intended syntax, semantics, and integrity of given data models (section \ref{content-driven-validation}).
 (2) \emph{Technology-Driven Validation} $\mathcal{C}_{T}$ includes the set of constraints which can be generated automatically out of data models, such as cardinality restrictions, universal and existential quantifications, domains, and ranges (section \ref{technology-driven-validation}).
 We determined the default \emph{severity level} (corresponds to requirement \emph{R-158}) for each constraint to indicate how serious the violation of the constraint is.
 We propose an extensible metric to measure the continuum of severity levels ranging from $\mathcal{SL}_{0}$ (informational) via $\mathcal{SL}_{1}$ (warning) to $\mathcal{SL}_{2}$ (error). 
 Although we provide default severity levels for each constraint, users should be able to specify severity levels of constraints they need to validate for their individual use cases, i.e., users should be able to define use case specific severity levels for constraints.
+In this section, we describe constraints and constraint types which are important to ensure the quality of metadata and data on different levels of aggregation. 
+We classify them according to the type of validation, and associate default severity levels with them. 
 
 -----
 %
@@ -427,9 +429,15 @@ RDF validation scenarios require the closed-world assumption (CWA) (i.e., a stat
 - 2. step: matching
 - validation as reasonable extension of pattern of Ben (e.g. for pattern: is this digit correct?)
 
-%\subsection{Content-Driven Validation}
+-----
 
-\subsection{Aggregated Metadata and Data}
+use-case specific constraints, e.g., DCAT: searching for metadata
+\tb{Thomas: ToDo}
+
+\subsection{Content-Driven Validation}
+\label{content-driven-validation}
+
+\subsubsection{Aggregated Metadata and Data}
 \label{aggregated-metadata-and-data}
 
 \tb{ToDo}
@@ -440,7 +448,7 @@ RDF validation scenarios require the closed-world assumption (CWA) (i.e., a stat
 
 - there should be a relationship to the underlying person-level data.
 
-\subsection{Person-Level Metadata and Data}
+\subsubsection{Person-Level Metadata and Data}
 \label{person-level-metadata-and-data}
 
 \textbf{Studies.}
@@ -492,8 +500,8 @@ DL is extended with \emph{key boxes} and a special \emph{keyfor} construct (\ms{
 
 \textbf{Membership in Controlled Vocabularies.}
 In many cases, resources must be members of listed controlled vocabularies (\emph{R-32}).
-\emph{disco:SummaryStatistics}, e.g., can only have \emph{disco:summaryStatisticType} relationships to \emph{skos:Concept}s which must be members of the controlled vocabulary \emph{ddicv:SummaryStatisticType} which is a \emph{skos:ConceptScheme}.
-
+Descriptive statistics types like minimum, maximum, and mode are maintained within a controlled vocabulary.  
+Thus, descriptive statistics (\emph{disco:SummaryStatistics}) can only have \emph{disco:summaryStatisticType} relationships to \emph{skos:Concept}s which must be members of the controlled vocabulary \emph{ddicv:SummaryStatisticType}, a \emph{skos:ConceptScheme} (\emph{R-91: universal quantification}; $\mathcal{SL}_{2}$):
 \begin{center}
 \begin{DL}
 SummaryStatistics $\sqsubseteq$ $\forall summaryStatisticType.A$ \\
@@ -503,6 +511,8 @@ $B \equiv ConceptScheme \sqcap \{SummaryStatisticType\}$
 \end{center}
 
 \textbf{Coverage.}
+In order to express the temporal coverage of series, studies, or data sets dates can be stated.
+
 Depending on property datatypes,
 two different literal values have
 a specific ordering with respect to an operator. 
@@ -635,12 +645,25 @@ A SPIN construct template creates constraint violation triples if all triple pat
 
 \section{Evaluation}
 
-For \emph{Disco} RDF data, we validated XX series, XX studies, XX data sets, XX theoretical concepts, XX variables, XX questions, XX codes, XX category statistics (frequencies), and XX summary statistics (descriptive statistics like minimum).
+We evaluated multiple aggregated and person-level data sets 
 
-\begin{itemize}
-	\item validate constraints on complex example data set
-	\item count Disco, QB, PHDD, XKOS, DCAT constraints by constraint groups 
-\end{itemize}
+the most important constraints and constraint types 
+
+
+
+- Data Cube: XXXXX
+- 3 thesauri: The Thesaurus for the Social Sciences (TheSoz), STW Thesaurus for Economics of the ZBW, and the AGROVOC thesaurus of FAO
+- Disco: 5 series like EU-SILC 
+- PHDD
+- XKOS
+
+in order to ensure high quality of existing large real world data sets
+
+Exported from Missy, we validated \emph{Disco} person-level data containing overall XX resources (5 series, XX studies, XX data sets, XX theoretical concepts, XX variables, XX questions, XX codes, XX category statistics (frequencies), and XX summary statistics).
+
+triple store\footnote{\textcolor{red}{\url{http://multiweb.gesis.org/openrdf-workbench/}}}
+
+The correctness of $\mathcal{C}_{C}$ constraints, i.e., the gold standard has been designed by a SBE domain expert.
 
 %\begin{table}
 	%\centering
