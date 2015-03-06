@@ -546,11 +546,11 @@ In table \ref{tab:simple-constraint-not-expressible-in-dl)}, the \emph{simple co
       \textbf{c. type} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
       \hline
       property & Book & identifier & - & ISBN & $\forall$ & - \\
-      class & ISBN & - & - & xsd:string & regex & '\string^\d{9}[\d|X]\$' \\
+      class & ISBN & - & - & xsd:string & regex & '\string^\text{$\backslash$d$\{9\}$[$\backslash$d$\mid$X]}\$' \\
 		\end{tabular}
 	\caption{Simple Constraint (Not Expressible in DL)}
 	\label{tab:simple-constraint-not-expressible-in-dl)}
-\end{table} \tb{Erman, can you please format the regular expression in the table above correctly?}
+\end{table} %\tb{Erman, can you please format the regular expression in the table above correctly?}
 The \emph{literal pattern matching} constraint introduces the new \emph{constraining element} \emph{regex}.
 For this new \emph{constraining element}, the validation must be implemented.
 This has to be done once for each \emph{generic constraint type} which cannot be expressed in DL.
