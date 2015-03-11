@@ -1388,17 +1388,26 @@ For particular data properties, values of predefined languages must be stated fo
 \begin{itemize}
 
 	\item \textbf{{\em SKOS-C-LANGUAGE-TAG-CARDINALITY-01\footnote{Corresponds to qSKOS Quality Issues - Labeling and Documentation Issues - Omitted or Invalid Language Tags}:}}
+	Omitted or Invalid Language Tags:
 Some controlled vocabularies contain literals in natural language, but without information what language has actually been used. Language tags might also not conform to language standards, such as RFC 3066. 
-Iteration over all triples in the vocabulary that have a predicate which is a (subclass of) \emph{rdfs:label} or \emph{skos:note}. 
-Severity level: INFO
+\begin{itemize}
+	\item Implementation: Iteration over all triples in the vocabulary that have a predicate which is a (subclass of) \emph{rdfs:label} or \emph{skos:note}. 
+  \item Severity level: WARNING
+\end{itemize}
 
   \item \textbf{{\em SKOS-C-LANGUAGE-TAG-CARDINALITY-02\footnote{Corresponds to qSKOS Quality Issues - Labeling and Documentation Issues - Incomplete Language Coverage}:}}
+	Incomplete Language Coverage:
 	Some concepts in a thesaurus are labeled in only one language, some in multiple languages. It may be desirable to have each concept labeled in each of the languages that also are used on the other concepts. This is not always possible, but incompleteness of language coverage for some concepts can indicate shortcomings of the vocabulary. 
-	Severity level: INFO
+	\begin{itemize}
+		\item Severity level: INFO
+	\end{itemize}
 	
 	\item \textbf{{\em SKOS-C-LANGUAGE-TAG-CARDINALITY-03\footnote{Corresponds to qSKOS Quality Issues - Labeling and Documentation Issues - No Common Language}:}}
+	No Common Language:
 	Checks if all concepts have at least one common language, i.e. they have assigned at least one literal in the same language. 
-	Severity level: INFO
+	\begin{itemize}
+		\item Severity level: INFO
+	\end{itemize}
 	
 	\item \textbf{{\em SKOS-C-LANGUAGE-TAG-CARDINALITY-04\footnote{Corresponds to qSKOS Quality Issues - SKOS Semi-Formal Consistency Issues - Inconsistent Preferred Labels}:}}
 	Inconsistent Preferred Labels:
@@ -1568,8 +1577,8 @@ SKOS is based on RDF, which is a graph-based data model. Therefore we can concen
 	Orphan Concepts:
   An orphan concept is a concept without any associative or hierarchical relations. It might have attached literals like e.g., labels, but is not connected to any other resource, lacking valuable context information. A controlled vocabulary that contains many orphan concepts is less usable for search and retrieval use cases, because, e.g., no hierarchical query expansion can be performed on search terms to find documents with more general content. 
 	\begin{itemize}
-		\item Implementation: Iteration over all concepts in the vocabulary and returning that don't have associated resources using (subproperties of) \emph{skos:semanticRelation}. 
-		\item Severity level: INFO
+		\item Implementation: Iteration over all concepts in the vocabulary and returning that don't have associated resources using (sub-properties of) \emph{skos:semanticRelation}. 
+		\item Severity level: WARNING
 \end{itemize}
 	\item \textbf{{\em SKOS-C-STRUCTURE-02\footnote{Corresponds to qSKOS Quality Issues - Structural Issues - Disconnected Concept Clusters}:}}
 	Disconnected Concept Clusters:
@@ -1583,7 +1592,7 @@ SKOS is based on RDF, which is a graph-based data model. Therefore we can concen
 	Although perfectly consistent with the SKOS data model, cyclic relations may reveal a logical problem in the thesaurus. Consider the following example: "decision" $\rightarrow$ "problem resolution" $\rightarrow$ "problem" ($\rightarrow$ "decision": here the cycle is closed). The concepts are connected using \emph{skos:broader} relationships (indicated with "$\rightarrow$"). Due to the fact that a thesaurus is in many cases a product of consensus between the contributors (or just the decision of one dedicated thesaurus manager), it will be almost impossible to automatically resolve the cycle (i.e. deleting an edge). 
 	\begin{itemize}
 		\item Implementation: Construction of a graph having all concepts as nodes and the set of edges being \emph{skos:broader} relations. 
-		\item Severity level: INFO
+		\item Severity level: WARNING
 \end{itemize}
 	\item \textbf{{\em SKOS-C-STRUCTURE-04\footnote{Corresponds to qSKOS Quality Issues - Structural Issues - Valueless Associative Relations}:}}
 	Valueless Associative Relations:
@@ -1614,7 +1623,7 @@ SKOS is based on RDF, which is a graph-based data model. Therefore we can concen
 	\begin{itemize}
 		\item Implementation:
 		For every ConceptScheme in the controlled vocabulary, a SPARQL query is issued finding resources that are associated with this ConceptScheme by one of the properties \emph{skos:hasTopConcept} or \emph{skos:topConceptOf}. Top concepts are also concepts having no broader concept. 
-	  \item Severity level: SHOULD
+	  \item Severity level: WARNING
 \end{itemize}
 	\item \textbf{{\em SKOS-C-STRUCTURE-08\footnote{Corresponds to qSKOS Quality Issues - Structural Issues - Top Concepts Having Broader Concepts}:}}
 	Top Concepts Having Broader Concepts:
@@ -1626,13 +1635,15 @@ SKOS is based on RDF, which is a graph-based data model. Therefore we can concen
 \end{itemize}
 	\item \textbf{{\em SKOS-C-STRUCTURE-09\footnote{Corresponds to qSKOS Quality Issues - Structural Issues - Hierarchical Redundancy}:}}
 	Hierarchical Redundancy:
-	As stated in the SKOS reference document, \emph{skos:broader} and \emph{skos:narrower} are not transitive properties. However, they are subproperties of \emph{skos:broaderTransitive} and \emph{skos:narrowerTransitive} which enables inference of a "transitive closure". This, in fact, leaves it up to the user to interpret wheter a vocabulary's hierarchical structure is seen as transitive or not. In the former case, this check can be useful. It finds pairs of concepts (A,B) that are directly hierarchically related but there also exits an hierarchical path through a concept C that connects A and B. 
-	Severity level: INFO
+	As stated in the SKOS reference document, \emph{skos:broader} and \emph{skos:narrower} are not transitive properties. However, they are sub-properties of \emph{skos:broaderTransitive} and \emph{skos:narrowerTransitive} which enables inference of a "transitive closure". This, in fact, leaves it up to the user to interpret whether a vocabulary's hierarchical structure is seen as transitive or not. In the former case, this check can be useful. It finds pairs of concepts (A,B) that are directly hierarchically related but there also exits an hierarchical path through a concept C that connects A and B. 
+	\begin{itemize}
+		\item Severity level: INFO
+	\end{itemize}
 	\item \textbf{{\em SKOS-C-STRUCTURE-10\footnote{Corresponds to qSKOS Quality Issues - Structural Issues - Reflexive Relations}:}}
 	Reflexive Relations:
 	Concepts related to themselves. 
 	\begin{itemize}
-		\item Severity level: INFO
+		\item Severity level: WARNING
 	\end{itemize}
 \end{itemize}
 
@@ -1642,8 +1653,9 @@ SKOS is based on RDF, which is a graph-based data model. Therefore we can concen
 	\item \textbf{{\em SKOS-C-LABELING-AND-DOCUMENTATION-01\footnote{Corresponds to qSKOS Quality Issues - Labeling and Documentation Issues - Undocumented Concepts}:}}
 	Undocumented Concepts:
   The SKOS standard defines a number of properties useful for documenting the meaning of the concepts in a thesaurus also in a human-readable form. Intense use of these properties leads to a well-documented thesaurus which should also improve its quality.  
-	Iteration over all concepts in the vocabulary and find those not using one of \emph{skos:note}, \emph{skos:changeNote}, \emph{skos:definition}, \emph{skos:editorialNote}, \emph{skos:example}, \emph{skos:historyNote}, or \emph{skos:scopeNote}.
 	\begin{itemize}
+	  \item Implementation:
+		Iteration over all concepts in the vocabulary and find those not using one of \emph{skos:note}, \emph{skos:changeNote}, \emph{skos:definition}, \emph{skos:editorialNote}, \emph{skos:example}, \emph{skos:historyNote}, or \emph{skos:scopeNote}.
 		\item Severity level: INFO
 	\end{itemize}
 	\item \textbf{{\em SKOS-C-LABELING-AND-DOCUMENTATION-02\footnote{Corresponds to qSKOS Quality Issues - Labeling and Documentation Issues - Overlapping Labels}:}}
@@ -1672,7 +1684,7 @@ SKOS is based on RDF, which is a graph-based data model. Therefore we can concen
 	\end{itemize}
 	\item \textbf{{\em SKOS-C-LABELING-AND-DOCUMENTATION-06\footnote{Corresponds to qSKOS Quality Issues - Labeling and Documentation Issues - Ambiguous Notation References}:}}
 	Ambiguous Notation References:
-	Concepts within the same concept scheme should not have identlical \emph{skos:notation} literals. 
+	Concepts within the same concept scheme should not have identical \emph{skos:notation} literals. 
 	\begin{itemize}
 		\item Severity level: INFO
 	\end{itemize}
@@ -1722,6 +1734,16 @@ Vocabularies should not invent any new terms or use deprecated elements.
 	\item \textbf{\em XKOS-C-VOCABULARY-01} 
 	\begin{itemize}
 		\item Severity level: FATALERROR
+	\end{itemize}
+\end{itemize}
+
+\subsection{\underline{Linked Data}}
+
+\begin{itemize}
+	\item \textbf{\em R-HTTP-URI-SCHEME-VIOLATION\footnote{Corresponds to qSKOS Quality Issues - Linked Data Specific Issues - HTTP URI Scheme Violation}}: 
+	In the context of Linked Data, we restrict ourselves to using HTTP URIs only and avoid other URI schemes such as URNs and DOIs.
+	\begin{itemize}
+		\item Severity level: ERROR
 	\end{itemize}
 \end{itemize}
 

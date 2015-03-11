@@ -497,6 +497,26 @@ Keys, however, are even more general than inverse-functional properties (\emph{R
 as a key can be a data, an object property, or a chain of properties \cite{Schneider2009}.
 For this generalization purposes, as there are different sorts of key, and as keys can lead to undecidability, 
 DL is extended with \emph{key boxes} and a special \emph{keyfor} construct (\ms{identifier \ms{keyfor} Resource}) \cite{Lutz2005}.
+OWL 2 \emph{hasKey} implements \emph{keyfor} and can therefore be used to identify resources uniquely, to merge resources with identical key property values, and to recognize constraint violations.
+%OWL 2 hasKey can be used to identify resources uniquely
+%
+%We used Protégé 5.
+%
+%example: owl:Thing owl:hasKey ( :hasSSN ) . :Peter :hasSSN "123-45-6789" .
+%:Peter_Griffin :hasSSN "123-45-6789" .
+%
+%We use the predefined Reasoner HermiT.
+%
+%:Peter and :Peter_Griffin are derived as identical from the reasoner as they have the same value for :hasSSN.
+%
+%hasKey can be used to merge resources and to recognize constraint violations.
+%
+%Alternative to OWL 2 hasKey: concise bounded description (proposal of Dan)
+%
+%action: explore CBD document solution might be using both approaches
+%
+%benefit: additional identification to URI / IRI benefit: compound properties can be used as key
+
 
 \textbf{Membership in Controlled Vocabularies.}
 In many cases, resources must be members of listed controlled vocabularies (\emph{R-32}).
@@ -631,39 +651,34 @@ it is checked that \emph{dcterms:coverage} is not redundant with its sub-propert
 
 \section{Implementation}
 
-In \emph{Missy}, we provide comprehensive Linked Data services\footnote{\textcolor{red}{\url{http://www.gesis.org/missy/eu/general-information/linked-data/}}} like a \textcolor{red}{triple store} and diverse RDF exports of person-level metadata conforming to the \emph{Disco} vocabulary in multiple concrete syntaxes (e.g. turtle). 
+In \emph{Missy}, we provide comprehensive Linked Data services\footnote{\textcolor{red}{\url{http://www.gesis.org/missy/eu/general-information/linked-data/}}} like a triple store and diverse RDF exports of person-level metadata conforming to the \emph{Disco} vocabulary in multiple concrete syntaxes (e.g. turtle). 
 
 SPARQL is generally seen as the method of choice to validate RDF data according to certain constraints.
 We use \emph{SPIN}\footnote{\url{http://spinrdf.org/}}, 
 a SPARQL-based way to formulate and check constraints, as basis to define a
 validation environment (available at \url{http://purl.org/net/rdfval-demo}) to validate RDF data according to constraints expressed my arbitrary constraint languages like Shape Expressions\footnote{\url{http://www.w3.org/Submission/shex-primer/}} and the Web Ontology Language \cite{BoschEckert2014-2}.
-The \emph{RDF Validator} also validates RDF data conforming to SPARQL constraints to ensure correct syntax and semantics of vocabularies such as \emph{Disco, Data Cube, PHDD, DCAT, SKOS, and XKOS}.
+The \emph{RDF Validator} also validates RDF data conforming to SPARQL constraints to ensure correct syntax and semantics of vocabularies such as \emph{Disco, Data Cube, PHDD, DCAT, SKOS, and XKOS}\footnote{\textcolor{red}{SPIN mappings: \url{https://github.com/boschthomas/rdf-validation/SPIN}}}.
 The SPIN engine checks for each resource if it satisfies all constraints (associated with its assigned classes) and generates a result RDF graph containing information about all constraint violations.
-We define one SPIN construct template for each constraint type (corresponding to a requirement) and vocabulary-specific constraint\footnote{For details about the validation environment see \cite{BoschEckert2014-2}}.
+We define one SPIN construct template for each constraint type (corresponding to a requirement) and vocabulary-specific constraint\footnote{For details about the \emph{RDF Validator} see \cite{BoschEckert2014-2}}.
 A SPIN construct template contains a SPARQL CONSTRUCT query which generates constraint violation triples indicating the subject, the properties causing constraint violations, and the reason why constraint violations have been raised.
 A SPIN construct template creates constraint violation triples if all triple patterns within the SPARQL WHERE clause match.
 
 \section{Evaluation}
 
-We evaluated multiple aggregated and person-level data sets 
+We used $\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints 
+to evaluate the metadata and data quality of existing large real world aggregated and person-level data sets.
+We provide a triple store\footnote{\textcolor{red}{\url{http://multiweb.gesis.org/openrdf-workbench/}}}, containing these data sets, 
+and the constraints\footnote{\url{https://github.com/boschthomas/rdf-validation/constraints}} in form of SPARQL CONSTRUCT queries.
+We validated 
+(1) \emph{QB} data sets (\textcolor{red}{XX}),
+(2) \emph{Disco} data sets (overall \textcolor{red}{XX} resources exported from \emph{Missy} - 5 series, \textcolor{red}{XX} studies, \textcolor{red}{XX} data sets, \textcolor{red}{XX} theoretical concepts, \textcolor{red}{XX} variables, \textcolor{red}{XX} questions, \textcolor{red}{XX} codes, \textcolor{red}{XX} category statistics (frequencies), and \textcolor{red}{XX} summary statistics),
+(3) \emph{DCAT} data sets (\textcolor{red}{XX}),
+(4) \emph{PHDD} data sets (\textcolor{red}{XX}),
+(5) \emph{SKOS} data sets (The Thesaurus for the Social Sciences (TheSoz), the STW Thesaurus for Economics of the ZBW, and the AGROVOC thesaurus of FAO), and
+(6) \emph{XKOS} data sets (\textcolor{red}{XX}).
 
-the most important constraints and constraint types 
-
-
-
-- Data Cube: XXXXX
-- 3 thesauri: The Thesaurus for the Social Sciences (TheSoz), STW Thesaurus for Economics of the ZBW, and the AGROVOC thesaurus of FAO
-- Disco: 5 series like EU-SILC 
-- PHDD
-- XKOS
-
-in order to ensure high quality of existing large real world data sets
-
-Exported from Missy, we validated \emph{Disco} person-level data containing overall XX resources (5 series, XX studies, XX data sets, XX theoretical concepts, XX variables, XX questions, XX codes, XX category statistics (frequencies), and XX summary statistics).
-
-triple store\footnote{\textcolor{red}{\url{http://multiweb.gesis.org/openrdf-workbench/}}}
-
-The correctness of $\mathcal{C}_{C}$ constraints, i.e., the gold standard has been designed by a SBE domain expert.
+The correctness of $\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints, i.e., the gold standard has been designed by a SBE domain expert.
+As proof-of-concept, we use the \emph{RDF Validator} to offer examples for both valid and invalid RDF data regarding particular constraints. 
 
 %\begin{table}
 	%\centering
