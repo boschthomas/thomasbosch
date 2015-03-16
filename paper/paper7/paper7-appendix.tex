@@ -309,30 +309,69 @@ Such validation rules ensure the integrity of the data according to the data mod
 	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-01:}}
 	Only attributes may be optional (\emph{IC-6} \cite{CyganiakReynolds2014}) - 
 	The only components of a \emph{qb:DataStructureDefinition} that may be marked as optional, using \emph{qb:componentRequired} are attributes. 
+	\begin{itemize}
+		\item severity level: WARNING
+	\end{itemize}
 	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-02:}}
-	No duplicate observations (\emph{IC-12} \cite{CyganiakReynolds2014}) - 
-	No two \emph{qb:Observations} in the same \emph{qb:DataSet} may have the same value for all dimensions. 
-	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-03:}}
 	Slice Keys consistent with DSD (\emph{IC-8} \cite{CyganiakReynolds2014}) -
 	Every \emph{qb:componentProperty} on a \emph{qb:SliceKey} must also be declared as a \emph{qb:component} of the associated \emph{qb:DataStructureDefinition}. 
-	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-04:}}
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-03:}} 
+	Slice dimensions complete (\emph{IC-10} \cite{CyganiakReynolds2014}) - 
+	Every \emph{qb:Slice} must have a value for every dimension declared in its \emph{qb:sliceStructure}. 
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+		\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-04:}}
+	All dimensions required (\emph{IC-11} \cite{CyganiakReynolds2014}) - 
+	Every \emph{qb:Observation} has a value for each dimension declared in its associated \emph{qb:DataStructureDefinition}. 
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+		\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-05:}}
+	No duplicate observations (\emph{IC-12} \cite{CyganiakReynolds2014}) - 
+	No two \emph{qb:Observations} in the same \emph{qb:DataSet} may have the same value for all dimensions. 
+	\begin{itemize}
+		\item severity level: WARNING
+	\end{itemize}
+	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-06:}}
 	Required attributes (\emph{IC-13} \cite{CyganiakReynolds2014}) -
 	Every \emph{qb:Observation} has a value for each declared attribute that is marked as required. 
-	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-05:}}
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-07:}}
 	All measures present (\emph{IC-14} \cite{CyganiakReynolds2014}) -
 	In a \emph{qb:DataSet} which does not use a Measure dimension then each individual \emph{qb:Observation} must have a value for every declared measure. 
-	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-06:}}
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-08:}}
 	Measure dimension consistent (\emph{IC-15} \cite{CyganiakReynolds2014}) -
 	In a \emph{qb:DataSet} which uses a Measure dimension then each qb:Observation must have a value for the measure corresponding to its given \emph{qb:measureType}. 
-	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-07:}}
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-09:}}
 	Single measure on measure dimension observation (\emph{IC-16} \cite{CyganiakReynolds2014}) -
 	In a \emph{qb:DataSet} which uses a Measure dimension then each \emph{qb:Observation} must only have a value for one measure (by \emph{IC-15} this will be the measure corresponding to its \emph{qb:measureType}). 
-	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-08:}}
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-10:}}
 	All measures present in measures dimension cube (\emph{IC-17} \cite{CyganiakReynolds2014}) -
 	In a \emph{qb:DataSet} which uses a Measure dimension then if there is a Observation for some combination of non-measure dimensions then there must be other Observations with the same non-measure dimension values for each of the declared measures. 
-	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-09:}}
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-11:}}
 	Consistent data set links (\emph{IC-18} \cite{CyganiakReynolds2014}) -
 	If a \emph{qb:DataSet} \emph{D} has a \emph{qb:slice} \emph{S}, and \emph{S} has an \emph{qb:observation} \emph{O}, then the \emph{qb:dataSet} corresponding to \emph{O} must be \emph{D}. 
+	\begin{itemize}
+		\item severity level: WARNING
+	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
@@ -816,21 +855,27 @@ There must be at least one {\em disco:universe} relationship from {\em disco:Stu
 	\item \textbf{{\em DATA-CUBE-C-EXISTENTIAL-QUANTIFICATIONS-01:}}
 	Dimensions have range (\emph{IC-4} \cite{CyganiakReynolds2014}) - 
 	Every dimension declared in a \emph{qb:DataStructureDefinition} must have a declared \emph{rdfs:range}. 
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 	\item \textbf{{\em DATA-CUBE-C-EXISTENTIAL-QUANTIFICATIONS-02:}}
 	Concept dimensions have code lists (\emph{IC-5} \cite{CyganiakReynolds2014}) - 
 	Every dimension with range \emph{skos:Concept} must have a \emph{qb:codeList}. 
-	\item \textbf{{\em DATA-CUBE-C-EXISTENTIAL-QUANTIFICATIONS-03:}} 
-	Slice dimensions complete (\emph{IC-10} \cite{CyganiakReynolds2014}) - 
-	Every \emph{qb:Slice} must have a value for every dimension declared in its \emph{qb:sliceStructure}. 
-	\item \textbf{{\em DATA-CUBE-C-EXISTENTIAL-QUANTIFICATIONS-04:}}
-	All dimensions required (\emph{IC-11} \cite{CyganiakReynolds2014}) - 
-	Every \emph{qb:Observation} has a value for each dimension declared in its associated \emph{qb:DataStructureDefinition}. 
-  \item \textbf{{\em DATA-CUBE-C-EXISTENTIAL-QUANTIFICATIONS-05:}}
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+  \item \textbf{{\em DATA-CUBE-C-EXISTENTIAL-QUANTIFICATIONS-03:}}
 	DSD includes measure (\emph{IC-3} \cite{CyganiakReynolds2014}) -  
 	Every \emph{qb:DataStructureDefinition} must include (\emph{qb:component}, \emph{qb:componentProperty}) at least one declared measure. 
-	\item \textbf{{\em DATA-CUBE-C-EXISTENTIAL-QUANTIFICATIONS-06:}}
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DATA-CUBE-C-EXISTENTIAL-QUANTIFICATIONS-04	:}}
 	Slice Keys must be declared (\emph{IC-7} \cite{CyganiakReynolds2014}) -
 	Every \emph{qb:SliceKey} must be associated with (\emph{qb:sliceKey}) a \emph{qb:DataStructureDefinition} (\ms{SliceKey $\sqsubseteq$ $\exists$ sliceKey$^{-}$.DataStructureDefinition}). 
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \subsection{Universal Quantifications*}
@@ -1155,6 +1200,9 @@ $B \equiv ConceptScheme \sqcap \{SummaryStatisticType\}$
 	\item \textbf{{\em DATA-CUBE-C-MEMBERSHIP-IN-CONTROLLED-VOCABULARIES-01:}}
 	Codes from code list (\emph{IC-19} \cite{CyganiakReynolds2014}) - 
 	If a dimension property has a \emph{qb:codeList}, then the value of the dimension property on every \emph{qb:Observation} must be in the code list. 
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \subsection{IRI Pattern Matching}
@@ -1519,6 +1567,9 @@ It has to be ensured, e.g., that a date is really a date, or that a \emph{xsd:no
 	\item \textbf{{\em DATA-CUBE-C-VALUE-IS-VALID-FOR-DATATYPE-01:}}
 	Datatype consistency (\emph{IC-0} \cite{CyganiakReynolds2014}) -  
 	The RDF graph must be consistent under RDF D-entailment using a datatype map containing all the datatypes used within the graph. 
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \subsection{Use Sub-Super Relations in Validation}
@@ -1567,9 +1618,15 @@ SKOS is based on RDF, which is a graph-based data model. Therefore we can concen
 	\item \textbf{{\em DATA-CUBE-C-STRUCTURE-01:}}
 	Codes from hierarchy (\emph{IC-20} \cite{CyganiakReynolds2014}) -  
 	If a dimension property has a \emph{qb:HierarchicalCodeList} with a non-blank \emph{qb:parentChildProperty} then the value of that dimension property on every \emph{qb:Observation} must be reachable from a root of the hierarchy using zero or more hops along the \emph{qb:parentChildProperty} links. 
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 	\item \textbf{{\em DATA-CUBE-C-STRUCTURE-02:}}
 	Codes from hierarchy (inverse) (\emph{IC-21} \cite{CyganiakReynolds2014}) -  
 	If a dimension property has a \emph{qb:HierarchicalCodeList} with an inverse \emph{qb:parentChildProperty} then the value of that dimension property on every \emph{qb:Observation} must be reachable from a root of the hierarchy using zero or more hops along the inverse \emph{qb:parentChildProperty} links. 
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
