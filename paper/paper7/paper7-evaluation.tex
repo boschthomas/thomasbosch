@@ -210,6 +210,19 @@
 
 \setcounter{secnumdepth}{5}
 
+% tables
+\usepackage{array,graphicx}
+\usepackage{booktabs}
+\usepackage{pifont}
+\newcommand*\rot{\rotatebox{90}}
+\newcommand*\OK{\ding{51}}
+\usepackage{booktabs}
+\newcommand*\ON[0]{$\surd$}
+
+\usepackage{tablefootnote}
+
+\usepackage{float}
+
 \begin{document}
 \renewcommand{\arraystretch}{1.3}
 %
@@ -244,43 +257,686 @@ University of Mannheim, Germany \\
 
 \section{Introduction}
 
+\section{Evaluation}
+
+\subsection{Legend}
+
+\begin{table}
+	\centering
+		\begin{tabular}{c|l}
+      \textbf{Symbol} & \textbf{Description} \\		
+			\emph{X} & \textbf{Validation Successful} \\
+			\hline
+			\textbf{\textgreater} \emph{X} & \textbf{Poor Performance/Scaling} \\
+			\hline
+      \ding{55} & \textbf{Very Poor Performance/Scaling} \\
+			\hline
+			$\dagger$ & \textbf{SPARQL Endpoint Error}
+		\end{tabular}
+	\caption{Legend}
+	\label{tab:legend}
+\end{table}
+
+\textbf{Validation Successful:} 
+\emph{X} indicates the number of raised constraint violation triples. 
+
+\textbf{Poor Performance/Scaling:}
+The performance of the implementation of the underlying SPARQL CONSTRUCT query 
+is too poor to get all resulting constraint violation triples. 
+Therefore, a limit of \emph{X} result constraint violation triples is set. 
+It is likely that there are more than \emph{X} constraint violations.
+Although, the result set contains not the whole set of raised constraint violation triples,
+the constraint can be used as an indicator if there data not conforming to the constraint and
+to resolve constraint violations step by step. 
+As part of future work, the performance will be improved.
+
+\textbf{Very Poor Performance/Scaling:} 
+The performance of the implementation of the underlying SPARQL CONSTRUCT query 
+is too poor to get any results, even though a limit of result constraint violation triples is set. 
+As part of future work, the performance will be improved. 
+
 \section{Disco}
 
 \begin{itemize}
-  \item Microdata Information System (Missy)
-	\item DwB Resource Discovery Portal
+	\item DwB Discovery Portal
 	\begin{itemize}
 	  \item Metadata records for each study are available on the study landing pages.
 		\item \url{http://dwb-dev.nsd.uib.no/portal/#/study/http://portal.dwbproject.org/resource/Study/de.gesis/zacat/ZA5597/en}
     \item Search interface: \url{http://dwb-dev.nsd.uib.no/portal/#/search?q=smoking&p=1&s=score&d=desc&f=text}
 	\end{itemize}
-	\item DDA and SND SPARQL endpoint\footnote{\url{http://ddi-rdf.borsna.se/}} 
-	\begin{itemize}
-		\item triples: 2,271,415
-		\item studies: 1,490
-		\item universes: 10,188
-		\item questions: 139,237
-		\item variables: 80,070
-	\end{itemize}
 \end{itemize}
+
+\begin{table}[H]
+	\centering
+		\begin{tabular}{l|l}
+      \textbf{Abbr.} & \textbf{Disco Data Sets} \\		
+      \hline
+    Missy & Microdata Information System\tablefootnote{\url{http://www.gesis.org/missy/eu/missy-home}} \\
+		DwB & DwB Discovery Portal\tablefootnote{\url{http://dwb-dev.nsd.uib.no/portal}} \\
+		DDA-SND & DDA and SND DDI-RDF\tablefootnote{\url{http://ddi-rdf.borsna.se/}} \\ 
+		\end{tabular}
+	\caption{Disco Data Sets Abbreviations}
+	\label{tab:disco-data-sets-abbreviations}
+\end{table}
+
+\begin{table}[H]
+    \begin{center}
+    \begin{tabular}{@{}lccccccccccc@{}}
+           & \multicolumn{9}{c}{\textbf{Counts}}
+    \\  \cmidrule{2-10}
+    \\       \textbf{Data Sets}
+           & \textbf{\rot{triples}}
+           & \textbf{\rot{disco:StudyGroup}}
+           & \textbf{\rot{disco:Study}}
+           & \textbf{\rot{disco:LogicalDataSet}}
+           & \textbf{\rot{disco:Universe}}
+					 & \textbf{\rot{disco:Variable}}
+					 & \textbf{\rot{disco:Question}}
+				   & \textbf{\rot{disco:SummaryStatistics}}
+					 & \textbf{\rot{disco:CategoryStatistics}}
+					 & \textbf{\rot{skos:Concept}}
+    \\ \midrule
+    Missy &  &  &  &  &  & \\
+		DwB & 2,332,802 & 0 & 1,387 & 1,367 & 2,796 & 446,806 & 0 & 0 & 0 & 0 \\
+		DDA-SND & 2,271,415 & 0 & 1,490 & 0 & 10,188 & 80,070 & 139,237 & 0 & 0 & 290,963 \\ 
+    \bottomrule
+    \end{tabular}
+    \caption{Disco Data Sets Overview}
+		\label{tab:disco-overview}
+    \end{center}
+\end{table}
+
+\begin{table}[H]
+	\centering
+		\begin{tabular}{l|l}
+      \textbf{Data Sets} & \textbf{SPARQL Endpoint} \\		
+      \hline
+      Missy & \textcolor{red}{XXXXX} \\
+			DwB & \url{http://dwb-dev.nsd.uib.no/sparql} \\
+			DDA-SND & \url{http://ddi-rdf.borsna.se/endpoint/} \\
+		\end{tabular}
+	\caption{Disco SPARQL Endpoints}
+	\label{tab:disco-sparql-endpoints}
+\end{table}
 
 \section{Data Cube}
 
 \begin{itemize}
-	\item \url{http://270a.info/} (see the VoID which points to other
-VoIDs) is full of data sets (probably close to 10k) using RDF Data Cube,
-and some of those also include XKOS.
+  \item overview over Data Cube data sets\footnote{\url{http://270a.info/}; \url{http://datahub.io/de/dataset?tags=format-qb}} 
+  \item \url{http://ontologycentral.com/}
 \end{itemize}
+
+%\begin{table}
+	%\centering
+		%\begin{tabular}{l|c|c|c|c|c|c}
+      %\textbf{Data Set} & \textbf{triples} & \textbf{data sets} & \textbf{data structure definitions} & \textbf{observations} & \textbf{slices} & \textbf{dimensions} \\		
+      %\hline
+      %European Central Bank (ECB)\tablefootnote{\url{http://www.ecb.europa.eu/home/html/index.en.html}} &  &  &  &  &  &  \\
+			%UNESCO Institute for Statistics (UIS)\tablefootnote{\url{http://www.uis.unesco.org/Pages/default.aspx}} &  &  &  &  &  &  \\
+			%International Monetary Fund (IMF)\tablefootnote{\url{http://www.imf.org/external/index.htm}} &  &  &  &  &  &  \\
+			%Bundesamt für Statistik - Swiss Federal Statistics (BFS)\tablefootnote{\url{http://www.bfs.admin.ch/}} &  &  &  &  &  &  \\
+			%Food and Agriculture Organization of the United Nations (FAO)\tablefootnote{\url{http://www.fao.org/home/en/}} &  &  &  &  &  &  \\
+			%World Bank (WB)\tablefootnote{\url{http://www.worldbank.org/}} &  &  &  &  &  &  \\
+			%Federal Reserve Board (FRB)\tablefootnote{\url{http://www.federalreserve.gov/}} &  &  &  &  &  &  \\
+			%Transparency International (TI)\tablefootnote{\url{http://www.transparency.org/}} &  &  &  &  &  &  \\
+			%Organisation for Economic Co-operation and Development (OECD)\tablefootnote{\url{http://www.oecd.org/}} &  &  &  &  &  &  \\
+			%Bank for International Settlements (BIS)\tablefootnote{\url{http://www.bis.org/}} &  &  &  &  &  &  \\
+			%Australian Bureau of Statistics (ABS)\tablefootnote{\url{http://abs.gov.au/}} &  &  &  &  &  &  \\
+		%\end{tabular}
+	%\caption{Data Cube Data Sets}
+	%\label{tab:data-cube-data-sets}
+%\end{table}
+
+\begin{table}[H]
+	\centering
+		\begin{tabular}{l|l}
+      \textbf{Abbr.} & \textbf{Data Cube Data Sets} \\		
+      \hline
+    ECB & European Central Bank\tablefootnote{\url{http://www.ecb.europa.eu/home/html/index.en.html}} \\
+		UIS & UNESCO Institute for Statistics\tablefootnote{\url{http://www.uis.unesco.org/Pages/default.aspx}} \\
+		IMF & International Monetary Fund\tablefootnote{\url{http://www.imf.org/external/index.htm}} \\
+		BFS & Bundesamt für Statistik - Swiss Federal Statistics\tablefootnote{\url{http://www.bfs.admin.ch/}} \\
+		FAO & Food and Agriculture Organization of the United Nations\tablefootnote{\url{http://www.fao.org/home/en/}} \\
+		WB & World Bank\tablefootnote{\url{http://www.worldbank.org/}} \\
+		FRB & Federal Reserve Board\tablefootnote{\url{http://www.federalreserve.gov/}} \\
+		TI & Transparency International\tablefootnote{\url{http://www.transparency.org/}} \\
+		OECD & Organisation for Economic Co-operation and Development\tablefootnote{\url{http://www.oecd.org/}} \\
+		BIS & Bank for International Settlements\tablefootnote{\url{http://www.bis.org/}} \\
+		ABS & Australian Bureau of Statistics\tablefootnote{\url{http://abs.gov.au/}} \\
+		IEEE-VIS & IEEE VIS Source Data \\
+		ACORN-SAT & Australian Climate Observations Reference Network - Surface Air Temperature Dataset \\
+		HDP & HealthData.gov Platform (HDP) on the Semantic Web \\
+		Eurostat & The Eurostat Linked Data  \\
+		Asturias & Nomenclator Asturias \\
+		ISTAT & ISTAT Immigration (LinkedOpenData.it) \\
+		ICANE & Statistical Office of Cantabria (Instituto Cántabro de Estadística, ICANE) \\
+		EE-2009 & European Election Results 2009 \\
+		EU-B & Standard Eurobarometer \\
+		ECB-S & European Central Bank Statistics (PublicData.eu) \\
+		CPV-2008 & Common Procurement Vocabulary (CPV) 2008 \\
+		CPV-2003 & Common Procurement Vocabulary (CPV) 2003 \\
+		GHI-2011 & Global Hunger Index (GHI) 2011 \\
+		\end{tabular}
+	\caption{Data Cube Data Sets Abbreviations}
+	\label{tab:data-cube-data-sets-abbreviations}
+\end{table}
+
+\begin{table}[H]
+    \begin{center}
+    \begin{tabular}{@{}lccccccccccc@{}}
+           & \multicolumn{5}{c}{\textbf{Counts}}
+    \\  \cmidrule{2-6}
+    \\       \textbf{Data Sets}
+           & \textbf{\rot{triples}}
+           & \textbf{\rot{qb:DataSet}}
+           & \textbf{\rot{qb:DataStructureDefinition}}
+           & \textbf{\rot{qb:Observation}}
+           & \textbf{\rot{qb:Slice}}
+    \\ \midrule
+    ECB & 468,899,474 & 55 & 46 & $>$11,000,000 & 428,698 \\
+		UIS & 10,400,534 & 5 & 5 & 1,437,651 & 0 &  \\
+		IMF & 35,688,446 & 4 & 8 & 3,603,719 & 0 &  \\
+		BFS & 1,533,743 & 0 & 0 & 8 & 0 &  \\
+		FAO & 53,000,000 & 10 & 10 & $>$7,100,000 & 0 \\
+		WB & 174,006,552 & 9,466 & 59 & $>$17,000,000 & 0 \\
+		FRB & 185,266,900 & 49 & 98 & $>$9,500,000 & 0 \\
+		TI & 52,233 & 6 & 6 & 3,928 & 0 \\
+		OECD & 304,995,160 & 136 & 140 & $>$12,000,000 & 0 \\
+		BIS & 54,197,482 & 6 & 12 & 3,606,466 & 47,914 \\
+		ABS & 2,357,400,000 & 253 & 257 & $>$11,000,000 & 0  \\
+		IEEE-VIS & 19,935,340 & 0 & 0 & 1,350 & 0 \\
+		ACORN-SAT & 61,406,503 &  &  &  &  &  \\
+		HDP & 1,934,046,908 &  &  &  &  &  \\
+		Eurostat & 8,000,000,000 &  &  &  &  &  \\
+		Asturias & 4,508,050 &  &  &  &  &  \\
+		ISTAT & 3,024,396 &  &  &  &  &  \\
+		ICANE & 52,412 &  &  &  &  &  \\
+		EE-2009 & 3,165 &  &  &  &  &  \\
+		EU-B & 1,193,494 &  &  &  &  &  \\
+		ECB-S & 10,000,000 &  &  &  &  &  \\
+		CPV-2008 & 803,311 &  &  &  &  &  \\
+		CPV-2003 & 546,135 &  &  &  &  &  \\
+		GHI-2011 & 19,369 (dump) &  &  &  &  &  \\
+    \bottomrule
+    \end{tabular}
+    \caption{Data Cube Data Sets Overview}
+    \end{center}
+\end{table}
+
+\begin{table}[H]
+	\centering
+		\begin{tabular}{l|l}
+      \textbf{Data Sets} & \textbf{SPARQL Endpoints} \\		
+      \hline
+      ECB & \url{http://ecb.270a.info/sparql} \\
+			UIS & \url{http://uis.270a.info/sparql} \\
+			IMF & \url{http://imf.270a.info/sparql} \\
+			BFS & \url{http://bfs.270a.info/sparql} \\
+			FAO & \url{http://fao.270a.info/sparql} \\
+			WB & \url{http://worldbank.270a.info/sparql} \\
+			FRB & \url{http://frb.270a.info/sparql} \\
+			TI & \url{http://transparency.270a.info/sparql} \\
+			OECD & \url{http://oecd.270a.info/sparql} \\
+			BIS & \url{http://bis.270a.info/sparql} \\
+			ABS & \url{http://abs.270a.info/sparql} \\
+		\end{tabular}
+	\caption{Data Cube Data Sets SPARQL Endpoints}
+	\label{tab:data-cube-data-sets-sparql-endpoints}
+\end{table}
+
+\begin{table}[H]
+    \begin{center}
+    \begin{tabular}{@{}lcccccccccccc@{}}
+           & \multicolumn{12}{c}{\textbf{Data Sets}}
+    \\  \cmidrule{2-13}
+    \\       \textbf{Data Model Consistency}
+           & \rot{ECB}
+           & \rot{UIS}
+           & \rot{IMF}
+           & \rot{BFS}
+           & \rot{FAO}
+					 & \rot{WB}
+					 & \rot{FRB}
+					 & \rot{TI}
+					 & \rot{OECD}
+					 & \rot{BIS}
+					 & \rot{ABS}
+					 & \rot{IEEE-VIS}
+    \\ \midrule
+    DATA-MODEL-CONSISTENCY-01 & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+    DATA-MODEL-CONSISTENCY-02 & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+    DATA-MODEL-CONSISTENCY-03 & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+    DATA-MODEL-CONSISTENCY-04 & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ &  & & & $\checkmark$ \\
+		DATA-MODEL-CONSISTENCY-05 &  &  &  &  &  & & & & & & & $\checkmark$ \\
+		DATA-MODEL-CONSISTENCY-06 &  &  &  &  &  & \\
+		DATA-MODEL-CONSISTENCY-07 &  &  &  &  &  & \\
+		DATA-MODEL-CONSISTENCY-08 &  &  &  &  &  & \\
+		DATA-MODEL-CONSISTENCY-09 &  &  &  &  &  & \\
+		DATA-MODEL-CONSISTENCY-10 &  &  &  &  &  & \\
+		DATA-MODEL-CONSISTENCY-11 &  &  &  &  &  & \\
+    \bottomrule
+    \end{tabular}
+    \caption{Evaluation of Data Cube Data Sets}
+    \end{center}
+\end{table}
+
+\begin{table}[H]
+    \begin{center}
+    \begin{tabular}{@{}lcccccccccccc@{}}
+           & \multicolumn{12}{c}{\textbf{Data Sets}}
+    \\  \cmidrule{2-13}
+    \\       \textbf{Existential Quantifications}
+           & \rot{ECB}
+           & \rot{UIS}
+           & \rot{IMF}
+           & \rot{BFS}
+           & \rot{FAO}
+					 & \rot{WB}
+					 & \rot{FRB}
+					 & \rot{TI}
+					 & \rot{OECD}
+					 & \rot{BIS}
+					 & \rot{ABS}
+					 & \rot{IEEE-VIS}
+    \\ \midrule
+		EXISTENTIAL-QUANTIFICATIONS-01 & 9 & $\checkmark$ & 11 & 7 & 8 & 77 & 8 & 9 & 7 & 8 & 7 & $\checkmark$ \\
+		EXISTENTIAL-QUANTIFICATIONS-02 & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+		EXISTENTIAL-QUANTIFICATIONS-03 & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & 59 & $\checkmark$ & 6 & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+		EXISTENTIAL-QUANTIFICATIONS-04 & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+    \bottomrule
+    \end{tabular}
+    \caption{Evaluation of Data Cube Data Sets}
+    \end{center}
+\end{table}
+
+\begin{table}[H]
+    \begin{center}
+    \begin{tabular}{@{}lcccccccccccc@{}}
+           & \multicolumn{12}{c}{\textbf{Data Sets}}
+    \\  \cmidrule{2-13}
+    \\       \textbf{Cardinality Restrictions}
+           & \rot{ECB}
+           & \rot{UIS}
+           & \rot{IMF}
+           & \rot{BFS}
+           & \rot{FAO}
+					 & \rot{WB}
+					 & \rot{FRB}
+					 & \rot{TI}
+					 & \rot{OECD}
+					 & \rot{BIS}
+					 & \rot{ABS}
+					 & \rot{IEEE-VIS}
+    \\ \midrule
+		MINIMUM-QUALIFIED-CARDINALITY-RESTRICTIONS-01 &  &  &  &  &  & \\
+		EXACT-UNQUALIFIED-CARDINALITY-RESTRICTIONS-01 & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+		EXACT-QUALIFIED-CARDINALITY-RESTRICTIONS-01 & \ding{55} & 118 & 8 & 8 & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & \ding{55} & 12 & \ding{55} & 1,350 \\
+		EXACT-QUALIFIED-CARDINALITY-RESTRICTIONS-02 & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & 1 & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+    \bottomrule
+    \end{tabular}
+    \caption{Evaluation of Data Cube Data Sets}
+    \end{center}
+\end{table}
+
+\begin{table}[H]
+    \begin{center}
+    \begin{tabular}{@{}lcccccccccccc@{}}
+           & \multicolumn{12}{c}{\textbf{Data Sets}}
+    \\  \cmidrule{2-13}
+    \\       \textbf{Structure}
+           & \rot{ECB}
+           & \rot{UIS}
+           & \rot{IMF}
+           & \rot{BFS}
+           & \rot{FAO}
+					 & \rot{WB}
+					 & \rot{FRB}
+					 & \rot{TI}
+					 & \rot{OECD}
+					 & \rot{BIS}
+					 & \rot{ABS}
+					 & \rot{IEEE-VIS}
+    \\ \midrule
+		STRUCTURE-01 & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+		STRUCTURE-02 & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+    \bottomrule
+    \end{tabular}
+    \caption{Evaluation of Data Cube Data Sets}
+    \end{center}
+\end{table}
+
+\begin{table}[H]
+    \begin{center}
+    \begin{tabular}{@{}lcccccccccccc@{}}
+           & \multicolumn{12}{c}{\textbf{Data Sets}}
+    \\  \cmidrule{2-13}
+    \\       \textbf{Constraints}
+           & \rot{ECB}
+           & \rot{UIS}
+           & \rot{IMF}
+           & \rot{BFS}
+           & \rot{FAO}
+					 & \rot{WB}
+					 & \rot{FRB}
+					 & \rot{TI}
+					 & \rot{OECD}
+					 & \rot{BIS}
+					 & \rot{ABS}
+					 & \rot{IEEE-VIS}
+    \\ \midrule
+		PROPERTY-DOMAIN-01 &  &  &  &  &  & \\
+		PROPERTY-RANGES-01 &  &  &  &  &  & \\
+		DISJOINT-PROPERTIES-01 &  &  &  &  &  & \\
+		DISJOINT-CLASSES-01 &  &  &  &  &  & \\
+		EQUIVALENT-PROPERTIES-01 &  &  &  &  &  & \\
+		UNIVERSAL-QUANTIFICATIONS-01 &  &  &  &  &  & \\
+		MEMBERSHIP-IN-CONTROLLED-VOCABULARIES-01 &  &  &  &  &  & \\
+		CONTEXT-SPECIFIC-VALID-CLASSES-01 &  &  &  &  &  & \\
+		CONTEXT-SPECIFIC-VALID-PROPERTIES-01 &  &  &  &  &  & \\
+		RECOMMENDED-PROPERTIES-01 &  &  &  &  &  & \\
+		VALUE-IS-VALID-FOR-DATATYPE-01 &  &  &  &  &  & \\
+		VOCABULARY-01 &  &  &  &  &  & \\
+    \bottomrule
+    \end{tabular}
+    \caption{Evaluation of Data Cube Data Sets}
+    \end{center}
+\end{table}
+
+\section{SKOS}
+
+\begin{itemize}
+  \item overview over SKOS data sets\footnote{\url{http://datahub.io/de/dataset?tags=format-skos}}
+	\item overview over thesauri\footnote{\url{http://datahub.io/de/dataset?tags=thesaurus}} (table \ref{tab:thesauri-overview})
+\end{itemize}
+
+\begin{table}[H]
+	\centering
+		\begin{tabular}{l|l}
+      \textbf{Abbr.} & \textbf{Thesauri} \\		
+      \hline
+    TheSoz & Thesaurus for the Social Sciences\tablefootnote{\url{http://www.ecb.europa.eu/home/html/index.en.html}} \\
+	  STW & Thesaurus for Economics\tablefootnote{\url{http://zbw.eu/stw/versions/latest/about}} \\
+	  AGROVOC & AGROVOC Multilingual agricultural thesaurus\tablefootnote{\url{http://202.45.139.84:10035/catalogs/fao/repositories/agrovoc}} \\
+		UNESCO & UNESCO Thesaurus\tablefootnote{\url{http://skos.um.es/sparql/}} \\
+		TGN & The Getty Thesaurus of Geographic Names\tablefootnote{\url{http://vocab.getty.edu/sparql}} \\
+		EARTh & Environmental Applications Reference Thesaurus\tablefootnote{\url{http://linkeddata.ge.imati.cnr.it/resource/EARTh/}} \\
+		ODT & Open Data Thesaurus\tablefootnote{\url{http://vocabulary.semantic-web.at/PoolParty/wiki/OpenData}} \\
+		SLD & Spanish Linguistic Datasets\tablefootnote{\url{http://linguistic.linkeddata.es}} \\
+		SSWT & Social Semantic Web Thesaurus\tablefootnote{\url{http://vocabulary.semantic-web.at/PoolParty/wiki/semweb}} \\
+		GBA-GU & Thesaurus of the Geological Survey of Austria (GBA) - Geology Unit\tablefootnote{\url{http://resource.geolba.ac.at/}} \\
+		GBA-GTS & Thesaurus of the Geological Survey of Austria (GBA) - Geologic Time Scale\tablefootnote{\url{http://resource.geolba.ac.at/}} \\
+		GBA-L & Thesaurus of the Geological Survey of Austria (GBA) - Lithology\tablefootnote{\url{http://resource.geolba.ac.at/}} \\
+		GBA-LU & Thesaurus of the Geological Survey of Austria (GBA) - Lithotectonic Unit\tablefootnote{\url{http://resource.geolba.ac.at/}} \\
+		GEMET & GEneral Multilingual Environmental Thesaurus\tablefootnote{\url{http://www.eionet.europa.eu/gemet/}} \\
+		EuroVoc & EuroVoc\tablefootnote{\url{http://open-data.europa.eu/de/data/dataset/eurovoc}} \\
+		CECCT & Clean Energy and Climate Change Thesaurus\tablefootnote{\url{http://data.reegle.info/thesaurus/guide}} \\
+		\end{tabular}
+	\caption{Thesauri Abbreviations}
+	\label{tab:thesauri-abbreviations}
+\end{table}
+
+\begin{table}[H]
+    \begin{center}
+    \begin{tabular}{@{}lccccccccccc@{}}
+           & \multicolumn{6}{c}{\textbf{Counts}}
+    \\  \cmidrule{2-7}
+    \\       \textbf{Thesauri}
+           & \textbf{\rot{triples}}
+           & \textbf{\rot{skos:ConceptScheme}}
+           & \textbf{\rot{sko:Concept}}
+           & \textbf{\rot{skos:broader}}
+           & \textbf{\rot{skos:narrower}}
+					 & \textbf{\rot{skos:hasTopConcept}}
+					 & \textbf{\rot{skos:inScheme}}
+    \\ \midrule
+    TheSoz & 439,153 & 1 & 8,426 & 13,705 & 13,706 & 0 & 48,529 \\
+	  STW & 221,668 & 1 & 13,468 & 13,732 & 13732 & 7 & 13,180 \\
+	  AGROVOC & 6,080,477 & 1 & 32,310 & 33,507 & 33,507 & 25 & 32,310 \\
+		UNESCO & 288,346 & 9 & 26,714 & 20,028 & 20,028 & 607 & 32,009 \\
+		TGN & 16,112,321 & 8 & 2,898,775 & 0 & 0 & 0 & 1,453,767\\
+		EARTh & 9,287,364 &  &  &  & \\
+		ODT & 3,290 &  &  &  & \\
+		SLD & 7,629,211 &  &  &  & \\
+		SSWT & 64,698 &  &  &  & \\
+		GBA-GU & 25,718 &  &  &  & \\
+		GBA-GTS & 7,875 &  &  &  & \\
+		GBA-L & 9,317 &  &  &  & \\
+		GBA-LU & 9,504 &  &  &  & \\
+		GEMET & 372,889,229 &  &  &  & \\
+		EuroVoc & 64,477,774 &  &  &  & \\
+		CECCT & 191,336 &  &  &  & \\
+    \bottomrule
+    \end{tabular}
+    \caption{Thesauri Overview}
+		\label{tab:thesauri-overview}
+    \end{center}
+\end{table}
+
+\begin{table}[H]
+	\centering
+		\begin{tabular}{l|l}
+      \textbf{Thesauri} & \textbf{SPARQL Endpoints} \\		
+      \hline
+      TheSoz & \url{http://lod.gesis.org/thesoz/sparql} \\
+			STW & \url{http://zbw.eu/beta/sparql/stw/query} \\
+			AGROVOC & \url{http://202.45.139.84:10035/catalogs/fao/repositories/agrovoc} \\
+			UNESCO & \url{http://skos.um.es/sparql/} \\
+			TGN & \url{http://vocab.getty.edu/} \\
+			EARTh & \url{http://linkeddata.ge.imati.cnr.it:8890/sparql} \\
+			ODT & \url{http://vocabulary.semantic-web.at/PoolParty/sparql/OpenData} \\
+			SLD & \url{http://linguistic.linkeddata.es/sparql} \\
+			SSWT & \url{http://vocabulary.semantic-web.at/PoolParty/sparql/semweb} \\
+			GBA-GU & \url{http://resource.geolba.ac.at/PoolParty/sparql/GeologicUnit} \\
+			GBA-GTS & \url{http://resource.geolba.ac.at/PoolParty/sparql/GeologicTimeScale} \\
+			GBA-L & \url{http://resource.geolba.ac.at/PoolParty/sparql/lithology} \\
+			GBA-LU & \url{http://resource.geolba.ac.at/PoolParty/sparql/tectonicunit} \\
+			GEMET & \url{http://semantic.eea.europa.eu/sparql} \\
+			EuroVoc & \url{http://open-data.europa.eu/de/linked-data} \\
+			CECCT & \url{http://poolparty.reegle.info/PoolParty/sparql/glossary}
+		\end{tabular}
+	\caption{Thesauri SPARQL Endpoints}
+	\label{tab:thesauri-sparql-endpoints}
+\end{table}
+
+\begin{table}[H]
+    \begin{center}
+    \begin{tabular}{@{}lcccccccccccc@{}}
+           & \multicolumn{12}{c}{\textbf{Data Sets}}
+    \\  \cmidrule{2-13}
+    \\       \textbf{Data Model Consistency}
+           & \rot{TheSoz}
+           & \rot{STW}
+           & \rot{AGROVOC}
+					 & \rot{TGN}
+           & \rot{UNESCO}
+					 & \rot{ODT}
+					 & \rot{SSWT}
+					 & \rot{GBA-GU}
+					 & \rot{GBA-GTS}
+					 & \rot{GBA-L}
+					 & \rot{GBA-LU}
+					 & \rot{CECCT}
+    \\ \midrule
+    DATA-MODEL-CONSISTENCY-01 &  &  &  &  &  & \\
+    DATA-MODEL-CONSISTENCY-02 &  &  &  &  &  & \\
+    DATA-MODEL-CONSISTENCY-03 &  &  &  &  &  & \\
+    \bottomrule
+    \end{tabular}
+    \caption{Thesauri Evaluation}
+		\label{tab:thesauri-evaluation-1}
+    \end{center}
+\end{table}
+
+\begin{table}[H]
+    \begin{center}
+    \begin{tabular}{@{}lcccccccccccc@{}}
+           & \multicolumn{12}{c}{\textbf{Data Sets}}
+    \\  \cmidrule{2-13}
+    \\       \textbf{Labeling and Documentation}
+           & \rot{TheSoz}
+           & \rot{STW}
+           & \rot{AGROVOC}
+					 & \rot{TGN}
+           & \rot{UNESCO}
+					 & \rot{ODT}
+					 & \rot{SSWT}
+					 & \rot{GBA-GU}
+					 & \rot{GBA-GTS}
+					 & \rot{GBA-L}
+					 & \rot{GBA-LU}
+					 & \rot{CECCT}
+    \\ \midrule
+		LABELING-AND-DOCUMENTATION-01 & 8,426 & 11,508 & 19,829 & $\checkmark$ & & 36 & 1,475 & 6 & 2 & $\checkmark$ & 107 & 486 \\
+		LABELING-AND-DOCUMENTATION-02 & $>$1 & \ding{55} & $>$100 & $\checkmark$ & & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+		LABELING-AND-DOCUMENTATION-03 & $\checkmark$ & $\checkmark$ & 1 & $\checkmark$ & & $\checkmark$ & $\checkmark$ & 1 & $\checkmark$ & $\checkmark$ & 1 & $\checkmark$ \\
+		LABELING-AND-DOCUMENTATION-04 &  &  &  &  &  & & &  \\
+		LABELING-AND-DOCUMENTATION-05 & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & & $\checkmark$ & $\checkmark$ & 1 & $\checkmark$ & $\checkmark$ & $\checkmark$ & 3 \\
+		LABELING-AND-DOCUMENTATION-06 & $>$1 & \ding{55} & \ding{55} & $\checkmark$ & & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+    \bottomrule
+    \end{tabular}
+    \caption{Thesauri Evaluation}
+		\label{tab:thesauri-evaluation-2}
+    \end{center}
+\end{table}
+
+\begin{table}[H]
+    \begin{center}
+    \begin{tabular}{@{}lcccccccccccc@{}}
+           & \multicolumn{12}{c}{\textbf{Data Sets}}
+    \\  \cmidrule{2-13}
+    \\       \textbf{Structure}
+           & \rot{TheSoz}
+           & \rot{STW}
+           & \rot{AGROVOC}
+					 & \rot{TGN}
+           & \rot{UNESCO}
+					 & \rot{ODT}
+					 & \rot{SSWT}
+					 & \rot{GBA-GU}
+					 & \rot{GBA-GTS}
+					 & \rot{GBA-L}
+					 & \rot{GBA-LU}
+					 & \rot{CECCT}
+    \\ \midrule
+		STRUCTURE-01 & 1 & 1,074 & $\checkmark$ & $\checkmark$ &  & 5 & 1 & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+		STRUCTURE-02 &  &  &  &  &  & \\
+		STRUCTURE-03 & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ &  & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+		STRUCTURE-04 & 2,906 & $>$1,000 & 726 & $\checkmark$ &  & 12 & 124 & 84 & 256 & $>$54 & 22 & 2,422 \\
+		STRUCTURE-05 & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ &  & 90 & 5,150 & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & 9,864 \\
+		STRUCTURE-06 & 2 & $\checkmark$ & $\checkmark$ & $\checkmark$ &  & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & 113 \\
+		STRUCTURE-07 & 8 & 1,074 & $\checkmark$ & $\checkmark$ &  & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+		STRUCTURE-08 &  &  &  &  &  & \\
+		STRUCTURE-09 & 6,741 & $>$3,297 & 135 & $\checkmark$ &  & 2 & 16 & 25 & $\checkmark$ & $\checkmark$ & $\checkmark$ & 81 \\
+		STRUCTURE-10 & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ &  & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+    \bottomrule
+    \end{tabular}
+    \caption{Thesauri Evaluation}
+		\label{tab:thesauri-evaluation-3}
+    \end{center}
+\end{table}
+
+\begin{table}[H]
+    \begin{center}
+    \begin{tabular}{@{}lcccccccccccc@{}}
+           & \multicolumn{12}{c}{\textbf{Data Sets}}
+    \\  \cmidrule{2-13}
+    \\       \textbf{Language Tag Cardinality}
+           & \rot{TheSoz}
+           & \rot{STW}
+           & \rot{AGROVOC}
+					 & \rot{TGN}
+           & \rot{UNESCO}
+					 & \rot{ODT}
+					 & \rot{SSWT}
+					 & \rot{GBA-GU}
+					 & \rot{GBA-GTS}
+					 & \rot{GBA-L}
+					 & \rot{GBA-LU}
+					 & \rot{CECCT}
+    \\ \midrule
+		LANGUAGE-TAG-CARDINALITY-01 & 9,435 & 13,468 & 98,894 & $\checkmark$ &  & 541 & 10,147 & 5,117 & 2,061 & 1,742 & 2,272 & 15,550 \\
+		LANGUAGE-TAG-CARDINALITY-02 & 8,222 & 36,936 & \ding{55} & $\checkmark$ &  & 265 & 3,627 & 2,212 & 635 & 631 & 1,253 & 9,607 \\
+		LANGUAGE-TAG-CARDINALITY-03 & 8,222 & $\checkmark$ & 135 & $\checkmark$ &  & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+		LANGUAGE-TAG-CARDINALITY-04 & $\checkmark$ & 476 & \ding{55} & 50 &  & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+    \bottomrule
+    \end{tabular}
+    \caption{Thesauri Evaluation}
+		\label{tab:thesauri-evaluation-4}
+    \end{center}
+\end{table}
+
+\begin{table}[H]
+    \begin{center}
+    \begin{tabular}{@{}lcccccccccccc@{}}
+           & \multicolumn{12}{c}{\textbf{Data Sets}}
+    \\  \cmidrule{2-13}
+    \\       \textbf{Constraints}
+           & \rot{TheSoz}
+           & \rot{STW}
+           & \rot{AGROVOC}
+					 & \rot{TGN}
+           & \rot{UNESCO}
+					 & \rot{ODT}
+					 & \rot{SSWT}
+					 & \rot{GBA-GU}
+					 & \rot{GBA-GTS}
+					 & \rot{GBA-L}
+					 & \rot{GBA-LU}
+					 & \rot{CECCT}
+    \\ \midrule
+		PROPERTY-DOMAIN-01 &  &  &  &  &  & \\
+		PROPERTY-RANGES-01 &  &  &  &  &  & \\
+		DISJOINT-PROPERTIES-01 &  &  &  &  &  & \\
+		DISJOINT-PROPERTIES-02 &  &  &  &  &  & \\
+		DISJOINT-CLASSES-01 &  &  &  &  &  & \\
+		EQUIVALENT-PROPERTIES-01 &  &  &  &  &  & \\
+		UNIVERSAL-QUANTIFICATIONS-01 &  &  &  &  &  & \\
+		CONTEXT-SPECIFIC-VALID-CLASSES-01 &  &  &  &  &  & \\
+		CONTEXT-SPECIFIC-VALID-PROPERTIES-01 &  &  &  &  &  & \\
+		RECOMMENDED-PROPERTIES-01 &  &  &  &  &  & \\
+		VOCABULARY-01 &  &  &  &  &  & \\
+    \bottomrule
+    \end{tabular}
+    \caption{Thesauri Evaluation}
+		\label{tab:thesauri-evaluation-5}
+    \end{center}
+\end{table}
 
 \section{XKOS}
 
 \begin{itemize}
-	\item Nomenclature d'activités française (NAF)\footnote{\url{http://rdf.insee.fr/codes/index.html}}: French classification expressed in XKOS. the French refinement of the NACE, because it has explanatory notes.
-	\item Nomenclature des Professions et Catégories Socioprofessionnelles (PCS)\footnote{\url{http://rdf.insee.fr/codes/index.html}}: French classification expressed in XKOS.
-	\item Nomenclature des catégories juridiques (CJ)\footnote{\url{http://rdf.insee.fr/codes/index.html}}: French classification expressed in XKOS.
+	\item Nomenclature d'activités française (NAF): French classification expressed in XKOS. the French refinement of the NACE, because it has explanatory notes.
+	\item Nomenclature des Professions et Catégories Socioprofessionnelles (PCS): French classification expressed in XKOS.
+	\item Nomenclature des catégories juridiques (CJ): French classification expressed in XKOS.
 	\item ISIC: has explanatory notes too. 
 	\item ISCO
 \end{itemize}
+
+\begin{table}[H]
+    \begin{center}
+    \begin{tabular}{@{}lccccccccccc@{}}
+           & \multicolumn{6}{c}{\textbf{Counts}}
+    \\  \cmidrule{2-7}
+    \\       \textbf{Data Sets}
+           & \textbf{\rot{triples}}
+           & \textbf{\rot{}}
+           & \textbf{\rot{}}
+           & \textbf{\rot{}}
+           & \textbf{\rot{}}
+					 & \textbf{\rot{}}
+					 & \textbf{\rot{}}
+    \\ \midrule
+    Nomenclature d'activités française (NAF)\tablefootnote{\url{http://rdf.insee.fr/codes/index.html}} &  &  &  &  &  & \\
+		Nomenclature des Professions et Catégories Socioprofessionnelles (PCS)\tablefootnote{\url{http://rdf.insee.fr/codes/index.html}} &  &  &  &  &  & \\
+		Nomenclature des catégories juridiques (CJ)\tablefootnote{\url{http://rdf.insee.fr/codes/index.html}} &  &  &  &  &  & \\
+		ISIC &  &  &  &  &  & \\
+		ISCO &  &  &  &  &  & \\
+    \bottomrule
+    \end{tabular}
+    \caption{Statistical Classifications Overview}
+		\label{tab:statistical-classifications-overview}
+    \end{center}
+\end{table}
 
 
 \bibliography{../../literature/literature}{}

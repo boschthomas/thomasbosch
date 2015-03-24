@@ -382,7 +382,7 @@ Such validation rules ensure the integrity of the data according to the data mod
 	\begin{itemize}
 	  \item Implementation:
 		In a first step, all pairs of concepts are found that are associatively connected, using a SPARQL query. In the second step, a graph is created, containing only hierarchically related concepts and the respective relations. For each concept pair from the first step, we check for a path in the graph from step two. If such a path is found, a clash has been identified and the causing concepts are returned. 
-		\item Severity level: 
+		\item \textcolor{red}{Severity level: INFO} 
 	\end{itemize}
 	
 	\item \textbf{{\em SKOS-C-DATA-MODEL-CONSISTENCY-02\footnote{Corresponds to qSKOS Quality Issues - SKOS Semi-Formal Consistency Issues - Mapping Clashes}:}}
@@ -391,14 +391,14 @@ Such validation rules ensure the integrity of the data according to the data mod
 	\begin{itemize}
 	  \item Implementation:
 		Can be solved by issuing a SPARQL query. 
-		\item Severity level: 
+		\item \textcolor{red}{Severity level: INFO} 
 	\end{itemize}
 	
 	\item \textbf{{\em SKOS-C-DATA-MODEL-CONSISTENCY-03\footnote{Corresponds to qSKOS Quality Issues - SKOS Semi-Formal Consistency Issues - Mapping Relations Misuse}:}}
 	Mapping Relations Misuse:
   According to the SKOS reference documentation, mapping relations (e.g., \emph{skos:broadMatch} or \emph{skos:relatedMatch}) should be asserted to concepts being members of different concept schemes. This check finds concepts that are related by a mapping property and are either members of the same concept scheme or members of no concept scheme at all. 
 	\begin{itemize}
-		\item Severity level: 
+		\item \textcolor{red}{Severity level: INFO} 
 	\end{itemize}
 	
 \end{itemize}
