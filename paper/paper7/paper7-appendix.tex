@@ -255,20 +255,19 @@ When constraint types are mapped to DL, we do not state namespace prefixes for s
 
 \section{Validation Types}
 
-\textbf{Content-Driven Validation / Data Model Consistency}.
-Is the data consistent with the intended semantics of the data model?
-Such validation rules ensure the integrity of the data according to the data model.
-
-\textbf{Technology-Driven Validation}.
-Some validation rules can be generated automatically out of the defined data model, such as cardinality restrictions, universal quantifications, domains, ranges.
+We distinguish two validation types:
+(1) \emph{Content-Driven Validation} $\mathcal{C}_{C}$ contains the set of constraints ensuring that the data is consistent with the intended syntax, semantics, and integrity of given data models.
+(2) \emph{Technology-Driven Validation} $\mathcal{C}_{T}$ includes the set of constraints which can be generated automatically out of data models, such as cardinality restrictions, universal and existential quantifications, domains, and ranges.
 
 \section{Validation of Metadata on Person-Level and Aggregated Data}
 
 \begin{itemize}
   \item Constraint types marked with an asterisk (*) can be used as OWL 2 axioms. Thus, reasoners may be used to infer implicit triples resolving constraint violations caused when these constraints are validated.
-	\item \underline{Underlined subsections} are data model specific constraint types and do not correspond to RDF validation requirements (constraint types).
+	\item \underline{Underlined subsections} represent data model specific constraint types and do not correspond to RDF validation requirements (constraint types).
 %	\item \underline{Underlined constraints} are part of content-driven validation.
 %	\item \udash{Dashed underlined constraints} are part of technology-driven validation.
+	\item $\mathcal{C}_{T}$ constraint types are marked with the superscript\textsuperscript{T}
+	\item $\mathcal{C}_{C}$ constraint types are not marked
 \end{itemize}
 
 \subsection{\underline{Comparison}}
@@ -287,7 +286,7 @@ Some validation rules can be generated automatically out of the defined data mod
 	\item \textbf{{\em DISCO-C-COMPARISON-VARIABLES-03}}:
 	are code lists structured properly for each variable (\emph{disco:Variable}) to compare?
 		\begin{itemize}
-		\item severity level: WARNING
+		\item severity level: ERROR
 	\end{itemize}
 	\item \textbf{{\em DISCO-C-COMPARISON-VARIABLES-04}}:
 	is for each code (for each variable (\emph{disco:Variable}) to compare) an associated category (a human-readable label) specified?
@@ -304,6 +303,51 @@ Some validation rules can be generated automatically out of the defined data mod
 \subsection{\underline{Data Model Consistency}}
 Is the data consistent with the intended semantics of the data model?
 Such validation rules ensure the integrity of the data according to the data model.
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-DATA-MODEL-CONSISTENCY-01}}: 
+	Codes (\emph{skos:Concept}) are ordered and therefore have fixed positions in an ordered collection (\emph{skos:OrderedCollection}) within a variable representation.
+	The cumulative percentage of the current code is the cumulative percentage of the previous code (\emph{disco:cumulativePercentage})
+	plus the percentage value (\emph{disco:percentage}) of the current code. 
+		\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-DATA-MODEL-CONSISTENCY-02}}: 
+	The cumulative percentage (\emph{disco:cumulativePercentage}) of the last code must be 100. 
+		\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-DATA-MODEL-CONSISTENCY-03}}: 
+	The number of valid cases (\emph{disco:SummaryStatistics} of the type (\emph{disco:summaryStatisticType}) \emph{ddicv-sumstats:ValidCases}) 
+	for a particular variable must exactly be the sum of absolute frequencies of all valid cases (\emph{disco:inValid} of \emph{skos:Concept} is true).
+		\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-DATA-MODEL-CONSISTENCY-04}}: 
+	The number of invalid cases (\emph{disco:SummaryStatistics} of the type (\emph{disco:summaryStatisticType}) \emph{ddicv-sumstats:InvalidCases}) 
+	for a particular variable must exactly be the sum of absolute frequencies of all invalid cases (\emph{disco:inValid} of \emph{skos:Concept} is false).
+		\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-DATA-MODEL-CONSISTENCY-05}}: 
+	The total number of valid and invalid cases (\emph{disco:SummaryStatistics} of the type (\emph{disco:summaryStatisticType}) \emph{ddicv-sumstats:NumberOfCases}) 
+	for a particular variable must exactly be the number of valid cases plus the number of invalid cases.
+		\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-DATA-MODEL-CONSISTENCY-06}}: 
+	Some summary statistics types can only be calculated for given variable types. 
+	It is not possible to compute minimum values for string variables.
+		\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-DATA-MODEL-CONSISTENCY-07}}: 
+	Some summary statistics types can only be calculated for given variable types. 
+	It is not possible to compute mean values for categorical variables, only for metric variables.
+		\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+\end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-01:}}
@@ -382,7 +426,7 @@ Such validation rules ensure the integrity of the data according to the data mod
 	\begin{itemize}
 	  \item Implementation:
 		In a first step, all pairs of concepts are found that are associatively connected, using a SPARQL query. In the second step, a graph is created, containing only hierarchically related concepts and the respective relations. For each concept pair from the first step, we check for a path in the graph from step two. If such a path is found, a clash has been identified and the causing concepts are returned. 
-		\item \textcolor{red}{Severity level: INFO} 
+		\item Severity level: INFO
 	\end{itemize}
 	
 	\item \textbf{{\em SKOS-C-DATA-MODEL-CONSISTENCY-02\footnote{Corresponds to qSKOS Quality Issues - SKOS Semi-Formal Consistency Issues - Mapping Clashes}:}}
@@ -391,19 +435,19 @@ Such validation rules ensure the integrity of the data according to the data mod
 	\begin{itemize}
 	  \item Implementation:
 		Can be solved by issuing a SPARQL query. 
-		\item \textcolor{red}{Severity level: INFO} 
+		\item Severity level: INFO
 	\end{itemize}
 	
 	\item \textbf{{\em SKOS-C-DATA-MODEL-CONSISTENCY-03\footnote{Corresponds to qSKOS Quality Issues - SKOS Semi-Formal Consistency Issues - Mapping Relations Misuse}:}}
 	Mapping Relations Misuse:
   According to the SKOS reference documentation, mapping relations (e.g., \emph{skos:broadMatch} or \emph{skos:relatedMatch}) should be asserted to concepts being members of different concept schemes. This check finds concepts that are related by a mapping property and are either members of the same concept scheme or members of no concept scheme at all. 
 	\begin{itemize}
-		\item \textcolor{red}{Severity level: INFO} 
+		\item Severity level: INFO
 	\end{itemize}
 	
 \end{itemize}
 
-\subsection{Subsumption*}
+\subsection{Subsumption*\textsuperscript{T}}
 
 A \emph{subclass axiom}\footnote{{\em R-100-SUBSUMPTION}} ({\em concept inclusion} in DL) states that the class \emph{C1} is a subclass of the class \emph{C2} - \emph{C1} is more specific than \emph{C2}, 
 i.e. each resource of the class \emph{C1} must also be part of the class extension of \emph{C2}.
@@ -411,9 +455,12 @@ i.e. each resource of the class \emph{C1} must also be part of the class extensi
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-SUBSUMPTION-01:}} 
 All {\em disco:Universe}s must also be {\em skos:Concept}s (\ms{Universe $\sqsubseteq$ Concept}).
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
-\subsection{Class Equivalence*}
+\subsection{Class Equivalence*\textsuperscript{T}}
 
 {\em Class Equivalence}\footnote{{\em R-3-EQUIVALENT-CLASSES}} asserts that two concepts have the same instances.
 While synonyms are an obvious example of equivalent concepts, in practice one more
@@ -426,18 +473,24 @@ All {\em sio:SIO\_000367} resources must also be {\em disco:Variable}s (\ms{Vari
 The Semanticscience Integrated Ontology (SIO)\footnote{https://code.google.com/p/semanticscience/wiki/SIO} provides a simple, integrated ontology of types and relations for rich description of objects, processes and their attributes.
 {\em sio:SIO\_000367} is a variable defined as a value that may change within the scope of a given problem or set of operations.
 Thus, {\em sio:SIO\_000367} is equivalent to {\em disco:Variable}.
+\begin{itemize}
+	\item severity level: INFO
+\end{itemize}
 \end{itemize}
 
-\subsection{Sub Properties*}
+\subsection{Sub Properties*\textsuperscript{T}}
 
 {\em Sub Properties}\footnote{\emph{R-54-SUB-OBJECT-PROPERTIES}, \emph{R-64-SUB-DATA-PROPERTIES}} state that the property \emph{P1} is a sub property of the property \emph{P2} - that is, if an individual \emph{x} is connected by \emph{P1} to an individual or a literal \emph{y}, then \emph{x} is also connected by \emph{P2} to \emph{y}. 
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-SUB-PROPERTIES-01:}}
 If an individual \emph{x} is connected by {\em disco:fundedBy} to an individual \emph{y}, then \emph{x} is also connected by {\em dcterms:contributor} to \emph{y} (\ms{fundedBy $\sqsubseteq$ contributor}). 
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
-\subsection{Property Domains*}
+\subsection{Property Domains*\textsuperscript{T}}
 
 {\em Property Domains}\footnote{{\em R-25-OBJECT-PROPERTY-DOMAIN}, {\em R-26-DATA-PROPERTY-DOMAIN}} ({\em domain restrictions on roles} in DL) restrict the domain of object and data properties.
 The purpose is to declare that a given property is associated with a class. 
@@ -497,7 +550,7 @@ $\exists R. \top \sqsubseteq C$ is the object property restriction where $R$ is 
 	\end{itemize}
 \end{itemize}
 
-\subsection{Property Ranges*}
+\subsection{Property Ranges*\textsuperscript{T}}
 
 {\em Property Ranges}\footnote{{\em R-28-OBJECT-PROPERTY-RANGE}, {\em R-35-DATA-PROPERTY-RANGE}} ({\em range restrictions on roles} in DL) restrict the range of object and data properties.
 $\top \sqsubseteq \forall R . C$ is the range restriction to the object property $R$ (restricted by the concept $C$). 
@@ -564,10 +617,19 @@ Thus, if an individual \emph{x} is connected by \emph{OP1} to an individual \emp
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-INVERSE-OBJECT-PROPERTIES-01}}:
 	\emph{disco:CategoryStatistics} resources are accessed from codes (\emph{skos:Concept}s) via \emph{disco:statisticsCategory}$^{-}$.
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 	\item \textbf{{\em DISCO-C-INVERSE-OBJECT-PROPERTIES-02}}:
 	\emph{disco:SummaryStatistics} resources are accessed from \emph{disco:Variable}s via \emph{disco:statisticsVariable}$^{-}$.
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 	\item \textbf{{\em DISCO-C-INVERSE-OBJECT-PROPERTIES-03}}:
 	\emph{disco:Variable}s are accessed from \emph{disco:Question}s via \emph{disco:question}$^{-}$.
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \subsection{Symmetric Object Properties*}
@@ -575,7 +637,7 @@ Thus, if an individual \emph{x} is connected by \emph{OP1} to an individual \emp
 A role is symmetric if it is equivalent to its own inverse \cite{Kroetzsch2012}.
 An object property symmetry axiom\footnote{\emph{R-61-SYMMETRIC-OBJECT-PROPERTIES}} states that the object property expression \emph{OPE} is symmetric - that is, if an individual \emph{x} is connected by \emph{OPE} to an individual \emph{y}, then \emph{y} is also connected by \emph{OPE} to \emph{x}. 	
 
-\subsection{Asymmetric Object Properties*}
+\subsection{Asymmetric Object Properties*\textsuperscript{T}}
 
 A property is asymmetric\footnote{{\em R-62-ASYMMETRIC-OBJECT-PROPERTIES}} if it is disjoint from its own inverse \cite{Kroetzsch2012}.
 An object property asymmetry axiom states that the object property \emph{OP} is asymmetric - that is, if an individual \emph{x} is connected by \emph{OP} to an individual \emph{y}, then \emph{y} cannot be connected by \emph{OP} to \emph{x}. 
@@ -585,6 +647,9 @@ An object property asymmetry axiom states that the object property \emph{OP} is 
 A {\em disco:Variable} may be based on a {\em disco:RepresentedVariable}.
 A {\em disco:RepresentedVariable}, however, cannot be based on a {\em disco:Variable}.
 This is a kind of mistake which may occur as a semantically equivalent object property for the other direction may also be possible ({\em disco:basisOf}) (\ms{$basedOn \sqcap basedOn^{-} \sqsubseteq \bot$}).
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \subsection{Reflexive Object Properties*}
@@ -600,6 +665,9 @@ An object property irreflexivity axiom \emph{IrreflexiveObjectProperty( OPE )} s
   \item \textbf{{\em DISCO-C-IRREFLEXIVE-OBJECT-PROPERTIES-01:}}
 	In \emph{Disco}, every object property is irreflexive.
   No individual is connected by the object property {\em instrument} to itself (\ms{$\top$ $\sqsubseteq$ $\neg$ $\exists  instrument . Self$}).
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \subsection{Class-Specific Irreflexive Object Properties*}
@@ -611,11 +679,17 @@ An object property irreflexivity axiom states that the object property \emph{OP}
 \begin{itemize}
   \item \textbf{{\em DISCO-C-CLASS-SPECIFIC-IRREFLEXIVE-OBJECT-PROPERTIES-01:}}
 Within the Disco context, {\em skos:Concept}s cannot be related via the object property {\em skos:boader} to themselves (\ms{Concept $\sqsubseteq$ $\neg$$\exists$ broader.Self.}). 
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 	\item \textbf{{\em DISCO-C-CLASS-SPECIFIC-IRREFLEXIVE-OBJECT-PROPERTIES-02:}}
 Within the Disco context, {\em skos:Concept}s cannot be related via the object property {\em skos:narrower} to themselves (\ms{Concept $\sqsubseteq$ $\neg$$\exists$ narrower.Self.}). 
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
-\subsection{Disjoint Properties}
+\subsection{Disjoint Properties\textsuperscript{T}}
 
 A \emph{disjoint properties axiom}\footnote{\emph{R-9-DISJOINT-PROPERTIES}} states that all of the properties are pairwise disjoint; 
 that is, no individual \emph{x} can be connected to an individual/literal \emph{y} by these properties. 
@@ -624,37 +698,51 @@ that is, no individual \emph{x} can be connected to an individual/literal \emph{
 	\item \textbf{{\em DATA-CUBE-C-DISJOINT-PROPERTIES-01:}} 
 	All \emph{Data Cube} properties (not having the same domain and range classes) are defined to be pairwise disjoint.
   The properties \emph{qb:dataSet} and \emph{qb:structure} are disjoint ($dataSet \sqsubseteq \neg structure$).
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em DCAT-C-DISJOINT-PROPERTIES-01:}} 
 	All \emph{DCAT} properties (not having the same domain and range classes) are defined to be pairwise disjoint.
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-DISJOINT-PROPERTIES-01:}} 
 	All \emph{Disco} properties (not having the same domain and range classes) are defined to be pairwise disjoint.
   The properties \emph{disco:variable} and \emph{disco:question} are disjoint ($variable \sqsubseteq \neg question$).
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em PHDD-C-DISJOINT-PROPERTIES-01:}} 
 	All \emph{PHDD} properties (not having the same domain and range classes) are defined to be pairwise disjoint.
 	The properties \emph{phdd:isStructuredBy} and \emph{phdd:column} are disjoint ($isStructuredBy \sqsubseteq \neg column$)
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 
 	\item \textbf{{\em SKOS-C-DISJOINT-PROPERTIES-01:}} 
 	All \emph{SKOS} properties (not having the same domain and range classes) are defined to be pairwise disjoint.
-	
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 	\item \textbf{{\em SKOS-C-DISJOINT-PROPERTIES-02\footnote{Corresponds to qSKOS Quality Issues - SKOS Semi-Formal Consistency Issues - Disjoint Labels Violation}:}}
 	Disjoint Labels Violation:
   Covers condition S13 from the SKOS reference document stating that "\emph{skos:prefLabel}, \emph{skos:altLabel} and \emph{skos:hiddenLabel} are pairwise disjoint properties". 
 	\begin{itemize}
 	  \item Implementation:
 		A SPARQL query collects all labels of all concepts, building an in-memory structure. This structure is then checked for disjoint entries. 
-		\item Severity level: 
+		\item severity level: ERROR
 	\end{itemize}
 	
 \end{itemize}
@@ -662,9 +750,12 @@ that is, no individual \emph{x} can be connected to an individual/literal \emph{
 \begin{itemize}
 	\item \textbf{{\em XKOS-C-DISJOINT-PROPERTIES-01:}} 
 	All \emph{XKOS} properties (not having the same domain and range classes) are defined to be pairwise disjoint.
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
-\subsection{Disjoint Classes}
+\subsection{Disjoint Classes\textsuperscript{T}}
 
 {\em Disjoint Classes}\footnote{{\em R-7-DISJOINT-CLASSES}} state that all of the classes are pairwise disjoint; 
 that is, no individual can be at the same time an instance of these disjoint classes.
@@ -672,31 +763,49 @@ that is, no individual can be at the same time an instance of these disjoint cla
 \begin{itemize}
 	\item \textbf{{\em DATA-CUBE-C-DISJOINT-CLASSES-01:}} 
 All \emph{Data Cube} classes are defined to be pairwise disjoint.
+\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em DCAT-C-DISJOINT-CLASSES-01:}} 
 All \emph{DCAT} classes are defined to be pairwise disjoint.
+\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-DISJOINT-CLASSES-01:}} 
 All \emph{Disco} classes are defined to be pairwise disjoint (e.g. \ms{Study $\sqcap$ Variable $\sqsubseteq$ $\perp$}).
+\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em PHDD-C-DISJOINT-CLASSES-01:}} 
 All \emph{PHDD} classes are defined to be pairwise disjoint.
+\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em SKOS-C-DISJOINT-CLASSES-01:}} 
 All \emph{SKOS} classes are defined to be pairwise disjoint.
+\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em XKOS-C-DISJOINT-CLASSES-01:}} 
 All \emph{XKOS} classes are defined to be pairwise disjoint.
+\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \subsection{Context-Specific Property Groups}
@@ -731,7 +840,7 @@ An \emph{individual inequality axiom}\footnote{\emph{R-14-DISJOINT-INDIVIDUALS}}
 that is, no individuals a$_i$ and a$_j$ with i $\neq$ j can be derived to be equal. 
 This axiom can be used to axiomatize the unique name assumption — the assumption that all different individual names denote different individuals. 
 
-\subsection{Equivalent Properties*}
+\subsection{Equivalent Properties*\textsuperscript{T}}
 
 An \emph{equivalent object properties axiom}\footnote{\emph{R-4-EQUIVALENT-OBJECT-PROPERTIES}} \emph{EquivalentObjectProperties( OPE$_1$ ... OPE$_n$ )} states that all of the object property expressions \emph{OPE$_i$, 1 $\leq$ i $\leq$ n}, are semantically equivalent to each other. This axiom allows one to use each \emph{OPE$_i$} as a synonym for each \emph{OPE$_j$} — that is, in any expression in the ontology containing such an axiom, \emph{OPE$_i$} can be replaced with \emph{OPE$_j$} without affecting the meaning of the ontology. The axiom \emph{EquivalentObjectProperties( OPE$_1$ OPE$_2$ )} is equivalent to the following two axioms \emph{SubObjectPropertyOf( OPE$_1$ OPE$_2$ )} and \emph{SubObjectPropertyOf( OPE$_1$ OPE$_2$ )}.
 
@@ -788,7 +897,14 @@ For datatype properties it should be possible to declare frequently needed \emph
 Constraining facets, to restrict datatypes of RDF literals, may be: \emph{xsd:length}, \emph{xsd:minLength}, \emph{xsd:maxLength}, \emph{xsd:pattern}, \emph{xsd:enumeration}, \emph{xsd:whiteSpace}, \\ \emph{xsd:maxInclusive}, \emph{xsd:maxExclusive}, \emph{xsd:minExclusive}, \emph{xsd:minInclusive}, \emph{xsd:total} \emph{Digits}, \emph{xsd:fractionDigits}.
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-DATA-PROPERTY-FACETS-01:}} The abstract of a study (\emph{disco:purpose}) should have a minimum length (\emph{xsd:minLength}) of x. 
+	\item \textbf{{\em DISCO-C-DATA-PROPERTY-FACETS-01:}} The abstract of a series (\emph{dcterms:abstract}) should have a minimum length (\emph{xsd:minLength}) of some determined minimum length \emph{X}. 
+	\begin{itemize}
+		\item severity level: WARNING
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-DATA-PROPERTY-FACETS-02:}} The abstract of a study (\emph{dcterms:abstract}) should have a minimum length (\emph{xsd:minLength}) of some determined minimum length \emph{X}. 
+	\begin{itemize}
+		\item severity level: WARNING
+	\end{itemize}
 \end{itemize}
 
 \subsection{Literal Pattern Matching}
@@ -797,6 +913,9 @@ There are multiple use cases associated with the requirement to match literals a
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-LITERAL-PATTERN-MATCHING-01:}} Each \emph{disco:Variable} of a given \emph{disco:LogicalDataSet} must have a given prefix for its variable name (\emph{skos:notation}). 
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
 \end{itemize}
 
 \subsection{Negative Literal Pattern Matching}
@@ -836,19 +955,271 @@ Only {\em disco:Variable}s or {\em disco:Question}s or {\em disco:RepresentedVar
 \begin{DL}
 Variable $\sqcup$ Question $\sqcup$ RepresentedVariable $\sqsubseteq$ $\forall$ concept.Concept \\
 \end{DL}
+\begin{itemize}
+	\item severity level: ERROR
+\end{itemize}
 \end{itemize}
 
 \subsection{Negation*}
 
 A \emph{complement class expression}\footnote{\emph{R-19-NEGATION-OF-CLASS-EXPRESSIONS}, \emph{R-20-NEGATION-OF-DATA-RANGES}} \emph{ObjectComplementOf( CE )} contains all individuals that are not instances of the class expression \emph{CE}. 
 
-\subsection{Existential Quantifications*}
+\subsection{Existential Quantifications*\textsuperscript{T}}
 
 An \emph{existential class expression}\footnote{{\em R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}} ({\em existential restriction} in DL terminology) contains all those individuals that are connected by the property \emph{P} to an individual \emph{x} that is an instance of the class \emph{C} or to literals that are in the data range \emph{DR}.
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-01:}} 
-There must be at least one {\em disco:universe} relationship from {\em disco:Studies} or {\em disco:StudyGroups} to {\em disco:Universe} (\ms{Study $\sqcup$ StudyGroup $\sqsubseteq$ $\exists$ universe.Universe}).
+There must be at least one {\em disco:universe} relationship from {\em disco:StudyGroups} to {\em disco:Universe} (\ms{StudyGroup $\sqsubseteq$ $\exists$ universe.Universe}).
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-02:}} 
+There must be at least one {\em disco:universe} relationship from {\em disco:Studies} to {\em disco:Universe} (\ms{Study $\sqsubseteq$ $\exists$ universe.Universe}).
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-03:}} 
+There may be a {\em disco:universe} relationship from {\em disco:RepresentedVariable} to {\em disco:Universe} (\ms{RepresentedVariable $\sqsubseteq$ $\exists$ universe.Universe}).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-04:}} 
+There may be a {\em disco:universe} relationship from {\em disco:Variable} to {\em disco:Universe} (\ms{Variable $\sqsubseteq$ $\exists$ universe.Universe}).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-05:}} 
+There may be a {\em disco:universe} relationship from {\em disco:Question} to {\em disco:Universe} (\ms{Question $\sqsubseteq$ $\exists$ universe.Universe}).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-06:}} 
+There may be a {\em disco:universe} relationship from {\em disco:LogicalDataSet} to {\em disco:Universe} (\ms{LogicalDataSet $\sqsubseteq$ $\exists$ universe.Universe}).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-07:}} 
+  There is no relationship (\emph{disco:ddifile}) to a DDI-XML file containing further information about the series (\emph{disco:StudyGroup}) for further analyses.
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-08:}} 
+  There is no relationship (\emph{disco:ddifile}) to a DDI-XML file containing further information about the study (\emph{disco:Study}) for further analyses.
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-09:}} 
+  It is important to know the kind of data (\emph{disco:kindOfData}) collected for a particular series (\emph{disco:StudyGroup}).
+	Survey data, e.g., is much easier accessible than census data. 
+	For census data, it is necessary to get in contact with the individual data archive and if data access is granted it may take months to actually get the data.
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-10:}}
+  It is important to know the kind of data (\emph{disco:kindOfData}) collected for a particular study (\emph{disco:Study}).
+	Survey data, e.g., is much easier accessible than census data. 
+	For census data, it is necessary to get in contact with the individual data archive and if data access is granted it may take months to actually get the data.
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-11:}} 
+  Information about the temporal coverage (\emph{dcterms:temporal}) of a series (\emph{disco:StudyGroup}) is of interest for particular queries 
+	(e.g. to search for all series of a given year (temporal coverage) and for which data is collected in which countries (spatial coverage) about which topics (topical coverage)).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-12:}} 
+  Information about the spatial coverage (\emph{dcterms:spatial}) of a series (\emph{disco:StudyGroup}) is of interest for particular queries 
+	(e.g. to search for all series of a given year (temporal coverage) and for which data is collected in which countries (spatial coverage) about which topics (topical coverage)).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-13:}} 
+  Information about the topical coverage (\emph{dcterms:subject}) of a series (\emph{disco:StudyGroup}) is of interest for particular queries 
+	(e.g. to search for all series of a given year (temporal coverage) and for which data is collected in which countries (spatial coverage) about which topics (topical coverage)).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-14:}} 
+  Information about the temporal coverage (\emph{dcterms:temporal}) of a study (\emph{disco:Study}) is of interest for particular queries 
+	(e.g. to search for all studies of a given year (temporal coverage) and for which data is collected in which countries (spatial coverage) about which topics (topical coverage)).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-15:}} 
+  Information about the spatial coverage (\emph{dcterms:spatial}) of a study (\emph{disco:Study}) is of interest for particular queries 
+	(e.g. to search for all studies of a given year (temporal coverage) and for which data is collected in which countries (spatial coverage) about which topics (topical coverage)).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-16:}} 
+  Information about the topical coverage (\emph{dcterms:subject}) of a study (\emph{disco:Study}) is of interest for particular queries 
+	(e.g. to search for all studies of a given year (temporal coverage) and for which data is collected in which countries (spatial coverage) about which topics (topical coverage)).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-17:}} 
+  Information about the temporal coverage (\emph{dcterms:temporal}) of a data set (\emph{disco:LogicalDataSet}) is of interest for particular queries 
+	(e.g. to search for all data sets of a given year (temporal coverage) and for which data is collected in which countries (spatial coverage) about which topics (topical coverage)).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-18:}} 
+  Information about the spatial coverage (\emph{dcterms:spatial}) of a data set (\emph{disco:LogicalDataSet}) is of interest for particular queries 
+	(e.g. to search for all data sets of a given year (temporal coverage) and for which data is collected in which countries (spatial coverage) about which topics (topical coverage)).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-19:}} 
+  Information about the topical coverage (\emph{dcterms:subject}) of a data set (\emph{disco:LogicalDataSet}) is of interest for particular queries 
+	(e.g. to search for all data sets of a given year (temporal coverage) and for which data is collected in which countries (spatial coverage) about which topics (topical coverage)).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-20:}} 
+  Information about the temporal coverage (\emph{dcterms:temporal}) of a data file (\emph{disco:DataFile}) is of interest for particular queries 
+	(e.g. to search for all data files of a given year (temporal coverage) and for which data is collected in which countries (spatial coverage) about which topics (topical coverage)).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-21:}} 
+  Information about the spatial coverage (\emph{dcterms:spatial}) of a data file (\emph{disco:DataFile}) is of interest for particular queries 
+	(e.g. to search for all data files of a given year (temporal coverage) and for which data is collected in which countries (spatial coverage) about which topics (topical coverage)).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-22:}} 
+  Information about the topical coverage (\emph{dcterms:subject}) of a data file (\emph{disco:DataFile}) is of interest for particular queries 
+	(e.g. to search for all data files of a given year (temporal coverage) and for which data is collected in which countries (spatial coverage) about which topics (topical coverage)).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-23:}} 
+  Information about creators (\emph{dcterms:creator}) (persons or organizations) of a series is important when searching for series of the same creators.
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-24:}} 
+  Information about creators (\emph{dcterms:creator}) (persons or organizations) of a studies is important when searching for studies of the same creators.
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-25:}} 
+  If summary statistics are collected for studies, detailed further analyses are possible. 
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-26:}} 
+  If category statistics are collected for studies, detailed further analyses are possible. 
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-27:}} 
+  If a study has no associated data sets, the actual description of the data is missing. 
+	Eventually, it is very hard or even impossible to get access to the data.
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-28:}} 
+  If there is no data file for a given data set, the description of the data set and the containing study is not sufficient.
+	\begin{itemize}
+		\item severity level: WARNING
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-29:}} 
+	The case quantity measures how many cases are collected for a study.
+  High case quantity (disco:caseQuantity), stated for data files, is an indicator for high statistical quality of the underlying study.
+	It indicates how comprehensive the study is.
+	\begin{itemize}
+		\item severity level: WARNING
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-30:}} 
+  High variable quantity (disco:variableQuantity), stated for data files, is an indicator for high statistical quality of the underlying study.
+	It indicates how comprehensive the study is.
+	\begin{itemize}
+		\item severity level: WARNING
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-31:}} 
+  High variable quantity (disco:variableQuantity), stated for data sets, is an indicator for high statistical quality of the underlying study.
+	It indicates how comprehensive the study is.
+	\begin{itemize}
+		\item severity level: WARNING
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-32:}} 
+  There is no summary statistics type information (\emph{disco:summaryStatisticsType}) for a summary statistics resource.
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-33:}} 
+  There is no summary statistics value (\emph{rdf:value}) for a summary statistics resource.
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-34:}} 
+  There is no relationship to a variable (\emph{disco:statisticsVariable}) for a summary statistics resource.
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-35:}} 
+  Category statistics resources must be related (\emph{disco:statisticsCategory}) to codes/categories
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-36:}} 
+  Category statistics resources must have at minimum one value for either frequency, percentage, or cumulative percentage.
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-37:}} 
+  Codes should be associated with categories (human-readable labels).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-38:}} 
+  An instrument (\emph{disco:Instrument}) may have a link (\emph{disco:externalDocumentation}) to the questionnaire.
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-39:}} 
+  Questions (\emph{disco:Question}) must have question texts (\emph{disco:questionText}).
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-40:}} 
+  Questions (\emph{disco:Question}) may have response domains (\emph{disco:responseDomain}).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-41:}} 
+  Questionnaires (\emph{disco:Questionnaire}) may contain (\emph{disco:question}) questions (\emph{disco:Question}).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-42:}} 
+  Questions (\emph{disco:Question}) may have question numbers (\emph{skos:prefLabel}).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-43:}} 
+  Variables (\emph{disco:Variable}) may have relationships (\emph{disco:question}) to questions (\emph{disco:Question}), as variables are created out of questions or calculated on the basis of other variables.
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-44:}} 
+  Data sets (\emph{disco:LogicalDataSet}) may have (\emph{disco:variable}) variables (\emph{disco:Variable}).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-45:}} 
+  Variables (\emph{disco:Variable}) may have (\emph{disco:concept}) an associated theoretical concept (\emph{skos:Concept}).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-EXISTENTIAL-QUANTIFICATIONS-46:}} 
+  Each variable (\emph{disco:Variable}) should have (\emph{disco:representation}) a variable representation (\emph{disco:Representation}) which is either an ordered code list (\emph{skos:OrderedCollection}), an unordered code list (\emph{skos:ConceptScheme}) or a union of datatypes (\emph{rdfs:Datatype}).
+	\begin{itemize}
+		\item severity level: WARNING
+	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
@@ -878,7 +1249,7 @@ There must be at least one {\em disco:universe} relationship from {\em disco:Stu
 	\end{itemize}
 \end{itemize}
 
-\subsection{Universal Quantifications*}
+\subsection{Universal Quantifications*\textsuperscript{T}}
 
 A \emph{universal class expression}\footnote{{\em R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}} ({\em value restriction} in DL) contains all those individuals that are connected by an object property only to individuals that are instances of a particular class.
 
@@ -932,7 +1303,7 @@ A \emph{universal class expression}\footnote{{\em R-91-UNIVERSAL-QUANTIFICATION-
 	\end{itemize}
 \end{itemize}
 
-\subsection{Minimum Unqualified Cardinality Restrictions*}
+\subsection{Minimum Unqualified Cardinality Restrictions*\textsuperscript{T}}
 
 A \emph{minimum cardinality restriction}\footnote{{\em R-81-MINIMUM-UNQUALIFIED-CARDINALITY-ON-PROPERTIES}, {\em R-211-CARDINALITY-CONSTRAINTS}} contains all those individuals that are connected by a property to at least n different individuals/literals 
 that are instances of a particular class or data range. If the class is missing, it is taken to be \emph{owl:Thing}. 
@@ -940,7 +1311,7 @@ If the data range is missing, it is taken to be \emph{rdfs:Literal}.
 $\leq n R. \top$ is the minimum unqualified cardinality restriction where $n \in \mathbb{N}$ (written $\leq  n R$ in short).
 For unqualified cardinality restrictions, classes respective data ranges are not stated.
 
-\subsection{Minimum Qualified Cardinality Restrictions*}
+\subsection{Minimum Qualified Cardinality Restrictions*\textsuperscript{T}}
 
 A \emph{minimum cardinality restriction}\footnote{{\em R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES}, {\em R-211-CARDINALITY-CONSTRAINTS}} contains all those individuals that are connected by a property to at least n different individuals/literals 
 that are instances of a particular class or data range. If the class is missing, it is taken to be \emph{owl:Thing}. 
@@ -950,6 +1321,12 @@ $\geq n R. C$ is a minimum qualified cardinality restriction where $n \in \mathb
 \begin{itemize}
 	\item \textbf{{\em DATA-CUBE-C-MINIMUM-QUALIFIED-CARDINALITY-RESTRICTIONS-01:}}
 	{\em Minimum Qualified Cardinality Restrictions} constraints are defined for each \emph{Data Cube} object and data property.
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
+		\item \textbf{{\em DATA-CUBE-C-MINIMUM-QUALIFIED-CARDINALITY-RESTRICTIONS-02:}}
+	Unique data set (\emph{IC-1} \cite{CyganiakReynolds2014}) -  
+	Every \emph{qb:Observation} has (\emph{qb:dataSet}) exactly one associated \emph{qb:DataSet} (\ms{Observation $\sqsubseteq$ $\geq$1 dataSet.DataSet $\sqcap$ $\leq$1 dataSet.DataSet}). 
 	\begin{itemize}
 		\item Severity level: ERROR
 	\end{itemize}
@@ -980,13 +1357,13 @@ $\geq n R. C$ is a minimum qualified cardinality restriction where $n \in \mathb
 	\end{itemize}
 \end{itemize}
 
-\subsection{Maximum Unqualified Cardinality Restrictions*}
+\subsection{Maximum Unqualified Cardinality Restrictions*\textsuperscript{T}}
 
 A \emph{maximum cardinality restriction} contains all those individuals that are connected by a property to at most n different individuals/literals that are instances of a particular class or data range. If the class is missing, it is taken to be \emph{owl:Thing}. If the data range is not present, it is taken to be \emph{rdfs:Literal}.
 Unqualified means that the class respective the data range is not stated. 
 $\geq n R. \top$ is a \emph{maximum unqualified cardinality restriction}\footnote{\emph{R-82-MAXIMUM-UNQUALIFIED-CARDINALITY-ON-PROPERTIES}, \emph{R-211-CARDINALITY-CONSTRAINTS}} where $n \in \mathbb{N}$ (written $\geq  n R$ in short).
 
-\subsection{Maximum Qualified Cardinality Restrictions*}
+\subsection{Maximum Qualified Cardinality Restrictions*\textsuperscript{T}}
 
 A \emph{maximum cardinality restriction} contains all those individuals that are connected by a property to at most n different individuals/literals that are instances of a particular class or data range. If the class is missing, it is taken to be \emph{owl:Thing}. If the data range is not present, it is taken to be \emph{rdfs:Literal}.
 Qualified means that the class respective the data range is stated. 
@@ -998,9 +1375,15 @@ $\leq n R. C$ is a \emph{maximum qualified cardinality restriction}\footnote{\em
 	\begin{itemize}
 		\item Severity level: ERROR
 	\end{itemize}
+	\item \textbf{{\em DATA-CUBE-C-MAXIMUM-QUALIFIED-CARDINALITY-RESTRICTIONS-01:}}
+	Unique data set (\emph{IC-1} \cite{CyganiakReynolds2014}) -  
+	Every \emph{qb:Observation} has (\emph{qb:dataSet}) exactly one associated \emph{qb:DataSet} (\ms{Observation $\sqsubseteq$ $\geq$1 dataSet.DataSet $\sqcap$ $\leq$1 dataSet.DataSet}). 
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
-\subsection{Exact Unqualified Cardinality Restrictions*}
+\subsection{Exact Unqualified Cardinality Restrictions*\textsuperscript{T}}
 
 An \emph{exact cardinality restriction}\footnote{{\em R-80-EXACT-UNQUALIFIED-CARDINALITY-ON-PROPERTIES}, {\em R-211-CARDINALITY-CONSTRAINTS}} contains all those individuals that are connected by a property to exactly n different individuals that are instances of a particular class or data range. 
 If the class is missing, it is taken to be \emph{owl:Thing}. 
@@ -1017,7 +1400,7 @@ $\geq n R. \top \sqcap \leq n R. \top $ is an exact unqualified cardinality rest
 	\end{itemize}
 \end{itemize}
 
-\subsection{Exact Qualified Cardinality Restrictions*}
+\subsection{Exact Qualified Cardinality Restrictions*\textsuperscript{T}}
 
 An \emph{exact cardinality restriction}\footnote{{\em R-74-EXACT-QUALIFIED-CARDINALITY-ON-PROPERTIES}, {\em R-211-CARDINALITY-CONSTRAINTS}} contains all those individuals that are connected by a property to exactly n different individuals that are instances of a particular class or data range. 
 If the class is missing, it is taken to be \emph{owl:Thing}. 
@@ -1033,12 +1416,6 @@ A {\em disco:Question} has exactly 1 {\em disco:universe} relationship to {\em d
 \end{itemize}
 
 \begin{itemize}
-	\item \textbf{{\em DATA-CUBE-C-EXACT-QUALIFIED-CARDINALITY-RESTRICTIONS-01:}}
-	Unique data set (\emph{IC-1} \cite{CyganiakReynolds2014}) -  
-	Every \emph{qb:Observation} has (\emph{qb:dataSet}) exactly one associated \emph{qb:DataSet} (\ms{Observation $\sqsubseteq$ $\geq$1 dataSet.DataSet $\sqcap$ $\leq$1 dataSet.DataSet}). 
-	\begin{itemize}
-		\item Severity level: ERROR
-	\end{itemize}
 	\item \textbf{{\em DATA-CUBE-C-EXACT-QUALIFIED-CARDINALITY-RESTRICTIONS-02:}}
 	Unique DSD (\emph{IC-2} \cite{CyganiakReynolds2014}) -  
 	Every \emph{qb:DataSet} has (\emph{qb:structure}) exactly one associated \emph{qb:DataStructureDefinition} (\ms{DataSet $\sqsubseteq$ $\geq$1 structure.DataStructureDefinition $\sqcap$ $\leq$1 structure.DataStructureDefinition}). 
@@ -1067,7 +1444,6 @@ Only one of multiple property groups leads to valid data\footnote{{\em R-13-DISJ
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-CONTEXT-SPECIFIC-EXCLUSIVE-OR-OF-PROPERTY-GROUPS-01:}}
 Within the context of \emph{Disco}, \emph{skos:Concept}s can have either \emph{skos:definition} (when interpreted as theoretical concepts) or \emph{skos:notation} and \emph{skos:prefLabel} properties (when interpreted as codes and categories), but not both.
-
 \begin{DL}
 Concept $\sqsubseteq$ ($\neg$ D $\sqcap$ C) $\sqcup$ (D $\sqcap$ $\neg$ C) \\ 
 D $\equiv$ A $\sqcap$ B \\
@@ -1075,9 +1451,12 @@ A $\sqsubseteq$ $\geq$ 1 notation.string $\sqcap$ $\leq$ 1 notation.string \\
 B $\sqsubseteq$ $\geq$ 1 prefLabel.string $\sqcap$ $\leq$ 1 prefLabel.string \\
 C $\sqsubseteq$ $\geq$ 1 definition.string $\sqcap$ $\leq$ 1 definition.string \\
 \end{DL}
+\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
 \end{itemize}
 
-\subsection{Allowed Values}
+\subsection{Allowed Values\textsuperscript{T}}
 
 It is a common requirement to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resources). 
 This is often rendered in drop down boxes or radio buttons in user interfaces. 
@@ -1087,6 +1466,9 @@ This is often rendered in drop down boxes or radio buttons in user interfaces.
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-ALLOWED-VALUES-01}}.
 {\em disco:CategoryStatistics} can only have {\em disco:computationBase} relationships to the values \emph{valid} and \emph{invalid} of the datatype {\em rdf:langString} (\ms{CategoryStatistics $\equiv$ $\forall$ computationBase.\{valid,invalid\} $\sqcap$ langString}).
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \subsection{Not Allowed Values}
@@ -1100,21 +1482,24 @@ A matching triple has any literal / object except those explicitly excluded\foot
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-LITERAL-RANGES-01:}}
 {\em disco:percentage} (domain: {\em disco:CategoryStatistics}) literals must be of the datatype {\em xsd:double} whose range should be restricted to be between 0 and 100.
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \subsection{Negative Literal Ranges}
 
 \emph{P1} is a data property (of an instance of class \emph{C1}) and its literal value must not be between the range of [$V_{min}$,$V_{max}$]\footnote{{\em R-142-NEGATIVE-RANGES-OF-RDF-LITERAL-VALUES}}.
 
-\subsection{Required Properties}
+\subsection{Required Properties\textsuperscript{T}}
 
 Properties may be required\footnote{\emph{R-68-REQUIRED-PROPERTIES}}.
 
-\subsection{Optional Properties}
+\subsection{Optional Properties\textsuperscript{T}}
 
 Properties may be optional\footnote{\emph{R-69-OPTIONAL-PROPERTIES}}.
 
-\subsection{Repeatable Properties}
+\subsection{Repeatable Properties\textsuperscript{T}}
 
 Properties may be repeatable\footnote{\emph{R-70-REPEATABLE-PROPERTIES}}.
 
@@ -1135,10 +1520,21 @@ An \emph{object property functionality axiom}\footnote{\emph{R-57-FUNCTIONAL-OBJ
 An \emph{object property inverse functionality axiom}\footnote{\emph{R-58-INVERSE-FUNCTIONAL-OBJECT-PROPERTIES}} \emph{InverseFunctionalObjectProperty( OPE )} states that the object property expression \emph{OPE} is inverse-functional - that is, for each individual \emph{x}, there can be at most one individual \emph{y} such that \emph{y} is connected by \emph{OPE} with \emph{x}. Each such axiom can be seen as a syntactic shortcut for the following axiom: \emph{SubClassOf( owl:Thing ObjectMaxCardinality( 1 ObjectInverseOf( OPE ) ) )}.
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-INVERSE-FUNCTIONAL-PROPERTIES-01:}} for each \emph{rdfs:Resource x}, there can be at most one distinct \emph{rdfs:Resource y} such that \emph{y} is connected by \emph{adms:identifier} to \emph{x} $(\ms{funct identifier}\sp{\overline{\ }})$.
+	\item \textbf{{\em DISCO-C-INVERSE-FUNCTIONAL-PROPERTIES-01:}}
+	For each \emph{rdfs:Resource x}, there can be at most one distinct \emph{rdfs:Resource y} such that \emph{y} is connected by \emph{adms:identifier} to \emph{x} $(\ms{funct identifier}\sp{\overline{\ }})$.
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-INVERSE-FUNCTIONAL-PROPERTIES-02:}}
+	Keys are even more general than inverse-functional properties,
+as a key can be a data, an object property, or a chain of properties \cite{Schneider2009}.
+For this generalization purposes, as there are different sorts of key, and as keys can lead to undecidability, 
+DL is extended with \emph{key boxes} and a special \emph{keyfor} construct (\ms{identifier \ms{keyfor} Resource}) \cite{Lutz2005}.
+OWL 2 \emph{hasKey} implements \emph{keyfor} and thus can be used to identify resources uniquely, to merge resources with identical key property values, and to recognize constraint violations.
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
-
-\tb{Achim, we created an open issue for DDI 4 how keys should be defined}
 
 \subsection{Value Restrictions*}
 
@@ -1166,14 +1562,17 @@ This leads to the following DL mapping (only one simple property constraint):
 	\item see \emph{inverse-functional properties}
 \end{itemize}
 
-\subsection{Class-Specific Property Range*}		
+\subsection{Class-Specific Property Range*\textsuperscript{T}}		
 
 {\em Class-Specific Property Range}\footnote{{\em R-29-CLASS-SPECIFIC-RANGE-OF-RDF-OBJECTS}, {\em R-36-CLASS-SPECIFIC-RANGE-OF-RDF-LITERALS}} restricts the range of object and data properties for individuals within a specific context (e.g. class, shape, application profile).
 The values of each member property of a class may be limited by their value type, such as \emph{xsd:string} or \emph{foaf:Person}. 
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-CLASS-SPECIFIC-PROPERTY-RANGE-01:}} 
+	\item \textbf{{\em DISCO-C-CLASS-SPECIFIC-PROPERTY-RANGE-01:}}
 Only {\em disco:Question}s can have {\em disco:questionText} relationships to literals of the datatype {\em rdf:langString} (\ms{$\neg$Question $\sqsubseteq$ $\neg\exists$ questionText.langString}).
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \subsection{Class-Specific Reflexive Object Properties*}
@@ -1194,6 +1593,10 @@ SummaryStatistics $\sqsubseteq$ $\forall summaryStatisticType.A$ \\
 $A \equiv Concept \sqcap \forall inScheme . B$ \\
 $B \equiv ConceptScheme \sqcap \{SummaryStatisticType\}$
 \end{DL}
+
+\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
@@ -1210,7 +1613,10 @@ $B \equiv ConceptScheme \sqcap \{SummaryStatisticType\}$
 IRI pattern matching applied on subjects, properties, and objects\footnote{\emph{R-21-IRI-PATTERN-MATCHING-ON-RDF-SUBJECTS}, \emph{R-22-IRI-PATTERN-MATCHING-ON-RDF-OBJECTS}, \emph{R-23-IRI-PATTERN-MATCHING-ON-RDF-PROPERTIES}}.
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-IRI-PATTERN-MATCHING}}: \emph{disco:Study} resources must match a given IRI pattern.
+	\item \textbf{{\em DISCO-C-IRI-PATTERN-MATCHING-01}}: \emph{disco:Study} resources must match a given IRI pattern.
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
 \end{itemize}
 
 \subsection{Literal Value Comparison}
@@ -1233,6 +1639,9 @@ SELECT ?s WHERE {
 	\item \textbf{{\em DISCO-C-LITERAL-VALUE-COMPARISON-01}}:
 {\em disco:startDate}s must be before (‘\textless’) {\em disco:endDate}s.
 To validate this constraint we bind the variables as follows (P1: {\em disco:startDate}, P2: {\em disco:endDate}, OP: \textless). 
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \subsection{Ordering}
@@ -1244,8 +1653,17 @@ For obtaining this order, {\em skos:OrderedCollection} resources are used.
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-ORDERING-01}}: If \emph{disco:Variable}s of a given \emph{disco:LogicalDataSet} should be ordered, a collection of variables must be present in the data and connected with the data set. The collection of variables is of the type {\em skos:OrderedCollection} containing multiple variables (each represented as {\em skos:Concept}) in a {\em skos:memberList}. 
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
 	\item \textbf{{\em DISCO-C-ORDERING-02}}: If \emph{disco:Question}s of a given \emph{disco:Questionnaire} should be ordered, a collection of questions must be present in the data and connected with the questionnaire. The collection of questions is of the type {\em skos:OrderedCollection} containing multiple questions (each represented as {\em skos:Concept}) in a {\em skos:memberList}. 
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
 	\item \textbf{{\em DISCO-C-ORDERING-03}}: If codes/categories (\emph{skos:Concept}s) of a given \emph{disco:Representation} of a given \emph{disco:Variable} should be ordered, the variable representation should also be of the type {\em skos:OrderedCollection} containing multiple codes/categories (each represented as {\em skos:Concept}) in a {\em skos:memberList}. 
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
 \end{itemize}
 
 \subsection{Validation Levels}
@@ -1263,9 +1681,12 @@ Calculating the string length would also be another constraint of this type.
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-STRING-OPERATIONS-01}}: The title of a study (\emph{dcterms:title}) (e.g. 'EU-SILC 2005') may be calculated out of the title of the containing series (\emph{dcterms:title}) (e.g. 'EU-SILC') and the human-readable label of the study (\emph{rdfs:label}) (e.g. '2005').   
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
 \end{itemize}
 
-\subsection{Context-Specific Valid Classes}
+\subsection{Context-Specific Valid Classes\textsuperscript{T}}
 
 What types are valid in a specific context?\footnote{\emph{R-209-VALID-CLASSES}} 
 Context can be an input stream, a data creation function, or an API.
@@ -1273,46 +1694,46 @@ Context can be an input stream, a data creation function, or an API.
 \begin{itemize}
 	\item \textbf{{\em DATA-CUBE-C-CONTEXT-SPECIFIC-VALID-CLASSES-01}}: For future versions of \emph{Data Cube}, out-dated classes can be marked as deprecated.
 	\begin{itemize}
-		\item severity level: RECOMMENDED
+		\item severity level: INFO
 	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em DCAT-C-CONTEXT-SPECIFIC-VALID-CLASSES-01}}: For future versions of \emph{DCAT}, out-dated classes can be marked as deprecated.
 	\begin{itemize}
-		\item severity level: RECOMMENDED
+		\item severity level: INFO
 	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-CONTEXT-SPECIFIC-VALID-CLASSES-01}}: For future versions of \emph{Disco}, out-dated classes can be marked as deprecated.
 	\begin{itemize}
-		\item severity level: RECOMMENDED
+		\item severity level: INFO
 	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em PHDD-C-CONTEXT-SPECIFIC-VALID-CLASSES-01}}: For future versions of \emph{PHDD}, out-dated classes can be marked as deprecated.
 	\begin{itemize}
-		\item severity level: RECOMMENDED
+		\item severity level: INFO
 	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em SKOS-C-CONTEXT-SPECIFIC-VALID-CLASSES-01}}: For future versions of \emph{SKOS}, out-dated classes can be marked as deprecated.
 	\begin{itemize}
-		\item severity level: RECOMMENDED
+		\item severity level: INFO
 	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em XKOS-C-CONTEXT-SPECIFIC-VALID-CLASSES-01}}: For future versions of \emph{XKOS}, out-dated classes can be marked as deprecated.
 	\begin{itemize}
-		\item severity level: RECOMMENDED
+		\item severity level: INFO
 	\end{itemize}
 \end{itemize}
 
-\subsection{Context-Specific Valid Properties}
+\subsection{Context-Specific Valid Properties\textsuperscript{T}}
 
 What properties can be used within this context?\footnote{\emph{R-210-VALID-PROPERTIES}} 
 Context can be an data receipt function, data creation function, or API.
@@ -1320,46 +1741,46 @@ Context can be an data receipt function, data creation function, or API.
 \begin{itemize}
 	\item \textbf{{\em DATA-CUBE-C-CONTEXT-SPECIFIC-VALID-PROPERTIES-01}}: For future versions of \emph{Data Cube}, out-dated properties can be marked as deprecated.
 	\begin{itemize}
-		\item severity level: RECOMMENDED
+		\item severity level: INFO
 	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em DCAT-C-CONTEXT-SPECIFIC-VALID-PROPERTIES-01}}: For future versions of \emph{DCAT}, out-dated properties can be marked as deprecated.
 	\begin{itemize}
-		\item severity level: RECOMMENDED
+		\item severity level: INFO
 	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-CONTEXT-SPECIFIC-VALID-PROPERTIES-01}}: For future versions of \emph{Disco}, out-dated properties can be marked as deprecated.
 	\begin{itemize}
-		\item severity level: RECOMMENDED
+		\item severity level: INFO
 	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em PHDD-C-CONTEXT-SPECIFIC-VALID-PROPERTIES-01}}: For future versions of \emph{PHDD}, out-dated properties can be marked as deprecated.
 	\begin{itemize}
-		\item severity level: RECOMMENDED
+		\item severity level: INFO
 	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em SKOS-C-CONTEXT-SPECIFIC-VALID-PROPERTIES-01}}: For future versions of \emph{SKOS}, out-dated properties can be marked as deprecated.
 	\begin{itemize}
-		\item severity level: RECOMMENDED
+		\item severity level: INFO
 	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em XKOS-C-CONTEXT-SPECIFIC-VALID-PROPERTIES-01}}: For future versions of \emph{XKOS}, out-dated properties can be marked as deprecated.
 	\begin{itemize}
-		\item severity level: RECOMMENDED
+		\item severity level: INFO
 	\end{itemize}
 \end{itemize}
 
-\subsection{Default Values*}
+\subsection{Default Values*\textsuperscript{T}}
 
 \emph{Default values}\footnote{{\em R-31-DEFAULT-VALUES-OF-RDF-OBJECTS}, {\em R-38-DEFAULT-VALUES-OF-RDF-LITERALS}} for objects and literals are inferred automatically.
 It should be possible to declare the default value for a given property, e.g. so that input forms can be pre-populated and to insert a required property that is missing in a web service call.
@@ -1368,6 +1789,9 @@ It should be possible to declare the default value for a given property, e.g. so
 	\item \textbf{{\em DISCO-C-DEFAULT-VALUES-01:}}
 The value 'true' for the property {\em disco:isPublic} ({\em xsd:boolean}) indicates that the data set ({\em disco:LogicalDataSet}) can be accessed (usually downloaded) by anyone.
 Per default, access to data sets should be restricted ('false').
+\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
 \end{itemize}
 
 \subsection{Mathematical Operations}
@@ -1412,8 +1836,11 @@ Examples for {\em Mathematical Operations}\footnote{{\em R-42-MATHEMATICAL-OPERA
 For particular data properties, values must be stated for predefined languages\footnote{{\em R-47-LANGUAGE-TAG-MATCHING}}.
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-LANGUAGE-TAG-MATCHING:}}
+	\item \textbf{{\em DISCO-C-LANGUAGE-TAG-MATCHING-01:}}
 There must be an English variable name ({\em skos:notation}) for each {\em disco:Variable} within {\em disco:LogicalDataSet}s.
+\begin{itemize}
+	\item severity level: INFO
+\end{itemize}
 \end{itemize}
 
 \subsection{Language Tag Cardinality}
@@ -1424,13 +1851,19 @@ For particular data properties, values of predefined languages must be stated fo
 
 	\item \textbf{{\em DISCO-C-LANGUAGE-TAG-CARDINALITY-01:}}
   There must be at least one English {\em disco:questionText} for each {\em disco:Question} within {\em disco:LogicalDataSet}s.
-
+\begin{itemize}
+	\item severity level: INFO
+\end{itemize}
   \item \textbf{{\em DISCO-C-LANGUAGE-TAG-CARDINALITY-02:}}
   There should be at most one English literal value for variable names ({\em skos:notation}, domain: {\em disco:Variable}).
-
+\begin{itemize}
+	\item severity level: INFO
+\end{itemize}
   \item \textbf{{\em DISCO-C-LANGUAGE-TAG-CARDINALITY-03}}:
 	For each question (\emph{disco:Question}), there must be at least one question text (\emph{disco:questionText}) associated with a language tag of an arbitrary language or with an English language tag.
-
+\begin{itemize}
+	\item severity level: INFO
+\end{itemize}
 \end{itemize}
 
 \begin{itemize}
@@ -1474,6 +1907,9 @@ Avoid whitespaces in literals neither leading nor trailing white spaces\footnote
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-WHITESPACE-HANDLING-01:}} Delete whitespaces of series and study abstracts (\emph{dcterms:abstract}; domain: \emph{disco:StudyGroup}, \emph{disco:Study}) automatically.
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
 \end{itemize}
 
 \subsection{HTML Handling}
@@ -1482,7 +1918,13 @@ Check if all HTML tags, included in literals (of specific data properties within
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-HTML-HANDLING-01:}} Check if all HTML tags, included in literals of all \emph{Disco} data properties, are closed properly.
+		\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
 	\item \textbf{{\em DISCO-C-HTML-HANDLING-02:}} Check if all HTML tags, included in literals of all data properties whose domains are \emph{Disco} classes, are closed properly.
+		\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
 \end{itemize}
 
 
@@ -1494,8 +1936,40 @@ If specific properties exist, then specific other properties must also be presen
 	\item \textbf{{\em DISCO-C-CONDITIONAL-PROPERTIES-01}}:
   If a {\em skos:Concept} represents a code (having a {\em skos:notation} property) and a category (having a {\em skos:prefLabel} property), 
 then the property {\em disco:isValid} has to be stated indicating if the code is valid ('true') or missing ('false').
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 	\item \textbf{{\em DISCO-C-CONDITIONAL-PROPERTIES-02}}:
-	If the abstract (\emph{dcterms:abstract}) of a \emph{disco:Study} is missing, a study title (\emph{dcterms:title}) has to be stated.
+	In order to get an overview over a series or a study either an abstract, a title, an alternative title, or links to external descriptions should be stated. 
+	If the abstract (\emph{dcterms:abstract}) of a series (\emph{disco:StudyGroup}) and an external description of the series (\emph{disco:ddifile}) is missing, 
+	a series title (\emph{dcterms:title}) or an alternative series title (\emph{dcterms:alternative}) has to be stated.
+	\begin{itemize}
+		\item severity level: WARNING
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-CONDITIONAL-PROPERTIES-03}}:
+	In order to get an overview over a series or a study either an abstract, a title, an alternative title, or links to external descriptions should be stated. 
+	If the abstract (\emph{dcterms:abstract}) of a study (\emph{disco:Study}) and an external description of the study (\emph{disco:ddifile}) is missing, 
+	a study title (\emph{dcterms:title}) or an alternative study title (\emph{dcterms:alternative}) has to be stated.
+	\begin{itemize}
+		\item severity level: WARNING
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-CONDITIONAL-PROPERTIES-04}}:
+	If the abstract (\emph{dcterms:abstract}) of a series (\emph{disco:StudyGroup}), an external description of the series (\emph{disco:ddifile}), 
+	a series title (\emph{dcterms:title}), and an alternative series title (\emph{dcterms:alternative}) is missing, an error message should be shown.
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-CONDITIONAL-PROPERTIES-05}}:
+	If the abstract (\emph{dcterms:abstract}) of a study (\emph{disco:Study}), an external description of the study (\emph{disco:ddifile}), 
+	a study title (\emph{dcterms:title}), and an alternative study title (\emph{dcterms:alternative}) is missing, an error message should be shown.
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-CONDITIONAL-PROPERTIES-06}}:
+	If a category statistics resource is connected with a code, it must be stated if the code is valid (\emph{disco:isValid}) and the code must be stated (\emph{skos:notation})
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \subsection{Recommended Properties}
@@ -1505,14 +1979,14 @@ Which properties are not necessarily required but recommended within a particula
 \begin{itemize}
 	\item \textbf{{\em DATA-CUBE-C-RECOMMENDED-PROPERTIES-01:}}
 	\begin{itemize}
-		\item severity level: RECOMMENDED
+		\item severity level: INFO
 	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em DCAT-C-RECOMMENDED-PROPERTIES-01:}}
 	\begin{itemize}
-		\item severity level: RECOMMENDED
+		\item severity level: INFO
 	\end{itemize}
 \end{itemize}
 
@@ -1520,28 +1994,28 @@ Which properties are not necessarily required but recommended within a particula
 	\item \textbf{{\em DISCO-C-RECOMMENDED-PROPERTIES-01:}}
   The property {\em skos:notation} is not mandatory for {\em disco:Variable}s, but recommended to indicate variable names.
 	\begin{itemize}
-		\item severity level: RECOMMENDED
+		\item severity level: INFO
 	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em PHDD-C-RECOMMENDED-PROPERTIES-01:}}
 	\begin{itemize}
-		\item severity level: RECOMMENDED
+		\item severity level: INFO
 	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em SKOS-C-RECOMMENDED-PROPERTIES-01:}}
 	\begin{itemize}
-		\item severity level: RECOMMENDED
+		\item severity level: INFO
 	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{{\em XKOS-C-RECOMMENDED-PROPERTIES-01:}}
 	\begin{itemize}
-		\item severity level: RECOMMENDED
+		\item severity level: INFO
 	\end{itemize}
 \end{itemize}
 
@@ -1551,16 +2025,31 @@ Examples of the \emph{Handle RDF Collections}\footnote{\emph{R-120-HANDLE-RDF-CO
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-HANDLE-RDF-COLLECTIONS-01}}: Have comparable \emph{disco:Variable}s the same number of codes in their code lists?
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
 	\item \textbf{{\em DISCO-C-HANDLE-RDF-COLLECTIONS-02}}: Does the actual number of \emph{disco:Variable}s within an (un)ordered collection of a given \emph{disco:LogicalDataSet} match the expected number? 
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
 \end{itemize}
 
-\subsection{Value is Valid for Datatype}
+\subsection{Value is Valid for Datatype\textsuperscript{T}}
 
 Make sure that a value is valid for its datatype.
 It has to be ensured, e.g., that a date is really a date, or that a \emph{xsd:nonNegativeInteger} value is not negative. 
 
 \begin{itemize}
-	\item \textbf{{\em DISCO-C-VALUE-IS-VALID-FOR-DATATYPE-01}}: Check if all literal values of properties used within the \emph{Disco} context of the datatype {\em xsd:date} (e.g. {\em disco:startDate}, {\em disco:endDate}, {\em dcterms:date}) are really of the datatype {\em xsd:date}.
+	\item \textbf{{\em DISCO-C-VALUE-IS-VALID-FOR-DATATYPE-01}}: 
+	Check if all literal values of properties used within the \emph{Disco} context of the datatype {\em xsd:date} (e.g. {\em disco:startDate}, {\em disco:endDate}, {\em dcterms:date}) are really of the datatype {\em xsd:date}.
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-VALUE-IS-VALID-FOR-DATATYPE-02}}: 
+	Frequencies (disco:frequency) cannot be negative, i.e., must correspond  to the XML Schema datatype \emph{xsd:nonNegativeInteger}.
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
@@ -1572,7 +2061,7 @@ It has to be ensured, e.g., that a date is really a date, or that a \emph{xsd:no
 	\end{itemize}
 \end{itemize}
 
-\subsection{Use Sub-Super Relations in Validation}
+\subsection{Use Sub-Super Relations in Validation\textsuperscript{T}}
 
 \footnote{\emph{R-224-USE-SUB-SUPER-RELATIONS-IN-VALIDATION}}
 
@@ -1583,11 +2072,17 @@ If \emph{dcterms:date} and one of its sub-properties \emph{dcterms:created} or \
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-USE-SUB-SUPER-RELATIONS-IN-VALIDATION-01}}: 
 	If one or more \emph{dcterms:coverage} properties are present, suggest the use of one of its sub-properties \emph{dcterms:spatial} or \emph{dcterms:temporal}.
+		\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
 	\item \textbf{{\em DISCO-C-USE-SUB-SUPER-RELATIONS-IN-VALIDATION-02}}: 
 	If the \emph{dcterms:contributor} property is present, suggest the use of one of its sub-properties, e.g. \emph{disco:fundedBy}.
+		\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
 \end{itemize}
 
-\subsection{Cardinality Shortcuts*}
+\subsection{Cardinality Shortcuts*\textsuperscript{T}}
 
 In most library applications, cardinality shortcuts tend to appear in pairs, with repeatable/non-repeatable establishing maximum cardinality and optional/mandatory establishing minimum cardinality.
 These are shortcuts for more detailed \emph{cardinality restrictions}.
@@ -1598,12 +2093,33 @@ Some constraints require aggregating multiple values, especially via \emph{COUNT
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-AGGREGATION-01}}: calculate the number of theoretical concepts in the thematic classification of a given study.
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
   \item \textbf{{\em DISCO-C-AGGREGATION-02}}: calculate the number of variables of a data set.
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
 	\item \textbf{{\em DISCO-C-AGGREGATION-03}}: calculate the number of questions in a given questionnaire.
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
 	\item \textbf{{\em DISCO-C-AGGREGATION-04}}: the number of codes of a given variable must be below a maximum value.
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
 	\item \textbf{{\em DISCO-C-AGGREGATION-05}}: the number of questions of a given questionnaire must exactly be a given value.
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
 	\item \textbf{{\em DISCO-C-AGGREGATION-06}}: the cumulative percentage of all codes of a given variable must be 100.
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
   \item \textbf{{\em DISCO-C-AGGREGATION-07}}: the absolute frequency of all valid codes of a given variable must be equal to a given value.
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
 \end{itemize} 
 
 \subsection{\underline{Structure}}
@@ -1612,6 +2128,9 @@ SKOS is based on RDF, which is a graph-based data model. Therefore we can concen
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-STRUCTURE-01}}: there must be exactly one root in the hierarchy of DDI concepts. 
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
 \end{itemize} 
 
 \begin{itemize}
@@ -1707,6 +2226,39 @@ SKOS is based on RDF, which is a graph-based data model. Therefore we can concen
 \subsection{\underline{Labeling and Documentation}}
 
 \begin{itemize}
+	\item \textbf{{\em DISCO-C-LABELING-AND-DOCUMENTATION-01}}: 
+	Series should be described (\emph{dcterms:description}).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-LABELING-AND-DOCUMENTATION-02}}: 
+	Studies should be described (\emph{dcterms:description}).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-LABELING-AND-DOCUMENTATION-03}}: 
+	Data sets should be described (\emph{dcterms:description}).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-LABELING-AND-DOCUMENTATION-04}}: 
+	Data files should be described (\emph{dcterms:description}).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-LABELING-AND-DOCUMENTATION-05}}: 
+	Instruments should be described (\emph{dcterms:description}).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-LABELING-AND-DOCUMENTATION-06}}: 
+	Variables should be described (\emph{dcterms:description}).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
 	\item \textbf{{\em SKOS-C-LABELING-AND-DOCUMENTATION-01\footnote{Corresponds to qSKOS Quality Issues - Labeling and Documentation Issues - Undocumented Concepts}:}}
 	Undocumented Concepts:
   The SKOS standard defines a number of properties useful for documenting the meaning of the concepts in a thesaurus also in a human-readable form. Intense use of these properties leads to a well-documented thesaurus which should also improve its quality.  
@@ -1747,34 +2299,34 @@ SKOS is based on RDF, which is a graph-based data model. Therefore we can concen
 	\end{itemize}
 \end{itemize}
 
-\subsection{\underline{Vocabulary}}
+\subsection{\underline{Vocabulary}\textsuperscript{T}}
 Vocabularies should not invent any new terms or use deprecated elements. 
 
 \begin{itemize}
 	\item \textbf{\em DATA-CUBE-C-VOCABULARY-01} 
 	\begin{itemize}
-		\item Severity level: FATALERROR
+		\item Severity level: ERROR
 	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{\em DCAT-C-VOCABULARY-01} 
 	\begin{itemize}
-		\item Severity level: FATALERROR
+		\item Severity level: ERROR
 	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{\em DISCO-C-VOCABULARY-01} 
 	\begin{itemize}
-		\item Severity level: FATALERROR
+		\item Severity level: ERROR
 	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{\em PHDD-C-VOCABULARY-01} 
 	\begin{itemize}
-		\item Severity level: FATALERROR
+		\item Severity level: ERROR
 	\end{itemize}
 \end{itemize}
 
@@ -1783,40 +2335,75 @@ Vocabularies should not invent any new terms or use deprecated elements.
 	Undefined SKOS Resources:
 	The vocabulary should not invent any new terms within the SKOS namespace or use deprecated SKOS elements. 
 	\begin{itemize}
-		\item Severity level: FATALERROR
+		\item Severity level: ERROR
 	\end{itemize}
 \end{itemize}
 
 \begin{itemize}
 	\item \textbf{\em XKOS-C-VOCABULARY-01} 
 	\begin{itemize}
-		\item Severity level: FATALERROR
+		\item Severity level: ERROR
 	\end{itemize}
 \end{itemize}
 
 \subsection{\underline{Linked Data}}
 
 \begin{itemize}
-	\item \textbf{\em R-HTTP-URI-SCHEME-VIOLATION\footnote{Corresponds to qSKOS Quality Issues - Linked Data Specific Issues - HTTP URI Scheme Violation}}: 
+	\item \textbf{\em DISCO-C-HTTP-URI-SCHEME-VIOLATION\footnote{Corresponds to qSKOS Quality Issues - Linked Data Specific Issues - HTTP URI Scheme Violation}}: 
 	In the context of Linked Data, we restrict ourselves to using HTTP URIs only and avoid other URI schemes such as URNs and DOIs.
 	\begin{itemize}
 		\item Severity level: ERROR
 	\end{itemize}
 \end{itemize}
 
-\section{SKOS-Related Constraint Types}
+\begin{itemize}
+	\item \textbf{\em DATA-CUBE-C-HTTP-URI-SCHEME-VIOLATION\footnote{Corresponds to qSKOS Quality Issues - Linked Data Specific Issues - HTTP URI Scheme Violation}}: 
+	In the context of Linked Data, we restrict ourselves to using HTTP URIs only and avoid other URI schemes such as URNs and DOIs.
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
+\end{itemize}
 
-\section{Validation in Combination with other Vocabularies}
+\begin{itemize}
+	\item \textbf{\em PHDD-C-HTTP-URI-SCHEME-VIOLATION\footnote{Corresponds to qSKOS Quality Issues - Linked Data Specific Issues - HTTP URI Scheme Violation}}: 
+	In the context of Linked Data, we restrict ourselves to using HTTP URIs only and avoid other URI schemes such as URNs and DOIs.
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
+\end{itemize}
 
-\subsection{RDF Data Cube Vocabulary}
+\begin{itemize}
+	\item \textbf{\em SKOS-C-HTTP-URI-SCHEME-VIOLATION\footnote{Corresponds to qSKOS Quality Issues - Linked Data Specific Issues - HTTP URI Scheme Violation}}: 
+	In the context of Linked Data, we restrict ourselves to using HTTP URIs only and avoid other URI schemes such as URNs and DOIs.
+	\begin{itemize}
+		\item Severity level: ERROR
+	\end{itemize}
+\end{itemize}
 
-\subsection{SKOS and XKOS}
+\subsection{Provenance}
 
-\subsection{PHDD}
-
-\subsection{DCAT}
-
-\section{Conclusion and Future Work}
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-PROVENANCE-01}}: 
+	Series should have provenance information (\emph{dcterms:provenance}).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-PROVENANCE-02}}: 
+	Studies should have provenance information (\emph{dcterms:provenance}).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-PROVENANCE-03}}: 
+	Data sets should have provenance information (\emph{dcterms:provenance}).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-PROVENANCE-04}}: 
+	Data files should have provenance information (\emph{dcterms:provenance}).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+\end{itemize} 
 
 \bibliography{../../literature/literature}{}
 \bibliographystyle{plain}

@@ -213,8 +213,8 @@ We explain why RDF validation is important in this context and how (meta)data is
 \end{abstract}
 
 \section{Introduction}
-
-\tb{terminology: data in singular form / data set - NOT dataset / person-level data - NOT microdata / study - NOT survey}
+\tb{replace Data Cube by QB?}
+%\tb{terminology: data in singular form / data set - NOT dataset / person-level data - NOT microdata / study - NOT survey}
 
 For more than a decade, members of the community around research data for the social, behavioural, and economic (SBE) sciences have been developing and using a
 metadata standard (composed of almost twelve hundred metadata fields) known as the \emph{Data Documentation Initiative (DDI)} \cite{Vardigan2008}.
@@ -398,7 +398,7 @@ Bosch et al. identified in total \textcolor{red}{74} requirements to formulate R
 We published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} in which we explain each requirement (constraint type) in detail and give examples for each (represented by different constraint languages).
 The knowledge representation formalism \emph{Description logics (DL)}, with its  well-studied theoretical properties, provides the foundational basis for each constraint type.
 Therefore, this technical report contains mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
-We recently published a technical report\footnote{\textcolor{red}{Available at: \url{http://arxiv.org/abs/XXXXX}}} (serving as appendix of this paper) in which we describe RDF constraints to validate metadata on person-level and aggregated data.
+We recently published a technical report\footnote{\textcolor{red}{Available at: \url{http://arxiv.org/abs/XXXXX}}} (serving as first appendix of this paper) in which we describe constraints to validate metadata on person-level, aggregated data, and thesauri.
 We assign each constraint to constraint types corresponding to RDF validation requirements or to data model specific constraint types\footnote{Requirements/Constraint types and constraints are uniquely identified by alphanumeric technical identifiers like \emph{R-1}}
 \cite{BoschZapilkoWackerowEckert2015}.
 
@@ -423,12 +423,6 @@ further ideas:
 
 RDF validation scenarios require the closed-world assumption (CWA) (i.e., a statement is inferred to be false if it cannot be proved to be true).
 
-\textbf{application of matching algorithms.}\tb{@Ben ToDo: macht es sinn matching algorithmen anzuwenden?}
-- the value for a specific data property (e.g. birth date) is needed as prerequisite to perform matching algorithms
-- 1. step: validation
-- 2. step: matching
-- validation as reasonable extension of pattern of Ben (e.g. for pattern: is this digit correct?)
-
 -----
 
 use-case specific constraints, e.g., DCAT: searching for metadata
@@ -448,27 +442,32 @@ use-case specific constraints, e.g., DCAT: searching for metadata
 
 - there should be a relationship to the underlying person-level data.
 
-\subsubsection{Person-Level Metadata and Data}
+\subsubsection{Person-Level Metadata and Data}. 
 \label{person-level-metadata-and-data}
 
-\textbf{Studies.}
-For datatype properties it should be possible to declare frequently needed \emph{facets} to drive user interfaces and validate input against simple conditions, including min/max values, regular expressions, and string length ({\emph{R-46: data property facets}).
-Each study must have an abstract, i.e., the abstract (\emph{disco:purpose}) should have a minimum length (\emph{xsd:minLength}) of 0 ($\mathcal{SL}_{1}$).
-It is useful to declare properties to be conditional, i.e., if particular properties exist (or do not exist), then specific other properties must also be present (\emph{R-71: conditional properties}).
-If the abstract of a study is missing, a title has to be stated ($\mathcal{SL}_{2}$).
+\textbf{Series, Studies, Data Sets, and Data Files.}
+It is useful to declare properties to be \emph{conditional} (\emph{R-71}), i.e., if particular properties exist (or do not exist), then other properties must also be present (or absent).
+To get an overview over a series/study either an abstract, a title, an alternative title, or links to external descriptions should be provided. 
+If the abstract and an external description are absent, 
+a title or an alternative title has to be stated ($\mathcal{SL}_{1}$).
+For datatype properties it should be possible to declare frequently needed \emph{facets} ({\emph{R-46}) to drive user interfaces and validate input against simple conditions including min/max values, regular expressions, and string length.
+The abstract of series/studies, e.g., should have a minimum length (\emph{xsd:minLength}; $\mathcal{SL}_{1}$).
+\emph{Existential quantifications} (\emph{R-86}) enforce that instances of given classes must have some property relations to individuals of certain types.
+If a study, e.g., has no associated data sets ($\mathcal{SL}_{2}$), the actual description of the data is missing which may indicate that it is very hard or unlikely to get access to the data.
+If there is no metadata (especially case and variable quantities) on data files including the actual data of data sets ($\mathcal{SL}_{1}$), the description of the data sets and the underlying study is not sufficient.
+The case quantity measures how many cases are collected for a study.
+A high case and variable quantity is an indicator for high statistical quality and comprehensiveness of the conducted study ($\mathcal{SL}_{1}$).
 
-\textbf{Variables.}
+\textbf{Variables and Variable Comparison.}
 Each variable should have a variable representation (\emph{R-86}; $\mathcal{SL}_{1}$), which is either an (un)ordered code list or a union of datatypes.
-In case of a code list, associated categories should be stated (\emph{R-71}; $\mathcal{SL}_{0}$).
-The variable \emph{Education at pre-school} has an associated code list, but without any associated categories.
-If a {\em skos:Concept} represents a code (having a {\em skos:notation} property) and a category (having a {\em skos:prefLabel} property), 
-then the property {\em disco:isValid} has to be stated indicating if the code is valid (\emph{true}) or missing (\emph{false}) (\emph{R-71}; $\mathcal{SL}_{1}$).
-Variables must have at least one relationship to a theoretical concept ({\emph{R-75: minimum qualified cardinality restrictions}; $\mathcal{SL}_{1}$).
+In case of a code list, associated categories (human-readable labels) may be stated (\emph{R-71}; $\mathcal{SL}_{0}$).
+The variable \emph{Education at pre-school} is represented as ordered code list without any categories.
+If a {\em skos:Concept} stands for a code (having a {\em skos:notation} property) and a category (having a {\em skos:prefLabel} property), 
+then the property {\em disco:isValid} has to be stated indicating if the code is valid (\emph{true}) or missing (\emph{false}) (\emph{R-71}; $\mathcal{SL}_{2}$).
+Variables may have at least one relationship to a theoretical concept ({\emph{R-86}; $\mathcal{SL}_{0}$).
 %The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
 The variable \emph{Education at pre-school} is associated with the theoretical concept \emph{Child Care}. 
-The default severity level of this constraint is $\mathcal{SL}_{1}$ and not $\mathcal{SL}_{2}$, as in most cases research can be continued without associated theoretical concepts of given variables.
-
-\textbf{Variable Comparison.}
+The default severity level of this constraint is weak, as in most cases research can be continued without associated theoretical concepts.
 A very common research question is to compare variables of multiple studies or countries (\emph{comparison}).
 To compare variables, 
 (1) variables and (2) variable definitions must be present,
@@ -477,27 +476,31 @@ To compare variables,
 (5) code lists must either be identical or at least similar.
 If a researcher wants to get a first overview over comparable variables (use case 1), 
 the first three constraints may be sufficient for this purpose.
-Thus, the severity level of the first three constraints is stronger ($\mathcal{SL}_{2}$) than the severity level of the next two constraints ($\mathcal{SL}_{1}$).
-If the intention of the researcher is to perform more detailed comparisons (use case 2), however, the violation of the remaining constraints is getting more serious ($\mathcal{SL}_{2}$).
+Thus, the severity level of the first three constraints is stronger ($\mathcal{SL}_{2}$) than the severity level of the next two constraints ($\mathcal{SL}_{1}$ and $\mathcal{SL}_{0}$).
+If the intention of the researcher is to perform more detailed comparisons (use case 2), however, the violation of the remaining two constraints is getting more serious.
 
 \textbf{Frequencies and Descriptive Statistics.}
-Percentage values are valid when they are between 0 and 100.
-The constraint type \emph{literal ranges} (\emph{R-45}) restricts data property ranges [$V_{min}$,$V_{max}$] within the context of given classes.
-A constraint of this type applies to the property \emph{disco:percentage} standing for the number of cases of a given code in relation to the total number of cases for a particular variable within a data set ($\mathcal{SL}_{2}$).
+The property \emph{disco:percentage} stands for the number of cases of a given code in relation to the total number of cases for a particular variable within a data set.
+Percentage values are only valid when they are within the \emph{literal range} of 0 and 100 (\emph{R-45}; $\mathcal{SL}_{2}$).
 {\em Mathematical Operations} (\emph{R-41, R-42}; e.g. date calculations and statistical computations like average, mean, and sum) are performed to ensure the integrity of data models.
-The sum of {\em disco:percentage} (datatype: {\em xsd:double}) values of all codes ({\em skos:Concept}) of a variable code list ({\em skos:ConceptScheme} or {\em skos:OrderedCollection}), e.g., must exactly be 100 ($\mathcal{SL}_{2}$).
+The sum of percentage values of all codes of a variable code list, e.g., must exactly be 100 ($\mathcal{SL}_{2}$)
+and the minimum of all variable codes do not have to be greater than the maximum ($\mathcal{SL}_{2}$).
+Some constraints ensure the integrity of the data according to intended data model semantics (\emph{data model consistency}).
+Codes (\emph{skos:Concept}), e.g, are ordered and therefore have fixed positions in an ordered collection (\emph{skos:OrderedCollection}) within variable representations.
+In order to check the correctness of relative frequencies' calculations, the cumulative percentage (\emph{disco:cumulativePercentage}) of the current code must exactly be the cumulative percentage of the previous code (\emph{disco:cumulativePercentage})
+plus the percentage value (\emph{disco:percentage}) of the current code ($\mathcal{SL}_{2}$).
 
 \textbf{Unique Identification.}
 It is often useful to declare a given (data) property as the \emph{primary key} (\emph{R-226}) of a class, so that a system can enforce uniqueness and also automatically build URIs from user inputs and imported data. 
 In \emph{Disco}, resources are uniquely identified by the property \emph{adms:identifier},
 which is therefore inverse-functional
 $(\ms{funct identifier}\sp{\overline{\ }})$,
-i.e. for each \emph{rdfs:Resource x}, there can be at most one distinct \emph{rdfs:Resource y} such that \emph{y} is connected by \emph{adms:identifier$\sp{\overline{\ }}$} to \emph{x}.
+i.e. for each \emph{rdfs:Resource x}, there can be at most one distinct \emph{rdfs:Resource y} such that \emph{y} is connected by \emph{adms:identifier$\sp{\overline{\ }}$} to \emph{x} ($\mathcal{SL}_{2}$).
 Keys, however, are even more general than inverse-functional properties (\emph{R-58}),
 as a key can be a data, an object property, or a chain of properties \cite{Schneider2009}.
 For this generalization purposes, as there are different sorts of key, and as keys can lead to undecidability, 
 DL is extended with \emph{key boxes} and a special \emph{keyfor} construct (\ms{identifier \ms{keyfor} Resource}) \cite{Lutz2005}.
-OWL 2 \emph{hasKey} implements \emph{keyfor} and can therefore be used to identify resources uniquely, to merge resources with identical key property values, and to recognize constraint violations.
+OWL 2 \emph{hasKey} implements \emph{keyfor} ($\mathcal{SL}_{2}$) and thus can be used to identify resources uniquely, to merge resources with identical key property values, and to recognize constraint violations.
 %OWL 2 hasKey can be used to identify resources uniquely
 %
 %We used Protégé 5.
@@ -520,8 +523,8 @@ OWL 2 \emph{hasKey} implements \emph{keyfor} and can therefore be used to identi
 
 \textbf{Membership in Controlled Vocabularies.}
 In many cases, resources must be members of listed controlled vocabularies (\emph{R-32}).
-Descriptive statistics types like minimum, maximum, and mode are maintained within a controlled vocabulary.  
-Thus, descriptive statistics (\emph{disco:SummaryStatistics}) can only have \emph{disco:summaryStatisticType} relationships to \emph{skos:Concept}s which must be members of the controlled vocabulary \emph{ddicv:SummaryStatisticType}, a \emph{skos:ConceptScheme} (\emph{R-91: universal quantification}; $\mathcal{SL}_{2}$):
+Types of summary statistics like minimum, maximum, and mode are maintained within a controlled vocabulary.  
+Thus, summary statistics can only have \emph{disco:summaryStatisticType} relationships to \emph{skos:Concept}s which must be members of the controlled vocabulary \emph{ddicv:SummaryStatisticType}, a \emph{skos:ConceptScheme} (\emph{R-91: universal quantification}; $\mathcal{SL}_{2}$):
 \begin{center}
 \begin{DL}
 SummaryStatistics $\sqsubseteq$ $\forall summaryStatisticType.A$ \\
@@ -531,15 +534,14 @@ $B \equiv ConceptScheme \sqcap \{SummaryStatisticType\}$
 \end{center}
 
 \textbf{Coverage.}
-In order to express the temporal coverage of series, studies, or data sets dates can be stated.
-
+Information about the temporal (\emph{dcterms:temporal}), the spatial (\emph{dcterms:spatial}), and the topical coverage (\emph{dcterms:subject}) of series, studies, data sets, and data files (\emph{R-86: existential quantification}; $\mathcal{SL}_{1}$) is of interest when performing particular queries 
+	(e.g. to search for all data sets of given years (temporal coverage) in which data is collected in given countries (spatial coverage) about given topics (topical coverage)).
 Depending on property datatypes,
 two different literal values have
-a specific ordering with respect to an operator. 
-\emph{P1} and \emph{P2} are the data properties we need to compare and 
-\emph{OP} is the comparison operator (e.g. \textless, \textless=, \textgreater, \textgreater=, =, !=) (\emph{R-43: literal value comparison}).
-\emph{disco:startDate}s, e.g., must be before (\emph{\textless}) \emph{disco:endDate}s.
-To validate this constraint we bind the variables (P1: \emph{disco:startDate}, P2: \emph{disco:endDate}, OP: \emph{\textless}).
+a specific ordering with respect to an operator (e.g. \textless, \textless=, \textgreater, \textgreater=, =, !=) (\emph{R-43: literal value comparison}).
+Start dates (\emph{disco:startDate}), e.g., must be before (\emph{\textless}) end dates (\emph{disco:endDate}) ($\mathcal{SL}_{2}$).
+It must be made sure that all literal values are valid for their datatypes (\emph{R-223: value is valid for datatype}; $\mathcal{SL}_{2}$).
+It has to be ensured, e.g., that all date values (e.g. {\em disco:startDate}, {\em disco:endDate}, {\em dcterms:date}) are really of the datatype \emph{xsd:date}, or that \emph{xsd:nonNegativeInteger} values (e.g. \emph{disco:frequency}) are not negative.
 
 \textbf{Organizations, Hierarchies, Classifications, and Ordering.}
 SKOS is based on RDF, which is a graph-based data model. Therefore, we can concentrate on the vocabulary's graph-based structure for assessing the quality of SKOS vocabularies and apply graph- and network-analysis techniques (\emph{structure}) like 
@@ -665,32 +667,40 @@ A SPIN construct template creates constraint violation triples if all triple pat
 
 \section{Evaluation}
 
-We used $\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints 
-to evaluate the metadata and data quality of existing large real world aggregated and person-level data sets.
-We provide a triple store\footnote{\textcolor{red}{\url{http://multiweb.gesis.org/openrdf-workbench/}}}, containing these data sets, 
-and the constraints\footnote{\url{https://github.com/boschthomas/rdf-validation/constraints}} in form of SPARQL CONSTRUCT queries.
+We exhaustively evaluated the metadata quality of large real world aggregated (\emph{QB}), person-level (\emph{Disco}), and thesauri (\emph{SKOS}) data sets by means of both $\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints of the majority of the constraint types.
 We validated 
-(1) \emph{QB} data sets (\textcolor{red}{XX}),
-(2) \emph{Disco} data sets (overall \textcolor{red}{XX} resources exported from \emph{Missy} - 5 series, \textcolor{red}{XX} studies, \textcolor{red}{XX} data sets, \textcolor{red}{XX} theoretical concepts, \textcolor{red}{XX} variables, \textcolor{red}{XX} questions, \textcolor{red}{XX} codes, \textcolor{red}{XX} category statistics (frequencies), and \textcolor{red}{XX} summary statistics),
-(3) \emph{DCAT} data sets (\textcolor{red}{XX}),
-(4) \emph{PHDD} data sets (\textcolor{red}{XX}),
-(5) \emph{SKOS} data sets (The Thesaurus for the Social Sciences (TheSoz), the STW Thesaurus for Economics of the ZBW, and the AGROVOC thesaurus of FAO), and
-(6) \emph{XKOS} data sets (\textcolor{red}{XX}).
+9,990 / 3,775,983,610 (\emph{QB}),
+4,178 / 477,737,281 (\emph{SKOS}), and 
+1,526 / 9,673,055 (\emph{Disco}) data sets / triples using the \emph{RDF Validator} in batch mode.
+Among others data sets, we validated 
+(1) \emph{QB} data sets published by the \emph{Australian Bureau of Statistics (ABS)},
+the \emph{European Central Bank (ECB)}, and the
+\emph{Organisation for Economic Co-operation and Development (OECD)},
+(2) \emph{SKOS} thesauri like the \emph{AGROVOC Multilingual agricultural thesaurus},
+the \emph{STW Thesaurus for Economics}, and the
+\emph{Thesaurus for the Social Sciences (TheSoz)}, and
+(3) \emph{Disco} data sets provided by the \emph{Microdata Information System (Missy)}, 
+the \emph{DwB Discovery Portal}, the
+\emph{Danish Data Archive (DDA)}, and the
+\emph{Swedish National Data Service (SND)}.
 
-The correctness of $\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints, i.e., the gold standard has been designed by a SBE domain expert.
-As proof-of-concept, we use the \emph{RDF Validator} to offer examples for both valid and invalid RDF data regarding particular constraints. 
+We recently published a technical report\footnote{\textcolor{red}{Available at: \url{http://arxiv.org/abs/XXXXX}}} (serving as second appendix of this paper) 
+in which we describe the evaluation in detail. 
+As we validated 9,990 aggregated data sets, we published the validation results of all aggregated data sets in form of one document per SPARQL endpoint\footnote{\url{https://github.com/boschthomas/rdf-validation/tree/master/evaluation/data-sets/data-cube}}.
+Although accessible within the \emph{RDF Validator}, we provide all implemented constraints\footnote{\textcolor{red}{\url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}}} in form of SPARQL CONSTRUCT queries.
+The correctness of all evaluated constraints, i.e., the gold standard, has been proved by SBE domain experts.
 
-%\begin{table}
-	%\centering
-		%\begin{tabular}{l|c|c|c|c|c|c}
-      %\textbf{Expressivity Class} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\		
-      %\hline
-      %$Expr(\overline{\mathcal{C}_R})$ (42) & 6 & 18(4) & 7(4) & 8 & 12 & 41(1)\\
-      %$Expr(\mathcal{C}_R)$ (32) & 8 & 29 & 11 & 11(2) & 11(1) & 32 \\ 	
-		%\end{tabular}
-	%\caption{Constraint Type Specific Expressivity}
-	%\label{tab:constraint-type-specific-expressivity}
-%\end{table}
+We defined 142 (\emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS}) constraints assigned to 52 (\emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS}) distinct constraint types and implemented 77 (\emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS})  of them to actually validate data sets.  
+49.3\% (\emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS}) of the defined constraints are $\mathcal{C}_{T}$ constraints, and 
+42.3\% (\emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS}) of the constraint types are $\mathcal{C}_{T}$ constraint types.
+52.8\% (\emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS}) of the defined constraints are associated with the default severity level $\mathcal{SL}_{0}$, 6.3\% (\emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS}) are $\mathcal{SL}_{1}$, and 
+40.8\% (\emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS}) are $\mathcal{SL}_{2}$ constraints.
+\emph{R-86: Existential quantifications} (32.4\%, \emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS}) are the constraint types with the most defined constraints.
+We got \textcolor{red}{XX} (\emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS}) / \textcolor{red}{XX} (\emph{In Total}) constraint violations. 
+\textcolor{red}{XX} (\emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS}) / \textcolor{red}{XX} (\emph{In Total}) constraint violations caused by violating $\mathcal{SL}_{0}$ constraints, 
+473,574 (\emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS}) / \textcolor{red}{XX} (\emph{In Total}) by $\mathcal{SL}_{1}$ constraints, and 
+\textcolor{red}{XX} (\emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS}) / \textcolor{red}{XX} (\emph{In Total}) by $\mathcal{SL}_{2}$ constraints.
+\emph{DISCO-C-LABELING-AND-DOCUMENTATION-06} (547,916) and \emph{DISCO-C-COMPARISON-VARIABLES-02} (547,916) (\emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS}) are the constraints responsible for the most constraint violations.
 
 \section{Related Work}
 
@@ -717,6 +727,8 @@ If the ASK query is applied to an RDF graph then it will return true if that gra
 
 
 \section{Conclusion and Future Work}
+
+As part of future work, we will identify constraints on rectangular data and statistical classifications and classify them.
 
 \bibliography{../../literature/literature}{}
 \bibliographystyle{plain}
