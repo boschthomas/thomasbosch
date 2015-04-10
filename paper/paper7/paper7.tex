@@ -706,21 +706,20 @@ it is checked that \emph{dcterms:coverage} is not redundant with its sub-propert
 
 \section{Implementation}
 
-In \emph{Missy}, we provide comprehensive Linked Data services\footnote{\textcolor{red}{\url{http://www.gesis.org/missy/eu/general-information/linked-data/}}} like a triple store and diverse RDF exports of person-level metadata conforming to the \emph{Disco} vocabulary in multiple concrete syntaxes (e.g. turtle). 
-
 SPARQL is generally seen as the method of choice to validate RDF data according to certain constraints.
-We use \emph{SPIN}\footnote{\url{http://spinrdf.org/}}, 
-a SPARQL-based way to formulate and check constraints, as basis to define a
-validation environment (available at \url{http://purl.org/net/rdfval-demo}) to validate RDF data according to constraints expressed my arbitrary constraint languages like Shape Expressions\footnote{\url{http://www.w3.org/Submission/shex-primer/}} and the Web Ontology Language \cite{BoschEckert2014-2}.
-The \emph{RDF Validator} also validates RDF data conforming to SPARQL constraints to ensure correct syntax and semantics of vocabularies such as \emph{Disco, Data Cube, PHDD, DCAT, SKOS, and XKOS}\footnote{\textcolor{red}{SPIN mappings: \url{https://github.com/boschthomas/rdf-validation/SPIN}}}.
-The SPIN engine checks for each resource if it satisfies all constraints (associated with its assigned classes) and generates a result RDF graph containing information about all constraint violations.
-We define one SPIN construct template for each constraint type (corresponding to a requirement) and vocabulary-specific constraint\footnote{For details about the \emph{RDF Validator} see \cite{BoschEckert2014-2}}.
-A SPIN construct template contains a SPARQL CONSTRUCT query which generates constraint violation triples indicating the subject, the properties causing constraint violations, and the reason why constraint violations have been raised.
+We use \emph{SPIN}, 
+a SPARQL-based way to formulate and check constraints, as basis to develop a
+validation environment (available at \url{http://purl.org/net/rdfval-demo}) to validate RDF data according to constraints expressed my arbitrary constraint languages like Shape Expressions,
+%\footnote{\url{http://www.w3.org/Submission/shex-primer/}}
+Resource Shapes, and the Web Ontology Language\footnote{\textcolor{red}{SPIN mappings available at: \url{https://github.com/boschthomas/rdf-validation/SPIN}}} \cite{BoschEckert2014-2}.
+The \emph{RDF Validator} also validates RDF data to ensure correct syntax, semantics, and integrity of diverse vocabularies such as \emph{Disco, QB, PHDD, SKOS, and XKOS}.
+Although accessible within our validation tool, we provide all implemented constraints\footnote{\textcolor{red}{\url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}}} in form of SPARQL CONSTRUCT queries.
+For the subsequent evaluation, we implemented 212 constraints on \emph{Disco}, \emph{QB}, \emph{SKOS}, \emph{XKOS}, and \emph{PHDD} data sets.
+The SPIN engine checks for each resource if it satisfies all constraints, which are associated with its assigned classes, and generates a result RDF graph containing information about all constraint violations.
+There is one SPIN construct template for each constraint type and vocabulary-specific constraint\footnote{For a comprehensive description of the \emph{RDF Validator}, we refer to \cite{BoschEckert2014-2}}.
+A SPIN construct template contains a SPARQL CONSTRUCT query which generates constraint violation triples indicating the subject and the properties causing constraint violations, and the reason why constraint violations have been raised.
 A SPIN construct template creates constraint violation triples if all triple patterns within the SPARQL WHERE clause match.
-
------
-
-Although accessible within the \emph{RDF Validator}, we provide all implemented constraints\footnote{\textcolor{red}{\url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}}} in form of SPARQL CONSTRUCT queries.
+\emph{Missy}\footnote{\url{http://www.gesis.org/missy/eu/missy-home}} provides comprehensive Linked Data services like diverse RDF exports of person-level metadata conforming to the \emph{Disco} vocabulary in form of multiple concrete syntaxes. 
 
 \section{Evaluation}
 
