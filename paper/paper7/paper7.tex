@@ -266,7 +266,7 @@ We explain why RDF validation is important in this context and how (meta)data is
 \end{abstract}
 
 \section{Introduction}
-\tb{replace Data Cube by QB?}
+
 %\tb{terminology: data in singular form / data set - NOT dataset / person-level data - NOT microdata / study - NOT survey}
 
 For more than a decade, members of the community around research data for the social, behavioural, and economic (SBE) sciences have been developing and using a
@@ -447,7 +447,7 @@ or certain formats in which the data distribution is available (\emph{dcterms:fo
 \section{RDF Validation of Metadata and Data}
 \label{rdf-validation}
 
-Bosch et al. identified in total \textcolor{red}{74} requirements to formulate RDF constraints; each of them corresponding to a constraint type. 
+Bosch et al. identified in total 74 requirements to formulate RDF constraints; each of them corresponding to a constraint type. 
 We published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} in which we explain each requirement (constraint type) in detail and give examples for each (represented by different constraint languages).
 The knowledge representation formalism \emph{Description logics (DL)}, with its  well-studied theoretical properties, provides the foundational basis for each constraint type.
 Therefore, this technical report contains mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
@@ -464,7 +464,6 @@ Although we provide default severity levels for each constraint, users should be
 In this section, we describe constraints and constraint types which are important to ensure the quality of metadata and data on different levels of aggregation. 
 We classify them according to the type of validation, and associate default severity levels with them. 
 
------
 %
 %- different sets of constraints for different use cases / use case specific constraints
 %
@@ -472,31 +471,31 @@ We classify them according to the type of validation, and associate default seve
 %
 %-----
 
-further ideas:
+%further ideas:
+%
+%RDF validation scenarios require the closed-world assumption (CWA) (i.e., a statement is inferred to be false if it cannot be proved to be true).
 
-RDF validation scenarios require the closed-world assumption (CWA) (i.e., a statement is inferred to be false if it cannot be proved to be true).
-
------
-
-use-case specific constraints, e.g., DCAT: searching for metadata
-\tb{Thomas: ToDo}
+%use-case specific constraints, e.g., DCAT: searching for metadata
+%\tb{Thomas: ToDo}
 
 \subsection{Content-Driven Validation}
 \label{content-driven-validation}
 
-\subsubsection{Aggregated Metadata and Data}
-\label{aggregated-metadata-and-data}
+\textbf{Observations of Aggregated Data Sets.}
+The purpose of some constraints is to ensure the integrity of
+the data according to intended data model semantics (\emph{data model consistency}).
+Every \emph{qb:Observation}, e.g., must have a value for each dimension
+declared in its associated \emph{qb:DataStructureDefinition} ($\mathcal{SL}_{2}$)
+and no two \emph{qb:Observations} in the same \emph{qb:DataSet}
+may have the same value for all dimensions ($\mathcal{SL}_{1}$).
+If a \emph{qb:DataSet} \emph{D} has a \emph{qb:Slice} \emph{S}, and \emph{S} has an
+\emph{qb:Observation} \emph{O}, then the \emph{qb:DataSet} corresponding to \emph{O} must be \emph{D} ($\mathcal{SL}_{1}$).
 
-\tb{ToDo}
-
-- for each dimension there should be a description and code lists.
-
-- for each code list there should be a description.
-
-- there should be a relationship to the underlying person-level data.
-
-\subsubsection{Person-Level Metadata and Data}. 
-\label{person-level-metadata-and-data}
+%- for each dimension there should be a description and code lists.
+%
+%- for each code list there should be a description.
+%
+%- there should be a relationship to the underlying person-level data.
 
 \textbf{Series, Studies, Data Sets, and Data Files.}
 It is useful to declare properties to be \emph{conditional} (\emph{R-71}), i.e., if particular properties exist (or do not exist), then other properties must also be present (or absent).
@@ -532,16 +531,15 @@ the first three constraints may be sufficient for this purpose.
 Thus, the severity level of the first three constraints is stronger ($\mathcal{SL}_{2}$) than the severity level of the next two constraints ($\mathcal{SL}_{1}$ and $\mathcal{SL}_{0}$).
 If the intention of the researcher is to perform more detailed comparisons (use case 2), however, the violation of the remaining two constraints is getting more serious.
 
-\textbf{Frequencies and Descriptive Statistics.}
+\textbf{Descriptive Statistics.}
 The property \emph{disco:percentage} stands for the number of cases of a given code in relation to the total number of cases for a particular variable within a data set.
 Percentage values are only valid when they are within the \emph{literal range} of 0 and 100 (\emph{R-45}; $\mathcal{SL}_{2}$).
 {\em Mathematical Operations} (\emph{R-41, R-42}; e.g. date calculations and statistical computations like average, mean, and sum) are performed to ensure the integrity of data models.
 The sum of percentage values of all codes of a variable code list, e.g., must exactly be 100 ($\mathcal{SL}_{2}$)
 and the minimum of all variable codes do not have to be greater than the maximum ($\mathcal{SL}_{2}$).
-Some constraints ensure the integrity of the data according to intended data model semantics (\emph{data model consistency}).
 Codes (\emph{skos:Concept}), e.g, are ordered and therefore have fixed positions in an ordered collection (\emph{skos:OrderedCollection}) within variable representations.
 In order to check the correctness of relative frequencies' calculations, the cumulative percentage (\emph{disco:cumulativePercentage}) of the current code must exactly be the cumulative percentage of the previous code (\emph{disco:cumulativePercentage})
-plus the percentage value (\emph{disco:percentage}) of the current code ($\mathcal{SL}_{2}$).
+plus the percentage value (\emph{disco:percentage}) of the current code (\emph{data model consistency}; $\mathcal{SL}_{2}$).
 
 \textbf{Unique Identification.}
 It is often useful to declare a given (data) property as the \emph{primary key} (\emph{R-226}) of a class, so that a system can enforce uniqueness and also automatically build URIs from user inputs and imported data. 
@@ -575,16 +573,19 @@ OWL 2 \emph{hasKey} implements \emph{keyfor} ($\mathcal{SL}_{2}$) and thus can b
 
 
 \textbf{Membership in Controlled Vocabularies.}
-In many cases, resources must be members of listed controlled vocabularies (\emph{R-32}).
-Types of summary statistics like minimum, maximum, and mode are maintained within a controlled vocabulary.  
-Thus, summary statistics can only have \emph{disco:summaryStatisticType} relationships to \emph{skos:Concept}s which must be members of the controlled vocabulary \emph{ddicv:SummaryStatisticType}, a \emph{skos:ConceptScheme} (\emph{R-91: universal quantification}; $\mathcal{SL}_{2}$):
-\begin{center}
-\begin{DL}
-SummaryStatistics $\sqsubseteq$ $\forall summaryStatisticType.A$ \\
-$A \equiv Concept \sqcap \forall inScheme . B$ \\
-$B \equiv ConceptScheme \sqcap \{SummaryStatisticType\}$
-\end{DL}
-\end{center}
+In many cases, resources must be members of controlled vocabularies (\emph{R-32}).
+Summary statistics types like minimum, maximum, and arithmetic mean, e.g., are maintained within a controlled vocabulary.  
+Summary statistics can only have \emph{disco:summaryStatisticType} relationships to \emph{skos:Concept}s which must be members of the controlled vocabulary \emph{ddicv:SummaryStatisticType}, a \emph{skos:ConceptScheme} ($\mathcal{SL}_{2}$).
+If a dimension property has a \emph{qb:codeList},
+then the value of the dimension property on every \emph{qb:Observation} must be in the code list ($\mathcal{SL}_{2}$).
+
+%\begin{center}
+%\begin{DL}
+%SummaryStatistics $\sqsubseteq$ $\forall summaryStatisticType.A$ \\
+%$A \equiv Concept \sqcap \forall inScheme . B$ \\
+%$B \equiv ConceptScheme \sqcap \{SummaryStatisticType\}$
+%\end{DL}
+%\end{center}
 
 \textbf{Coverage.}
 Information about the temporal (\emph{dcterms:temporal}), the spatial (\emph{dcterms:spatial}), and the topical coverage (\emph{dcterms:subject}) of series, studies, data sets, and data files (\emph{R-86: existential quantification}; $\mathcal{SL}_{1}$) is of interest when performing particular queries 
@@ -626,12 +627,12 @@ C $\sqsubseteq$ $\geq$ 1 definition.string $\sqcap$ $\leq$ 1 definition.string \
 \end{DL}
 \end{center}
 
-\textbf{Searching for (Meta)data.}
-
-- DCAT
-
-\textbf{Data Integration.}
-use RDF validation for data integration
+%\textbf{Searching for (Meta)data.}
+%
+%- DCAT
+%
+%\textbf{Data Integration.}
+%use RDF validation for data integration
 
 \subsection{Technology-Driven Validation}
 \label{technology-driven-validation}
@@ -654,6 +655,23 @@ Every \emph{qb:SliceKey}, e.g., must be associated with (\emph{qb:sliceKey}) a \
 \emph{Minimum qualified cardinality restrictions} are defined for each property of multiple vocabularies like \emph{Disco}.
 A \emph{disco:Questionnaire}, e.g., has at least one \emph{disco:question} relationship to \emph{disco:Questions} (\ms{Questionnaire $\sqsubseteq$ $\geq$1 question.Question}),
 a \emph{disco:Variable} has at most one \emph{disco:concept} relationship to a theoretical concept (\emph{skos:Concept}) (\ms{Variable $\sqsubseteq$ $\leq$1 concept.Concept}), and every \emph{qb:DataSet} has (\emph{qb:structure}) exactly one associated \emph{qb:DataStructureDefinition} (\ms{DataSet $\sqsubseteq$ $\geq$1 structure.DataStructureDefinition $\sqcap$ $\leq$1 structure.DataStructureDefinition}).
+
+%DATA-CUBE-C-MINIMUM-QUALIFIED-CARDINALITY-RESTRICTIONS-
+%02: Unique data set (IC-1 [3]) - Every qb:Observation has (qb:dataSet) ex-
+%actly one associated qb:DataSet (Observation  ¥1 dataSet.DataSet [
+%¤1 dataSet.DataSet).
+%Severity level: ERROR
+%
+%(\emph{R-75: minimum qualified cardinality restrictions})
+%
+%DATA-CUBE-C-EXACT-QUALIFIED-CARDINALITY-RESTRICTIONS-
+%02: Unique DSD (IC-2 [3]) - Every qb:DataSet has (qb:structure) exactly one
+%associated qb:DataStructureDefinition (DataSet  ¥1 structure.DataStructureDefinition
+%[ ¤1 structure.DataStructureDefinition).
+%Severity level: ERROR
+%
+%(\emph{R-74: exact qualified cardinality restrictions})
+
 %\footnote{\emph{DATA-CUBE-C-EXACT-QUALIFIED-CARDINALITY-RESTRICTIONS-02}}.
 For particular data properties, values of predefined languages must be stated for determined number of times (\emph{R-48, R-49}).
 Some controlled vocabularies contain literals in natural language, but without information what language has actually been used. Language tags might also not conform to language standards. 
