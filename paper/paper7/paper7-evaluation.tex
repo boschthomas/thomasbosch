@@ -227,8 +227,12 @@
 \renewcommand{\arraystretch}{1.3}
 %
 %
-\title{An Evaluation of RDF Constraint Types to Validate Metadata on Person-Level and Aggregated Data}
-\subtitle{}
+\title{An Evaluation \\
+of Metadata and Data Quality}
+\subtitle{on Person-Level, Aggregated, Thesauri, Statistical Classifications, and Rectangular Data Sets}
+
+%\title{An Evaluation}
+%\subtitle{of the Quality of Metadata on Person-Level, Aggregated, Thesauri, and Statistical Classifications Data Sets and of the Quality of Rectangular Data}
 
 \titlerunning{XXXXX}  % abbreviated title (for running head)
 %                                     also used for the TOC unless
@@ -249,45 +253,95 @@ University of Mannheim, Germany \\
 \maketitle              % typeset the title of the contribution
 
 \begin{abstract}
-...
+From 2012 to 2015 together with other Linked Data community members and experts from the social, behavioural, and economic sciences (\emph{SBE}), we developed diverse vocabularies to represent \emph{SBE} metadata and data in RDF.
+The \emph{DDI-RDF Discovery Vocabulary (Disco)} 
+is designed for the purposes of supporting the dissemination, management,
+and reuse of person-level data (data about individuals) collected in form of responses to studies and archived for research purposes.
+The \emph{RDF Data Cube Vocabulary (Data Cube, QB)} is a W3C recommendation for representing \emph{data cubes}, i.e. multi-dimensional aggregate data, in RDF. 
+\emph{Physical Data Description (PHDD)} is a vocabulary to represent aggregated and person-level data in a rectangular format. 
+The data could be either represented in records with character-separated values (\emph{CSV}) or in records with fixed length. 
+The \emph{Simple Knowledge Organization System (SKOS)} is a vocabulary to represent knowledge organization systems such as thesauri, classification schemes, subject heading lists, and taxonomies in RDF.
+\emph{XKOS} is a SKOS extension to describe formal statistical classifications like the \emph{International Standard Classification of Occupations} (\emph{ISCO}). 
 
+To ensure high quality and trust, RDF data as well as its metadata must satisfy certain criteria - specified in terms of RDF constraints.
+In this paper, we evaluated the metadata and data quality of large real world aggregated (\emph{QB}), person-level (\emph{Disco}), thesauri (\emph{SKOS}), rectangular (\emph{PHDD}), and statistical classification (\emph{XKOS}) data sets by means of RDF constraints assigned to multiple constraint types.
+We validated more than 4.2 billion triples and 15 thousand data sets
+using the \emph{RDF Validator} which is available at \url{http://purl.org/net/rdfval-demo}.
 
-\keywords{RDF Validation, RDF Constraints, DDI-RDF Discovery Vocabulary, Disco, RDF Data Cube Vocabulary, Linked Data, Semantic Web}
+\keywords{RDF Validation, RDF Constraints, DDI-RDF Discovery Vocabulary, Disco, RDF Data Cube Vocabulary, QB, Thesauri, SKOS, Rectangular Data, PHDD, Statistical Classifications, Extended SKOS, XKOS, Linked Data, Semantic Web}
 \end{abstract}
+
+\section{RDF Validation of Metadata and Data}
+\label{rdf-validation}
+
+Bosch et al. identified in total 74 requirements to formulate RDF constraints; each of them corresponding to a constraint type. 
+We published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} in which we explain each requirement (constraint type) in detail and give examples for each (represented by different constraint languages).
+The knowledge representation formalism \emph{Description logics (DL)}, with its  well-studied theoretical properties, provides the foundational basis for each constraint type.
+Therefore, this technical report contains mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
+We recently published a technical report in which we describe constraints to validate metadata on person-level, aggregated data, and thesauri.
+We assign each constraint to constraint types corresponding to RDF validation requirements or to data model specific constraint types\footnote{Requirements/Constraint types and constraints are uniquely identified by alphanumeric technical identifiers like \emph{R-1}}
+\cite{BoschZapilkoWackerowEckert2015}.
+
+We distinguish two validation types:
+(1) \emph{Content-Driven Validation} $\mathcal{C}_{C}$ contains the set of constraints ensuring that the data is consistent with the intended syntax, semantics, and integrity of given data models.
+(2) \emph{Technology-Driven Validation} $\mathcal{C}_{T}$ includes the set of constraints which can be generated automatically out of data models, such as cardinality restrictions, universal and existential quantifications, domains, and ranges.
+We determined the default \emph{severity level} (corresponds to requirement \emph{R-158}) for each constraint to indicate how serious the violation of the constraint is.
+We propose an extensible metric to measure the continuum of severity levels ranging from $\mathcal{SL}_{0}$ (informational) via $\mathcal{SL}_{1}$ (warning) to $\mathcal{SL}_{2}$ (error). 
+Although we provide default severity levels for each constraint, users should be able to specify severity levels of constraints they need to validate for their individual use cases, i.e., users should be able to define use case specific severity levels for constraints.
 
 \section{Evaluation}
 
+We exhaustively evaluated the metadata quality of large real world aggregated (\emph{QB}), person-level (\emph{Disco}), and thesauri (\emph{SKOS}) data sets by means of both $\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints of the majority of the constraint types.
+We validated 
+9,990 / 3,775,983,610 (\emph{QB}),
+4,178 / 477,737,281 (\emph{SKOS}), and 
+1,526 / 9,673,055 (\emph{Disco}) data sets / triples using the \emph{RDF Validator}\footnote{For details about the \emph{RDF Validator} see \cite{BoschEckert2014-2}} (available at \url{http://purl.org/net/rdfval-demo}) in batch mode.
+That are more than 4.2 billion triples and 15 thousand data sets.
+We validated, i.a., 
+(1) \emph{QB} data sets published by the \emph{Australian Bureau of Statistics (ABS)},
+the \emph{European Central Bank (ECB)}, and the
+\emph{Organisation for Economic Co-operation and Development (OECD)},
+(2) \emph{SKOS} thesauri like the \emph{AGROVOC Multilingual agricultural thesaurus},
+the \emph{STW Thesaurus for Economics}, and the
+\emph{Thesaurus for the Social Sciences (TheSoz)}, and
+(3) \emph{Disco} data sets provided by the \emph{Microdata Information System (Missy)}, 
+the \emph{DwB Discovery Portal}, the
+\emph{Danish Data Archive (DDA)}, and the
+\emph{Swedish National Data Service (SND)}.
+As we evaluated nearly 10 thousand \emph{QB} data sets, we published the evaluation results for each data set in form of one document per SPARQL endpoint\footnote{Available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/evaluation/data-sets/data-cube}}.
+The correctness of all constraints, i.e., the gold standard, has been proved by SBE domain experts.
+Table \ref{tab:evaluation} shows the evaluation results.
+
 \begin{table}[H]
+		\scriptsize
     \begin{center}
-    \begin{tabular}{@{}lcccccc@{}}
-           & \multicolumn{6}{c}{\textbf{Vocabularies}}
-    \\  \cmidrule{2-7}
-    \\       \textbf{Criteria (Counts)}
-           & \textbf{\rot{Person-Level Metadata (Disco)}}
-           & \textbf{\rot{Aggregated Metadata (Data Cube)}}
-					 & \textbf{\rot{Thesauri (SKOS)}}
-					 & \textbf{\rot{Rectangular Data (PHDD)}}
-					 & \textbf{\rot{Statistical Classifications (XKOS)}}
-					 & \textbf{\rot{Total}}
+    \begin{tabular}{@{}lcccc@{}}
+%           & \multicolumn{6}{c}{\textbf{Vocabularies}}
+%    \\  \cmidrule{2-7}
+    \\       \textbf{Criteria\tablefootnote{\emph{C (constraints), CT (constraint types), CV (constraint violations)}}}
+           & \textbf{\emph{Disco}}
+           & \textbf{\emph{QB}}
+					 & \textbf{\emph{SKOS}}
+					 & \textbf{Total}
     \\ \midrule
-		\emph{Validated Triples} & 9,673,055 & 3,775,983,610 & 477,737,281 \\
-		\emph{Validated Data Sets} & 1,526 & 9,990 & 4,178 \\
+		\emph{Triples} & 9,673,055 & 3,775,983,610 & 477,737,281 & 4,263,393,946 \\
+		\emph{Data Sets} & 1,526 & 9,990 & 4,178 & 15,694 \\
 		\hline
-		\emph{Constraint Violations} & \textcolor{red}{XXXXX} \\
-		\emph{Constraint Violations ($\mathcal{SL}_{0}$)} & \textcolor{red}{XXXXX} \\
-		\emph{Constraint Violations ($\mathcal{SL}_{1}$)} & 473,574 $\equiv$ \textcolor{red}{XXXXX}\% \\
-    \emph{Constraint Violations ($\mathcal{SL}_{2}$)} & \textcolor{red}{XXXXX} \\
-				\hline
-		\emph{Constraint Types} & 52 (15\textbar 37) \\
-		\emph{Constraint Types} ($\mathcal{C}_{C}$) & 30 $\equiv$ 57.7 \% \\
-		\emph{Constraint Types} ($\mathcal{C}_{T}$) & 22 $\equiv$ 42.3 \% \\
+    \emph{CV} & 3,545,703 & 45,635,846 & 5,540,988 & 54,722,537\\
+		\emph{CV ($\mathcal{SL}_{0}$)} & 2,437,922 (68.8\%) & 0 (0\%) & 2,281,740 (41.2\%) & 4,719,662 (8.6\%) \\
+		\emph{CV ($\mathcal{SL}_{1}$)} & 473,574 (13.4\%) & 45,520,613 (99.75\%) & 3,259,248 (58.8\%) & 49,253,435 (90\%) \\
+    \emph{CV ($\mathcal{SL}_{2}$)} & 634,207 (17.9\%) & 115,233 (0.25\%) & 0 (0\%) & 749,440 (1.4\%) \\
 		\hline
-		\emph{Constraints} & 142 (77\textbar 65) \\
-		\emph{Constraints} ($\mathcal{C}_{C}$) & 72 $\equiv$ 50.7 \% \\
-		\emph{Constraints} ($\mathcal{C}_{T}$) & 70 $\equiv$ 49.3 \% \\
-		\emph{Constraints ($\mathcal{SL}_{0}$)} & 75 $\equiv$ 52.8\% (44\textbar 31)\\
-		\emph{Constraints ($\mathcal{SL}_{1}$)} & 9 $\equiv$ 6.3\% (8\textbar 1)\\
-		\emph{Constraints ($\mathcal{SL}_{2}$)} & 58 $\equiv$ 40.8\% (25\textbar 33)\\
+		\emph{CT} & 52 (15\textbar 37)\tablefootnote{(\label{fnt:1}implemented \textbar not yet implemented)} & 20 (7\textbar 13)\footnotemark[\ref{fnt:1}] & 14 (4\textbar 10)\footnotemark[\ref{fnt:1}] & 53 \\
+		\emph{CT} ($\mathcal{C}_{C}$) & 30 (57.7\%) & 5 (25\%) & 5 (35.7\%) & 30 (56.6\%) \\
+		\emph{CT} ($\mathcal{C}_{T}$) & 22 (42.3\%) & 15 (75\%) & 9 (64.3\%) & 23 (43.4\%) \\
+		\hline
+		\emph{C} & 142 (77\textbar 65) & 35 (20\textbar 15) & 35 (17\textbar 18) & 212 \\
+		\emph{C} ($\mathcal{C}_{C}$) & 72 (50.7\%) & 16 (45.7\%\textbar12\textbar4) & 21 (60\%\textbar13\textbar8) & 109 (51.4\%) \\
+		\emph{C} ($\mathcal{C}_{T}$) & 70 (49.3\%) & 19 (54.3\%\textbar8\textbar11) & 14 (40\%\textbar4\textbar10) & 103 (48.6\%) \\
+		\emph{C ($\mathcal{SL}_{0}$)} & 75 (52.8\%\textbar44\textbar31)& 4 (11.4\%\textbar0\textbar4) & 21 (60\%\textbar12\textbar9) & 100 (47.2\%) \\
+		\emph{C ($\mathcal{SL}_{1}$)} & 9 (6.3\%\textbar8\textbar1)& 3 (8.6\%\textbar3\textbar0) & 5 (14.3\%\textbar5\textbar0) & 17 (8\%) \\
+		\emph{C ($\mathcal{SL}_{2}$)} & 58 (40.8\%\textbar25\textbar33) & 28 (80\%\textbar17\textbar11) & 9 (25.7\%\textbar0\textbar9) & 95 (44.8\%) \\
     \bottomrule
     \end{tabular}
     \caption{Evaluation}
@@ -295,58 +349,84 @@ University of Mannheim, Germany \\
     \end{center}
 \end{table}
 
+We identified 142 \emph{Disco} constraints ($\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints to the same extend) assigned to 52 distinct constraint types and implemented 77 of them to actually validate person-level data sets.  
+For \emph{QB}, we specified more $\mathcal{C}_{T}$ (54\%) than $\mathcal{C}_{C}$ constraints; for \emph{SKOS}, however, more $\mathcal{C}_{C}$ constraints (60\%).
+We instantiated more $\mathcal{C}_{C}$ (58\%) than $\mathcal{C}_{T}$ constraint types to define \emph{Disco} constraints; 
+for \emph{QB} (75\%) and \emph{SKOS} (64\%), on the other side, more $\mathcal{C}_{T}$ constraint types. 
+In total, we used 53 of overall 82 distinct constraint types (57\% of them are $\mathcal{C}_{C}$ constraint types) to define 212 constraints (equally $\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints).
+
+For \emph{Disco} and \emph{SKOS}, more than the half of the constraints are associated with the weakest severity level $\mathcal{SL}_{0}$.
+Within the context of \emph{QB}, 80\% of the constraints are classified as the most serious ones ($\mathcal{SL}_{2}$).
+All in all, there are a little bit more $\mathcal{SL}_{0}$ then $\mathcal{SL}_{2}$ constraints, whereas $\mathcal{SL}_{1}$ constraints are negligible.
+\emph{Existential quantifications} (32.4\%, \emph{Disco}), \emph{data model consistency} (31.4\%, \emph{QB}), and \emph{structure} (28.6\%, \emph{SKOS}) are the constraint types the most constraints are instantiated from.
+By validating \emph{QB} data sets, we got the most constraint violations (more than 45 millions), followed by \emph{SKOS} and \emph{Disco} (with more than 5.5 and 3.5 millions) - consequently, almost 55 million constraint violations were raised during the evaluation which could be used to enhance the metadata quality of these data sets.  
+Close to 70\% of all \emph{Disco} constraint violations are caused by violating $\mathcal{SL}_{0}$ constraints.
+For \emph{QB} (nearly 100\%) and \emph{SKOS} (almost 60\%), the majority of the raised constraint violations are classified to be more serious ($\mathcal{SL}_{1}$).
+80\% of all \emph{QB} constraints are $\mathcal{SL}_{2}$ constraints leading to less than 1\% of all \emph{QB} constraint violations.
+Altogether, exactly 90\% of the constraint violations are assigned to the severity level $\mathcal{SL}_{1}$.
+These findings are surprising as only 8\% of all defined constraints are $\mathcal{SL}_{1}$ constraints.
+The constraints responsible for the largest numbers of constraint violations are \emph{DISCO-C-LABELING-AND-DOCUMENTATION-06} and \emph{DISCO-C-COMPARISON-VARIABLES-02} (both 547,916) (\emph{Disco}), \emph{DATA-CUBE-C-DATA-MODEL-CONSISTENCY-05} (45,514,102) (\emph{QB}), and \emph{SKOS-C-LANGUAGE-TAG-CARDINALITY-01} (2,508,903) (\emph{SKOS}).
+
 \subsection{Legend}
+
+In this section, we describe how the tables in this paper should be read.
+Table \ref{tab:legend} gives an overview over the symbols used in subsequent tables.
 
 \begin{table}
 	\centering
 		\begin{tabular}{c|l}
-      \textbf{Symbol} & \textbf{Description} \\		
-			\textbf{\emph{X}} & Validation Successful \\
+      \textbf{Symbol} & \textbf{Description} \\	
+			\hline
+			\textbf{$\checkmark$} & Validation Successful (without any constraint violation) \\
+			\textbf{\emph{X}} & Constraint Violations \\
 			\hline
 			\textbf{\textgreater \emph{X}} & Poor Performance/Scaling \\
-			\hline
       \ding{55} & Very Poor Performance/Scaling \\
 			\hline
 			\textbf{\emph{(!)}} & Not Yet Implemented Constraint \\
 			\hline
-			\textbf{\emph{(X)}} & The validation of \emph{X} data sets could not be finished \\
-			           & due to SPARQL endpoints' technical restrictions (e.g. the defined timeout). \\
+			\textbf{\emph{(X)}} & The validation of \emph{X} data sets could not be finished, \\
+			           & due to SPARQL endpoints' technical restrictions (e.g. defined timeouts). \\
 			\hline
-			\textbf{\emph{\textsuperscript{*}}} & severity level $\mathcal{SL}_{0}$ (informational) \\
-			\hline
-			\textbf{\emph{\textsuperscript{**}}} & severity level $\mathcal{SL}_{1}$ (warning) \\
-			\hline
-			\textbf{\emph{\textsuperscript{***}}} & severity level $\mathcal{SL}_{2}$ (error) \\
+			\textbf{\emph{\textsuperscript{*}}} & default severity level $\mathcal{SL}_{0}$ (informational) \\
+			\textbf{\emph{\textsuperscript{**}}} & default severity level $\mathcal{SL}_{1}$ (warning) \\
+			\textbf{\emph{\textsuperscript{***}}} & default severity level $\mathcal{SL}_{2}$ (error) \\
 		\end{tabular}
 	\caption{Legend}
 	\label{tab:legend}
 \end{table}
 
-\textbf{Validation Successful:} 
+\begin{itemize}
+	\item \textbf{Constraint Violations.}
+When constraints are violated, 
 \emph{X} indicates the number of raised constraint violation triples. 
 
-\textbf{Poor Performance/Scaling:}
+  \item
+\textbf{Poor Performance/Scaling.}
 The performance of the implementation of the underlying SPARQL CONSTRUCT query 
 is too poor to get all resulting constraint violation triples. 
 Therefore, a limit of \emph{X} result constraint violation triples is set. 
 It is likely that there are more than \emph{X} constraint violations.
 Although, the result set contains not the whole set of raised constraint violation triples,
-the constraint can be used as an indicator if there data not conforming to the constraint and
+the constraint can be used as an indicator if there is data not conforming to the constraint and
 to resolve constraint violations step by step. 
 As part of future work, the performance will be improved.
 
-\textbf{Very Poor Performance/Scaling:} 
+  \item
+\textbf{Very Poor Performance/Scaling.} 
 The performance of the implementation of the underlying SPARQL CONSTRUCT query 
 is too poor to get any results, even though a limit of result constraint violation triples is set. 
 As part of future work, the performance will be improved. 
+\end{itemize}
 
-\section{Person-Level Metadata (Disco)}
+\section{Evaluation of Person-Level Metadata (\emph{Disco})}
 
 \subsection{Evaluation Results}
 
-Legend: total (implemented\textbar not yet implemented)
+Table \ref{tab:disco-evaluation-results} shows the results of the evaluation of \emph{Disco} data sets.
 
 \begin{table}[H]
+  \scriptsize
 	\centering
 		\begin{tabular}{l|l}
       \textbf{Evaluation Criteria} & \textbf{Counts} \\		
@@ -354,10 +434,10 @@ Legend: total (implemented\textbar not yet implemented)
 		\emph{Validated Triples} & 9,673,055 \\
 		\emph{Validated Data Sets} & 1,526 \\
 		\hline
-		\emph{Constraint Violations} & \textcolor{red}{XXXXX} \\
-		\emph{Constraint Violations ($\mathcal{SL}_{0}$)} & \textcolor{red}{XXXXX} \\
-		\emph{Constraint Violations ($\mathcal{SL}_{1}$)} & 473,574 $\equiv$ \textcolor{red}{XXXXX}\% \\
-    \emph{Constraint Violations ($\mathcal{SL}_{2}$)} & \textcolor{red}{XXXXX} \\
+		\emph{Constraint Violations} & 3,545,703 \\
+		\emph{Constraint Violations ($\mathcal{SL}_{0}$)} & 2,437,922 (68.8\%) \\
+		\emph{Constraint Violations ($\mathcal{SL}_{1}$)} & 473,574 (13.4\%) \\
+    \emph{Constraint Violations ($\mathcal{SL}_{2}$)} & 634,207 (17.9\%) \\
 		\hline
 		\emph{Constraint (Most Constraint Violations)} & \emph{DISCO-C-LABELING-AND-DOCUMENTATION-06} (547,916) \\
 		                                               & \emph{DISCO-C-COMPARISON-VARIABLES-02} (547,916) \\
@@ -365,21 +445,21 @@ Legend: total (implemented\textbar not yet implemented)
 		\emph{Constraint (Most Constraint Violations ($\mathcal{SL}_{1}$))} & \emph{DISCO-C-EXISTENTIAL-QUANTIFICATIONS-46} (468,807) \\
 		\emph{Constraint (Most Constraint Violations ($\mathcal{SL}_{2}$))} & \emph{DISCO-C-COMPARISON-VARIABLES-02} (547,916) \\
 		\hline
-		\emph{Constraint Types} & 52 (15\textbar 37) \\
-		\emph{Constraint Types} ($\mathcal{C}_{C}$) & 30 $\equiv$ 57.7 \% \\
-		\emph{Constraint Types} ($\mathcal{C}_{T}$) & 22 $\equiv$ 42.3 \% \\
+		\emph{Constraint Types} & 52 (15\textbar 37)\tablefootnote{legend: absolute number (absolute number implemented \textbar  absolute number not yet implemented)} \\
+		\emph{Constraint Types} ($\mathcal{C}_{C}$) & 30 (57.7\%) \\
+		\emph{Constraint Types} ($\mathcal{C}_{T}$) & 22 (42.3\%) \\
 		\hline
-		\emph{Constraint Types (Most Constraints)} & 1. Existential Quantifications: 46 $\equiv$ 32.4\% (46\textbar 0) \\
-		                                            & 2. Data Model Consistency: 7 (1\textbar 6) \\
-																								& 3. Aggregation: 7 (0\textbar 7) \\
-		\emph{Constraint Type (Most Constraints ($\mathcal{SL}_{2}$))} & Existential Quantifications: 9 (9\textbar 0) \\
+		\emph{Constraint Types (Most Constraints)} & 1. Existential Quantifications: 46 (32.4\%\textbar46\textbar0)\tablefootnote{legend: absolute number (percentage value \textbar  absolute number implemented \textbar  absolute number not yet implemented)} \\
+		                                           & 2. Data Model Consistency: 7 (1\textbar6) \\
+																							 & 3. Aggregation: 7 (0\textbar7) \\
+		\emph{Constraint Type (Most Constraints ($\mathcal{SL}_{2}$))} & Existential Quantifications: 9 (9\textbar0) \\
 		\hline
 		\emph{Constraints} & 142 (77\textbar 65) \\
-		\emph{Constraints} ($\mathcal{C}_{C}$) & 72 $\equiv$ 50.7 \% \\
-		\emph{Constraints} ($\mathcal{C}_{T}$) & 70 $\equiv$ 49.3 \% \\
-		\emph{Constraints ($\mathcal{SL}_{0}$)} & 75 $\equiv$ 52.8\% (44\textbar 31)\\
-		\emph{Constraints ($\mathcal{SL}_{1}$)} & 9 $\equiv$ 6.3\% (8\textbar 1)\\
-		\emph{Constraints ($\mathcal{SL}_{2}$)} & 58 $\equiv$ 40.8\% (25\textbar 33)\\
+		\emph{Constraints} ($\mathcal{C}_{C}$) & 72 (50.7\%) \\
+		\emph{Constraints} ($\mathcal{C}_{T}$) & 70 (49.3\%) \\
+		\emph{Constraints ($\mathcal{SL}_{0}$)} & 75 (52.8\%\textbar44\textbar31)\\
+		\emph{Constraints ($\mathcal{SL}_{1}$)} & 9 (6.3\%\textbar8\textbar1)\\
+		\emph{Constraints ($\mathcal{SL}_{2}$)} & 58 (40.8\%\textbar25\textbar33)\\
 		\end{tabular}
     \caption{Evaluation of Disco Data Sets - Evaluation Results}
 		\label{tab:disco-evaluation-results}
@@ -402,6 +482,9 @@ Legend: total (implemented\textbar not yet implemented)
 %\end{table}
 
 \subsection{Data Sets Overview}
+
+Tables \ref{tab:disco-data-sets-abbreviations} and \ref{tab:disco-sparql-endpoints} give an overview over the evaluated \emph{Disco} data sets, their abbreviations, and publicly available SPARQL endpoints.
+Table \ref{tab:disco-overview} comprehends the number of triples, data sets, and instances of multiple vocabulary-specific classes.
 
 \begin{table}[H]
 	\centering
@@ -927,11 +1010,14 @@ Legend: total (implemented\textbar not yet implemented)
     \end{center}
 \end{table}
 
-\section{Aggregated Metadata (Data Cube)}
+\section{Evaluation of Aggregated Metadata (\emph{Data Cube})}
 
 \subsection{Evaluation Results}
 
+Table \ref{tab:data-cube-evaluation-results} shows the results of the evaluation of \emph{Data Cube} data sets.
+
 \begin{table}[H]
+  \scriptsize
 	\centering
 		\begin{tabular}{l|l}
       \textbf{Evaluation Criteria} & \textbf{Counts} \\		
@@ -940,9 +1026,9 @@ Legend: total (implemented\textbar not yet implemented)
 		\emph{Validated Data Sets} & 9,990 \\
 		\hline
 		\emph{Constraint Violations} & 45,635,846 \\
-		\emph{Constraint Violations ($\mathcal{SL}_{0}$)} & 0 $\equiv$ 0\% \\
-		\emph{Constraint Violations ($\mathcal{SL}_{1}$)} & 45,520,613 $\equiv$ 99.75\% \\
-    \emph{Constraint Violations ($\mathcal{SL}_{2}$)} & 115,233 $\equiv$ 0.25\% \\
+		\emph{Constraint Violations ($\mathcal{SL}_{0}$)} & 0 (0\%) \\
+		\emph{Constraint Violations ($\mathcal{SL}_{1}$)} & 45,520,613 (99.75\%) \\
+    \emph{Constraint Violations ($\mathcal{SL}_{2}$)} & 115,233 (0.25\%) \\
 		\hline
 		\emph{Constraint (Most Constraint Violations)} & \emph{DATA-MODEL-CONSISTENCY-05} (45,514,102) \\
 		\emph{Constraint (Most Constraint Violations ($\mathcal{SL}_{0}$))} & - \\
@@ -951,19 +1037,19 @@ Legend: total (implemented\textbar not yet implemented)
 		                                                                    & (1,556) \\
 		\hline
 		\emph{Constraint Types} & 20 (7\textbar 13) \\
-		\emph{Constraint Types} ($\mathcal{C}_{C}$) & 5 $\equiv$ 25 \% \\
-		\emph{Constraint Types} ($\mathcal{C}_{T}$) & 15 $\equiv$ 75 \% \\
+		\emph{Constraint Types} ($\mathcal{C}_{C}$) & 5 (25\%) \\
+		\emph{Constraint Types} ($\mathcal{C}_{T}$) & 15 (75\%) \\
 		\hline
-		\emph{Constraint Types (Most Constraints)} & 1. Data Model Consistency: 11 $\equiv$ 31.4\% (10\textbar 1) \\
-		                                           & 2. Existential Quantifications: 4 $\equiv$ 11.4\% (4\textbar 0) \\
-		\emph{Constraint Type (Most Constraints ($\mathcal{SL}_{2}$))} & Data Model Consistency: 8 $\equiv$ 22.9\% (7\textbar 1) \\
+		\emph{Constraint Types (Most Constraints)} & 1. Data Model Consistency: 11 (31.4\%\textbar10\textbar1) \\
+		                                           & 2. Existential Quantifications: 4 (11.4\%\textbar4\textbar0) \\
+		\emph{Constraint Type (Most Constraints ($\mathcal{SL}_{2}$))} & Data Model Consistency: 8 (22.9\%\textbar7\textbar1) \\
 		\hline
 		\emph{Constraints} & 35 (20\textbar 15) \\
-		\emph{Constraints} ($\mathcal{C}_{C}$) & 16 (12\textbar 4) \\
-		\emph{Constraints} ($\mathcal{C}_{T}$) & 19 (8\textbar 11) \\
-		\emph{Constraints ($\mathcal{SL}_{0}$)} & 4 $\equiv$ 11.4\% (0\textbar 4) \\
-		\emph{Constraints ($\mathcal{SL}_{1}$)} & 3 $\equiv$ 8.6\% (3\textbar 0) \\
-		\emph{Constraints ($\mathcal{SL}_{2}$)} & 28 $\equiv$ 80\% (17\textbar 11) \\
+		\emph{Constraints} ($\mathcal{C}_{C}$) & 16 (45.7\%\textbar12\textbar4) \\
+		\emph{Constraints} ($\mathcal{C}_{T}$) & 19 (54.3\%\textbar8\textbar11) \\
+		\emph{Constraints ($\mathcal{SL}_{0}$)} & 4 (11.4\%\textbar0\textbar4) \\
+		\emph{Constraints ($\mathcal{SL}_{1}$)} & 3 (8.6\%\textbar3\textbar0) \\
+		\emph{Constraints ($\mathcal{SL}_{2}$)} & 28 (80\%\textbar17\textbar11) \\
 		\end{tabular}
     \caption{Evaluation of Data Cube Data Sets - Evaluation Results}
 		\label{tab:data-cube-evaluation-results}
@@ -971,10 +1057,9 @@ Legend: total (implemented\textbar not yet implemented)
 
 \subsection{Data Sets Overview}
 
-\begin{itemize}
-  \item overview over Data Cube data sets\footnote{\url{http://270a.info/}; \url{http://datahub.io/de/dataset?tags=format-qb}} 
-  \item \url{http://ontologycentral.com/}
-\end{itemize}
+There are websites giving an overview over available \emph{Data Cube} data sets\footnote{\url{http://270a.info/}; \url{http://datahub.io/de/dataset?tags=format-qb}; \url{http://ontologycentral.com/}}. 
+Tables \ref{tab:data-cube-data-sets-abbreviations} and \ref{tab:data-cube-sparql-endpoints} give an overview over the evaluated \emph{Data Cube} data sets, their abbreviations, and publicly available SPARQL endpoints.
+Table \ref{tab:data-cube-overview} comprehends the number of triples, data sets, and instances of multiple vocabulary-specific classes.
 
 %\begin{table}
 	%\centering
@@ -1073,6 +1158,7 @@ Legend: total (implemented\textbar not yet implemented)
     \bottomrule
     \end{tabular}
     \caption{Data Cube Data Sets Overview}
+		\label{tab:data-cube-overview}
     \end{center}
 \end{table}
 
@@ -1342,22 +1428,25 @@ Legend: total (implemented\textbar not yet implemented)
     \end{center}
 \end{table}
 
-\section{Thesauri (SKOS)}
+\section{Evaluation of Thesauri (\emph{SKOS})}
 
 \subsection{Evaluation Results}
 
+Table \ref{tab:thesauri-evaluation-results} shows the results of the evaluation of \emph{thesauri}.
+
 \begin{table}[H]
+  \scriptsize
 	\centering
 		\begin{tabular}{l|l}
       \textbf{Evaluation Criteria} & \textbf{Counts} \\		
       \hline
-		\emph{Validated Triples} & \textcolor{red}{XXXXX} \\
-		\emph{Validated Data Sets} & \textcolor{red}{XXXXX} \\
+		\emph{Validated Triples} & 477,737,281 \\
+		\emph{Validated Data Sets} & 4,178 \\
 		\hline
-		\emph{Constraint Violations} & \textcolor{red}{XXXXX} \\
-		\emph{Constraint Violations ($\mathcal{SL}_{0}$)} & \textcolor{red}{XXXXX} \\
-		\emph{Constraint Violations ($\mathcal{SL}_{1}$)} & \textcolor{red}{XXXXX} $\equiv$ \textcolor{red}{XXXXX}\% \\
-    \emph{Constraint Violations ($\mathcal{SL}_{2}$)} & \textcolor{red}{XXXXX} \\
+		\emph{Constraint Violations} & 5,540,988 \\
+		\emph{Constraint Violations ($\mathcal{SL}_{0}$)} & 2,281,740 (41.2\%) \\
+		\emph{Constraint Violations ($\mathcal{SL}_{1}$)} & 3,259,248 (58.8\%) \\
+    \emph{Constraint Violations ($\mathcal{SL}_{2}$)} & 0 (0\%) \\
 		\hline
 		\emph{Constraint (Most Constraint Violations)} & \emph{LANGUAGE-TAG-CARDINALITY-01} (2,508,903) \\
 		\emph{Constraint (Most Constraint Violations ($\mathcal{SL}_{0}$))} & \emph{LABELING-AND-DOCUMENTATION-06} (1,022,362) \\
@@ -1365,20 +1454,20 @@ Legend: total (implemented\textbar not yet implemented)
 		\emph{Constraint (Most Constraint Violations ($\mathcal{SL}_{2}$))} & - \\
 		\hline
 		\emph{Constraint Types} & 14 (4\textbar 10) \\
-		\emph{Constraint Types} ($\mathcal{C}_{C}$) & 5 $\equiv$ 35.7\% \\
-		\emph{Constraint Types} ($\mathcal{C}_{T}$) & 9 $\equiv$ 64.3\% \\
+		\emph{Constraint Types} ($\mathcal{C}_{C}$) & 5 (35.7\%) \\
+		\emph{Constraint Types} ($\mathcal{C}_{T}$) & 9 (64.3\%) \\
 		\hline
-		\emph{Constraint Types (Most Constraints)} & 1. Structure: 10 $\equiv$ XX\% (8\textbar 2) \\
-		                                           & 2. Labeling and Documentation: 6 $\equiv$ XX\% (5\textbar 1) \\
-																							 & 3. Language Tag Cardinality: 4 $\equiv$ XX\% (4\textbar 0) \\
-		\emph{Constraint Type (Most Constraints ($\mathcal{SL}_{2}$))} & Structure: 1 (0\textbar 1) \\
+		\emph{Constraint Types (Most Constraints)} & 1. Structure: 10 (28.6\%\textbar8\textbar2) \\
+		                                           & 2. Labeling and Documentation: 6 (17.1\%\textbar5\textbar1) \\
+																							 & 3. Language Tag Cardinality: 4 (11.4\%\textbar4\textbar0) \\
+		\emph{Constraint Type (Most Constraints ($\mathcal{SL}_{2}$))} & Structure: 1 (0\textbar1) \\
 		\hline
 		\emph{Constraints} & 35 (17\textbar 18) \\
-		\emph{Constraints} ($\mathcal{C}_{C}$) & 21 (13\textbar 8) \\
-		\emph{Constraints} ($\mathcal{C}_{T}$) & 14 (4\textbar 10) \\
-		\emph{Constraints ($\mathcal{SL}_{0}$)} & 21 $\equiv$ 60\% (12\textbar 9) \\
-		\emph{Constraints ($\mathcal{SL}_{1}$)} & 5 $\equiv$ 14.3\% (5\textbar 0) \\
-		\emph{Constraints ($\mathcal{SL}_{2}$)} & 9 $\equiv$ 25.7\% (0\textbar 9) \\
+		\emph{Constraints} ($\mathcal{C}_{C}$) & 21 (60\%\textbar13\textbar8) \\
+		\emph{Constraints} ($\mathcal{C}_{T}$) & 14 (40\%\textbar4\textbar10) \\
+		\emph{Constraints ($\mathcal{SL}_{0}$)} & 21 (60\%\textbar12\textbar9) \\
+		\emph{Constraints ($\mathcal{SL}_{1}$)} & 5 (14.3\%\textbar5\textbar0) \\
+		\emph{Constraints ($\mathcal{SL}_{2}$)} & 9 (25.7\%\textbar0\textbar9) \\
 		\end{tabular}
     \caption{Evaluation of Thesauri Data Sets - Evaluation Results}
 		\label{tab:thesauri-evaluation-results}
@@ -1386,10 +1475,10 @@ Legend: total (implemented\textbar not yet implemented)
 
 \subsection{Data Sets Overview}
 
-\begin{itemize}
-  \item overview over SKOS data sets\footnote{\url{http://datahub.io/de/dataset?tags=format-skos}}
-	\item overview over thesauri\footnote{\url{http://datahub.io/de/dataset?tags=thesaurus}} (table \ref{tab:thesauri-overview})
-\end{itemize}
+There is a website giving an overview over available \emph{SKOS} data sets\footnote{\url{http://datahub.io/de/dataset?tags=format-skos}}
+and another one giving an overview over available thesauri\footnote{\url{http://datahub.io/de/dataset?tags=thesaurus}}.
+Tables \ref{tab:thesauri-abbreviations} and \ref{tab:thesauri-sparql-endpoints} give an overview over the evaluated thesauri, their abbreviations, and publicly available SPARQL endpoints.
+Table \ref{tab:thesauri-overview} comprehends the number of triples, data sets, and instances of multiple vocabulary-specific classes.
 
 \begin{table}[H]
 	\centering
@@ -1732,7 +1821,7 @@ Legend: total (implemented\textbar not yet implemented)
 		\emph{DISJOINT-CLASSES-01 (!)}\textsuperscript{***} &  &  &  &  &  & \\
 		\emph{EQUIVALENT-PROPERTIES-01 (!)}\textsuperscript{*} &  &  &  &  &  & \\
 		\emph{UNIVERSAL-QUANTIFICATIONS-01 (!)}\textsuperscript{***} &  &  &  &  &  & \\
-		\emph{CONTEXT-SPECIFIC-VALID-CLASSES-01 (!)}\textsuperscript{*} \\ &  &  &  &  &  & \\
+		\emph{CONTEXT-SPECIFIC-VALID-CLASSES-01 (!)}\textsuperscript{*} &  &  &  &  &  & \\
 		\emph{CONTEXT-SPECIFIC-VALID-PROPERTIES-01 (!)}\textsuperscript{*} &  &  &  &  &  & \\
 		\emph{RECOMMENDED-PROPERTIES-01 (!)}\textsuperscript{*} &  &  &  &  &  & \\
 		\emph{VOCABULARY-01 (!)}\textsuperscript{***} &  &  &  &  &  & \\
@@ -1774,9 +1863,7 @@ Legend: total (implemented\textbar not yet implemented)
     \end{center}
 \end{table}
 
-\section{Rectangular Data (PHDD)}
-
-\tb{ToDo}
+\section{Evaluation of Rectangular Data (\emph{PHDD})}
 
 \subsection{Evaluation Results}
 
@@ -1784,9 +1871,7 @@ Legend: total (implemented\textbar not yet implemented)
 
 \subsection{Detailed Evaluation}
 
-\section{Statistical Classifications (XKOS)}
-
-\tb{ToDo}
+\section{Evaluation of Statistical Classifications (\emph{XKOS})}
 
 \subsection{Evaluation Results}
 
@@ -1800,48 +1885,44 @@ Legend: total (implemented\textbar not yet implemented)
     \emph{NAF} & \emph{Nomenclature d'activités française}\tablefootnote{\url{http://rdf.insee.fr/codes/index.html}} \\
 		\emph{PCS} & \emph{Nomenclature des Professions et Catégories Socioprofessionnelles}\tablefootnote{\url{http://rdf.insee.fr/codes/index.html}} \\
 		\emph{CJ} & \emph{Nomenclature des catégories juridiques}\tablefootnote{\url{http://rdf.insee.fr/codes/index.html}} \\
-		\emph{ISIC} & \emph{}\tablefootnote{\url{}} \\
-		\emph{ISCO} & \emph{}\tablefootnote{\url{}} \\
+		\emph{ISIC} & \\
+		\emph{ISCO} & \\
 		\end{tabular}
 	\caption{Statistical Classifications Abbreviations}
 	\label{tab:statistical-classifications-abbreviations}
 \end{table}
 
-\begin{itemize}
-	\item \emph{Nomenclature d'activités française (NAF)}: French classification expressed in XKOS. the French refinement of the NACE, because it has explanatory notes.
-	\item \emph{Nomenclature des Professions et Catégories Socioprofessionnelles (PCS)}: French classification expressed in XKOS.
-	\item \emph{Nomenclature des catégories juridiques (CJ)}: French classification expressed in XKOS.
-	\item \emph{ISIC}: has explanatory notes too. 
-	\item \emph{ISCO}
-\end{itemize}
+\emph{Nomenclature d'activités française (NAF)} is the French refinement of the \emph{NACE} classification expressed in XKOS having explanatory notes.
+\emph{Nomenclature des Professions et Catégories Socioprofessionnelles (PCS)} and \emph{Nomenclature des catégories juridiques (CJ)} are French classifications expressed in XKOS.
+The statistical classification \emph{ISIC} has explanatory notes too. 
 
-\begin{table}[H]
-    \begin{center}
-    \begin{tabular}{@{}lccccccccccc@{}}
-           & \multicolumn{6}{c}{\textbf{Counts}}
-    \\  \cmidrule{2-7}
-    \\       \textbf{Data Sets}
-           & \textbf{\rot{triples}}
-           & \textbf{\rot{}}
-           & \textbf{\rot{}}
-           & \textbf{\rot{}}
-           & \textbf{\rot{}}
-					 & \textbf{\rot{}}
-					 & \textbf{\rot{}}
-    \\ \midrule
-    \emph{NAF} &  &  &  &  &  & \\
-		\emph{PCS} &  &  &  &  &  & \\
-		\emph{CJ} &  &  &  &  &  & \\
-		\emph{ISIC} &  &  &  &  &  & \\
-		\emph{ISCO} &  &  &  &  &  & \\
-		\hline
-		\textbf{Total} & & & & & & \\
-    \bottomrule
-    \end{tabular}
-    \caption{Statistical Classifications Overview}
-		\label{tab:statistical-classifications-overview}
-    \end{center}
-\end{table}
+%\begin{table}[H]
+    %\begin{center}
+    %\begin{tabular}{@{}lccccccccccc@{}}
+           %& \multicolumn{6}{c}{\textbf{Counts}}
+    %\\  \cmidrule{2-7}
+    %\\       \textbf{Data Sets}
+           %& \textbf{\rot{triples}}
+           %& \textbf{\rot{}}
+           %& \textbf{\rot{}}
+           %& \textbf{\rot{}}
+           %& \textbf{\rot{}}
+					 %& \textbf{\rot{}}
+					 %& \textbf{\rot{}}
+    %\\ \midrule
+    %\emph{NAF} &  &  &  &  &  & \\
+		%\emph{PCS} &  &  &  &  &  & \\
+		%\emph{CJ} &  &  &  &  &  & \\
+		%\emph{ISIC} &  &  &  &  &  & \\
+		%\emph{ISCO} &  &  &  &  &  & \\
+		%\hline
+		%\textbf{Total} & & & & & & \\
+    %\bottomrule
+    %\end{tabular}
+    %\caption{Statistical Classifications Overview}
+		%\label{tab:statistical-classifications-overview}
+    %\end{center}
+%\end{table}
 
 \subsection{Detailed Evaluation}
 

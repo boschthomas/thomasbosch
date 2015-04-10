@@ -214,8 +214,8 @@
 \renewcommand{\arraystretch}{1.3}
 %
 %
-\title{RDF Constraint Types to Validate Metadata \\ on Highly-Complex Person-Level and Aggregated Data}
-\subtitle{}
+\title{RDF Constraints to Validate}
+\subtitle{Metadata on Person-Level, Aggregated, Thesauri, and Statistical Classifications Data Sets and Rectangular Data}
 
 \titlerunning{XXXXX}  % abbreviated title (for running head)
 %                                     also used for the TOC unless
@@ -236,10 +236,22 @@ University of Mannheim, Germany \\
 \maketitle              % typeset the title of the contribution
 
 \begin{abstract}
-...
+To ensure high quality and trust, RDF data as well as its metadata must satisfy certain criteria - specified in terms of RDF constraints.
+From 2012 to 2015 together with other Linked Data community members and experts from the social, behavioural, and economic sciences (\emph{SBE}), we developed diverse vocabularies to represent \emph{SBE} metadata and data in RDF.
+The \emph{DDI-RDF Discovery Vocabulary (Disco)} 
+is designed for the purposes of supporting the dissemination, management,
+and reuse of person-level data (data about individuals) collected in form of responses to studies and archived for research purposes.
+The \emph{RDF Data Cube Vocabulary (Data Cube, QB)} is a W3C recommendation for representing \emph{data cubes}, i.e. multi-dimensional aggregate data, in RDF. 
+\emph{Physical Data Description (PHDD)} is a vocabulary to represent aggregated and person-level data in a rectangular format. 
+The data could be either represented in records with character-separated values (\emph{CSV}) or in records with fixed length. 
+The \emph{Simple Knowledge Organization System (SKOS)} is a vocabulary to represent knowledge organization systems such as thesauri, classification schemes, subject heading lists, and taxonomies in RDF.
+\emph{XKOS} is a SKOS extension to describe formal statistical classifications like the \emph{International Standard Classification of Occupations} (\emph{ISCO}). 
 
+In this paper, we describe RDF constraints to validate metadata on person-level (\emph{Disco}), aggregated (\emph{QB}), thesauri (\emph{SKOS}), and statistical classifications (\emph{XKOS}) data sets and to validate rectangular data (\emph{PHDD}).
+We assign each constraint to constraint types either corresponding to RDF validation requirements or to data model specific constraint types.
+This document is updated continuously as modifying and adding constraints is ongoing work.
 
-\keywords{RDF Validation, RDF Constraints, DDI-RDF Discovery Vocabulary, Disco, RDF Data Cube Vocabulary, Linked Data, Semantic Web}
+\keywords{RDF Validation, RDF Constraints, DDI-RDF Discovery Vocabulary, Disco, RDF Data Cube Vocabulary, QB, Thesauri, SKOS, Rectangular Data, PHDD, Statistical Classifications, Extended SKOS, XKOS, Linked Data, Semantic Web}
 \end{abstract}
 
 \section{Introduction}
@@ -249,26 +261,22 @@ It is continuously updated and used to evaluate and to compare various existing 
 Requirements are classified to provide a high-level view on different solutions and to facilitate a better understanding of the problem domain.
 Bosch et al. identified in total 74 requirements to formulate RDF constraints; each of them corresponding to a constraint type. 
 They recently published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} in which they explain each requirement (constraint type) in detail and give examples for each (represented by listed constraint languages) \cite{BoschNolleAcarEckert2015}.
-We state at least one Disco constraint for the majority of the constraint types.
 Where appropriate constraint types are related to complementary requirements of the RDF validation requirements database.
-When constraint types are mapped to DL, we do not state namespace prefixes for simplicity reasons.
-
-\section{Validation Types}
 
 We distinguish two validation types:
 (1) \emph{Content-Driven Validation} $\mathcal{C}_{C}$ contains the set of constraints ensuring that the data is consistent with the intended syntax, semantics, and integrity of given data models.
 (2) \emph{Technology-Driven Validation} $\mathcal{C}_{T}$ includes the set of constraints which can be generated automatically out of data models, such as cardinality restrictions, universal and existential quantifications, domains, and ranges.
+We determined the default \emph{severity level} (corresponds to requirement \emph{R-158}) for each constraint to indicate how serious the violation of the constraint is.
+We propose an extensible metric to measure the continuum of severity levels ranging from $\mathcal{SL}_{0}$ (informational) via $\mathcal{SL}_{1}$ (warning) to $\mathcal{SL}_{2}$ (error). 
+Although we provide default severity levels for each constraint, users should be able to specify severity levels of constraints they need to validate for their individual use cases, i.e., users should be able to define use case specific severity levels for constraints.
 
-\section{Validation of Metadata on Person-Level and Aggregated Data}
+\section{RDF Constraints to Validate Metadata and Data}
 
-\begin{itemize}
-  \item Constraint types marked with an asterisk (*) can be used as OWL 2 axioms. Thus, reasoners may be used to infer implicit triples resolving constraint violations caused when these constraints are validated.
-	\item \underline{Underlined subsections} represent data model specific constraint types and do not correspond to RDF validation requirements (constraint types).
-%	\item \underline{Underlined constraints} are part of content-driven validation.
-%	\item \udash{Dashed underlined constraints} are part of technology-driven validation.
-	\item $\mathcal{C}_{T}$ constraint types are marked with the superscript\textsuperscript{T}
-	\item $\mathcal{C}_{C}$ constraint types are not marked
-\end{itemize}
+Each of the following subsections stands for a constraint type either corresponding to an RDF validation requirement or to a data model specific constraint type.
+Constraint types marked with an asterisk (*) can be used as OWL 2 axioms. Thus, reasoners may be used to infer implicit triples which may resolve constraint violations caused when these constraints are validated.
+\underline{Underlined subsections} represent data model specific constraint types and do not correspond to RDF validation requirements (constraint types).
+$\mathcal{C}_{T}$ constraint types are marked with the superscript\textsuperscript{T}.
+$\mathcal{C}_{C}$ constraint types are not marked.
 
 \subsection{\underline{Comparison}}
 

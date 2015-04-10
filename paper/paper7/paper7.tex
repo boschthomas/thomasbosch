@@ -17,6 +17,46 @@
 % footnotes
 \usepackage{scrextend}
 
+% colors
+\usepackage[usenames, dvipsnames]{color}
+
+% underline
+\usepackage{tikz}
+\newcommand{\udensdot}[1]{%
+    \tikz[baseline=(todotted.base)]{
+        \node[inner sep=1pt,outer sep=0pt] (todotted) {#1};
+        \draw[densely dotted] (todotted.south west) -- (todotted.south east);
+    }%
+}%
+
+\newcommand{\uloosdot}[1]{%
+    \tikz[baseline=(todotted.base)]{
+        \node[inner sep=1pt,outer sep=0pt] (todotted) {#1};
+        \draw[loosely dotted] (todotted.south west) -- (todotted.south east);
+    }%
+}%
+
+\newcommand{\udash}[1]{%
+    \tikz[baseline=(todotted.base)]{
+        \node[inner sep=1pt,outer sep=0pt] (todotted) {#1};
+        \draw[dashed] (todotted.south west) -- (todotted.south east);
+    }%
+}%
+
+\newcommand{\udensdash}[1]{%
+    \tikz[baseline=(todotted.base)]{
+        \node[inner sep=1pt,outer sep=0pt] (todotted) {#1};
+        \draw[densely dashed] (todotted.south west) -- (todotted.south east);
+    }%
+}%
+
+\newcommand{\uloosdash}[1]{%
+    \tikz[baseline=(todotted.base)]{
+        \node[inner sep=1pt,outer sep=0pt] (todotted) {#1};
+        \draw[loosely dashed] (todotted.south west) -- (todotted.south east);
+    }%
+}%
+
 % URL handling
 \usepackage{url}
 \urlstyle{same}
@@ -169,6 +209,19 @@
 }
 
 \setcounter{secnumdepth}{5}
+
+% tables
+\usepackage{array,graphicx}
+\usepackage{booktabs}
+\usepackage{pifont}
+\newcommand*\rot{\rotatebox{90}}
+\newcommand*\OK{\ding{51}}
+\usepackage{booktabs}
+\newcommand*\ON[0]{$\surd$}
+
+\usepackage{tablefootnote}
+
+\usepackage{float}
 
 \begin{document}
 \renewcommand{\arraystretch}{1.3}
@@ -398,7 +451,7 @@ Bosch et al. identified in total \textcolor{red}{74} requirements to formulate R
 We published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} in which we explain each requirement (constraint type) in detail and give examples for each (represented by different constraint languages).
 The knowledge representation formalism \emph{Description logics (DL)}, with its  well-studied theoretical properties, provides the foundational basis for each constraint type.
 Therefore, this technical report contains mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
-We recently published a technical report\footnote{\textcolor{red}{Available at: \url{http://arxiv.org/abs/XXXXX}}} (serving as first appendix of this paper) in which we describe constraints to validate metadata on person-level, aggregated data, and thesauri.
+We recently published a technical report\footnote{\textcolor{red}{\label{technical-report-1}Available at: \url{http://arxiv.org/abs/XXXXX}}} (serving as first appendix of this paper) in which we describe constraints to validate metadata on person-level, aggregated data, and thesauri.
 We assign each constraint to constraint types corresponding to RDF validation requirements or to data model specific constraint types\footnote{Requirements/Constraint types and constraints are uniquely identified by alphanumeric technical identifiers like \emph{R-1}}
 \cite{BoschZapilkoWackerowEckert2015}.
 
@@ -665,6 +718,10 @@ We define one SPIN construct template for each constraint type (corresponding to
 A SPIN construct template contains a SPARQL CONSTRUCT query which generates constraint violation triples indicating the subject, the properties causing constraint violations, and the reason why constraint violations have been raised.
 A SPIN construct template creates constraint violation triples if all triple patterns within the SPARQL WHERE clause match.
 
+-----
+
+Although accessible within the \emph{RDF Validator}, we provide all implemented constraints\footnote{\textcolor{red}{\url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}}} in form of SPARQL CONSTRUCT queries.
+
 \section{Evaluation}
 
 We exhaustively evaluated the metadata quality of large real world aggregated (\emph{QB}), person-level (\emph{Disco}), and thesauri (\emph{SKOS}) data sets by means of both $\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints of the majority of the constraint types.
@@ -672,7 +729,8 @@ We validated
 9,990 / 3,775,983,610 (\emph{QB}),
 4,178 / 477,737,281 (\emph{SKOS}), and 
 1,526 / 9,673,055 (\emph{Disco}) data sets / triples using the \emph{RDF Validator} in batch mode.
-Among others data sets, we validated 
+That are more than 4.2 billion triples and 15 thousand data sets.
+We validated, i.a., 
 (1) \emph{QB} data sets published by the \emph{Australian Bureau of Statistics (ABS)},
 the \emph{European Central Bank (ECB)}, and the
 \emph{Organisation for Economic Co-operation and Development (OECD)},
@@ -684,23 +742,67 @@ the \emph{DwB Discovery Portal}, the
 \emph{Danish Data Archive (DDA)}, and the
 \emph{Swedish National Data Service (SND)}.
 
-We recently published a technical report\footnote{\textcolor{red}{Available at: \url{http://arxiv.org/abs/XXXXX}}} (serving as second appendix of this paper) 
-in which we describe the evaluation in detail. 
-As we validated 9,990 aggregated data sets, we published the validation results of all aggregated data sets in form of one document per SPARQL endpoint\footnote{\url{https://github.com/boschthomas/rdf-validation/tree/master/evaluation/data-sets/data-cube}}.
-Although accessible within the \emph{RDF Validator}, we provide all implemented constraints\footnote{\textcolor{red}{\url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}}} in form of SPARQL CONSTRUCT queries.
-The correctness of all evaluated constraints, i.e., the gold standard, has been proved by SBE domain experts.
+We recently published a technical report\footnote{\label{technical-report-2}\textcolor{red}{Available at: \url{http://arxiv.org/abs/XXXXX}}} (serving as second appendix of this paper) 
+in which we describe the comprehensive evaluation in detail \cite{BoschZapilkoWackerowEckert2015-2}. 
+As we evaluated nearly 10 thousand \emph{QB} data sets, we published the evaluation results for each data set in form of one document per SPARQL endpoint\footnote{Available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/evaluation/data-sets/data-cube}}.
+The correctness of all constraints, i.e., the gold standard, has been proved by SBE domain experts.
+Table \ref{tab:evaluation} shows the evaluation results.
 
-We defined 142 (\emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS}) constraints assigned to 52 (\emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS}) distinct constraint types and implemented 77 (\emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS})  of them to actually validate data sets.  
-49.3\% (\emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS}) of the defined constraints are $\mathcal{C}_{T}$ constraints, and 
-42.3\% (\emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS}) of the constraint types are $\mathcal{C}_{T}$ constraint types.
-52.8\% (\emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS}) of the defined constraints are associated with the default severity level $\mathcal{SL}_{0}$, 6.3\% (\emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS}) are $\mathcal{SL}_{1}$, and 
-40.8\% (\emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS}) are $\mathcal{SL}_{2}$ constraints.
-\emph{R-86: Existential quantifications} (32.4\%, \emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS}) are the constraint types with the most defined constraints.
-We got \textcolor{red}{XX} (\emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS}) / \textcolor{red}{XX} (\emph{In Total}) constraint violations. 
-\textcolor{red}{XX} (\emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS}) / \textcolor{red}{XX} (\emph{In Total}) constraint violations caused by violating $\mathcal{SL}_{0}$ constraints, 
-473,574 (\emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS}) / \textcolor{red}{XX} (\emph{In Total}) by $\mathcal{SL}_{1}$ constraints, and 
-\textcolor{red}{XX} (\emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS}) / \textcolor{red}{XX} (\emph{In Total}) by $\mathcal{SL}_{2}$ constraints.
-\emph{DISCO-C-LABELING-AND-DOCUMENTATION-06} (547,916) and \emph{DISCO-C-COMPARISON-VARIABLES-02} (547,916) (\emph{Disco}) / \textcolor{red}{XX} (\emph{QB}) / \textcolor{red}{XX} (\emph{SKOS}) are the constraints responsible for the most constraint violations.
+\begin{table}[H]
+		\scriptsize
+    \begin{center}
+    \begin{tabular}{@{}lcccc@{}}
+%           & \multicolumn{6}{c}{\textbf{Vocabularies}}
+%    \\  \cmidrule{2-7}
+    \\       \textbf{Criteria\tablefootnote{\emph{C (constraints), CT (constraint types), CV (constraint violations)}}}
+           & \textbf{\emph{Disco}}
+           & \textbf{\emph{QB}}
+					 & \textbf{\emph{SKOS}}
+					 & \textbf{Total}
+    \\ \midrule
+		\emph{Triples} & 9,673,055 & 3,775,983,610 & 477,737,281 & 4,263,393,946 \\
+		\emph{Data Sets} & 1,526 & 9,990 & 4,178 & 15,694 \\
+		\hline
+    \emph{CV} & 3,545,703 & 45,635,846 & 5,540,988 & 54,722,537\\
+		\emph{CV ($\mathcal{SL}_{0}$)} & 2,437,922 (68.8\%) & 0 (0\%) & 2,281,740 (41.2\%) & 4,719,662 (8.6\%) \\
+		\emph{CV ($\mathcal{SL}_{1}$)} & 473,574 (13.4\%) & 45,520,613 (99.75\%) & 3,259,248 (58.8\%) & 49,253,435 (90\%) \\
+    \emph{CV ($\mathcal{SL}_{2}$)} & 634,207 (17.9\%) & 115,233 (0.25\%) & 0 (0\%) & 749,440 (1.4\%) \\
+		\hline
+		\emph{CT} & 52 (15\textbar 37)\tablefootnote{(\label{fnt:1}implemented \textbar not yet implemented)} & 20 (7\textbar 13)\footnotemark[\ref{fnt:1}] & 14 (4\textbar 10)\footnotemark[\ref{fnt:1}] & 53 \\
+		\emph{CT} ($\mathcal{C}_{C}$) & 30 (57.7\%) & 5 (25\%) & 5 (35.7\%) & 30 (56.6\%) \\
+		\emph{CT} ($\mathcal{C}_{T}$) & 22 (42.3\%) & 15 (75\%) & 9 (64.3\%) & 23 (43.4\%) \\
+		\hline
+		\emph{C} & 142 (77\textbar 65)\footnotemark[\ref{fnt:1}] & 35 (20\textbar 15)\footnotemark[\ref{fnt:1}] & 35 (17\textbar 18)\footnotemark[\ref{fnt:1}] & 212 \\
+		\emph{C} ($\mathcal{C}_{C}$) & 72 (50.7\%) & 16 (45.7\%) & 21 (60\%) & 109 (51.4\%) \\
+		\emph{C} ($\mathcal{C}_{T}$) & 70 (49.3\%) & 19 (54.3\%) & 14 (40\%) & 103 (48.6\%) \\
+		\emph{C ($\mathcal{SL}_{0}$)} & 75 (52.8\%)& 4 (11.4\%) & 21 (60\%) & 100 (47.2\%) \\
+		\emph{C ($\mathcal{SL}_{1}$)} & 9 (6.3\%)& 3 (8.6\%) & 5 (14.3\%) & 17 (8\%) \\
+		\emph{C ($\mathcal{SL}_{2}$)} & 58 (40.8\%) & 28 (80\%) & 9 (25.7\%) & 95 (44.8\%) \\
+    \bottomrule
+    \end{tabular}
+    \caption{Evaluation}
+		\label{tab:evaluation}
+    \end{center}
+\end{table}
+
+We identified 142 \emph{Disco} constraints ($\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints to the same extend) assigned to 52 distinct constraint types and implemented 77 of them to actually validate person-level data sets.  
+For \emph{QB}, we specified more $\mathcal{C}_{T}$ (54\%) than $\mathcal{C}_{C}$ constraints; for \emph{SKOS}, however, more $\mathcal{C}_{C}$ constraints (60\%).
+We instantiated more $\mathcal{C}_{C}$ (58\%) than $\mathcal{C}_{T}$ constraint types to define \emph{Disco} constraints; 
+for \emph{QB} (75\%) and \emph{SKOS} (64\%), on the other side, more $\mathcal{C}_{T}$ constraint types. 
+In total, we used 53 of overall 82 distinct constraint types (57\% of them are $\mathcal{C}_{C}$ constraint types) to define 212 constraints (equally $\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints).
+
+For \emph{Disco} and \emph{SKOS}, more than the half of the constraints are associated with the weakest severity level $\mathcal{SL}_{0}$.
+Within the context of \emph{QB}, 80\% of the constraints are classified as the most serious ones ($\mathcal{SL}_{2}$).
+All in all, there are a little bit more $\mathcal{SL}_{0}$ then $\mathcal{SL}_{2}$ constraints, whereas $\mathcal{SL}_{1}$ constraints are negligible.
+\emph{Existential quantifications} (32.4\%, \emph{Disco}), \emph{data model consistency} (31.4\%, \emph{QB}), and \emph{structure} (28.6\%, \emph{SKOS}) are the constraint types the most constraints are instantiated from.
+By validating \emph{QB} data sets, we got the most constraint violations (more than 45 millions), followed by \emph{SKOS} and \emph{Disco} (with more than 5.5 and 3.5 millions) - consequently, almost 55 million constraint violations were raised during the evaluation which could be used to enhance the metadata quality of these data sets.  
+Close to 70\% of all \emph{Disco} constraint violations are caused by violating $\mathcal{SL}_{0}$ constraints.
+For \emph{QB} (nearly 100\%) and \emph{SKOS} (almost 60\%), the majority of the raised constraint violations are classified to be more serious ($\mathcal{SL}_{1}$).
+80\% of all \emph{QB} constraints are $\mathcal{SL}_{2}$ constraints leading to less than 1\% of all \emph{QB} constraint violations.
+Altogether, exactly 90\% of the constraint violations are assigned to the severity level $\mathcal{SL}_{1}$.
+These findings are surprising as only 8\% of all defined constraints are $\mathcal{SL}_{1}$ constraints.
+The constraints responsible for the largest numbers of constraint violations are \emph{DISCO-C-LABELING-AND-DOCUMENTATION-06} and \emph{DISCO-C-COMPARISON-VARIABLES-02} (both 547,916) (\emph{Disco}), \emph{DATA-CUBE-C-DATA-MODEL-CONSISTENCY-05} (45,514,102) (\emph{QB}), and \emph{SKOS-C-LANGUAGE-TAG-CARDINALITY-01} (2,508,903) (\emph{SKOS}).
+We refer to the technical reports\footnotemark[\ref{technical-report-1}] \footnotemark[\ref{technical-report-2}] to get details about constraints on and the evaluation of \emph{XKOS} and \emph{PHDD} data sets.
 
 \section{Related Work}
 
@@ -728,7 +830,7 @@ If the ASK query is applied to an RDF graph then it will return true if that gra
 
 \section{Conclusion and Future Work}
 
-As part of future work, we will identify constraints on rectangular data and statistical classifications and classify them.
+It is still ongoing work to identify and classify constraints on rectangular data (\emph{PHDD}) and statistical classifications (\emph{XKOS}) and to actually evaluate the quality of real world \emph{PHDD} and \emph{XKOS} data sets.
 
 \bibliography{../../literature/literature}{}
 \bibliographystyle{plain}
