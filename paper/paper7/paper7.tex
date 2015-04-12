@@ -252,14 +252,14 @@ University of Mannheim, Germany \\
 For research institutes, data libraries, and data archives,
 RDF data validation according to predefined constraints is a much sought-after feature, 
 particularly as this is taken for granted in the XML world.
-The data most often used in research within the community around research data for the social, behavioural, and economic sciences (\emph{SBE}) is person-level data, i.e. data collected about individuals (households, businesses). 
+The data most often used in research within the community around research data for the social, behavioural, and economic sciences (\emph{SBE}) is person-level data, i.e., data collected about individuals (households, businesses). 
 %The DDI-RDF Discovery Vocabulary is used to describe and to discover this kind of research data.
 While performing research, the detailed, often access restricted person-level
 data is aggregated into less confidential publicly available multi-dimensional tables which answer particular research questions and whose purpose is to gain an interest in further more detailed analyses on the underlying person-level data.
 To ensure high quality and trust, metadata and data must satisfy certain criteria - specified in terms of RDF constraints. 
 From 2012 to 2015 together with other Linked Data community members and \emph{SBE} experts, we developed diverse vocabularies to represent \emph{SBE} metadata and data in RDF.
 
-In this paper, we show how metadata and underlying data on different level of aggregation as well as collections of these data sets are represented in RDF and how therefore used vocabularies are interrelated.
+In this paper, we show how metadata and data on different level of aggregation as well as collections of these data sets are represented in RDF and how therefore used vocabularies are interrelated.
 We explain why RDF validation is important in this context and how (meta)data is validated against RDF constraints to ensure high quality and trust. 
 
 \keywords{RDF Validation, RDF Constraints, DDI-RDF Discovery Vocabulary, Disco, RDF Data Cube Vocabulary, Linked Data, Semantic Web}
@@ -285,17 +285,16 @@ For data archives, research institutes, and data libraries,
 RDF data validation according to predefined constraints is a much sought-after feature, 
 particularly as this is taken for granted in the XML world (DDI-XML documents are validated against diverse XSDs\footnote{\label{fnt:DDI-XSDs}\url{http://www.ddialliance.org/Specification/}}).
 Several approaches exist to meet this requirement, ranging from using \emph{OWL 2} as a constraint language to \emph{SPIN}\footnote{\url{http://spinRDF.org/}}, a SPARQL-based way to formulate and check constraints. 
-There are also specific constraint languages like \emph{Shape Expressions}\footnote{\url{http://www.w3.org/Submission/shex-primer/}}, \emph{Resource Shapes}\footnote{\url{http://www.w3.org/Submission/shapes/}} or \emph{Description Set Profiles}\footnote{\url{http://dublincore.org/documents/2008/03/31/dc-dsp/}} that more or less explicitly address the aforementioned SBE community.
+There are also specific constraint languages like \emph{Shape Expressions}, \emph{Resource Shapes} or \emph{Description Set Profiles} that more or less explicitly address the aforementioned SBE community.
 Bosch and Eckert\cite{BoschEckert2014-2} use SPIN as basis to define a
-validation environment (\url{http://purl.org/net/rdfval-demo}) in which the validation of any constraint language\footnote{the only limitation is that constraint languages must be represented in RDF} can be implemented by representing them in SPARQL. 
-The SPIN engine checks for each resource if it satisfies all constraints (associated with its assigned classes) and generates a result RDF graph containing information about all constraint violations.
+validation environment (\url{http://purl.org/net/rdfval-demo}) in which the validation of any constraint language\footnote{The only limitation is that constraint languages must be represented in RDF} can be implemented by representing them in SPARQL. 
+The SPIN engine checks for each resource if it satisfies all constraints, which are associated with its assigned classes, and generates a result RDF graph containing information about all constraint violations.
 
 \section{Motivation}
 
-The data most often used in research within the SBE community is \emph{person-level data}, i.e. data collected about individuals 
-(and sometimes also businesses and households) in the form of responses to studies or taken from administrative registers
+The data most often used in research within the SBE community is \emph{person-level data}, i.e. data collected about individuals, businesses, and households in form of responses to studies or taken from administrative registers
 (such as hospital records, registers of births and deaths). 
-The range of person-level data is very broad (covering many different domains), 
+The range of person-level data covers many different domains and is very broad - 
 including census, education, and health data as well as all types of business, social, and labor force surveys.  
 Increasingly, this type of research data is
 held within data archives or data libraries after it has been collected, so that it may be
@@ -306,12 +305,12 @@ Portals harvest metadata (as well as publicly available data) from multiple data
 To ensure high quality, the metadata must satisfy certain criteria - specified in terms of RDF constraints.  
 After validating the metadata according to these constraints, portals offer added values to their customers, e.g. by searching over and comparing metadata of multiple providers. 
 
-By its nature, person-level data is highly confidential, and access is often only permitted for qualified researchers who must apply for access. 
+By its nature, person-level data is highly confidential and access is often only permitted for qualified researchers who must apply for access. 
 The purpose of publicly available aggregated data, on the other hand, is to get a first overview and to gain an interest in further analyses on the underlying person-level data.
 Researchers typically represent their results as aggregated data in form of two-dimensional tables with only a few columns (so-called \emph{variables} such as \emph{sex} or \emph{age}).
 The \emph{RDF Data Cube Vocabulary (QB)}\footnote{http://www.w3.org/TR/vocab-data-cube/} is a W3C recommendation for representing \emph{data cubes}, i.e. multi-dimensional aggregate data, in RDF \cite{Cyganiak2010}. 
 Aggregate data is derived from person-level data by statistics on groups or aggregates such as counts, means, and frequencies.
-The SDMX metadata standard\footnote{http://sdmx.org/} – used as the basis for \emph{QB} – and DDI have traditionally made efforts to align their content. 
+The SDMX metadata standard – used as the basis for \emph{QB} – and DDI have traditionally made efforts to align their content. 
 Similarly, some of the developers of \emph{Disco} were also involved in the development of \emph{QB}, 
 allowing the RDF versions of these standards to retain that alignment.
 While \emph{Disco} and \emph{QB} provide terms for the description of data sets, 
@@ -338,26 +337,25 @@ Variables are constructed out of values (of one or multiple datatypes) and/or co
 The variable \emph{age}, e.g., may be represented by values of the datatype \emph{xsd:nonNegativeInteger}, or by a code list including multiple age clusters (such as '0 to 10' and '11 to 20'). 
 To determine if variables measuring \emph{age} 
 - collected within multiple studies of different countries (\emph{$age_{DE}$}, \emph{$age_{UK}$}) - 
-are comparable, both content-driven and technology-driven validation is performed either
-within our developed validation environment or by matching algorithms. 
+are comparable, both content-driven and technology-driven validation is performed.
 An example for a content-driven validation is to investigate if variables are represented in a compatible way,
 i.e. are the variables' code lists theoretically comparable.
 Technically, it can be validated (1) if variable definitions are available, (2) if code lists are properly structured, and (3) if for each code an associated category (a human-readable label) is specified.
 
-\tb{maybe this paragraph should be moved to one of the subsequent sections and not be part of introduction}
 Data providers and harvesters do not only offer metadata but also publicly available data on different level of detail.
 To ensure high data quality and trust, they have to analyze and validate the data (are fundamental data fragments available?, how does valid data look like?). 
 %They validate, e.g., if fundamental data parts are available and define how valid data should look like (using syntactic rules).
 Provenance (where does the data come from?) is an important aspect in evaluating data quality.
 As data searchers know exactly which data sources they trust and which are reasonable to meet their individual use cases, 
-data validation can only be performed semi-automatically, i.e. an automatic approach serves as basis for intellectual decisions. 
+RDF data validation can only be performed semi-automatically, i.e., an automatic approach serves as basis for intellectual decisions. 
 
 This paper aims to address two main \textbf{audiences}: 
-(1) metadata practitioners seeking for how to represent metadata on data sets on different aggregation levels and
-(2) metadata providers and harvesters ensuring high quality metadata by validating metadata on highly complex RDF data sets.
-In this paper, we show in form of a complete real world running example how to represent metadata on highly complex person-level data (\emph{Disco}), metadata on aggregated data (\emph{QB}), and aggregated as well as person-level data in a rectangular format (\emph{PHDD}) in RDF and how therefore used vocabularies are interrelated (\textbf{contribution 1}, section \ref{rdf-representation}).
-We explain why RDF validation is important in this context and how (meta)data is validated against RDF constraints to ensure high quality (meta)data within this complex of data sets on different levels of aggregation (\textbf{contribution 2}, section \ref{rdf-validation}). 
-The remainder of the paper is structured as follows.
+(1) metadata practitioners seeking for how to represent metadata and data on different aggregation levels in RDF and
+(2) metadata providers and harvesters ensuring high quality data and metadata by validating RDF data according to certain constraints.
+In this paper, we show in form of a complete real world running example how to represent metadata on person-level data (\emph{Disco}), metadata on aggregated data (\emph{QB}), and data on both aggregation levels in a rectangular format (\emph{PHDD}) in RDF and how therefore used vocabularies are interrelated (\textbf{contribution 1}, section \ref{rdf-representation}).
+We explained why RDF validation is important in this context and how metadata on person-level data, aggregated data, thesauri, and statistical classifications as well as data on both aggregation levels is validated against constraints to ensure high (meta)data quality (\textbf{contribution 2}, section \ref{rdf-validation}).
+ 
+%The remainder of the paper is structured as follows.
 
 %\section{Running Example}
 %\label{running-example}
@@ -389,7 +387,7 @@ observations
 
 \footnote{\textcolor{red}{The complete running example in RDF is available at: \url{XXXXX}}}
 
-\textbf{Aggregated Data in RDF.}
+\textbf{Aggregated and Person-Level Data in RDF.}
 As Eurostat provides aggregated data as CSV files, we can easily represent the two-dimensional table in RDF by means of \emph{PHDD}.
 \emph{PHDD} is a vocabulary to represent aggregated and person-level data in a rectangular format. 
 The data could be either represented in records with character-separated values (CSV) or in records with fixed length. 
@@ -457,8 +455,8 @@ Bosch et al. identified in total 74 requirements to formulate RDF constraints; e
 We published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} in which we explain each requirement (constraint type) in detail and give examples for each (represented by different constraint languages).
 The knowledge representation formalism \emph{Description logics (DL)}, with its  well-studied theoretical properties, provides the foundational basis for each constraint type.
 Therefore, this technical report contains mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
-We recently published a technical report\footnote{\textcolor{red}{\label{technical-report-1}Available at: \url{http://arxiv.org/abs/XXXXX}}} (serving as first appendix of this paper) in which we describe constraints to validate metadata on person-level, aggregated data, and thesauri.
-We assign each constraint to constraint types corresponding to RDF validation requirements or to data model specific constraint types\footnote{Requirements/Constraint types and constraints are uniquely identified by alphanumeric technical identifiers like \emph{R-1}}
+We recently published a technical report\footnote{\textcolor{red}{\label{technical-report-1}Available at: \url{http://arxiv.org/abs/XXXXX}}} (serving as first appendix of this paper) in which we describe constraints to validate metadata on person-level data, aggregated data, thesauri, and statistical classifications as well as constraints on data on both aggregation levels.
+We assign each constraint to constraint types either corresponding to RDF validation requirements or to data model specific constraint types\footnote{Requirements/Constraint types and constraints are uniquely identified by alphanumeric technical identifiers like \emph{R-1}}
 \cite{BoschZapilkoWackerowEckert2015}.
 
 We distinguish two validation types:
@@ -716,11 +714,12 @@ it is checked that \emph{dcterms:coverage} is not redundant with its sub-propert
 This validation can indicate when the data is verbose (redundant) or expressed at a too general level and could thus be improved.
 
 \section{Implementation}
+\label{implementation}
 
 SPARQL is generally seen as the method of choice to validate RDF data according to certain constraints.
 We use \emph{SPIN}, 
 a SPARQL-based way to formulate and check constraints, as basis to develop a
-validation environment (available at \url{http://purl.org/net/rdfval-demo}) to validate RDF data according to constraints expressed my arbitrary constraint languages like Shape Expressions,
+validation environment (available at \url{http://purl.org/net/rdfval-demo})\footnote{Source code downloadable at: \textcolor{red}{\url{https://github.com/boschthomas/rdf-validator}}} to validate RDF data according to constraints expressed my arbitrary constraint languages like Shape Expressions,
 %\footnote{\url{http://www.w3.org/Submission/shex-primer/}}
 Resource Shapes, and the Web Ontology Language\footnote{\textcolor{red}{SPIN mappings available at: \url{https://github.com/boschthomas/rdf-validation/SPIN}}} \cite{BoschEckert2014-2}.
 The \emph{RDF Validator} also validates RDF data to ensure correct syntax, semantics, and integrity of diverse vocabularies such as \emph{Disco, QB, PHDD, SKOS, and XKOS}.
@@ -733,6 +732,7 @@ A SPIN construct template creates constraint violation triples if all triple pat
 \emph{Missy}\footnote{\url{http://www.gesis.org/missy/eu/missy-home}} provides comprehensive Linked Data services like diverse RDF exports of person-level metadata conforming to the \emph{Disco} vocabulary in form of multiple concrete syntaxes. 
 
 \section{Evaluation}
+\label{evaluation}
 
 We exhaustively evaluated the metadata quality of large real world aggregated (\emph{QB}), person-level (\emph{Disco}), and thesauri (\emph{SKOS}) data sets by means of both $\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints of the majority of the constraint types.
 We validated 
@@ -839,7 +839,18 @@ issues that go beyond the integrity constraints defined in the SKOS specificatio
 
 \section{Conclusion and Future Work}
 
-It is still ongoing work to identify and classify constraints on rectangular data (\emph{PHDD}) and statistical classifications (\emph{XKOS}) and to actually evaluate the metadata and data quality of real world \emph{XKOS} and \emph{PHDD} data sets.
+In this paper, we showed in form of a complete real world running example how to represent metadata on person-level data (\emph{Disco}), metadata on aggregated data (\emph{QB}), and data on both aggregation levels in a rectangular format (\emph{PHDD}) in RDF and how therefore used vocabularies are interrelated (\textbf{contribution 1}, section \ref{rdf-representation}).
+We explained why RDF validation is important in this context and how metadata on person-level data, aggregated data, thesauri, and statistical classifications as well as data on both aggregation levels is validated against constraints to ensure high (meta)data quality\footnote{The first appendix of this paper describing each constraint in detail is available at: \textcolor{red}{\url{http://arxiv.org/abs/XXXXX}} \cite{BoschZapilkoWackerowEckert2015}} (\textbf{contribution 2}, section \ref{rdf-validation}). 
+We distinguish two validation types:
+(1) \emph{Content-Driven Validation} $\mathcal{C}_{C}$ contains the set of constraints ensuring that the data is consistent with the intended syntax, semantics, and integrity of data models (section \ref{content-driven-validation}).
+(2) \emph{Technology-Driven Validation} $\mathcal{C}_{T}$ includes the set of constraints which can be generated automatically out of data models, such as cardinality restrictions, universal and existential quantifications, domains, and ranges (section \ref{technology-driven-validation}).
+We determined the default \emph{severity level} for each constraint to indicate how serious the violation of the constraint is
+and propose an extensible metric to measure the continuum of severity levels.
+
+We implemented a validation environment (available at \url{http://purl.org/net/rdfval-demo}) to validate RDF data according to constraints expressed my arbitrary constraint languages and to ensure correct syntax, semantics, and integrity of diverse vocabularies such as \emph{Disco, QB, PHDD, SKOS, and XKOS} (section \ref{implementation}).
+We exhaustively evaluated the metadata quality of large real world aggregated (\emph{QB}), person-level (\emph{Disco}), and thesauri (\emph{SKOS}) data sets by means of 212 $\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints of the majority of the constraint types.
+We validated more than 4.2 billion triples and 15 thousand data sets\footnote{The second appendix of this paper describing the evaluation in detail is available at: \textcolor{red}{\url{http://arxiv.org/abs/XXXXX}} \cite{BoschZapilkoWackerowEckert2015-2}.} (section \ref{evaluation}).
+It is still ongoing work to identify and classify constraints on rectangular data (\emph{PHDD}) and statistical classifications (\emph{XKOS}) and to actually evaluate the (meta)data quality of real world \emph{XKOS} and \emph{PHDD} data sets.
 
 \bibliography{../../literature/literature}{}
 \bibliographystyle{plain}
