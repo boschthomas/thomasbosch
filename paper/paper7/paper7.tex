@@ -283,7 +283,7 @@ Recently, members of the SBE and Linked Data community developed the \emph{DDI-R
 an effort to leverage the mature DDI metadata model for the purposes of exposing DDI metadata as resources within the Web of Linked Data. 
 For data archives, research institutes, and data libraries,
 RDF data validation according to predefined constraints is a much sought-after feature, 
-particularly as this is taken for granted in the XML world (DDI-XML documents are validated against diverse XSDs\footnote{\url{http://www.ddialliance.org/Specification/}}).
+particularly as this is taken for granted in the XML world (DDI-XML documents are validated against diverse XSDs\footnote{\label{fnt:DDI-XSDs}\url{http://www.ddialliance.org/Specification/}}).
 Several approaches exist to meet this requirement, ranging from using \emph{OWL 2} as a constraint language to \emph{SPIN}\footnote{\url{http://spinRDF.org/}}, a SPARQL-based way to formulate and check constraints. 
 There are also specific constraint languages like \emph{Shape Expressions}\footnote{\url{http://www.w3.org/Submission/shex-primer/}}, \emph{Resource Shapes}\footnote{\url{http://www.w3.org/Submission/shapes/}} or \emph{Description Set Profiles}\footnote{\url{http://dublincore.org/documents/2008/03/31/dc-dsp/}} that more or less explicitly address the aforementioned SBE community.
 Bosch and Eckert\cite{BoschEckert2014-2} use SPIN as basis to define a
@@ -816,31 +816,30 @@ We refer to the technical reports\footnotemark[\ref{technical-report-1}] \footno
 
 \section{Related Work}
 
-With RDF validation, one can overcome the drawbacks when validating XML documents.
-Certain things cannot be validated using XSDs.
-As a consequence, so-called secondary-level validation tools like Schematron have been introduced to overcome the limitations of XSDs.
-Schematron generated validation rules and validates XML documents according to them.
-It cannot be validated if each code of a variable's code list is associated with a category \tb{further explanation needed}.
-It cannot be validated that if an element has a specific value, then certain child elements must be present.  
+%\textbf{XML vs. RDF Validation.}
+For data archives, research institutes, and data libraries,
+RDF validation according to predefined constraints is a much sought-after feature, 
+particularly as this is taken for granted in the XML world.
+DDI-XML documents, e.g., are validated against diverse XSDs\footnotemark[\ref{fnt:DDI-XSDs}].
+As certain constraints cannot be formulated and validated by XSDs, 
+so-called secondary-level validation tools like \emph{Schematron}\footnote{\url{https://msdn.microsoft.com/en-us/library/aa468554.aspx}} have been introduced to overcome the limitations of XML validation.
+\emph{Schematron} generates validation rules and validates XML documents according to them.
+With RDF validation, one can overcome drawbacks when validating XML documents\footnote{\url{http://www.xmlmind.com/xmleditor/_distrib/doc/xmltool/xsd_structure_limitations.html}}.
+It cannot be validated, e.g., if each code of a variable's code list is associated with a category (\emph{R-86}).
+Additionally, it cannot be validated that if an element has a specific value, then certain child elements must be present (\emph{R-71}).  
+A comprehensive comparison of XML and RDF validation is not the purpose of this paper.
 
-\tb{Achim, which kind of things cannot be validated using XSDs / we also need references}
-
-\url{http://www.xmlmind.com/xmleditor/_distrib/doc/xmltool/xsd_structure_limitations.html}
-
-\url{https://msdn.microsoft.com/en-us/library/aa468554.aspx}
-
-\textbf{RDF Data Cube Vocabulary.}
-A well-formed RDF Data Cube is an a RDF graph describing one or more instances of \emph{qb:DataSet} for which each of the 22 defined integrity constraints\footnote{http://www.w3.org/TR/vocab-data-cube/\#wf} passes.
+%\textbf{RDF Data Cube Vocabulary.}
+A well-formed \emph{RDF Data Cube} is an a RDF graph describing one or more instances of \emph{qb:DataSet} for which each of the 22 integrity constraints\footnote{http://www.w3.org/TR/vocab-data-cube/\#wf}, defined within the \emph{QB} specification, passes.
 Each integrity constraint is expressed as narrative prose and, where possible, a SPARQL ASK query or query template. 
 If the ASK query is applied to an RDF graph then it will return true if that graph contains one or more \emph{QB} instances which violate the corresponding constraint \cite{CyganiakReynolds2014}.
-
-\textbf{DCAT.}
-\textcolor{blue}{are there already constraints defined for DCAT?}
-
+Mader, Haslhofer, and Isaac investigated how to support
+taxonomists in improving SKOS vocabularies by pointing out quality
+issues that go beyond the integrity constraints defined in the SKOS specification \cite{MaderHaslhoferIsaac2012}.
 
 \section{Conclusion and Future Work}
 
-It is still ongoing work to identify and classify constraints on rectangular data (\emph{PHDD}) and statistical classifications (\emph{XKOS}) and to actually evaluate the quality of real world \emph{PHDD} and \emph{XKOS} data sets.
+It is still ongoing work to identify and classify constraints on rectangular data (\emph{PHDD}) and statistical classifications (\emph{XKOS}) and to actually evaluate the metadata and data quality of real world \emph{XKOS} and \emph{PHDD} data sets.
 
 \bibliography{../../literature/literature}{}
 \bibliographystyle{plain}
