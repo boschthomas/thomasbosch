@@ -604,8 +604,6 @@ Depending on property datatypes,
 two different literal values have
 a specific ordering with respect to an operator like \textless (\emph{R-43: literal value comparison}).
 Start dates (\emph{disco:startDate}), e.g., must be before (\emph{\textless}) end dates (\emph{disco:endDate}) ($\mathcal{SL}_{2}$).
-\emph{R-223} serves to make sure that all literal values are valid with regard to their datatypes ($\mathcal{SL}_{2}$).
-Thus, all date values (e.g. {\em disco:startDate}, {\em disco:endDate}, {\em dcterms:date}) must be of the datatype \emph{xsd:date} and \emph{xsd:nonNegativeInteger} values (e.g. \emph{disco:frequency}) do not have to be negative.
 
 %\textbf{Organizations, Hierarchies, Classifications, and Ordering.}
 \textbf{Hierarchies and Ordering.}
@@ -643,8 +641,6 @@ restricts individuals of given classes to have exactly one of multiple property 
 \subsection{Technology-Driven Validation}
 \label{technology-driven-validation}
 
-\tb{use PHDD and XKOS here}
-
 Constraints of some constraint types are directly and automatically derived from syntax and semantics of vocabularies' conceptual models.
 As these constraints depend on data models' intended semantics, associated default severity levels are in most cases very strong ($\mathcal{SL}_{2}$).
 
@@ -659,6 +655,8 @@ Out-dated classes and properties of previous vocabulary versions can be marked a
 The constraint type \emph{context-specific valid classes and properties} (\emph{R-209; R-210}) can be used to specify which classes and properties are valid in which context - here a given vocabulary version.
 Many properties are not necessarily required but \emph{recommended} within a particular context (\emph{R-72}).
 The property {\em skos:notation}, e.g., is not mandatory for {\em disco:Variable}s, but recommended to represent variable names.
+\emph{R-223} serves to make sure that all literal values are valid with regard to their datatypes.
+Thus, all date values (e.g. {\em disco:startDate}, {\em disco:endDate}, {\em dcterms:date}) must be of the datatype \emph{xsd:date} and \emph{xsd:nonNegativeInteger} values (e.g. \emph{disco:frequency}) do not have to be negative.
 
 \textbf{Cardinality Restrictions.}
 An \emph{existential quantification} (\emph{R-86}) contains all those individuals that are connected by a property to individuals/literals of given classes or data ranges.
@@ -693,43 +691,29 @@ For data properties, it may be desirable to restrict that values of predefined l
 \cite{MaderHaslhoferIsaac2012}.
 
 \textbf{Disjointness and Allowed Values.}
-All properties, not having the same domain and range classes, are defined to be pairwise \emph{disjoint}
+All properties, not having the same domain and range classes, are defined to be pairwise disjoint
 (\emph{R-9: disjoint properties}), stating that no individual \emph{x} can be connected to an individual/literal \emph{y} by disjoint properties like \emph{phdd:isStructuredBy} and \emph{phdd:column} ($isStructuredBy \sqsubseteq \neg column$).
-All \emph{Disco} classes are defined to be pairwise disjoint (\emph{R-7: disjoint classes}; e.g. \ms{Study $\sqcap$ Variable $\sqsubseteq$ $\perp$}),
-i.e. no individual can be at the same time an instance of more than one disjoint class.
-Furthermore, it is a common requirement to narrow down the value space of properties by an exhaustive enumeration of valid values.  
+All \emph{XKOS} classes are pairwise disjoint (\emph{R-7: disjoint classes}; e.g. \ms{ClassificationLevel $\sqcap$ ConceptAssociation $\sqsubseteq$ $\perp$}),
+i.e., individuals cannot be instances of multiple disjoint classes.
+It is a common requirement to narrow down the value space of properties by an exhaustive enumeration of valid values.  
 \emph{Allowed values} (\emph{R-30, R-37}) for properties can be IRIs (matching one or multiple patterns), any literals, allowed literals (e.g. 'red' 'blue' 'green'), and typed literals of one or multiple type(s) (e.g. \emph{xsd:string}) - 
 \emph{disco:CategoryStatistics}, e.g., can only have \emph{disco:computationBase} relationships to the values \emph{valid} and \emph{invalid} of the datatype \emph{rdf:langString} (\ms{CategoryStatistics $\equiv$ $\forall$ computationBase.\{valid,invalid\} $\sqcap$ langString}).
 
 \textbf{Validation and Reasoning.}
-Constraints of some constraint types can be derived from vocabularies' data models for which reasoning can be performed prior to validation which enables to resolve possible constraint violations.
-\emph{Subsumption} (\emph{R-100}) states that \emph{C1} is a sub-class of \emph{C2} - \emph{C1} is more specific than \emph{C2}, 
-i.e., each \emph{C1} resource must also be part of the \emph{C2} class extension. 
-All \emph{disco:Universe}s, e.g., must also be of the type \emph{skos:Concept} (\ms{Universe $\sqsubseteq$ Concept}).
-\emph{Sub Properties} (\emph{R-54, R-64}) state that \emph{P1} is a sub-property of \emph{P2} - i.e., if individual \emph{x} is connected by \emph{P1} to individual/literal \emph{y}, then \emph{x} is also connected by \emph{P2} to \emph{y}. 
-If a study is funded by (\emph{disco:fundedBy}) an organization, then this organization contributed (\emph{dcterms:contributor}) to this study (\ms{fundedBy $\sqsubseteq$ contributor}).
-With \emph{Asymmetric object properties} (\emph{R-62}) it can be restricted that if individual \emph{x} is connected by the object property \emph{OP} to individual \emph{y}, then \emph{y} cannot be connected by \emph{OP} to \emph{x}. 
-Such constraints are defined for each vocabulary's object property for which a semantically equivalent object property pointing from the other direction would also be possible but is not defined within the vocabulary.
+Some constraint types enable performing reasoning prior to validation which may resolve or cause constraint violations.
+With \emph{subsumption} (\emph{R-100}) one can state that \emph{xkos:ClassificationLevel} is a sub-class of \emph{skos:Collection}, i.e., each \emph{xkos:ClassificationLevel} resource must also be part of the \emph{skos:Collection} class extension (\ms{xkos:ClassificationLevel $\sqsubseteq$ skos:Collection}).
+With \emph{sub properties} (\emph{R-54, R-64}) one can state that \emph{disco:fundedBy} is a sub-property of \emph{dcterms:contributor} - i.e., if a study is funded by an organization, then this organization contributed to this study (\ms{disco:fundedBy $\sqsubseteq$ dcterms:contributor}).
+\emph{Asymmetric object properties} (\emph{R-62}) restrict that if individual \emph{x} is connected by the object property \emph{OP} to individual \emph{y}, then \emph{y} cannot be connected by \emph{OP} to \emph{x}. 
+Such constraints are defined for each object property for which a semantically equivalent object property pointing from the other direction would also be possible but is not defined within the vocabulary.
 A \emph{disco:Variable}, e.g., may be based on (\emph{disco:basedOn}) a \emph{disco:RepresentedVariable}.
-A \emph{disco:RepresentedVariable}, however, cannot be based on a \emph{disco:Variable} (\ms{$basedOn \sqcap basedOn^{-} \sqsubseteq \bot$}).
-\emph{Default values} (\emph{R-31, R-38}) for objects/literals of given prooperties are inferred automatically when properties are not stated.
-The value \emph{true} for the property {\em disco:isPublic} ({\em xsd:boolean}) indicates that a data set ({\em disco:LogicalDataSet}) can be accessed by anyone.
+A \emph{disco:RepresentedVariable}, however, cannot be based on a \emph{disco:Variable} (\ms{$disco:basedOn \sqcap disco:basedOn^{-} \sqsubseteq \bot$}).
+\emph{Default values} (\emph{R-31, R-38}) for objects/literals of given prooperties are inferred automatically when properties are not present.
+The value \emph{true} for the property {\em disco:isPublic} indicates that a {\em disco:LogicalDataSet} can be accessed by anyone.
 Per default, however, access to data sets should be restricted (\emph{false}).
-
------
-
-It has to be ensured that a value is valid for its datatype (\emph{Value is Valid for Datatype}), e.g., 
-that a date is really a date, or that a \emph{xsd:nonNegativeInteger} value is not negative. 
-It is checked if all literals of {\em xsd:date} properties are really dates (e.g. {\em disco:startDate}, {\em disco:endDate}, {\em dcterms:date}).
-
------
-
-The validation of instances data (direct or indirect) exploits the sub-class or sub-property link in a given ontology (\emph{Use Sub-Super Relations in Validation}).
-This validation can indicate when the data is verbose (redundant) or expressed at a too general level, and could thus be improved.
+Validation should \emph{exploit sub-super relations} in vocabularies (\emph{R-224}).
 If \emph{dcterms:coverage} and one of its sub-properties (\emph{dcterms:spatial}, \emph{dcterms:temporal}) are present,
 it is checked that \emph{dcterms:coverage} is not redundant with its sub-properties. 
-
------
+This validation can indicate when the data is verbose (redundant) or expressed at a too general level and could thus be improved.
 
 \section{Implementation}
 
