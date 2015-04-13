@@ -191,7 +191,7 @@ In this paper, we provide a basic terminology and classification system for RDF 
 We developed a vocabulary describing any RDF constraint type generically. 
 %(whether expressible in description logics or not).
 We show how to transform constraints, expressed by any constraint language \ms{$\alpha$}, into generically expressed constraints and into constraints represented by any other constraint language \ms{$\beta$} and why these transformations are useful.
-We explain how to overcome the necessity to implement the validation of each constraint type (for multiple constraint languages) by providing mappings to generically expressed constraints 
+We explain how to overcome the necessity to implement the validation of each constraint type (for multiple constraint languages) by providing mappings to generically expressed constraints.
 
 \keywords{RDF Validation, RDF Constraints, RDF Validation Requirements, Linked Data, Semantic Web}
 \end{abstract}
@@ -294,16 +294,19 @@ The data is valid, however, if \emph{The-Lord-Of-The-Rings} is connected to a \e
 
 As there is no standard way to formulate RDF constraints, 
 semantically equivalent \emph{cardinality restrictions} may be represented by multiple constraint languages with different syntax and semantics.
-This causes confusion and weakens the common understanding between several parties how to represent particular constraints and therefore how to ensure high data quality. 
-Therefore, when choosing constraint language \ms{$\alpha$} to express a constraint of an arbitrary constraint type, it should be possible to transform this constraint into a constraint expressed by any other constraint language \ms{$\beta$} (section \ref{sec:transformations}). 
-This is important in order to enhance the interoperability of constraint languages and to simplify the communication of RDF data producers and consumers, 
-as constraint transformations resolve the necessity to read, write, and understand all languages used to express RDF constraints.
+This causes confusion and weakens the common understanding between several parties about the semantics of particular constraints and therefore how to ensure high data quality. 
+Thus, when choosing constraint language \ms{$\alpha$} to express a constraint of an arbitrary constraint type, it should be possible to transform this constraint into a semantically equivalent constraint formulated by any other constraint language \ms{$\beta$} (see section \ref{sec:transformations}). 
+This is important in order to enhance the interoperability of constraint languages and to resolve ambiguities in the communication of RDF data producers and consumers, 
+as constraint transformations avoid the necessity to understand several constraint languages.
 
-We provide a validation environment (available at \url{http://purl.org/net/rdfval-demo}) which enables to validate RDF data according to constraints expressed by multiple  constraint languages such as OWL 2, DSP, ReSh, and ShEx.
-The next step, however, is to validate any constraint type expressed by any constraint language and 
-what is even more important to validate them in exactly the same way, i.e. leading to identical validation results (section \ref{sec:validation}). 
-We are able to offer validation of any \emph{specific constraint} out-of-the-box, (1) if we implement the validation of the corresponding constraint type once and (2) if we transform semantically equivalent \emph{specific constraints} into the corresponding \emph{generic constraint}. 
-As a consequence, we do not have to implement the validation for each \emph{specific constraint}. 
+We provide a validation environment (available at \url{http://purl.org/net/rdfval-demo}) which enables to validate RDF data according to constraints expressed by diverse  constraint languages.
+The next step, however, is to extend the \textbf{\emph{RDF Validator}} by validating any constraint type represented by any constraint language and 
+to validate semantically equivalent \emph{specific constraints}, expressed by different constraint languages, in exactly the same way, 
+i.e., validation is independent from the used constraint language (see section \ref{sec:validation}). 
+%i.e., validation leads to identical validation results - independently from the used constraint language (see section \ref{sec:validation}).
+We are able to offer an already implemented validation mechanism for any \emph{specific constraint} out-of-the-box, 
+(1) if we implement the validation of the corresponding \emph{generic constraint type} once and 
+(2) if we transform semantically equivalent \emph{specific constraints} into generically expressed constraints.  
 
 %When domain experts use graphical user interfaces to define constraints in a user-friendly way (without the necessity to express constraints on their own), 
 %constraints can be mapped to either a specific or a generic constraint, as for both the validation is provided in the background.    
@@ -316,15 +319,16 @@ As a consequence, we do not have to implement the validation for each \emph{spec
 %As a consequence, constraint language designers do not have to implement the validation of their constraint languages and each semantically equivalent \emph{specific constraint type} is validated the same way (i.e. leading to identical validation results).
 
 This paper aims to address two main \textbf{audiences}:
-(1) RDF data providers and consumers seeking how to ensure high quality (meta)data and thus for ways to enhance the interoperability and communication of RDF constraints expressed by multiple constraint languages and  
-(2) RDF practitioners thinking of how to implement the validation of existing an newly developed constraint languages.
-The \textbf{contributions} of this paper are:
-(1) we provide a basic terminology and classification system for RDF constraint types,
-(2) we developed a vocabulary describing any RDF constraint type generically (whether expressible in DL or not),
-(3) we show how to transform \emph{specific constraints} (expressed by any constraint language \ms{$\alpha$}) into \emph{generic constraints} and \emph{specific constraints} (expressed by any other constraint language \ms{$\beta$}), and
-(4) we explain how to provide the validation of any \emph{specific constraint} immediately. 
+(1) RDF data providers and consumers seeking how to ensure high quality (meta)data and thus for ways to enhance the interoperability and common understanding of RDF constraints expressible by multiple constraint languages and  
+(2) RDF practitioners thinking of how to provide aligned implementations for the validation of both existing an newly developed constraint languages.
+The main \textbf{contributions} of this paper are:
+(1) we provide a basic terminology and classification system for RDF constraints (section \ref{sec:vocabulary}),
+(2) we developed a vocabulary describing any RDF constraint type generically (section \ref{sec:vocabulary}),
+(3) we show how to transform constraints, expressed by any constraint language \ms{$\alpha$}, into generically expressed constraints and into constraints represented by any other constraint language \ms{$\beta$} and why these transformations are useful (section \label{ref:transformations}), and
+(4) we explain how to overcome the necessity to implement the validation of each constraint type for multiple constraint languages (section \ref{sec:validation}).
 %(if the validation is implemented once for the corresponding \emph{generic constraint type} to which the \emph{specific constraint type} is mapped)
-The remainder of the paper is as follows.
+
+%The remainder of the paper is as follows.
 
 %\begin{itemize}
 	%\item Any specific constraint (expressed by any constraint language) can be transformed into a generic constraint (expressed by the generic constraint language)
