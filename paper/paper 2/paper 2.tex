@@ -224,14 +224,16 @@ A typical example is the definition of a library record describing a book. There
 
 \section{Motivation}
 
-There is not one language meeting the majority of requirements to formulate RDF constraints.
-Even though there are more than 10 languages with different syntaxes and semantics which can be used to express RDF constraints (e.g. existential and universal quantification, cardinality restrictions, and exclusive or of properties), the language selection depends on the individual use case.
-The five most promising ones on being the standard are
-\emph{Description Set Profiles (DSP)}\footnote{\url{http://dublincore.org/documents/2008/03/31/dc-dsp/}},
-\emph{Resource Shapes (ReSh)}\footnote{\url{http://www.w3.org/Submission/shapes/}}, 
-\emph{Shape Expressions (ShEx)}\footnote{\url{http://www.w3.org/Submission/shex-primer/}},
-the \emph{SPARQL Inferencing Notation (SPIN)}\footnote{\url{http://spinrdf.org/}}, 
-and the \emph{Web Ontology Language (OWL 2)}\footnote{\url{http://www.w3.org/TR/owl2-syntax/}}.
+There is not one language meeting nearly all or even the majority of requirements to formulate RDF constraints.
+As there are more than 10 languages with different syntaxes and semantics which can be used to express RDF constraints, 
+%(e.g. existential and universal quantification, cardinality restrictions, and exclusive or of properties)
+the language selection heavily depends on the individual use case.
+The five most promising constraint languages on being the standard are
+\emph{Description Set Profiles (DSP)},
+\emph{Resource Shapes (ReSh)}, 
+\emph{Shape Expressions (ShEx)},
+the \emph{SPARQL Inferencing Notation (SPIN)}, 
+and the \emph{Web Ontology Language (OWL 2)}.
 %\section{Ideas}
 %constraint design patterns:
 % - ontology design pattern.org
@@ -240,14 +242,14 @@ and the \emph{Web Ontology Language (OWL 2)}\footnote{\url{http://www.w3.org/TR/
 % - constraint / constraint elements / constraint design patterns / constraint language
 %dependency between requirements / when this requirements is fulfilled then this is also fulfilled (e.g. min card and requ. car)
 %min car more powerful than req. propery
-The idea behind this paper is to express any constraint type (corresponding to a requirement to formulate RDF constraints) in a generic way using a lightweight vocabulary (consisting of only a few terms) (section \ref{sec:vocabulary}).
+The idea behind this paper is to achieve complete RDF validation requirements coverage by representing any constraint type (corresponding to a requirement to formulate RDF constraints) in a generic way using a lightweight vocabulary consisting of only a few terms (see section \ref{sec:vocabulary}).
 
-\emph{Cardinality restrictions}, e.g., can be expressed either generically (\emph{generic constraints}) by \emph{description logics (DL)} 
+\emph{Cardinality restrictions}, e.g., can be expressed either generically (\textbf{\emph{generic constraints}}) by \emph{description logics (DL)} 
 %and extensions  
-or specifically (\emph{specific constraints}) by domain-specific constraint languages such as OWL 2, DSP, ShEx, ReSh, and SPIN.
+or specifically (\textbf{\emph{specific constraints}}) by domain-specific constraint languages such as OWL 2, DSP, ShEx, ReSh, and SPIN.
 The knowledge representation formalism {\em DL}, with its  well-studied theoretical properties, provides the foundational basis to express constraints in a generic way. 
 For that reason, we map constraint types to DL statements.
-With \emph{minimum qualified cardinality restrictions}, researchers (e.g. from the library domain) can state
+With \emph{minimum qualified cardinality restrictions}, researchers from the library domain may state
 that \emph{publications} must have at least one \emph{author} which must be a \emph{person}.
 This constraint can be represented generically (\emph{generic constraint}) using DL (\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}), but also specifically (\emph{specific constraint}) by multiple constraint languages like OWL 2, ShEx, ReSh, or DSP:
 
@@ -278,19 +280,21 @@ Publication a rs:ResourceShape ; rs:property [
             dsp:valueClass Person ] ] ] .
 \end{ex}
 
-As each \emph{publication} must have at least one \emph{author} relationship to a \emph{person} 
-and as the book \emph{The-Lord-Of-The-Rings} is a \emph{publication} \ms{rdf:type(The-Lord-Of-The-Rings, Publication)}, 
+As each \emph{publication} must have at least one \emph{author} which must be a \emph{person} 
+and as the book \emph{The-Lord-Of-The-Rings} is a \emph{publication} (\ms{rdf:type(The-Lord-Of-The-Rings, Publication)}), 
 \emph{The-Lord-Of-The-Rings} must have at least one \emph{author} relationship to a \emph{person}.
-If \emph{The-Lord-Of-The-Rings} does not have an \emph{author} relationship, a constraint violation is raised. 
-It leads to invalid data, if \emph{The-Lord-Of-The-Rings} has an \emph{author} property pointing to some resource which is assigned to other classes than \emph{person}
-(\ms{author(The-Lord-Of-The-Rings, Tolkien)}, \ms{rdf:type(Tolkien, Human)}).
-It also causes a constraint violation, if \emph{The-Lord-Of-The-Rings} has an \emph{author} relation to an object for which no class is associated
+Constraint violations are raised either if
+\emph{The-Lord-Of-The-Rings} does not have an \emph{author} relationship, or if 
+\emph{The-Lord-Of-The-Rings} has an \emph{author} which is not a \emph{person}
+(\ms{author(The-Lord-Of-The-Rings, Tolkien)}, \ms{rdf:type(Tolkien, Hobbit)}), 
+or if \emph{The-Lord-Of-The-Rings} has an \emph{author} for which no class is assigned
 (\ms{author(The-Lord-Of-The-Rings, Tolkien)}).
-The data is valid, however, if \emph{The-Lord-Of-The-Rings} is connected to a \emph{person} via the object property \emph{author}
+The data is valid, however, if \emph{The-Lord-Of-The-Rings} is connected to a \emph{person} via the property \emph{author}
 (\ms{author(The-Lord-Of-The-Rings, Tolkien)}, \ms{rdf:type(Tolkien, Person)}).
 
 As there is no standard way to formulate RDF constraints, 
-semantically equivalent \emph{cardinality restrictions} may be represented by different constraint languages, which causes confusion and weakens the understanding how to ensure metadata quality between multiple parties. 
+semantically equivalent \emph{cardinality restrictions} may be represented by multiple constraint languages with different syntax and semantics.
+This causes confusion and weakens the common understanding between several parties how to represent particular constraints and therefore how to ensure high data quality. 
 Therefore, when choosing constraint language \ms{$\alpha$} to express a constraint of an arbitrary constraint type, it should be possible to transform this constraint into a constraint expressed by any other constraint language \ms{$\beta$} (section \ref{sec:transformations}). 
 This is important in order to enhance the interoperability of constraint languages and to simplify the communication of RDF data producers and consumers, 
 as constraint transformations resolve the necessity to read, write, and understand all languages used to express RDF constraints.
