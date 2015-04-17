@@ -290,6 +290,13 @@ Bosch and Eckert\cite{BoschEckert2014-2} use SPIN as basis to define a
 validation environment (\url{http://purl.org/net/rdfval-demo}) in which the validation of any constraint language\footnote{The only limitation is that constraint languages must be represented in RDF} can be implemented by representing them in SPARQL. 
 The SPIN engine checks for each resource if it satisfies all constraints, which are associated with its assigned classes, and generates a result RDF graph containing information about all constraint violations.
 
+%This paper aims to address two main \textbf{audiences}: 
+%(1) metadata practitioners seeking for how to represent metadata and data on different aggregation levels in RDF and
+%(2) metadata providers and harvesters ensuring high quality data and metadata by validating RDF data according to certain constraints.
+In this paper, we show in form of a complete real world running example how to represent metadata on person-level data (\emph{Disco}), metadata on aggregated data (\emph{QB}), and data on both aggregation levels in a rectangular format (\emph{PHDD}) in RDF and how therefore used vocabularies are interrelated (\textbf{contribution 1}, section \ref{rdf-representation}).
+We explained why RDF validation is important in this context and how metadata on person-level data, aggregated data, thesauri, and statistical classifications as well as data on both aggregation levels is validated against constraints to ensure high (meta)data quality (\textbf{contribution 2}, section \ref{rdf-validation}).
+%The remainder of the paper is structured as follows.
+\tb{nur eine contribution}
 \section{Motivation}
 
 The data most often used in research within the SBE community is \emph{person-level data}, i.e. data collected about individuals, businesses, and households in form of responses to studies or taken from administrative registers
@@ -349,45 +356,34 @@ Provenance (where does the data come from?) is an important aspect in evaluating
 As data searchers know exactly which data sources they trust and which are reasonable to meet their individual use cases, 
 RDF data validation can only be performed semi-automatically, i.e., an automatic approach serves as basis for intellectual decisions. 
 
-This paper aims to address two main \textbf{audiences}: 
-(1) metadata practitioners seeking for how to represent metadata and data on different aggregation levels in RDF and
-(2) metadata providers and harvesters ensuring high quality data and metadata by validating RDF data according to certain constraints.
-In this paper, we show in form of a complete real world running example how to represent metadata on person-level data (\emph{Disco}), metadata on aggregated data (\emph{QB}), and data on both aggregation levels in a rectangular format (\emph{PHDD}) in RDF and how therefore used vocabularies are interrelated (\textbf{contribution 1}, section \ref{rdf-representation}).
-We explained why RDF validation is important in this context and how metadata on person-level data, aggregated data, thesauri, and statistical classifications as well as data on both aggregation levels is validated against constraints to ensure high (meta)data quality (\textbf{contribution 2}, section \ref{rdf-validation}).
- 
-%The remainder of the paper is structured as follows.
-
 %\section{Running Example}
 %\label{running-example}
 \section{Represent Metadata and Data in RDF}
 \label{rdf-representation}
 
+\textcolor{red}{figure / metadata: person-level, aggregated, thesauri, catalogs, statistical classifications / data: rectangular data}
+
 Eurostat\footnote{\url{http://ec.europa.eu/eurostat}} is the statistical office of the European Union. Its task is to provide statistics at European level that enable comparisons between countries and regions.
 Eurostat provides publicly available European aggregated data (downloadable in machine-readable format like CSV files) and its metadata (only textual descriptions).
 SBE researchers have a strong interest, e.g., in the availability of childcare services across European Union Member States.
+\tb{folgendes beispiel bezieht sich auf diesen datensatz}
 
 \textbf{Metadata on Aggregated Data in RDF.}
 The variable \emph{formal childcare}\footnote{\url{http://ec.europa.eu/eurostat/web/products-datasets/-/ilc_caindformal}} (in contrast to childcare at home)
 captures the measured availability of childcare services in percent over the population.
 The present data collection refers to data on formal childcare and other types of care by the variables \emph{year}, \emph{duration} (0 hours, 1 - 29 HPW; 30 HPW), \emph{age} of the child (0-2 years; 3 to admission age for compulsory school; admission age for compulsory school to 12) and \emph{country}.
-
-\tb{ToDO for Ben: can you please insert how example is represented in Data Cube in this paragraph}
-
 \emph{QB} is a vocabulary to represent metadata on multi-dimensional aggregate data.
-
-data set
-
-data structure definition
-
-dimensions
-
-measure
-
-observations
+Such data is represented using \emph{QB} in two files, a \emph{qb:DataSet} and a \emph{qb:DataStructureDefinition}.
+The \emph{qb:DataStructureDefinition} contains metadata of the present data collection.
+Thereby, the variable \emph{formal childcare} is modelled as \emph{qb:measure}, since it expresses what has been measured in the data collection.
+The \emph{year}, \emph{duration}, \emph{age}, etc. are defined as \emph{qb:dimension}.
+The particular data values, i.e. the specific availability of childcare services in percent over the population in particular years, are collected in a \emph{qb:DataSet}. Each data value is represented inside a \emph{qb:Observation} which additionally contains the particular dimensional values associated with that data value, e.g. the concrete year in which the formal childcare has been determined.
 
 \footnote{\textcolor{red}{The complete running example in RDF is available at: \url{XXXXX}}}
 
-\textbf{Aggregated and Person-Level Data in RDF.}
+\tb{aut SDMX sind year, duration, age, etc. keine Variablen, sondern Dimensionen}
+
+\textbf{Rectangular Data in RDF.}
 As Eurostat provides aggregated data as CSV files, we can easily represent the two-dimensional table in RDF by means of \emph{PHDD}.
 \emph{PHDD} is a vocabulary to represent aggregated and person-level data in a rectangular format. 
 The data could be either represented in records with character-separated values (CSV) or in records with fixed length. 
@@ -455,11 +451,11 @@ Bosch et al. identified 74 requirements to formulate RDF constraints; each of th
 We published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} in which we explain each requirement (constraint type) in detail and give examples for each expressed by different constraint languages.
 The knowledge representation formalism \emph{Description logics (DL)}, with its  well-studied theoretical properties, provides the foundational basis for each constraint type.
 Therefore, this technical report contains mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
-For this paper, we developed a system to classify RDF constraint types and RDF constraints\footnote{For simplicity reasons, we use the terms \emph{constraint types} and \emph{constraints} instead of \emph{RDF constraint types} and \emph{RDF constraints} in the rest of the paper}.
-Constraints are instantiated from constraint types, which are organized as disjoint sets, in order to validate both metadata and data represented by any vocabulary.
-We recently published another technical report\footnote{\textcolor{red}{\label{technical-report-1}Available at: \url{http://arxiv.org/abs/XXXXX}}} (serving as first appendix of this paper) in which we describe and classify constraints to validate rectangular data and metadata on person-level data sets, aggregated data sets, thesauri, and statistical classifications.
 
-Constraints are classified as constraint types either corresponding to
+For this paper, we developed a system to classify RDF constraint types and RDF constraints\footnote{For simplicity reasons, we use the terms \emph{constraint types} and \emph{constraints} instead of \emph{RDF constraint types} and \emph{RDF constraints} in the rest of the paper}.
+Constraints are instantiated from constraint types, which are organized as disjoint sets, in order to validate both metadata and data represented by any vocabulary; thus, the proposed classification system is vocabulary-independent.
+Constraint types either corresponding to
+
 \begin{enumerate}
 	\item \emph{RDF validation requirements} (e.g. \emph{R-75, R-81: minimum qualified cardinality restrictions}) or to
 	\item \emph{data model specific constraint types} (e.g. \emph{data model consistency})\cite{BoschZapilkoWackerowEckert2015}.
@@ -490,6 +486,8 @@ whereas $\mathcal{SL}_{1}$ invalid data cannot be processed further.
 Although we provide default severity levels for each constraint, users should be able to specify severity levels of constraints they need to validate for their individual use cases, i.e., users should be able to define use case specific severity levels for constraints.
 In this section, we describe constraints and constraint types which are important to ensure (meta)data  quality on different aggregation levels. 
 Furthermore, we associate constraints with default severity levels and assign them to validation types. 
+
+We recently published a technical report\footnote{\textcolor{red}{\label{technical-report-1}Available at: \url{http://arxiv.org/abs/XXXXX}}} (serving as first appendix of this paper) in which we describe and classify constraints to validate rectangular data and metadata on person-level data sets, aggregated data sets, thesauri, and statistical classifications and therefore apply the proposed classification system.
 
 %
 %- different sets of constraints for different use cases / use case specific constraints
@@ -755,7 +753,11 @@ A SPIN construct template creates constraint violation triples if all triple pat
 \section{Evaluation}
 \label{evaluation}
 
-We exhaustively evaluated the metadata quality of large real world aggregated (\emph{QB}), person-level (\emph{Disco}), and thesauri (\emph{SKOS}) data sets by means of both $\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints of the majority of the constraint types.
+\subsection{Evaluation Setup}
+
+First, several SBE domain experts of the vocabularies \emph{Disco}, \emph{QB}, \emph{SKOS}, \emph{XKOS}, and \emph{PHDD} evaluated the correctness (i.e., the gold standard) of all $\mathcal{CT}_{C}$ and $\mathcal{CT}_{T}$ constraints and therefore the generic applicability of the developed classification system of constraint types and constraints. 
+%i.e., the gold standard, has been proved by multiple SBE domain experts.
+Second, we exhaustively evaluated the metadata quality of large real world aggregated (\emph{QB}), person-level (\emph{Disco}), and thesauri (\emph{SKOS}) data sets by means of both $\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints of the majority of the constraint types.
 We validated 
 9,990 / 3,775,983,610 (\emph{QB}),
 4,178 / 477,737,281 (\emph{SKOS}), and 
@@ -776,8 +778,9 @@ the \emph{DwB Discovery Portal}, the
 We recently published a technical report\footnote{\label{technical-report-2}\textcolor{red}{Available at: \url{http://arxiv.org/abs/XXXXX}}} (serving as second appendix of this paper) 
 in which we describe the comprehensive evaluation in detail \cite{BoschZapilkoWackerowEckert2015-2}. 
 As we evaluated nearly 10 thousand \emph{QB} data sets, we published the evaluation results for each data set in form of one document per SPARQL endpoint\footnote{Available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/evaluation/data-sets/data-cube}}.
-The correctness of all constraints, i.e., the gold standard, has been proved by SBE domain experts.
 Table \ref{tab:evaluation} shows the evaluation results.
+
+\subsection{Evaluation Results and Discussion}
 
 \begin{table}[H]
 		\scriptsize
@@ -785,7 +788,7 @@ Table \ref{tab:evaluation} shows the evaluation results.
     \begin{tabular}{@{}lcccc@{}}
 %           & \multicolumn{6}{c}{\textbf{Vocabularies}}
 %    \\  \cmidrule{2-7}
-    \\       \textbf{Criteria\tablefootnote{\emph{C (constraints), CT (constraint types), CV (constraint violations)}}}
+    \\       \textbf{Criteria}
            & \textbf{\emph{Disco}}
            & \textbf{\emph{QB}}
 					 & \textbf{\emph{SKOS}}
@@ -795,22 +798,25 @@ Table \ref{tab:evaluation} shows the evaluation results.
 		\emph{Data Sets} & 1,526 & 9,990 & 4,178 & 15,694 \\
 		\hline
     \emph{CV} & 3,545,703 & 45,635,846 & 5,540,988 & 54,722,537\\
-		\emph{CV ($\mathcal{SL}_{0}$)} & 2,437,922 (68.8\%) & 0 (0\%) & 2,281,740 (41.2\%) & 4,719,662 (8.6\%) \\
-		\emph{CV ($\mathcal{SL}_{1}$)} & 473,574 (13.4\%) & 45,520,613 (99.75\%) & 3,259,248 (58.8\%) & 49,253,435 (90\%) \\
+		\emph{CV ($\mathcal{SL}_{0}$)} & 2,437,922 (\textbf{68.8\%}) & 0 (0\%) & 2,281,740 (41.2\%) & 4,719,662 (8.6\%) \\
+		\emph{CV ($\mathcal{SL}_{1}$)} & 473,574 (13.4\%) & 45,520,613 (\textbf{99.75\%}) & 3,259,248 (\textbf{58.8\%}) & 49,253,435 (\textbf{90\%}) \\
     \emph{CV ($\mathcal{SL}_{2}$)} & 634,207 (17.9\%) & 115,233 (0.25\%) & 0 (0\%) & 749,440 (1.4\%) \\
 		\hline
-		\emph{CT} & 52 (15\textbar 37)\tablefootnote{(\label{fnt:1}implemented \textbar not yet implemented)} & 20 (7\textbar 13)\footnotemark[\ref{fnt:1}] & 14 (4\textbar 10)\footnotemark[\ref{fnt:1}] & 53 \\
-		\emph{CT} ($\mathcal{C}_{C}$) & 30 (57.7\%) & 5 (25\%) & 5 (35.7\%) & 30 (56.6\%) \\
-		\emph{CT} ($\mathcal{C}_{T}$) & 22 (42.3\%) & 15 (75\%) & 9 (64.3\%) & 23 (43.4\%) \\
+		\emph{CT} & 52 & 20 & 14 & 53 \\
+		\emph{CT} ($\mathcal{C}_{C}$) & 30 (\textbf{57.7\%}) & 5 (25\%) & 5 (35.7\%) & 30 (\textbf{56.6\%}) \\
+		\emph{CT} ($\mathcal{C}_{T}$) & 22 (42.3\%) & 15 (\textbf{75\%}) & 9 (\textbf{64.3\%}) & 23 (43.4\%) \\
 		\hline
-		\emph{C} & 142 (77\textbar 65)\footnotemark[\ref{fnt:1}] & 35 (20\textbar 15)\footnotemark[\ref{fnt:1}] & 35 (17\textbar 18)\footnotemark[\ref{fnt:1}] & 212 \\
-		\emph{C} ($\mathcal{C}_{C}$) & 72 (50.7\%) & 16 (45.7\%) & 21 (60\%) & 109 (51.4\%) \\
-		\emph{C} ($\mathcal{C}_{T}$) & 70 (49.3\%) & 19 (54.3\%) & 14 (40\%) & 103 (48.6\%) \\
-		\emph{C ($\mathcal{SL}_{0}$)} & 75 (52.8\%)& 4 (11.4\%) & 21 (60\%) & 100 (47.2\%) \\
+		\emph{C} & 142 & 35 & 35 & 212 \\
+		\hline
+		\emph{C} ($\mathcal{C}_{C}$) & 72 (\textbf{50.7\%}) & 16 (45.7\%) & 21 (\textbf{60\%}) & 109 (\textbf{51.4\%}) \\
+		\emph{C} ($\mathcal{C}_{T}$) & 70 (\textbf{49.3\%}) & 19 (\textbf{54.3\%}) & 14 (40\%) & 103 (\textbf{48.6\%}) \\
+		\hline
+		\emph{C ($\mathcal{SL}_{0}$)} & 75 (\textbf{52.8\%})& 4 (11.4\%) & 21 (\textbf{60\%}) & 100 (\textbf{47.2\%}) \\
 		\emph{C ($\mathcal{SL}_{1}$)} & 9 (6.3\%)& 3 (8.6\%) & 5 (14.3\%) & 17 (8\%) \\
-		\emph{C ($\mathcal{SL}_{2}$)} & 58 (40.8\%) & 28 (80\%) & 9 (25.7\%) & 95 (44.8\%) \\
+		\emph{C ($\mathcal{SL}_{2}$)} & 58 (40.8\%) & 28 (\textbf{80\%}) & 9 (25.7\%) & 95 (\textbf{44.8\%}) \\
     \bottomrule
     \end{tabular}
+    \\ \emph{C (constraints), CT (constraint types), CV (constraint violations)}
     \caption{Evaluation}
 		\label{tab:evaluation}
     \end{center}
@@ -832,7 +838,7 @@ For \emph{QB} (nearly 100\%) and \emph{SKOS} (almost 60\%), the majority of the 
 80\% of all \emph{QB} constraints are $\mathcal{SL}_{2}$ constraints leading to less than 1\% of all \emph{QB} constraint violations.
 Altogether, exactly 90\% of the constraint violations are assigned to the severity level $\mathcal{SL}_{1}$.
 These findings are surprising as only 8\% of all defined constraints are $\mathcal{SL}_{1}$ constraints.
-The constraints responsible for the largest numbers of constraint violations are \emph{DISCO-C-LABELING-AND-DOCUMENTATION-06} and \emph{DISCO-C-COMPARISON-VARIABLES-02} (both 547,916) (\emph{Disco}), \emph{DATA-CUBE-C-DATA-MODEL-CONSISTENCY-05} (45,514,102) (\emph{QB}), and \emph{SKOS-C-LANGUAGE-TAG-CARDINALITY-01} (2,508,903) (\emph{SKOS}).
+The constraints responsible for the largest numbers of constraint violations are \emph{DISCO-C-LABELING-AND-DOCUMENTATION-06} and \emph{DISCO-C-COMPARISON-VARIABLES-02} (both 547,916) (\emph{Disco}), \emph{DATA-CUBE-C-DATA-MODEL-CONSISTENCY-05} (45,514,102) (\emph{QB}), and \emph{SKOS-C-LANGUAGE-TAG-CARDINALITY-01} (2,508,903) (\emph{SKOS})\tb{kurz beschreiben}.
 We refer to the technical reports\footnotemark[\ref{technical-report-1}] \footnotemark[\ref{technical-report-2}] to get details about constraints on and the evaluation of \emph{XKOS} and \emph{PHDD} data sets.
 
 \section{Related Work}
@@ -848,7 +854,7 @@ so-called secondary-level validation tools like \emph{Schematron}\footnote{\url{
 With RDF validation, one can overcome drawbacks when validating XML documents\footnote{\url{http://www.xmlmind.com/xmleditor/_distrib/doc/xmltool/xsd_structure_limitations.html}}.
 It cannot be validated, e.g., if each code of a variable's code list is associated with a category (\emph{R-86}).
 Additionally, it cannot be validated that if an element has a specific value, then certain child elements must be present (\emph{R-71}).  
-A comprehensive comparison of XML and RDF validation is not the purpose of this paper.
+A comprehensive comparison of XML and RDF validation, however, is not within the scope of this paper.
 
 %\textbf{RDF Data Cube Vocabulary.}
 A well-formed \emph{RDF Data Cube} is an a RDF graph describing one or more instances of \emph{qb:DataSet} for which each of the 22 integrity constraints\footnote{http://www.w3.org/TR/vocab-data-cube/\#wf}, defined within the \emph{QB} specification, passes.
@@ -859,7 +865,7 @@ taxonomists in improving SKOS vocabularies by pointing out quality
 issues that go beyond the integrity constraints defined in the SKOS specification \cite{MaderHaslhoferIsaac2012}.
 
 \section{Conclusion and Future Work}
-
+\tb{kürzer!}
 In this paper, we showed in form of a complete real world running example how to represent metadata on person-level data (\emph{Disco}), metadata on aggregated data (\emph{QB}), and data on both aggregation levels in a rectangular format (\emph{PHDD}) in RDF and how therefore used vocabularies are interrelated (\textbf{contribution 1}, section \ref{rdf-representation}).
 We explained why RDF validation is important in this context and how metadata on person-level data, aggregated data, thesauri, and statistical classifications as well as data on both aggregation levels is validated against constraints to ensure high (meta)data quality\footnote{The first appendix of this paper describing each constraint in detail is available at: \textcolor{red}{\url{http://arxiv.org/abs/XXXXX}} \cite{BoschZapilkoWackerowEckert2015}} (\textbf{contribution 2}, section \ref{rdf-validation}). 
 We distinguish two validation types:
@@ -871,7 +877,8 @@ and propose an extensible metric to measure the continuum of severity levels.
 We implemented a validation environment (available at \url{http://purl.org/net/rdfval-demo}) to validate RDF data according to constraints expressed my arbitrary constraint languages and to ensure correct syntax, semantics, and integrity of diverse vocabularies such as \emph{Disco, QB, PHDD, SKOS, and XKOS} (section \ref{implementation}).
 We exhaustively evaluated the metadata quality of large real world aggregated (\emph{QB}), person-level (\emph{Disco}), and thesauri (\emph{SKOS}) data sets by means of 212 $\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints of the majority of the constraint types.
 We validated more than 4.2 billion triples and 15 thousand data sets\footnote{The second appendix of this paper describing the evaluation in detail is available at: \textcolor{red}{\url{http://arxiv.org/abs/XXXXX}} \cite{BoschZapilkoWackerowEckert2015-2}.} (section \ref{evaluation}).
-It is still ongoing work to identify and classify constraints on rectangular data (\emph{PHDD}) and statistical classifications (\emph{XKOS}) and to actually evaluate the (meta)data quality of real world \emph{XKOS} and \emph{PHDD} data sets.
+
+%It is still ongoing work to identify and classify constraints on rectangular data (\emph{PHDD}) and statistical classifications (\emph{XKOS}) and to actually evaluate the (meta)data quality of real world \emph{XKOS} and \emph{PHDD} data sets.
 
 \bibliography{../../literature/literature}{}
 \bibliographystyle{plain}
