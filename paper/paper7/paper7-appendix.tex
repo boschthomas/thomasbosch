@@ -215,7 +215,7 @@
 %
 %
 \title{RDF Constraints to Validate}
-\subtitle{Metadata on Person-Level, Aggregated, Thesauri, and Statistical Classifications Data Sets and Rectangular Data}
+\subtitle{Rectangular Data and Metadata on Person-Level Data, Aggregated Data, Thesauri, and Statistical Classifications}
 
 \titlerunning{XXXXX}  % abbreviated title (for running head)
 %                                     also used for the TOC unless
@@ -236,22 +236,22 @@ University of Mannheim, Germany \\
 \maketitle              % typeset the title of the contribution
 
 \begin{abstract}
-To ensure high quality and trust, RDF data as well as its metadata must satisfy certain criteria - specified in terms of RDF constraints.
-From 2012 to 2015 together with other Linked Data community members and experts from the social, behavioural, and economic sciences (\emph{SBE}), we developed diverse vocabularies to represent \emph{SBE} metadata and data in RDF.
+To ensure high quality of and trust in both metadata and data, their representation in RDF must satisfy certain criteria - specified in terms of RDF constraints.
+From 2012 to 2015 together with other Linked Data community members and experts from the social, behavioural, and economic sciences (\emph{SBE}), we developed diverse vocabularies to represent \emph{SBE} metadata and rectangular data in RDF.
 The \emph{DDI-RDF Discovery Vocabulary (Disco)} 
-is designed for the purposes of supporting the dissemination, management,
-and reuse of person-level data (data about individuals) collected in form of responses to studies and archived for research purposes.
-The \emph{RDF Data Cube Vocabulary (Data Cube, QB)} is a W3C recommendation for representing \emph{data cubes}, i.e. multi-dimensional aggregate data, in RDF. 
-\emph{Physical Data Description (PHDD)} is a vocabulary to represent aggregated and person-level data in a rectangular format. 
-The data could be either represented in records with character-separated values (\emph{CSV}) or in records with fixed length. 
-The \emph{Simple Knowledge Organization System (SKOS)} is a vocabulary to represent knowledge organization systems such as thesauri, classification schemes, subject heading lists, and taxonomies in RDF.
-\emph{XKOS} is a SKOS extension to describe formal statistical classifications like the \emph{International Standard Classification of Occupations} (\emph{ISCO}). 
+is designed to support the dissemination, management,
+and reuse of person-level data, i.e., data about individuals, households, and businesses, collected in form of responses to studies and archived for research purposes.
+The \emph{RDF Data Cube Vocabulary (Data Cube)} is a W3C recommendation for expressing \emph{data cubes}, i.e. multi-dimensional aggregate data. 
+\emph{Physical Data Description (PHDD)} is a vocabulary to model data in rectangular format. 
+The data could either be represented in records with character-separated values (\emph{CSV}) or fixed length. 
+The \emph{Simple Knowledge Organization System (SKOS)} is a vocabulary to build knowledge organization systems such as thesauri, classification schemes, and taxonomies.
+\emph{XKOS} is a SKOS extension to describe formal statistical classifications. 
 
-In this paper, we describe RDF constraints to validate metadata on person-level (\emph{Disco}), aggregated (\emph{QB}), thesauri (\emph{SKOS}), and statistical classifications (\emph{XKOS}) data sets and to validate rectangular data (\emph{PHDD}).
-We assign each constraint to constraint types either corresponding to RDF validation requirements or to data model specific constraint types.
-This document is updated continuously as modifying and adding constraints is ongoing work.
+In this paper, we describe RDF constraints to validate metadata on person-level data (\emph{Disco}), aggregated data (\emph{Data Cube}), thesauri (\emph{SKOS}), and statistical classifications (\emph{XKOS}) and to validate rectangular data (\emph{PHDD}).
+We assign RDF constraints to RDF constraint types either corresponding to RDF validation requirements or to data model specific constraint types.
+This technical report is updated continuously as modifying, adding, and deleting constraints remains ongoing work.
 
-\keywords{RDF Validation, RDF Constraints, DDI-RDF Discovery Vocabulary, Disco, RDF Data Cube Vocabulary, QB, Thesauri, SKOS, Rectangular Data, PHDD, Statistical Classifications, Extended SKOS, XKOS, Linked Data, Semantic Web}
+\keywords{RDF Validation, RDF Constraints, DDI-RDF Discovery Vocabulary, RDF Data Cube Vocabulary, Thesauri, SKOS, Rectangular Data, Statistical Classifications, XKOS, Linked Data, Semantic Web}
 \end{abstract}
 
 \section{Introduction}
@@ -270,190 +270,15 @@ We determined the default \emph{severity level} (corresponds to requirement \emp
 We propose an extensible metric to measure the continuum of severity levels ranging from $\mathcal{SL}_{0}$ (informational) via $\mathcal{SL}_{1}$ (warning) to $\mathcal{SL}_{2}$ (error). 
 Although we provide default severity levels for each constraint, users should be able to specify severity levels of constraints they need to validate for their individual use cases, i.e., users should be able to define use case specific severity levels for constraints.
 
-\section{RDF Constraints to Validate Metadata and Data}
-
-Each of the following subsections stands for a constraint type either corresponding to an RDF validation requirement or to a data model specific constraint type.
-Constraint types marked with an asterisk (*) can be used as OWL 2 axioms. Thus, reasoners may be used to infer implicit triples which may resolve constraint violations caused when these constraints are validated.
-\underline{Underlined subsections} represent data model specific constraint types and do not correspond to RDF validation requirements (constraint types).
+The following two sections encompass RDF constraints classified as constraint types either corresponding to RDF validation requirements (section \ref{RDF-validation-requirements-constraint-types}) or data model specific constraint types (section \ref{data-model-specific-constraint-types}).
+Constraint types marked with an asterisk (*) can be used as OWL 2 axioms. Thus, reasoners may be used prior to the validation to infer implicit triples which may resolve or cause constraint violations.
 $\mathcal{C}_{T}$ constraint types are marked with the superscript\textsuperscript{T}.
-$\mathcal{C}_{C}$ constraint types are not marked.
+As $\mathcal{C}_{T}$ and $\mathcal{C}_{C}$ are disjoint sets, $\mathcal{C}_{C}$ constraint types are not explicitly marked.
 
-\subsection{\underline{Comparison}}
+%\section{RDF Constraints to Validate Metadata and Data}
 
-\begin{itemize}
-	\item \textbf{{\em DISCO-C-COMPARISON-VARIABLES-01}}: 
-	are compared variables represented in a compatible way, i.e. are the variables' code lists theoretically comparable?
-		\begin{itemize}
-		\item severity level: WARNING
-	\end{itemize}
-	\item \textbf{{\em DISCO-C-COMPARISON-VARIABLES-02}}: 
-	are variable definitions (\emph{dcterms:description}) available for each variable (\emph{disco:Variable}) to compare?
-		\begin{itemize}
-		\item severity level: ERROR
-	\end{itemize}
-	\item \textbf{{\em DISCO-C-COMPARISON-VARIABLES-03}}:
-	are code lists structured properly for each variable (\emph{disco:Variable}) to compare?
-		\begin{itemize}
-		\item severity level: ERROR
-	\end{itemize}
-	\item \textbf{{\em DISCO-C-COMPARISON-VARIABLES-04}}:
-	is for each code (for each variable (\emph{disco:Variable}) to compare) an associated category (a human-readable label) specified?
-		\begin{itemize}
-		\item severity level: INFO
-	\end{itemize}
-	\item \textbf{{\em DISCO-C-COMPARISON-VARIABLES-05}}:
-	each (\emph{disco:Variable}) to compare must be present.
-	\begin{itemize}
-		\item severity level: ERROR
-	\end{itemize}
-\end{itemize}
-
-\subsection{\underline{Data Model Consistency}}
-Is the data consistent with the intended semantics of the data model?
-Such validation rules ensure the integrity of the data according to the data model.
-
-\begin{itemize}
-	\item \textbf{{\em DISCO-C-DATA-MODEL-CONSISTENCY-01}}: 
-	Codes (\emph{skos:Concept}) are ordered and therefore have fixed positions in an ordered collection (\emph{skos:OrderedCollection}) within a variable representation.
-	The cumulative percentage of the current code is the cumulative percentage of the previous code (\emph{disco:cumulativePercentage})
-	plus the percentage value (\emph{disco:percentage}) of the current code. 
-		\begin{itemize}
-		\item severity level: ERROR
-	\end{itemize}
-	\item \textbf{{\em DISCO-C-DATA-MODEL-CONSISTENCY-02}}: 
-	The cumulative percentage (\emph{disco:cumulativePercentage}) of the last code must be 100. 
-		\begin{itemize}
-		\item severity level: ERROR
-	\end{itemize}
-	\item \textbf{{\em DISCO-C-DATA-MODEL-CONSISTENCY-03}}: 
-	The number of valid cases (\emph{disco:SummaryStatistics} of the type (\emph{disco:summaryStatisticType}) \emph{ddicv-sumstats:ValidCases}) 
-	for a particular variable must exactly be the sum of absolute frequencies of all valid cases (\emph{disco:inValid} of \emph{skos:Concept} is true).
-		\begin{itemize}
-		\item severity level: ERROR
-	\end{itemize}
-	\item \textbf{{\em DISCO-C-DATA-MODEL-CONSISTENCY-04}}: 
-	The number of invalid cases (\emph{disco:SummaryStatistics} of the type (\emph{disco:summaryStatisticType}) \emph{ddicv-sumstats:InvalidCases}) 
-	for a particular variable must exactly be the sum of absolute frequencies of all invalid cases (\emph{disco:inValid} of \emph{skos:Concept} is false).
-		\begin{itemize}
-		\item severity level: ERROR
-	\end{itemize}
-	\item \textbf{{\em DISCO-C-DATA-MODEL-CONSISTENCY-05}}: 
-	The total number of valid and invalid cases (\emph{disco:SummaryStatistics} of the type (\emph{disco:summaryStatisticType}) \emph{ddicv-sumstats:NumberOfCases}) 
-	for a particular variable must exactly be the number of valid cases plus the number of invalid cases.
-		\begin{itemize}
-		\item severity level: ERROR
-	\end{itemize}
-	\item \textbf{{\em DISCO-C-DATA-MODEL-CONSISTENCY-06}}: 
-	Some summary statistics types can only be calculated for given variable types. 
-	It is not possible to compute minimum values for string variables.
-		\begin{itemize}
-		\item severity level: ERROR
-	\end{itemize}
-	\item \textbf{{\em DISCO-C-DATA-MODEL-CONSISTENCY-07}}: 
-	Some summary statistics types can only be calculated for given variable types. 
-	It is not possible to compute mean values for categorical variables, only for metric variables.
-		\begin{itemize}
-		\item severity level: ERROR
-	\end{itemize}
-\end{itemize}
-
-\begin{itemize}
-	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-01:}}
-	Only attributes may be optional (\emph{IC-6} \cite{CyganiakReynolds2014}) - 
-	The only components of a \emph{qb:DataStructureDefinition} that may be marked as optional, using \emph{qb:componentRequired} are attributes. 
-	\begin{itemize}
-		\item severity level: WARNING
-	\end{itemize}
-	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-02:}}
-	Slice Keys consistent with DSD (\emph{IC-8} \cite{CyganiakReynolds2014}) -
-	Every \emph{qb:componentProperty} on a \emph{qb:SliceKey} must also be declared as a \emph{qb:component} of the associated \emph{qb:DataStructureDefinition}. 
-	\begin{itemize}
-		\item severity level: ERROR
-	\end{itemize}
-	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-03:}} 
-	Slice dimensions complete (\emph{IC-10} \cite{CyganiakReynolds2014}) - 
-	Every \emph{qb:Slice} must have a value for every dimension declared in its \emph{qb:sliceStructure}. 
-	\begin{itemize}
-		\item severity level: ERROR
-	\end{itemize}
-		\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-04:}}
-	All dimensions required (\emph{IC-11} \cite{CyganiakReynolds2014}) - 
-	Every \emph{qb:Observation} has a value for each dimension declared in its associated \emph{qb:DataStructureDefinition}. 
-	\begin{itemize}
-		\item severity level: ERROR
-	\end{itemize}
-		\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-05:}}
-	No duplicate observations (\emph{IC-12} \cite{CyganiakReynolds2014}) - 
-	No two \emph{qb:Observations} in the same \emph{qb:DataSet} may have the same value for all dimensions. 
-	\begin{itemize}
-		\item severity level: WARNING
-	\end{itemize}
-	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-06:}}
-	Required attributes (\emph{IC-13} \cite{CyganiakReynolds2014}) -
-	Every \emph{qb:Observation} has a value for each declared attribute that is marked as required. 
-	\begin{itemize}
-		\item severity level: ERROR
-	\end{itemize}
-	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-07:}}
-	All measures present (\emph{IC-14} \cite{CyganiakReynolds2014}) -
-	In a \emph{qb:DataSet} which does not use a Measure dimension then each individual \emph{qb:Observation} must have a value for every declared measure. 
-	\begin{itemize}
-		\item severity level: ERROR
-	\end{itemize}
-	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-08:}}
-	Measure dimension consistent (\emph{IC-15} \cite{CyganiakReynolds2014}) -
-	In a \emph{qb:DataSet} which uses a Measure dimension then each qb:Observation must have a value for the measure corresponding to its given \emph{qb:measureType}. 
-	\begin{itemize}
-		\item severity level: ERROR
-	\end{itemize}
-	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-09:}}
-	Single measure on measure dimension observation (\emph{IC-16} \cite{CyganiakReynolds2014}) -
-	In a \emph{qb:DataSet} which uses a Measure dimension then each \emph{qb:Observation} must only have a value for one measure (by \emph{IC-15} this will be the measure corresponding to its \emph{qb:measureType}). 
-	\begin{itemize}
-		\item severity level: ERROR
-	\end{itemize}
-	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-10:}}
-	All measures present in measures dimension cube (\emph{IC-17} \cite{CyganiakReynolds2014}) -
-	In a \emph{qb:DataSet} which uses a Measure dimension then if there is a Observation for some combination of non-measure dimensions then there must be other Observations with the same non-measure dimension values for each of the declared measures. 
-	\begin{itemize}
-		\item severity level: ERROR
-	\end{itemize}
-	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-11:}}
-	Consistent data set links (\emph{IC-18} \cite{CyganiakReynolds2014}) -
-	If a \emph{qb:DataSet} \emph{D} has a \emph{qb:slice} \emph{S}, and \emph{S} has an \emph{qb:observation} \emph{O}, then the \emph{qb:dataSet} corresponding to \emph{O} must be \emph{D}. 
-	\begin{itemize}
-		\item severity level: WARNING
-	\end{itemize}
-\end{itemize}
-
-\begin{itemize}
-
-	\item \textbf{{\em SKOS-C-DATA-MODEL-CONSISTENCY-01\footnote{Corresponds to qSKOS Quality Issues - SKOS Semi-Formal Consistency Issues - Relation Clashes}:}}
-	Relation Clashes:
-  Covers condition S27 from the SKOS reference document, that has not been defined formally. 
-	\begin{itemize}
-	  \item Implementation:
-		In a first step, all pairs of concepts are found that are associatively connected, using a SPARQL query. In the second step, a graph is created, containing only hierarchically related concepts and the respective relations. For each concept pair from the first step, we check for a path in the graph from step two. If such a path is found, a clash has been identified and the causing concepts are returned. 
-		\item Severity level: INFO
-	\end{itemize}
-	
-	\item \textbf{{\em SKOS-C-DATA-MODEL-CONSISTENCY-02\footnote{Corresponds to qSKOS Quality Issues - SKOS Semi-Formal Consistency Issues - Mapping Clashes}:}}
-	Mapping Clashes:
-  Covers condition S46 from the SKOS reference document, that has not been defined formally. 
-	\begin{itemize}
-	  \item Implementation:
-		Can be solved by issuing a SPARQL query. 
-		\item Severity level: INFO
-	\end{itemize}
-	
-	\item \textbf{{\em SKOS-C-DATA-MODEL-CONSISTENCY-03\footnote{Corresponds to qSKOS Quality Issues - SKOS Semi-Formal Consistency Issues - Mapping Relations Misuse}:}}
-	Mapping Relations Misuse:
-  According to the SKOS reference documentation, mapping relations (e.g., \emph{skos:broadMatch} or \emph{skos:relatedMatch}) should be asserted to concepts being members of different concept schemes. This check finds concepts that are related by a mapping property and are either members of the same concept scheme or members of no concept scheme at all. 
-	\begin{itemize}
-		\item Severity level: INFO
-	\end{itemize}
-	
-\end{itemize}
+\section{RDF Constraint Types Corresponding to RDF Validation Requirements}
+\label{RDF-validation-requirements-constraint-types}
 
 \subsection{Subsumption*\textsuperscript{T}}
 
@@ -1493,6 +1318,15 @@ A matching triple has any literal / object except those explicitly excluded\foot
 	\begin{itemize}
 		\item severity level: ERROR
 	\end{itemize}
+	
+	\textcolor{blue}{
+	\item \textbf{{\em DISCO-C-LITERAL-RANGES-02:}}
+{\em disco:cumulativePercentage} (domain: {\em disco:CategoryStatistics}) literals must be of the datatype {\em xsd:double} whose range should be restricted to be between 0 and 100.
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	}
+	
 \end{itemize}
 
 \subsection{Negative Literal Ranges}
@@ -1814,19 +1648,19 @@ Examples for {\em Mathematical Operations}\footnote{{\em R-42-MATHEMATICAL-OPERA
 	\end{itemize}
 
 	\item \textbf{{\em DISCO-C-MATHEMATICAL-OPERATIONS-02}}:
-	For a given variable, the sum of all category statistics (frequency) has to be equal to the 'total' value of summary statistics.
+	For a given variable, the sum of the frequencies of all codes of the variable's code list has to be equal to the variable's total number of cases (summary statistics of the type 'number of cases').
 	\begin{itemize}
 		\item severity level: ERROR
 	\end{itemize}
 	
 	\item \textbf{{\em DISCO-C-MATHEMATICAL-OPERATIONS-03}}:
-	For a given variable, the sum of 'valid total' and 'missing total' has to be equal to 'total'.
+	For a given variable, the sum of 'valid cases' and 'invalid cases' has to be equal to the total 'number of cases'.
 	\begin{itemize}
 		\item severity level: ERROR
 	\end{itemize}
 	
 	\item \textbf{{\em DISCO-C-MATHEMATICAL-OPERATIONS-04}}:
-	For a given variable, the 'total' value for country 'All' must be equal to the sum of the 'total' value for all Countries.
+	For a given variable, the total 'number of cases' value for the country 'All' must be equal to the sum of the total 'number of cases' value for each country.
 	\begin{itemize}
 		\item severity level: ERROR
 	\end{itemize}
@@ -2120,7 +1954,7 @@ Some constraints require aggregating multiple values, especially via \emph{COUNT
 	\begin{itemize}
 		\item severity level: INFO
 	\end{itemize}
-	\item \textbf{{\em DISCO-C-AGGREGATION-06}}: the cumulative percentage of all codes of a given variable must be 100.
+	\item \textbf{{\em DISCO-C-AGGREGATION-06}}: the sum of percentages of all codes of a given variable must be 100.
 	\begin{itemize}
 		\item severity level: INFO
 	\end{itemize}
@@ -2130,7 +1964,212 @@ Some constraints require aggregating multiple values, especially via \emph{COUNT
 	\end{itemize}
 \end{itemize} 
 
-\subsection{\underline{Structure}}
+\subsection{Provenance}
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-PROVENANCE-01}}: 
+	Series should have provenance information (\emph{dcterms:provenance}).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-PROVENANCE-02}}: 
+	Studies should have provenance information (\emph{dcterms:provenance}).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-PROVENANCE-03}}: 
+	Data sets should have provenance information (\emph{dcterms:provenance}).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-PROVENANCE-04}}: 
+	Data files should have provenance information (\emph{dcterms:provenance}).
+	\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+\end{itemize} 
+
+\section{Data Model Specific RDF Constraint Types}
+\label{data-model-specific-constraint-types}
+
+\subsection{Comparison}
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-COMPARISON-VARIABLES-01}}: 
+	are compared variables represented in a compatible way, i.e. are the variables' code lists theoretically comparable?
+		\begin{itemize}
+		\item severity level: WARNING
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-COMPARISON-VARIABLES-02}}: 
+	are variable definitions (\emph{dcterms:description}) available for each variable (\emph{disco:Variable}) to compare?
+		\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-COMPARISON-VARIABLES-03}}:
+	are code lists structured properly for each variable (\emph{disco:Variable}) to compare?
+		\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-COMPARISON-VARIABLES-04}}:
+	is for each code (for each variable (\emph{disco:Variable}) to compare) an associated category (a human-readable label) specified?
+		\begin{itemize}
+		\item severity level: INFO
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-COMPARISON-VARIABLES-05}}:
+	each (\emph{disco:Variable}) to compare must be present.
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+\end{itemize}
+
+\subsection{Data Model Consistency}
+Is the data consistent with the intended semantics of the data model?
+Such validation rules ensure the integrity of the data according to the data model.
+
+\begin{itemize}
+	\item \textbf{{\em DISCO-C-DATA-MODEL-CONSISTENCY-01}}: 
+	Codes (\emph{skos:Concept}) are ordered and therefore have fixed positions in an ordered collection (\emph{skos:OrderedCollection}) within a variable representation.
+	The cumulative percentage of the current code is the cumulative percentage of the previous code (\emph{disco:cumulativePercentage})
+	plus the percentage value (\emph{disco:percentage}) of the current code. 
+		\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-DATA-MODEL-CONSISTENCY-02}}: 
+	The cumulative percentage (\emph{disco:cumulativePercentage}) of the last code must be 100. 
+		\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-DATA-MODEL-CONSISTENCY-03}}: 
+	The number of valid cases (\emph{disco:SummaryStatistics} of the type (\emph{disco:summaryStatisticType}) \emph{ddicv-sumstats:ValidCases}) 
+	for a particular variable must exactly be the sum of all frequencies of all valid cases (\emph{disco:inValid} of \emph{skos:Concept} is true).
+		\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-DATA-MODEL-CONSISTENCY-04}}: 
+	The number of invalid cases (\emph{disco:SummaryStatistics} of the type (\emph{disco:summaryStatisticType}) \emph{ddicv-sumstats:InvalidCases})
+	for a particular variable must exactly be the sum of all frequencies of all invalid cases (\emph{disco:inValid} of \emph{skos:Concept} is false).
+		\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-DATA-MODEL-CONSISTENCY-05}}: 
+	The total number of cases (\emph{rdf:value} of the \emph{disco:SummaryStatistics} resource of the type (\emph{disco:summaryStatisticType}) \emph{ddicv-sumstats:NumberOfCases}) 
+	for a particular variable must exactly be the number of valid cases plus the number of invalid cases.
+		\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-DATA-MODEL-CONSISTENCY-06}}: 
+	Some summary statistics types can only be calculated for given variable types. 
+	It is not possible to compute minimum values for string variables.
+		\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DISCO-C-DATA-MODEL-CONSISTENCY-07}}: 
+	Some summary statistics types can only be calculated for given variable types. 
+	It is not possible to compute mean values for categorical variables, only for metric variables.
+		\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-01:}}
+	Only attributes may be optional (\emph{IC-6} \cite{CyganiakReynolds2014}) - 
+	The only components of a \emph{qb:DataStructureDefinition} that may be marked as optional, using \emph{qb:componentRequired} are attributes. 
+	\begin{itemize}
+		\item severity level: WARNING
+	\end{itemize}
+	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-02:}}
+	Slice Keys consistent with DSD (\emph{IC-8} \cite{CyganiakReynolds2014}) -
+	Every \emph{qb:componentProperty} on a \emph{qb:SliceKey} must also be declared as a \emph{qb:component} of the associated \emph{qb:DataStructureDefinition}. 
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-03:}} 
+	Slice dimensions complete (\emph{IC-10} \cite{CyganiakReynolds2014}) - 
+	Every \emph{qb:Slice} must have a value for every dimension declared in its \emph{qb:sliceStructure}. 
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+		\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-04:}}
+	All dimensions required (\emph{IC-11} \cite{CyganiakReynolds2014}) - 
+	Every \emph{qb:Observation} has a value for each dimension declared in its associated \emph{qb:DataStructureDefinition}. 
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+		\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-05:}}
+	No duplicate observations (\emph{IC-12} \cite{CyganiakReynolds2014}) - 
+	No two \emph{qb:Observations} in the same \emph{qb:DataSet} may have the same value for all dimensions. 
+	\begin{itemize}
+		\item severity level: WARNING
+	\end{itemize}
+	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-06:}}
+	Required attributes (\emph{IC-13} \cite{CyganiakReynolds2014}) -
+	Every \emph{qb:Observation} has a value for each declared attribute that is marked as required. 
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-07:}}
+	All measures present (\emph{IC-14} \cite{CyganiakReynolds2014}) -
+	In a \emph{qb:DataSet} which does not use a Measure dimension then each individual \emph{qb:Observation} must have a value for every declared measure. 
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-08:}}
+	Measure dimension consistent (\emph{IC-15} \cite{CyganiakReynolds2014}) -
+	In a \emph{qb:DataSet} which uses a Measure dimension then each qb:Observation must have a value for the measure corresponding to its given \emph{qb:measureType}. 
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-09:}}
+	Single measure on measure dimension observation (\emph{IC-16} \cite{CyganiakReynolds2014}) -
+	In a \emph{qb:DataSet} which uses a Measure dimension then each \emph{qb:Observation} must only have a value for one measure (by \emph{IC-15} this will be the measure corresponding to its \emph{qb:measureType}). 
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-10:}}
+	All measures present in measures dimension cube (\emph{IC-17} \cite{CyganiakReynolds2014}) -
+	In a \emph{qb:DataSet} which uses a Measure dimension then if there is a Observation for some combination of non-measure dimensions then there must be other Observations with the same non-measure dimension values for each of the declared measures. 
+	\begin{itemize}
+		\item severity level: ERROR
+	\end{itemize}
+	\item \textbf{{\em DATA-CUBE-C-DATA-MODEL-CONSISTENCY-11:}}
+	Consistent data set links (\emph{IC-18} \cite{CyganiakReynolds2014}) -
+	If a \emph{qb:DataSet} \emph{D} has a \emph{qb:slice} \emph{S}, and \emph{S} has an \emph{qb:observation} \emph{O}, then the \emph{qb:dataSet} corresponding to \emph{O} must be \emph{D}. 
+	\begin{itemize}
+		\item severity level: WARNING
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+
+	\item \textbf{{\em SKOS-C-DATA-MODEL-CONSISTENCY-01\footnote{Corresponds to qSKOS Quality Issues - SKOS Semi-Formal Consistency Issues - Relation Clashes}:}}
+	Relation Clashes:
+  Covers condition S27 from the SKOS reference document, that has not been defined formally. 
+	\begin{itemize}
+	  \item Implementation:
+		In a first step, all pairs of concepts are found that are associatively connected, using a SPARQL query. In the second step, a graph is created, containing only hierarchically related concepts and the respective relations. For each concept pair from the first step, we check for a path in the graph from step two. If such a path is found, a clash has been identified and the causing concepts are returned. 
+		\item Severity level: INFO
+	\end{itemize}
+	
+	\item \textbf{{\em SKOS-C-DATA-MODEL-CONSISTENCY-02\footnote{Corresponds to qSKOS Quality Issues - SKOS Semi-Formal Consistency Issues - Mapping Clashes}:}}
+	Mapping Clashes:
+  Covers condition S46 from the SKOS reference document, that has not been defined formally. 
+	\begin{itemize}
+	  \item Implementation:
+		Can be solved by issuing a SPARQL query. 
+		\item Severity level: INFO
+	\end{itemize}
+	
+	\item \textbf{{\em SKOS-C-DATA-MODEL-CONSISTENCY-03\footnote{Corresponds to qSKOS Quality Issues - SKOS Semi-Formal Consistency Issues - Mapping Relations Misuse}:}}
+	Mapping Relations Misuse:
+  According to the SKOS reference documentation, mapping relations (e.g., \emph{skos:broadMatch} or \emph{skos:relatedMatch}) should be asserted to concepts being members of different concept schemes. This check finds concepts that are related by a mapping property and are either members of the same concept scheme or members of no concept scheme at all. 
+	\begin{itemize}
+		\item Severity level: INFO
+	\end{itemize}
+	
+\end{itemize}
+
+\subsection{Structure}
 
 SKOS is based on RDF, which is a graph-based data model. Therefore we can concentrate on the vocabulary's graph-based structure for assessing the quality of SKOS vocabularies and apply graph- and network-analysis techniques. 
 
@@ -2231,7 +2270,7 @@ SKOS is based on RDF, which is a graph-based data model. Therefore we can concen
 	\end{itemize}
 \end{itemize}
 
-\subsection{\underline{Labeling and Documentation}}
+\subsection{Labeling and Documentation}
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-LABELING-AND-DOCUMENTATION-01}}: 
@@ -2307,7 +2346,7 @@ SKOS is based on RDF, which is a graph-based data model. Therefore we can concen
 	\end{itemize}
 \end{itemize}
 
-\subsection{\underline{Vocabulary}\textsuperscript{T}}
+\subsection{Vocabulary\textsuperscript{T}}
 Vocabularies should not invent any new terms or use deprecated elements. 
 
 \begin{itemize}
@@ -2354,7 +2393,7 @@ Vocabularies should not invent any new terms or use deprecated elements.
 	\end{itemize}
 \end{itemize}
 
-\subsection{\underline{Linked Data}}
+\subsection{Linked Data}
 
 \begin{itemize}
 	\item \textbf{\em DISCO-C-HTTP-URI-SCHEME-VIOLATION\footnote{Corresponds to qSKOS Quality Issues - Linked Data Specific Issues - HTTP URI Scheme Violation}}: 
@@ -2387,31 +2426,6 @@ Vocabularies should not invent any new terms or use deprecated elements.
 		\item Severity level: ERROR
 	\end{itemize}
 \end{itemize}
-
-\subsection{Provenance}
-
-\begin{itemize}
-	\item \textbf{{\em DISCO-C-PROVENANCE-01}}: 
-	Series should have provenance information (\emph{dcterms:provenance}).
-	\begin{itemize}
-		\item severity level: INFO
-	\end{itemize}
-	\item \textbf{{\em DISCO-C-PROVENANCE-02}}: 
-	Studies should have provenance information (\emph{dcterms:provenance}).
-	\begin{itemize}
-		\item severity level: INFO
-	\end{itemize}
-	\item \textbf{{\em DISCO-C-PROVENANCE-03}}: 
-	Data sets should have provenance information (\emph{dcterms:provenance}).
-	\begin{itemize}
-		\item severity level: INFO
-	\end{itemize}
-	\item \textbf{{\em DISCO-C-PROVENANCE-04}}: 
-	Data files should have provenance information (\emph{dcterms:provenance}).
-	\begin{itemize}
-		\item severity level: INFO
-	\end{itemize}
-\end{itemize} 
 
 \bibliography{../../literature/literature}{}
 \bibliographystyle{plain}

@@ -253,22 +253,23 @@ University of Mannheim, Germany \\
 \maketitle              % typeset the title of the contribution
 
 \begin{abstract}
-From 2012 to 2015 together with other Linked Data community members and experts from the social, behavioural, and economic sciences (\emph{SBE}), we developed diverse vocabularies to represent \emph{SBE} metadata and data in RDF.
+From 2012 to 2015 together with other Linked Data community members and experts from the social, behavioural, and economic sciences (\emph{SBE}), we developed diverse vocabularies to represent \emph{SBE} metadata and rectangular data in RDF.
 The \emph{DDI-RDF Discovery Vocabulary (Disco)} 
-is designed for the purposes of supporting the dissemination, management,
-and reuse of person-level data (data about individuals) collected in form of responses to studies and archived for research purposes.
-The \emph{RDF Data Cube Vocabulary (Data Cube, QB)} is a W3C recommendation for representing \emph{data cubes}, i.e. multi-dimensional aggregate data, in RDF. 
-\emph{Physical Data Description (PHDD)} is a vocabulary to represent aggregated and person-level data in a rectangular format. 
-The data could be either represented in records with character-separated values (\emph{CSV}) or in records with fixed length. 
-The \emph{Simple Knowledge Organization System (SKOS)} is a vocabulary to represent knowledge organization systems such as thesauri, classification schemes, subject heading lists, and taxonomies in RDF.
-\emph{XKOS} is a SKOS extension to describe formal statistical classifications like the \emph{International Standard Classification of Occupations} (\emph{ISCO}). 
+is designed to support the dissemination, management,
+and reuse of person-level data, i.e., data about individuals, households, and businesses, collected in form of responses to studies and archived for research purposes.
+The \emph{RDF Data Cube Vocabulary (Data Cube)} is a W3C recommendation for expressing \emph{data cubes}, i.e. multi-dimensional aggregate data. 
+\emph{Physical Data Description (PHDD)} is a vocabulary to model data in rectangular format. 
+The data could either be represented in records with character-separated values (\emph{CSV}) or fixed length. 
+The \emph{Simple Knowledge Organization System (SKOS)} is a vocabulary to build knowledge organization systems such as thesauri, classification schemes, and taxonomies.
+\emph{XKOS} is a SKOS extension to describe formal statistical classifications. 
 
-To ensure high quality and trust, RDF data as well as its metadata must satisfy certain criteria - specified in terms of RDF constraints.
-In this paper, we evaluated the metadata and data quality of large real world aggregated (\emph{QB}), person-level (\emph{Disco}), thesauri (\emph{SKOS}), rectangular (\emph{PHDD}), and statistical classification (\emph{XKOS}) data sets by means of RDF constraints assigned to multiple constraint types.
+To ensure high quality of and trust in both metadata and data, their representation in RDF must satisfy certain criteria - specified in terms of RDF constraints.
+In this paper, we evaluated the metadata and data quality of large real world aggregated (\emph{QB}), person-level (\emph{Disco}), thesauri (\emph{SKOS}), rectangular (\emph{PHDD}), and statistical classification (\emph{XKOS}) data sets by means of RDF constraints.
+RDF Constraints are instances of RDF constraint types either corresponding to RDF validation requirements or to data model specific constraint types.
 We validated more than 4.2 billion triples and 15 thousand data sets
-using the \emph{RDF Validator} which is available at \url{http://purl.org/net/rdfval-demo}.
+using the \emph{RDF Validator}, a validation environment which is available at \url{http://purl.org/net/rdfval-demo}.
 
-\keywords{RDF Validation, RDF Constraints, DDI-RDF Discovery Vocabulary, Disco, RDF Data Cube Vocabulary, QB, Thesauri, SKOS, Rectangular Data, PHDD, Statistical Classifications, Extended SKOS, XKOS, Linked Data, Semantic Web}
+\keywords{RDF Validation, RDF Constraints, DDI-RDF Discovery Vocabulary, RDF Data Cube Vocabulary, Thesauri, SKOS, Rectangular Data, Statistical Classifications, XKOS, Linked Data, Semantic Web}
 \end{abstract}
 
 \section{RDF Validation of Metadata and Data}
@@ -332,7 +333,7 @@ Table \ref{tab:evaluation} shows the evaluation results.
 		\emph{CV ($\mathcal{SL}_{1}$)} & 473,574 (13.4\%) & 45,520,613 (99.75\%) & 3,259,248 (58.8\%) & 49,253,435 (90\%) \\
     \emph{CV ($\mathcal{SL}_{2}$)} & 634,207 (17.9\%) & 115,233 (0.25\%) & 0 (0\%) & 749,440 (1.4\%) \\
 		\hline
-		\emph{CT} & 52 (15\textbar 37)\tablefootnote{(\label{fnt:1}implemented \textbar not yet implemented)} & 20 (7\textbar 13)\footnotemark[\ref{fnt:1}] & 14 (4\textbar 10)\footnotemark[\ref{fnt:1}] & 53 \\
+		\emph{CT} & 52 (15\textbar 37)\tablefootnote{(\label{fnt:1}implemented \textbar not yet implemented)} & 20 (7\textbar 13) & 14 (4\textbar 10) & 53 \\
 		\emph{CT} ($\mathcal{C}_{C}$) & 30 (57.7\%) & 5 (25\%) & 5 (35.7\%) & 30 (56.6\%) \\
 		\emph{CT} ($\mathcal{C}_{T}$) & 22 (42.3\%) & 15 (75\%) & 9 (64.3\%) & 23 (43.4\%) \\
 		\hline
@@ -420,6 +421,9 @@ As part of future work, the performance will be improved.
 \end{itemize}
 
 \section{Evaluation of Person-Level Metadata (\emph{Disco})}
+
+In this section, the quality of the metadata on person-level (\emph{Disco}) data sets is evaluated by validating appropriate RDF constraints assigned to several RDF constraint types.
+First, we show the results of the evaluation of diverse data sets, then we give an overview over the evaluated data sets, and finally we provide details about the evaluation.
 
 \subsection{Evaluation Results}
 
@@ -543,6 +547,8 @@ Table \ref{tab:disco-overview} comprehends the number of triples, data sets, and
 \end{table}
 
 \subsection{Detailed Evaluation}
+
+In this sub section, we give details about the evaluation in form of diverse tables containing the number of constraint violations per evaluated data set and constraint of particular constraint types.
 
 \begin{table}[H]
     \begin{center}
@@ -1012,6 +1018,9 @@ Table \ref{tab:disco-overview} comprehends the number of triples, data sets, and
 
 \section{Evaluation of Aggregated Metadata (\emph{Data Cube})}
 
+In this section, the quality of the metadata on aggregated data (\emph{Data Cube}) data sets is evaluated by validating appropriate RDF constraints assigned to several RDF constraint types.
+First, we show the results of the evaluation of diverse data sets, then we give an overview over the evaluated data sets, and finally we provide details about the evaluation.
+
 \subsection{Evaluation Results}
 
 Table \ref{tab:data-cube-evaluation-results} shows the results of the evaluation of \emph{Data Cube} data sets.
@@ -1186,6 +1195,8 @@ Table \ref{tab:data-cube-overview} comprehends the number of triples, data sets,
 \end{table}
 
 \subsection{Detailed Evaluation}
+
+In this sub section, we give details about the evaluation in form of diverse tables containing the number of constraint violations per evaluated data set and constraint of particular constraint types.
 
 \begin{table}[H]
     \begin{center}
@@ -1430,6 +1441,9 @@ Table \ref{tab:data-cube-overview} comprehends the number of triples, data sets,
 
 \section{Evaluation of Thesauri (\emph{SKOS})}
 
+In this section, the quality of the metadata on thesauri (\emph{SKOS}) is evaluated by validating appropriate RDF constraints assigned to several RDF constraint types.
+First, we show the results of the evaluation of diverse thesauri, then we give an overview over the evaluated thesauri, and finally we provide details about the evaluation.
+
 \subsection{Evaluation Results}
 
 Table \ref{tab:thesauri-evaluation-results} shows the results of the evaluation of \emph{thesauri}.
@@ -1572,6 +1586,8 @@ Table \ref{tab:thesauri-overview} comprehends the number of triples, data sets, 
 \end{table}
 
 \subsection{Detailed Evaluation}
+
+In this sub section, we give details about the evaluation in form of diverse tables containing the number of constraint violations per evaluated data set and constraint of particular constraint types.
 
 \begin{table}[H]
     \begin{center}
@@ -1865,13 +1881,21 @@ Table \ref{tab:thesauri-overview} comprehends the number of triples, data sets, 
 
 \section{Evaluation of Rectangular Data (\emph{PHDD})}
 
+In this section, the quality of rectangular (\emph{PHDD}) data sets is evaluated by validating appropriate RDF constraints assigned to several RDF constraint types.
+First, we show the results of the evaluation of diverse data sets, then we give an overview over the evaluated data sets, and finally we provide details about the evaluation.
+
 \subsection{Evaluation Results}
 
 \subsection{Data Sets Overview}
 
 \subsection{Detailed Evaluation}
 
+In this sub section, we give details about the evaluation in form of diverse tables containing the number of constraint violations per evaluated data set and constraint of particular constraint types.
+
 \section{Evaluation of Statistical Classifications (\emph{XKOS})}
+
+In this section, the quality of the metadata on statistical classifications (\emph{XKOS}) data sets is evaluated by validating appropriate RDF constraints assigned to several RDF constraint types.
+First, we show the results of the evaluation of diverse data sets, then we give an overview over the evaluated data sets, and finally we provide details about the evaluation.
 
 \subsection{Evaluation Results}
 
@@ -1925,6 +1949,73 @@ The statistical classification \emph{ISIC} has explanatory notes too.
 %\end{table}
 
 \subsection{Detailed Evaluation}
+
+In this sub section, we give details about the evaluation in form of diverse tables containing the number of constraint violations per evaluated data set and constraint of particular constraint types.
+
+\section{Related Work}
+
+The data most often used in research within the SBE community is \emph{person-level data}, i.e. data collected about individuals, businesses, and households in form of responses to studies or taken from administrative registers
+(such as hospital records, registers of births and deaths). 
+The range of person-level data covers many different domains and is very broad - 
+including census, education, and health data as well as all types of business, social, and labor force surveys.  
+Increasingly, this type of research data is
+held within data archives or data libraries after it has been collected, so that it may be
+reused by future researchers. 
+In performing their research, the detailed person-level
+data is aggregated into less confidential multi-dimensional tables which answer particular research questions.
+Portals harvest metadata (as well as publicly available data) from multiple data providers in form of RDF.
+To ensure high quality, the metadata must satisfy certain criteria - specified in terms of RDF constraints.  
+After validating the metadata according to these constraints, portals offer added values to their customers, e.g. by searching over and comparing metadata of multiple providers. 
+
+By its nature, person-level data is highly confidential and access is often only permitted for qualified researchers who must apply for access. 
+The purpose of publicly available aggregated data, on the other hand, is to get a first overview and to gain an interest in further analyses on the underlying person-level data.
+Researchers typically represent their results as aggregated data in form of two-dimensional tables with only a few columns (so-called \emph{variables} such as \emph{sex} or \emph{age}).
+The \emph{RDF Data Cube Vocabulary (QB)}\footnote{http://www.w3.org/TR/vocab-data-cube/} is a W3C recommendation for representing \emph{data cubes}, i.e. multi-dimensional aggregate data, in RDF \cite{Cyganiak2010}. 
+Aggregate data is derived from person-level data by statistics on groups or aggregates such as counts, means, and frequencies.
+The SDMX metadata standard – used as the basis for \emph{QB} – and DDI have traditionally made efforts to align their content. 
+Similarly, some of the developers of \emph{Disco} were also involved in the development of \emph{QB}, 
+allowing the RDF versions of these standards to retain that alignment.
+While \emph{Disco} and \emph{QB} provide terms for the description of data sets, 
+both on a different level of aggregation, 
+the \emph{Data Catalog Vocabulary (DCAT)}\footnote{\url{http://www.w3.org/TR/vocab-dcat/}} enables the representation of these data sets inside of data collections like repositories, catalogs, or archives. 
+The relationship between data collections and their contained data sets is useful, since such collections are a typical entry point when searching for data.
+Although, in most cases aggregated data is still published in form of PDFs, 
+it is more and more common to publish aggregated data as CSV files,
+allowing to perform first calculations (either using all variables or only a subset).
+%For these calculations, definitions of the columns are needed (e.g. is a given variable interpreted numerically or as a string).
+In 2014, SBE and Linked Data community members developed the \emph{Physical Data Description (PHDD)}\footnote{\url{https://github.com/linked-statistics/physical-data-description}} vocabulary to represent aggregated and person-level data in a rectangular format. 
+The data could be either represented in records with character-separated values (CSV) or in records with fixed length. 
+
+For more detailed analyses, researchers refer to person-level data from which aggregated data is derived from, 
+as person-level data include additional variables needed for further research.
+%Although not that common, the other direction is also possible, 
+%i.e. researchers may use metadata on person-level data to search for aggregated data.
+One very common example for detailed analyses on person-level data is the content-driven comparison of multiple studies.
+Researchers get promising findings (in form of published tables with a few columns) within a metadata portal leading to subsequent research questions 
+like 'How to compare the unemployment rate of different countries (e.g. Germany, UK, and France) in the last 10 years grouped by age?'.
+The first step is to determine in which countries the unemployment rate is collected and which other variables of each country-specific study are theoretically comparable and can therefore be used to answer the underlying research question.
+A \emph{study} represents the process by which a data set was generated or collected.
+Variables are constructed out of values (of one or multiple datatypes) and/or code lists.
+The variable \emph{age}, e.g., may be represented by values of the datatype \emph{xsd:nonNegativeInteger}, or by a code list including multiple age clusters (such as '0 to 10' and '11 to 20'). 
+To determine if variables measuring \emph{age} 
+- collected within multiple studies of different countries (\emph{$age_{DE}$}, \emph{$age_{UK}$}) - 
+are comparable, both content-driven and technology-driven validation is performed.
+An example for a content-driven validation is to investigate if variables are represented in a compatible way,
+i.e. are the variables' code lists theoretically comparable.
+Technically, it can be validated (1) if variable definitions are available, (2) if code lists are properly structured, and (3) if for each code an associated category (a human-readable label) is specified.
+
+Data providers and harvesters do not only offer metadata but also publicly available data on different level of detail.
+To ensure high data quality and trust, they have to analyze and validate the data (are fundamental data fragments available?, how does valid data look like?). 
+%They validate, e.g., if fundamental data parts are available and define how valid data should look like (using syntactic rules).
+Provenance (where does the data come from?) is an important aspect in evaluating data quality.
+As data searchers know exactly which data sources they trust and which are reasonable to meet their individual use cases, 
+RDF data validation can only be performed semi-automatically, i.e., an automatic approach serves as basis for intellectual decisions. 
+
+\section{Conclusion and Future Work}
+
+We implemented a validation environment (available at \url{http://purl.org/net/rdfval-demo}) to validate RDF data according to constraints expressed my arbitrary constraint languages and to ensure correct syntax, semantics, and integrity of diverse vocabularies such as \emph{Disco, QB, PHDD, SKOS, and XKOS}.
+We exhaustively evaluated the metadata quality of large real world aggregated data sets (\emph{QB}), person-level data sets (\emph{Disco}), thesauri (\emph{SKOS}), statistical classifications (\emph{XKOS}), and rectangular data sets (\emph{PHDD}) by means of 212 $\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints of the majority of the constraint types.
+In total, we validated more than 4.2 billion triples and 15 thousand data sets.
 
 \bibliography{../../literature/literature}{}
 \bibliographystyle{plain}
