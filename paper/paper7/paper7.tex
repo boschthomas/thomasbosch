@@ -101,10 +101,9 @@
 
 % Todos
 \usepackage[colorinlistoftodos]{todonotes}
-\newcommand{\ke}[1]{\todo[size=\small, color=orange!40]{\textbf{Kai:} #1}}
+\newcommand{\ke}[1]{\todo[size=\small, color=red!40]{\textbf{Kai:} #1}}
 \newcommand{\tb}[1]{\todo[size=\small, color=green!40]{\textbf{Thomas:} #1}}
-\newcommand{\er}[1]{\todo[size=\small, color=red!40]{\textbf{Erman:} #1}}
-\newcommand{\an}[1]{\todo[size=\small, color=blue!40]{\textbf{Andy:} #1}}
+\newcommand{\er}[1]{\todo[size=\small, color=blue!40]{\textbf{Erman:} #1}}
 
 \newenvironment{table-1cols}{
   \scriptsize
@@ -327,7 +326,7 @@ Second, we exhaustively evaluated the metadata quality of large real world aggre
 
 \section{Motivation}
 \label{motivation}
-
+\ke{@KAI: Dieses Kapitel werde ich noch deutlich kürzen!}
 The data most often used in research within the SBE community is \emph{person-level data}, i.e. data collected about individuals, businesses, and households in form of responses to studies or taken from administrative registers
 (such as hospital records, registers of births and deaths). 
 The range of person-level data covers many different domains and is very broad - 
@@ -389,8 +388,8 @@ RDF data validation can only be performed semi-automatically, i.e., an automatic
 %\label{running-example}
 \section{Vocabularies to Represent Metadata and Data in RDF}
 \label{rdf-representation}
-
-\textcolor{red}{figure / metadata: person-level, aggregated, thesauri, catalogs, statistical classifications / data: rectangular data}
+\ke{@KAI: Dieses Kapitel werde ich noch deutlich kürzen!}
+\tb{figure / metadata: person-level, aggregated, thesauri, catalogs, statistical classifications / data: rectangular data}
 
 Eurostat\footnote{\url{http://ec.europa.eu/eurostat}} is the statistical office of the European Union. Its task is to provide statistics at European level that enable comparisons between countries and regions.
 Eurostat provides publicly available European aggregated data (downloadable in machine-readable format like CSV files) and its metadata (only textual descriptions).
@@ -410,7 +409,7 @@ The particular data values, i.e. the specific availability of childcare services
 
 \footnote{\textcolor{red}{The complete running example in RDF is available at: \url{XXXXX}}}
 
-\tb{aut SDMX sind year, duration, age, etc. keine Variablen, sondern Dimensionen}
+\tb{laut SDMX sind year, duration, age, etc. keine Variablen, sondern Dimensionen}
 
 \textbf{Rectangular Data.}
 As Eurostat provides aggregated data as CSV files, we can easily represent the two-dimensional table in RDF by means of \emph{PHDD}.
@@ -512,10 +511,9 @@ The difference between $\mathcal{SL}_{1}$ and $\mathcal{SL}_{2}$ constraints is 
 whereas $\mathcal{SL}_{1}$ invalid data cannot be processed further. 
 Although, we provide default severity levels for each constraint, users should be able to specify constraints' severity levels according to their individual needs, i.e., use case specific severity levels.
 
-In this section, we describe constraints and constraint types which are important to ensure (meta)data  quality on different aggregation levels. 
-Furthermore, we associate constraints with default severity levels and assign them to validation types. 
-
 We recently published a technical report\footnote{\textcolor{red}{\label{technical-report-1}Available at: \url{http://arxiv.org/abs/XXXXX}}} (serving as first appendix of this paper) in which we describe and classify constraints to validate rectangular data and metadata on person-level data sets, aggregated data sets, thesauri, and statistical classifications and therefore apply the proposed classification system \cite{BoschZapilkoWackerowEckert2015}.
+In this section, we describe constraint types and constraints which are important to ensure (meta)data  quality on different aggregation levels. 
+Furthermore, we associate constraints with default severity levels and assign them to validation types. 
 
 %
 %- different sets of constraints for different use cases / use case specific constraints
@@ -533,10 +531,9 @@ We recently published a technical report\footnote{\textcolor{red}{\label{technic
 
 \subsection{Content-Driven Constraint Types}
 \label{content-driven-validation}
+\ke{@KAI: Dieses Kapitel werde ich noch umorganisieren! Die einzelnen Paragraphen sollten zusammengehörigen Clustern von constraint types entsprechen!}
 
-\tb{die einzelnen Paragraphen sollten constraint types clustern entsprechen - Unterkapitel umorganisieren!}
-
-\textcolor{red}{short description}
+\tb{short description}
 
 \textbf{Observations of Aggregated Data Sets.}
 The purpose of some constraints is to ensure the integrity of
@@ -895,7 +892,7 @@ taxonomists in improving SKOS vocabularies by pointing out quality
 issues that go beyond the integrity constraints defined in the SKOS specification \cite{MaderHaslhoferIsaac2012}.
 
 \section{Conclusion and Future Work}
-
+\ke{@KAI: Dieses Kapitel muss ich noch an die Änderungen im Paper anpassen!}
 In this paper, we showed in form of a complete real world running example how to represent metadata on person-level data (\emph{Disco}), metadata on aggregated data (\emph{QB}), and data on both aggregation levels in a rectangular format (\emph{PHDD}) in RDF and how therefore used vocabularies are interrelated (\textbf{contribution 1}, section \ref{rdf-representation}).
 We explained why RDF validation is important in this context and how metadata on person-level data, aggregated data, thesauri, and statistical classifications as well as data on both aggregation levels is validated against constraints to ensure high (meta)data quality\footnote{The first appendix of this paper describing each constraint in detail is available at: \textcolor{red}{\url{http://arxiv.org/abs/XXXXX}} \cite{BoschZapilkoWackerowEckert2015}} (\textbf{contribution 2}, section \ref{rdf-validation}). 
 We distinguish two validation types:
