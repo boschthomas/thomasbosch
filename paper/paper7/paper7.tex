@@ -326,37 +326,38 @@ Second, we exhaustively evaluated the metadata quality of large real world aggre
 
 \section{Motivation}
 \label{motivation}
-\ke{@KAI: Dieses Kapitel werde ich noch deutlich kürzen!}
-The data most often used in research within the SBE community is \emph{person-level data}, i.e. data collected about individuals, businesses, and households in form of responses to studies or taken from administrative registers
+
+The data most often used in research within the SBE community is \emph{person-level data}, i.e. data collected about individuals, businesses, and households, in form of responses to studies or taken from administrative registers
 (such as hospital records, registers of births and deaths). 
-The range of person-level data covers many different domains and is very broad - 
+The range of person-level data is very broad - 
 including census, education, and health data as well as all types of business, social, and labor force surveys.  
-Increasingly, this type of research data is
+This type of research data is
 held within data archives or data libraries after it has been collected, so that it may be
 reused by future researchers. 
 In performing their research, the detailed person-level
 data is aggregated into less confidential multi-dimensional tables which answer particular research questions.
 Portals harvest metadata (as well as publicly available data) from multiple data providers in form of RDF.
 To ensure high quality, the metadata must satisfy certain criteria - specified in terms of RDF constraints.  
-After validating the metadata according to these constraints, portals offer added values to their customers, e.g. by searching over and comparing metadata of multiple providers. 
+After validating the metadata according to these constraints, portals offer added values to their customers, e.g., by searching over and comparing metadata of multiple providers. 
 
 By its nature, person-level data is highly confidential and access is often only permitted for qualified researchers who must apply for access. 
 The purpose of publicly available aggregated data, on the other hand, is to get a first overview and to gain an interest in further analyses on the underlying person-level data.
 Researchers typically represent their results as aggregated data in form of two-dimensional tables with only a few columns (so-called \emph{variables} such as \emph{sex} or \emph{age}).
-The \emph{RDF Data Cube Vocabulary (QB)}\footnote{http://www.w3.org/TR/vocab-data-cube/} is a W3C recommendation for representing \emph{data cubes}, i.e. multi-dimensional aggregate data, in RDF \cite{Cyganiak2010}. 
-Aggregate data is derived from person-level data by statistics on groups or aggregates such as counts, means, and frequencies.
-The SDMX metadata standard – used as the basis for \emph{QB} – and DDI have traditionally made efforts to align their content. 
-Similarly, some of the developers of \emph{Disco} were also involved in the development of \emph{QB}, 
-allowing the RDF versions of these standards to retain that alignment.
+The \emph{RDF Data Cube Vocabulary (QB)}\footnote{http://www.w3.org/TR/vocab-data-cube/} is a W3C recommendation for representing metadata on \emph{data cubes}, i.e. multi-dimensional aggregated data, in RDF \cite{Cyganiak2010}. 
+Aggregated data is derived from person-level data by statistics on groups or aggregates such as counts, means, and frequencies.
+%The SDMX metadata standard – used as the basis for \emph{QB} – and DDI have traditionally made efforts to align their content. 
+%Similarly, some of the developers of \emph{Disco} were also involved in the development of \emph{QB}, 
+%allowing the RDF versions of these standards to retain that alignment.
 While \emph{Disco} and \emph{QB} provide terms for the description of data sets, 
 both on a different level of aggregation, 
 the \emph{Data Catalog Vocabulary (DCAT)}\footnote{\url{http://www.w3.org/TR/vocab-dcat/}} enables the representation of these data sets inside of data collections like repositories, catalogs, or archives. 
 The relationship between data collections and their contained data sets is useful, since such collections are a typical entry point when searching for data.
-Although, in most cases aggregated data is still published in form of PDFs, 
-it is more and more common to publish aggregated data as CSV files,
-allowing to perform first calculations (either using all variables or only a subset).
+%Although, in most cases aggregated data is still published in form of PDFs, 
+%it is more and more common to publish aggregated data as CSV files,
+Aggregated data is more and more published as CSV files,
+allowing to perform first data calculations.
 %For these calculations, definitions of the columns are needed (e.g. is a given variable interpreted numerically or as a string).
-In 2014, SBE and Linked Data community members developed the \emph{Physical Data Description (PHDD)}\footnote{\url{https://github.com/linked-statistics/physical-data-description}} vocabulary to represent aggregated and person-level data in a rectangular format. 
+In 2014, SBE and Linked Data community members developed the \emph{Physical Data Description (PHDD)}\footnote{\url{https://github.com/linked-statistics/physical-data-description}} vocabulary to represent data in a rectangular format. 
 The data could be either represented in records with character-separated values (CSV) or in records with fixed length. 
 
 For more detailed analyses, researchers refer to person-level data from which aggregated data is derived from, 
