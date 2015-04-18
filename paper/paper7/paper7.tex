@@ -311,6 +311,7 @@ The SPIN engine checks for each resource if it satisfies all constraints, which 
 %(2) metadata providers and harvesters ensuring high quality data and metadata by validating RDF data according to certain constraints.
 
 The main \textbf{contribution} of this paper is the development of a system to classify RDF constraints and RDF constraint types, which in most cases correspond to RDF validation requirements\footnote{For simplicity reasons, we use the terms \emph{constraint types} and \emph{constraints} instead of \emph{RDF constraint types} and \emph{RDF constraints} in the rest of the paper} (section \ref{classification}).
+We propose an extensible metric to measure the continuum of severity levels to indicate how serious the violation of given constraints is.
 Constraints are instantiated from constraint types in order to validate both metadata and data represented by any vocabulary. 
 As constraint types are used to define constraints on (meta)data expressed by any vocabulary, the proposed constraint classification can be applied generically, i.e. vocabulary-independent. 
 Within the context of a complex and complete real world running example from the \emph{SBE} domain, we prove the claim that the developed classification system perfectly applies for diverse vocabularies.
@@ -472,23 +473,17 @@ distributions (\emph{dcat:Distribution}), which are part of the records.
 Users may want to search for data sets covering particular topical (\emph{dcat:keyword}, \emph{dcat:theme}), temporal (\emph{dcterms:temporal}),  or  spatial  coverages (\emph{dcterms:spatial}), 
 or certain formats in which the data distribution is available (\emph{dcterms:format}). 
 
-\section{Classification of RDF Constraint Types and RDF Constraints to Validate Metadata and Data}
+\section{RDF Constraints Classification}
 \label{classification}
 
-Bosch et al. identified 74 requirements to formulate RDF constraints; each of them corresponding to an RDF constraint type\footnote{Constraint types and constraints are uniquely identified by alphanumeric technical identifiers like \emph{R-71-CONDITIONAL-PROPERTIES}}\cite{BoschNolleAcarEckert2015}. 
+Bosch et al. identified 74 requirements to formulate RDF constraints (e.g. \emph{R-75, R-81: minimum qualified cardinality restrictions}); each of them corresponding to an RDF constraint type\footnote{Constraint types and constraints are uniquely identified by alphanumeric technical identifiers like \emph{R-71-CONDITIONAL-PROPERTIES}}\cite{BoschNolleAcarEckert2015}. 
 We published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} in which we explain each requirement (constraint type) in detail and give examples for each expressed by different constraint languages.
 The knowledge representation formalism \emph{Description logics (DL)}, with its  well-studied theoretical properties, provides the foundational basis for each constraint type.
 Therefore, this technical report contains mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
 
-For this paper, we developed a system to classify RDF constraint types and RDF constraints.
-Constraints are instantiated from constraint types, which are organized as disjoint sets, in order to validate both metadata and data represented by any vocabulary; thus, the proposed classification system is vocabulary-independent.
-Constraint types either corresponding to
-
-\begin{enumerate}
-	\item \emph{RDF validation requirements} (e.g. \emph{R-75, R-81: minimum qualified cardinality restrictions}) or to
-	\item \emph{data model specific constraint types} (e.g. \emph{data model consistency})\cite{BoschZapilkoWackerowEckert2015}.
-\end{enumerate}
-
+We developed a system to classify RDF constraints and RDF constraint types.
+Constraints are instantiated from constraint types in order to validate both metadata and data represented by any vocabulary; thus, the proposed classification system is vocabulary-independent and therefore applicable generically.
+%\emph{data model specific constraint types} (e.g. \emph{data model consistency})
 The complete set of \emph{constraint types} ($\mathcal{CT}$) encompasses two disjoint \textbf{\emph{sets of constraint types}}:
 \begin{enumerate}
 	\item $\mathcal{CT}_{C}$: \emph{Content-Driven Constraint Types}
@@ -496,8 +491,12 @@ The complete set of \emph{constraint types} ($\mathcal{CT}$) encompasses two dis
 \end{enumerate}
 
 $\mathcal{CT}_{C}$ (\emph{Content-Driven Constraint Types}) is the set of constraints ensuring that the data is consistent with the intended syntax, semantics, and integrity of vocabularies' data models (section \ref{content-driven-validation}). 
-Therefore, domain experts may formulate $\mathcal{CT}_{C}$ constraints manually in prose English which is technically expressed by a constraint language afterwards.  
-$\mathcal{CT}_{T}$ (\emph{Technology-Driven Constraint Types}) is the set of constraints which can be generated completely automatically out of vocabularies' data models, such as cardinality restrictions, universal and existential quantifications, domains, and ranges (section \ref{technology-driven-validation}).
+Therefore, domain experts may formulate $\mathcal{CT}_{C}$ constraints manually in prose English which is technically expressed by a constraint language afterwards.
+For assessing the quality of thesauri, e.g., we concentrate on the graph-based structure and apply graph- and network-analysis techniques (constraint type: \emph{structure}). 
+A thesaurus, e.g., should not contain many orphan concepts (concepts without any associative or hierarchical relations) lacking valuable context information for search and retrieval.  
+$\mathcal{CT}_{T}$ (\emph{Technology-Driven Constraint Types}) is the set of constraints which can be generated completely automatically out of vocabularies' data models (section \ref{technology-driven-validation}).
+With \emph{minimum qualified cardinality restrictions} (\emph{R-74}), e.g., one can restrict that
+a \emph{phdd:TableStructure} has (\emph{phdd:column}) at least one \emph{phdd:Column} (in DL: \ms{TableStructure $\sqsubseteq$ $\geq$1 column.Column})\footnote{For simplicity reasons, we do not use namespace prefixes in DL statements.}.
 
 We determined the default \textbf{\emph{severity level}} (corresponds to requirement \emph{R-158}) for each constraint to indicate how serious the violation of the constraint is.
 We propose an extensible metric to measure the continuum of severity levels ranging from $\mathcal{SL}_{0}$ to $\mathcal{SL}_{2}$.
@@ -507,15 +506,16 @@ According to the constraints' default severity level the complete set of constra
 	\item $\mathcal{SL}_{1}$: set of constraints with severity level \emph{warning}
 	\item $\mathcal{SL}_{2}$: set of constraints with severity level \emph{error}
 \end{enumerate}
-The violation of $\mathcal{SL}_{0}$ constraints does not mean that there are serious mistakes in either syntax or semantics. These constraints may point to possible data improvements in order to get ideal RDF representations. 
+Violations of $\mathcal{SL}_{0}$ constraints point to possible data improvements to achieve RDF representations which are ideal in terms of syntax and semantics of used vocabularies. 
 Data not conforming to $\mathcal{SL}_{1}$ and $\mathcal{SL}_{2}$ constraints is syntactically or semantically not correctly represented.
-The difference between $\mathcal{SL}_{1}$ and $\mathcal{SL}_{2}$ constraints is that $\mathcal{SL}_{1}$ invalid data could be processed 
+The difference between $\mathcal{SL}_{1}$ and $\mathcal{SL}_{2}$ constraints is that $\mathcal{SL}_{1}$ invalid data could be
 whereas $\mathcal{SL}_{1}$ invalid data cannot be processed further. 
-Although we provide default severity levels for each constraint, users should be able to specify severity levels of constraints they need to validate for their individual use cases, i.e., users should be able to define use case specific severity levels for constraints.
+Although, we provide default severity levels for each constraint, users should be able to specify constraints' severity levels according to their individual needs, i.e., use case specific severity levels.
+
 In this section, we describe constraints and constraint types which are important to ensure (meta)data  quality on different aggregation levels. 
 Furthermore, we associate constraints with default severity levels and assign them to validation types. 
 
-We recently published a technical report\footnote{\textcolor{red}{\label{technical-report-1}Available at: \url{http://arxiv.org/abs/XXXXX}}} (serving as first appendix of this paper) in which we describe and classify constraints to validate rectangular data and metadata on person-level data sets, aggregated data sets, thesauri, and statistical classifications and therefore apply the proposed classification system.
+We recently published a technical report\footnote{\textcolor{red}{\label{technical-report-1}Available at: \url{http://arxiv.org/abs/XXXXX}}} (serving as first appendix of this paper) in which we describe and classify constraints to validate rectangular data and metadata on person-level data sets, aggregated data sets, thesauri, and statistical classifications and therefore apply the proposed classification system \cite{BoschZapilkoWackerowEckert2015}.
 
 %
 %- different sets of constraints for different use cases / use case specific constraints
@@ -533,6 +533,8 @@ We recently published a technical report\footnote{\textcolor{red}{\label{technic
 
 \subsection{Content-Driven Constraint Types}
 \label{content-driven-validation}
+
+\tb{die einzelnen Paragraphen sollten constraint types clustern entsprechen - Unterkapitel umorganisieren!}
 
 \textcolor{red}{short description}
 
