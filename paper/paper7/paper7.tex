@@ -447,28 +447,28 @@ including person-level variables (\emph{disco:Variable}) like the six ones neede
 
 \textbf{Organizations, Hierarchies, and Classifications.}
 %\textbf{Reusing SKOS.}
-The \emph{Simple Knowledge Organization System (SKOS)} is used multiple times within the context of aggregated and person-level (meta)data.
-Variables, e.g., are constructed (\emph{disco:representation}) out of values (of one or multiple datatypes) and/or code lists.
-The values of the variable \emph{Education at pre-school}, representing the number of education hours during a usual week, are expressed as \emph{skos:Concepts}. 
-\emph{Disco} uses \emph{skos:OrderedCollection} to organize them in a particular order in a \emph{skos:memberList}. 
-SKOS is also used to form hierarchies of \emph{SBE theoretical concepts} (e.g. Education) with which variables may be associated.
-The compete hierarchy (\emph{skos:ConceptScheme}) of theoretical concepts (\emph{skos:Concepts}) of series is built using \emph{skos:narrower}.
-The variable \emph{Education at pre-school} is assigned to the theoretical concept \emph{Child Care} which is a narrower concept of \emph{Education} - one of the top concept of the series \emph{EU-SILC}.
-Controlled vocabularies serve as extension and reuse mechanism.
-For \emph{Disco}, concepts (\emph{skos:Concepts}), organized within controlled vocabularies (\emph{skos:ConceptSchemes}), indicate types of descriptive statistics (\emph{\emph{disco:SummaryStatistics}}) like minimum, maximum, mean, and standard deviation.
-From 2012 to 2015, SBE and Linked Data community members developed \emph{XKOS}\footnote{\url{https://github.com/linked-statistics/xkos}} - a SKOS extension to describe formal statistical classifications like the International Standard Classification of Occupations (\emph{ISCO}). 
+The \emph{Simple Knowledge Organization System (SKOS)} is reused multiple times to represent metadata on aggregated and person-level data.
+Variables are constructed out of values and/or (un)ordered code lists.
+The codes of the variable \emph{Education at pre-school} (number of education hours per week) are modeled as \emph{skos:Concepts} and 
+a \emph{skos:OrderedCollection} organizes them in a particular order within a \emph{skos:memberList}.
+A variable may be associated with a theoretical concept (\emph{skos:Concept}) and   
+\emph{skos:narrower} builds the hierarchy of theoretical concepts within the \emph{skos:ConceptScheme} of a series.
+The variable \emph{Education at pre-school}, e.g., is assigned to the theoretical concept \emph{Child Care} which is the narrower concept of \emph{Education} - one of the top concepts of the series \emph{EU-SILC}.
+Controlled vocabularies (\emph{skos:ConceptScheme}), serving as extension and reuse mechanism,
+organize types (\emph{skos:Concept}) of descriptive statistics (\emph{\emph{disco:SummaryStatistics}}) like minimum, maximum, and arithmetic mean.
+\emph{XKOS}\footnote{\url{https://github.com/linked-statistics/xkos}} is a SKOS extension to describe formal statistical classifications like the International Standard Classification of Occupations (\emph{ISCO}). 
 %and the Statistical Classification of Economic Activities in the European Community \emph{NACE}.
 
 \textbf{Searching for (Meta)data.}
-\emph{DCAT} enables to represent aggregated and person-level data inside of data collections like portals, repositories, catalogs, or archives
-serving as typical entry points when searching for data.
+\emph{DCAT} enables to represent aggregated and person-level data sets inside of data collections like portals, repositories, catalogs, and archives
+which serve as typical entry points when searching for data.
 Users search for aggregated and person-level data records (\emph{dcat:CatalogRecord}) inside data catalogs (\emph{dcat:Catalog}). 
-This search differs depending on the users’ information need. 
-While it is possible to search for metadata provided inside such a record (e.g. \emph{dcterms:title}, \emph{dcterms:description}), 
-users can also formulate more sophisticated queries on aggregated and person-level data sets (\emph{dcat:Dataset}) or their
-distributions (\emph{dcat:Distribution}), which are part of the records. 
-Users may want to search for data sets covering particular topical (\emph{dcat:keyword}, \emph{dcat:theme}), temporal (\emph{dcterms:temporal}),  or  spatial  coverages (\emph{dcterms:spatial}), 
-or certain formats in which the data distribution is available (\emph{dcterms:format}). 
+As search differs depending on the users’ information need,
+users may only search for records' metadata (e.g., \emph{dcterms:title}, \emph{dcterms:description}), 
+or may formulate more sophisticated queries on aggregated and person-level data sets (\emph{dcat:Dataset}) or their
+distributions (\emph{dcat:Distribution}) which are part of the records. 
+Often, users search for data sets covering particular topics (\emph{dcat:keyword}, \emph{dcat:theme}), time periods (\emph{dcterms:temporal}),  or  locations (\emph{dcterms:spatial}), 
+or for certain formats in which the data distribution is available (\emph{dcterms:format}). 
 
 \section{RDF Constraints Classification}
 \label{classification}
