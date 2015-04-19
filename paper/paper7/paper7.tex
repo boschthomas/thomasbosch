@@ -498,11 +498,11 @@ a \emph{phdd:TableStructure} has (\emph{phdd:column}) at least one \emph{phdd:Co
 We determined the default \textbf{\emph{severity level}} (corresponds to requirement \emph{R-158}) for each constraint to indicate how serious the violation of the constraint is.
 We propose an extensible metric to measure the continuum of severity levels ranging from $\mathcal{SL}_{0}$ to $\mathcal{SL}_{2}$.
 According to the constraints' default severity level the complete set of constraints ($\mathcal{C}$) encompasses three disjoint \textbf{\emph{sets of constraints}}:
-\begin{enumerate}
+\begin{itemize}
 	\item $\mathcal{SL}_{0}$: set of constraints with severity level \emph{informational}
 	\item $\mathcal{SL}_{1}$: set of constraints with severity level \emph{warning}
 	\item $\mathcal{SL}_{2}$: set of constraints with severity level \emph{error}
-\end{enumerate}
+\end{itemize}
 Violations of $\mathcal{SL}_{0}$ constraints point to possible data improvements to achieve RDF representations which are ideal in terms of syntax and semantics of used vocabularies. 
 Data not conforming to $\mathcal{SL}_{1}$ and $\mathcal{SL}_{2}$ constraints is syntactically or semantically not correctly represented.
 The difference between $\mathcal{SL}_{1}$ and $\mathcal{SL}_{2}$ constraints is that $\mathcal{SL}_{1}$ invalid data could be
@@ -527,164 +527,11 @@ associate them with default severity levels, and assign them to $\mathcal{CT}_{C
 %use-case specific constraints, e.g., DCAT: searching for metadata
 %\tb{Thomas: ToDo}
 
-\subsection{Content-Driven Constraint Types}
-\label{content-driven-validation}
-\ke{@KAI: Dieses Kapitel werde ich noch umorganisieren! Die einzelnen Paragraphen sollten zusammengehörigen Clustern von constraint types entsprechen!}
-
-\tb{short description}
-
-\textbf{Observations of Aggregated Data Sets.}
-The purpose of some constraints is to ensure the integrity of
-the data according to intended data model semantics (\emph{data model consistency}).
-Every \emph{qb:Observation}, e.g., must have a value for each dimension
-declared in its associated \emph{qb:DataStructureDefinition} ($\mathcal{SL}_{2}$)
-and no two \emph{qb:Observations} in the same \emph{qb:DataSet}
-may have the same value for all dimensions ($\mathcal{SL}_{1}$).
-If a \emph{qb:DataSet} \emph{D} has a \emph{qb:Slice} \emph{S}, and \emph{S} has an
-\emph{qb:Observation} \emph{O}, then the \emph{qb:DataSet} corresponding to \emph{O} must be \emph{D} ($\mathcal{SL}_{1}$).
-
-%- for each dimension there should be a description and code lists.
-%
-%- for each code list there should be a description.
-%
-%- there should be a relationship to the underlying person-level data.
-
-\textbf{Series, Studies, Data Sets, and Data Files.}
-It is useful to declare properties to be \emph{conditional} (\emph{R-71}), i.e., if particular properties exist (or do not exist), then other properties must also be present (or absent).
-To get an overview over a series/study either an abstract, a title, an alternative title, or links to external descriptions should be provided. 
-If an abstract and an external description are absent, 
-a title or an alternative title has to be stated ($\mathcal{SL}_{1}$).
-For datatype properties it should be possible to declare frequently needed \emph{facets} ({\emph{R-46}) to drive user interfaces and validate input against simple conditions including min/max values, regular expressions, and string length.
-The abstract of series/studies, e.g., should have a minimum length (\emph{xsd:minLength}; $\mathcal{SL}_{1}$).
-\emph{Existential quantifications} (\emph{R-86}) enforce that instances of given classes must have some property relation to individuals of certain types.
-If a study, e.g., has no associated data sets ($\mathcal{SL}_{2}$), the actual description of the data is missing which may indicate that it is very hard or unlikely to get access to the data.
-If there is no metadata on data files including the actual data of data sets (especially case and variable quantities; $\mathcal{SL}_{1}$), the description of the data sets and the underlying study is not sufficient.
-The case quantity measures how many cases are collected for a study.
-A high case and variable quantity is an indicator for high statistical quality and comprehensiveness of the conducted study ($\mathcal{SL}_{1}$).
-
-\textbf{Variables and Variable Comparison.}
-Each variable should have a variable representation (\emph{R-86}; $\mathcal{SL}_{1}$), which is either an (un)ordered code list or a union of datatypes.
-In case of a code list, associated categories (human-readable labels) may be stated (\emph{R-71}; $\mathcal{SL}_{0}$).
-The variable \emph{Education at pre-school} is represented as ordered code list without any categories.
-If a {\em skos:Concept} stands for a code (having a {\em skos:notation} property) and a category (having a {\em skos:prefLabel} property), 
-then the property {\em disco:isValid} has to be stated indicating if the code is valid (\emph{true}) or missing (\emph{false}) (\emph{R-71}; $\mathcal{SL}_{2}$).
-Variables may have at least one relationship to a theoretical concept ({\emph{R-86}; $\mathcal{SL}_{0}$).
-%The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
-The variable \emph{Education at pre-school} is associated with the theoretical concept \emph{Child Care}. 
-The default severity level of this constraint is weak, as in most cases research can be continued without associated theoretical concepts.
-A very common research question is to compare variables of multiple studies or countries (\emph{comparison}).
-To compare variables, 
-(1) variables and (2) variable definitions must be present,
-(3) code lists must be structured properly,
-(4) for each code an associated category (human-readable label) must be specified, and
-(5) code lists must either be identical or at least similar.
-If a researcher wants to get a first overview over comparable variables (use case 1), 
-covering the first three constraints may be sufficient for this purpose.
-Thus, the severity level of the first three constraints is stronger ($\mathcal{SL}_{2}$) than the severity level of the next two constraints ($\mathcal{SL}_{1}$ and $\mathcal{SL}_{0}$).
-If the intention of the researcher is to perform more detailed comparisons (use case 2), however, the violation of the remaining two constraints is getting more serious.
-
-\textbf{Descriptive Statistics.}
-The property \emph{disco:percentage} stands for the number of cases of a given code in relation to the total number of cases for a particular variable within a data set.
-Percentage values are only valid when they are within the \emph{literal range} of 0 and 100 (\emph{R-45}; $\mathcal{SL}_{2}$).
-{\em Mathematical Operations} (\emph{R-41, R-42}; e.g. date calculations and statistical computations like average, mean, and sum) are performed to ensure the integrity of data models.
-The sum of percentage values of all codes of a variable code list, e.g., must exactly be 100 ($\mathcal{SL}_{2}$)
-and the minimum of all variable codes do not have to be greater than the maximum ($\mathcal{SL}_{2}$).
-Codes (\emph{skos:Concept}) are ordered and therefore have fixed positions in an ordered collection (\emph{skos:OrderedCollection}) within variable representations.
-In order to check the correctness of relative frequencies' calculations, the cumulative percentage (\emph{disco:cumulativePercentage}) of the current code must exactly be the cumulative percentage of the previous code
-plus the percentage value (\emph{disco:percentage}) of the current code (\emph{data model consistency}; $\mathcal{SL}_{2}$).
-
-\textbf{Unique Identification.}
-It is often useful to declare a given (data) property as the \emph{primary key} (\emph{R-226}) of a class, so that a system can enforce uniqueness and also automatically build URIs from user inputs and imported data. 
-In \emph{Disco}, resources are uniquely identified by the property \emph{adms:identifier},
-which is therefore inverse-functional
-$(\ms{funct identifier}\sp{\overline{\ }})$,
-i.e. for each \emph{rdfs:Resource x}, there can be at most one distinct \emph{rdfs:Resource y} such that \emph{y} is connected by \emph{adms:identifier$\sp{\overline{\ }}$} to \emph{x} ($\mathcal{SL}_{2}$).
-Keys, however, are even more general than inverse-functional properties (\emph{R-58}),
-as a key can be a data, an object property, or a chain of properties \cite{Schneider2009}.
-For this generalization purposes, as there are different sorts of key, and as keys can lead to undecidability, 
-DL is extended with \emph{key boxes} and a special \emph{keyfor} construct (\ms{identifier \ms{keyfor} Resource}) \cite{Lutz2005}.
-OWL 2 \emph{hasKey} implements \emph{keyfor} ($\mathcal{SL}_{2}$) and thus can be used to identify resources uniquely, to merge resources with identical key property values, and to recognize constraint violations.
-%OWL 2 hasKey can be used to identify resources uniquely
-%
-%We used Protégé 5.
-%
-%example: owl:Thing owl:hasKey ( :hasSSN ) . :Peter :hasSSN "123-45-6789" .
-%:Peter_Griffin :hasSSN "123-45-6789" .
-%
-%We use the predefined Reasoner HermiT.
-%
-%:Peter and :Peter_Griffin are derived as identical from the reasoner as they have the same value for :hasSSN.
-%
-%hasKey can be used to merge resources and to recognize constraint violations.
-%
-%Alternative to OWL 2 hasKey: concise bounded description (proposal of Dan)
-%
-%action: explore CBD document solution might be using both approaches
-%
-%benefit: additional identification to URI / IRI benefit: compound properties can be used as key
-
-
-\textbf{Membership in Controlled Vocabularies.}
-In many cases, resources must be members of controlled vocabularies (\emph{R-32}).
-If a dimension property, e.g., has a \emph{qb:codeList},
-then the value of the dimension property on every \emph{qb:Observation} must be in the code list ($\mathcal{SL}_{2}$).
-Summary statistics types like minimum, maximum, and arithmetic mean are maintained within a controlled vocabulary.  
-Summary statistics can only have \emph{disco:summaryStatisticType} relationships to \emph{skos:Concept}s which must be members of the controlled vocabulary \emph{ddicv:SummaryStatisticType}, a \emph{skos:ConceptScheme} ($\mathcal{SL}_{2}$).
-
-%\begin{center}
-%\begin{DL}
-%SummaryStatistics $\sqsubseteq$ $\forall summaryStatisticType.A$ \\
-%$A \equiv Concept \sqcap \forall inScheme . B$ \\
-%$B \equiv ConceptScheme \sqcap \{SummaryStatisticType\}$
-%\end{DL}
-%\end{center}
-
-\textbf{Coverage.}
-Information about the temporal (\emph{dcterms:temporal}), the spatial (\emph{dcterms:spatial}), and the topical coverage (\emph{dcterms:subject}) of series, studies, data sets, and data files (\emph{R-86}; $\mathcal{SL}_{1}$) is of interest when performing frequently formulated queries 
-	(e.g. to search for all data sets of given years (temporal coverage) in which data is collected in certain countries (spatial coverage) about particular topics (topical coverage)).
-Depending on property datatypes,
-two different literal values have
-a specific ordering with respect to an operator like \textless (\emph{R-43: literal value comparison}).
-Start dates (\emph{disco:startDate}), e.g., must be before (\emph{\textless}) end dates (\emph{disco:endDate}) ($\mathcal{SL}_{2}$).
-
-%\textbf{Organizations, Hierarchies, Classifications, and Ordering.}
-\textbf{Hierarchies and Ordering.}
-SKOS is based on RDF, which is a graph-based data model. Therefore, we can concentrate on the vocabulary's graph-based structure for assessing the quality of SKOS vocabularies and apply graph- and network-analysis techniques (\emph{structure}) like 
-(1) a vocabulary should provide entry points (top concepts) to the data to provide efficient access and guidance for human users,
-(2) concepts, internal to the tree, should not be indicated as top concepts, and
-(3) a vocabulary should not contain many orphan concepts 
-(concepts without any associative or hierarchical relations) lacking valuable context information. A controlled vocabulary that contains many orphan concepts is less usable for search and retrieval use cases.
-%, as, e.g., no hierarchical query expansion can be performed on search terms to find documents with more general content.) \cite{MaderHaslhoferIsaac2012}. 
-Objects and literals can be \emph{ordered} (\emph{R-121, R-217}) for given properties.
-\emph{Disco }variables, questions, and codes/categories are typically organized in a particular order. 
-If a variable code list should be ordered, the variable representation should be of the type \emph{skos:OrderedCollection} containing multiple codes/categories (each represented as \emph{skos:Concept}) in a \emph{skos:memberList}. 
-
-\textbf{Reusability.}
-Within the context of \emph{Disco}, \emph{skos:Concept}s can have either \emph{skos:definition} (when interpreted as theoretical concepts) or \emph{skos:notation} and \emph{skos:prefLabel} properties (when interpreted as codes/categories), but not both ($\mathcal{SL}_{2}$).
-The constraint type \emph{context-specific exclusive or of property groups} (\emph{R-11})
-restricts individuals of given classes to have exactly one of multiple property groups.
-
-%\begin{center}
-%\begin{DL}
-%Concept $\sqsubseteq$ ($\neg$ D $\sqcap$ C) $\sqcup$ (D $\sqcap$ $\neg$ C), D $\equiv$ A $\sqcap$ B \\
-%A $\sqsubseteq$ $\geq$ 1 notation.string $\sqcap$ $\leq$ 1 notation.string \\
-%B $\sqsubseteq$ $\geq$ 1 prefLabel.string $\sqcap$ $\leq$ 1 prefLabel.string \\
-%C $\sqsubseteq$ $\geq$ 1 definition.string $\sqcap$ $\leq$ 1 definition.string \\
-%\end{DL}
-%\end{center}
-
-%\textbf{Searching for (Meta)data.}
-%
-%- DCAT
-%
-%\textbf{Data Integration.}
-%use RDF validation for data integration
-
 \subsection{Technology-Driven Constraint Types}
 \label{technology-driven-validation}
 
-Constraints of some constraint types are directly and automatically derived from syntax and semantics of vocabularies' conceptual models.
-As these constraints depend on data models' intended semantics, associated default severity levels are in most cases very strong ($\mathcal{SL}_{2}$).
+$\mathcal{CT}_{T}$ constraints can be directly and automatically derived from explicitly stated syntax and semantics of vocabularies' data models.
+Thus, associated default severity levels are in most cases very strong ($\mathcal{SL}_{2}$).
 
 \textbf{Vocabulary.}
 One should not invent new or use deprecated terms of vocabularies (\emph{vocabulary}).
@@ -700,9 +547,20 @@ The property {\em skos:notation}, e.g., is not mandatory for {\em disco:Variable
 \emph{R-223} serves to make sure that all literal values are valid with regard to their datatypes.
 Thus, all date values (e.g. {\em disco:startDate}, {\em disco:endDate}, {\em dcterms:date}) must be of the datatype \emph{xsd:date} and \emph{xsd:nonNegativeInteger} values (e.g. \emph{disco:frequency}) do not have to be negative.
 
-\textbf{Cardinality Restrictions.}
-An \emph{existential quantification} (\emph{R-86}) contains all those individuals that are connected by a property to individuals/literals of given classes or data ranges.
-Every \emph{qb:SliceKey}, e.g., must be associated with (\emph{qb:sliceKey}) a \emph{qb:DataStructureDefinition} (\ms{SliceKey $\sqsubseteq$ $\exists$ sliceKey$^{-}$.DataStructureDefinition}).
+\textbf{Existential Quantifications.}
+\emph{Existential quantifications} (\emph{R-86}) enforce that instances of given classes must have some property relation to individuals of certain types.
+If a study, e.g., does not contain any data set ($\mathcal{SL}_{2}$), the actual description of the data is missing which may indicate that it is very hard or unlikely to get access to the data.
+If metadata on data files, including the actual data, is missing (especially case and variable quantities; $\mathcal{SL}_{1}$), the description of the data sets and the study is not sufficient.
+Case quantity measures how many cases are collected for a study.
+High case and variable quantities are indicators for high statistical quality and comprehensiveness of the underlying study ($\mathcal{SL}_{1}$).
+Variables should have a relation to a theoretical concept ($\mathcal{SL}_{0}$).
+%The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
+The variable \emph{Education at pre-school},.e.g, is associated with the theoretical concept \emph{Child Care}. 
+The constraint's severity level is weak, as in most cases research can be continued without having information about theoretical concepts.
+
+\textbf{Cardinality Restrictions on Properties and Language Tags.}
+%An \emph{existential quantification} (\emph{R-86}) contains all those individuals that are connected by a property to individuals/literals of given classes or data ranges.
+%Every \emph{qb:SliceKey}, e.g., must be associated with (\emph{qb:sliceKey}) a \emph{qb:DataStructureDefinition} (\ms{SliceKey $\sqsubseteq$ $\exists$ sliceKey$^{-}$.DataStructureDefinition}).
 \emph{Minimum/maximum/exact qualified cardinality restrictions} (\emph{R-74, R-75, R-76}) contain all those individuals that are connected by a property to at least/at most/exactly n different individuals/literals of particular classes or data ranges.
 A \emph{phdd:TableStructure}, e.g., has at least one \emph{phdd:column} relationship to a \emph{phdd:Column} (\ms{TableStructure $\sqsubseteq$ $\geq$1 column.Column}),
 a \emph{disco:Variable} has at most one \emph{disco:concept} relationship to a theoretical concept (\emph{skos:Concept}) (\ms{Variable $\sqsubseteq$ $\leq$1 concept.Concept}), and a \emph{qb:DataSet} has (\emph{qb:structure}) exactly one associated \emph{qb:DataStructureDefinition} (\ms{DataSet $\sqsubseteq$ $\geq$1 structure.DataStructureDefinition $\sqcap$ $\leq$1 structure.DataStructureDefinition}).
@@ -725,7 +583,7 @@ a \emph{disco:Variable} has at most one \emph{disco:concept} relationship to a t
 
 %\footnote{\emph{DATA-CUBE-C-EXACT-QUALIFIED-CARDINALITY-RESTRICTIONS-02}}.
 
-\textbf{Language Tag Cardinality.}
+%\textbf{Language Tag Cardinality.}
 For data properties, it may be desirable to restrict that values of predefined languages must be present for determined number of times (\emph{R-48, R-49}):
 (1) Some controlled vocabularies contain literals in natural language, but without information what language has actually been used. 
 (2) Language tags must conform to language standards. 
@@ -756,6 +614,228 @@ Validation should \emph{exploit sub-super relations} in vocabularies (\emph{R-22
 If \emph{dcterms:coverage} and one of its sub-properties (\emph{dcterms:spatial}, \emph{dcterms:temporal}) are present,
 it is checked that \emph{dcterms:coverage} is not redundant with its sub-properties. 
 This validation can indicate when the data is verbose (redundant) or expressed at a too general level and could thus be improved.
+
+\subsection{Content-Driven Constraint Types}
+\label{content-driven-validation}
+
+In this sub-chapter, we assign default severity levels to and describe constraints of diverse $\mathcal{CT}_{C}$ constraint types 
+to ensure that the data is consistent with the intended syntax, semantics, and integrity of vocabularies' data models.
+
+%\textbf{Observations of Aggregated Data Sets.}
+%- for each dimension there should be a description and code lists.
+%- for each code list there should be a description.
+%- there should be a relationship to the underlying person-level data.
+
+\textbf{Data Model Consistency.}
+The purpose of some constraints is to ensure the integrity of
+the data according to intended data model semantics (\emph{data model consistency}).
+Every \emph{qb:Observation}, e.g., must have a value for each dimension
+declared in its \emph{qb:DataStructureDefinition} ($\mathcal{SL}_{2}$)
+and no two \emph{qb:Observations} in the same \emph{qb:DataSet}
+can have the same value for all dimensions ($\mathcal{SL}_{1}$).
+If a \emph{qb:DataSet} \emph{D} has a \emph{qb:Slice} \emph{S}, and \emph{S} has an
+\emph{qb:Observation} \emph{O}, then the \emph{qb:DataSet} corresponding to \emph{O} must be \emph{D} ($\mathcal{SL}_{1}$).
+Relative frequencies of variable codes are calculated correctly, if the cumulative percentage (\emph{disco:cumulativePercentage}) of a given code exactly matches the cumulative percentage of the previous code
+plus the percentage value (\emph{disco:percentage}) of the current code ($\mathcal{SL}_{2}$).
+
+%\textbf{Hierarchies and Ordering.}
+\textbf{Structure and Ordering.}
+For assessing the quality of \emph{SKOS} vocabularies, we concentrate on graph-based structures and apply graph- and network-analysis techniques (\emph{structure}) like 
+(1) a thesaurus should provide entry points (top concepts) to the data to provide efficient access and guidance for human users,
+(2) concepts, internal to the tree, should not be indicated as top concepts, and
+(3) a thesaurus should not contain many orphan concepts 
+(concepts without any associative or hierarchical relations) lacking valuable context information for retrieval.
+%, as, e.g., no hierarchical query expansion can be performed on search terms to find documents with more general content.) \cite{MaderHaslhoferIsaac2012}. 
+Objects/literals can be declared to be \emph{ordered} (\emph{R-121, R-217}) for given properties.
+Variables, questions, and codes, e.g., are typically organized in a particular order. 
+If codes (\emph{skos:Concept}) should be ordered, they must be members (\emph{skos:memberList}) in an ordered collection (\emph{skos:OrderedCollection}), the variable's code list.
+
+\textbf{Comparison.}
+A very common research question is to compare variables of multiple studies or countries (\emph{comparison}).
+To compare variables, 
+(1) variables and (2) variable definitions must be present,
+(3) code lists must be structured properly,
+(4) for each code an associated category must be specified, and
+(5) code lists must either be identical or at least similar.
+If a researcher wants to get a first overview over comparable variables (use case 1), 
+covering the first three constraints may be sufficient.
+Thus, the severity level of the first three constraints is stronger ($\mathcal{SL}_{2}$) than for the last two constraints ($\mathcal{SL}_{1}$ and $\mathcal{SL}_{0}$).
+If the intention of the researcher is to perform more detailed comparisons (use case 2), however, the violation of the remaining two constraints is getting more serious.
+
+\textbf{Unique Identification.}
+It is often useful to declare a given (data) property as the \emph{primary key} (\emph{R-226}) of a class, so that a system can enforce uniqueness and also automatically build URIs from user inputs and imported data. 
+In \emph{Disco}, resources are uniquely identified by the property \emph{adms:identifier},
+which is therefore inverse-functional
+$(\ms{funct identifier}\sp{\overline{\ }})$,
+i.e. for each \emph{rdfs:Resource x}, there can be at most one distinct \emph{rdfs:Resource y} such that \emph{y} is connected by \emph{adms:identifier$\sp{\overline{\ }}$} to \emph{x} ($\mathcal{SL}_{2}$).
+Keys, however, are even more general than \emph{inverse-functional properties} (\emph{R-58}),
+as a key can be a data, an object property, or a chain of properties \cite{Schneider2009}.
+For this generalization purposes, as there are different sorts of key, and as keys can lead to undecidability, 
+DL is extended with \emph{key boxes} and the construct \emph{keyfor} (\ms{identifier \ms{keyfor} Resource}) \cite{Lutz2005}.
+OWL 2 \emph{hasKey} implements \emph{keyfor} ($\mathcal{SL}_{2}$) and thus can be used to identify resources uniquely, to merge resources with identical key property values, and to recognize constraint violations.
+
+\textbf{Membership in Controlled Vocabularies.}
+In many cases, resources must be \emph{members of controlled vocabularies} (\emph{R-32}).
+If a dimension property, e.g., has a \emph{qb:codeList},
+then the value of the dimension property on every \emph{qb:Observation} must be in the code list ($\mathcal{SL}_{2}$).
+Summary statistics types like minimum, maximum, and arithmetic mean are maintained within a controlled vocabulary.  
+Thus, summary statistics can only have \emph{disco:summaryStatisticType} relationships to \emph{skos:Concept}s which must be members of the controlled vocabulary \emph{ddicv:SummaryStatisticType}, a \emph{skos:ConceptScheme} ($\mathcal{SL}_{2}$).
+
+\textbf{Constraints on Properties.}
+It is useful to declare properties to be \emph{conditional} (\emph{R-71}), i.e., if particular properties exist (or do not exist), then other properties must also be present (or absent).
+To get an overview over a series/study either an abstract, a title, an alternative title, or links to external descriptions should be provided. 
+If an abstract and an external description are absent, however,  
+a title or an alternative title should be given ($\mathcal{SL}_{1}$).
+In case a variable is represented in form of a code list, codes may be associated with categories, i.e., human-readable labels ($\mathcal{SL}_{0}$).
+The variable \emph{Education at pre-school}, e.g., is represented as ordered code list without any categories.
+If a {\em skos:Concept} represents a code (having {\em skos:notation} and {\em skos:prefLabel} properties), 
+then the property {\em disco:isValid} has to be stated indicating if the code stands for valid (\emph{true}) or missing (\emph{false}) cases ($\mathcal{SL}_{2}$).
+Constraints of type \emph{context-specific exclusive or of property groups} (\emph{R-11})
+restrict individuals of given classes to have properties defined within exactly one of multiple property groups.
+\emph{skos:Concept}s can have either \emph{skos:definition} (when interpreted as theoretical concepts) or \emph{skos:notation} and \emph{skos:prefLabel} properties (when interpreted as codes/categories), but not both ($\mathcal{SL}_{2}$).
+For datatype properties, it should be possible to declare frequently needed \emph{facets} ({\emph{R-46}) to validate input against simple conditions including min/max values, regular expressions, and string length.
+The abstract of series/studies, e.g., should have a minimum length ($\mathcal{SL}_{1}$).
+
+\textbf{Constraints on Literals.}
+\emph{disco:percentage} stands for the number of cases of a given code in relation to the total number of cases for a particular variable.
+Percentage values are only valid when they are within the \emph{literal range} of 0 and 100 (\emph{R-45}; $\mathcal{SL}_{2}$).
+{\em Mathematical Operations} (\emph{R-41, R-42}; e.g. date calculations and statistical computations like average, mean, and sum) are performed to ensure the integrity of data models.
+The sum of percentage values of all variable codes, e.g., must exactly be 100 ($\mathcal{SL}_{2}$)
+and the minimum absolute frequency of all variable codes do not have to be greater than the maximum ($\mathcal{SL}_{2}$).
+Depending on property datatypes, two different literal values have
+a specific ordering with respect to an operator like \textless (\emph{R-43: literal value comparison}).
+Start dates (\emph{disco:startDate}), e.g., must be before (\emph{\textless}) end dates (\emph{disco:endDate}) ($\mathcal{SL}_{2}$).
+
+%\begin{center}
+%\begin{DL}
+%Concept $\sqsubseteq$ ($\neg$ D $\sqcap$ C) $\sqcup$ (D $\sqcap$ $\neg$ C), D $\equiv$ A $\sqcap$ B \\
+%A $\sqsubseteq$ $\geq$ 1 notation.string $\sqcap$ $\leq$ 1 notation.string \\
+%B $\sqsubseteq$ $\geq$ 1 prefLabel.string $\sqcap$ $\leq$ 1 prefLabel.string \\
+%C $\sqsubseteq$ $\geq$ 1 definition.string $\sqcap$ $\leq$ 1 definition.string \\
+%\end{DL}
+%\end{center}
+
+%\textbf{Searching for (Meta)data.}
+%
+%- DCAT
+%
+%\textbf{Data Integration.}
+%use RDF validation for data integration
+
+%\textbf{Series, Studies, Data Sets, and Data Files.}
+%It is useful to declare properties to be \emph{conditional} (\emph{R-71}), i.e., if particular properties exist (or do not exist), then other properties must also be present (or absent).
+%To get an overview over a series/study either an abstract, a title, an alternative title, or links to external descriptions should be provided. 
+%If an abstract and an external description are absent, however,  
+%a title or an alternative title should be given ($\mathcal{SL}_{1}$).
+%For datatype properties, it should be possible to declare frequently needed \emph{facets} ({\emph{R-46}) to validate input against simple conditions including min/max values, regular expressions, and string length.
+%The abstract of series/studies, e.g., should have a minimum length ($\mathcal{SL}_{1}$).
+%\emph{Existential quantifications} (\emph{R-86}) enforce that instances of given classes must have some property relation to individuals of certain types.
+%If a study, e.g., does not contain any data set ($\mathcal{SL}_{2}$), the actual description of the data is missing which may indicate that it is very hard or unlikely to get access to the data.
+%If metadata on data files, including the actual data, is missing (especially case and variable quantities; $\mathcal{SL}_{1}$), the description of the data sets and the study is not sufficient.
+%Case quantity measures how many cases are collected for a study.
+%High case and variable quantities are indicators for high statistical quality and comprehensiveness of the underlying study ($\mathcal{SL}_{1}$).
+%
+%\textbf{Variables and Variable Comparison.}
+%Variables should be represented (\emph{R-86}; $\mathcal{SL}_{1}$) either as (un)ordered code lists or as unions of datatypes.
+%In case of a code list, associated categories (human-readable labels) may be stated (\emph{R-71}; $\mathcal{SL}_{0}$).
+%The variable \emph{Education at pre-school}, e.g., is represented as ordered code list without any categories.
+%If a {\em skos:Concept} represents a code (having {\em skos:notation} and {\em skos:prefLabel} properties), 
+%then the property {\em disco:isValid} has to be stated indicating if the code stands for valid (\emph{true}) or missing (\emph{false}) cases (\emph{R-71}; $\mathcal{SL}_{2}$).
+%Variables may have at least one relationship to a theoretical concept ({\emph{R-86}; $\mathcal{SL}_{0}$).
+%%The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
+%The variable \emph{Education at pre-school},.e.g, is associated with the theoretical concept \emph{Child Care}. 
+%The default severity level of this constraint is weak, as in most cases research can be continued without associated theoretical concepts.
+%A very common research question is to compare variables of multiple studies or countries (\emph{comparison}).
+%To compare variables, 
+%(1) variables and (2) variable definitions must be present,
+%(3) code lists must be structured properly,
+%(4) for each code an associated category (human-readable label) must be specified, and
+%(5) code lists must either be identical or at least similar.
+%If a researcher wants to get a first overview over comparable variables (use case 1), 
+%covering the first three constraints may be sufficient for this purpose.
+%Thus, the severity level of the first three constraints is stronger ($\mathcal{SL}_{2}$) than the severity level of the next two constraints ($\mathcal{SL}_{1}$ and $\mathcal{SL}_{0}$).
+%If the intention of the researcher is to perform more detailed comparisons (use case 2), however, the violation of the remaining two constraints is getting more serious.
+%
+%\textbf{Descriptive Statistics.}
+%The property \emph{disco:percentage} stands for the number of cases of a given code in relation to the total number of cases for a particular variable within a data set.
+%Percentage values are only valid when they are within the \emph{literal range} of 0 and 100 (\emph{R-45}; $\mathcal{SL}_{2}$).
+%{\em Mathematical Operations} (\emph{R-41, R-42}; e.g. date calculations and statistical computations like average, mean, and sum) are performed to ensure the integrity of data models.
+%The sum of percentage values of all codes of a variable code list, e.g., must exactly be 100 ($\mathcal{SL}_{2}$)
+%and the minimum of all variable codes do not have to be greater than the maximum ($\mathcal{SL}_{2}$).
+%Codes (\emph{skos:Concept}) are ordered and therefore have fixed positions in an ordered collection (\emph{skos:OrderedCollection}) within variable representations.
+%In order to check the correctness of relative frequencies' calculations, the cumulative percentage (\emph{disco:cumulativePercentage}) of the current code must exactly be the cumulative percentage of the previous code
+%plus the percentage value (\emph{disco:percentage}) of the current code (\emph{data model consistency}; $\mathcal{SL}_{2}$).
+%
+%\textbf{Unique Identification.}
+%It is often useful to declare a given (data) property as the \emph{primary key} (\emph{R-226}) of a class, so that a system can enforce uniqueness and also automatically build URIs from user inputs and imported data. 
+%In \emph{Disco}, resources are uniquely identified by the property \emph{adms:identifier},
+%which is therefore inverse-functional
+%$(\ms{funct identifier}\sp{\overline{\ }})$,
+%i.e. for each \emph{rdfs:Resource x}, there can be at most one distinct \emph{rdfs:Resource y} such that \emph{y} is connected by \emph{adms:identifier$\sp{\overline{\ }}$} to \emph{x} ($\mathcal{SL}_{2}$).
+%Keys, however, are even more general than inverse-functional properties (\emph{R-58}),
+%as a key can be a data, an object property, or a chain of properties \cite{Schneider2009}.
+%For this generalization purposes, as there are different sorts of key, and as keys can lead to undecidability, 
+%DL is extended with \emph{key boxes} and a special \emph{keyfor} construct (\ms{identifier \ms{keyfor} Resource}) \cite{Lutz2005}.
+%OWL 2 \emph{hasKey} implements \emph{keyfor} ($\mathcal{SL}_{2}$) and thus can be used to identify resources uniquely, to merge resources with identical key property values, and to recognize constraint violations.
+%%OWL 2 hasKey can be used to identify resources uniquely
+%%
+%%We used Protégé 5.
+%%
+%%example: owl:Thing owl:hasKey ( :hasSSN ) . :Peter :hasSSN "123-45-6789" .
+%%:Peter_Griffin :hasSSN "123-45-6789" .
+%%
+%%We use the predefined Reasoner HermiT.
+%%
+%%:Peter and :Peter_Griffin are derived as identical from the reasoner as they have the same value for :hasSSN.
+%%
+%%hasKey can be used to merge resources and to recognize constraint violations.
+%%
+%%Alternative to OWL 2 hasKey: concise bounded description (proposal of Dan)
+%%
+%%action: explore CBD document solution might be using both approaches
+%%
+%%benefit: additional identification to URI / IRI benefit: compound properties can be used as key
+%
+%
+%\textbf{Membership in Controlled Vocabularies.}
+%In many cases, resources must be members of controlled vocabularies (\emph{R-32}).
+%If a dimension property, e.g., has a \emph{qb:codeList},
+%then the value of the dimension property on every \emph{qb:Observation} must be in the code list ($\mathcal{SL}_{2}$).
+%Summary statistics types like minimum, maximum, and arithmetic mean are maintained within a controlled vocabulary.  
+%Summary statistics can only have \emph{disco:summaryStatisticType} relationships to \emph{skos:Concept}s which must be members of the controlled vocabulary \emph{ddicv:SummaryStatisticType}, a \emph{skos:ConceptScheme} ($\mathcal{SL}_{2}$).
+%
+%%\begin{center}
+%%\begin{DL}
+%%SummaryStatistics $\sqsubseteq$ $\forall summaryStatisticType.A$ \\
+%%$A \equiv Concept \sqcap \forall inScheme . B$ \\
+%%$B \equiv ConceptScheme \sqcap \{SummaryStatisticType\}$
+%%\end{DL}
+%%\end{center}
+%
+%\textbf{Coverage.}
+%Information about the temporal (\emph{dcterms:temporal}), the spatial (\emph{dcterms:spatial}), and the topical coverage (\emph{dcterms:subject}) of series, studies, data sets, and data files (\emph{R-86}; $\mathcal{SL}_{1}$) is of interest when performing frequently formulated queries 
+	%(e.g. to search for all data sets of given years (temporal coverage) in which data is collected in certain countries (spatial coverage) about particular topics (topical coverage)).
+%Depending on property datatypes,
+%two different literal values have
+%a specific ordering with respect to an operator like \textless (\emph{R-43: literal value comparison}).
+%Start dates (\emph{disco:startDate}), e.g., must be before (\emph{\textless}) end dates (\emph{disco:endDate}) ($\mathcal{SL}_{2}$).
+%
+%%\textbf{Organizations, Hierarchies, Classifications, and Ordering.}
+%\textbf{Hierarchies and Ordering.}
+%SKOS is based on RDF, which is a graph-based data model. Therefore, we can concentrate on the vocabulary's graph-based structure for assessing the quality of SKOS vocabularies and apply graph- and network-analysis techniques (\emph{structure}) like 
+%(1) a vocabulary should provide entry points (top concepts) to the data to provide efficient access and guidance for human users,
+%(2) concepts, internal to the tree, should not be indicated as top concepts, and
+%(3) a vocabulary should not contain many orphan concepts 
+%(concepts without any associative or hierarchical relations) lacking valuable context information. A controlled vocabulary that contains many orphan concepts is less usable for search and retrieval use cases.
+%%, as, e.g., no hierarchical query expansion can be performed on search terms to find documents with more general content.) \cite{MaderHaslhoferIsaac2012}. 
+%Objects and literals can be \emph{ordered} (\emph{R-121, R-217}) for given properties.
+%\emph{Disco }variables, questions, and codes/categories are typically organized in a particular order. 
+%If a variable code list should be ordered, the variable representation should be of the type \emph{skos:OrderedCollection} containing multiple codes/categories (each represented as \emph{skos:Concept}) in a \emph{skos:memberList}. 
+%
+%\textbf{Reusability.}
+%Within the context of \emph{Disco}, \emph{skos:Concept}s can have either \emph{skos:definition} (when interpreted as theoretical concepts) or \emph{skos:notation} and \emph{skos:prefLabel} properties (when interpreted as codes/categories), but not both ($\mathcal{SL}_{2}$).
+%The constraint type \emph{context-specific exclusive or of property groups} (\emph{R-11})
+%restricts individuals of given classes to have exactly one of multiple property groups.
 
 \section{Implementation}
 \label{implementation}
