@@ -365,71 +365,68 @@ as person-level data include additional variables needed for further research.
 %Although not that common, the other direction is also possible, 
 %i.e. researchers may use metadata on person-level data to search for aggregated data.
 One very common example for detailed analyses on person-level data is the content-driven comparison of multiple studies.
-Researchers get promising findings (in form of published tables with a few columns) within a metadata portal leading to subsequent research questions 
-like 'How to compare the unemployment rate of different countries (e.g. Germany, UK, and France) in the last 10 years grouped by age?'.
-The first step is to determine in which countries the unemployment rate is collected and which other variables of each country-specific study are theoretically comparable and can therefore be used to answer the underlying research question.
 A \emph{study} represents the process by which a data set was generated or collected.
+Eurostat\footnote{\url{http://ec.europa.eu/eurostat}} is the statistical office of the European Union. Its task is to provide statistics at European level that enable comparisons between countries and regions.
+Eurostat provides publicly available European aggregated data (downloadable as CSV files) and its metadata.
+This way, researchers get promising findings (in form of published tables with a few columns), e.g., about the availability of childcare services in European Union Member States by year, duration, and child age  leading to subsequent research questions.
+%The first step is to determine in which countries the unemployment rate is collected and which other variables of each country-specific study are theoretically comparable and can therefore be used to answer the underlying research question.
+
+The variable \emph{formal childcare}\footnote{The data set is available at: \url{http://ec.europa.eu/eurostat/web/products-datasets/-/ilc_caindformal}} (in contrast to childcare at home)
+captures the measured availability of childcare services in percent over the population.
+The present data collection refers to data on formal childcare by the variables \emph{year}, \emph{duration} (in hours per week), \emph{age} of the child, and \emph{country}.
 Variables are constructed out of values (of one or multiple datatypes) and/or code lists.
 The variable \emph{age}, e.g., may be represented by values of the datatype \emph{xsd:nonNegativeInteger}, or by a code list including multiple age clusters (such as '0 to 10' and '11 to 20'). 
 To determine if variables measuring \emph{age} 
-- collected within multiple studies of different countries (\emph{$age_{DE}$}, \emph{$age_{UK}$}) - 
-are comparable, both content-driven and technology-driven validation is performed.
-An example for a content-driven validation is to investigate if variables are represented in a compatible way,
-i.e. are the variables' code lists theoretically comparable.
-Technically, it can be validated (1) if variable definitions are available, (2) if code lists are properly structured, and (3) if for each code an associated category (a human-readable label) is specified.
+- collected for different countries (\emph{$age_{DE}$}, \emph{$age_{UK}$}) - 
+are comparable, both content-driven and technology-driven constraints are validated.
+Content-driven constraints ensure that the data is consistent with the intended syntax, semantics, and integrity of vocabularies' data models and 
+technology-driven constraints can be generated completely automatically out of vocabularies' data models. 
+Examples for content-driven constraints are to investigate (1) if variables are represented in a compatible way,
+i.e. are the variables' code lists theoretically comparable, and (2) if variables' code lists are properly structured.
+With technology-driven constraints, it can be validated (1) if variable definitions are available and (2) if for each code an associated category (a human-readable label) is specified.
 
-Data providers and harvesters do not only offer metadata but also publicly available data on different level of detail.
-To ensure high data quality and trust, they have to analyze and validate the data (are fundamental data fragments available?, how does valid data look like?). 
+%\textbf{Data validation.}
+Data providers and harvesters do not only offer metadata but also publicly available data on different level of aggregation.
+To ensure high data quality, they have to check provenance information and to analyze and therefore validate the data according to predefined constraints (e.g. 'are fundamental data fragments available?', and 'how does valid data look like?'). 
 %They validate, e.g., if fundamental data parts are available and define how valid data should look like (using syntactic rules).
-Provenance (where does the data come from?) is an important aspect in evaluating data quality.
-As data searchers know exactly which data sources they trust and which are reasonable to meet their individual use cases, 
-RDF data validation can only be performed semi-automatically, i.e., an automatic approach serves as basis for intellectual decisions. 
+%Provenance (where does the data come from?) is an important aspect in evaluating data quality.
+%As data searchers know exactly which data sources they trust and which are reasonable to meet their individual use cases, 
+%RDF data validation can only be performed semi-automatically, i.e., an automatic approach serves as basis for intellectual decisions. 
 
 %\section{Running Example}
 %\label{running-example}
 \section{Vocabularies to Represent Metadata and Data in RDF}
 \label{rdf-representation}
-\ke{@KAI: Dieses Kapitel werde ich noch deutlich kürzen!}
-\tb{figure / metadata: person-level, aggregated, thesauri, catalogs, statistical classifications / data: rectangular data}
 
-Eurostat\footnote{\url{http://ec.europa.eu/eurostat}} is the statistical office of the European Union. Its task is to provide statistics at European level that enable comparisons between countries and regions.
-Eurostat provides publicly available European aggregated data (downloadable in machine-readable format like CSV files) and its metadata (only textual descriptions).
-SBE researchers have a strong interest, e.g., in the availability of childcare services across European Union Member States.
-\tb{folgendes beispiel bezieht sich auf diesen datensatz}
+In this section, we describe how data in rectangular format (\emph{PHDD}) and metadata on person-level data sets (\emph{Disco}), aggregated data sets (\emph{QB}), thesauri (\emph{SKOS}), and statistical classifications (\emph{XKOS}) are represented in RDF\footnote{The complete running example in RDF is available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/data/running-example}} and how therefore reused vocabularies are interrelated.
 
 \textbf{Metadata on Aggregated Data.}
-The variable \emph{formal childcare}\footnote{\url{http://ec.europa.eu/eurostat/web/products-datasets/-/ilc_caindformal}} (in contrast to childcare at home)
-captures the measured availability of childcare services in percent over the population.
-The present data collection refers to data on formal childcare and other types of care by the variables \emph{year}, \emph{duration} (0 hours, 1 - 29 HPW; 30 HPW), \emph{age} of the child (0-2 years; 3 to admission age for compulsory school; admission age for compulsory school to 12) and \emph{country}.
-\emph{QB} is a vocabulary to represent metadata on multi-dimensional aggregate data.
-Such data is represented using \emph{QB} in two files, a \emph{qb:DataSet} and a \emph{qb:DataStructureDefinition}.
+The vocabulary \emph{QB} represents metadata on multi-dimensional aggregate data in two files, a \emph{qb:DataSet} and a \emph{qb:DataStructureDefinition}.
 The \emph{qb:DataStructureDefinition} contains metadata of the present data collection.
-Thereby, the variable \emph{formal childcare} is modelled as \emph{qb:measure}, since it expresses what has been measured in the data collection.
-The \emph{year}, \emph{duration}, \emph{age}, etc. are defined as \emph{qb:dimension}.
-The particular data values, i.e. the specific availability of childcare services in percent over the population in particular years, are collected in a \emph{qb:DataSet}. Each data value is represented inside a \emph{qb:Observation} which additionally contains the particular dimensional values associated with that data value, e.g. the concrete year in which the formal childcare has been determined.
-
-\footnote{\textcolor{red}{The complete running example in RDF is available at: \url{XXXXX}}}
-
-\tb{laut SDMX sind year, duration, age, etc. keine Variablen, sondern Dimensionen}
+Thereby, the variable \emph{formal childcare} is modelled as \emph{qb:measure}, since it stands for what has been measured in the data collection.
+The variables \emph{year}, \emph{duration}, \emph{age}, and \emph{country} are defined as \emph{qb:dimension}.
+Data values, i.e., the availability of childcare services in percent over the population, are collected in a \emph{qb:DataSet}. 
+Each data value is represented inside a \emph{qb:Observation} which additionally contains values for each dimension 
+(e.g., the year in which \emph{formal childcare} has been determined).
 
 \textbf{Rectangular Data.}
-As Eurostat provides aggregated data as CSV files, we can easily represent the two-dimensional table in RDF by means of \emph{PHDD}.
-\emph{PHDD} is a vocabulary to represent aggregated and person-level data in a rectangular format. 
-The data could be either represented in records with character-separated values (CSV) or in records with fixed length. 
-The two-dimensional table about \emph{formal childcare} can be downloaded as CSV file. 
-The table is represented as \emph{phdd:Table} and structured by a table structure (\emph{phdd:TableStructure}, \emph{phdd:Delimited}).
-The running example table structure includes information about the character set (\emph{ASCII}), the variable delimiter (\emph{,}), the new line marker (\emph{CRLF}), and the first line where the data starts (\emph{2}).
-The table structure relates to the table columns (\emph{phdd:Column}) which are described by column descriptions (\emph{phdd:DelimitedColumnDescription}).
-For the column containing the cell values in percent, e.g., the CSV column position (\emph{5}), the recommended data type (\emph{xsd:nonNegativeInteger}), and the storage format (\emph{TINYINT}) is stated. 
+\emph{PHDD} represents data in a rectangular format in RDF. 
+The data could be either represented in records with character-separated values (CSV) or fixed length. 
+Eurostat provides the two-dimensional table about \emph{formal childcare} in form of a CSV file. 
+The \emph{phdd:Table} is structured by a table structure (\emph{phdd:TableStructure}, \emph{phdd:Delimited}).
+The table structure includes information about the character set (\emph{ASCII}), the variable delimiter (\emph{,}), the new line marker (\emph{CRLF}), and the first line where the data starts (\emph{2}).
+The table structure is related to table columns (\emph{phdd:Column}) which are described by column descriptions (\emph{phdd:DelimitedColumnDescription}).
+For the column containing the cell values in percent, the column position (\emph{5}), the recommended data type (\emph{xsd:nonNegativeInteger}), and the storage format (\emph{TINYINT}) is stated. 
 The RDFication enables further aggregations and calculations, e.g., in order to compare \emph{formal childcare} between Northern and Southern Europe or between otherwise grouped countries.
 % macht mehr sinn wenn Tabelle in mehreren Dimensionen vorhanden ist ode wenn Klassifikationen wie ISCO verwendet werden 
 
 \textbf{Metadata on Person-Level Data.}
 For a broader view of the data framework and more detailed analyses we refer to the metadata on person-level data collected for the series \emph{EU-SILC (European Union Statistics on Income and Living Conditions)}\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC}} 
-and publicly provided by the \emph{Microdata Information System (MISSY)}\footnote{\url{http://www.gesis.org/missy/eu/missy-home}}.
-Where data collection is cyclic, data sets may be released as a \emph{series}, 
+published by the \emph{Microdata Information System (MISSY)}\footnote{\url{http://www.gesis.org/missy/eu/missy-home}}.
+Where data collection is cyclic, data sets may be released as \emph{series}, 
 where each cycle of the data collection activity produces one or more data sets. 
-\emph{Missy} is an online service platform that provides systematically structured metadata for official statistics on European person-level data sets. This includes data documentation at the study and variable level as well as documentation materials, tools and further information. 
+\emph{Missy} is an online service platform that provides systematically structured metadata for official statistics on European person-level data sets. 
+%This includes data documentation at the study and variable level as well as documentation materials, tools and further information. 
 Aggregated (qb:DataSet) and underlying person-level data sets (\emph{disco:LogicalDataSet}) are connected by \emph{prov:wasDerivedFrom}. 
 The aggregated variable \emph{formal childcare} is calculated on the basis of six person-level variables like 
 \emph{Education at pre-school}\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC/2011/Cross-sectional/original#2011-Cross-sectional-RL010}}.
@@ -438,15 +435,15 @@ The aggregated variable \emph{formal childcare} is calculated on the basis of si
 %(4) Child care at day-care centre,
 %(5) Child care by a professional child-minder, and
 %(6) Child care by grand-parents, household members, relatives, friends, neighbours.
-For each person-level variable detailed metadata is given (definitions and descriptions, theoretical concepts, underlying questions, code lists, frequencies and descriptive statistics, countries, year of data collection, classifications) enabling researchers to replicate the results shown in the aggregated data tables from Eurostat.
-Metadata on person-level data is represented in RDF using the \emph{Disco} vocabulary.
-The series (\emph{disco:StudyGroup}) \emph{EU-SILC} contains (\emph{disco:inGroup}) one study (\emph{disco:Study}) for each year (\emph{dcterms:temporal}) of data collection, e.g. \emph{EU-SILC 2011}.   
-The property \emph{dcterms:spatial} points to the countries (\emph{dcterms:Location} resources which are the same as \emph{GeoNames} resources representing these countries) for which the data has been collected.
-The study \emph{EU-SILC 2011} contains (\emph{disco:product}) eight person-level data sets (\emph{disco:LogicalDataSet}).
-Data sets include (\emph{disco:variable}) person-level variables (\emph{disco:Variable}) like the six ones needed to calculate the aggregated variable \emph{formal childcare}.
-Metadata on person-level data enables researchers to investigate further research questions based on promising findings of other researchers in form of aggregated data.
-One common research question is ,e.g., the comparison of variables like 
-\emph{formal childcare} between countries, for which the variable is collected within the context of an individual study, and other European or non European countries (e.g. OSCE).
+For each person-level variable detailed metadata is given (definitions, descriptions, theoretical concepts, questions variables are based on, code lists, frequencies, descriptive statistics, countries, year of data collection, and classifications) which enables researchers to replicate the results shown in the aggregated data tables from Eurostat.
+The vocabulary \emph{Disco} represents metadata on person-level data in RDF.
+The series (\emph{disco:StudyGroup}) \emph{EU-SILC} contains one study (\emph{disco:Study}) for each year (\emph{dcterms:temporal}) of data collection.   
+\emph{dcterms:spatial} points to the countries for which the data has been collected.
+The study \emph{EU-SILC 2011} contains eight person-level data sets (\emph{disco:LogicalDataSet})
+including person-level variables (\emph{disco:Variable}) like the six ones needed to calculate the aggregated variable \emph{formal childcare}.
+%Metadata on person-level data enables researchers to investigate further research questions based on promising findings of other researchers in form of aggregated data.
+%One common research question is ,e.g., the comparison of variables like 
+%\emph{formal childcare} between countries, for which the variable is collected within the context of an individual study, and other European or non European countries (e.g. OSCE).
 
 \textbf{Organizations, Hierarchies, and Classifications.}
 %\textbf{Reusing SKOS.}
