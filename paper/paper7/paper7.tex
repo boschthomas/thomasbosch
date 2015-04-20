@@ -509,7 +509,7 @@ The difference between $\mathcal{SL}_{1}$ and $\mathcal{SL}_{2}$ constraints is 
 whereas $\mathcal{SL}_{1}$ invalid data cannot be processed further. 
 Although, we provide default severity levels for each constraint, users should be able to specify constraints' severity levels according to their individual needs, i.e., use case specific severity levels.
 
-We recently published a technical report\footnote{\textcolor{red}{\label{technical-report-1}Available at: \url{http://arxiv.org/abs/XXXXX}}} (serving as first appendix of this paper) in which we describe 212 constraints (classified as 53 constraint types) to validate rectangular data (\emph{PHDD}) and metadata on person-level data sets (\emph{Disco}), aggregated data sets (\emph{QB}), thesauri (\emph{SKOS}), and statistical classifications (\emph{XKOS}), and therefore apply the proposed classification system to several vocabularies to represent both data and metadata \cite{BoschZapilkoWackerowEckert2015}.
+We recently published a technical report\footnote{\label{technical-report-1}Available at: \url{http://arxiv.org/abs/1504.04479}} (serving as first appendix of this paper) in which we describe 212 constraints (classified as 53 constraint types) to validate rectangular data (\emph{PHDD}) and metadata on person-level data sets (\emph{Disco}), aggregated data sets (\emph{QB}), thesauri (\emph{SKOS}), and statistical classifications (\emph{XKOS}), and therefore apply the proposed classification system to several vocabularies to represent both data and metadata \cite{BoschZapilkoWackerowEckert2015}.
 In this section, we describe constraints, which are important to ensure \emph{SBE} (meta)data quality, 
 associate them with default severity levels, and assign them to $\mathcal{CT}_{C}$ and $\mathcal{CT}_{T}$ constraint types. 
 
@@ -880,7 +880,7 @@ the \emph{DwB Discovery Portal}, the
 \emph{Danish Data Archive (DDA)}, and the
 \emph{Swedish National Data Service (SND)}.
 
-We recently published a technical report\footnote{\label{technical-report-2}\textcolor{red}{Available at: \url{http://arxiv.org/abs/XXXXX}}} (serving as second appendix of this paper) 
+We recently published a technical report\footnote{\label{technical-report-2}Available at: \url{http://arxiv.org/abs/1504.04478}} (serving as second appendix of this paper) 
 in which we describe the comprehensive evaluation in detail \cite{BoschZapilkoWackerowEckert2015-2}. 
 As we evaluated nearly 10 thousand \emph{QB} data sets, we published the evaluation results for each data set in form of one document per SPARQL endpoint\footnote{Available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/evaluation/data-sets/data-cube}}.
 Table \ref{tab:evaluation} shows the evaluation results.
@@ -972,7 +972,7 @@ issues that go beyond the integrity constraints defined in the SKOS specificatio
 \section{Conclusion and Future Work}
 \ke{@KAI: Dieses Kapitel muss ich noch an die Änderungen im Paper anpassen!}
 In this paper, we showed in form of a complete real world running example how to represent metadata on person-level data (\emph{Disco}), metadata on aggregated data (\emph{QB}), and data on both aggregation levels in a rectangular format (\emph{PHDD}) in RDF and how therefore used vocabularies are interrelated (\textbf{contribution 1}, section \ref{rdf-representation}).
-We explained why RDF validation is important in this context and how metadata on person-level data, aggregated data, thesauri, and statistical classifications as well as data on both aggregation levels is validated against constraints to ensure high (meta)data quality\footnote{The first appendix of this paper describing each constraint in detail is available at: \textcolor{red}{\url{http://arxiv.org/abs/XXXXX}} \cite{BoschZapilkoWackerowEckert2015}} (\textbf{contribution 2}, section \ref{rdf-validation}). 
+We explained why RDF validation is important in this context and how metadata on person-level data, aggregated data, thesauri, and statistical classifications as well as data on both aggregation levels is validated against constraints to ensure high (meta)data quality\footnote{The first appendix of this paper describing each constraint in detail is available at: \url{http://arxiv.org/abs/1504.04479} \cite{BoschZapilkoWackerowEckert2015}} (\textbf{contribution 2}, section \ref{rdf-validation}). 
 We distinguish two validation types:
 (1) \emph{Content-Driven Validation} $\mathcal{C}_{C}$ contains the set of constraints ensuring that the data is consistent with the intended syntax, semantics, and integrity of data models (section \ref{content-driven-validation}).
 (2) \emph{Technology-Driven Validation} $\mathcal{C}_{T}$ includes the set of constraints which can be generated automatically out of data models, such as cardinality restrictions, universal and existential quantifications, domains, and ranges (section \ref{technology-driven-validation}).
@@ -981,7 +981,7 @@ and propose an extensible metric to measure the continuum of severity levels.
 
 We implemented a validation environment (available at \url{http://purl.org/net/rdfval-demo}) to validate RDF data according to constraints expressed my arbitrary constraint languages and to ensure correct syntax, semantics, and integrity of diverse vocabularies such as \emph{Disco, QB, PHDD, SKOS, and XKOS} (section \ref{implementation}).
 We exhaustively evaluated the metadata quality of large real world aggregated (\emph{QB}), person-level (\emph{Disco}), and thesauri (\emph{SKOS}) data sets by means of 212 $\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints of the majority of the constraint types.
-We validated more than 4.2 billion triples and 15 thousand data sets\footnote{The second appendix of this paper describing the evaluation in detail is available at: \textcolor{red}{\url{http://arxiv.org/abs/XXXXX}} \cite{BoschZapilkoWackerowEckert2015-2}.} (section \ref{evaluation}).
+We validated more than 4.2 billion triples and 15 thousand data sets\footnote{The second appendix of this paper describing the evaluation in detail is available at: \url{http://arxiv.org/abs/1504.04478} \cite{BoschZapilkoWackerowEckert2015-2}.} (section \ref{evaluation}).
 
 %It is still ongoing work to identify and classify constraints on rectangular data (\emph{PHDD}) and statistical classifications (\emph{XKOS}) and to actually evaluate the (meta)data quality of real world \emph{XKOS} and \emph{PHDD} data sets.
 
