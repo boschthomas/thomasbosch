@@ -488,11 +488,9 @@ express that, if an individual \emph{x} is connected by a sequence of object pro
 then \emph{x} is also related to \emph{y} by a particular object property. 
 As \emph{Stephen-Hawking} is the \emph{author} of the book \emph{A-Brief-History-Of-Time} (\ms{authorOf(Stephen-Hawking, A-Brief-History-Of-Time)}) whose \emph{genre} is \emph{Popular-Science} ({\ms{genre(A-Brief-History-Of-Time, Popular-Science)}),
 the following \emph{object property path} infers that \emph{Stephen-Hawking} is an \emph{author} of the \emph{genre} \emph{Popular-Science} (\ms{authorOfGenre(Stephen-Hawking, Popular-Science)}):
-
 \begin{DL}
 authorOf $\circ$ genre $\sqsubseteq$ authorOfGenre 
 \end{DL}
-
 Thus, when mapped to the \emph{RDF-CV} (see table \ref{tab:property-constraint-object-property-paths}), the properties \emph{authorOf} and \emph{genre} are on the left side of the \emph{constraining element} \emph{$\sqsubseteq$},
 and the property \emph{authorOfGenre} is on the right side:
 
@@ -512,24 +510,27 @@ and the property \emph{authorOfGenre} is on the right side:
 
 \subsection{\emph{Simple Constraints} (Not Expressible in \emph{DL})}
 
-There are \emph{simple constraints} which cannot be expressed in DL such as \emph{literal pattern matching}, \emph{literal value comparison}, \emph{literal ranges}, \emph{default values}, and \emph{language tag cardinality} \cite{BoschNolleAcarEckert2015}.
+There are \emph{simple constraints} which cannot be expressed in \emph{DL} such as \emph{literal pattern matching}, \emph{literal value comparison}, \emph{literal ranges}, \emph{default values}, and \emph{language tag cardinality} \cite{BoschNolleAcarEckert2015}.
 % maybe additional constraint default values:
 % ear shape of races, e.g. vulcans / teeth color
 % mathematical operations
 
 {\em Literal pattern matching}\footnote{Corresponds to {\em R-44-PATTERN-MATCHING-ON-RDF-LITERALS}} restricts literals to match given patterns.
-The universal restriction \ms{Book $\sqsubseteq$ $\forall$ identifier.ISBN}, e.g., ensures that \emph{books} can only have valid ISBN identifiers, 
-i.e. strings that match a given regular expression. 
-The restriction of the datatype \emph{ISBN}, however, cannot be expressed in DL, but OWL 2 DL can be used anyway to express the \emph{literal pattern matching} constraint:
+The following \emph{universal restriction}, e.g., ensures that \emph{books} can only have valid \emph{ISBN} identifiers, 
+i.e., strings that match a given regular expression:
+\begin{DL}
+\ms{Book $\sqsubseteq$ $\forall$ identifier.ISBN} 
+\end{DL}
+Even though, the restriction of the datatype \emph{ISBN} cannot be expressed in \emph{DL}, \emph{OWL 2 DL} can be used to express the \emph{literal pattern matching} constraint:
 
 \begin{ex}
 ISBN a RDFS:Datatype ; owl:equivalentClass [ a RDFS:Datatype ;
-    owl:onDatatype xsd:string ; owl:withRestrictions ([ xsd:pattern "^\d{9}[\d|X]\$" ])] .
-\end{ex}
-\tb{ToDO: delete the slash in front of the dollar sign from the output of the code fragment above (in the stated pattern)?}
+    owl:onDatatype xsd:string ; 
+    owl:withRestrictions ([ xsd:pattern "^\d{9}[\d|X]$" ])] .
+\end{ex}\$$
 The first OWL 2 axiom explicitly declares {\em ISBN} to be a datatype. %\er{Why start from second and then first? Also better we say "owl axiom" when we talk axiom of owl, to prevent ambiguity.}\tb{resolved}
 The second OWL 2 axiom defines {\em ISBN} as an abbreviation for a datatype restriction on {\em xsd:string}. 
-The datatype {\em ISBN} can be used just like any other datatype like in the universal restriction above.
+The datatype {\em ISBN} can be used just like any other datatype like in the \emph{universal restriction} above.
 %There are multiple use cases associated with the requirement to match literals according to given patterns (\emph{Literal Pattern Matching}\footnote{Corresponds to \emph{R-44-PATTERN-MATCHING-ON-RDF-LITERALS}}).
 %The enterprise vessel, e.g.,  can only have the registry numbers "NCC-1701", "NCC-1701-A", "NCC-1701-B", "NCC-1701-C", "NCC-1701-D", or "NCC-1701-E".
 %The universal restriction can be represented in DL:
@@ -545,10 +546,10 @@ The datatype {\em ISBN} can be used just like any other datatype like in the uni
 %The second axiom defines \ms{RegistryNumber} as an abbreviation for a datatype restriction on \ms{xsd:string}. 
 %The first axiom explicitly declares \ms{RegistryNumber} to be a datatype. 
 %The datatype \ms{RegistryNumber} can be used just like any other datatype like in the universal restriction above.
-The \emph{literal pattern matching} constraint validates \emph{ISBN} literals according to the stated regular expression causing constraint violations for triples not matching the regular expression. 
+The \emph{literal pattern matching} constraint validates \emph{ISBN} literals according to the regular expression causing constraint violations for triples which do not not match. 
 %\ms{Janeway commandsEnterprise Voyager} and \ms{Voyager registryNumber "NCC-74656"\textasciicircum{}\textasciicircum{}RegistryNumber}, 
 %but not for the triples \ms{Picard commandsEnterprise Enterprise} and \ms{Enterprise registryNumber "NCC-1701-E"\textasciicircum{}\textasciicircum{}RegistryNumber}.
-In table \ref{tab:simple-constraint-not-expressible-in-dl)}, the \emph{simple constraint} (\emph{literal pattern matching}) and the \emph{complex constraint} (\emph{universal restriction}) are mapped to the \emph{RDF-CV}.
+In table \ref{tab:simple-constraint-not-expressible-in-dl)}, the \emph{simple constraint} (\emph{literal pattern matching}) and the \emph{complex constraint} (\emph{universal restriction}) are mapped to the \emph{RDF-CV}:
 
 %\begin{gcotable}
 %property & Enterprise & registryNumber & - & RegistryNumber & $\forall$ & - \\
@@ -569,9 +570,9 @@ In table \ref{tab:simple-constraint-not-expressible-in-dl)}, the \emph{simple co
 	\caption{Simple Constraint (Not Expressible in DL)}
 	\label{tab:simple-constraint-not-expressible-in-dl)}
 \end{table} %\tb{Erman, can you please format the regular expression in the table above correctly?}
-The \emph{literal pattern matching} constraint introduces the new \emph{constraining element} \emph{regex}.
-For this new \emph{constraining element}, the validation must be implemented.
-This has to be done once for each \emph{generic constraint type} which cannot be expressed in DL.
+The \emph{literal pattern matching} constraint type introduces the new \emph{constraining element} \emph{regex},
+for which a validation mechanism has to be implemented.
+Validation has to be implemented once for each \emph{generic constraint type} which is not expressible in \emph{DL}.
 
 \subsection{\emph{Complex Constraints}}
 
