@@ -533,22 +533,23 @@ associate them with default severity levels, and assign them to $\mathcal{CT}_{C
 $\mathcal{CT}_{T}$ constraints can be directly and automatically derived from explicitly stated syntax and semantics of vocabularies' data models.
 Thus, associated default severity levels are in most cases very strong ($\mathcal{SL}_{2}$).
 
+%\textbf{Constraints Derived From Vocabularies.}
 \textbf{Vocabulary.}
-One should not invent new or use deprecated terms of vocabularies (\emph{vocabulary}).
-\emph{Property Domains} (\emph{R-25, R-26}) and \emph{Ranges} (\emph{R-28, R-35}) restrict domains and ranges of properties.
+One should not invent new or use deprecated terms (e.g. \emph{disco:containsVariable}) of vocabularies (\emph{vocabulary}).
+\emph{Property domain} (\emph{R-25, R-26}) and \emph{range} (\emph{R-28, R-35}) constraints restrict domains and ranges of properties.
 Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships (\ms{$\exists$ isStructuredBy.$\top$ $\sqsubseteq$ Table}) and
-\emph{xkos:belongsTo} relationships can only point to \emph{skos:Concept} instances (\ms{$\top$ $\sqsubseteq$ $\forall$ belongsTo.Concept}).
+\emph{xkos:belongsTo} relationships can only point to \emph{skos:Concepts} (\ms{$\top$ $\sqsubseteq$ $\forall$ belongsTo.Concept}).
 A \emph{universal quantification} (\emph{R-91}) contains all those individuals that are connected by a property only to individuals/literals of particular classes  or data ranges.
 Only \emph{dcat:Catalogs}, e.g., can have \emph{dcat:dataset} relationships to \emph{dcat:Datasets} (\ms{Catalog $\sqsubseteq$ $\forall$ dataset.Dataset}).
 Out-dated classes and properties of previous vocabulary versions can be marked as deprecated.
-The constraint type \emph{context-specific valid classes and properties} (\emph{R-209; R-210}) can be used to specify which classes and properties are valid in which context - here a given vocabulary version.
+The constraint types \emph{context-specific valid classes and properties} (\emph{R-209; R-210}) can be used to specify which classes and properties are valid in which context - here a given vocabulary version.
 Many properties are not necessarily required but \emph{recommended} within a particular context (\emph{R-72}).
 The property {\em skos:notation}, e.g., is not mandatory for {\em disco:Variable}s, but recommended to represent variable names.
 \emph{R-223} serves to make sure that all literal values are valid with regard to their datatypes.
 Thus, all date values (e.g. {\em disco:startDate}, {\em disco:endDate}, {\em dcterms:date}) must be of the datatype \emph{xsd:date} and \emph{xsd:nonNegativeInteger} values (e.g. \emph{disco:frequency}) do not have to be negative.
 
 \textbf{Existential Quantifications.}
-\emph{Existential quantifications} (\emph{R-86}) enforce that instances of given classes must have some property relation to individuals of certain types.
+\emph{Existential quantifications} (\emph{R-86}) enforce that instances of given classes must have some property relation to individuals/literals of certain types.
 If a study, e.g., does not contain any data set ($\mathcal{SL}_{2}$), the actual description of the data is missing which may indicate that it is very hard or unlikely to get access to the data.
 If metadata on data files, including the actual data, is missing (especially case and variable quantities; $\mathcal{SL}_{1}$), the description of the data sets and the study is not sufficient.
 Case quantity measures how many cases are collected for a study.
@@ -562,9 +563,8 @@ The constraint's severity level is weak, as in most cases research can be contin
 %An \emph{existential quantification} (\emph{R-86}) contains all those individuals that are connected by a property to individuals/literals of given classes or data ranges.
 %Every \emph{qb:SliceKey}, e.g., must be associated with (\emph{qb:sliceKey}) a \emph{qb:DataStructureDefinition} (\ms{SliceKey $\sqsubseteq$ $\exists$ sliceKey$^{-}$.DataStructureDefinition}).
 \emph{Minimum/maximum/exact qualified cardinality restrictions} (\emph{R-74, R-75, R-76}) contain all those individuals that are connected by a property to at least/at most/exactly n different individuals/literals of particular classes or data ranges.
-A \emph{phdd:TableStructure}, e.g., has at least one \emph{phdd:column} relationship to a \emph{phdd:Column} (\ms{TableStructure $\sqsubseteq$ $\geq$1 column.Column}),
-a \emph{disco:Variable} has at most one \emph{disco:concept} relationship to a theoretical concept (\emph{skos:Concept}) (\ms{Variable $\sqsubseteq$ $\leq$1 concept.Concept}), and a \emph{qb:DataSet} has (\emph{qb:structure}) exactly one associated \emph{qb:DataStructureDefinition} (\ms{DataSet $\sqsubseteq$ $\geq$1 structure.DataStructureDefinition $\sqcap$ $\leq$1 structure.DataStructureDefinition}).
-
+A \emph{phdd:TableStructure}, e.g., has (\emph{phdd:column}) at least one \emph{phdd:Column} (\ms{TableStructure $\sqsubseteq$ $\geq$1 column.Column}),
+a \emph{disco:Variable} has at most one \emph{disco:concept} relationship to a theoretical concept (\emph{skos:Concept}) (\ms{Variable $\sqsubseteq$ $\leq$1 concept.Concept}), and a \emph{qb:DataSet} is structured by (\emph{qb:structure}) exactly one \emph{qb:DataStructureDefinition} (\ms{DataSet $\sqsubseteq$ $\geq$1 structure.DataStructureDefinition $\sqcap$ $\leq$1 structure.DataStructureDefinition}).
 %DATA-CUBE-C-MINIMUM-QUALIFIED-CARDINALITY-RESTRICTIONS-
 %02: Unique data set (IC-1 [3]) - Every qb:Observation has (qb:dataSet) ex-
 %actly one associated qb:DataSet (Observation  ¥1 dataSet.DataSet [
@@ -580,9 +580,7 @@ a \emph{disco:Variable} has at most one \emph{disco:concept} relationship to a t
 %Severity level: ERROR
 %
 %(\emph{R-74: exact qualified cardinality restrictions})
-
 %\footnote{\emph{DATA-CUBE-C-EXACT-QUALIFIED-CARDINALITY-RESTRICTIONS-02}}.
-
 %\textbf{Language Tag Cardinality.}
 For data properties, it may be desirable to restrict that values of predefined languages must be present for determined number of times (\emph{R-48, R-49}):
 (1) Some controlled vocabularies contain literals in natural language, but without information what language has actually been used. 
@@ -601,8 +599,8 @@ It is a common requirement to narrow down the value space of properties by an ex
 
 \textbf{Validation and Reasoning.}
 Some constraint types enable performing reasoning prior to validation which may resolve or cause constraint violations.
-With \emph{subsumption} (\emph{R-100}) one can state that \emph{xkos:ClassificationLevel} is a sub-class of \emph{skos:Collection}, i.e., each \emph{xkos:ClassificationLevel} resource must also be part of the \emph{skos:Collection} class extension (\ms{xkos:ClassificationLevel $\sqsubseteq$ skos:Collection}).
-With \emph{sub properties} (\emph{R-54, R-64}) one can state that \emph{disco:fundedBy} is a sub-property of \emph{dcterms:contributor} - i.e., if a study is funded by an organization, then this organization contributed to this study (\ms{disco:fundedBy $\sqsubseteq$ dcterms:contributor}).
+With \emph{subsumption} (\emph{R-100}) one can state that \emph{xkos:ClassificationLevel} is a sub-class of \emph{skos:Collection}, i.e., each \emph{xkos:ClassificationLevel} resource must also be part of the \emph{skos:Collection} class extension (\ms{ClassificationLevel $\sqsubseteq$ Collection}).
+With \emph{sub properties} (\emph{R-54, R-64}) one can state that \emph{disco:fundedBy} is a sub-property of \emph{dcterms:contributor} - i.e., if a study is funded by an organization, then this organization contributed to this study (\ms{fundedBy $\sqsubseteq$ contributor}).
 \emph{Asymmetric object properties} (\emph{R-62}) restrict that if individual \emph{x} is connected by the object property \emph{OP} to individual \emph{y}, then \emph{y} cannot be connected by \emph{OP} to \emph{x}. 
 Such constraints are defined for each object property for which a semantically equivalent object property pointing from the other direction would also be possible but is not defined within the vocabulary.
 A \emph{disco:Variable}, e.g., may be based on (\emph{disco:basedOn}) a \emph{disco:RepresentedVariable}.
