@@ -215,13 +215,13 @@ The \textbf{contributions} of this paper are:
 %For this reason, we cannot use OWL 2 ontologies for RDF validation as we use XML Schemas, DTDs, RELAX NG, or Schematron to validate XML documents.
 
 In 2013, the W3C organized the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/rdf-val/}}, 
-where experts from industry, government, and academia discussed first use cases for RDF constraint\footnote{\textcolor{red}{For simplicity reasons, we use the terms \emph{constraint types/constraints} instead of \emph{RDF constraint types/RDF constraints} in the rest of the paper}} formulation and RDF data validation.
+where experts from industry, government, and academia discussed first use cases for RDF constraint\footnote{For simplicity reasons, we use the terms \emph{constraint types/constraints} instead of \emph{RDF constraint types/RDF constraints} in the rest of the paper} formulation and RDF data validation.
 In 2014, two working groups on RDF validation have been established to develop a language to express constraints on RDF data: 
 the W3C RDF Data Shapes working group\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles task group\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
 Bosch and Eckert \cite{BoschEckert2014} collected the findings of these working groups and initiated a database of RDF validation requirements
 which is available for contribution at \url{http://purl.org/net/rdf-validation}.
 The intention is to collaboratively collect case studies, use cases, requirements, and solutions regarding RDF validation in a comprehensive and structured way. 
-The requirements are classified to better evaluate existing solutions and each requirement is directly mapped to a constraint type which may be expressed by at least one existing constraint language.
+Bosch et al. identified 74 requirements to formulate constraints; each of them corresponding to a constraint type which may be expressed by at least one existing constraint language \cite{BoschNolleAcarEckert2015}. 
 
 Recently, RDF validation as a research field gained speed due to common needs of data practitioners. A typical example is the library domain that co-developed and adopted Linked Data principles very early. For libraries, the common description of resources are key business and they have a long tradition in developing and using interoperable data formats. While they embrace the openness of Linked Data and the data modeling principles provided by RDF, the data is still mostly represented in XML and this is unlikely to change soon. 
 Among the reasons for the success of XML is the possibility to formulate fine-grained constraints to be met by the data and to validate the data according to these constraints using powerful systems like DTDs, XML Schemas, RELAX NG, or Schematron.
@@ -254,7 +254,7 @@ The idea behind this paper is to achieve complete RDF validation requirements co
 or specifically (\textbf{\emph{specific constraints}}) by domain-specific constraint languages such as \emph{OWL 2}, \emph{DSP}, \emph{ShEx}, \emph{ReSh}, and \emph{SPIN}.
 The knowledge representation formalism {\em DL}, with its  well-studied theoretical properties, provides the foundational basis to express constraints in a generic way. 
 For that reason, we map constraint types to \emph{DL} statements.
-With \emph{minimum qualified cardinality restrictions}, researchers from the library domain may restrict
+With \emph{minimum qualified cardinality restrictions} (\emph{R-75, R-81})\footnote{Requirements/constraint types are uniquely identified by alphanumeric technical identifiers like \emph{R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES}}, researchers from the library domain may restrict
 that \emph{publications} must have at least one \emph{author} which must be a \emph{person}.
 This constraint can be represented generically (\emph{generic constraint}) using \emph{DL} (\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}), but also specifically (\emph{specific constraint}) by multiple constraint languages:
 
@@ -300,7 +300,7 @@ The data is valid, however, if \emph{The-Lord-Of-The-Rings} is connected to a \e
 As there is no standard way to formulate constraints, 
 semantically equivalent \emph{cardinality restrictions} may be represented by multiple constraint languages with different syntax and semantics.
 This causes confusion and weakens the common understanding between several parties about the semantics of particular constraints and therefore how to ensure high data quality. 
-Thus, when choosing constraint language \ms{$\alpha$} to express a constraint of an arbitrary constraint type, it should be possible to transform this constraint into a semantically equivalent constraint formulated by any other constraint language \ms{$\beta$} (see section \ref{sec:transformations}). 
+Thus, when choosing constraint language \ms{$\alpha$} to express a constraint of an arbitrary constraint type, it should be possible to transform this constraint into a semantically equivalent \tb{Erman thinks formal generic semantics should be defined} constraint formulated by any other constraint language \ms{$\beta$} (see section \ref{sec:transformations}). 
 This is important in order to enhance the interoperability of constraint languages and to resolve ambiguities in the communication of RDF data producers and consumers, 
 as constraint transformations avoid the necessity to understand several constraint languages.
 
@@ -404,10 +404,10 @@ The main \textbf{contributions} of this paper are:
 \section{A Vocabulary to Describe RDF Constraints Generically} 
 \label{sec:vocabulary}
 
-In order to develop a vocabulary to describe any RDF constraint generically, it is needed to define the terminology for the formulation of RDF constraints and to classify them. 
+In order to develop a vocabulary to describe constraints of any constraint type generically, it is needed to define the basic terminology for the formulation of constraints and to classify them first. 
 A \textbf{\emph{constraint language}} is a language which is used to formulate constraints.
 The W3C Data Shapes working group defines \textbf{\emph{RDF constraint}} as a component of a schema what needs to be satisfied\footnote{\url{https://www.w3.org/2014/data-shapes/wiki/Glossary}}.
-We identified four dimensions to classify RDF constraints:
+We identified four dimensions to classify constraints:
 \begin{itemize}
   \item \textbf{\emph{Universality:}} \emph{specific constraints} vs. \emph{generic constraints}
 	\item \textbf{\emph{Complexity:}} \emph{simple constraints} vs. \emph{complex constraints}
@@ -416,9 +416,9 @@ We identified four dimensions to classify RDF constraints:
 \end{itemize}
 
 As there are already five promising constraint languages, our purpose is not to invent a new constraint language.
-We rather developed a very simple vocabulary (only three classes, three object properties, and three data properties) which is universal enough to describe any RDF constraint\footnote{Bosch et al. identified in total 74 requirements to formulate RDF constraints; each of them corresponds to a constraint type \cite{BoschNolleAcarEckert2015}} expressible by any constraint language (see the conceptual model in figure \ref{fig:RDF-CV-conceptual-model}).
+We rather developed a very simple lightweight vocabulary (only three classes, three object properties, and three data properties) which is universal enough to describe constraints of any constraint type expressible by any constraint language (see the conceptual model in figure \ref{fig:RDF-CV-conceptual-model}).
 We call this vocabulary the \textbf{\emph{RDF Constraints Vocabulary (RDF-CV)}}\footnote{Available at: \url{https://github.com/boschthomas/RDF-Constraints-Vocabulary}}.
-\tb{make entry in LOV?}
+
 \begin{figure}
 	\centering
 		\includegraphics[width=0.80\textwidth]{images/RDF-CV-conceptual-model.png}
@@ -426,15 +426,16 @@ We call this vocabulary the \textbf{\emph{RDF Constraints Vocabulary (RDF-CV)}}\
 	\label{fig:RDF-CV-conceptual-model}
 \end{figure}
 
-The \emph{RDF-CV} represents \textbf{\emph{generic constraints}} and \textbf{\emph{specific constraints}} are expressed by specific constraint languages.
-As the RDF-CV describes constraints generically, the \emph{RDF-CV} does not distinguish constraints according to the dimension \emph{universality}. 
-The majority of constraints can be expressed in DL.
-In contrast, there are constraints which cannot be expressed in DL, but are also representable by the \emph{RDF-CV} (see section \ref{sec:evaluation}). 
+Constraints can be expressed either generically (\textbf{\emph{generic constraints}}) by the \emph{RDF-CV}   
+or specifically (\textbf{\emph{specific constraints}}) by domain-specific constraint languages.
+As the \emph{RDF-CV} describes constraints generically, the vocabulary does not distinguish constraints according to the dimension \emph{universality}. 
+The majority of the constraint types can be expressed in \emph{DL}.
+In contrast, there are constraint types which cannot be expressed in \emph{DL}, but are also representable by the \emph{RDF-CV} (see section \ref{sec:evaluation}). 
 \textbf{\emph{Complex constraints}} encompass \textbf{\emph{simple constraints}} (atomic constraints) and/or further \emph{complex constraints},
-i.e. DL statements representing \emph{complex constraints} are created out of DL statements standing for composed constraints (if expressible in DL). 
+i.e. \emph{DL} statements representing \emph{complex constraints} are created out of \emph{DL} statements standing for atomic and composed constraints (if expressible in \emph{DL}). 
 Simple constraints may be applied to either properties (\textbf{\emph{property constraints}}) or classes (\textbf{\emph{class constraints}}).
-There are no terms standing for \emph{simple} and \emph{complex constraints} in the \emph{RDF-CV}, since \emph{context classes} of \emph{simple constraints} may just be reused within further \emph{complex constraints} (\emph{simple constraints} associated with \emph{context classes} must hold for individuals of these \emph{context classes}).
-As a consequence, the distinction of \emph{property} and \emph{class constraints} is sufficient to describe all possible RDF constraint types.
+The \emph{RDF-CV} does not contain any terms standing for \emph{simple} and \emph{complex constraints}, since \emph{context classes} of \emph{simple constraints} are just reused within \emph{complex constraints} (\emph{simple constraints} associated with \emph{context classes} must hold for individuals of these \emph{context classes}).
+As a consequence, the distinction of \emph{property} and \emph{class constraints} is sufficient to describe constraints of all possible constraint types.
 
 \subsection{Simple Constraints (Expressible in DL)}
 
