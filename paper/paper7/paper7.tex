@@ -589,23 +589,23 @@ For data properties, it may be desirable to restrict that values of predefined l
 \cite{MaderHaslhoferIsaac2012}.
 
 \textbf{Disjointness and Allowed Values.}
-All properties, not having the same domain and range classes, are defined to be pairwise disjoint
-(\emph{R-9: disjoint properties}), stating that no individual \emph{x} can be connected to an individual/literal \emph{y} by disjoint properties like \emph{phdd:isStructuredBy} and \emph{phdd:column} ($isStructuredBy \sqsubseteq \neg column$).
+All properties, not having the same domain and range types, are defined to be pairwise disjoint
+(\emph{R-9: disjoint properties}), i.e., no individual \emph{x} can be connected to an individual/literal \emph{y} by disjoint properties like \emph{phdd:isStructuredBy} and \emph{phdd:column} ($isStructuredBy \sqsubseteq \neg column$).
 All \emph{XKOS} classes are pairwise disjoint (\emph{R-7: disjoint classes}; e.g. \ms{ClassificationLevel $\sqcap$ ConceptAssociation $\sqsubseteq$ $\perp$}),
 i.e., individuals cannot be instances of multiple disjoint classes.
 It is a common requirement to narrow down the value space of properties by an exhaustive enumeration of valid values.  
-\emph{Allowed values} (\emph{R-30, R-37}) for properties can be IRIs (matching one or multiple patterns), any literals, allowed literals (e.g. 'red' 'blue' 'green'), and typed literals of one or multiple type(s) (e.g. \emph{xsd:string}) - 
+\emph{Allowed values} (\emph{R-30, R-37}) for properties can be IRIs (matching one or multiple patterns), any literals, allowed literals (e.g. 'red' 'blue' 'green'), and typed literals of one or multiple type(s) (e.g. \emph{xsd:string}). 
 \emph{disco:CategoryStatistics}, e.g., can only have \emph{disco:computationBase} relationships to the values \emph{valid} and \emph{invalid} of the datatype \emph{rdf:langString} (\ms{CategoryStatistics $\equiv$ $\forall$ computationBase.\{valid,invalid\} $\sqcap$ langString}).
 
 \textbf{Validation and Reasoning.}
 Some constraint types enable performing reasoning prior to validation which may resolve or cause constraint violations.
-With \emph{subsumption} (\emph{R-100}) one can state that \emph{xkos:ClassificationLevel} is a sub-class of \emph{skos:Collection}, i.e., each \emph{xkos:ClassificationLevel} resource must also be part of the \emph{skos:Collection} class extension (\ms{ClassificationLevel $\sqsubseteq$ Collection}).
-With \emph{sub properties} (\emph{R-54, R-64}) one can state that \emph{disco:fundedBy} is a sub-property of \emph{dcterms:contributor} - i.e., if a study is funded by an organization, then this organization contributed to this study (\ms{fundedBy $\sqsubseteq$ contributor}).
-\emph{Asymmetric object properties} (\emph{R-62}) restrict that if individual \emph{x} is connected by the object property \emph{OP} to individual \emph{y}, then \emph{y} cannot be connected by \emph{OP} to \emph{x}. 
-Such constraints are defined for each object property for which a semantically equivalent object property pointing from the other direction would also be possible but is not defined within the vocabulary.
-A \emph{disco:Variable}, e.g., may be based on (\emph{disco:basedOn}) a \emph{disco:RepresentedVariable}.
-A \emph{disco:RepresentedVariable}, however, cannot be based on a \emph{disco:Variable} (\ms{$disco:basedOn \sqcap disco:basedOn^{-} \sqsubseteq \bot$}).
-\emph{Default values} (\emph{R-31, R-38}) for objects/literals of given prooperties are inferred automatically when properties are not present.
+With \emph{subsumption} (\emph{R-100}), one can state that \emph{xkos:ClassificationLevel} is a sub-class of \emph{skos:Collection}, i.e., each \emph{xkos:ClassificationLevel} must also be part of the \emph{skos:Collection} class extension (\ms{ClassificationLevel $\sqsubseteq$ Collection}).
+With \emph{sub properties} (\emph{R-54, R-64}), one can state that \emph{disco:fundedBy} is a sub-property of \emph{dcterms:contributor} - i.e., if a study is funded by an organization, then this organization contributed to this study (\ms{fundedBy $\sqsubseteq$ contributor}).
+%\emph{Asymmetric object properties} (\emph{R-62}) restrict that if individual \emph{x} is connected by the object property \emph{OP} to individual \emph{y}, then \emph{y} cannot be connected by \emph{OP} to \emph{x}. 
+%Such constraints are defined for each object property for which a semantically equivalent object property pointing from the other direction would also be possible but is not defined within the vocabulary.
+%A \emph{disco:Variable}, e.g., may be based on (\emph{disco:basedOn}) a \emph{disco:RepresentedVariable}.
+%A \emph{disco:RepresentedVariable}, however, cannot be based on a \emph{disco:Variable} (\ms{$disco:basedOn \sqcap disco:basedOn^{-} \sqsubseteq \bot$}).
+\emph{Default values} (\emph{R-31, R-38}) for objects/literals of given properties are inferred automatically when properties are not present in the data.
 The value \emph{true} for the property {\em disco:isPublic} indicates that a {\em disco:LogicalDataSet} can be accessed by anyone.
 Per default, however, access to data sets should be restricted (\emph{false}).
 Validation should \emph{exploit sub-super relations} in vocabularies (\emph{R-224}).
@@ -941,7 +941,7 @@ For \emph{QB} (nearly 100\%) and \emph{SKOS} (almost 60\%), the majority of the 
 80\% of all \emph{QB} constraints are $\mathcal{SL}_{2}$ constraints leading to less than 1\% of all \emph{QB} constraint violations.
 Altogether, exactly 90\% of the constraint violations are assigned to the severity level $\mathcal{SL}_{1}$.
 These findings are surprising as only 8\% of all defined constraints are $\mathcal{SL}_{1}$ constraints.
-The constraints responsible for the largest numbers of constraint violations are \emph{DISCO-C-LABELING-AND-DOCUMENTATION-06} and \emph{DISCO-C-COMPARISON-VARIABLES-02} (both 547,916) (\emph{Disco}), \emph{DATA-CUBE-C-DATA-MODEL-CONSISTENCY-05} (45,514,102) (\emph{QB}), and \emph{SKOS-C-LANGUAGE-TAG-CARDINALITY-01} (2,508,903) (\emph{SKOS})\tb{kurz beschreiben}.
+The constraints responsible for the largest numbers of constraint violations are \emph{DISCO-C-LABELING-AND-DOCUMENTATION-06} and \emph{DISCO-C-COMPARISON-VARIABLES-02} (both 547,916) (\emph{Disco}), \emph{DATA-CUBE-C-DATA-MODEL-CONSISTENCY-05} (45,514,102) (\emph{QB}), and \emph{SKOS-C-LANGUAGE-TAG-CARDINALITY-01} (2,508,903) (\emph{SKOS}).
 We refer to the technical reports\footnotemark[\ref{technical-report-1}] \footnotemark[\ref{technical-report-2}] to get details about constraints on and the evaluation of \emph{XKOS} and \emph{PHDD} data sets.
 
 \section{Related Work}
