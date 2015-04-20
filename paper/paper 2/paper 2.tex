@@ -437,11 +437,11 @@ Simple constraints may be applied to either properties (\textbf{\emph{property c
 The \emph{RDF-CV} does not contain any terms standing for \emph{simple} and \emph{complex constraints}, since \emph{context classes} of \emph{simple constraints} are just reused within \emph{complex constraints} (\emph{simple constraints} associated with \emph{context classes} must hold for individuals of these \emph{context classes}).
 As a consequence, the distinction of \emph{property} and \emph{class constraints} is sufficient to describe constraints of all possible constraint types.
 
-\subsection{Simple Constraints (Expressible in DL)}
+\subsection{\emph{Simple Constraints} (Expressible in \emph{DL})}
 
 Sub-classes of \textbf{\emph{simple constraints}} are \textbf{\emph{property constraints}} and \textbf{\emph{class constraints}} (see the \emph{RDF-CV} implementation model in figure \ref{fig:RDF-CV-implementation-model}). 
 For both \emph{property} and \emph{class constraints} a \emph{context class}, a list of \emph{classes}, the \emph{constraining element}, and the \emph{constraining value} can be stated. 
-Lists of \emph{left} and \emph{right properties} can only be stated for \emph{property constraints}.
+Lists of \emph{left} and \emph{right properties} can only be specified for \emph{property constraints}.
 
 \begin{figure}
 	\centering
@@ -450,12 +450,12 @@ Lists of \emph{left} and \emph{right properties} can only be stated for \emph{pr
 	\label{fig:RDF-CV-implementation-model}
 \end{figure}
 
-A constraint holds for all individuals of a \emph{context class} (\textbf{\emph{contextClass}}).
-Consider, e.g., the following minimum qualified cardinality restriction on the object property \emph{author}, which restricts \emph{publications} to have at least one \emph{author} which is a \emph{person}: 
+A \emph{simple constraint} holds for all individuals of a \textbf{\emph{context class}}.
+Consider, e.g., the following \emph{minimum qualified cardinality restriction} on the object property \emph{author}, which restricts \emph{publications} to have at least one \emph{author} which is a \emph{person}: 
 \begin{DL}
 $Publication \sqsubseteq \geq1 author . Person $
 \end{DL}
-Mapped to the \emph{RDF-CV} (see table \ref{tab:property-constraint-cardinality-restriction}), the cardinality restriction is classified as a \emph{property constraint} which holds for all individuals of the class \emph{Publication}:
+The cardinality restriction is a constraint on the property \emph{author} and is therefore classified as a \emph{property constraint} which holds for all individuals of the class \emph{Publication} (see table \ref{tab:property-constraint-cardinality-restriction} for the mapping to \emph{RDF-CV}):
 
 \begin{table}
   \scriptsize
@@ -471,29 +471,29 @@ Mapped to the \emph{RDF-CV} (see table \ref{tab:property-constraint-cardinality-
 	\label{tab:property-constraint-cardinality-restriction}
 \end{table}
 
-The \emph{constraining element} (\textbf{\emph{constrainingElement}}) indicates the actual type of constraint like DL concept and role constructors, (in)equality, and further keywords for constraint types which cannot be expressed in DL (e.g. regular expressions and constraining facets).
-In some cases, a constraint is only complete when in addition to the \emph{constraining element} a \emph{constraining value} (\textbf{\emph{constrainingValue}}) is stated.
+The \textbf{\emph{constraining element}} indicates the actual type of constraint like \emph{DL} concept and role constructors, (in)equality, and further keywords for constraint types which cannot be expressed in \emph{DL} (e.g. regular expressions and constraining facets).
+In some cases, a constraint is only complete when in addition to the \emph{constraining element} a \textbf{\emph{constraining value}} is stated.
 The cardinality restriction 
 \ms{$\geq$1 author.Person}, e.g., 
 constructs an anonymous class of all individuals having at least one \emph{author} relationship to \emph{persons}.
-The \emph{constraining element} of this \emph{property constraint} is the DL at-least restriction \emph{$\geq$} and the \emph{constraining value} is \emph{1}.
-\textbf{\emph{Classes}} indicate the list of classes, constraints refer to.
+The \emph{constraining element} of this \emph{property constraint} is the \emph{DL} at-least restriction \emph{$\geq$} and the \emph{constraining value} is \emph{1}.
+\emph{Simple constraints} may refer to a list of \textbf{\emph{classes}}.
 The qualified cardinality restriction above, e.g., refers to the class \emph{Person}, 
-i.e. restricts the objects, the property \emph{author} points to, to be of the class \emph{Person}.
+i.e. restricts the objects of the property \emph{author} to be of the class \emph{Person}.
 
-For \emph{property constraints}, \emph{left} and \emph{right property lists} (\textbf{\emph{leftProperties}}, \textbf{\emph{rightProperties}}) are specified.
-The assignment of properties to these lists happens relative to the \emph{constraining element} - which may be an operator (e.g. $\sqsubseteq$ in case of object property paths).
-\emph{Object Property Paths}\footnote{Corresponds to the requirement \emph{R-55-OBJECT-PROPERTY-PATHS}} (also called \emph{complex role inclusion axioms} in DL terminology)
-state that, if an individual \emph{x} is connected by a sequence of object properties with an individual \emph{y}, 
-then \emph{x} is also connected with \emph{y} by a particular object property. 
-According to the following object property path and some instance data, \emph{Stephen-Hawking} is an author of the genre \emph{Popular-Science} 
-(as \emph{Stephen-Hawking} is an author of the book \emph{A-Brief-History-Of-Time} whose genre is \emph{Popular-Science}):
+For \emph{property constraints}, \textbf{\emph{left}} and \textbf{\emph{right property lists}} are specified.
+The assignment of properties to these lists happens relative to the \emph{constraining element} - which may be an operator (e.g., $\sqsubseteq$ in case of \emph{object property paths}).
+\emph{Object Property Paths}\footnote{Corresponds to the requirement \emph{R-55-OBJECT-PROPERTY-PATHS}} (also called \emph{complex role inclusion axioms} in \emph{DL})
+express that, if an individual \emph{x} is connected by a sequence of object properties with an individual \emph{y}, 
+then \emph{x} is also related to \emph{y} by a particular object property. 
+As \emph{Stephen-Hawking} is the \emph{author} of the book \emph{A-Brief-History-Of-Time} (\ms{authorOf(Stephen-Hawking, A-Brief-History-Of-Time)}) whose \emph{genre} is \emph{Popular-Science} ({\ms{genre(A-Brief-History-Of-Time, Popular-Science)}),
+the following \emph{object property path} infers that \emph{Stephen-Hawking} is an \emph{author} of the \emph{genre} \emph{Popular-Science} (\ms{authorOfGenre(Stephen-Hawking, Popular-Science)}):
 
 \begin{DL}
 authorOf $\circ$ genre $\sqsubseteq$ authorOfGenre 
 \end{DL}
 
-When mapped to the \emph{RDF-CV} (see table \ref{tab:property-constraint-object-property-paths}), the properties \emph{authorOf} and \emph{genre} are on the left side of the \emph{constraining element} \emph{$\sqsubseteq$},
+Thus, when mapped to the \emph{RDF-CV} (see table \ref{tab:property-constraint-object-property-paths}), the properties \emph{authorOf} and \emph{genre} are on the left side of the \emph{constraining element} \emph{$\sqsubseteq$},
 and the property \emph{authorOfGenre} is on the right side:
 
 \begin{table}
@@ -510,7 +510,7 @@ and the property \emph{authorOfGenre} is on the right side:
 	\label{tab:property-constraint-object-property-paths}
 \end{table}
 
-\subsection{Simple Constraints (Not Expressible in DL)}
+\subsection{\emph{Simple Constraints} (Not Expressible in \emph{DL})}
 
 There are \emph{simple constraints} which cannot be expressed in DL such as \emph{literal pattern matching}, \emph{literal value comparison}, \emph{literal ranges}, \emph{default values}, and \emph{language tag cardinality} \cite{BoschNolleAcarEckert2015}.
 % maybe additional constraint default values:
@@ -573,7 +573,7 @@ The \emph{literal pattern matching} constraint introduces the new \emph{constrai
 For this new \emph{constraining element}, the validation must be implemented.
 This has to be done once for each \emph{generic constraint type} which cannot be expressed in DL.
 
-\subsection{Complex Constraints}
+\subsection{\emph{Complex Constraints}}
 
 \textbf{\emph{Complex constraints}} encompass \emph{simple constraints} and/or \emph{complex constraints}.
 \emph{Exclusive or} is a logical operation that outputs true whenever both inputs differ (one is true, the other is false).
@@ -721,7 +721,7 @@ property & D & title & - & string & = & 1 \\
 	\label{tab:simplified-complex-constraints}
 \end{table}
 
-\subsection{Complex Constraints as Simple Constraints (Syntactic Sugar)}
+\subsection{\emph{Complex Constraints} as \emph{Simple Constraints} (Syntactic Sugar)}
 
 Almost 15 percent of all RDF constraint types are \emph{complex constraints} which can be simplified and therefore formulated as \emph{simple constraints} when using them in terms of syntactic sugar (see section \ref{sec:evaluation}).
 
