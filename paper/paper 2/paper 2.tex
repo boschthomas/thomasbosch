@@ -576,11 +576,11 @@ Validation has to be implemented once for each \emph{generic constraint type} wh
 
 \subsection{\emph{Complex Constraints}}
 
-\textbf{\emph{Complex constraints}} encompass \emph{simple constraints} and/or \emph{complex constraints}.
+\textbf{\emph{Complex constraints}} are composed out of \emph{simple constraints} and/or \emph{complex constraints}.
 \emph{Exclusive or} is a logical operation that outputs true whenever both inputs differ (one is true, the other is false).
-The \emph{Context-Specific Exclusive OR of Property Groups}\footnote{Corresponds to R-13-DISJOINT-GROUP-OF-PROPERTIES-CLASS-SPECIFIC} 
-is a \emph{complex constraint} restricting individuals of a given context (here a class) to contain only one of multiple property groups.
-Publications, e.g., are either identified by an ISBN and a title (for books) or by an ISSN and a title (for periodical publications), but it should not be possible to assign both identifiers to a given publication, which can be represented in ShEx:
+The \emph{complex constraint} \emph{context-specific exclusive or of property groups}\footnote{Corresponds to R-13-DISJOINT-GROUP-OF-PROPERTIES-CLASS-SPECIFIC} 
+restricts individuals of given classes to have properties of only one of multiple mutually exclusive property groups.
+\emph{Publications}, e.g., are either identified by an \emph{ISBN} and a \emph{title} (for books) or by an \emph{ISSN} and a \emph{title} (for periodical \emph{publications}), but it should not be possible to assign both identifiers to a given \emph{publication}, which can be expressed in \emph{ShEx} as follows:
 
 %Half-Klingons, e.g., either have a klingon mother and a human father or a human mother and a klingon father, which can be expressed by ShEx:
 
@@ -603,13 +603,13 @@ Publication {
     %klingonMother Miral ; humanFather JohnTorres .
 %\end{ex}
 
-As, e.g., the \emph{The-Great-Gatsby} is a \emph{publication} (\ms{rdf:type(The-Great-Gatsby, Publication)}) having an \emph{ISBN} number (\ms{isbn(The-Great-Gatsby, '978-0241965672')}) and a \emph{title} (\ms{title(The-Great-Gatsby, 'The Great Gatsby')}) and not an additional \emph{ISSN} identifier, the data is valid.
+As the \emph{The-Great-Gatsby} is a \emph{publication} (\ms{rdf:type(The-Great-Gatsby, Publication)}) having an \emph{ISBN} number (\ms{isbn(The-Great-Gatsby, '978-0241965672')}) and a \emph{title} (\ms{title(The-Great-Gatsby, 'The Great Gatsby')}) and not an additional \emph{ISSN} identifier, the \emph{The-Great-Gatsby} is a valid \emph{publication}.
 %\begin{DL}
 %rdf:type(BElannaTorres,Half-Klingon) \\
 %klingonMother(BElannaTorres,Miral) \\
 %klingonMother(BElannaTorres,JohnTorres)
 %\end{DL}
-The \emph{complex constraint} above is mapped to DL as follows:
+The \emph{complex constraint} is mapped to the \emph{RDF-CV} (see table \ref{tab:complex-constraints}) and expressed in \emph{DL} as follows:
 
 %\begin{DL}
 %Half-Klingon $\sqsubseteq$ ($\neg$E $\sqcap$ F) $\sqcup$ (E $\sqcap$ $\neg$F) \\ 
@@ -630,8 +630,6 @@ B $\sqsubseteq$ $\geq$ 1 title.string $\sqcap$ $\leq$ 1 title.string \\
 C $\sqsubseteq$ $\geq$ 1 issn.string $\sqcap$ $\leq$ 1 issn.string \\
 D $\sqsubseteq$ $\geq$ 1 title.string $\sqcap$ $\leq$ 1 title.string \\
 \end{DL}
-
-The \emph{complex constraint} (expressed in DL) is mapped to a \emph{generic constraint} using the \emph{RDF-CV} (see table \ref{tab:complex-constraints}).
 
 %\begin{gcotable}
 %class & Half-Klingon & - & - & $\neg$E $\sqcap$ F, E $\sqcap$ $\neg$F & $\sqcup$ & - \\
@@ -687,10 +685,11 @@ property & D2 & title & - & string & $\leq$ & 1 \\
 	\label{tab:complex-constraints}
 \end{table}
 
-Even though, tools may generate \emph{generic constraints} automatically, this \emph{complex constraint} is composed of many other \emph{complex} (e.g. minimum and maximum qualified cardinality restrictions) and \emph{simple constraints} (e.g. constraints on sets).
+%Even though, tools may generate \emph{generic constraints} automatically, this 
+\emph{Complex constraints} are composed of many other \emph{complex} (e.g. \emph{minimum and maximum qualified cardinality restrictions}) and \emph{simple constraints} (e.g. constraints on sets).
 As \emph{exact (un)qualified cardinality restrictions (=n)} and \emph{exclusive or (XOR)} are frequently used \emph{complex constraints},
 we propose using them as \emph{simple constraints} - in terms of syntactic sugar.
-As a consequence, the \emph{Context-Specific Exclusive OR of Property Groups} constraint above is represented as a \emph{generic constraint} more intuitively and concisely (see table \ref{tab:simplified-complex-constraints}).
+As a consequence, the \emph{context-specific exclusive or of property groups} constraint above is represented as a \emph{generic constraint} more intuitively and concisely (see table \ref{tab:simplified-complex-constraints}).
 
 %\begin{gcotable}
 %class & Half-Klingon & - & - & E, F & XOR \\
@@ -722,21 +721,23 @@ property & D & title & - & string & = & 1 \\
 	\label{tab:simplified-complex-constraints}
 \end{table}
 
-\subsection{\emph{Complex Constraints} as \emph{Simple Constraints} (Syntactic Sugar)}
+\subsection{\emph{Complex Constraints} as \emph{Simple Constraints}}
 
-Almost 15 percent of all RDF constraint types are \emph{complex constraints} which can be simplified and therefore formulated as \emph{simple constraints} when using them in terms of syntactic sugar (see section \ref{sec:evaluation}).
+Almost 15 percent of all constraint types are \emph{complex constraints} which can be simplified and therefore formulated as \emph{simple constraints} when using them in terms of syntactic sugar (see section \ref{sec:evaluation}).
 
 There are three forms of \emph{OWL RBox axioms}: \emph{role inclusions}, \emph{equivalence} and \emph{disjointness}. 
-OWL provides a variety of others, namely \emph{role transitivity}, \emph{symmetry}, \emph{asymmetry}, \emph{reflexivity} and \emph{irreflexivity}. 
-These are sometimes considered as basic axiom types in DL as well, using some suggestive notation such as
-\ms{Trans(ancestorOf)} to express that the role \emph{ancestorOf} is transitive. \tb{transitive property example from the library domain}
-However, such axioms are just syntactic sugar; 
-all role characteristics can be expressed using the basic features of DL.
-The \emph{Irreflexive Object Properties} constraint type\footnote{Corresponds to \emph{R-60-IRREFLEXIVE-OBJECT-PROPERTIES}}, e.g., 
-restricts that an object property is irreflexive if it is never locally reflexive, i.e. no individual is connected by the object property to itself \cite{Kroetzsch2012}.
-The irreflexivity constraint \ms{$\top$ $\sqsubseteq$ $\neg$ $\exists authorOf.Self$}
-states that individuals cannot be authors of themselves.
-When mapped to the \emph{RDF-CV} (see table \ref{tab:irreflexive-object-properties-as-complex-constraints}), the \emph{complex constraint} aggregates three \emph{simple constraints} (one \emph{property} and two \emph{class constraints}).
+\emph{OWL} provides a variety of other axiom types: \emph{role transitivity}, \emph{symmetry}, \emph{asymmetry}, \emph{reflexivity} and \emph{irreflexivity}. 
+These axiom types are sometimes considered as basic axiom types in \emph{DL} - using some suggestive notation such as
+\ms{Trans(ancestorOf)} to express that the role \emph{ancestorOf} is transitive.
+Such axioms, however, are just syntactic sugar - 
+all role characteristics can be expressed using the basic features of \emph{DL}.
+The \emph{irreflexive object properties} constraint type\footnote{Corresponds to \emph{R-60-IRREFLEXIVE-OBJECT-PROPERTIES}} 
+restricts that no individual is connected by a given object property to itself \cite{Kroetzsch2012}.
+With the following \emph{irreflexive object property} constraint, e.g., one can state that individuals cannot be authors of themselves:
+\begin{DL}
+\ms{$\top$ $\sqsubseteq$ $\neg$ $\exists authorOf.Self$}
+\end{DL}
+When mapped to the \emph{RDF-CV} (see table \ref{tab:irreflexive-object-properties-as-complex-constraints}), the \emph{complex constraint} aggregates three \emph{simple constraints} (one \emph{property} and two \emph{class constraints}):
 
 %\begin{gcotable}
 %property & $\exists$ marriedTo . Self & marriedTo & - & Self & $\exists$ & - \\
@@ -760,8 +761,8 @@ class & $\top$ & - & - & $\top$, $\neg$ $\exists$ authorOf.Self & $\sqsubseteq$ 
 	\label{tab:irreflexive-object-properties-as-complex-constraints}
 \end{table}
 
-When using the OWL RBox axiom \emph{role irreflexivity} as syntactic sugar, 
-the \emph{complex constraint} transforms into a \emph{simple property constraint} with exactly the same semantics (see table \ref{tab:irreflexive-object-properties-as-simple-constraints}).
+When using the \emph{OWL RBox axiom} \emph{role irreflexivity} in terms of syntactic sugar, 
+the \emph{complex constraint} can be expressed more concisely in form of a \emph{simple property constraint} with exactly the same semantics (see table \ref{tab:irreflexive-object-properties-as-simple-constraints}):
 
 %\begin{gcotable}
 %property & $\top$ & marriedTo & - & - & irreflexive & - \\
@@ -781,9 +782,9 @@ property & $\top$ & authorOf & - & - & irreflexive & - \\
 	\label{tab:irreflexive-object-properties-as-simple-constraints}
 \end{table}
 
-The \emph{Primary Key Properties}\footnote{Corresponds to \emph{R-226-PRIMARY-KEY-PROPERTIES}} constraint type is often useful to declare a given (datatype) property as the "primary key" of a class, so that a system can enforce uniqueness. 
-Books, e.g., are uniquely identified by their ISBN, i.e. the property \emph{isbn} is inverse functional \ms{$(\ms{funct } isbn\sp{\overline{\ }})$}, 
-which can be mapped to the \emph{RDF-CV} (see table \ref{tab:primary-key-properties-as-complex-constraints}).
+The \emph{primary key properties}\footnote{Corresponds to \emph{R-226-PRIMARY-KEY-PROPERTIES}} constraint type is often useful to declare a given (datatype) property as the "primary key" of a class, so that a system can enforce uniqueness. 
+\emph{Books}, e.g., are uniquely identified by their \emph{ISBN} number, i.e., the property \emph{isbn} is inverse functional \ms{$(\ms{funct } isbn\sp{\overline{\ }})$}, 
+which can be represented by the \emph{RDF-CV} in form of a \emph{complex constraint} (see table \ref{tab:primary-key-properties-as-complex-constraints}):
 
 %\begin{gcotable}
 %property & $\top$ & commandAuthorizationCode$^{-}$ & commandAuthorizationCode$^{-}$ & - & inverse & - \\
@@ -805,11 +806,11 @@ property & Book & isbn$^{-}$ & - & - & functional & - \\
 	\label{tab:primary-key-properties-as-complex-constraints}
 \end{table}
 
-\emph{Keys}, however, are even more general, i.e. a generalization of inverse functional properties \cite{Schneider2009}.
-A key can be a datatype property, an object property, or a chain of properties.
+\emph{Keys}, however, are even more general, i.e., a generalization of \emph{inverse functional properties} \cite{Schneider2009}.
+A key can be a datatype, an object property, or a chain of properties.
 For these generalization purposes, as there are different sorts of keys, and as keys can lead to undecidability, 
-DL is extended with \emph{key boxes} and a special construct \emph{keyfor} \cite{Lutz2005}.
-When using the \emph{keyfor} DL construct (\ms{isbn keyfor Book}), the \emph{complex constraint} can be expressed by only one \emph{simple property constraint} (see table \ref{tab:primary-key-properties-as-simple-constraints} for the mapping to the \emph{RDF-CV}).
+\emph{DL} is extended with \emph{key boxes} and a special construct \emph{keyfor} \cite{Lutz2005}.
+When using the \emph{keyfor} \emph{DL} construct (\ms{isbn keyfor Book}), the \emph{complex constraint} can be expressed by only one \emph{simple property constraint} (see table \ref{tab:primary-key-properties-as-simple-constraints} for the mapping to the \emph{RDF-CV}).
 
 %\begin{gcotable}
 %property & StarFleetOfficer & commandAuthorizationCode & - & - & keyfor & - \\
@@ -906,19 +907,19 @@ property & Book & isbn & - & - & keyfor & - \\
 \section{How to Improve the Interoperability of Constraints}
 \label{sec:transformations}
 
-RDF data providers have to ensure that their data conforms to constraints which are part of explicitly or implicitly concluded contracts between data providers and consumers.
-As there is no standard way, these constraints may be represented by a variety of possible constraint languages (there are even more than the five promising ones\footnote{i.a. Bibframe, DQTP, Pellet ICV, RDFUnit, SPARQL, Stardog ICV}).
-There is an obvious need to transform any \emph{specific constraint} (\emph{$sc_{\alpha}$}) (expressed by any constraint language \emph{$\alpha$}) into any other \emph{specific constraint} (\emph{$sc_{\beta}$}) (expressed by any constraint language \emph{$\beta$}) - when they have the same semantics.
-We use the \emph{RDF-CV} as an intermediate representation vocabulary for these transformations.
-If we define mappings ($m(sc_{\alpha}), m(sc_{\beta})$) between equivalent \emph{specific constraints} and the corresponding \emph{generic constraint} (\emph{gc}),
-we can convert them automatically:
+RDF data providers have to ensure that their data conforms to constraints which are explicitly defined within contracts between data providers and consumers.
+As there is no standard way to express these constraints, they may be represented by a variety of constraint languages - different in syntax and semantics (there are even more than the five promising ones\footnote{i.a. Bibframe, DQTP, Pellet ICV, RDFUnit, SPARQL, and Stardog ICV}).
+To overcome the necessity to understand diverse constraint languages, 
+we propose to provide a mechanism which transforms any \emph{specific constraint} (\emph{$sc_{\alpha}$}) (expressed by any constraint language \emph{$\alpha$}) into any other \emph{specific constraint} (\emph{$sc_{\beta}$}) (expressed by any constraint language \emph{$\beta$}) - when they have the same semantics.
+We use the \emph{RDF-CV} to intermediately represent constraints for these transformations.
+By defining mappings ($m(sc_{\alpha}), m(sc_{\beta})$) between equivalent \emph{specific constraints} and the corresponding \emph{generic constraint} (\emph{gc}) we are able to convert them automatically:
 
 \begin{DL}
 $ gc = m(sc_{\alpha}) = m(sc_{\beta}) $
 \end{DL}
 
 We do not need to define mappings for each pair of semantically equivalent \emph{specific constraints}.
-Let's assume we are able to express a constraint type by 5/6/7/8/9/10 constraint languages.
+Let's assume we are able to express a particular constraint type by 5/6/7/8/9/10 constraint languages.
 Without the intermediate \emph{generic constraint}, we would have to define for each constraint type \emph{1} mapping for each pair of \emph{specific constraints} (expressed by different constraint languages)
 - that are \emph{\( {n \choose 2} \)} mappings (10/15/21/28/36/45 mappings).
 With an intermediate \emph{generic constraint}, however, we only need to define for each constraint type \emph{n} mappings (one mapping for each \emph{specific constraint}) from \emph{n} \emph{specific constraints} to the corresponding \emph{generic constraint} (5/6/7/8/9/10 mappings).
@@ -932,8 +933,13 @@ With an intermediate \emph{generic constraint}, however, we only need to define 
 %\( {n \choose 2} \)
 %\end{DL}
 
+\begin{DL}
+Publication $\equiv$ $\exists$ publisher.Publisher
+\end{DL}
+
 The {\em existential quantification}\footnote{Corresponds to {\em R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}}
-\ms{Publication $\equiv$ $\exists$ publisher.Publisher} restricts publications to have at least one publisher and can be expressed by at least 10 constraint languages\footnote{at least by OWL2, SPARQL, ShEx, Bibframe, DSP, ReSh, SPIN, DQTP, Pellet IVC, Stardog ICV}:
+%\ms{Publication $\equiv$ $\exists$ publisher.Publisher} 
+above restricts \emph{publications} to have at least one \emph{publisher} and can be expressed by at least 10 different constraint languages\footnote{at least by OWL 2, SPARQL, ShEx, Bibframe, DSP, ReSh, SPIN, DQTP, Pellet IVC, and Stardog ICV}:
 
 \begin{ex}
 # OWL 2:
@@ -986,7 +992,8 @@ CONSTRUCT {
 
 %First, we map these DL statements to two \emph{simple generic constraints} corresponding to the \emph{RDF-CV} (we define the class \ms{EnterpriseCaptains} by simply enumerating its instances):
 
-First, the DL statement \ms{Publication $\equiv$ $\exists$ publisher.Publisher} is mapped to a \emph{simple generic constraint} according to the \emph{RDF-CV} (see table \ref{tab:existential-quantification-as-simple-constraints}).
+First, the \emph{DL} statement \ms{Publication $\equiv$ $\exists$ publisher.Publisher} is mapped to a \emph{simple generic constraint} according to the \emph{RDF-CV} (see table \ref{tab:existential-quantification-as-simple-constraints}) and 
+the next step is to define one mapping for each \emph{specific constraint} (\emph{$sc_{OWL 2}$}, \emph{$sc_{ReSh}$}, \emph{$sc_{ShEx}$}, ...) to the corresponding \emph{generic constraint}.
 
 %\begin{gcotable}
 %property & StarfleetCaptain & overruledBy & - & CaptainOverruler & $\forall$ & - \\
@@ -1011,8 +1018,6 @@ property & Publication & publisher & - & Publisher & $\exists$ \\
 	\caption{Existential Quantification as Simple Constraints}
 	\label{tab:existential-quantification-as-simple-constraints}
 \end{table}
-
-The next step is to define one mapping for each \emph{specific constraint} (\emph{$sc_{OWL 2}$}, \emph{$sc_{ReSh}$}, \emph{$sc_{ShEx}$}, ...) to the \emph{generic constraint}.
 
 %\begin{ex}
 %# OWL 2:
