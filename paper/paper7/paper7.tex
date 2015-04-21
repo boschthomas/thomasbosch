@@ -301,7 +301,7 @@ Bosch and Eckert \cite{BoschEckert2014} collected the findings of these working 
 which is available for contribution at \url{http://purl.org/net/rdf-validation}.
 The intention is to collaboratively collect case studies, use cases, requirements, and solutions regarding RDF validation in a comprehensive and structured way. 
 The requirements are classified to better evaluate existing solutions and each requirement is directly mapped to a constraint type which may be expressed by at least one existing constraint language.
-Bosch and Eckert \cite{BoschEckert2014-2} \tb{why do we use spin?}use SPIN as basis to define a
+Bosch and Eckert \cite{BoschEckert2014-2} \tb{why do we use spin?not the best for constraint language, but for validating / akzeptierte beste form constraints zu definieren}use SPIN as basis to define a
 validation environment (available at \url{http://purl.org/net/rdfval-demo}) in which the validation of any constraint language\footnote{The only limitation is that constraint languages must be represented in RDF} can be implemented by representing them in SPARQL. 
 The SPIN engine checks for each resource if it satisfies all constraints, which are associated with its assigned classes, and generates a result RDF graph containing information about all constraint violations.
 
@@ -357,7 +357,7 @@ The relationship between data collections and their contained data sets is usefu
 Aggregated data is more and more published as CSV files,
 allowing to perform first data calculations.
 %For these calculations, definitions of the columns are needed (e.g. is a given variable interpreted numerically or as a string).
-In 2014, SBE and Linked Data community members developed the \emph{Physical Data Description (PHDD)}\footnote{\url{https://github.com/linked-statistics/physical-data-description}} vocabulary to represent data in a rectangular format. 
+In 2014, SBE and Linked Data community members developed the \emph{Physical Data Description (PHDD)}\footnote{\url{https://github.com/linked-statistics/physical-data-description}} vocabulary to represent data in a rectangular format.\tb{tabular data} 
 The data could be either represented in records with character-separated values (CSV) or in records with fixed length. 
 
 For more detailed analyses, researchers refer to person-level data from which aggregated data is derived from, 
@@ -486,9 +486,11 @@ Constraints are instantiated from constraint types in order to validate both met
 %\emph{data model specific constraint types} (e.g. \emph{data model consistency})
 The complete set of \emph{constraint types} ($\mathcal{CT}$) encompasses two disjoint \textbf{\emph{sets of constraint types}}:
 \begin{enumerate}
-	\item $\mathcal{CT}_{C}$: \emph{Content-Driven Constraint Types}
-	\item $\mathcal{CT}_{T}$: \emph{Technology-Driven Constraint Types}
+	\item $\mathcal{CT}_{C}$: \emph{Content-Driven Constraint Types}\tb{complex constraints / zahlen interpretierbar / in einem bestimten vokabulare werden viele basic constraints verletzt / daten haben bessere qualität vokabular / wichtigkeit constraint languages, dass complexe constraints beschrieben}
+	\item $\mathcal{CT}_{T}$: \emph{Technology-Driven Constraint Types}\tb{basic constraints / welche constraints können automatisch abgeleitet werden / bestimmte constraints werden in den vokabularen definiert bzw sehr leicht zu implementieren wäre / studie ohne daten macht keinen sinn --> cardinality restriction / alle constraints die mit rdf + rdfs + owl definiert werden können / vokabukare werden heutzutage mit rdf / rdfs / owl beschrieben / constraints die typischerweise hinterlegt werden / constraints die amn als vokabular}
 \end{enumerate}
+
+\tb{große datenbestände untersuchen um ein besseres verständnis zu bekommen / liste von constraints / jedes einzelne constraint für jeded einzelne vokabular severity level / warum severity was bringt das} 
 
 $\mathcal{CT}_{C}$ (\emph{Content-Driven Constraint Types}) is the set of constraints ensuring that the data is consistent with the intended syntax, semantics, and integrity of vocabularies' data models (section \ref{content-driven-validation}). 
 Therefore, domain experts may formulate $\mathcal{CT}_{C}$ constraints manually in prose English which is technically expressed by a constraint language afterwards.
@@ -498,7 +500,7 @@ $\mathcal{CT}_{T}$ (\emph{Technology-Driven Constraint Types}) is the set of con
 With \emph{minimum qualified cardinality restrictions} (\emph{R-74}), e.g., one can restrict that
 a \emph{phdd:TableStructure} has (\emph{phdd:column}) at least one \emph{phdd:Column} (in DL: \ms{TableStructure $\sqsubseteq$ $\geq$1 column.Column})\footnote{For simplicity reasons, we do not use namespace prefixes in DL statements.}.
 
-We determined the default \textbf{\emph{severity level}} (corresponds to requirement \emph{R-158}) for each constraint to indicate how serious the violation of the constraint is.
+\emph{SBE} experts \tb{todo / wieviele constraints welche klasse} determined the default \textbf{\emph{severity level}} (corresponds to requirement \emph{R-158}) for each constraint to indicate how serious the violation of the constraint is.
 We propose an extensible metric to measure the continuum of severity levels ranging from $\mathcal{SL}_{0}$ to $\mathcal{SL}_{2}$.
 According to the constraints' default severity level the complete set of constraints ($\mathcal{C}$) encompasses three disjoint \textbf{\emph{sets of constraints}}:
 \begin{itemize}
@@ -945,7 +947,7 @@ For \emph{QB} (nearly 100\%) and \emph{SKOS} (almost 60\%), the majority of the 
 Altogether, exactly 90\% of the constraint violations are assigned to the severity level $\mathcal{SL}_{1}$.
 These findings are surprising as only 8\% of all defined constraints are $\mathcal{SL}_{1}$ constraints.
 The constraints responsible for the largest numbers of constraint violations are \emph{DISCO-C-LABELING-AND-DOCUMENTATION-06} and \emph{DISCO-C-COMPARISON-VARIABLES-02} (both 547,916) (\emph{Disco}), \emph{DATA-CUBE-C-DATA-MODEL-CONSISTENCY-05} (45,514,102) (\emph{QB}), and \emph{SKOS-C-LANGUAGE-TAG-CARDINALITY-01} (2,508,903) (\emph{SKOS}).
-We refer to the technical reports\footnotemark[\ref{technical-report-1}] \footnotemark[\ref{technical-report-2}] to get details about constraints on and the evaluation of \emph{XKOS} and \emph{PHDD} data sets.
+We refer to the technical reports\footnotemark[\ref{technical-report-1}] \footnotemark[\ref{technical-report-2}] to get details about constraints on and the evaluation of \emph{XKOS} and \emph{PHDD} data sets.\tb{bezug nehmen auf severity levels / technology-driven werden oft eingehalten? / }
 
 \section{Related Work}
 \label{related-work}
