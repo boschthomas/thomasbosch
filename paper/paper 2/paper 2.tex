@@ -904,25 +904,25 @@ property & Book & isbn & - & - & keyfor & - \\
 %\section{Transformations and Automatic Validation of Specific Constraints}
 %\section{Transformations between Specific Constraints (Expressed by Different Constraint Languages)}
 %\section{Transformations between Specific Constraints}
-\section{How to Improve the Interoperability of Constraints}
+\section{How to Improve the Understandability of Constraints}
 \label{sec:transformations}
 
 RDF data providers have to ensure that their data conforms to constraints which are explicitly defined within contracts between data providers and consumers.
-As there is no standard way to express these constraints, they may be represented by a variety of constraint languages - different in syntax and semantics (there are even more than the five promising ones\footnote{i.a. Bibframe, DQTP, Pellet ICV, RDFUnit, SPARQL, and Stardog ICV}).
+As there is no standard way to express constraints, they may be represented by a variety of constraint languages\footnote{Candidates for constraint languages are, i.a., SPIN, OWL 2, DSP, ShEx, ReSh, Bibframe, DQTP, Pellet ICV, RDFUnit, SPARQL, and Stardog ICV} - each of them different in syntax and semantics.
 To overcome the necessity to understand diverse constraint languages, 
-we propose to provide a mechanism which transforms any \emph{specific constraint} (\emph{$sc_{\alpha}$}) (expressed by any constraint language \emph{$\alpha$}) into any other \emph{specific constraint} (\emph{$sc_{\beta}$}) (expressed by any constraint language \emph{$\beta$}) - when they have the same semantics.
-We use the \emph{RDF-CV} to intermediately represent constraints for these transformations.
+we propose to transform any \emph{specific constraint} (\emph{$sc_{\alpha}$}) (expressed by any constraint language \emph{$\alpha$}) into any other \emph{specific constraint} (\emph{$sc_{\beta}$}) (expressed by any other constraint language \emph{$\beta$}) - in case they have the same semantics.
+We use the \emph{RDF-CV} to intermediately represent constraints in a generic way for these transformations.
 By defining mappings ($m(sc_{\alpha}), m(sc_{\beta})$) between equivalent \emph{specific constraints} and the corresponding \emph{generic constraint} (\emph{gc}) we are able to convert them automatically:
 
 \begin{DL}
 $ gc = m(sc_{\alpha}) = m(sc_{\beta}) $
 \end{DL}
 
-We do not need to define mappings for each pair of semantically equivalent \emph{specific constraints}.
+We do not need to define mappings between each pair of semantically equivalent \emph{specific constraints}.
 Let's assume we are able to express a particular constraint type by 5/6/7/8/9/10 constraint languages.
 Without the intermediate \emph{generic constraint}, we would have to define for each constraint type \emph{1} mapping for each pair of \emph{specific constraints} (expressed by different constraint languages)
 - that are \emph{\( {n \choose 2} \)} mappings (10/15/21/28/36/45 mappings).
-With an intermediate \emph{generic constraint}, however, we only need to define for each constraint type \emph{n} mappings (one mapping for each \emph{specific constraint}) from \emph{n} \emph{specific constraints} to the corresponding \emph{generic constraint} (5/6/7/8/9/10 mappings).
+With an intermediate \emph{generic constraint}, however, we only need to define for each constraint type \emph{n} mappings (1 mapping for each \emph{specific constraint}) from \emph{n} \emph{specific constraints} to the corresponding \emph{generic constraint} (5/6/7/8/9/10 mappings).
 
 %(n(n+1))/2
 
@@ -939,7 +939,7 @@ Publication $\equiv$ $\exists$ publisher.Publisher
 
 The {\em existential quantification}\footnote{Corresponds to {\em R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}}
 %\ms{Publication $\equiv$ $\exists$ publisher.Publisher} 
-above restricts \emph{publications} to have at least one \emph{publisher} and can be expressed by at least 10 different constraint languages\footnote{at least by OWL 2, SPARQL, ShEx, Bibframe, DSP, ReSh, SPIN, DQTP, Pellet IVC, and Stardog ICV}:
+above restricts \emph{publications} to have at least one \emph{publisher} and can be expressed by at least 10 different constraint languages\footnote{OWL 2, SPARQL, ShEx, Bibframe, DSP, ReSh, SPIN, DQTP, Pellet IVC, and Stardog ICV}:
 
 \begin{ex}
 # OWL 2:
@@ -992,8 +992,8 @@ CONSTRUCT {
 
 %First, we map these DL statements to two \emph{simple generic constraints} corresponding to the \emph{RDF-CV} (we define the class \ms{EnterpriseCaptains} by simply enumerating its instances):
 
-First, the \emph{DL} statement \ms{Publication $\equiv$ $\exists$ publisher.Publisher} is mapped to a \emph{simple generic constraint} according to the \emph{RDF-CV} (see table \ref{tab:existential-quantification-as-simple-constraints}) and 
-the next step is to define one mapping for each \emph{specific constraint} (\emph{$sc_{OWL 2}$}, \emph{$sc_{ReSh}$}, \emph{$sc_{ShEx}$}, ...) to the corresponding \emph{generic constraint}.
+The \emph{DL} statement \ms{Publication $\equiv$ $\exists$ publisher.Publisher} is mapped to a \emph{(simple) generic constraint} conforming to the \emph{RDF-CV} (see table \ref{tab:existential-quantification-as-simple-constraints}).
+Then, one mapping (\emph{$m(sc_{OWL 2})$}, \emph{$m(sc_{ReSh})$}, \emph{$m(sc_{ShEx})$}, ...) is defined for each \emph{specific constraint} (\emph{$sc_{OWL 2}$}, \emph{$sc_{ReSh}$}, \emph{$sc_{ShEx}$}, ...) to the corresponding \emph{generic constraint} (\emph{gc}).
 
 %\begin{gcotable}
 %property & StarfleetCaptain & overruledBy & - & CaptainOverruler & $\forall$ & - \\
@@ -1065,22 +1065,24 @@ property & Publication & publisher & - & Publisher & $\exists$ \\
 \section{How to Provide Constraint Validation Out-Of-The-Box}
 \label{sec:validation}
 
-SPARQL is generally seen as the method of choice to validate RDF data according to certain constraints, although it is not ideal for their formulation. 
+SPARQL is generally seen as the method of choice to validate RDF data according to certain constraints, although, it is not ideal for their formulation. 
 In contrast, OWL 2, DSP, ReSh, and ShEx constraints are comparatively easy to understand. 
-Bosch and Eckert \cite{BoschEckert2014-2} use SPIN as basis to define a
+We use SPIN as basis to define a
 validation environment in which the validation of any constraint language\footnote{The only limitation is that constraint languages must be represented in RDF} can be implemented by representing them in SPARQL
 (the implementation can be tested at \url{http://purl.org/net/rdfval-demo}).
-The SPIN engine checks for each resource if it satisfies all constraints (associated with its assigned classes) and generates a result RDF graph containing information about all constraint violations.
-We are able to offer the validation of all \emph{specific constraints} (expressed by any constraint language) by defining mappings from each \emph{specific constraint} to SPIN, 
-what we have done for all OWL 2\footnote{OWL to SPIN: \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}} and DSP\footnote{DSP to SPIN: \url{https://github.com/dcmi/DSP-SPIN-Mapping}} constructs and for some constructs of other constraint languages.
+The SPIN engine checks for each resource if it satisfies all constraints, which are associated with the classes assigned to the resource, and generates a result RDF graph containing information about all constraint violations \cite{BoschEckert2014-2}.
+This way, we are able to offer RDF data validation according to all \emph{specific constraints} (expressed by any constraint language) by defining mappings from each \emph{specific constraint} to \emph{SPIN}. 
+We already specified mappings to \emph{SPIN} for all \emph{OWL 2} and \emph{DSP}\footnote{SPIN mappings: \url{https://github.com/boschthomas/rdf-validation/tree/master/SPIN}} constructs and for some \emph{ReSh} and \emph{ShEx} constructs.
 %We do not have to define a mapping to SPIN for each specific constraint. 
 %when we define a mapping to SPIN for each generic constraint.
-We do not have to map each \emph{specific constraint} to SPIN and we get identical validation results for semantically equivalent \emph{specific constraints},
+As constraint languages differ in syntax and semantics it is rather difficult to ensure that semantically equivalent \emph{specific constraints} always lead to identical validation results.
+
+We do not have to map each \emph{specific constraint} to SPIN and we get identical validation results for semantically equivalent \emph{specific constraints} (expressed by different constraint languages),
 (1) if we map semantically equivalent \emph{specific constraints} to the corresponding \emph{generic constraint} and 
 (2) if we map the \emph{generic constraint} to SPIN.
-As a consequence, we only have to define one SPIN mapping for each constraint type corresponding to a requirement within the RDF validation requirements database.
-19 of 74 RDF constraint types can be expressed by at least four constraint languages \cite{BoschNolleAcarEckert2015}.
-This means that there must be 76 (four for each constraint type) implementations to validate 76 \emph{specific constraints} - instead of only 19 implementations (one for each \emph{generic constraint}).
+As a consequence, we only have to define one SPIN mapping for each constraint type corresponding to an RDF validation requirement.
+19 of the overall 74 identified constraint types can be expressed by at least four constraint languages \cite{BoschNolleAcarEckert2015}.
+This means that there must be 76 (four for each constraint type) implementations to validate RDF data according to 76 \emph{specific constraints} - instead of only 19 implementations (one for each \emph{generic constraint}) leading to identical validation results.
 
 %The validation implementation of constraint languages is fully declarative,
 %consisting of a mapping from constraint languages to SPIN in form of SPARQL CONSTRUCT queries.
@@ -1088,7 +1090,7 @@ This means that there must be 76 (four for each constraint type) implementations
 %Within the validation environment, we fully implemented the validation of all OWL 2 DL and DSP constructs 
 %(for the complete DSP validation see \cite{BoschEckert2014-2}). 
 
-Within our validation environment, we define one SPIN construct template for each \emph{generic constraint}\footnote{For details about the validation environment see \cite{BoschEckert2014-2}}.
+Within the \emph{RDF Validator}\footnote{For details about the validation environment see \cite{BoschEckert2014-2}}, we define one SPIN construct template for each \emph{generic constraint} and therefore constraint type.
 A SPIN construct template contains a SPARQL CONSTRUCT query which generates constraint violation triples (\emph{spin:ConstraintViolation}) indicating the subject (\emph{spin:violationRoot}) and the properties (\emph{spin:violationPath}), causing constraint violations, and the reason why constraint violations have been raised (\emph{rdfs:label}).
 A SPIN construct template creates constraint violation triples if all triple patterns within the SPARQL WHERE clause match.
 The SPARQL CONSTRUCT query for validating \emph{universal quantifications}\footnote{Corresponds to \emph{R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}}, e.g. \emph{authors} of \emph{publications} must be \emph{persons} (\ms{Publication $\equiv$ $\forall$ author.Person}), is shown below:
@@ -1200,6 +1202,8 @@ The majority - nearly 70\% - of the overall constraint types are expressible in 
 \emph{Literal pattern matching} is an example of a constraint type which cannot be represented in DL.
 
 \section{Related Work}
+
+\tb{how are typical constraints expressed by different constraint languages}
 
 \section{Conclusion and Future Work}
 
