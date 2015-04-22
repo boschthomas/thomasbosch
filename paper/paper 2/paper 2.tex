@@ -1091,9 +1091,15 @@ This means that there must be 76 (four for each constraint type) implementations
 %(for the complete DSP validation see \cite{BoschEckert2014-2}). 
 
 Within the \emph{RDF Validator}\footnote{For details about the validation environment see \cite{BoschEckert2014-2}}, we define one SPIN construct template for each \emph{generic constraint} and therefore constraint type.
-A SPIN construct template contains a SPARQL CONSTRUCT query which generates constraint violation triples (\emph{spin:ConstraintViolation}) indicating the subject (\emph{spin:violationRoot}) and the properties (\emph{spin:violationPath}), causing constraint violations, and the reason why constraint violations have been raised (\emph{rdfs:label}).
+A SPIN construct template contains a SPARQL CONSTRUCT query which generates constraint violation triples (\emph{spin:ConstraintViolation}) indicating the subject (\emph{spin:violationRoot}) and the properties (\emph{spin:violationPath}) causing constraint violations, and the reason why constraint violations have been raised (\emph{rdfs:label}).
 A SPIN construct template creates constraint violation triples if all triple patterns within the SPARQL WHERE clause match.
-The SPARQL CONSTRUCT query for validating \emph{universal quantifications}\footnote{Corresponds to \emph{R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}}, e.g. \emph{authors} of \emph{publications} must be \emph{persons} (\ms{Publication $\equiv$ $\forall$ author.Person}), is shown below:
+
+\begin{DL}
+Publication $\equiv$ $\forall$ author.Person
+\end{DL}
+
+According to the \emph{universal quantification}\footnote{Corresponds to \emph{R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}} above, \emph{authors} of \emph{publications} must be \emph{persons}.
+The SPARQL CONSTRUCT query for the constraint type \emph{universal quantification} is shown below:
 
 \begin{ex}
 CONSTRUCT {
@@ -1110,16 +1116,8 @@ WHERE {
     FILTER NOT EXISTS { ?o a ?c1 } . }
 \end{ex}
 
-We provide a mapping from the \emph{RDF-CV} to SPIN\footnote{RDF-CV to SPIN: \url{https://github.com/boschthomas/RDF-CV-2-SPIN}} in order to automatically validate each type of \emph{generic constraint} (\emph{simple}, \emph{complex}, \emph{property}, and \emph{class constraints}).
-Part of future work will be 
-(1) to provide a GUI which generates \emph{generic constraints} automatically according to inputs of domain experts who are not familiar with the formulation of constraints,
-(2) to offer bidirectional transformations between \emph{specific constraints} (expressed by multiple constraint languages) and \emph{generic constraints}, and
-(3) to provide translations between semantically equivalent \emph{specific constraints} (expressed by any constraint language) by using \emph{generic constraints} as an intermediate transformation step.
-%\begin{itemize}
-	%\item to provide a GUI which generates generic constraints automatically according to inputs of domain experts who are not familiar with the formulation of constraints.
-	%\item to offer bidirectional transformations between specific constraints (expressed by multiple constraint languages) and generic constraints. 
-	%\item to provide translations between specific constraints (expressed by any specific constraint language) by using generic constraints as an intermediate transformation step.
-%\end{itemize}
+We provide a mapping from the \emph{RDF-CV} to SPIN\footnote{RDF-CV to SPIN: \url{https://github.com/boschthomas/RDF-CV-2-SPIN}} 
+in order to automatically validate RDF data complying with each type of \emph{generic constraint} (\emph{simple}, \emph{complex}, \emph{property}, and \emph{class constraints}).
 
 %\subsection{Not Allowed Values}
 
@@ -1207,7 +1205,15 @@ The majority - nearly 70\% - of the overall constraint types are expressible in 
 
 \section{Conclusion and Future Work}
 
-\tb{ToDo: there is too much space before and after DL and table environments / can your resolve that please?}
+It is part of future work 
+(1) to extend the \emph{RDF Validator} by creating \emph{generic constraints} automatically according to inputs of domain experts who may not be familiar with the formulation of constraints,
+(2) to offer bidirectional transformations between all \emph{specific constraints} (expressed by all existing constraint languages) and the corresponding \emph{generic constraints}, and
+(3) to provide translations between semantically equivalent \emph{specific constraints} (expressed by any constraint language) by using \emph{generic constraints} as an intermediate transformation step.
+%\begin{itemize}
+	%\item to provide a GUI which generates generic constraints automatically according to inputs of domain experts who are not familiar with the formulation of constraints.
+	%\item to offer bidirectional transformations between specific constraints (expressed by multiple constraint languages) and generic constraints. 
+	%\item to provide translations between specific constraints (expressed by any specific constraint language) by using generic constraints as an intermediate transformation step.
+%\end{itemize}
 
 \bibliography{../../literature/literature}{}
 \bibliographystyle{plain}
