@@ -206,7 +206,7 @@ The \textbf{contributions} of this paper are:
 % ---------------
 
 \section{Introduction}
-\tb{feedback: the major problem is semantics. OWL basically work in different semantics than others. And their semantics are formal. Closed world vs. Open World is also a part of this.}
+\tb{feedback from Erman: the major problem is semantics. OWL basically work in different semantics than others. And their semantics are formal. Closed world vs. Open World is also a part of this.}
 %The purpose of OWL 2 ontologies is to perform reasoning on RDF data and not to validate RDF data conforming to these ontologies.
 %OWL 2 is based on the {\em non-unique name assumption} (nUNA) whereas RDF validation requires that different names represent different objects ({\em unique name assumption} (UNA)). 
 %Reasoning in OWL 2 is based on the semantics of {\em open-world assumption} (OWA), i.e., a statement cannot be inferred to be false if it cannot be proved to be true  which fits its primary design purpose: to represent knowledge on the World Wide Web. 
@@ -404,10 +404,10 @@ The main \textbf{contributions} of this paper are:
 \section{A Vocabulary to Describe RDF Constraints Generically} 
 \label{sec:vocabulary}
 
-In order to develop a vocabulary to describe constraints of any constraint type generically, it is needed to define the basic terminology for the formulation of constraints and to classify them first. 
+In order to develop a vocabulary to describe constraints of any constraint type generically, it is needed to define the basic terminology for the formulation of constraints and to classify them. 
 A \textbf{\emph{constraint language}} is a language which is used to formulate constraints.
 The W3C Data Shapes working group defines \textbf{\emph{RDF constraint}} as a component of a schema what needs to be satisfied\footnote{\url{https://www.w3.org/2014/data-shapes/wiki/Glossary}}.
-We identified four dimensions to classify constraints:
+We identified four dimensions to classify constraint types:
 \begin{itemize}
   \item \textbf{\emph{Universality:}} \emph{specific constraints} vs. \emph{generic constraints}
 	\item \textbf{\emph{Complexity:}} \emph{simple constraints} vs. \emph{complex constraints}
@@ -483,7 +483,7 @@ i.e. restricts the objects of the property \emph{author} to be of the class \emp
 
 For \emph{property constraints}, \textbf{\emph{left}} and \textbf{\emph{right property lists}} are specified.
 The assignment of properties to these lists happens relative to the \emph{constraining element} - which may be an operator (e.g., $\sqsubseteq$ in case of \emph{object property paths}).
-\emph{Object Property Paths}\footnote{Corresponds to the requirement \emph{R-55-OBJECT-PROPERTY-PATHS}} (also called \emph{complex role inclusion axioms} in \emph{DL})
+\emph{Object Property Paths} (\emph{R-55}; also called \emph{complex role inclusion axioms} in \emph{DL})
 express that, if an individual \emph{x} is connected by a sequence of object properties with an individual \emph{y}, 
 then \emph{x} is also related to \emph{y} by a particular object property. 
 As \emph{Stephen-Hawking} is the \emph{author} of the book \emph{A-Brief-History-Of-Time} (\ms{authorOf(Stephen-Hawking, A-Brief-History-Of-Time)}) whose \emph{genre} is \emph{Popular-Science} ({\ms{genre(A-Brief-History-Of-Time, Popular-Science)}),
@@ -515,7 +515,7 @@ There are \emph{simple constraints} which cannot be expressed in \emph{DL} such 
 % ear shape of races, e.g. vulcans / teeth color
 % mathematical operations
 
-{\em Literal pattern matching}\footnote{Corresponds to {\em R-44-PATTERN-MATCHING-ON-RDF-LITERALS}} restricts literals to match given patterns.
+{\em Literal pattern matching} (\emph{R-44}) restricts literals to match given patterns.
 The following \emph{universal restriction}, e.g., ensures that \emph{books} can only have valid \emph{ISBN} identifiers, 
 i.e., strings that match a given regular expression:
 \begin{DL}
@@ -578,7 +578,7 @@ Validation has to be implemented once for each \emph{generic constraint type} wh
 
 \textbf{\emph{Complex constraints}} are composed out of \emph{simple constraints} and/or \emph{complex constraints}.
 \emph{Exclusive or} is a logical operation that outputs true whenever both inputs differ (one is true, the other is false).
-The \emph{complex constraint} \emph{context-specific exclusive or of property groups}\footnote{Corresponds to R-13-DISJOINT-GROUP-OF-PROPERTIES-CLASS-SPECIFIC} 
+The \emph{complex constraint} \emph{context-specific exclusive or of property groups} (\emph{R-13})
 restricts individuals of given classes to have properties of only one of multiple mutually exclusive property groups.
 \emph{Publications}, e.g., are either identified by an \emph{ISBN} and a \emph{title} (for books) or by an \emph{ISSN} and a \emph{title} (for periodical \emph{publications}), but it should not be possible to assign both identifiers to a given \emph{publication}, which can be expressed in \emph{ShEx} as follows:
 
@@ -731,7 +731,7 @@ These axiom types are sometimes considered as basic axiom types in \emph{DL} - u
 \ms{Trans(ancestorOf)} to express that the role \emph{ancestorOf} is transitive.
 Such axioms, however, are just syntactic sugar - 
 all role characteristics can be expressed using the basic features of \emph{DL}.
-The \emph{irreflexive object properties} constraint type\footnote{Corresponds to \emph{R-60-IRREFLEXIVE-OBJECT-PROPERTIES}} 
+The \emph{irreflexive object properties} constraint type (\emph{R-60}) 
 restricts that no individual is connected by a given object property to itself \cite{Kroetzsch2012}.
 With the following \emph{irreflexive object property} constraint, e.g., one can state that individuals cannot be authors of themselves:
 \begin{DL}
@@ -782,7 +782,7 @@ property & $\top$ & authorOf & - & - & irreflexive & - \\
 	\label{tab:irreflexive-object-properties-as-simple-constraints}
 \end{table}
 
-The \emph{primary key properties}\footnote{Corresponds to \emph{R-226-PRIMARY-KEY-PROPERTIES}} constraint type is often useful to declare a given (datatype) property as the "primary key" of a class, so that a system can enforce uniqueness. 
+The \emph{primary key properties} constraint type (\emph{R-226}) is often useful to declare a given (datatype) property as the "primary key" of a class, so that a system can enforce uniqueness. 
 \emph{Books}, e.g., are uniquely identified by their \emph{ISBN} number, i.e., the property \emph{isbn} is inverse functional \ms{$(\ms{funct } isbn\sp{\overline{\ }})$}, 
 which can be represented by the \emph{RDF-CV} in form of a \emph{complex constraint} (see table \ref{tab:primary-key-properties-as-complex-constraints}):
 
@@ -937,7 +937,7 @@ With an intermediate \emph{generic constraint}, however, we only need to define 
 Publication $\equiv$ $\exists$ publisher.Publisher
 \end{DL}
 
-The {\em existential quantification}\footnote{Corresponds to {\em R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}}
+The {\em existential quantification} (\emph{R-86})
 %\ms{Publication $\equiv$ $\exists$ publisher.Publisher} 
 above restricts \emph{publications} to have at least one \emph{publisher} and can be expressed by at least 10 different constraint languages\footnote{OWL 2, SPARQL, ShEx, Bibframe, DSP, ReSh, SPIN, DQTP, Pellet IVC, and Stardog ICV}:
 
@@ -1098,7 +1098,7 @@ A SPIN construct template creates constraint violation triples if all triple pat
 Publication $\equiv$ $\forall$ author.Person
 \end{DL}
 
-According to the \emph{universal quantification}\footnote{Corresponds to \emph{R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}} above, \emph{authors} of \emph{publications} must be \emph{persons}.
+According to the \emph{universal quantification} (\emph{R-91}) above, \emph{authors} of \emph{publications} must be \emph{persons}.
 The SPARQL CONSTRUCT query for the constraint type \emph{universal quantification} is shown below:
 
 \begin{ex}
@@ -1124,13 +1124,13 @@ in order to automatically validate RDF data complying with each type of \emph{ge
 \section{Evaluation}
 \label{sec:evaluation}
 
-We evaluated to which extend the most promising five constraint languages fulfill each of the overall 74 requirements to formulate RDF constraints; each of them corresponding to a constraint type.
-We recently published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} (serving as appendix of this paper) in which we explain each requirement (constraint type) in detail and give examples for each (represented by listed constraint languages).
-This technical report also contains mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
-If a constraint type can be expressed in DL, we added the mapping to DL and to the \emph{generic constraint}.
-If a constraint type cannot be expressed in DL, we only added the mapping to the \emph{generic constraint}.
-Therefore, we show that each constraint type can be mapped to a \emph{generic constraint}.
-Table \ref{tab:evaluation} shows the absolute numbers and the relative percentages for each of the three dimensions to classify constraint types \emph{context}, \emph{complexity}, and \emph{DL expressivity}:
+We evaluated to which extend the five most promising constraint languages on being the standard fulfill each of the overall 74 requirements to formulate RDF constraints; each of them corresponding to a constraint type.
+We recently published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} (serving as appendix of this paper) in which we explain each constraint type in detail and give examples for each (represented by different constraint languages).
+The technical report also contains mappings to \emph{DL} to logically underpin each constraint type and to determine which \emph{DL} constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
+If a constraint type can be expressed in \emph{DL}, we added the mapping to \emph{DL} and to the \emph{generic constraint} conforming to the \emph{RDF-CV}.
+In contrast, if a constraint type cannot be expressed in \emph{DL}, we only added the mapping to the \emph{generic constraint}.
+This way, we prove that each constraint type can be mapped to a \emph{generic constraint} and therefore be represented generically by means of the \emph{RDF-CV}.
+Table \ref{tab:evaluation} displays the classification of constraint types according to the dimensions \emph{context}, \emph{complexity}, and \emph{DL expressivity}:
 
 %\begin{evaluation-generic-overview}
 %\emph{Property Constraints} & 48 & 65 (64.86) \\
@@ -1153,18 +1153,21 @@ Table \ref{tab:evaluation} shows the absolute numbers and the relative percentag
   \vspace{0cm}
 	\centering
 		\begin{tabular}{l|c|c}
-      \textbf{Constraint Classes} & \textbf{\#} & \textbf{\%} \\
+      \textbf{Classes of Constraint Types} & \textbf{\#} & \textbf{\%} \\
       \hline
-\emph{Property Constraints} & 48 & 65 (64.86) \\
-\emph{Class Constraints} & 17 & 23 (22.96) \\
-\emph{Property and Class Constraints} & 9 & 12 (12.16) \\
+%\textbf{\emph{Context}} & & \\
+\emph{Property Constraints} & 48 & 64.86 \\
+\emph{Class Constraints} & 17 & 22.96 \\
+\emph{Property and Class Constraints} & 9 & 12.16 \\
 \hline
-\emph{Simple Constraints} & 46 & 62 (62.16) \\
-\emph{Simple Constraints} (Syntactic Sugar) & 10 & 14 (13.51) \\
-\emph{Complex Constraints} & 18 & 24 (24.32) \\
+%\textbf{\emph{Complexity}} & & \\
+\emph{Simple Constraints} & 46 & 62.16 \\
+\emph{Simple Constraints} (Syntactic Sugar) & 10 & 13.51 \\
+\emph{Complex Constraints} & 18 & 24.32 \\
 \hline
-\emph{DL Expressible} & 51 & 69 (68.92) \\
-\emph{DL Not Expressible} & 23 & 31 (31.08) \\
+%\textbf{\emph{DL Expressivity}} & & \\
+\emph{DL Expressible} & 51 & 68.92 \\
+\emph{DL Not Expressible} & 23 & 31.08 \\
 \hline
 Total & 74 & 100 \\
 		\end{tabular}
@@ -1189,19 +1192,20 @@ Total & 74 & 100 \\
 	%\end{center}
 %}
 
-Constraints types can be classified as \emph{property constraints} and \emph{class constraints} (classification dimension \emph{context}).
-Two thirds of the total amount of constraint types are \emph{property constraints} (e.g. \emph{existential} and \emph{universal quantification}), one fifth are \emph{class constraints} (e.g. \emph{allowed values}\footnote{Corresponds to \emph{R-30-ALLOWED-VALUES-FOR-RDF-OBJECTS} and
-\emph{R-37-ALLOWED-VALUES-FOR-RDF-LITERALS}} for literals and objects), and approx. 10\% are composed of both \emph{property and class constraints} (e.g. \emph{context-specific exclusive or of property groups}).
-Constraint types may be either atomic (\emph{simple constraints}) or created out of \emph{simple} and/or \emph{complex constraints} (\emph{complex constraints}) (classification dimension \emph{complexity}).
-Almost two thirds of the constraint types are \emph{simple constraints} (e.g. \emph{object property paths}), a quarter are \emph{complex constraints} (e.g. \emph{ranges of literal values}\footnote{Corresponds to \emph{R-45-RANGES-OF-RDF-LITERAL-VALUES}}), and
-nearly 15 percent are \emph{complex constraints} which can be formulated as \emph{simple constraints} when using them in terms of syntactic sugar (e.g. \emph{(un)qualified cardinality restrictions}).
-Constraint types can either be \emph{expressible in DL} or \emph{not} (classification dimension \emph{DL expressivity}).
-The majority - nearly 70\% - of the overall constraint types are expressible in DL.	
-\emph{Literal pattern matching} is an example of a constraint type which cannot be represented in DL.
+Constraint types can be classified as \emph{property constraints} and \emph{class constraints} (\emph{context}).
+Two thirds of the total amount of constraint types are \emph{property constraints} (e.g., \emph{R-86: existential quantification} and \emph{R-91: universal quantification}), one fifth are \emph{class constraints} (e.g., \emph{R-30/37: allowed values} for objects/literals), and approx. 10\% are composed of both \emph{property and class constraints} (e.g., \emph{R-13: context-specific exclusive or of property groups}).
+According to the dimesion \emph{complexity}, constraint types can be either atomic (\emph{simple constraints}) or complex (\emph{complex constraints}), i.e., created out of \emph{simple} and/or \emph{complex constraints}.
+Almost two thirds of the constraint types are \emph{simple constraints} (e.g., \emph{R-55: object property paths}), a quarter are \emph{complex constraints} (e.g., \emph{R-45: ranges of literal values}), and
+nearly 15 percent are \emph{complex constraints} which can be formulated as \emph{simple constraints} when using them in terms of syntactic sugar (e.g., \emph{R-81/75/82/76/80/74: (un)qualified cardinality restrictions}).
+Constraint types can either be \emph{expressible in DL} or \emph{not} (\emph{DL expressivity}).
+The majority - nearly 70\% - of the overall constraint types are expressible in \emph{DL}.	
+\emph{Literal pattern matching} (\emph{R-44}) is an example of a constraint type which cannot be represented in \emph{DL}, but can also be represented generically by means of the \emph{RDF-CV}.
+Altogether, most of the constraint types are \emph{simple constraints on properties} which are \emph{expressible in DL}. 
+Thus, the majority of constraint types are directly and relatively easy formulated in form of \emph{simple constraints} which can be mapped to equivalent \emph{DL} constructs.
 
 \section{Related Work}
 
-\tb{how are typical constraints expressed by different constraint languages}
+\tb{1 page / explain how typical constraints are expressed by different constraint languages}
 
 \section{Conclusion and Future Work}
 
