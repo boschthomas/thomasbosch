@@ -184,7 +184,7 @@ More and more domains adopt Linked Data principles
 and seek for ways to ensure data quality by validating RDF data according to predefined constraints, 
 particularly as many communities are used to have this functionality in the XML world.
 XML Schema is the standard language to formulate constraints on and to validate XML documents.
-For RDF, however, there are several candidates for languages to express constraints on RDF data - but no standard one meeting the majority of RDF validation use cases.
+For RDF, however, there are several languages which can be used to express constraints on RDF data - but no standard one meeting the majority of RDF validation use cases.
 We identified requirements to formulate constraints and to validate RDF data and mapped each requirement to a constraint type.
 The majority of these constraint types can be expressed in description logics providing their logical underpinning.
 
@@ -216,12 +216,12 @@ The \textbf{contributions} of this paper are:
 
 In 2013, the W3C organized the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/rdf-val/}}, 
 where experts from industry, government, and academia discussed first use cases for RDF constraint\footnote{For simplicity reasons, we use the terms \emph{constraint types/constraints} instead of \emph{RDF constraint types/RDF constraints} in the rest of the paper} formulation and RDF data validation.
-In 2014, two working groups on RDF validation have been established to develop a language to express constraints on RDF data: 
+In 2014, two working groups on RDF validation have been established to focus on RDF validation: 
 the W3C RDF Data Shapes working group\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles task group\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
 Bosch and Eckert \cite{BoschEckert2014} collected the findings of these working groups and initiated a database of RDF validation requirements
 which is available for contribution at \url{http://purl.org/net/rdf-validation}.
 The intention is to collaboratively collect case studies, use cases, requirements, and solutions regarding RDF validation in a comprehensive and structured way. 
-Bosch et al. identified 74 requirements to formulate constraints; each of them corresponding to a constraint type which may be expressed by at least one existing constraint language \cite{BoschNolleAcarEckert2015}. 
+Bosch et al. identified 74 requirements to formulate constraints; each of them corresponding to a constraint type which can be expressed by at least one existing constraint language \cite{BoschNolleAcarEckert2015}. 
 
 Recently, RDF validation as a research field gained speed due to common needs of data practitioners. A typical example is the library domain that co-developed and adopted Linked Data principles very early. For libraries, the common description of resources are key business and they have a long tradition in developing and using interoperable data formats. While they embrace the openness of Linked Data and the data modeling principles provided by RDF, the data is still mostly represented in XML and this is unlikely to change soon. 
 Among the reasons for the success of XML is the possibility to formulate fine-grained constraints to be met by the data and to validate the data according to these constraints using powerful systems like DTDs, XML Schemas, RELAX NG, or Schematron.
@@ -229,11 +229,12 @@ A typical example is the definition of a library record describing a book. There
 
 \section{Motivation}
 
-There is not the one language meeting the majority of requirements to formulate constraints and validate RDF data.
-As there are more than 10 candidate languages with different syntaxes and semantics which can be used to express constraints and to validate RDF data, 
+As there is not the one language meeting the majority of requirements to formulate constraints and to validate RDF data
+and as there are more than 10 candidate languages with different syntaxes and semantics, 
+%which can be used to express constraints and to validate RDF data, 
 %(e.g. existential and universal quantification, cardinality restrictions, and exclusive or of properties)
-the language selection heavily depends on the individual use case.
-The five most promising constraint languages on being the standard are
+language selection heavily depends on the individual use case.
+The five most promising languages on being the standard constraint language are
 \emph{Description Set Profiles (DSP)},
 \emph{Resource Shapes (ReSh)}, 
 \emph{Shape Expressions (ShEx)},
@@ -247,16 +248,16 @@ and the \emph{Web Ontology Language (OWL 2)}.
 % - constraint / constraint elements / constraint design patterns / constraint language
 %dependency between requirements / when this requirements is fulfilled then this is also fulfilled (e.g. min card and requ. car)
 %min car more powerful than req. propery
-The idea behind this paper is to achieve complete RDF validation requirements coverage by representing any constraint type (corresponding to a requirement to formulate constraints and to validate RDF data) in a generic way using a lightweight vocabulary consisting of only a few terms (see section \ref{sec:vocabulary}).
+The idea behind this paper is to achieve complete RDF validation requirements coverage by representing any constraint type (each of them corresponding to a requirement to formulate constraints and to validate RDF data) in a generic way using a lightweight vocabulary consisting of only a few terms (see section \ref{sec:vocabulary}).
 
 \emph{Cardinality restrictions}, e.g., can be expressed either generically (\textbf{\emph{generic constraints}}) by \emph{description logics (DL)} 
 %and extensions  
 or specifically (\textbf{\emph{specific constraints}}) by domain-specific constraint languages such as \emph{OWL 2}, \emph{DSP}, \emph{ShEx}, \emph{ReSh}, and \emph{SPIN}.
 The knowledge representation formalism {\em DL}, with its  well-studied theoretical properties, provides the foundational basis to express constraints in a generic way. 
 For that reason, we map constraint types to \emph{DL} statements.
-With \emph{minimum qualified cardinality restrictions} (\emph{R-75, R-81})\footnote{Requirements/constraint types are uniquely identified by alphanumeric technical identifiers like \emph{R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES}}, researchers from the library domain may restrict
+With \emph{minimum qualified cardinality restrictions} (\emph{R-75/81})\footnote{Requirements/constraint types are uniquely identified by alphanumeric technical identifiers like \emph{R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES}}, researchers from the library domain may restrict
 that \emph{publications} must have at least one \emph{author} which must be a \emph{person}.
-This constraint can be represented generically (\emph{generic constraint}) using \emph{DL} (\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}), but also specifically (\emph{specific constraint}) by multiple constraint languages:
+This constraint can be represented generically (\emph{generic constraint}) in \emph{DL} (\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}), but also specifically (\emph{specific constraint}) by multiple constraint languages:
 
 \begin{ex}
 # OWL 2:
@@ -287,26 +288,26 @@ Publication a rs:ResourceShape ; rs:property [
 
 As each \emph{publication} must have at least one \emph{author} which must be a \emph{person} 
 and as the book \emph{The-Lord-Of-The-Rings} is a \emph{publication} (\ms{rdf:type(The-Lord-Of-The-Rings, Publication)}), 
-\emph{The-Lord-Of-The-Rings} must have at least one \emph{author} relationship to a \emph{person}.
-Constraint violations are raised either if
-\emph{The-Lord-Of-The-Rings} does not have any \emph{author} relationship, or if 
-\emph{The-Lord-Of-The-Rings} has an \emph{author} which is not a \emph{person}
+it must have at least one \emph{author} relationship to a \emph{person}.
+Constraint violations are raised either (1) if
+\emph{The-Lord-Of-The-Rings} does not have any \emph{author} relationship, or (2) if 
+it has an \emph{author} which is not a \emph{person}
 (\ms{author(The-Lord-Of-The-Rings, Tolkien)}, \ms{rdf:type(Tolkien, Hobbit)}), 
-or if \emph{The-Lord-Of-The-Rings} has an \emph{author} for which no class is assigned
+or (3) if it has an \emph{author} for which no class is assigned
 (\ms{author(The-Lord-Of-The-Rings, Tolkien)}).
-The data is valid, however, if \emph{The-Lord-Of-The-Rings} is connected to a \emph{person} via the property \emph{author}
+In contrast, \emph{The-Lord-Of-The-Rings} is a valid \emph{publication}, if it is connected to a \emph{person} via the property \emph{author}
 (\ms{author(The-Lord-Of-The-Rings, Tolkien)}, \ms{rdf:type(Tolkien, Person)}).
 
 As there is no standard way to formulate constraints, 
-semantically equivalent \emph{cardinality restrictions} may be represented by multiple constraint languages with different syntax and semantics.
+semantically equivalent \emph{cardinality restrictions} may be represented by multiple constraint languages having different syntax and semantics.
 This causes confusion and weakens the common understanding between several parties about the semantics of particular constraints and therefore how to ensure high data quality. 
 Thus, when choosing constraint language \ms{$\alpha$} to express a constraint of an arbitrary constraint type, it should be possible to transform this constraint into a semantically equivalent constraint formulated by any other constraint language \ms{$\beta$} (see section \ref{sec:transformations}). 
-This is important in order to enhance the interoperability of constraint languages and to resolve ambiguities in the communication of RDF data producers and consumers, 
+This is important in order to enhance the interoperability of constraint languages and to resolve misunderstandings and ambiguities in the communication of RDF data producers and consumers, 
 as constraint transformations avoid the necessity to understand several constraint languages.
 
 We provide a validation environment (available at \url{http://purl.org/net/rdfval-demo}) which enables to validate RDF data according to constraints expressed by diverse  constraint languages.
-The next step, however, is to extend the \textbf{\emph{RDF Validator}} by validating constraints of any constraint type represented by any constraint language and 
-to validate semantically equivalent \emph{specific constraints}, expressed by different constraint languages, in exactly the same way, 
+As a second step, the \emph{RDF Validator} is extended by validating RDF data conforming to constraints of any constraint type represented by any constraint language and 
+to perform validation on semantically equivalent \emph{specific constraints}, expressed by different constraint languages, in exactly the same way, 
 i.e., validation is independent from the used constraint language (see section \ref{sec:validation}). 
 %i.e., validation leads to identical validation results - independently from the used constraint language (see section \ref{sec:validation}).
 We are able to offer an already implemented validation mechanism for any \emph{specific constraint} out-of-the-box, 
@@ -323,13 +324,13 @@ We are able to offer an already implemented validation mechanism for any \emph{s
 %the validation of \emph{specific constraint types} is provided out of the box.
 %As a consequence, constraint language designers do not have to implement the validation of their constraint languages and each semantically equivalent \emph{specific constraint type} is validated the same way (i.e. leading to identical validation results).
 
-This paper aims to address two main \textbf{audiences}:
-(1) RDF data providers and consumers seeking how to ensure high quality (meta)data and thus for ways to enhance the interoperability and common understanding of constraints expressible by multiple constraint languages and  
-(2) RDF practitioners thinking of how to provide aligned implementations for the validation of both existing an newly developed constraint languages.
+%This paper aims to address two main \textbf{audiences}:
+%(1) RDF data providers and consumers seeking how to ensure high data quality and thus for ways to enhance the interoperability and common understanding of constraints expressible by multiple constraint languages and  
+%(2) RDF practitioners thinking of how to provide aligned implementations for the validation of both existing an newly developed constraint languages.
 The main \textbf{contributions} of this paper are:
 (1) we provide a basic terminology and classification system for RDF constraints (section \ref{sec:vocabulary}),
 (2) we developed a vocabulary to describe constraints of any RDF constraint type generically and specified its underlying semantics (section \ref{sec:vocabulary}),
-(3) we show how to transform constraints, expressed by any constraint language \ms{$\alpha$}, into generically expressed constraints and into constraints represented by any other constraint language \ms{$\beta$} and discuss why these transformations are useful (section \label{ref:transformations}), and
+(3) we show how to transform constraints, expressed by any constraint language \ms{$\alpha$}, into generically expressed constraints and into constraints represented by any other constraint language \ms{$\beta$} and discuss why these transformations are useful (section \ref{sec:transformations}), and
 (4) we explain how to overcome the necessity to implement the validation of each constraint type for multiple constraint languages (section \ref{sec:validation}).
 %(if the validation is implemented once for the corresponding \emph{generic constraint type} to which the \emph{specific constraint type} is mapped)
 
