@@ -154,11 +154,12 @@
   %\scriptsize
   %\sffamily
   \vspace{0cm}
-  \begin{tabular}{r l}
+	\begin{center}
+  \begin{tabular}{c l}
 
 }{
   \end{tabular}
-  %\linebreak
+	\end{center}
 }
 
 
@@ -262,12 +263,12 @@ To ensure high quality and trust, metadata and data must satisfy certain criteri
 %From 2012 to 2015 together with other Linked Data community members and \emph{SBE} experts, we developed diverse vocabularies to represent \emph{SBE} metadata and data in RDF.
 
 In this paper, we propose a system to classify RDF constraints and RDF constraint types, which in most cases correspond to RDF validation requirements.
-Constraints are instantiated from constraint types in order to validate both metadata and data represented by any vocabulary\tb{vocabulary-independent}. 
+Constraints are instantiated from constraint types in order to validate both metadata and data independently from used vocabularies. 
 Within the context of a complex and complete real world running example within the community around research data for the \emph{social, behavioural, and economic (SBE) sciences}, we prove the claim that the developed classification system perfectly applies for diverse vocabularies.
-We show how data in rectangular format and metadata on record-unit data sets (i.e., data about individuals, households, businesses) or more specifically person-level data sets, aggregated data sets, thesauri, and statistical classifications are represented in RDF and how therefore reused vocabularies are interrelated.\tb{record-unit or more specific person-level data sets}
+We show how data in rectangular format and metadata on person-level or more generally record-unit data sets (i.e., data about individuals, households, businesses), aggregated data sets, thesauri, and statistical classifications are represented in RDF and how therefore reused vocabularies are interrelated.
 We explain how \emph{SBE} (meta)data is validated against constraints to ensure high quality and trust.
 We exhaustively evaluated the metadata quality of large real world aggregated, person-level, and thesauri data sets (more than 4.2 billion triples and 15 thousand data sets) by means of constraints of the majority of constraint types.
-\tb{DCAT und XKOS nur im future work}
+\tb{DCAT und XKOS nur in future work}
 \keywords{RDF Validation, RDF Constraints, DDI-RDF Discovery Vocabulary, RDF Data Cube Vocabulary, Rectangular Data, SKOS, XKOS, Linked Data, Semantic Web}
 \end{abstract}
 
@@ -320,7 +321,7 @@ how data in rectangular format (expressed by the \emph{PHDD} vocabulary) and met
 We explain how \emph{SBE} (meta)data is validated against constraints, instantiated from constraint types organized in the constraint classification system, to ensure high quality of and trust in (meta)data.
 
 %The remainder of the paper is structured as follows.
-For the extensive evaluation, we implemented 53 constraint types by instantiating 212 constraints on \emph{Disco}, \emph{QB}, \emph{SKOS}, \emph{XKOS}, and \emph{PHDD} data sets (section \ref{implementation}).
+For the extensive evaluation, we implemented 53 constraint types by instantiating 213 constraints on \emph{Disco}, \emph{QB}, \emph{SKOS}, \emph{XKOS}, and \emph{PHDD} data sets (section \ref{implementation}).
 First, several \emph{SBE} domain experts evaluated the correctness (i.e., the gold standard) of all constraints and therefore the generic applicability of the developed constraint classification system. 
 Second, we exhaustively evaluated the metadata quality of large real world aggregated (\emph{QB}), person-level (\emph{Disco}), and thesauri (\emph{SKOS}) data sets (more than 4.2 billion triples and 15 thousand data sets) by means of constraints of the majority of constraint types (section \ref{evaluation}).
 
@@ -473,10 +474,10 @@ distributions (\emph{dcat:Distribution}) which are part of the records.
 Often, users search for data sets covering particular topics (\emph{dcat:keyword}, \emph{dcat:theme}), time periods (\emph{dcterms:temporal}),  or  locations (\emph{dcterms:spatial}), 
 or for certain formats in which the data distribution is available (\emph{dcterms:format}). 
 
-\section{RDF Constraints Classification}
+\section{Classification of Constraint Types and Constraints}
 \label{classification}
 
-Bosch et al. identified 74 requirements to formulate RDF constraints (e.g. \emph{R-75, R-81: minimum qualified cardinality restrictions}); each of them corresponding to an RDF constraint type\footnote{Constraint types and constraints are uniquely identified by alphanumeric technical identifiers like \emph{R-71-CONDITIONAL-PROPERTIES}}\cite{BoschNolleAcarEckert2015}. 
+Bosch et al. identified 76 requirements to formulate RDF constraints (e.g. \emph{R-75, R-81: minimum qualified cardinality restrictions}); each of them corresponding to an RDF constraint type\footnote{Constraint types and constraints are uniquely identified by alphanumeric technical identifiers like \emph{R-71-CONDITIONAL-PROPERTIES}}\cite{BoschNolleAcarEckert2015}. 
 We published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} in which we explain each requirement (constraint type) in detail and give examples for each expressed by different constraint languages.
 The knowledge representation formalism \emph{Description logics (DL)}, with its  well-studied theoretical properties, provides the foundational basis for each constraint type.
 Therefore, this technical report contains mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
@@ -484,39 +485,69 @@ Therefore, this technical report contains mappings to DL to logically underpin e
 We developed a system to classify RDF constraints and RDF constraint types.
 Constraints are instantiated from constraint types in order to validate both metadata and data represented by any vocabulary; thus, the proposed classification system is vocabulary-independent and therefore applicable generically.
 %\emph{data model specific constraint types} (e.g. \emph{data model consistency})
-The complete set of \emph{constraint types} ($\mathcal{CT}$) encompasses two disjoint \textbf{\emph{sets of constraint types}}:
-\begin{enumerate}
-	\item $\mathcal{CT}_{C}$: \emph{Content-Driven Constraint Types}\tb{complex constraints / zahlen interpretierbar / in einem bestimten vokabulare werden viele basic constraints verletzt / daten haben bessere qualität vokabular / wichtigkeit constraint languages, dass complexe constraints beschrieben}
-	\item $\mathcal{CT}_{T}$: \emph{Technology-Driven Constraint Types}\tb{basic constraints / welche constraints können automatisch abgeleitet werden / bestimmte constraints werden in den vokabularen definiert bzw sehr leicht zu implementieren wäre / studie ohne daten macht keinen sinn --> cardinality restriction / alle constraints die mit rdf + rdfs + owl definiert werden können / vokabukare werden heutzutage mit rdf / rdfs / owl beschrieben / constraints die typischerweise hinterlegt werden / constraints die amn als vokabular}
-\end{enumerate}
 
-\tb{große datenbestände untersuchen um ein besseres verständnis zu bekommen / liste von constraints / jedes einzelne constraint für jeded einzelne vokabular severity level / warum severity was bringt das} 
-
-$\mathcal{CT}_{C}$ (\emph{Content-Driven Constraint Types}) is the set of constraints ensuring that the data is consistent with the intended syntax, semantics, and integrity of vocabularies' data models (section \ref{content-driven-validation}). 
-Therefore, domain experts may formulate $\mathcal{CT}_{C}$ constraints manually in prose English which is technically expressed by a constraint language afterwards.
-For assessing the quality of thesauri, e.g., we concentrate on the graph-based structure and apply graph- and network-analysis techniques (constraint type: \emph{structure}). 
-A thesaurus, e.g., should not contain many orphan concepts (concepts without any associative or hierarchical relations) lacking valuable context information for search and retrieval.  
-$\mathcal{CT}_{T}$ (\emph{Technology-Driven Constraint Types}) is the set of constraints which can be generated completely automatically out of vocabularies' data models (section \ref{technology-driven-validation}).
-With \emph{minimum qualified cardinality restrictions} (\emph{R-74}), e.g., one can restrict that
-a \emph{phdd:TableStructure} has (\emph{phdd:column}) at least one \emph{phdd:Column} (in DL: \ms{TableStructure $\sqsubseteq$ $\geq$1 column.Column})\footnote{For simplicity reasons, we do not use namespace prefixes in DL statements.}.
-
-\emph{SBE} experts \tb{todo / wieviele constraints welche klasse} determined the default \textbf{\emph{severity level}} (corresponds to requirement \emph{R-158}) for each constraint to indicate how serious the violation of the constraint is.
-We propose an extensible metric to measure the continuum of severity levels ranging from $\mathcal{SL}_{0}$ to $\mathcal{SL}_{2}$.
-According to the constraints' default severity level the complete set of constraints ($\mathcal{C}$) encompasses three disjoint \textbf{\emph{sets of constraints}}:
-\begin{itemize}
-	\item $\mathcal{SL}_{0}$: set of constraints with severity level \emph{informational}
-	\item $\mathcal{SL}_{1}$: set of constraints with severity level \emph{warning}
-	\item $\mathcal{SL}_{2}$: set of constraints with severity level \emph{error}
-\end{itemize}
-Violations of $\mathcal{SL}_{0}$ constraints point to possible data improvements to achieve RDF representations which are ideal in terms of syntax and semantics of used vocabularies. 
-Data not conforming to $\mathcal{SL}_{1}$ and $\mathcal{SL}_{2}$ constraints is syntactically or semantically not correctly represented.
-The difference between $\mathcal{SL}_{1}$ and $\mathcal{SL}_{2}$ constraints is that $\mathcal{SL}_{1}$ invalid data could be
-whereas $\mathcal{SL}_{1}$ invalid data cannot be processed further. 
-Although, we provide default severity levels for each constraint, users should be able to specify constraints' severity levels according to their individual needs, i.e., use case specific severity levels.
-
-We recently published a technical report\footnote{\label{technical-report-1}Available at: \url{http://arxiv.org/abs/1504.04479}} (serving as first appendix of this paper) in which we describe 212 constraints (classified as 53 constraint types) to validate rectangular data (\emph{PHDD}) and metadata on person-level data sets (\emph{Disco}), aggregated data sets (\emph{QB}), thesauri (\emph{SKOS}), and statistical classifications (\emph{XKOS}), and therefore apply the proposed classification system to several vocabularies to represent both data and metadata \cite{BoschZapilkoWackerowEckert2015}.
+We recently published a technical report\footnote{\label{technical-report-1}Available at: \url{http://arxiv.org/abs/1504.04479}} (serving as first appendix of this paper) in which we describe 213 constraints (classified as 53 distinct constraint types) to validate rectangular data (\emph{PHDD}) and metadata on person-level data sets (\emph{Disco}), aggregated data sets (\emph{QB}), thesauri (\emph{SKOS}), and statistical classifications (\emph{XKOS}), and therefore apply the proposed classification system to several vocabularies to represent both data and metadata \cite{BoschZapilkoWackerowEckert2015}.
 In this section, we describe constraints, which are important to ensure \emph{SBE} (meta)data quality, 
 associate them with default severity levels, and assign them to $\mathcal{CT}_{C}$ and $\mathcal{CT}_{T}$ constraint types. 
+
+\subsection{Classification of Constraint Types}
+
+The complete set of \emph{constraint types} ($\mathcal{CT}$) encompasses three disjoint \emph{sets of constraint types}:
+\begin{enumerate}
+	\item \textbf{$\mathcal{CT}_{B}$: \emph{Basic Constraint Types}}
+	\item \textbf{$\mathcal{CT}_{S}$: \emph{Simple Constraint Types}}
+	\item \textbf{$\mathcal{CT}_{C}$: \emph{Complex Constraint Types}}
+\end{enumerate}
+
+The modeling languages \emph{RDF}, \emph{RDFS}, and \emph{OWL} are typically used to define vocabularies.
+\emph{Basic constraint types} ($\mathcal{CT}_{B}$) 
+denotes the set of constraint types whose constraints 
+can be extracted completely automatically out of vocabularies.
+As vocabularies have been specified using \emph{RDF}, \emph{RDFS}, and \emph{OWL},
+\emph{basic constraints} ensure that the data is consistent with the intended syntaxes, semantics, and integrity of vocabularies' data models.
+%The {\em existential quantification} (\emph{R-86}) 
+%\ms{Study $\equiv$ $\exists$ product.LogicalDataSet} (\emph{DL}), e.g., restricts studies to contain at least one data set which is expressible in OWL 2:
+\emph{Minimum qualified cardinality restrictions} (\emph{R-74}), e.g., guarantee that individuals of given classes are connected by particular properties to at least n different individuals/literals of certain classes or data ranges.
+This way, it is expressible in OWL 2 that a \emph{phdd:TableStructure} has (\emph{phdd:column}) at least one \emph{phdd:Column}:
+\begin{ex}
+[   a owl:Restriction ; rdfs:subClassOf TableStructure ;
+    owl:minQualifiedCardinality 1 ;
+    owl:onProperty column ;
+    owl:onClass Column ] .
+\end{ex}
+
+\emph{Simple constraint types} ($\mathcal{CT}_{S}$) is the set of constraint types whose constraints can be easily defined without much effort in addition to $\mathcal{CT}_{B}$ constraints.
+The {\emph{data property facets} (\emph{R-46}) $\mathcal{CT}_{S}$ constraint type enables to declare frequently needed facets for data properties in order to validate input against simple conditions including min/max values, regular expressions, and string length.
+The abstract of series/studies, e.g., should have a minimum length ($\mathcal{SL}_{1}$).
+
+\emph{Complex constraint types} ($\mathcal{CT}_{C}$) encompass constraint types for which the definition of constraints is rather complex and cannot be derived from vocabulary definitions.
+Complex constraints show the importance of constraint languages enabling to describe complex constraints.
+For assessing the quality of thesauri, e.g., we concentrate on the graph-based structure and apply graph- and network-analysis techniques.
+An example of such \emph{structure} constraints is that 
+a thesaurus should not contain many orphan concepts, i.e., concepts without any associative or hierarchical relations, lacking context information valuable for search.  
+
+\tb{refer to evaluation / what do we want to know?} 
+
+\subsection{Classification of Constraints}
+
+\emph{SBE} experts determined the default \textbf{\emph{severity level}} (\emph{R-158}) for each constraint to indicate how serious the violation of the constraint is.
+We propose an extensible metric to measure the continuum of severity levels ranging from $\mathcal{SL}_{0}$ to $\mathcal{SL}_{2}$.
+According to the constraints' default severity level the complete set of constraints ($\mathcal{C}$) encompasses three disjoint \emph{sets of constraints}:
+\begin{itemize}
+	\item $\mathcal{SL}_{0}$: set of constraints with \textbf{severity level \emph{informational}}
+	\item $\mathcal{SL}_{1}$: set of constraints with \textbf{severity level \emph{warning}}
+	\item $\mathcal{SL}_{2}$: set of constraints with \textbf{severity level \emph{error}}
+\end{itemize}
+Violations of $\mathcal{SL}_{0}$ constraints point to desirable data improvements to achieve RDF representations which are ideal in terms of syntax and semantics of used vocabularies. 
+Data not conforming to $\mathcal{SL}_{1}$ and $\mathcal{SL}_{2}$ constraints is syntactically and/or semantically not correctly represented.
+The difference between $\mathcal{SL}_{1}$ and $\mathcal{SL}_{2}$ constraints is that data, not conforming to $\mathcal{SL}_{1}$ but conforming to $\mathcal{SL}_{2}$ constraints, could be processed further,
+whereas data, not corresponding to $\mathcal{SL}_{2}$ constraints, cannot be processed further after validation. 
+Although, we provide default severity levels for each constraint, validation environments should enable users to adapt constraints' severity levels according to their individual needs.
+
+As $\mathcal{CT}_{B}$ constraints are derived from explicitly stated semantics of vocabularies' data models, 
+default severity levels of $\mathcal{CT}_{B}$ constraints are in most cases very strong ($\mathcal{SL}_{2}$) and 
+in average stronger than severity levels of $\mathcal{CT}_{S}$ and $\mathcal{CT}_{C}$ constraints.
+As a consequence, violating many $\mathcal{CT}_{B}$ constraints is an indicator for bad data quality\footnote{For simplicity reasons, we only assign severity levels to $\mathcal{CT}_{B}$ constraints when they differ from $\mathcal{SL}_{2}$.}.
 
 %
 %- different sets of constraints for different use cases / use case specific constraints
@@ -532,44 +563,124 @@ associate them with default severity levels, and assign them to $\mathcal{CT}_{C
 %use-case specific constraints, e.g., DCAT: searching for metadata
 %\tb{Thomas: ToDo}
 
-\subsection{Technology-Driven Constraint Types}
-\label{technology-driven-validation}
+\section{Basic Constraint Types}
+\label{basic-constraint-types}
 
-$\mathcal{CT}_{T}$ constraints can be directly and automatically derived from explicitly stated syntax and semantics of vocabularies' data models.
-Thus, associated default severity levels are in most cases very strong ($\mathcal{SL}_{2}$).
+As \emph{RDFS} and \emph{OWL} are typically used to define vocabularies, \emph{RDFS} and \emph{OWL} reasoning may be performed prior to validation. 
+Reasoning and validation are indeed very closely related. 
+\emph{Reasoning} is the process of determining what follows from what has been stated.
+%Both should be possible: (1) validation with reasoning and (2) validation without reasoning. 
+We divide the whole set of \emph{basic constraint types} ($\mathcal{CT}_{B}$) into two disjoint sets to investigate the affect of reasoning to the validation process: 
+\begin{enumerate}
+	\item $\mathcal{C}_B ^{\mathcal{R}}$ corresponds to axioms in \emph{OWL 2} and denotes the set of constraint types which enable performing reasoning prior to validation, especially when not all the knowledge is explicit (section \ref{basic-constraint-types-with-reasoning}).  
+  \item $\overline{\mathcal{C}_B ^{\mathcal{R}}}$  denotes the set of constraint types for which reasoning cannot be done or does not improve the result in any obvious sense (section \ref{basic-constraint-types-without-reasoning}).
+\end{enumerate}
 
-%\textbf{Constraints Derived From Vocabularies.}
-\textbf{Vocabulary.}
-One should not invent new or use deprecated terms (e.g. \emph{disco:containsVariable}) of vocabularies (\emph{vocabulary}).
-\emph{Property domain} (\emph{R-25, R-26}) and \emph{range} (\emph{R-28, R-35}) constraints restrict domains and ranges of properties.
-Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships (\ms{$\exists$ isStructuredBy.$\top$ $\sqsubseteq$ Table}) and
-\emph{xkos:belongsTo} relationships can only point to \emph{skos:Concepts} (\ms{$\top$ $\sqsubseteq$ $\forall$ belongsTo.Concept}).
+\subsection{Basic Constraint Types with Reasoning}
+\label{basic-constraint-types-with-reasoning}
+
+Validation environments should enable users to decide if they wish to perform reasoning prior to validation.
+Reasoning as an optional pre validation step is beneficial for RDF validation as 
+(1) it may resolve constraint violations and  
+(2) it may cause useful constraint violations.
 A \emph{universal quantification} (\emph{R-91}) contains all those individuals that are connected by a property only to individuals/literals of particular classes  or data ranges.
-Only \emph{dcat:Catalogs}, e.g., can have \emph{dcat:dataset} relationships to \emph{dcat:Datasets} (\ms{Catalog $\sqsubseteq$ $\forall$ dataset.Dataset}).
-Out-dated classes and properties of previous vocabulary versions can be marked as deprecated.
-The constraint types \emph{context-specific valid classes and properties} (\emph{R-209; R-210}) can be used to specify which classes and properties are valid in which context - here a given vocabulary version.
-Many properties are not necessarily required but \emph{recommended} within a particular context (\emph{R-72}).
-The property {\em skos:notation}, e.g., is not mandatory for {\em disco:Variable}s, but recommended to represent variable names.
-\emph{R-223} serves to make sure that all literal values are valid with regard to their datatypes.
-Thus, all date values (e.g. {\em disco:startDate}, {\em disco:endDate}, {\em dcterms:date}) must be of the datatype \emph{xsd:date} and \emph{xsd:nonNegativeInteger} values (e.g. \emph{disco:frequency}) do not have to be negative.
+%Only \emph{dcat:Catalogs}, e.g., can have \emph{dcat:dataset} relationships to \emph{dcat:Datasets}:
+%\begin{DL}
+%Catalog $\sqsubseteq$ $\forall$ dataset.Dataset
+%\end{DL}
+Consider the following DL knowledge base $\mathcal{K}$\footnote{A knowledge base is a collection of formal statements which corresponds to \emph{facts} or what is known explicitly. For simplicity reasons, we only write namespace prefixes in DL statements to avoid ambiguities.}:
 
-\textbf{Existential Quantifications.}
-\emph{Existential quantifications} (\emph{R-86}) enforce that instances of given classes must have some property relation to individuals/literals of certain types.
-If a study, e.g., does not contain any data set ($\mathcal{SL}_{2}$), the actual description of the data is missing which may indicate that it is very hard or unlikely to get access to the data.
-If metadata on data files, including the actual data, is missing (especially case and variable quantities; $\mathcal{SL}_{1}$), the description of the data sets and the study is not sufficient.
-Case quantity measures how many cases are collected for a study.
-High case and variable quantities are indicators for high statistical quality and comprehensiveness of the underlying study ($\mathcal{SL}_{1}$).
-Variables should have a relation to a theoretical concept ($\mathcal{SL}_{0}$).
+\begin{center}
+\begin{DL} 
+$\mathcal{K}=\{$ &\ms{LogicalDataSet $\sqsubseteq$ dcat:DataSet},\\
+ &\ms{LogicalDataSet $\sqsubseteq \forall$ aggregation.qb:DataSet},\\
+ %&\ms{dcat:DataSet $\equiv$ $\exists$ dcat:distribution . dcat:Distribution},\\
+ &\ms{LogicalDataSet( logical-data-set )},\\
+ &\ms{aggregation( logical-data-set, aggregated-data-set )}
+ \}\\ 
+\end{DL}
+\end{center}
+
+As we know that only person-level data sets (\emph{disco:LogicalDataSet}) can derive (\emph{disco:aggregation}) aggregated data sets (\emph{qb:DataSet}), 
+{\em logical-data-set} is a \emph{disco:LogicalDataSet}, 
+and \emph{aggregated-data-set} is derived from \emph{logical-data-set},
+we conclude that \emph{aggregated-data-set} must be a \emph{qb:DataSet}.
+As \emph{aggregated-data-set} is not explicitly defined to be a \emph{qb:DataSet}, however, a constraint violation is raised.
+If we perform reasoning prior to validation, the constraint violation is resolved, as the implicit triple \ms{qb:DataSet(aggregated-data-set)} is inferred. 
+
+Reasoning may also cause constraint violations which are needed to enhance data quality.
+With \emph{subsumption} (\emph{R-100}), one can state that \emph{disco:LogicalDataSet} is a sub-class of \emph{dcat:DataSet}, 
+i.e., each person-level data set is also a catalog data set.
+Thus, constraints on catalog data sets are also validated for person-level data sets;
+e.g., the \emph{existential quantification} below restricting that person-level data sets must have a distribution: 
+
+\begin{center}
+\begin{DL} 
+$\mathcal{K}=\{$ 
+ &\ms{DataSet $\equiv$ $\exists$ distribution.Distribution},\\
+&\ms{Variable $\equiv$ $\exists$ concept.Concept}
+ \}\\ 
+\end{DL}
+\end{center}
+
+We extend $\mathcal{K}$ by \emph{existential quantifications} (\emph{R-86}) enforcing that instances of given classes must have some property relation to individuals/literals of certain types.
+Variables, e.g., should have a relation to a theoretical concept ($\mathcal{SL}_{0}$).
 %The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
-The variable \emph{Education at pre-school},.e.g, is associated with the theoretical concept \emph{Child Care}. 
-The constraint's severity level is weak, as in most cases research can be continued without having information about theoretical concepts.
+The variable \emph{Education at pre-school} is associated with the theoretical concept \emph{Child Care}. 
+The default severity level of the constraint is weak, as in most cases research can be continued without having information about the theoretical concept of a variable.
+%If a study, e.g., does not contain any data set ($\mathcal{SL}_{2}$), the actual description of the data is missing which may indicate that it is very hard or unlikely to get access to the data.
+%If metadata on data files, including the actual data, is missing (especially case and variable quantities; $\mathcal{SL}_{1}$), the description of the data sets and the study is not sufficient.
+%Case quantity measures how many cases are collected for a study.
+%High case and variable quantities are indicators for high statistical quality and comprehensiveness of the underlying study ($\mathcal{SL}_{1}$).
 
-\textbf{Cardinality Restrictions on Properties and Language Tags.}
+\begin{center}
+\begin{DL} 
+$\mathcal{K}=\{$ 
+  &\ms{fundedBy $\sqsubseteq$ contributor}
+ \}\\ 
+\end{DL}
+\end{center}
+
+By stating that \emph{disco:fundedBy} is a sub property of \emph{dcterms:contributor},
+the {\em sub property} (\emph{R-54, R-64}) above assures that if a series is funded by an organization, then the organization must also contribute to the series.
+In case the \emph{sub-property} is applied without reasoning and $\mathcal{K}$ contains the triple \ms{disco:fundedBy} \ms{(EU-SILC,} \ms{organization)},
+a constraint violation is thrown if $\mathcal{K}$ does not explicitly include the triple \ms{dcterms:contributor} \ms{(EU-SILC,} \ms{organization)}.
+If the \emph{sub property} is applied with reasoning, on the other side, the latter triple is derived which resolves the constraint violation.
+
+%\begin{DL}
+%fundedBy $\sqsubseteq$ contributor
+%\end{DL} 
+
+%\emph{Asymmetric object properties} (\emph{R-62}) restrict that if individual \emph{x} is connected by the object property \emph{OP} to individual \emph{y}, then \emph{y} cannot be connected by \emph{OP} to \emph{x}. 
+%Such constraints are defined for each object property for which a semantically equivalent object property pointing from the other direction would also be possible but is not defined within the vocabulary.
+%A \emph{disco:Variable}, e.g., may be based on (\emph{disco:basedOn}) a \emph{disco:RepresentedVariable}.
+%A \emph{disco:RepresentedVariable}, however, cannot be based on a \emph{disco:Variable} (\ms{$disco:basedOn \sqcap disco:basedOn^{-} \sqsubseteq \bot$}).
+
+%\emph{Property domain} (\emph{R-25, R-26}) and \emph{range} (\emph{R-28, R-35}) constraints restrict domains and ranges of properties.
+%Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships and
+%\emph{xkos:belongsTo} relationships can only point to \emph{skos:Concepts}:
+%\begin{DL}
+%$\exists$ isStructuredBy.$\top$ $\sqsubseteq$ Table \\
+%$\top$ $\sqsubseteq$ $\forall$ belongsTo.Concept
+%\end{DL}
+
+%\begin{center}
+%\begin{DL} 
+%$\mathcal{K}=\{$ 
+  %&\ms{TableStructure $\sqsubseteq$ $\geq$1 column.Column}, \\
+	%&\ms{Variable $\sqsubseteq$ $\leq$1 concept.Concept}, \\
+	%&\ms{DataSet $\sqsubseteq$ $\geq$1 structure.DataStructureDefinition} \\ 
+	%&\ms{$\sqcap$ $\leq$1 structure.DataStructureDefinition}
+ %\}\\ 
+%\end{DL}
+%\end{center}
+
+%\textbf{Cardinality Restrictions on Properties.}
 %An \emph{existential quantification} (\emph{R-86}) contains all those individuals that are connected by a property to individuals/literals of given classes or data ranges.
 %Every \emph{qb:SliceKey}, e.g., must be associated with (\emph{qb:sliceKey}) a \emph{qb:DataStructureDefinition} (\ms{SliceKey $\sqsubseteq$ $\exists$ sliceKey$^{-}$.DataStructureDefinition}).
-\emph{Minimum/maximum/exact qualified cardinality restrictions} (\emph{R-74, R-75, R-76}) contain all those individuals that are connected by a property to at least/at most/exactly n different individuals/literals of particular classes or data ranges.
-A \emph{phdd:TableStructure}, e.g., has (\emph{phdd:column}) at least one \emph{phdd:Column} (\ms{TableStructure $\sqsubseteq$ $\geq$1 column.Column}),
-a \emph{disco:Variable} has at most one \emph{disco:concept} relationship to a theoretical concept (\emph{skos:Concept}) (\ms{Variable $\sqsubseteq$ $\leq$1 concept.Concept}), and a \emph{qb:DataSet} is structured by (\emph{qb:structure}) exactly one \emph{qb:DataStructureDefinition} (\ms{DataSet $\sqsubseteq$ $\geq$1 structure.DataStructureDefinition $\sqcap$ $\leq$1 structure.DataStructureDefinition}).
+%\emph{Minimum/maximum/exact qualified cardinality restrictions} (\emph{R-74, R-75, R-76}) contain all those individuals that are connected by a property to at least/at most/exactly n different individuals/literals of particular classes or data ranges.
+%A \emph{phdd:TableStructure} has (\emph{phdd:column}) at least one \emph{phdd:Column},
+%a \emph{disco:Variable} has at most one \emph{disco:concept} relationship to a theoretical concept (\emph{skos:Concept}), and a \emph{qb:DataSet} is structured by (\emph{qb:structure}) exactly one \emph{qb:DataStructureDefinition}.
 %DATA-CUBE-C-MINIMUM-QUALIFIED-CARDINALITY-RESTRICTIONS-
 %02: Unique data set (IC-1 [3]) - Every qb:Observation has (qb:dataSet) ex-
 %actly one associated qb:DataSet (Observation  ¥1 dataSet.DataSet [
@@ -587,104 +698,155 @@ a \emph{disco:Variable} has at most one \emph{disco:concept} relationship to a t
 %(\emph{R-74: exact qualified cardinality restrictions})
 %\footnote{\emph{DATA-CUBE-C-EXACT-QUALIFIED-CARDINALITY-RESTRICTIONS-02}}.
 %\textbf{Language Tag Cardinality.}
-For data properties, it may be desirable to restrict that values of predefined languages must be present for determined number of times (\emph{R-48, R-49}):
-(1) Some controlled vocabularies contain literals in natural language, but without information what language has actually been used. 
-(2) Language tags must conform to language standards. 
-(3) Some thesaurus concepts are labeled in only one, others in multiple languages. It may be desirable to have each concept labeled in each of the languages that are also used on the other concepts. Although not always possible, incompleteness of language coverage for some concepts may indicate shortcomings of thesauri
+
+\subsection{Basic Constraint Types without Reasoning}
+\label{basic-constraint-types-without-reasoning}
+
+$\overline{\mathcal{C}_B ^{\mathcal{R}}}$  denotes the set of constraint types for which reasoning cannot be done or does not improve the result in any obvious sense.
+The constraint type \emph{vocabulary} guarantees that users do not invent new or use deprecated terms of vocabularies.
+%Out-dated classes and properties of previous vocabulary versions can be marked as deprecated.
+%The constraint types \emph{context-specific valid classes and properties} (\emph{R-209; R-210}) can be used to specify which classes and properties are valid in which context - here a given vocabulary version.
+\emph{Value is valid for datatype} (\emph{R-223}) constraints serve to make sure that all literal values are valid with regard to their datatypes - as stated in the vocabularies.
+Thus, it is checked that all date values (e.g., {{\em dcterms:date}, \em disco:startDate}, {\em disco:endDate}) are actually of the datatype \emph{xsd:date} and that \emph{xsd:nonNegativeInteger} values (e.g. \emph{disco:frequency}) are not negative.
+Depending on property datatypes, two different literal values have
+a specific ordering with respect to operators like \textless  (\emph{R-43: literal value comparison}).
+Start dates (\emph{disco:startDate}), e.g., must be before (\emph{\textless}) end dates (\emph{disco:endDate}).
+
+\begin{center}
+\begin{DL} 
+$\mathcal{K}=\{$ 
+	&\ms{isStructuredBy $\sqsubseteq$ $\neg$ column}, \\
+	&\ms{TableDescription $\sqcap$ ColumnDescription $\sqsubseteq$ $\perp$}, \\
+	&\ms{CategoryStatistics $\equiv$} \\
+	&\ms{$\forall$ computationBase.\{valid,invalid\} $\sqcap$ langString}
+ \}\\ 
+\end{DL}
+\end{center}
+
+All properties, not having the same domain and range types, are defined to be pairwise disjoint
+(\emph{R-9: disjoint properties}), i.e., no individual \emph{x} can be connected to an individual/literal \emph{y} by disjoint properties (e.g., \emph{phdd:isStructuredBy} and \emph{phdd:column}).
+All \emph{PHDD} classes (e.g., \emph{phdd:TableDescription}, \emph{phdd:ColumnDescription}) are pairwise disjoint (\emph{R-7: disjoint classes}),
+i.e., individuals cannot be instances of multiple disjoint classes.
+It is a common requirement to narrow down the value space of properties by an exhaustive enumeration of valid values (\emph{R-30/37: allowed values}). 
+%\emph{Allowed values} (\emph{R-30, R-37}) for properties can be IRIs (matching one or multiple patterns), any literals, allowed literals (e.g. 'red' 'blue' 'green'), and typed literals of one or multiple type(s) (e.g. \emph{xsd:string}). 
+\emph{disco:CategoryStatistics}, e.g., can only have \emph{disco:computationBase} relationships to the values \emph{valid} and \emph{invalid} of the datatype \emph{rdf:langString}.
+Validation should \emph{exploit sub-super relations} in vocabularies (\emph{R-224}).
+If \emph{dcterms:coverage} and one of its sub-properties (\emph{dcterms:spatial}, \emph{dcterms:temporal}) are given,
+it is checked that \emph{dcterms:coverage} is not redundant with its sub-properties 
+which may indicate when the data is verbose/redundant or expressed at a too general level.
+
+\section{Simple Constraint Types}
+
+$\mathcal{CT}_{S}$ is the set of constraint types whose constraints can be easily defined without much effort in addition to $\mathcal{CT}_{B}$ constraints.
+For data properties, it may be desirable to restrict that values of predefined languages must be present for determined number of times (\emph{R-48/49: language tag cardinality}):
+(1) It is checked if literal language tags are set. Some controlled vocabularies, e.g., contain literals in natural language, but without information what language has actually been used ($\mathcal{SL}_{1}$). 
+(2) Language tags must conform to language standards ($\mathcal{SL}_{2}$). 
+(3) Some thesaurus concepts are labeled in only one, others in multiple languages. 
+It may be desirable to have each concept labeled in each of the languages that are also used on the other concepts,
+as language coverage incompleteness for some concepts may indicate shortcomings of thesauri ($\mathcal{SL}_{0}$)
 \cite{MaderHaslhoferIsaac2012}.
 
-\textbf{Disjointness and Allowed Values.}
-All properties, not having the same domain and range types, are defined to be pairwise disjoint
-(\emph{R-9: disjoint properties}), i.e., no individual \emph{x} can be connected to an individual/literal \emph{y} by disjoint properties like \emph{phdd:isStructuredBy} and \emph{phdd:column} ($isStructuredBy \sqsubseteq \neg column$).
-All \emph{XKOS} classes are pairwise disjoint (\emph{R-7: disjoint classes}; e.g. \ms{ClassificationLevel $\sqcap$ ConceptAssociation $\sqsubseteq$ $\perp$}),
-i.e., individuals cannot be instances of multiple disjoint classes.
-It is a common requirement to narrow down the value space of properties by an exhaustive enumeration of valid values.  
-\emph{Allowed values} (\emph{R-30, R-37}) for properties can be IRIs (matching one or multiple patterns), any literals, allowed literals (e.g. 'red' 'blue' 'green'), and typed literals of one or multiple type(s) (e.g. \emph{xsd:string}). 
-\emph{disco:CategoryStatistics}, e.g., can only have \emph{disco:computationBase} relationships to the values \emph{valid} and \emph{invalid} of the datatype \emph{rdf:langString} (\ms{CategoryStatistics $\equiv$ $\forall$ computationBase.\{valid,invalid\} $\sqcap$ langString}).
-
-\textbf{Validation and Reasoning.}
-Some constraint types enable performing reasoning prior to validation which may resolve or cause constraint violations.
-With \emph{subsumption} (\emph{R-100}), one can state that \emph{xkos:ClassificationLevel} is a sub-class of \emph{skos:Collection}, i.e., each \emph{xkos:ClassificationLevel} must also be part of the \emph{skos:Collection} class extension (\ms{ClassificationLevel $\sqsubseteq$ Collection}).
-With \emph{sub properties} (\emph{R-54, R-64}), one can state that \emph{disco:fundedBy} is a sub-property of \emph{dcterms:contributor} - i.e., if a study is funded by an organization, then this organization contributed to this study (\ms{fundedBy $\sqsubseteq$ contributor}).
-%\emph{Asymmetric object properties} (\emph{R-62}) restrict that if individual \emph{x} is connected by the object property \emph{OP} to individual \emph{y}, then \emph{y} cannot be connected by \emph{OP} to \emph{x}. 
-%Such constraints are defined for each object property for which a semantically equivalent object property pointing from the other direction would also be possible but is not defined within the vocabulary.
-%A \emph{disco:Variable}, e.g., may be based on (\emph{disco:basedOn}) a \emph{disco:RepresentedVariable}.
-%A \emph{disco:RepresentedVariable}, however, cannot be based on a \emph{disco:Variable} (\ms{$disco:basedOn \sqcap disco:basedOn^{-} \sqsubseteq \bot$}).
+%\textbf{Validation and Reasoning.}
 \emph{Default values} (\emph{R-31, R-38}) for objects/literals of given properties are inferred automatically when properties are not present in the data.
 The value \emph{true} for the property {\em disco:isPublic} indicates that a {\em disco:LogicalDataSet} can be accessed by anyone.
-Per default, however, access to data sets should be restricted (\emph{false}).
-Validation should \emph{exploit sub-super relations} in vocabularies (\emph{R-224}).
-If \emph{dcterms:coverage} and one of its sub-properties (\emph{dcterms:spatial}, \emph{dcterms:temporal}) are present,
-it is checked that \emph{dcterms:coverage} is not redundant with its sub-properties. 
-This validation can indicate when the data is verbose (redundant) or expressed at a too general level and could thus be improved.
+Per default, however, access to data sets should be restricted (\emph{false}) ($\mathcal{SL}_{0}$).
+Many properties are not necessarily required but \emph{recommended} within a particular context (\emph{R-72}).
+The property {\em skos:notation}, e.g., is not mandatory for {\em disco:Variable}s, but recommended to represent variable names ($\mathcal{SL}_{0}$).
+Percentage values are only valid when they are within the literal range of 0 and 100 (\emph{R-45: literal ranges}; $\mathcal{SL}_{2}$)
+which is checked for \emph{disco:percentage} standing for the number of cases of a given code in relation to the total number of cases for a particular variable.
 
-\subsection{Content-Driven Constraint Types}
-\label{content-driven-validation}
+\begin{center}
+\begin{DL} 
+$\mathcal{K}=\{$ 
+	&\ms{(funct identifier$\sp{\overline{\ }})$, identifier keyfor Resource}
+ \}\\ 
+\end{DL}
+\end{center}
 
-In this sub-chapter, we assign default severity levels to and describe constraints of diverse $\mathcal{CT}_{C}$ constraint types 
-to ensure that the data is consistent with the intended syntax, semantics, and integrity of vocabularies' data models.
+It is often useful to declare a given (data) property as the \emph{primary key} (\emph{R-226}) of a class, so that a system can enforce uniqueness and build URIs from user inputs and imported data. 
+In \emph{Disco}, resources are uniquely identified by the property \emph{adms:identifier},
+which is therefore inverse-functional,
+i.e., for each \emph{rdfs:Resource x}, there can be at most one distinct resource \emph{y} such that \emph{y} is connected by \emph{adms:identifier$\sp{\overline{\ }}$} to \emph{x} ($\mathcal{SL}_{2}$).
+%\begin{DL}
+%$(\ms{funct identifier}\sp{\overline{\ }})$
+%\end{DL} 
+Keys, however, are even more general than \emph{inverse-functional properties} (\emph{R-58}),
+as a key can be a data property, an object property, or a chain of properties \cite{Schneider2009}.
+Thus and as there are different sorts of key, and as keys can lead to undecidability, 
+\emph{DL} is extended with the construct \emph{keyfor} \cite{Lutz2005} which is implemented by the \emph{OWL 2} \emph{hasKey} construct.
+%\emph{OWL 2} \emph{hasKey} implements \emph{keyfor} ($\mathcal{SL}_{2}$) and thus can be used to identify resources uniquely, to merge resources with identical key property values, and to recognize constraint violations.
+%\begin{DL}
+%identifier \ms{keyfor} Resource
+%\end{DL} 
 
+\section{Complex Constraint Types}
+\label{complex-constraint-types}
+
+%\textcolor{red}{
+%In this sub-chapter, we assign default severity levels to and describe constraints of diverse $\mathcal{CT}_{C}$ constraint types 
+%to ensure that the data is consistent with the intended syntax, semantics, and integrity of vocabularies' data models.
+%}
 %\textbf{Observations of Aggregated Data Sets.}
 %- for each dimension there should be a description and code lists.
 %- for each code list there should be a description.
 %- there should be a relationship to the underlying person-level data.
 
-\textbf{Data Model Consistency.}
-The purpose of some constraints is to ensure the integrity of
-the data according to intended data model semantics (\emph{data model consistency}).
+$\mathcal{CT}_{C}$ denotes the set of constraint types for which the definition of constraints is rather complex and cannot be derived from vocabulary definitions.
+\emph{Data model consistency} constraints ensure the integrity of
+the data according to the intended semantics of vocabularies.
 Every \emph{qb:Observation}, e.g., must have a value for each dimension
 declared in its \emph{qb:DataStructureDefinition} ($\mathcal{SL}_{2}$)
 and no two \emph{qb:Observations} in the same \emph{qb:DataSet}
 can have the same value for all dimensions ($\mathcal{SL}_{1}$).
 If a \emph{qb:DataSet} \emph{D} has a \emph{qb:Slice} \emph{S}, and \emph{S} has an
 \emph{qb:Observation} \emph{O}, then the \emph{qb:DataSet} corresponding to \emph{O} must be \emph{D} ($\mathcal{SL}_{1}$).
-Relative frequencies of variable codes are calculated correctly, if the cumulative percentage (\emph{disco:cumulativePercentage}) of a given code exactly matches the cumulative percentage of the previous code
-plus the percentage value (\emph{disco:percentage}) of the current code ($\mathcal{SL}_{2}$).
+%Relative frequencies of variable codes are calculated correctly, if the cumulative percentage (\emph{disco:cumulativePercentage}) of a given code exactly matches the cumulative percentage of the previous code
+%plus the percentage value (\emph{disco:percentage}) of the current code ($\mathcal{SL}_{2}$).
+{\em Mathematical Operations} (\emph{R-41, R-42}; e.g. date calculations and statistical computations like average, mean, and sum) are performed to ensure the integrity of data models.
+The sum of percentage values of all variable codes, e.g., must exactly be 100 ($\mathcal{SL}_{2}$)
+and the minimum absolute frequency of all variable codes do not have to be greater than the maximum ($\mathcal{SL}_{2}$).
 
 %\textbf{Hierarchies and Ordering.}
-\textbf{Structure and Ordering.}
-For assessing the quality of \emph{SKOS} vocabularies, we concentrate on graph-based structures and apply graph- and network-analysis techniques (\emph{structure}) like 
-(1) a thesaurus should provide entry points (top concepts) to the data to provide efficient access and guidance for human users,
-(2) concepts, internal to the tree, should not be indicated as top concepts, and
-(3) a thesaurus should not contain many orphan concepts 
-(concepts without any associative or hierarchical relations) lacking valuable context information for retrieval.
+%\textbf{Structure and Ordering.}
+%For assessing the quality of \emph{SKOS} vocabularies, we concentrate on graph-based structures and apply graph- and network-analysis techniques (\emph{structure} constraints) like 
+%(1) a thesaurus should provide entry points (top concepts) to the data to provide efficient access and guidance for human users,
+%(2) concepts, internal to the tree, should not be indicated as top concepts, and
+%(3) a thesaurus should not contain many orphan concepts 
+%(concepts without any associative or hierarchical relations) lacking valuable context information for retrieval.
 %, as, e.g., no hierarchical query expansion can be performed on search terms to find documents with more general content.) \cite{MaderHaslhoferIsaac2012}. 
-Objects/literals can be declared to be \emph{ordered} (\emph{R-121, R-217}) for given properties.
-Variables, questions, and codes, e.g., are typically organized in a particular order. 
-If codes (\emph{skos:Concept}) should be ordered, they must be members (\emph{skos:memberList}) in an ordered collection (\emph{skos:OrderedCollection}), the variable's code list.
 
-\textbf{Comparison.}
-A very common research question is to compare variables of multiple studies or countries (\emph{comparison}).
-To compare variables, 
-(1) variables and (2) variable definitions must be present,
-(3) code lists must be structured properly,
-(4) for each code an associated category must be specified, and
-(5) code lists must either be identical or at least similar.
-If a researcher wants to get a first overview over comparable variables (use case 1), 
-covering the first three constraints may be sufficient.
-Thus, the severity level of the first three constraints is stronger ($\mathcal{SL}_{2}$) than for the last two constraints ($\mathcal{SL}_{1}$ and $\mathcal{SL}_{0}$).
-If the intention of the researcher is to perform more detailed comparisons (use case 2), however, the violation of the remaining two constraints is getting more serious.
+A very common research question is to compare variables of multiple studies or countries (constraint type: \emph{comparison}).
+To compare variables 
+(1) their code lists must be structured properly and
+(2) their code lists must either be identical or at least similar.
+If a researcher only wants to get a first overview over comparable variables (use case 1), 
+covering the first constraint may be sufficient.
+Thus, the severity level of the first constraint is stronger ($\mathcal{SL}_{2}$) than the one for the second constraint ($\mathcal{SL}_{0}$).
+If the intention of the researcher is to perform more detailed comparisons (use case 2), however, the violation of the second constraint is getting more serious
+and the user may raise its severity level.
+%\textbf{Comparison.}
+%A very common research question is to compare variables of multiple studies or countries (constraint type: \emph{comparison}).
+%To compare variables, 
+%(1) variables and (2) variable definitions must be present,
+%(3) code lists must be structured properly,
+%(4) for each code an associated category must be specified, and
+%(5) code lists must either be identical or at least similar.
+%If a researcher wants to get a first overview over comparable variables (use case 1), 
+%covering the first three constraints may be sufficient.
+%Thus, the severity level of the first three constraints is stronger ($\mathcal{SL}_{2}$) than for the last two constraints ($\mathcal{SL}_{1}$ and $\mathcal{SL}_{0}$).
+%If the intention of the researcher is to perform more detailed comparisons (use case 2), however, the violation of the remaining two constraints is getting more serious.
 
-\textbf{Unique Identification.}
-It is often useful to declare a given (data) property as the \emph{primary key} (\emph{R-226}) of a class, so that a system can enforce uniqueness and also automatically build URIs from user inputs and imported data. 
-In \emph{Disco}, resources are uniquely identified by the property \emph{adms:identifier},
-which is therefore inverse-functional
-$(\ms{funct identifier}\sp{\overline{\ }})$,
-i.e. for each \emph{rdfs:Resource x}, there can be at most one distinct \emph{rdfs:Resource y} such that \emph{y} is connected by \emph{adms:identifier$\sp{\overline{\ }}$} to \emph{x} ($\mathcal{SL}_{2}$).
-Keys, however, are even more general than \emph{inverse-functional properties} (\emph{R-58}),
-as a key can be a data, an object property, or a chain of properties \cite{Schneider2009}.
-For this generalization purposes, as there are different sorts of key, and as keys can lead to undecidability, 
-DL is extended with \emph{key boxes} and the construct \emph{keyfor} (\ms{identifier \ms{keyfor} Resource}) \cite{Lutz2005}.
-OWL 2 \emph{hasKey} implements \emph{keyfor} ($\mathcal{SL}_{2}$) and thus can be used to identify resources uniquely, to merge resources with identical key property values, and to recognize constraint violations.
-
-\textbf{Membership in Controlled Vocabularies.}
+%\textbf{Membership in Controlled Vocabularies.}
 In many cases, resources must be \emph{members of controlled vocabularies} (\emph{R-32}).
 If a dimension property, e.g., has a \emph{qb:codeList},
 then the value of the dimension property on every \emph{qb:Observation} must be in the code list ($\mathcal{SL}_{2}$).
 Summary statistics types like minimum, maximum, and arithmetic mean are maintained within a controlled vocabulary.  
 Thus, summary statistics can only have \emph{disco:summaryStatisticType} relationships to \emph{skos:Concept}s which must be members of the controlled vocabulary \emph{ddicv:SummaryStatisticType}, a \emph{skos:ConceptScheme} ($\mathcal{SL}_{2}$).
+Objects/literals can be declared to be ordered for given properties (\emph{R-121/217: ordering}).
+Variables, questions, and codes, e.g., are typically organized in a particular order. 
+If codes (\emph{skos:Concept}) should be ordered, they must be members (\emph{skos:memberList}) in an ordered collection (\emph{skos:OrderedCollection}), the variable's code list ($\mathcal{SL}_{0}$).
 
-\textbf{Constraints on Properties.}
+%\textbf{Constraints on Properties.}
 It is useful to declare properties to be \emph{conditional} (\emph{R-71}), i.e., if particular properties exist (or do not exist), then other properties must also be present (or absent).
 To get an overview over a series/study either an abstract, a title, an alternative title, or links to external descriptions should be provided. 
 If an abstract and an external description are absent, however,  
@@ -693,21 +855,11 @@ In case a variable is represented in form of a code list, codes may be associate
 The variable \emph{Education at pre-school}, e.g., is represented as ordered code list without any categories.
 If a {\em skos:Concept} represents a code (having {\em skos:notation} and {\em skos:prefLabel} properties), 
 then the property {\em disco:isValid} has to be stated indicating if the code stands for valid (\emph{true}) or missing (\emph{false}) cases ($\mathcal{SL}_{2}$).
-Constraints of type \emph{context-specific exclusive or of property groups} (\emph{R-11})
+\emph{Context-specific exclusive or of property groups} (\emph{R-11}) constraints
 restrict individuals of given classes to have properties defined within exactly one of multiple property groups.
 \emph{skos:Concept}s can have either \emph{skos:definition} (when interpreted as theoretical concepts) or \emph{skos:notation} and \emph{skos:prefLabel} properties (when interpreted as codes/categories), but not both ($\mathcal{SL}_{2}$).
-For datatype properties, it should be possible to declare frequently needed \emph{facets} ({\emph{R-46}) to validate input against simple conditions including min/max values, regular expressions, and string length.
-The abstract of series/studies, e.g., should have a minimum length ($\mathcal{SL}_{1}$).
 
-\textbf{Constraints on Literals.}
-\emph{disco:percentage} stands for the number of cases of a given code in relation to the total number of cases for a particular variable.
-Percentage values are only valid when they are within the \emph{literal range} of 0 and 100 (\emph{R-45}; $\mathcal{SL}_{2}$).
-{\em Mathematical Operations} (\emph{R-41, R-42}; e.g. date calculations and statistical computations like average, mean, and sum) are performed to ensure the integrity of data models.
-The sum of percentage values of all variable codes, e.g., must exactly be 100 ($\mathcal{SL}_{2}$)
-and the minimum absolute frequency of all variable codes do not have to be greater than the maximum ($\mathcal{SL}_{2}$).
-Depending on property datatypes, two different literal values have
-a specific ordering with respect to an operator like \textless (\emph{R-43: literal value comparison}).
-Start dates (\emph{disco:startDate}), e.g., must be before (\emph{\textless}) end dates (\emph{disco:endDate}) ($\mathcal{SL}_{2}$).
+%\textbf{Constraints on Literals.}
 
 %\begin{center}
 %\begin{DL}
@@ -851,7 +1003,7 @@ validation environment (available at \url{http://purl.org/net/rdfval-demo})\foot
 Resource Shapes, and the Web Ontology Language\footnote{SPIN mappings available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/SPIN}} \cite{BoschEckert2014-2}.
 The \emph{RDF Validator} also validates RDF data to ensure correct syntax, semantics, and integrity of diverse vocabularies such as \emph{Disco, QB, PHDD, SKOS, and XKOS}.
 Although accessible within our validation tool, we provide all implemented constraints\footnote{\url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}} in form of SPARQL CONSTRUCT queries.
-For the subsequent evaluation, we implemented 212 constraints on \emph{Disco}, \emph{QB}, \emph{SKOS}, \emph{XKOS}, and \emph{PHDD} data sets.
+For the subsequent evaluation, we implemented 213 constraints on \emph{Disco}, \emph{QB}, \emph{SKOS}, \emph{XKOS}, and \emph{PHDD} data sets.
 The SPIN engine checks for each resource if it satisfies all constraints, which are associated with its assigned classes, and generates a result RDF graph containing information about all constraint violations.
 There is one SPIN construct template for each constraint type and vocabulary-specific constraint\footnote{For a comprehensive description of the \emph{RDF Validator}, we refer to \cite{BoschEckert2014-2}}.
 A SPIN construct template contains a SPARQL CONSTRUCT query which generates constraint violation triples indicating the subject and the properties causing constraint violations, and the reason why constraint violations have been raised.
@@ -863,9 +1015,13 @@ A SPIN construct template creates constraint violation triples if all triple pat
 
 \subsection{Evaluation Setup}
 
-First, several SBE domain experts of the vocabularies \emph{Disco}, \emph{QB}, \emph{SKOS}, \emph{XKOS}, and \emph{PHDD} evaluated the correctness (i.e., the gold standard) of all $\mathcal{CT}_{C}$ and $\mathcal{CT}_{T}$ constraints and therefore the generic applicability of the developed classification system of constraint types and constraints. 
+\begin{enumerate}
+	\item First, we assigned each constraint type to exactly one of the disjoint sets of constraint types 
+in order to get an overview how many constraint types in relation to the total amount of constraint types are extractable from vocabularies ($\mathcal{CT}_{B}$), are easily definable ($\mathcal{CT}_{S}$), and are rather difficult to specify ($\mathcal{CT}_{C}$). 
+  \item Second, several SBE domain experts of the vocabularies \emph{Disco}, \emph{QB}, \emph{SKOS}, \emph{XKOS}, and \emph{PHDD} evaluated the correctness (i.e., the gold standard) of all $\mathcal{CT}_{C}$ and $\mathcal{CT}_{T}$ constraints and therefore the generic applicability of the developed classification system of constraint types and constraints. 
 %i.e., the gold standard, has been proved by multiple SBE domain experts.
-Second, we exhaustively evaluated the metadata quality of large real world aggregated (\emph{QB}), person-level (\emph{Disco}), and thesauri (\emph{SKOS}) data sets by means of both $\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints of the majority of the constraint types.
+  \item Third, we exhaustively evaluated the metadata quality of large real world aggregated (\emph{QB}), person-level (\emph{Disco}), and thesauri (\emph{SKOS}) data sets by means of both $\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints of the majority of the constraint types.
+\end{enumerate}
 We validated 
 9,990 / 3,775,983,610 (\emph{QB}),
 4,178 / 477,737,281 (\emph{SKOS}), and 
@@ -886,9 +1042,12 @@ the \emph{DwB Discovery Portal}, the
 We recently published a technical report\footnote{\label{technical-report-2}Available at: \url{http://arxiv.org/abs/1504.04478}} (serving as second appendix of this paper) 
 in which we describe the comprehensive evaluation in detail \cite{BoschZapilkoWackerowEckert2015-2}. 
 As we evaluated nearly 10 thousand \emph{QB} data sets, we published the evaluation results for each data set in form of one document per SPARQL endpoint\footnote{Available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/evaluation/data-sets/data-cube}}.
-Table \ref{tab:evaluation} shows the evaluation results.
 
 \subsection{Evaluation Results and Discussion}
+
+The majority (48 $\equiv$ 58.5\%) of the overall 82 $\mathcal{CT}$ constraint types are $\mathcal{CT}_{B}$ constraint types whose constraints can therefore be derived from vocabularies without any effort.
+Among the $\mathcal{CT}_{B}$ constraint types, two-thirds (34 $\equiv$ 70.8\%) are $\mathcal{C}_B ^{\mathcal{R}}$, i.e., constraint types for which reasoning may be performed prior to validation, and one third (14 $\equiv$ 29.2\%) are $\overline{\mathcal{C}_B ^{\mathcal{R}}}$ constraint types, i.e., constraint types for which reasoning does not make any sense.
+A quarter (20 $\equiv$ 24.4\%) of all constraint types are $\mathcal{CT}_{S}$ and a sixth (14 $\equiv$ 17.1\%) are $\mathcal{CT}_{C}$ constraint types.
 
 \begin{table}[H]
 		\scriptsize
@@ -902,31 +1061,89 @@ Table \ref{tab:evaluation} shows the evaluation results.
 					 & \textbf{\emph{SKOS}}
 					 & \textbf{Total}
     \\ \midrule
-		\emph{Triples} & 9,673,055 & 3,775,983,610 & 477,737,281 & 4,263,393,946 \\
-		\emph{Data Sets} & 1,526 & 9,990 & 4,178 & 15,694 \\
+		%\emph{Triples} & 9,673,055 & 3,775,983,610 & 477,737,281 & 4,263,393,946 \\
+		%\emph{Data Sets} & 1,526 & 9,990 & 4,178 & 15,694 \\
+		%\hline
+		\emph{CT} & 52 & 20 & 15 & 53 \\
 		\hline
-    \emph{CV} & 3,545,703 & 45,635,846 & 5,540,988 & 54,722,537\\
-		\emph{CV ($\mathcal{SL}_{0}$)} & 2,437,922 (\textbf{68.8\%}) & 0 (0\%) & 2,281,740 (41.2\%) & 4,719,662 (8.6\%) \\
-		\emph{CV ($\mathcal{SL}_{1}$)} & 473,574 (13.4\%) & 45,520,613 (\textbf{99.75\%}) & 3,259,248 (\textbf{58.8\%}) & 49,253,435 (\textbf{90\%}) \\
-    \emph{CV ($\mathcal{SL}_{2}$)} & 634,207 (17.9\%) & 115,233 (0.25\%) & 0 (0\%) & 749,440 (1.4\%) \\
+		$\mathcal{CT}_{C}$ & 9 (17.3\%) & 2 (10\%) & 2 (13.3\%) & 9 (17\%) \\
+		$\mathcal{CT}_{S}$ & 16 (30.8\%) & 3 (15\%) & 4 (26,7\%) & 16 (30.2\%) \\
+		$\mathcal{CT}_{B}$ & 27 (\textbf{51.9\%}) & 15 (\textbf{75\%}) & 9 (\textbf{60\%}) & 28 (\textbf{52.8\%}) \\
 		\hline
-		\emph{CT} & 52 & 20 & 14 & 53 \\
-		\emph{CT} ($\mathcal{C}_{C}$) & 30 (\textbf{57.7\%}) & 5 (25\%) & 5 (35.7\%) & 30 (\textbf{56.6\%}) \\
-		\emph{CT} ($\mathcal{C}_{T}$) & 22 (42.3\%) & 15 (\textbf{75\%}) & 9 (\textbf{64.3\%}) & 23 (43.4\%) \\
-		\hline
-		\emph{C} & 142 & 35 & 35 & 212 \\
-		\hline
-		\emph{C} ($\mathcal{C}_{C}$) & 72 (\textbf{50.7\%}) & 16 (45.7\%) & 21 (\textbf{60\%}) & 109 (\textbf{51.4\%}) \\
-		\emph{C} ($\mathcal{C}_{T}$) & 70 (\textbf{49.3\%}) & 19 (\textbf{54.3\%}) & 14 (40\%) & 103 (\textbf{48.6\%}) \\
-		\hline
-		\emph{C ($\mathcal{SL}_{0}$)} & 75 (\textbf{52.8\%})& 4 (11.4\%) & 21 (\textbf{60\%}) & 100 (\textbf{47.2\%}) \\
-		\emph{C ($\mathcal{SL}_{1}$)} & 9 (6.3\%)& 3 (8.6\%) & 5 (14.3\%) & 17 (8\%) \\
-		\emph{C ($\mathcal{SL}_{2}$)} & 58 (40.8\%) & 28 (\textbf{80\%}) & 9 (25.7\%) & 95 (\textbf{44.8\%}) \\
+		$\mathcal{C}_B ^{\mathcal{R}}$ & 18 (34.6\%) & 9 (45\%) & 4 (26.7\%) & 19 (35.9\%) \\
+		$\overline{\mathcal{C}_B ^{\mathcal{R}}}$ & 9 (17.3\%) & 6 (30\%) & 5 (33.3\%) & 9 (17\%) \\
     \bottomrule
     \end{tabular}
-    \\ \emph{C (constraints), CT (constraint types), CV (constraint violations)}
-    \caption{Evaluation}
-		\label{tab:evaluation}
+    %\\ \emph{C (constraints), CT (constraint types)}
+    \caption{Evaluation - Constraint Types}
+		\label{tab:evaluation-constraint-types}
+    \end{center}
+\end{table}
+
+\begin{table}[H]
+		\scriptsize
+    \begin{center}
+    \begin{tabular}{@{}lcccc@{}}
+%           & \multicolumn{6}{c}{\textbf{Vocabularies}}
+%    \\  \cmidrule{2-7}
+    \\       \textbf{Criteria}
+           & \textbf{\emph{Disco}}
+           & \textbf{\emph{QB}}
+					 & \textbf{\emph{SKOS}}
+					 & \textbf{Total}
+    \\ \midrule
+		%\emph{Triples} & 9,673,055 & 3,775,983,610 & 477,737,281 & 4,263,393,946 \\
+		%\emph{Data Sets} & 1,526 & 9,990 & 4,178 & 15,694 \\
+		%\hline
+		\emph{C} & 143 & 35 & 35 & 213 \\
+		\hline
+		\emph{C (}$\mathcal{CT}_{C}$\emph{)} & 37 (25.9\%) & 13 (37.1\%) & 13 (\textbf{37.1\%}) & 63 (29.6\%) \\
+		\emph{C (}$\mathcal{CT}_{S}$\emph{)} & 28 (19.6\%) & 3 (8.6\%) & 12 (\textbf{34.3\%}) & 43 (20.2\%) \\
+		\emph{C (}$\mathcal{CT}_{B}$\emph{)} & 78 (\textbf{54.6\%}) & 19 (\textbf{54.3\%}) & 10 (\textbf{28.6\%}) & 107 (\textbf{50.2\%}) \\
+		\hline
+		\emph{C (}$\mathcal{C}_B ^{\mathcal{R}}$\emph{)} & 67 (46.9\%) & 13 (37.1\%) & 4 (11.4\%) & 84 (39.4\%) \\
+		\emph{C (}$\overline{\mathcal{C}_B ^{\mathcal{R}}}$\emph{)} & 11 (7.7\%) & 6 (17.1\%) & 6 (17.1\%) & 23 (10.8\%) \\
+		\hline
+		\emph{C ($\mathcal{SL}_{0}$)} & 75 (\textbf{52.5\%}) & 4 (11.4\%) & 21 (\textbf{60\%}) & 100 (\textbf{46.9\%}) \\
+		\emph{C ($\mathcal{SL}_{1}$)} & 10 (7\%) & 3 (8.6\%) & 5 (14.3\%) & 18 (8.5\%) \\
+		\emph{C ($\mathcal{SL}_{2}$)} & 58 (40.6\%) & 28 (\textbf{80\%}) & 9 (25.7\%) & 95 (\textbf{44.6\%}) \\
+    \bottomrule
+    \end{tabular}
+    %\\ \emph{C (constraints), CT (constraint types)}
+    \caption{Evaluation - Constraints}
+		\label{tab:evaluation-constraints}
+    \end{center}
+\end{table}
+
+\begin{table}[H]
+		\scriptsize
+    \begin{center}
+    \begin{tabular}{@{}lcccc@{}}
+%           & \multicolumn{6}{c}{\textbf{Vocabularies}}
+%    \\  \cmidrule{2-7}
+    \\       \textbf{Criteria}
+           & \textbf{\emph{Disco}}
+           & \textbf{\emph{QB}}
+					 & \textbf{\emph{SKOS}}
+					 & \textbf{Total}
+    \\ \midrule
+		\emph{CV} & 3,575,002 & 45,635,861 & 5,540,988 & 54,751,851 \\
+		\hline
+		\emph{CV (}$\mathcal{CT}_{C}$\emph{)} & 652,780 (18.3\%) & 45,634,084 (\textbf{100\%}) & 1,185,982 (21.4\%) & 47,472,846 (\textbf{86.7\%}) \\
+		\emph{CV (}$\mathcal{CT}_{S}$\emph{)} & 560,857 (15.7\%) & 0 (0\%) & 4,355,006 (\textbf{78.6\%}) & 4,915,863 (9\%) \\
+		\emph{CV (}$\mathcal{CT}_{B}$\emph{)} & 2,361,365 (\textbf{66.1\%}) & 1,777 (0\%) & 0 (0\%) & 2,363,142 (4.3\%) \\
+		\hline
+		\emph{CV (}$\mathcal{C}_B ^{\mathcal{R}}$\emph{)} & 2,333,365 (65.3\%) & 1,777 (0\%) & 0 (0\%) & 2,335,142 (4.3\%) \\
+		\emph{CV (}$\overline{\mathcal{C}_B ^{\mathcal{R}}}$\emph{)} & 28,000 (0.8\%) & 0 (0\%) & 0 (0\%) & 28,000 (0.1\%) \\
+		\hline
+		\emph{CV ($\mathcal{SL}_{0}$)} & 1,880,777 (\textbf{52.6\%}) & 0 (0\%) & 2,281,740 (41.2\%) & 4,162,517 (7.6\%) \\
+		\emph{CV ($\mathcal{SL}_{1}$)} & 1,051,757 (29.4\%) & 45,520,613 (\textbf{99,8\%}) & 3,259,248 (\textbf{58.8\%}) & 49,831,618 (\textbf{91\%}) \\
+		\emph{CV ($\mathcal{SL}_{2}$)} & 642,468 (18\%) & 115,248 (0.3\%) & 0 (0\%) & 757,716 (1.4\%) \\
+    \bottomrule
+    \end{tabular}
+    %\\ \emph{CV (constraint violations)}
+    \caption{Evaluation - Constraint Violations}
+		\label{tab:evaluation-constraint-violations}
     \end{center}
 \end{table}
 
@@ -934,7 +1151,7 @@ We identified 142 \emph{Disco} constraints ($\mathcal{C}_{C}$ and $\mathcal{C}_{
 For \emph{QB}, we specified more $\mathcal{C}_{T}$ (54\%) than $\mathcal{C}_{C}$ constraints; for \emph{SKOS}, however, more $\mathcal{C}_{C}$ constraints (60\%).
 We instantiated more $\mathcal{C}_{C}$ (58\%) than $\mathcal{C}_{T}$ constraint types to define \emph{Disco} constraints; 
 for \emph{QB} (75\%) and \emph{SKOS} (64\%), on the other side, more $\mathcal{C}_{T}$ constraint types. 
-In total, we used 53 of overall 82 distinct constraint types (57\% of them are $\mathcal{C}_{C}$ constraint types) to define 212 constraints (equally $\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints).
+In total, we used 53 of overall 82 distinct constraint types (57\% of them are $\mathcal{C}_{C}$ constraint types) to define 213 constraints (equally $\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints).
 
 For \emph{Disco} and \emph{SKOS}, more than the half of the constraints are associated with the weakest severity level $\mathcal{SL}_{0}$.
 Within the context of \emph{QB}, 80\% of the constraints are classified as the most serious ones ($\mathcal{SL}_{2}$).
@@ -947,7 +1164,8 @@ For \emph{QB} (nearly 100\%) and \emph{SKOS} (almost 60\%), the majority of the 
 Altogether, exactly 90\% of the constraint violations are assigned to the severity level $\mathcal{SL}_{1}$.
 These findings are surprising as only 8\% of all defined constraints are $\mathcal{SL}_{1}$ constraints.
 The constraints responsible for the largest numbers of constraint violations are \emph{DISCO-C-LABELING-AND-DOCUMENTATION-06} and \emph{DISCO-C-COMPARISON-VARIABLES-02} (both 547,916) (\emph{Disco}), \emph{DATA-CUBE-C-DATA-MODEL-CONSISTENCY-05} (45,514,102) (\emph{QB}), and \emph{SKOS-C-LANGUAGE-TAG-CARDINALITY-01} (2,508,903) (\emph{SKOS}).
-We refer to the technical reports\footnotemark[\ref{technical-report-1}] \footnotemark[\ref{technical-report-2}] to get details about constraints on and the evaluation of \emph{XKOS} and \emph{PHDD} data sets.\tb{bezug nehmen auf severity levels / technology-driven werden oft eingehalten? / }
+We refer to the technical reports\footnotemark[\ref{technical-report-1}] \footnotemark[\ref{technical-report-2}] to get details about constraints on and the evaluation of \emph{XKOS} and \emph{PHDD} data sets.
+\tb{bezug nehmen auf severity levels / technology-driven werden oft eingehalten? / werden in einem bestimmten vokabular vor allem basic oder complex constraints verletzt? / es werden große datenbestände untersucht um ein besseres verständnis zu bekommen welche art von constraints für welche vokabulare am häufigsten verletzt werden und welche severity levles für welche vokabulare am häufigsten verletzt werden}
 
 \section{Related Work}
 \label{related-work}
@@ -980,13 +1198,13 @@ issues that go beyond the integrity constraints defined in the SKOS specificatio
 In this paper, we showed in form of a complete real world running example how to represent metadata on person-level data (\emph{Disco}), metadata on aggregated data (\emph{QB}), and data on both aggregation levels in a rectangular format (\emph{PHDD}) in RDF and how therefore used vocabularies are interrelated (\textbf{contribution 1}, section \ref{rdf-representation}).
 We explained why RDF validation is important in this context and how metadata on person-level data, aggregated data, thesauri, and statistical classifications as well as data on both aggregation levels is validated against constraints to ensure high (meta)data quality\footnote{The first appendix of this paper describing each constraint in detail is available at: \url{http://arxiv.org/abs/1504.04479} \cite{BoschZapilkoWackerowEckert2015}} (\textbf{contribution 2}, section \ref{rdf-validation}). 
 We distinguish two validation types:
-(1) \emph{Content-Driven Validation} $\mathcal{C}_{C}$ contains the set of constraints ensuring that the data is consistent with the intended syntax, semantics, and integrity of data models (section \ref{content-driven-validation}).
-(2) \emph{Technology-Driven Validation} $\mathcal{C}_{T}$ includes the set of constraints which can be generated automatically out of data models, such as cardinality restrictions, universal and existential quantifications, domains, and ranges (section \ref{technology-driven-validation}).
+(1) \emph{Content-Driven Validation} $\mathcal{C}_{C}$ contains the set of constraints ensuring that the data is consistent with the intended syntax, semantics, and integrity of data models (section \ref{complex-constraint-types}).
+(2) \emph{Technology-Driven Validation} $\mathcal{C}_{T}$ includes the set of constraints which can be generated automatically out of data models, such as cardinality restrictions, universal and existential quantifications, domains, and ranges (section \ref{basic-constraint-types}).
 We determined the default \emph{severity level} for each constraint to indicate how serious the violation of the constraint is
 and propose an extensible metric to measure the continuum of severity levels.
 
 We implemented a validation environment (available at \url{http://purl.org/net/rdfval-demo}) to validate RDF data according to constraints expressed my arbitrary constraint languages and to ensure correct syntax, semantics, and integrity of diverse vocabularies such as \emph{Disco, QB, PHDD, SKOS, and XKOS} (section \ref{implementation}).
-We exhaustively evaluated the metadata quality of large real world aggregated (\emph{QB}), person-level (\emph{Disco}), and thesauri (\emph{SKOS}) data sets by means of 212 $\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints of the majority of the constraint types.
+We exhaustively evaluated the metadata quality of large real world aggregated (\emph{QB}), person-level (\emph{Disco}), and thesauri (\emph{SKOS}) data sets by means of 213 $\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints of the majority of the constraint types.
 We validated more than 4.2 billion triples and 15 thousand data sets\footnote{The second appendix of this paper describing the evaluation in detail is available at: \url{http://arxiv.org/abs/1504.04478} \cite{BoschZapilkoWackerowEckert2015-2}.} (section \ref{evaluation}).
 \tb{auswahl an constraints, die validiert werden sollen / je nach use cases sollen z.b. nur technology-driven constraints validiert werden oder sind wichtiger / use solen je nach use case selbt bestimmen welche constraints validiert werden sollen}
 %It is still ongoing work to identify and classify constraints on rectangular data (\emph{PHDD}) and statistical classifications (\emph{XKOS}) and to actually evaluate the (meta)data quality of real world \emph{XKOS} and \emph{PHDD} data sets.

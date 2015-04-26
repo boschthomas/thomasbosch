@@ -259,7 +259,7 @@ This technical report is updated continuously as modifying, adding, and deleting
 Bosch and Eckert initiated a comprehensive database\footnote{Publicly available at \url{http://purl.org/net/rdf-validation}.} on RDF validation requirements to collect case studies, use cases, and requirements \cite{BoschEckert2014}. 
 It is continuously updated and used to evaluate and to compare various existing solutions for RDF constraint formulation and validation. 
 Requirements are classified to provide a high-level view on different solutions and to facilitate a better understanding of the problem domain.
-Bosch et al. identified in total 74 requirements to formulate RDF constraints; each of them corresponding to a constraint type. 
+Bosch et al. identified in total 76 requirements to formulate RDF constraints; each of them corresponding to a constraint type. 
 They recently published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} in which they explain each requirement (constraint type) in detail and give examples for each (represented by listed constraint languages) \cite{BoschNolleAcarEckert2015}.
 Where appropriate constraint types are related to complementary requirements of the RDF validation requirements database.
 
@@ -272,7 +272,7 @@ Although we provide default severity levels for each constraint, users should be
 
 The following two sections encompass RDF constraints classified as constraint types either corresponding to RDF validation requirements (section \ref{RDF-validation-requirements-constraint-types}) or data model specific constraint types (section \ref{data-model-specific-constraint-types}).
 Constraint types marked with an asterisk (*) can be used as OWL 2 axioms. Thus, reasoners may be used prior to the validation to infer implicit triples which may resolve or cause constraint violations.
-$\mathcal{C}_{T}$ constraint types are marked with the superscript\textsuperscript{T}.
+$\mathcal{C}_{T}$ constraint types are marked with the superscript\textsuperscript{B}.
 As $\mathcal{C}_{T}$ and $\mathcal{C}_{C}$ are disjoint sets, $\mathcal{C}_{C}$ constraint types are not explicitly marked.
 
 %\section{RDF Constraints to Validate Metadata and Data}
@@ -280,7 +280,7 @@ As $\mathcal{C}_{T}$ and $\mathcal{C}_{C}$ are disjoint sets, $\mathcal{C}_{C}$ 
 \section{RDF Constraint Types Corresponding to RDF Validation Requirements}
 \label{RDF-validation-requirements-constraint-types}
 
-\subsection{Subsumption*\textsuperscript{T}}
+\subsection{Subsumption*\textsuperscript{B}}
 
 A \emph{subclass axiom}\footnote{{\em R-100-SUBSUMPTION}} ({\em concept inclusion} in DL) states that the class \emph{C1} is a subclass of the class \emph{C2} - \emph{C1} is more specific than \emph{C2}, 
 i.e. each resource of the class \emph{C1} must also be part of the class extension of \emph{C2}.
@@ -293,7 +293,7 @@ All {\em disco:Universe}s must also be {\em skos:Concept}s (\ms{Universe $\sqsub
 	\end{itemize}
 \end{itemize}
 
-\subsection{Class Equivalence*\textsuperscript{T}}
+\subsection{Class Equivalence*\textsuperscript{B}}
 
 {\em Class Equivalence}\footnote{{\em R-3-EQUIVALENT-CLASSES}} asserts that two concepts have the same instances.
 While synonyms are an obvious example of equivalent concepts, in practice one more
@@ -311,7 +311,7 @@ Thus, {\em sio:SIO\_000367} is equivalent to {\em disco:Variable}.
 \end{itemize}
 \end{itemize}
 
-\subsection{Sub Properties*\textsuperscript{T}}
+\subsection{Sub Properties*\textsuperscript{B}}
 
 {\em Sub Properties}\footnote{\emph{R-54-SUB-OBJECT-PROPERTIES}, \emph{R-64-SUB-DATA-PROPERTIES}} state that the property \emph{P1} is a sub property of the property \emph{P2} - that is, if an individual \emph{x} is connected by \emph{P1} to an individual or a literal \emph{y}, then \emph{x} is also connected by \emph{P2} to \emph{y}. 
 
@@ -323,7 +323,7 @@ If an individual \emph{x} is connected by {\em disco:fundedBy} to an individual 
 	\end{itemize}
 \end{itemize}
 
-\subsection{Property Domains*\textsuperscript{T}}
+\subsection{Property Domains*\textsuperscript{B}}
 
 {\em Property Domains}\footnote{{\em R-25-OBJECT-PROPERTY-DOMAIN}, {\em R-26-DATA-PROPERTY-DOMAIN}} ({\em domain restrictions on roles} in DL) restrict the domain of object and data properties.
 The purpose is to declare that a given property is associated with a class. 
@@ -383,7 +383,7 @@ $\exists R. \top \sqsubseteq C$ is the object property restriction where $R$ is 
 	\end{itemize}
 \end{itemize}
 
-\subsection{Property Ranges*\textsuperscript{T}}
+\subsection{Property Ranges*\textsuperscript{B}}
 
 {\em Property Ranges}\footnote{{\em R-28-OBJECT-PROPERTY-RANGE}, {\em R-35-DATA-PROPERTY-RANGE}} ({\em range restrictions on roles} in DL) restrict the range of object and data properties.
 $\top \sqsubseteq \forall R . C$ is the range restriction to the object property $R$ (restricted by the concept $C$). 
@@ -441,7 +441,7 @@ $\top \sqsubseteq \forall R . C$ is the range restriction to the object property
 	\end{itemize}
 \end{itemize}
 
-\subsection{Inverse Object Properties*}
+\subsection{Inverse Object Properties*\textsuperscript{B}}
 
 In many cases, properties are used bi-directionally and then accessed in the inverse direction, e.g. parent $\equiv$ child$^{-}$. There should be a way to declare value type, cardinality etc of those inverse relations without having to declare a new property URI. 
 The object property \emph{OP1} is an inverse\footnote{\emph{R-56-INVERSE-OBJECT-PROPERTIES}} of the object property \emph{OP2}. 
@@ -465,12 +465,12 @@ Thus, if an individual \emph{x} is connected by \emph{OP1} to an individual \emp
 	\end{itemize}
 \end{itemize}
 
-\subsection{Symmetric Object Properties*}
+\subsection{Symmetric Object Properties*\textsuperscript{B}}
 
 A role is symmetric if it is equivalent to its own inverse \cite{Kroetzsch2012}.
 An object property symmetry axiom\footnote{\emph{R-61-SYMMETRIC-OBJECT-PROPERTIES}} states that the object property expression \emph{OPE} is symmetric - that is, if an individual \emph{x} is connected by \emph{OPE} to an individual \emph{y}, then \emph{y} is also connected by \emph{OPE} to \emph{x}. 	
 
-\subsection{Asymmetric Object Properties*\textsuperscript{T}}
+\subsection{Asymmetric Object Properties*\textsuperscript{B}}
 
 A property is asymmetric\footnote{{\em R-62-ASYMMETRIC-OBJECT-PROPERTIES}} if it is disjoint from its own inverse \cite{Kroetzsch2012}.
 An object property asymmetry axiom states that the object property \emph{OP} is asymmetric - that is, if an individual \emph{x} is connected by \emph{OP} to an individual \emph{y}, then \emph{y} cannot be connected by \emph{OP} to \emph{x}. 
@@ -485,11 +485,11 @@ This is a kind of mistake which may occur as a semantically equivalent object pr
 	\end{itemize}
 \end{itemize}
 
-\subsection{Reflexive Object Properties*}
+\subsection{Reflexive Object Properties*\textsuperscript{B}}
 
 \emph{Reflexive Object Properties}\footnote{\emph{R-59-REFLEXIVE-OBJECT-PROPERTIES}} (\emph{reflexive roles}, \emph{global reflexivity} in DL) can be expressed by imposing local reflexivity on the top concept \cite{Kroetzsch2012}.
 
-\subsection{Irreflexive Object Properties*}
+\subsection{Irreflexive Object Properties*\textsuperscript{B}}
 
 An object property is irreflexive\footnote{\emph{R-60-IRREFLEXIVE-OBJECT-PROPERTIES}} (\emph{irreflexive role} in DL) if it is never locally reflexive \cite{Kroetzsch2012}.
 An object property irreflexivity axiom \emph{IrreflexiveObjectProperty( OPE )} states that the object property expression \emph{OPE} is irreflexive - that is, no individual is connected by \emph{OPE} to itself. 
@@ -503,7 +503,7 @@ An object property irreflexivity axiom \emph{IrreflexiveObjectProperty( OPE )} s
 	\end{itemize}
 \end{itemize}
 
-\subsection{Class-Specific Irreflexive Object Properties*}
+\subsection{Class-Specific Irreflexive Object Properties*\textsuperscript{B}}
 
 A property is \emph{irreflexive} if it is never locally reflexive \cite{Kroetzsch2012}.
 An object property irreflexivity axiom states that the object property \emph{OP} is irreflexive - that is, no individual is connected by \emph{OP} to itself.
@@ -522,7 +522,7 @@ Within the Disco context, {\em skos:Concept}s cannot be related via the object p
 	\end{itemize}
 \end{itemize}
 
-\subsection{Disjoint Properties\textsuperscript{T}}
+\subsection{Disjoint Properties\textsuperscript{B}}
 
 A \emph{disjoint properties axiom}\footnote{\emph{R-9-DISJOINT-PROPERTIES}} states that all of the properties are pairwise disjoint; 
 that is, no individual \emph{x} can be connected to an individual/literal \emph{y} by these properties. 
@@ -588,7 +588,7 @@ that is, no individual \emph{x} can be connected to an individual/literal \emph{
 	\end{itemize}
 \end{itemize}
 
-\subsection{Disjoint Classes\textsuperscript{T}}
+\subsection{Disjoint Classes\textsuperscript{B}}
 
 {\em Disjoint Classes}\footnote{{\em R-7-DISJOINT-CLASSES}} state that all of the classes are pairwise disjoint; 
 that is, no individual can be at the same time an instance of these disjoint classes.
@@ -641,22 +641,22 @@ All \emph{XKOS} classes are defined to be pairwise disjoint.
 	\end{itemize}
 \end{itemize}
 
-\subsection{Context-Specific Property Groups}
+\subsection{Context-Specific Property Groups\textsuperscript{C}}
 
 The \emph{Context-Specific Property Groups}\footnote{\emph{R-66-PROPERTY-GROUPS}} constraint groups data and object properties within a context (e.g. a class).
 
-\subsection{Context-Specific Inclusive OR of Properties}
+\subsection{Context-Specific Inclusive OR of Properties\textsuperscript{C}}
 
 \emph{Inclusive or} is a logical connective joining two or more predicates that yields the logical value "true" when at least one of the predicates is true.
 \emph{Context-Specific Inclusive OR of Properties}\footnote{\emph{R-202-CONTEXT-SPECIFIC-INCLUSIVE-OR-OF-PROPERTIES}} constraints specify that individuals are valid if they have at least one property relationship of one or multiple properties stated within a given context.
 The context can be an application profile, a shape, or a class, i.e., the constraint applies for individuals of this specific class.
 
-\subsection{Context-Specific Inclusive OR of Property Groups}
+\subsection{Context-Specific Inclusive OR of Property Groups\textsuperscript{C}}
 
 At least one property group must match for individuals of a specific context. 
 Context may be a class, a shape, or an application profile.
 
-\subsection{Recursive Queries}
+\subsection{Recursive Queries\textsuperscript{C}}
 
 Resource Shapes is a recursive language\footnote{\emph{R-222-RECURSIVE-QUERIES}} (the value shape of a Resource Shape is in turn another Resource Shape). 
 There is no way to express that in SPARQL without hand-waving "and then you call the function again here" or "and then you embed this operation here" text.  
@@ -667,13 +667,13 @@ Most SPARQL engines already have
 functions that go beyond the official SPARQL 1.1 spec. 
 The cost of that sounds manageable.
 
-\subsection{Individual Inequality}
+\subsection{Individual Inequality\textsuperscript{B}}
 
 An \emph{individual inequality axiom}\footnote{\emph{R-14-DISJOINT-INDIVIDUALS}} DifferentIndividuals( a$_1$ ... a$_n$ ) states that all of the individuals a$_i$, 1 $\leq$ i $\leq$ n, are different from each other; 
 that is, no individuals a$_i$ and a$_j$ with i $\neq$ j can be derived to be equal. 
 This axiom can be used to axiomatize the unique name assumption — the assumption that all different individual names denote different individuals. 
 
-\subsection{Equivalent Properties*\textsuperscript{T}}
+\subsection{Equivalent Properties*\textsuperscript{B}}
 
 An \emph{equivalent object properties axiom}\footnote{\emph{R-4-EQUIVALENT-OBJECT-PROPERTIES}} \emph{EquivalentObjectProperties( OPE$_1$ ... OPE$_n$ )} states that all of the object property expressions \emph{OPE$_i$, 1 $\leq$ i $\leq$ n}, are semantically equivalent to each other. This axiom allows one to use each \emph{OPE$_i$} as a synonym for each \emph{OPE$_j$} — that is, in any expression in the ontology containing such an axiom, \emph{OPE$_i$} can be replaced with \emph{OPE$_j$} without affecting the meaning of the ontology. The axiom \emph{EquivalentObjectProperties( OPE$_1$ OPE$_2$ )} is equivalent to the following two axioms \emph{SubObjectPropertyOf( OPE$_1$ OPE$_2$ )} and \emph{SubObjectPropertyOf( OPE$_1$ OPE$_2$ )}.
 
@@ -715,7 +715,7 @@ An \emph{equivalent data properties axiom}\footnote{\emph{R-5-EQUIVALENT-DATA-PR
 	As a consequence, the properties can be replaced by each other without affecting the meaning.
 \end{itemize}
 
-\subsection{Property Assertions}
+\subsection{Property Assertions\textsuperscript{B}}
 
 \emph{{Property Assertions}}\footnote{\emph{R-96-PROPERTY-ASSERTIONS}}
 and includes positive property assertions and negative property assertions.
@@ -724,7 +724,7 @@ A \emph{negative object property assertion NegativeObjectPropertyAssertion( OPE 
 A \emph{positive data property assertion DataPropertyAssertion( DPE a lt )} states that the individual a is connected by the data property expression DPE to the literal \emph{lt}. 
 A \emph{negative data property assertion NegativeDataPropertyAssertion( DPE a lt )} states that the individual a is not connected by the data property expression \emph{DPE} to the literal \emph{lt}.
 
-\subsection{Data Property Facets}
+\subsection{Data Property Facets\textsuperscript{S}}
 
 For datatype properties it should be possible to declare frequently needed \emph{facets}\footnote{\emph{R-46-CONSTRAINING-FACETS}} to drive user interfaces and validate input against simple conditions, including min/max value, regular expressions, string length - similar to XSD datatypes. 
 Constraining facets, to restrict datatypes of RDF literals, may be: \emph{xsd:length}, \emph{xsd:minLength}, \emph{xsd:maxLength}, \emph{xsd:pattern}, \emph{xsd:enumeration}, \emph{xsd:whiteSpace}, \\ \emph{xsd:maxInclusive}, \emph{xsd:maxExclusive}, \emph{xsd:minExclusive}, \emph{xsd:minInclusive}, \emph{xsd:total} \emph{Digits}, \emph{xsd:fractionDigits}.
@@ -740,7 +740,7 @@ Constraining facets, to restrict datatypes of RDF literals, may be: \emph{xsd:le
 	\end{itemize}
 \end{itemize}
 
-\subsection{Literal Pattern Matching}
+\subsection{Literal Pattern Matching\textsuperscript{S}}
 
 There are multiple use cases associated with the requirement to match literals according to given patterns\footnote{\emph{R-44-PATTERN-MATCHING-ON-RDF-LITERALS}}.
 
@@ -751,7 +751,7 @@ There are multiple use cases associated with the requirement to match literals a
 	\end{itemize}
 \end{itemize}
 
-\subsection{Negative Literal Pattern Matching}
+\subsection{Negative Literal Pattern Matching\textsuperscript{S}}
 
 Literals of given data properties within given contexts do not have to match given patterns\footnote{\emph{R-44-PATTERN-MATCHING-ON-RDF-LITERALS}}. 
 
@@ -759,13 +759,13 @@ Literals of given data properties within given contexts do not have to match giv
 	\item \textbf{{\em DISCO-C-NEGATIVE-LITERAL-PATTERN-MATCHING-01:}} 
 \end{itemize}
 
-\subsection{Object Property Paths*}
+\subsection{Object Property Paths*\textsuperscript{B}}
 
 \emph{Object Property Paths}\footnote{\emph{R-55-OBJECT-PROPERTY-PATHS}} (or \emph{Object Property Chains} and in DL terminology \emph{complex role inclusion axiom} or \emph{role composition}) is the more complex form of sub properties. 
 This axiom states that, if an individual \emph{x} is connected by a sequence of object property expressions \emph{OPE$_1$, ..., OPE$_n$} with an individual \emph{y}, then \emph{x} is also connected with \emph{y} by the object property expression \emph{OPE}.  
 Role composition can only appear on the left-hand side of complex role inclusions \cite{Kroetzsch2012}.
 
-\subsection{Intersection*}
+\subsection{Intersection*\textsuperscript{B}}
 
 Concept inclusions allow us to state that all mothers are female and that
 all mothers are parents, but what we really mean is that mothers are exactly the female
@@ -775,7 +775,7 @@ which denotes the set of individuals that are both female and parents. A complex
 can be used in axioms in exactly the same way as an atomic concept, e.g., in the
 equivalence Mother $\equiv$ Female $\sqcap$ Parent .
 
-\subsection{Disjunction*}
+\subsection{Disjunction*\textsuperscript{B}}
 
 A \emph{union class expression}\footnote{{\em R-17-DISJUNCTION-OF-CLASS-EXPRESSIONS}, {\em R-18-DISJUNCTION-OF-DATA-RANGES}} contains all individuals that are instances of at least one class $C_{i}$ for 1 $\leq$ i $\leq$ n. 
 A \emph{union data range} contains all tuples of literals that are contained in at least one data range $DR_{i}$ for 1 $\leq$ i $\leq$ n.
@@ -793,11 +793,11 @@ Variable $\sqcup$ Question $\sqcup$ RepresentedVariable $\sqsubseteq$ $\forall$ 
 \end{itemize}
 \end{itemize}
 
-\subsection{Negation*}
+\subsection{Negation*\textsuperscript{B}}
 
 A \emph{complement class expression}\footnote{\emph{R-19-NEGATION-OF-CLASS-EXPRESSIONS}, \emph{R-20-NEGATION-OF-DATA-RANGES}} \emph{ObjectComplementOf( CE )} contains all individuals that are not instances of the class expression \emph{CE}. 
 
-\subsection{Existential Quantifications*\textsuperscript{T}}
+\subsection{Existential Quantifications*\textsuperscript{B}}
 
 An \emph{existential class expression}\footnote{{\em R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}} ({\em existential restriction} in DL terminology) contains all those individuals that are connected by the property \emph{P} to an individual \emph{x} that is an instance of the class \emph{C} or to literals that are in the data range \emph{DR}.
 
@@ -1082,7 +1082,7 @@ There may be a {\em disco:universe} relationship from {\em disco:LogicalDataSet}
 	\end{itemize}
 \end{itemize}
 
-\subsection{Universal Quantifications*\textsuperscript{T}}
+\subsection{Universal Quantifications*\textsuperscript{B}}
 
 A \emph{universal class expression}\footnote{{\em R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}} ({\em value restriction} in DL) contains all those individuals that are connected by an object property only to individuals that are instances of a particular class.
 
@@ -1136,7 +1136,7 @@ A \emph{universal class expression}\footnote{{\em R-91-UNIVERSAL-QUANTIFICATION-
 	\end{itemize}
 \end{itemize}
 
-\subsection{Minimum Unqualified Cardinality Restrictions*\textsuperscript{T}}
+\subsection{Minimum Unqualified Cardinality Restrictions*\textsuperscript{B}}
 
 A \emph{minimum cardinality restriction}\footnote{{\em R-81-MINIMUM-UNQUALIFIED-CARDINALITY-ON-PROPERTIES}, {\em R-211-CARDINALITY-CONSTRAINTS}} contains all those individuals that are connected by a property to at least n different individuals/literals 
 that are instances of a particular class or data range. If the class is missing, it is taken to be \emph{owl:Thing}. 
@@ -1144,7 +1144,7 @@ If the data range is missing, it is taken to be \emph{rdfs:Literal}.
 $\leq n R. \top$ is the minimum unqualified cardinality restriction where $n \in \mathbb{N}$ (written $\leq  n R$ in short).
 For unqualified cardinality restrictions, classes respective data ranges are not stated.
 
-\subsection{Minimum Qualified Cardinality Restrictions*\textsuperscript{T}}
+\subsection{Minimum Qualified Cardinality Restrictions*\textsuperscript{B}}
 
 A \emph{minimum cardinality restriction}\footnote{{\em R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES}, {\em R-211-CARDINALITY-CONSTRAINTS}} contains all those individuals that are connected by a property to at least n different individuals/literals 
 that are instances of a particular class or data range. If the class is missing, it is taken to be \emph{owl:Thing}. 
@@ -1190,13 +1190,13 @@ $\geq n R. C$ is a minimum qualified cardinality restriction where $n \in \mathb
 	\end{itemize}
 \end{itemize}
 
-\subsection{Maximum Unqualified Cardinality Restrictions*\textsuperscript{T}}
+\subsection{Maximum Unqualified Cardinality Restrictions*\textsuperscript{B}}
 
 A \emph{maximum cardinality restriction} contains all those individuals that are connected by a property to at most n different individuals/literals that are instances of a particular class or data range. If the class is missing, it is taken to be \emph{owl:Thing}. If the data range is not present, it is taken to be \emph{rdfs:Literal}.
 Unqualified means that the class respective the data range is not stated. 
 $\geq n R. \top$ is a \emph{maximum unqualified cardinality restriction}\footnote{\emph{R-82-MAXIMUM-UNQUALIFIED-CARDINALITY-ON-PROPERTIES}, \emph{R-211-CARDINALITY-CONSTRAINTS}} where $n \in \mathbb{N}$ (written $\geq  n R$ in short).
 
-\subsection{Maximum Qualified Cardinality Restrictions*\textsuperscript{T}}
+\subsection{Maximum Qualified Cardinality Restrictions*\textsuperscript{B}}
 
 A \emph{maximum cardinality restriction} contains all those individuals that are connected by a property to at most n different individuals/literals that are instances of a particular class or data range. If the class is missing, it is taken to be \emph{owl:Thing}. If the data range is not present, it is taken to be \emph{rdfs:Literal}.
 Qualified means that the class respective the data range is stated. 
@@ -1216,7 +1216,7 @@ $\leq n R. C$ is a \emph{maximum qualified cardinality restriction}\footnote{\em
 	\end{itemize}
 \end{itemize}
 
-\subsection{Exact Unqualified Cardinality Restrictions*\textsuperscript{T}}
+\subsection{Exact Unqualified Cardinality Restrictions*\textsuperscript{B}}
 
 An \emph{exact cardinality restriction}\footnote{{\em R-80-EXACT-UNQUALIFIED-CARDINALITY-ON-PROPERTIES}, {\em R-211-CARDINALITY-CONSTRAINTS}} contains all those individuals that are connected by a property to exactly n different individuals that are instances of a particular class or data range. 
 If the class is missing, it is taken to be \emph{owl:Thing}. 
@@ -1233,7 +1233,7 @@ $\geq n R. \top \sqcap \leq n R. \top $ is an exact unqualified cardinality rest
 	\end{itemize}
 \end{itemize}
 
-\subsection{Exact Qualified Cardinality Restrictions*\textsuperscript{T}}
+\subsection{Exact Qualified Cardinality Restrictions*\textsuperscript{B}}
 
 An \emph{exact cardinality restriction}\footnote{{\em R-74-EXACT-QUALIFIED-CARDINALITY-ON-PROPERTIES}, {\em R-211-CARDINALITY-CONSTRAINTS}} contains all those individuals that are connected by a property to exactly n different individuals that are instances of a particular class or data range. 
 If the class is missing, it is taken to be \emph{owl:Thing}. 
@@ -1257,19 +1257,19 @@ A {\em disco:Question} has exactly 1 {\em disco:universe} relationship to {\em d
 	\end{itemize}
 \end{itemize}
 
-\subsection{Transitive Object Properties*}
+\subsection{Transitive Object Properties*\textsuperscript{B}}
 
 \emph{Transitivity} is a special form of \emph{complex role inclusion}.
 An \emph{object property transitivity axiom}\footnote{\emph{R-63-TRANSITIVE-OBJECT-PROPERTIES}} states that the object property is transitive — that is, if an individual \emph{x} is connected by the object property to an individual \emph{y} that is connected by the object property to an individual \emph{z}, then \emph{x} is also connected by the object property to \emph{z}.
 
-\subsection{Context-Specific Exclusive OR of Properties}		
+\subsection{Context-Specific Exclusive OR of Properties\textsuperscript{C}}		
 
 \emph{Exclusive or} is a logical operation that outputs true whenever both inputs differ (one is true, the other is false).
 %In OWL 2, inclusive OR of properties would be possible to express, but not exclusive OR of data properties
 Only one of multiple properties within some context (e.g. a class, a shape, or an  application profile) leads to valid data\footnote{\emph{R-11-CONTEXT-SPECIFIC-EXCLUSIVE-OR-OF-PROPERTIES}}.
 This constraint is generally expressed in DL as follows: \ms{$C \sqsubseteq (\neg A \sqcap B) \sqcup (A \sqcap \neg B)$}.
 
-\subsection{Context-Specific Exclusive OR of Property Groups}
+\subsection{Context-Specific Exclusive OR of Property Groups\textsuperscript{C}}
 
 \emph{Exclusive or} is a logical operation that outputs true whenever both inputs differ (one is true, the other is false).
 Only one of multiple property groups leads to valid data\footnote{{\em R-13-DISJOINT-GROUP-OF-PROPERTIES-CLASS-SPECIFIC}}.
@@ -1289,7 +1289,7 @@ C $\sqsubseteq$ $\geq$ 1 definition.string $\sqcap$ $\leq$ 1 definition.string \
 	\end{itemize}
 \end{itemize}
 
-\subsection{Allowed Values\textsuperscript{T}}
+\subsection{Allowed Values\textsuperscript{B}}
 
 It is a common requirement to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resources). 
 This is often rendered in drop down boxes or radio buttons in user interfaces. 
@@ -1304,11 +1304,11 @@ This is often rendered in drop down boxes or radio buttons in user interfaces.
 	\end{itemize}
 \end{itemize}
 
-\subsection{Not Allowed Values}
+\subsection{Not Allowed Values\textsuperscript{B}}
 
 A matching triple has any literal / object except those explicitly excluded\footnote{\emph{R-33-NEGATIVE-OBJECT-CONSTRAINTS}, \emph{R-200-NEGATIVE-LITERAL-CONSTRAINTS}}.
 
-\subsection{Literal Ranges}
+\subsection{Literal Ranges\textsuperscript{S}}
 
 \emph{P1} is a data property (of an instance of class \emph{C1}) and its literal value must be between the range of [$V_{min}$,$V_{max}$]\footnote{{\em R-45-RANGES-OF-RDF-LITERAL-VALUES}}.
 
@@ -1329,35 +1329,35 @@ A matching triple has any literal / object except those explicitly excluded\foot
 	
 \end{itemize}
 
-\subsection{Negative Literal Ranges}
+\subsection{Negative Literal Ranges\textsuperscript{S}}
 
 \emph{P1} is a data property (of an instance of class \emph{C1}) and its literal value must not be between the range of [$V_{min}$,$V_{max}$]\footnote{{\em R-142-NEGATIVE-RANGES-OF-RDF-LITERAL-VALUES}}.
 
-\subsection{Required Properties\textsuperscript{T}}
+\subsection{Required Properties\textsuperscript{B}}
 
 Properties may be required\footnote{\emph{R-68-REQUIRED-PROPERTIES}}.
 
-\subsection{Optional Properties\textsuperscript{T}}
+\subsection{Optional Properties\textsuperscript{B}}
 
 Properties may be optional\footnote{\emph{R-69-OPTIONAL-PROPERTIES}}.
 
-\subsection{Repeatable Properties\textsuperscript{T}}
+\subsection{Repeatable Properties\textsuperscript{B}}
 
 Properties may be repeatable\footnote{\emph{R-70-REPEATABLE-PROPERTIES}}.
 
-\subsection{Negative Property Constraints}
+\subsection{Negative Property Constraints\textsuperscript{S}}
 
 Instances of a specific class must not have some object property\footnote{\emph{R-52-NEGATIVE-OBJECT-PROPERTY-CONSTRAINTS}, \emph{R-53-NEGATIVE-DATA-PROPERTY-CONSTRAINTS}}.
 
-\subsection{Individual Equality*}
+\subsection{Individual Equality*\textsuperscript{B}}
 
 \emph{Individual equality}\footnote{\emph{R-6-EQUIVALENT-INDIVIDUALS}} states that two different names are known to refer to the same individual \cite{Kroetzsch2012}.
 
-\subsection{Functional Properties*}
+\subsection{Functional Properties*\textsuperscript{B}}
 
 An \emph{object property functionality axiom}\footnote{\emph{R-57-FUNCTIONAL-OBJECT-PROPERTIES}} \emph{FunctionalObjectProperty( OPE )} states that the object property expression \emph{OPE} is functional — that is, for each individual \emph{x}, there can be at most one distinct individual \emph{y} such that \emph{x} is connected by \emph{OPE} to \emph{y}. Each such axiom can be seen as a syntactic shortcut for the following axiom: \emph{SubClassOf( owl:Thing ObjectMaxCardinality( 1 OPE ) )}.
 
-\subsection{Inverse-Functional Properties*}
+\subsection{Inverse-Functional Properties*\textsuperscript{B}}
 
 An \emph{object property inverse functionality axiom}\footnote{\emph{R-58-INVERSE-FUNCTIONAL-OBJECT-PROPERTIES}} \emph{InverseFunctionalObjectProperty( OPE )} states that the object property expression \emph{OPE} is inverse-functional - that is, for each individual \emph{x}, there can be at most one individual \emph{y} such that \emph{y} is connected by \emph{OPE} with \emph{x}. Each such axiom can be seen as a syntactic shortcut for the following axiom: \emph{SubClassOf( owl:Thing ObjectMaxCardinality( 1 ObjectInverseOf( OPE ) ) )}.
 
@@ -1378,16 +1378,16 @@ OWL 2 \emph{hasKey} implements \emph{keyfor} and thus can be used to identify re
 	\end{itemize}
 \end{itemize}
 
-\subsection{Value Restrictions*}
+\subsection{Value Restrictions*\textsuperscript{B}}
 
 \emph{Individual Value Restrictions}\footnote{\emph{R-88-VALUE-RESTRICTIONS}}: A has-value class expression \emph{ObjectHasValue( OPE a )} consists of an object property expression \emph{OPE} and an individual \emph{a}, and it contains all those individuals that are connected by \emph{OPE} to \emph{a}. Each such class expression can be seen as a syntactic shortcut for the class expression \emph{ObjectSomeValuesFrom( OPE ObjectOneOf( a ) )}. 
 \emph{Literal Value Restrictions}: A has-value class expression \emph{DataHasValue( DPE lt )} consists of a data property expression \emph{DPE} and a literal \emph{lt}, and it contains all those individuals that are connected by \emph{DPE} to \emph{lt}. Each such class expression can be seen as a syntactic shortcut for the class expression \emph{DataSomeValuesFrom( DPE DataOneOf( lt ) )}.
 
-\subsection{Self Restrictions*}
+\subsection{Self Restrictions*\textsuperscript{B}}
 
 A \emph{self-restriction} \emph{ObjectHasSelf( OPE )} consists of an object property expression \emph{OPE}, and it contains all those individuals that are connected by \emph{OPE} to themselves. 
 
-\subsection{Primary Key Properties}
+\subsection{Primary Key Properties*\textsuperscript{B}}
 
 The \emph{Primary Key Properties}\footnote{R-226-PRIMARY-KEY-PROPERTIES} constraint is often useful to declare a given (datatype) property as the "primary key" of a class, so that a system can enforce uniqueness and also automatically build URIs from user input and data imported from relational databases or spreadsheets.. 
 Starfleet officers, e.g., are uniquely identified by their command authorization code (e.g. to activate and cancel auto-destruct sequences).
@@ -1404,7 +1404,7 @@ This leads to the following DL mapping (only one simple property constraint):
 	\item see \emph{inverse-functional properties}
 \end{itemize}
 
-\subsection{Class-Specific Property Range*\textsuperscript{T}}		
+\subsection{Class-Specific Property Range*\textsuperscript{B}}		
 
 {\em Class-Specific Property Range}\footnote{{\em R-29-CLASS-SPECIFIC-RANGE-OF-RDF-OBJECTS}, {\em R-36-CLASS-SPECIFIC-RANGE-OF-RDF-LITERALS}} restricts the range of object and data properties for individuals within a specific context (e.g. class, shape, application profile).
 The values of each member property of a class may be limited by their value type, such as \emph{xsd:string} or \emph{foaf:Person}. 
@@ -1417,11 +1417,11 @@ Only {\em disco:Question}s can have {\em disco:questionText} relationships to li
 	\end{itemize}
 \end{itemize}
 
-\subsection{Class-Specific Reflexive Object Properties*}
+\subsection{Class-Specific Reflexive Object Properties*\textsuperscript{B}}
 
 Using DL terminology \emph{Class-Specific Reflexive Object Properties} is called local reflexivity - a set of individuals (of a specific class) that are related to themselves via a given role \cite{Kroetzsch2012}.
 
-\subsection{Membership in Controlled Vocabularies.}
+\subsection{Membership in Controlled Vocabularies\textsuperscript{S}}
 
 Resources can only be members of listed controlled vocabularies\footnote{{\em R-32-MEMBERSHIP-OF-RDF-OBJECTS-IN-CONTROLLED-VOCABULARIES}, 
 {\em R-39-MEMBERSHIP-OF-RDF-LITERALS-IN-CONTROLLED-VOCABULARIES}}.
@@ -1450,7 +1450,7 @@ $B \equiv ConceptScheme \sqcap \{SummaryStatisticType\}$
 	\end{itemize}
 \end{itemize}
 
-\subsection{IRI Pattern Matching}
+\subsection{IRI Pattern Matching\textsuperscript{S}}
 
 IRI pattern matching applied on subjects, properties, and objects\footnote{\emph{R-21-IRI-PATTERN-MATCHING-ON-RDF-SUBJECTS}, \emph{R-22-IRI-PATTERN-MATCHING-ON-RDF-OBJECTS}, \emph{R-23-IRI-PATTERN-MATCHING-ON-RDF-PROPERTIES}}.
 
@@ -1461,7 +1461,7 @@ IRI pattern matching applied on subjects, properties, and objects\footnote{\emph
 	\end{itemize}
 \end{itemize}
 
-\subsection{Literal Value Comparison}
+\subsection{Literal Value Comparison\textsuperscript{S}}
 
 Depending on the property semantics,
 there are cases where two different literal values must have
@@ -1486,7 +1486,7 @@ To validate this constraint we bind the variables as follows (P1: {\em disco:sta
 	\end{itemize}
 \end{itemize}
 
-\subsection{Ordering}
+\subsection{Ordering\textsuperscript{C}}
 
 With this constraint objects of object properties can be ordered as well as literals of data properties\footnote{\emph{R-121-SPECIFY-ORDER-OF-RDF-RESOURCES}, \emph{R-217-DEFINE-ORDER-FOR-FORMS/DISPLAY}}.
 
@@ -1508,14 +1508,14 @@ For obtaining this order, {\em skos:OrderedCollection} resources are used.
 	\end{itemize}
 \end{itemize}
 
-\subsection{Validation Levels}
+\subsection{Validation Levels\textsuperscript{S}}
 
 Different levels of severity (priority)\footnote{\emph{R-205-VARYING-LEVELS-OF-ERROR}, \emph{R-135-CONSTRAINT-LEVELS}, \emph{R-158-SEVERITY-LEVELS-OF-CONSTRAINT-VIOLATIONS}, \emph{R-193-MULTIPLE-CONSTRAINT-VALIDATION-EXECUTION-LEVELS}} should be assigned to constraints.
 Possible validation levels could be: informational, warning, error, fail, should, recommended, must, may, optional, closed (only this) constraints, open (at least this) constraint.
 
 For \emph{Disco} each constraint should be assigned to exactly one \emph{validation level}.
 
-\subsection{String Operations}
+\subsection{String Operations\textsuperscript{S}}
 
 Many different \emph{string operations}\footnote{\emph{R-194-PROVIDE-STRING-FUNCTIONS-FOR-RDF-LITERALS}} are possible.
 Some constraints require building new strings out of other strings.
@@ -1528,7 +1528,7 @@ Calculating the string length would also be another constraint of this type.
 	\end{itemize}
 \end{itemize}
 
-\subsection{Context-Specific Valid Classes\textsuperscript{T}}
+\subsection{Context-Specific Valid Classes\textsuperscript{B}}
 
 What types are valid in a specific context?\footnote{\emph{R-209-VALID-CLASSES}} 
 Context can be an input stream, a data creation function, or an API.
@@ -1575,7 +1575,7 @@ Context can be an input stream, a data creation function, or an API.
 	\end{itemize}
 \end{itemize}
 
-\subsection{Context-Specific Valid Properties\textsuperscript{T}}
+\subsection{Context-Specific Valid Properties\textsuperscript{B}}
 
 What properties can be used within this context?\footnote{\emph{R-210-VALID-PROPERTIES}} 
 Context can be an data receipt function, data creation function, or API.
@@ -1622,7 +1622,7 @@ Context can be an data receipt function, data creation function, or API.
 	\end{itemize}
 \end{itemize}
 
-\subsection{Default Values*\textsuperscript{T}}
+\subsection{Default Values*\textsuperscript{S}}
 
 \emph{Default values}\footnote{{\em R-31-DEFAULT-VALUES-OF-RDF-OBJECTS}, {\em R-38-DEFAULT-VALUES-OF-RDF-LITERALS}} for objects and literals are inferred automatically.
 It should be possible to declare the default value for a given property, e.g. so that input forms can be pre-populated and to insert a required property that is missing in a web service call.
@@ -1636,7 +1636,7 @@ Per default, access to data sets should be restricted ('false').
 	\end{itemize}
 \end{itemize}
 
-\subsection{Mathematical Operations}
+\subsection{Mathematical Operations\textsuperscript{C}}
 
 Examples for {\em Mathematical Operations}\footnote{{\em R-42-MATHEMATICAL-OPERATIONS}, {\em R-41-STATISTICAL-COMPUTATIONS}} are the addition of two dates, the addition of days to a start date, and statistical computations (e.g. average, mean, sum).
 
@@ -1673,7 +1673,7 @@ Examples for {\em Mathematical Operations}\footnote{{\em R-42-MATHEMATICAL-OPERA
 
 \end{itemize}
 
-\subsection{Language Tag Matching}
+\subsection{Language Tag Matching\textsuperscript{S}}
 
 For particular data properties, values must be stated for predefined languages\footnote{{\em R-47-LANGUAGE-TAG-MATCHING}}.
 
@@ -1685,7 +1685,7 @@ There must be an English variable name ({\em skos:notation}) for each {\em disco
 \end{itemize}
 \end{itemize}
 
-\subsection{Language Tag Cardinality}
+\subsection{Language Tag Cardinality\textsuperscript{S}}
 
 For particular data properties, values of predefined languages must be stated for determined number of times\footnote{{\em R-49-RDF-LITERALS-HAVING-AT-MOST-ONE-LANGUAGE-TAG}, {\em R-48-MISSING-LANGUAGE-TAGS}}.
 
@@ -1743,7 +1743,7 @@ Some controlled vocabularies contain literals in natural language, but without i
 	
 \end{itemize}
 
-\subsection{Whitespace Handling}
+\subsection{Whitespace Handling\textsuperscript{S}}
 
 Avoid whitespaces in literals neither leading nor trailing white spaces\footnote{\emph{R-50-WHITESPACE-HANDLING-OF-RDF-LITERALS}}.
 
@@ -1754,7 +1754,7 @@ Avoid whitespaces in literals neither leading nor trailing white spaces\footnote
 	\end{itemize}
 \end{itemize}
 
-\subsection{HTML Handling}
+\subsection{HTML Handling\textsuperscript{S}}
 
 Check if all HTML tags, included in literals (of specific data properties within the context of specific classes)\footnote{\emph{R-51-HTML-HANDLING-OF-RDF-LITERALS}}, are closed properly.
 
@@ -1770,7 +1770,7 @@ Check if all HTML tags, included in literals (of specific data properties within
 \end{itemize}
 
 
-\subsection{Conditional Properties}
+\subsection{Conditional Properties\textsuperscript{C}}
 
 If specific properties exist, then specific other properties must also be present\footnote{{\em R-71-CONDITIONAL-PROPERTIES}}.
 
@@ -1814,7 +1814,7 @@ then the property {\em disco:isValid} has to be stated indicating if the code is
 	\end{itemize}
 \end{itemize}
 
-\subsection{Recommended Properties}
+\subsection{Recommended Properties\textsuperscript{S}}
 
 Which properties are not necessarily required but recommended within a particular context\footnote{{\em R-72-RECOMMENDED-PROPERTIES}}.
 
@@ -1861,7 +1861,7 @@ Which properties are not necessarily required but recommended within a particula
 	\end{itemize}
 \end{itemize}
 
-\subsection{Handle RDF Collections}
+\subsection{Handle RDF Collections\textsuperscript{C}}
 
 Examples of the \emph{Handle RDF Collections}\footnote{\emph{R-120-HANDLE-RDF-COLLECTIONS}} constraint are: a collection must have a specific size; the first/last element of a given list must be a specific literal; the elements of collections are compared; are collections identical?; actions on RDF lists\footnote{See \url{http://www.snee.com/bobdc.blog/2014/04/rdf-lists-and-sparql.html}}; the 2. list element must be equal to 'XXX'; does the list have more than 10 elements?
 
@@ -1876,7 +1876,7 @@ Examples of the \emph{Handle RDF Collections}\footnote{\emph{R-120-HANDLE-RDF-CO
 	\end{itemize}
 \end{itemize}
 
-\subsection{Value is Valid for Datatype\textsuperscript{T}}
+\subsection{Value is Valid for Datatype\textsuperscript{B}}
 
 Make sure that a value is valid for its datatype.
 It has to be ensured, e.g., that a date is really a date, or that a \emph{xsd:nonNegativeInteger} value is not negative. 
@@ -1903,7 +1903,7 @@ It has to be ensured, e.g., that a date is really a date, or that a \emph{xsd:no
 	\end{itemize}
 \end{itemize}
 
-\subsection{Use Sub-Super Relations in Validation\textsuperscript{T}}
+\subsection{Use Sub-Super Relations in Validation\textsuperscript{B}}
 
 \footnote{\emph{R-224-USE-SUB-SUPER-RELATIONS-IN-VALIDATION}}
 
@@ -1924,12 +1924,12 @@ If \emph{dcterms:date} and one of its sub-properties \emph{dcterms:created} or \
 	\end{itemize}
 \end{itemize}
 
-\subsection{Cardinality Shortcuts*\textsuperscript{T}}
+\subsection{Cardinality Shortcuts*\textsuperscript{B}}
 
 In most library applications, cardinality shortcuts tend to appear in pairs, with repeatable/non-repeatable establishing maximum cardinality and optional/mandatory establishing minimum cardinality.
 These are shortcuts for more detailed \emph{cardinality restrictions}.
 
-\subsection{Aggregation}
+\subsection{Aggregation\textsuperscript{C}}
 
 Some constraints require aggregating multiple values, especially via \emph{COUNT}, \emph{MIN} and \emph{MAX}.
 
@@ -1964,7 +1964,7 @@ Some constraints require aggregating multiple values, especially via \emph{COUNT
 	\end{itemize}
 \end{itemize} 
 
-\subsection{Provenance}
+\subsection{Provenance\textsuperscript{S}}
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-PROVENANCE-01}}: 
@@ -1992,7 +1992,7 @@ Some constraints require aggregating multiple values, especially via \emph{COUNT
 \section{Data Model Specific RDF Constraint Types}
 \label{data-model-specific-constraint-types}
 
-\subsection{Comparison}
+\subsection{Comparison\textsuperscript{C}}
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-COMPARISON-VARIABLES-01}}: 
@@ -2022,7 +2022,7 @@ Some constraints require aggregating multiple values, especially via \emph{COUNT
 	\end{itemize}
 \end{itemize}
 
-\subsection{Data Model Consistency}
+\subsection{Data Model Consistency\textsuperscript{C}}
 Is the data consistent with the intended semantics of the data model?
 Such validation rules ensure the integrity of the data according to the data model.
 
@@ -2169,7 +2169,7 @@ Such validation rules ensure the integrity of the data according to the data mod
 	
 \end{itemize}
 
-\subsection{Structure}
+\subsection{Structure\textsuperscript{C}}
 
 SKOS is based on RDF, which is a graph-based data model. Therefore we can concentrate on the vocabulary's graph-based structure for assessing the quality of SKOS vocabularies and apply graph- and network-analysis techniques. 
 
@@ -2270,7 +2270,7 @@ SKOS is based on RDF, which is a graph-based data model. Therefore we can concen
 	\end{itemize}
 \end{itemize}
 
-\subsection{Labeling and Documentation}
+\subsection{Labeling and Documentation\textsuperscript{S}}
 
 \begin{itemize}
 	\item \textbf{{\em DISCO-C-LABELING-AND-DOCUMENTATION-01}}: 
@@ -2346,7 +2346,7 @@ SKOS is based on RDF, which is a graph-based data model. Therefore we can concen
 	\end{itemize}
 \end{itemize}
 
-\subsection{Vocabulary\textsuperscript{T}}
+\subsection{Vocabulary\textsuperscript{B}}
 Vocabularies should not invent any new terms or use deprecated elements. 
 
 \begin{itemize}
@@ -2393,7 +2393,7 @@ Vocabularies should not invent any new terms or use deprecated elements.
 	\end{itemize}
 \end{itemize}
 
-\subsection{Linked Data}
+\subsection{HTTP URI Scheme Violation\textsuperscript{S}}
 
 \begin{itemize}
 	\item \textbf{\em DISCO-C-HTTP-URI-SCHEME-VIOLATION\footnote{Corresponds to qSKOS Quality Issues - Linked Data Specific Issues - HTTP URI Scheme Violation}}: 
