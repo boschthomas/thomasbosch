@@ -489,6 +489,8 @@ Constraints are instantiated from constraint types in order to validate both met
 We recently published a technical report\footnote{\label{technical-report-1}Available at: \url{http://arxiv.org/abs/1504.04479}} (serving as first appendix of this paper) in which we describe 213 constraints (classified as 53 distinct constraint types) to validate rectangular data (\emph{PHDD}) and metadata on person-level data sets (\emph{Disco}), aggregated data sets (\emph{QB}), thesauri (\emph{SKOS}), and statistical classifications (\emph{XKOS}), and therefore apply the proposed classification system to several vocabularies to represent both data and metadata \cite{BoschZapilkoWackerowEckert2015}.
 In this section, we describe constraints, which are important to ensure \emph{SBE} (meta)data quality, 
 associate them with default severity levels, and assign them to $\mathcal{CT}_{C}$ and $\mathcal{CT}_{T}$ constraint types. 
+\tb{Depending on individual use cases, validation environments should enable users to select which constraints to validate against.
+For some use cases, validating $\mathcal{CT}_{B}$ constraints may be more important than validating $\mathcal{CT}_{S}$ or $\mathcal{CT}_{C}$ constraints.}
 
 \subsection{Classification of Constraint Types}
 
@@ -1038,16 +1040,15 @@ the \emph{STW Thesaurus for Economics}, and the
 the \emph{DwB Discovery Portal}, the
 \emph{Danish Data Archive (DDA)}, and the
 \emph{Swedish National Data Service (SND)}.
-
 We recently published a technical report\footnote{\label{technical-report-2}Available at: \url{http://arxiv.org/abs/1504.04478}} (serving as second appendix of this paper) 
 in which we describe the comprehensive evaluation in detail \cite{BoschZapilkoWackerowEckert2015-2}. 
 As we evaluated nearly 10 thousand \emph{QB} data sets, we published the evaluation results for each data set in form of one document per SPARQL endpoint\footnote{Available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/evaluation/data-sets/data-cube}}.
 
 \subsection{Evaluation Results and Discussion}
 
-The majority (48 $\equiv$ 58.5\%) of the overall 82 $\mathcal{CT}$ constraint types are $\mathcal{CT}_{B}$ constraint types whose constraints can therefore be derived from vocabularies without any effort.
-Among the $\mathcal{CT}_{B}$ constraint types, two-thirds (34 $\equiv$ 70.8\%) are $\mathcal{C}_B ^{\mathcal{R}}$, i.e., constraint types for which reasoning may be performed prior to validation, and one third (14 $\equiv$ 29.2\%) are $\overline{\mathcal{C}_B ^{\mathcal{R}}}$ constraint types, i.e., constraint types for which reasoning does not make any sense.
-A quarter (20 $\equiv$ 24.4\%) of all constraint types are $\mathcal{CT}_{S}$ and a sixth (14 $\equiv$ 17.1\%) are $\mathcal{CT}_{C}$ constraint types.
+The majority (48 $\equiv$ 58.5\%) of the overall 82 $\mathcal{CT}$ constraint types are $\mathcal{CT}_{B}$ whose constraints can therefore be derived from vocabularies without any effort.
+Among $\mathcal{CT}_{B}$, two-thirds (34 $\equiv$ 70.8\%) are $\mathcal{C}_B ^{\mathcal{R}}$, i.e., constraint types for which reasoning may be performed prior to validation, and one third (14 $\equiv$ 29.2\%) are $\overline{\mathcal{C}_B ^{\mathcal{R}}}$, i.e., constraint types for which reasoning does not make any sense.
+A quarter (20 $\equiv$ 24.4\%) of all constraint types are $\mathcal{CT}_{S}$ and a sixth (14 $\equiv$ 17.1\%) are $\mathcal{CT}_{C}$.
 
 \begin{table}[H]
 		\scriptsize
@@ -1080,6 +1081,13 @@ A quarter (20 $\equiv$ 24.4\%) of all constraint types are $\mathcal{CT}_{S}$ an
     \end{center}
 \end{table}
 
+%Table \ref{tab:evaluation-constraint-types} displays the evaluation of the metadata quality on real world data sets regarding constraint types.
+We defined constraints of 53 distinct $\mathcal{CT}$ constraint types (see table \ref{tab:evaluation-constraint-types}).
+More than the half of them are $\mathcal{CT}_{B}$, more than a third $\mathcal{C}_B ^{\mathcal{R}}$, nearly a third $\mathcal{CT}_{S}$, and only a sixth $\mathcal{CT}_{C}$ constraint types.
+For \emph{Disco}, \emph{QB}, and \emph{SKOS}, more than 50\% of the instantiated constraint types are $\mathcal{CT}_{B}$ constraint types 
+(for \emph{QB} even three quarters).
+\emph{Existential quantifications} (\emph{R-86}, 32.4\%, \emph{Disco}), \emph{data model consistency} (31.4\%, \emph{QB}), and \emph{structure} (28.6\%, \emph{SKOS}) are the constraint types the most constraints are instantiated from.
+
 \begin{table}[H]
 		\scriptsize
     \begin{center}
@@ -1095,7 +1103,7 @@ A quarter (20 $\equiv$ 24.4\%) of all constraint types are $\mathcal{CT}_{S}$ an
 		%\emph{Triples} & 9,673,055 & 3,775,983,610 & 477,737,281 & 4,263,393,946 \\
 		%\emph{Data Sets} & 1,526 & 9,990 & 4,178 & 15,694 \\
 		%\hline
-		\emph{C} & 143 & 35 & 35 & 213 \\
+		\emph{C} & 143 (67.1\%) & 35 (16.4\%) & 35 (16.4\%) & 213 \\
 		\hline
 		\emph{C (}$\mathcal{CT}_{C}$\emph{)} & 37 (25.9\%) & 13 (37.1\%) & 13 (\textbf{37.1\%}) & 63 (29.6\%) \\
 		\emph{C (}$\mathcal{CT}_{S}$\emph{)} & 28 (19.6\%) & 3 (8.6\%) & 12 (\textbf{34.3\%}) & 43 (20.2\%) \\
@@ -1114,6 +1122,15 @@ A quarter (20 $\equiv$ 24.4\%) of all constraint types are $\mathcal{CT}_{S}$ an
 		\label{tab:evaluation-constraints}
     \end{center}
 \end{table}
+ 
+Half of the overall 213 $\mathcal{CT}$ constraints are $\mathcal{CT}_{B}$ constraints (almost 40\% $\mathcal{C}_B ^{\mathcal{R}}$) (see table \ref{tab:evaluation-constraints}).
+This is not surprising as more than the half of the instantiated constraints types are $\mathcal{CT}_{B}$ constraint types.
+More than 50\% of the \emph{Disco} and \emph{QB} constraints are $\mathcal{CT}_{B}$ constraints.
+The \emph{SKOS} constraints, on the other side, are equally assigned to the three disjoint constraint type sets. 
+\emph{SBE} domain experts associated almost the half of the constraints with the severity levels $\mathcal{SL}_{0}$ (\emph{informational}) (47\%) and $\mathcal{SL}_{2}$ (\emph{error}) (45\%);
+only 8.5\% are $\mathcal{SL}_{1}$ (\emph{warning}) constraints.
+The violation of 80\% of the \emph{QB} constraints is very serious ($\mathcal{SL}_{2}$).
+More than 50\% of the \emph{Disco} and \emph{SKOS} constraints, however, are assigned to the weakest default severity level ($\mathcal{SL}_{0}$).
 
 \begin{table}[H]
 		\scriptsize
@@ -1127,7 +1144,7 @@ A quarter (20 $\equiv$ 24.4\%) of all constraint types are $\mathcal{CT}_{S}$ an
 					 & \textbf{\emph{SKOS}}
 					 & \textbf{Total}
     \\ \midrule
-		\emph{CV} & 3,575,002 & 45,635,861 & 5,540,988 & 54,751,851 \\
+		\emph{CV} & 3,575,002 (6.5\%) & 45,635,861 (83.4\%) & 5,540,988 (10.1\%) & 54,751,851 \\
 		\hline
 		\emph{CV (}$\mathcal{CT}_{C}$\emph{)} & 652,780 (18.3\%) & 45,634,084 (\textbf{100\%}) & 1,185,982 (21.4\%) & 47,472,846 (\textbf{86.7\%}) \\
 		\emph{CV (}$\mathcal{CT}_{S}$\emph{)} & 560,857 (15.7\%) & 0 (0\%) & 4,355,006 (\textbf{78.6\%}) & 4,915,863 (9\%) \\
@@ -1147,25 +1164,24 @@ A quarter (20 $\equiv$ 24.4\%) of all constraint types are $\mathcal{CT}_{S}$ an
     \end{center}
 \end{table}
 
-We identified 142 \emph{Disco} constraints ($\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints to the same extend) assigned to 52 distinct constraint types and implemented 77 of them to actually validate person-level data sets.  
-For \emph{QB}, we specified more $\mathcal{C}_{T}$ (54\%) than $\mathcal{C}_{C}$ constraints; for \emph{SKOS}, however, more $\mathcal{C}_{C}$ constraints (60\%).
-We instantiated more $\mathcal{C}_{C}$ (58\%) than $\mathcal{C}_{T}$ constraint types to define \emph{Disco} constraints; 
-for \emph{QB} (75\%) and \emph{SKOS} (64\%), on the other side, more $\mathcal{C}_{T}$ constraint types. 
-In total, we used 53 of overall 82 distinct constraint types (57\% of them are $\mathcal{C}_{C}$ constraint types) to define 213 constraints (equally $\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints).
+More than 80\% of the overall approx. 55 million constraint violations are caused by \emph{QB} constraints (see table \ref{tab:evaluation-constraint-violations}).
+The majority (86.7\%) of the constraint violations are caused by $\mathcal{CT}_{C}$ constraints and only 9\% by $\mathcal{CT}_{S}$ constraints.
+The fact that only 4\% of all constraint violations result from $\mathcal{CT}_{B}$ constraints, 
+even though, more than 50\% of all constraints are $\mathcal{CT}_{B}$ constraints,
+is an indicator that data producers achieve good data quality with respect to the constraints extracted by vocabularies.
+Two-thirds of the constraint violations, thrown for \emph{Disco} data sets, result from $\mathcal{CT}_{B}$ constraints,
+almost only $\mathcal{CT}_{C}$ constraints raised constraint violations for \emph{QB} data sets, and 
+nearly 80\% of the \emph{SKOS} constraint violations are caused by $\mathcal{CT}_{S}$ constraints.
+Although, only 8.5\% of all constraints are $\mathcal{SL}_{1}$ constraints,
+9 0f 10 constraint violations are caused by constraints associated with the default severity level $\mathcal{SL}_{1}$.
+More than 50\% of all constraint violations thrown for \emph{Disco} data sets are not seen to be that significant ($\mathcal{SL}_{0}$).
+Almost all constraint violations raised by \emph{QB} constraints and 59\% of the constraint violations caused by \emph{SKOS} constraints are classified as warnings ($\mathcal{SL}_{1}$).  
+As this evaluation serves as indication for \emph{good} or \emph{bad} (meta)data quality, 
+we conclude that
+the metadata quality of all evaluated \emph{Disco} data sets is \emph{good} and that the metadata quality of all evaluated \emph{QB} and \emph{SKOS} data sets is \emph{satisfactory}.
+%The constraints responsible for the largest amounts of constraint violations are \emph{DISCO-C-LABELING-AND-DOCUMENTATION-06} and \emph{DISCO-C-COMPARISON-VARIABLES-02} (both 547,916; \emph{Disco}), \emph{DATA-CUBE-C-DATA-MODEL-CONSISTENCY-05} (45,514,102; \emph{QB}), and \emph{SKOS-C-LANGUAGE-TAG-CARDINALITY-01} (2,508,903; \emph{SKOS}).
 
-For \emph{Disco} and \emph{SKOS}, more than the half of the constraints are associated with the weakest severity level $\mathcal{SL}_{0}$.
-Within the context of \emph{QB}, 80\% of the constraints are classified as the most serious ones ($\mathcal{SL}_{2}$).
-All in all, there are a little bit more $\mathcal{SL}_{0}$ then $\mathcal{SL}_{2}$ constraints, whereas $\mathcal{SL}_{1}$ constraints are negligible.
-\emph{Existential quantifications} (32.4\%, \emph{Disco}), \emph{data model consistency} (31.4\%, \emph{QB}), and \emph{structure} (28.6\%, \emph{SKOS}) are the constraint types the most constraints are instantiated from.
-By validating \emph{QB} data sets, we got the most constraint violations (more than 45 millions), followed by \emph{SKOS} and \emph{Disco} (with more than 5.5 and 3.5 millions) - consequently, almost 55 million constraint violations were raised during the evaluation which could be used to enhance the metadata quality of these data sets.  
-Close to 70\% of all \emph{Disco} constraint violations are caused by violating $\mathcal{SL}_{0}$ constraints.
-For \emph{QB} (nearly 100\%) and \emph{SKOS} (almost 60\%), the majority of the raised constraint violations are classified to be more serious ($\mathcal{SL}_{1}$).
-80\% of all \emph{QB} constraints are $\mathcal{SL}_{2}$ constraints leading to less than 1\% of all \emph{QB} constraint violations.
-Altogether, exactly 90\% of the constraint violations are assigned to the severity level $\mathcal{SL}_{1}$.
-These findings are surprising as only 8\% of all defined constraints are $\mathcal{SL}_{1}$ constraints.
-The constraints responsible for the largest numbers of constraint violations are \emph{DISCO-C-LABELING-AND-DOCUMENTATION-06} and \emph{DISCO-C-COMPARISON-VARIABLES-02} (both 547,916) (\emph{Disco}), \emph{DATA-CUBE-C-DATA-MODEL-CONSISTENCY-05} (45,514,102) (\emph{QB}), and \emph{SKOS-C-LANGUAGE-TAG-CARDINALITY-01} (2,508,903) (\emph{SKOS}).
-We refer to the technical reports\footnotemark[\ref{technical-report-1}] \footnotemark[\ref{technical-report-2}] to get details about constraints on and the evaluation of \emph{XKOS} and \emph{PHDD} data sets.
-\tb{bezug nehmen auf severity levels / technology-driven werden oft eingehalten? / werden in einem bestimmten vokabular vor allem basic oder complex constraints verletzt? / es werden große datenbestände untersucht um ein besseres verständnis zu bekommen welche art von constraints für welche vokabulare am häufigsten verletzt werden und welche severity levles für welche vokabulare am häufigsten verletzt werden}
+\tb{es werden große datenbestände untersucht um ein besseres verständnis zu bekommen welche art von constraints für welche vokabulare am häufigsten verletzt werden und welche severity levles für welche vokabulare am häufigsten verletzt werden}
 
 \section{Related Work}
 \label{related-work}
@@ -1194,7 +1210,7 @@ taxonomists in improving SKOS vocabularies by pointing out quality
 issues that go beyond the integrity constraints defined in the SKOS specification \cite{MaderHaslhoferIsaac2012}.
 
 \section{Conclusion and Future Work}
-\ke{@KAI: Dieses Kapitel muss ich noch an die Änderungen im Paper anpassen!}
+\tb{ToDO}
 In this paper, we showed in form of a complete real world running example how to represent metadata on person-level data (\emph{Disco}), metadata on aggregated data (\emph{QB}), and data on both aggregation levels in a rectangular format (\emph{PHDD}) in RDF and how therefore used vocabularies are interrelated (\textbf{contribution 1}, section \ref{rdf-representation}).
 We explained why RDF validation is important in this context and how metadata on person-level data, aggregated data, thesauri, and statistical classifications as well as data on both aggregation levels is validated against constraints to ensure high (meta)data quality\footnote{The first appendix of this paper describing each constraint in detail is available at: \url{http://arxiv.org/abs/1504.04479} \cite{BoschZapilkoWackerowEckert2015}} (\textbf{contribution 2}, section \ref{rdf-validation}). 
 We distinguish two validation types:
@@ -1206,8 +1222,6 @@ and propose an extensible metric to measure the continuum of severity levels.
 We implemented a validation environment (available at \url{http://purl.org/net/rdfval-demo}) to validate RDF data according to constraints expressed my arbitrary constraint languages and to ensure correct syntax, semantics, and integrity of diverse vocabularies such as \emph{Disco, QB, PHDD, SKOS, and XKOS} (section \ref{implementation}).
 We exhaustively evaluated the metadata quality of large real world aggregated (\emph{QB}), person-level (\emph{Disco}), and thesauri (\emph{SKOS}) data sets by means of 213 $\mathcal{C}_{C}$ and $\mathcal{C}_{T}$ constraints of the majority of the constraint types.
 We validated more than 4.2 billion triples and 15 thousand data sets\footnote{The second appendix of this paper describing the evaluation in detail is available at: \url{http://arxiv.org/abs/1504.04478} \cite{BoschZapilkoWackerowEckert2015-2}.} (section \ref{evaluation}).
-\tb{auswahl an constraints, die validiert werden sollen / je nach use cases sollen z.b. nur technology-driven constraints validiert werden oder sind wichtiger / use solen je nach use case selbt bestimmen welche constraints validiert werden sollen}
-%It is still ongoing work to identify and classify constraints on rectangular data (\emph{PHDD}) and statistical classifications (\emph{XKOS}) and to actually evaluate the (meta)data quality of real world \emph{XKOS} and \emph{PHDD} data sets.
 
 \bibliography{../../literature/literature}{}
 \bibliographystyle{plain}
