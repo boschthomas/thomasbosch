@@ -230,7 +230,7 @@
 %\title{RDF Validation of Metadata \\ on Person-Level and Aggregated Data}
 %\title{RDF Constraints to Ensure High Quality \\ of Metadata and Data Represented by any Vocabulary }
 %\title{RDF Constraints to Ensure High Quality \\ of Metadata and Data}
-\title{RDF Constraints Classification Ensuring \\ High Quality of Metadata and Data}
+\title{Classification of RDF Constraint Types Ensuring High Quality of Metadata and Data}
 \subtitle{}
 
 \titlerunning{XXXXX}  % abbreviated title (for running head)
@@ -268,14 +268,14 @@ Within the context of a complex and complete real world running example within t
 We show how data in rectangular format and metadata on person-level or more generally record-unit data sets (i.e., data about individuals, households, businesses), aggregated data sets, thesauri, and statistical classifications are represented in RDF and how therefore reused vocabularies are interrelated.
 We explain how \emph{SBE} (meta)data is validated against constraints to ensure high quality and trust.
 We exhaustively evaluated the metadata quality of large real world aggregated, person-level, and thesauri data sets (more than 4.2 billion triples and 15 thousand data sets) by means of constraints of the majority of constraint types.
-\tb{DCAT und XKOS nur in future work}
+
 \keywords{RDF Validation, RDF Constraints, DDI-RDF Discovery Vocabulary, RDF Data Cube Vocabulary, Rectangular Data, SKOS, XKOS, Linked Data, Semantic Web}
 \end{abstract}
 
 \section{Introduction}
 
 %\tb{terminology: data in singular form / data set - NOT dataset / person-level data - NOT microdata / study - NOT survey}
-
+\tb{DCAT und XKOS nur in future work}
 For more than a decade, members of the community around research data for the \emph{social, behavioural, and economic (SBE) sciences} have been developing and using a
 metadata standard (composed of almost twelve hundred metadata fields) known as the \emph{Data Documentation Initiative (DDI)} \cite{Vardigan2008}.
 \emph{DDI} is an XML format designed to support the dissemination, management,
@@ -310,35 +310,26 @@ The SPIN engine checks for each resource if it satisfies all constraints, which 
 %(1) metadata practitioners seeking for how to represent metadata and data on different aggregation levels in RDF and
 %(2) metadata providers and harvesters ensuring high quality data and metadata by validating RDF data according to certain constraints.
 
-We recently published a technical report\footnote{\label{technical-report-1}Available at: \url{http://arxiv.org/abs/1504.04479}} (serving as first appendix of this paper) in which we describe 213 constraints of 53 distinct constraint types 
-to validate tabular data (\emph{PHDD}) and metadata on person-level data sets (\emph{Disco}), aggregated data sets (\emph{QB}), and thesauri (\emph{SKOS}).
-By applying the proposed classification system to several vocabularies to represent both metadata and data, we prove its generality \cite{BoschZapilkoWackerowEckert2015}.
-
------
-
 The main \textbf{contribution} of this paper is the development of a system 
 \begin{enumerate}
 	\item to classify RDF constraints to evaluate the quality of metadata and data which may be represented by any vocabulary and 
-	\item to classify RDF constraint types which in most cases correspond to RDF validation requirements\footnote{For simplicity reasons, we use the terms \emph{constraint types} and \emph{constraints} instead of \emph{RDF constraint types} and \emph{RDF constraints} in the rest of the paper} (section \ref{classification}).
+	\item to classify RDF constraint types which in most cases correspond to RDF validation requirements\footnote{For simplicity reasons, we use the terms \emph{constraint types} and \emph{constraints} instead of \emph{RDF constraint types} and \emph{RDF constraints} in the rest of the paper} (section \ref{classification} - \ref{complex-constraint-types}).
 \end{enumerate}
 By defining a huge amount of constraints of different constraint types,   
-we apply the proposed classification system to several and different vocabularies from the \emph{SBE} domain to represent both metadata and data and therefore prove its generality.
-
-We propose an extensible metric to measure the continuum of severity levels to indicate how serious the violation of given constraints is.
-Constraints are instantiated from constraint types in order to validate both metadata and data represented by any vocabulary. 
-As constraint types are used to define constraints on (meta)data expressed by any vocabulary, the proposed constraint classification can be applied generically, i.e. vocabulary-independent. 
-Within the context of a complex and complete real world running example from the \emph{SBE} domain, we prove the claim that the developed classification system perfectly applies for diverse vocabularies.
+we apply the developed classification system to several and different vocabularies from the \emph{SBE} domain to represent both metadata and data and therefore prove the generality of the proposed classification system.
+A complex and complete real world running example from the \emph{SBE} domain serves to prove the claim that the developed classification system perfectly applies for diverse vocabularies.
 %, i.e., that it does not matter which vocabularies are used to represent (meta)data and for which domains constraints are defined.
 We describe why RDF validation is important for the \emph{SBE} community (section \ref{motivation}), 
-how data in rectangular format (expressed by the \emph{PHDD} vocabulary) and metadata on person-level data sets (\emph{Disco}), aggregated data sets (\emph{QB}), thesauri (\emph{SKOS}), and statistical classifications (\emph{XKOS}) are represented in RDF, and how therefore reused vocabularies are interrelated (section \ref{rdf-representation}).
-We explain how \emph{SBE} (meta)data is validated against constraints, instantiated from constraint types organized in the constraint classification system, to ensure high quality of and trust in (meta)data.
+how data in tabular format (expressed by the \emph{PHDD} vocabulary) and metadata on person-level data sets (\emph{Disco}), aggregated data sets (\emph{QB}), and thesauri (\emph{SKOS}) are represented in RDF, and how therefore reused vocabularies are interrelated (section \ref{rdf-representation}).
+We explain how \emph{SBE} (meta)data is validated against constraints, instantiated from constraint types organized in the classification system, to ensure high quality of and trust in (meta)data.
 
-We evaluate a huge amount of metadata and data represented by multiple vocabularies in order to get an understanding which kind of constraints are violated to which extend and which constraint associated with particular severity levels are mostly violated for which vocabularies.
+We evaluated the (meta)data quality of large real world data sets (more than 4.2 billion triples and 15 thousand data sets) from the \emph{SBE} domain represented by multiple and different vocabularies to get an understanding 
+(1) which sets of constraint types and 
+(2) which sets of constraints (associated with particular severity levels) encompass the most/fewest violated constraints (see section \ref{evaluation}).
 
-%The remainder of the paper is structured as follows.
-For the extensive evaluation, we implemented 53 constraint types by instantiating 213 constraints on \emph{Disco}, \emph{QB}, \emph{SKOS}, \emph{XKOS}, and \emph{PHDD} data sets (section \ref{implementation}).
-First, several \emph{SBE} domain experts evaluated the correctness (i.e., the gold standard) of all constraints and therefore the generic applicability of the developed constraint classification system. 
-Second, we exhaustively evaluated the metadata quality of large real world aggregated (\emph{QB}), person-level (\emph{Disco}), and thesauri (\emph{SKOS}) data sets (more than 4.2 billion triples and 15 thousand data sets) by means of constraints of the majority of constraint types (section \ref{evaluation}).
+%We propose an extensible metric to measure the continuum of severity levels to indicate how serious the violation of given constraints is.
+%Constraints are instantiated from constraint types in order to validate both metadata and data represented by any vocabulary. 
+%As constraint types are used to define constraints on (meta)data expressed by any vocabulary, the proposed constraint classification can be applied generically, i.e. vocabulary-independent. 
 
 \section{Motivation}
 \label{motivation}
@@ -563,7 +554,7 @@ For some use cases,
 validating constraints of $\mathcal{CT}_{B}$ constraint types may be more important than validating constraints of $\mathcal{CT}_{S}$ or $\mathcal{CT}_{C}$ constraint types.
 For other use cases,
 validating $\mathcal{SL}_{2}$ constraints may be sufficient without taking $\mathcal{SL}_{1}$ and $\mathcal{SL}_{0}$ constraints into account.
-We evaluate a huge amount of metadata and data represented by multiple vocabularies to get an understanding 
+We evaluated the (meta)data quality of large real world data sets represented by multiple and different vocabularies to get an understanding  
 (1) which sets of constraint types and 
 (2) which sets of constraints (associated with particular severity levels) encompass the most/fewest violated constraints (see section \ref{evaluation}).
 
