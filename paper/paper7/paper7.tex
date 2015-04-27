@@ -320,6 +320,8 @@ We describe why RDF validation is important for the \emph{SBE} community (sectio
 how data in rectangular format (expressed by the \emph{PHDD} vocabulary) and metadata on person-level data sets (\emph{Disco}), aggregated data sets (\emph{QB}), thesauri (\emph{SKOS}), and statistical classifications (\emph{XKOS}) are represented in RDF, and how therefore reused vocabularies are interrelated (section \ref{rdf-representation}).
 We explain how \emph{SBE} (meta)data is validated against constraints, instantiated from constraint types organized in the constraint classification system, to ensure high quality of and trust in (meta)data.
 
+We evaluate a huge amount of metadata and data represented by multiple vocabularies in order to get an understanding which kind of constraints are violated to which extend and which constraint associated with particular severity levels are mostly violated for which vocabularies.
+
 %The remainder of the paper is structured as follows.
 For the extensive evaluation, we implemented 53 constraint types by instantiating 213 constraints on \emph{Disco}, \emph{QB}, \emph{SKOS}, \emph{XKOS}, and \emph{PHDD} data sets (section \ref{implementation}).
 First, several \emph{SBE} domain experts evaluated the correctness (i.e., the gold standard) of all constraints and therefore the generic applicability of the developed constraint classification system. 
@@ -402,7 +404,6 @@ To ensure high data quality, they have to check provenance information and to an
 \label{rdf-representation}
 
 In this section, we describe how data in rectangular format (\emph{PHDD}) and metadata on person-level data sets (\emph{Disco}), aggregated data sets (\emph{QB}), thesauri (\emph{SKOS}), and statistical classifications (\emph{XKOS}) are represented in RDF\footnote{The complete running example in RDF is available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/data/running-example}} and how therefore reused vocabularies are interrelated.
-\tb{reihenfolge / DCAT fehlt}
 
 \textbf{Metadata on Aggregated Data.}
 The vocabulary \emph{QB} represents metadata on multi-dimensional aggregate data in two files, a \emph{qb:DataSet} and a \emph{qb:DataStructureDefinition}.
@@ -486,7 +487,7 @@ We developed a system to classify both RDF constraint types and RDF constraints 
 %Constraints are instantiated from constraint types in order to validate both metadata and data represented by any vocabulary; thus, the proposed classification system is vocabulary-independent and therefore applicable generically.
 We recently published a technical report\footnote{\label{technical-report-1}Available at: \url{http://arxiv.org/abs/1504.04479}} (serving as first appendix of this paper) in which we describe 213 constraints of 53 distinct constraint types 
 to validate tabular data (\emph{PHDD}) and metadata on person-level data sets (\emph{Disco}), aggregated data sets (\emph{QB}), and thesauri (\emph{SKOS}).
-By applying the proposed classification system to several vocabularies to represent both metadata and data, we show its generality \cite{BoschZapilkoWackerowEckert2015}.
+By applying the proposed classification system to several vocabularies to represent both metadata and data, we prove its generality \cite{BoschZapilkoWackerowEckert2015}.
 
 \tb{Depending on individual use cases, validation environments should enable users to select which constraints to validate against.
 For some use cases, validating $\mathcal{CT}_{B}$ constraints may be more important than validating $\mathcal{CT}_{S}$ or $\mathcal{CT}_{C}$ constraints.}
@@ -1179,8 +1180,6 @@ As this evaluation serves as indication for \emph{good} or \emph{bad} (meta)data
 we conclude that
 the metadata quality of all evaluated \emph{Disco} data sets is \emph{good} and that the metadata quality of all evaluated \emph{QB} and \emph{SKOS} data sets is \emph{satisfactory}.
 %The constraints responsible for the largest amounts of constraint violations are \emph{DISCO-C-LABELING-AND-DOCUMENTATION-06} and \emph{DISCO-C-COMPARISON-VARIABLES-02} (both 547,916; \emph{Disco}), \emph{DATA-CUBE-C-DATA-MODEL-CONSISTENCY-05} (45,514,102; \emph{QB}), and \emph{SKOS-C-LANGUAGE-TAG-CARDINALITY-01} (2,508,903; \emph{SKOS}).
-
-\tb{es werden große datenbestände untersucht um ein besseres verständnis zu bekommen welche art von constraints für welche vokabulare am häufigsten verletzt werden und welche severity levles für welche vokabulare am häufigsten verletzt werden}
 
 \section{Related Work}
 \label{related-work}
