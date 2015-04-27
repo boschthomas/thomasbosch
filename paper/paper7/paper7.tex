@@ -310,7 +310,20 @@ The SPIN engine checks for each resource if it satisfies all constraints, which 
 %(1) metadata practitioners seeking for how to represent metadata and data on different aggregation levels in RDF and
 %(2) metadata providers and harvesters ensuring high quality data and metadata by validating RDF data according to certain constraints.
 
-The main \textbf{contribution} of this paper is the development of a system to classify RDF constraints and RDF constraint types, which in most cases correspond to RDF validation requirements\footnote{For simplicity reasons, we use the terms \emph{constraint types} and \emph{constraints} instead of \emph{RDF constraint types} and \emph{RDF constraints} in the rest of the paper} (section \ref{classification}).
+We recently published a technical report\footnote{\label{technical-report-1}Available at: \url{http://arxiv.org/abs/1504.04479}} (serving as first appendix of this paper) in which we describe 213 constraints of 53 distinct constraint types 
+to validate tabular data (\emph{PHDD}) and metadata on person-level data sets (\emph{Disco}), aggregated data sets (\emph{QB}), and thesauri (\emph{SKOS}).
+By applying the proposed classification system to several vocabularies to represent both metadata and data, we prove its generality \cite{BoschZapilkoWackerowEckert2015}.
+
+-----
+
+The main \textbf{contribution} of this paper is the development of a system 
+\begin{enumerate}
+	\item to classify RDF constraints to evaluate the quality of metadata and data which may be represented by any vocabulary and 
+	\item to classify RDF constraint types which in most cases correspond to RDF validation requirements\footnote{For simplicity reasons, we use the terms \emph{constraint types} and \emph{constraints} instead of \emph{RDF constraint types} and \emph{RDF constraints} in the rest of the paper} (section \ref{classification}).
+\end{enumerate}
+By defining a huge amount of constraints of different constraint types,   
+we apply the proposed classification system to several and different vocabularies from the \emph{SBE} domain to represent both metadata and data and therefore prove its generality.
+
 We propose an extensible metric to measure the continuum of severity levels to indicate how serious the violation of given constraints is.
 Constraints are instantiated from constraint types in order to validate both metadata and data represented by any vocabulary. 
 As constraint types are used to define constraints on (meta)data expressed by any vocabulary, the proposed constraint classification can be applied generically, i.e. vocabulary-independent. 
