@@ -478,17 +478,16 @@ or for certain formats in which the data distribution is available (\emph{dcterm
 \label{classification}
 
 Bosch et al. identified 76 requirements to formulate RDF constraints (e.g. \emph{R-75, R-81: minimum qualified cardinality restrictions}); each of them corresponding to an RDF constraint type\footnote{Constraint types and constraints are uniquely identified by alphanumeric technical identifiers like \emph{R-71-CONDITIONAL-PROPERTIES}}\cite{BoschNolleAcarEckert2015}. 
-We published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} in which we explain each requirement (constraint type) in detail and give examples for each expressed by different constraint languages.
+We published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} in which we explain each requirement/constraint type in detail and give examples for each expressed by different constraint languages.
 The knowledge representation formalism \emph{Description logics (DL)}, with its  well-studied theoretical properties, provides the foundational basis for each constraint type.
-Therefore, this technical report contains mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
+Therefore, this technical report contains mappings to \emph{DL} to logically underpin each requirement and to determine which \emph{DL} constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
 
-We developed a system to classify RDF constraints and RDF constraint types.
-Constraints are instantiated from constraint types in order to validate both metadata and data represented by any vocabulary; thus, the proposed classification system is vocabulary-independent and therefore applicable generically.
-%\emph{data model specific constraint types} (e.g. \emph{data model consistency})
+We developed a system to classify both RDF constraint types and RDF constraints to evaluate the quality of metadata and data which may be represented by any vocabulary.
+%Constraints are instantiated from constraint types in order to validate both metadata and data represented by any vocabulary; thus, the proposed classification system is vocabulary-independent and therefore applicable generically.
+We recently published a technical report\footnote{\label{technical-report-1}Available at: \url{http://arxiv.org/abs/1504.04479}} (serving as first appendix of this paper) in which we describe 213 constraints of 53 distinct constraint types 
+to validate tabular data (\emph{PHDD}) and metadata on person-level data sets (\emph{Disco}), aggregated data sets (\emph{QB}), and thesauri (\emph{SKOS}).
+By applying the proposed classification system to several vocabularies to represent both metadata and data, we show its generality \cite{BoschZapilkoWackerowEckert2015}.
 
-We recently published a technical report\footnote{\label{technical-report-1}Available at: \url{http://arxiv.org/abs/1504.04479}} (serving as first appendix of this paper) in which we describe 213 constraints (classified as 53 distinct constraint types) to validate rectangular data (\emph{PHDD}) and metadata on person-level data sets (\emph{Disco}), aggregated data sets (\emph{QB}), thesauri (\emph{SKOS}), and statistical classifications (\emph{XKOS}), and therefore apply the proposed classification system to several vocabularies to represent both data and metadata \cite{BoschZapilkoWackerowEckert2015}.
-In this section, we describe constraints, which are important to ensure \emph{SBE} (meta)data quality, 
-associate them with default severity levels, and assign them to $\mathcal{CT}_{C}$ and $\mathcal{CT}_{T}$ constraint types. 
 \tb{Depending on individual use cases, validation environments should enable users to select which constraints to validate against.
 For some use cases, validating $\mathcal{CT}_{B}$ constraints may be more important than validating $\mathcal{CT}_{S}$ or $\mathcal{CT}_{C}$ constraints.}
 
