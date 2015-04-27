@@ -279,26 +279,12 @@ We evaluated the (meta)data quality of large real world data sets (more than 4.2
 
 \section{Introduction}
 
-%\tb{terminology: data in singular form / data set - NOT dataset / person-level data - NOT microdata / study - NOT survey}
-\tb{metadata on person-level or more generally record-unit data sets (i.e., data about individuals, households, businesses)}
-\tb{DCAT und XKOS nur in future work}
-For more than a decade, members of the community around research data for the \emph{social, behavioural, and economic (SBE) sciences} have been developing and using a
-metadata standard (composed of almost twelve hundred metadata fields) known as the \emph{Data Documentation Initiative (DDI)} \cite{Vardigan2008}.
-\emph{DDI} is an XML format designed to support the dissemination, management,
-and reuse of the data collected and archived for research purposes.  
-%DDI is heavily used by the CESSDA community of European national data archives, 
-%the International Household Survey Network community (made up of more than 90 statistical agencies),
-%and ICPSR - the largest SBE data archive in the US.
-Increasingly, data professionals, data archives, data libraries, government statisticians (e.g. \url{data.gov}, \url{data.gov.uk}), and national statistical institutes
-are very interested in having their data be discovered and used by providing their metadata (e.g. about unemployment rates or income) on the web in form of RDF.
-Recently, members of the SBE and Linked Data community developed the \emph{DDI-RDF Discovery Vocabulary (Disco)}\footnote{\url{http://rdf-vocabulary.ddialliance.org/discovery.html}}, 
-an effort to leverage the mature DDI metadata model for the purposes of exposing DDI metadata as resources within the Web of Linked Data. 
-
 For data archives, research institutes, and data libraries,
 RDF data validation according to predefined constraints is a much sought-after feature, 
-particularly as this is taken for granted in the XML world as DDI-XML documents are validated against diverse XSDs\footnote{\label{fnt:DDI-XSDs}\url{http://www.ddialliance.org/Specification/}} (section \ref{related-work}).
-Several approaches exist to meet this requirement, ranging from using \emph{OWL 2} as a constraint language to \emph{SPIN}\footnote{\url{http://spinRDF.org/}}, a SPARQL-based way to formulate and check constraints. 
-There are also constraint languages like \emph{Shape Expressions}, \emph{Resource Shapes} or \emph{Description Set Profiles} that more or less explicitly address the \emph{SBE} community.
+particularly as this is taken for granted in the XML world. 
+%as DDI-XML documents are validated against diverse XSDs\footnote{\label{fnt:DDI-XSDs}\url{http://www.ddialliance.org/Specification/}} (section \ref{related-work}).
+Several languages exist to formulate and check constraints on RDF data, ranging from \emph{Shape Expressions}, \emph{Resource Shapes} or \emph{Description Set Profiles} to using \emph{OWL 2} as a constraint language and the SPARQL-based \emph{SPIN}\footnote{\url{http://spinRDF.org/}}.
+%that more or less explicitly address the \emph{SBE} community.
 In 2013, the W3C organized the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/rdf-val/}}, 
 where experts from industry, government, and academia discussed first use cases for RDF constraint formulation and RDF data validation.
 In 2014, two working groups on RDF validation have been established to develop a language to express constraints on RDF data: 
@@ -307,8 +293,8 @@ the W3C RDF Data Shapes working group\footnote{\url{http://www.w3.org/2014/rds/c
 Bosch and Eckert \cite{BoschEckert2014} collected the findings of these working groups and initiated a database of RDF validation requirements
 which is available for contribution at \url{http://purl.org/net/rdf-validation}.
 The intention is to collaboratively collect case studies, use cases, requirements, and solutions regarding RDF validation in a comprehensive and structured way. 
-The requirements are classified to better evaluate existing solutions and each requirement is directly mapped to a constraint type which may be expressed by at least one existing constraint language.
-Bosch and Eckert \cite{BoschEckert2014-2} \tb{why do we use spin?not the best for constraint language, but for validating / akzeptierte beste form constraints zu definieren}use SPIN as basis to define a
+The requirements are classified to better evaluate existing solutions and each requirement is directly mapped to a constraint type which is expressible by at least one existing constraint language.
+As \emph{SPIN} is the within the RDF validation community accepted and widely adopted way to check constraints on RDF data, Bosch and Eckert \cite{BoschEckert2014-2} use \emph{SPIN} as basis to define a
 validation environment (available at \url{http://purl.org/net/rdfval-demo}) in which the validation of any constraint language\footnote{The only limitation is that constraint languages must be represented in RDF} can be implemented by representing them in SPARQL. 
 The SPIN engine checks for each resource if it satisfies all constraints, which are associated with its assigned classes, and generates a result RDF graph containing information about all constraint violations.
 
@@ -339,6 +325,20 @@ We evaluated the (meta)data quality of large real world data sets (more than 4.2
 
 \section{Motivation}
 \label{motivation}
+
+\tb{metadata on person-level or more generally record-unit data sets (i.e., data about individuals, households, businesses)}
+
+For more than a decade, members of the community around research data for the \emph{social, behavioural, and economic (SBE) sciences} have been developing and using a
+metadata standard (composed of almost twelve hundred metadata fields) known as the \emph{Data Documentation Initiative (DDI)} \cite{Vardigan2008}.
+\emph{DDI} is an XML format designed to support the dissemination, management,
+and reuse of the data collected and archived for research purposes.  
+%DDI is heavily used by the CESSDA community of European national data archives, 
+%the International Household Survey Network community (made up of more than 90 statistical agencies),
+%and ICPSR - the largest SBE data archive in the US.
+Increasingly, data professionals, data archives, data libraries, government statisticians (e.g. \url{data.gov}, \url{data.gov.uk}), and national statistical institutes
+are very interested in having their data be discovered and used by providing their metadata (e.g. about unemployment rates or income) on the web in form of RDF.
+Recently, members of the SBE and Linked Data community developed the \emph{DDI-RDF Discovery Vocabulary (Disco)}\footnote{\url{http://rdf-vocabulary.ddialliance.org/discovery.html}}, 
+an effort to leverage the mature DDI metadata model for the purposes of exposing DDI metadata as resources within the Web of Linked Data. 
 
 The data most often used in research within the SBE community is \emph{person-level data}, i.e. data collected about individuals, businesses, and households, in form of responses to studies or taken from administrative registers
 (such as hospital records, registers of births and deaths). 
@@ -474,16 +474,16 @@ organize types (\emph{skos:Concept}) of descriptive statistics (\emph{\emph{disc
 \emph{XKOS}\footnote{\url{https://github.com/linked-statistics/xkos}} is a SKOS extension to describe formal statistical classifications like the International Standard Classification of Occupations (\emph{ISCO}). 
 %and the Statistical Classification of Economic Activities in the European Community \emph{NACE}.
 
-\textbf{Searching for (Meta)data.}
-\emph{DCAT} enables to represent aggregated and person-level data sets inside of data collections like portals, repositories, catalogs, and archives
-which serve as typical entry points when searching for data.
-Users search for aggregated and person-level data records (\emph{dcat:CatalogRecord}) inside data catalogs (\emph{dcat:Catalog}). 
-As search differs depending on the users’ information need,
-users may only search for records' metadata (e.g., \emph{dcterms:title}, \emph{dcterms:description}), 
-or may formulate more sophisticated queries on aggregated and person-level data sets (\emph{dcat:Dataset}) or their
-distributions (\emph{dcat:Distribution}) which are part of the records. 
-Often, users search for data sets covering particular topics (\emph{dcat:keyword}, \emph{dcat:theme}), time periods (\emph{dcterms:temporal}),  or  locations (\emph{dcterms:spatial}), 
-or for certain formats in which the data distribution is available (\emph{dcterms:format}). 
+%\textbf{Searching for (Meta)data.}
+%\emph{DCAT} enables to represent aggregated and person-level data sets inside of data collections like portals, repositories, catalogs, and archives
+%which serve as typical entry points when searching for data.
+%Users search for aggregated and person-level data records (\emph{dcat:CatalogRecord}) inside data catalogs (\emph{dcat:Catalog}). 
+%As search differs depending on the users’ information need,
+%users may only search for records' metadata (e.g., \emph{dcterms:title}, \emph{dcterms:description}), 
+%or may formulate more sophisticated queries on aggregated and person-level data sets (\emph{dcat:Dataset}) or their
+%distributions (\emph{dcat:Distribution}) which are part of the records. 
+%Often, users search for data sets covering particular topics (\emph{dcat:keyword}, \emph{dcat:theme}), time periods (\emph{dcterms:temporal}),  or  locations (\emph{dcterms:spatial}), 
+%or for certain formats in which the data distribution is available (\emph{dcterms:format}). 
 
 \section{Classification of Constraint Types and Constraints}
 \label{classification}
@@ -1201,7 +1201,7 @@ the metadata quality of all evaluated \emph{Disco} data sets is \emph{good} and 
 For data archives, research institutes, and data libraries,
 RDF validation according to predefined constraints is a much sought-after feature, 
 particularly as this is taken for granted in the XML world.
-DDI-XML documents, e.g., are validated against diverse XSDs\footnotemark[\ref{fnt:DDI-XSDs}].
+DDI-XML documents, e.g., are validated against diverse XSDs\footnote{\url{http://www.ddialliance.org/Specification/}}.
 As certain constraints cannot be formulated and validated by XSDs, 
 so-called secondary-level validation tools like \emph{Schematron}\footnote{\url{https://msdn.microsoft.com/en-us/library/aa468554.aspx}} have been introduced to overcome the limitations of XML validation.
 \emph{Schematron} generates validation rules and validates XML documents according to them.
