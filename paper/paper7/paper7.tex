@@ -259,22 +259,28 @@ particularly as this is taken for granted in the XML world.
 %%The DDI-RDF Discovery Vocabulary is used to describe and to discover this kind of research data.
 %While performing research, the detailed, often access restricted person-level
 %data is aggregated into less confidential publicly available multi-dimensional tables which answer particular research questions and whose purpose is to gain an interest in further more detailed analyses on the underlying person-level data.
-To ensure high quality and trust, metadata and data must satisfy certain criteria - specified in terms of RDF constraints. 
+To ensure high quality and trust, both metadata and data must satisfy certain criteria - specified in terms of RDF constraints. 
 %From 2012 to 2015 together with other Linked Data community members and \emph{SBE} experts, we developed diverse vocabularies to represent \emph{SBE} metadata and data in RDF.
 
-In this paper, we propose a system to classify RDF constraints and RDF constraint types, which in most cases correspond to RDF validation requirements.
-Constraints are instantiated from constraint types in order to validate both metadata and data independently from used vocabularies. 
-Within the context of a complex and complete real world running example within the community around research data for the \emph{social, behavioural, and economic (SBE) sciences}, we prove the claim that the developed classification system perfectly applies for diverse vocabularies.
-We show how data in rectangular format and metadata on person-level or more generally record-unit data sets (i.e., data about individuals, households, businesses), aggregated data sets, thesauri, and statistical classifications are represented in RDF and how therefore reused vocabularies are interrelated.
-We explain how \emph{SBE} (meta)data is validated against constraints to ensure high quality and trust.
-We exhaustively evaluated the metadata quality of large real world aggregated, person-level, and thesauri data sets (more than 4.2 billion triples and 15 thousand data sets) by means of constraints of the majority of constraint types.
+The \textbf{contribution} of this paper is the development of a system 
+(1) to classify RDF constraints to evaluate the quality of (meta)data which may be represented by any vocabulary and 
+(2) to classify RDF constraint types which in most cases correspond to RDF validation requirements.
+By defining a huge amount of constraints of the majority of constraint types
+to validate data sets from the community around research data for the \emph{social, behavioural, and economic (SBE) sciences},  
+%we apply the developed classification system to several and different vocabularies from the community around research data for the \emph{social, behavioural, and economic (SBE) sciences} in order to
+we prove the claim that the developed classification system perfectly applies vocabulary-independent and therefore to prove the generality of the proposed classification system.
 
-\keywords{RDF Validation, RDF Constraints, DDI-RDF Discovery Vocabulary, RDF Data Cube Vocabulary, Rectangular Data, SKOS, XKOS, Linked Data, Semantic Web}
+We evaluated the (meta)data quality of large real world data sets (more than 4.2 billion triples and 15 thousand data sets) from the \emph{SBE} domain represented by multiple and different vocabularies to get an understanding 
+(1) which sets of constraint types and 
+(2) which sets of constraints (associated with particular severity levels) encompass the most/fewest violated constraints.
+
+\keywords{RDF Validation, RDF Constraints, Metadata Quality, Data Quality, Tabular Data, DDI-RDF Discovery Vocabulary, RDF Data Cube Vocabulary, SKOS, Thesauri, Linked Data, Semantic Web}
 \end{abstract}
 
 \section{Introduction}
 
 %\tb{terminology: data in singular form / data set - NOT dataset / person-level data - NOT microdata / study - NOT survey}
+\tb{metadata on person-level or more generally record-unit data sets (i.e., data about individuals, households, businesses)}
 \tb{DCAT und XKOS nur in future work}
 For more than a decade, members of the community around research data for the \emph{social, behavioural, and economic (SBE) sciences} have been developing and using a
 metadata standard (composed of almost twelve hundred metadata fields) known as the \emph{Data Documentation Initiative (DDI)} \cite{Vardigan2008}.
@@ -310,7 +316,7 @@ The SPIN engine checks for each resource if it satisfies all constraints, which 
 %(1) metadata practitioners seeking for how to represent metadata and data on different aggregation levels in RDF and
 %(2) metadata providers and harvesters ensuring high quality data and metadata by validating RDF data according to certain constraints.
 
-The main \textbf{contribution} of this paper is the development of a system 
+The \textbf{contribution} of this paper is the development of a system 
 \begin{enumerate}
 	\item to classify RDF constraints to evaluate the quality of metadata and data which may be represented by any vocabulary and 
 	\item to classify RDF constraint types which in most cases correspond to RDF validation requirements\footnote{For simplicity reasons, we use the terms \emph{constraint types} and \emph{constraints} instead of \emph{RDF constraint types} and \emph{RDF constraints} in the rest of the paper} (section \ref{classification} - \ref{complex-constraint-types}).
