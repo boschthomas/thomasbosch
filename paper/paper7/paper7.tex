@@ -354,6 +354,8 @@ allowing to perform data calculations.
 %For these calculations, definitions of the columns are needed (e.g. is a given variable interpreted numerically or as a string).
 %\emph{Physical Data Description (PHDD)}\footnote{\url{https://github.com/linked-statistics/physical-data-description}} is a vocabulary to represent data in tabular format in RDF.\tb{tabular data} 
 %The data could be either represented in records with character-separated values (CSV) or in records with fixed length. 
+Portals harvest metadata (as well as publicly available data) from multiple RDF data providers.
+To ensure high quality, (meta)data must satisfy certain criteria - specified in terms of RDF constraints. 
 
 For more detailed analyses, researchers refer to person-level data including additional variables needed to answer subsequent research questions
 %Although not that common, the other direction is also possible, 
@@ -362,28 +364,26 @@ like the comparison of studies between countries.
 A \emph{study} represents the process by which a data set was generated or collected.
 Eurostat\footnote{\url{http://ec.europa.eu/eurostat}}, the statistical office of the European Union, provides research findings in form of aggregated data (downloadable as CSV files) and its metadata at European level that enable comparisons between countries.
 %This way, researchers get promising findings (in form of published tables with a few columns).
-
 %We use the availability of childcare services in European Union member states by year, duration, and child age leading to subsequent research questions as running example of this paper.
 %The first step is to determine in which countries the unemployment rate is collected and which other variables of each country-specific study are theoretically comparable and can therefore be used to answer the underlying research question.
 The variable \emph{formal childcare}\footnote{Aggregated data and its metadata is available at: \url{http://ec.europa.eu/eurostat/web/products-datasets/-/ilc_caindformal}} %(in contrast to childcare at home)
 captures the measured availability of childcare services in percent over the population in European Union member states by 
 the variables \emph{year}, \emph{duration} (in hours per week), \emph{age} of the child, and \emph{country}.
 Variables are constructed out of values (of one or multiple datatypes) and/or code lists.
-The variable \emph{age}, e.g., may be represented by values of the datatype \emph{xsd:nonNegativeInteger}, or by a code list including multiple age clusters (such as '0 to 10' and '11 to 20'). 
+The variable \emph{age}, e.g., may be represented by values of the datatype \emph{xsd:nonNegativeInteger} or by a code list of age clusters (e.g., '0 to 10' and '11 to 20'). 
 
 To determine if variables measuring \emph{age} 
 - collected for different countries (\emph{$age_{DE}$}, \emph{$age_{UK}$}) - 
-are comparable, both content-driven and technology-driven constraints are validated.
-Content-driven constraints ensure that the data is consistent with the intended syntax, semantics, and integrity of vocabularies' data models and 
-technology-driven constraints can be generated completely automatically out of vocabularies' data models. 
-Examples for content-driven constraints are to investigate (1) if variables are represented in a compatible way,
-i.e. are the variables' code lists theoretically comparable, and (2) if variables' code lists are properly structured.
-With technology-driven constraints, it can be validated (1) if variable definitions are available and (2) if for each code an associated category (a human-readable label) is specified.
-
------
-
-Portals harvest metadata (as well as publicly available data) from multiple RDF data providers.
-To ensure high quality, (meta)data must satisfy certain criteria - specified in terms of RDF constraints.  
+are comparable, diverse constraints are checked:
+(1) variable definitions must be available, 
+(2) for each code a human-readable label has to be specified,
+(3) code lists must be structured properly, and
+(4) code lists must either be identical or at least similar.
+If a researcher only wants to get a first overview over comparable variables (use case 1), 
+covering the first three constraints may be sufficient,
+i.e., the violation of the first three constraints is more serious than the violation of the last constraint.
+If the intention of the researcher is to perform more sophisticated comparisons (use case 2), however, the user may raise the severity level of last constraint.
+ 
 %After validating the metadata according to these constraints, portals offer added values to their customers, e.g., by searching over and comparing metadata of multiple providers. 
 
 %\textbf{Data validation.}
@@ -465,7 +465,7 @@ including person-level variables (\emph{disco:Variable}) like the six ones neede
 %\textbf{Organizations, Hierarchies, and Classifications.}
 %\textbf{Reusing SKOS.}
 The \emph{Simple Knowledge Organization System (SKOS)} is reused multiple times to build \emph{SBE} vocabularies.
-Variables are constructed out of values and/or (un)ordered code lists.
+%Variables are constructed out of values and/or (un)ordered code lists.
 The codes of the variable \emph{Education at pre-school} (number of education hours per week) are modeled as \emph{skos:Concepts} and 
 a \emph{skos:OrderedCollection} organizes them in a particular order within a \emph{skos:memberList}.
 A variable may be associated with a theoretical concept (\emph{skos:Concept}). 
@@ -832,15 +832,15 @@ and the minimum absolute frequency of all variable codes do not have to be great
 %(concepts without any associative or hierarchical relations) lacking valuable context information for retrieval.
 %, as, e.g., no hierarchical query expansion can be performed on search terms to find documents with more general content.) \cite{MaderHaslhoferIsaac2012}. 
 
-A very common research question is to compare variables of multiple studies or countries (constraint type: \emph{comparison}).
-To compare variables 
-(1) their code lists must be structured properly and
-(2) their code lists must either be identical or at least similar.
-If a researcher only wants to get a first overview over comparable variables (use case 1), 
-covering the first constraint may be sufficient.
-Thus, the severity level of the first constraint is stronger ($\mathcal{SL}_{2}$) than the one for the second constraint ($\mathcal{SL}_{0}$).
-If the intention of the researcher is to perform more detailed comparisons (use case 2), however, the violation of the second constraint is getting more serious
-and the user may raise its severity level.
+%A very common research question is to compare variables of multiple studies or countries (constraint type: \emph{comparison}).
+%To compare variables 
+%(1) their code lists must be structured properly and
+%(2) their code lists must either be identical or at least similar.
+%If a researcher only wants to get a first overview over comparable variables (use case 1), 
+%covering the first constraint may be sufficient.
+%Thus, the severity level of the first constraint is stronger ($\mathcal{SL}_{2}$) than the one for the second constraint ($\mathcal{SL}_{0}$).
+%If the intention of the researcher is to perform more detailed comparisons (use case 2), however, the violation of the second constraint is getting more serious
+%and the user may raise its severity level.
 %\textbf{Comparison.}
 %A very common research question is to compare variables of multiple studies or countries (constraint type: \emph{comparison}).
 %To compare variables, 
