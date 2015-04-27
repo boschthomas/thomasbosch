@@ -326,24 +326,19 @@ We evaluated the (meta)data quality of large real world data sets (more than 4.2
 \section{Motivation}
 \label{motivation}
 
-The data most often used in research within the \emph{SBE} community is \emph{person-level data} or more generally \emph{record-unit data}, i.e., data collected about individuals, businesses, and households, in form of responses to studies or taken from administrative registers
+The data most often used in research within the \emph{SBE} community is \emph{person-level data} (or more generally \emph{record-unit data}, i.e., data collected about individuals, businesses, and households) in form of responses to studies or taken from administrative registers
 (such as hospital records, registers of births and deaths). 
 The range of person-level data is very broad - 
-including census, education, and health data as well as all types of business, social, and labor force surveys.  
+including census, education, health data and business, social, and labor force surveys.  
 This type of research data is
 held within data archives or data libraries after it has been collected, so that it may be
 reused by future researchers. 
-In performing their research, the detailed person-level
-data is aggregated into less confidential multi-dimensional tables which answer particular research questions.
-Portals harvest metadata (as well as publicly available data) from multiple data providers in form of RDF.
-To ensure high quality, (meta)data must satisfy certain criteria - specified in terms of RDF constraints.  
-%After validating the metadata according to these constraints, portals offer added values to their customers, e.g., by searching over and comparing metadata of multiple providers. 
 
 By its nature, person-level data is highly confidential and access is often only permitted for qualified researchers who must apply for access. 
-The purpose of publicly available aggregated data, on the other hand, is to get a first overview and to gain an interest in further analyses on the underlying person-level data.
-Researchers typically represent their results as aggregated data in form of two-, three-, or four-dimensional tables with only a few columns (so-called \emph{variables} such as \emph{sex} or \emph{age}).
-The \emph{RDF Data Cube Vocabulary (QB)}\footnote{http://www.w3.org/TR/vocab-data-cube/} is a W3C recommendation for representing metadata on \emph{data cubes}, i.e. multi-dimensional aggregated data, in RDF \cite{Cyganiak2010}. 
-Aggregated data is derived from person-level data by statistics on groups or aggregates such as frequencies and arithmetic means.
+Researchers typically represent their results as aggregated data in form of multi-dimensional tables with only a few columns; so-called \emph{variables} such as \emph{sex} or \emph{age}.
+%In performing their research, the detailed person-level
+%data is aggregated into multi-dimensional tables which answer particular research questions.
+Aggregated data, which answers particular research questions, is derived from person-level data by statistics on groups or aggregates such as frequencies and arithmetic means.
 %The SDMX metadata standard – used as the basis for \emph{QB} – and DDI have traditionally made efforts to align their content. 
 %Similarly, some of the developers of \emph{Disco} were also involved in the development of \emph{QB}, 
 %allowing the RDF versions of these standards to retain that alignment.
@@ -353,32 +348,30 @@ Aggregated data is derived from person-level data by statistics on groups or agg
 %The relationship between data collections and their contained data sets is useful, since such collections are a typical entry point when searching for data.
 %Although, in most cases aggregated data is still published in form of PDFs, 
 %it is more and more common to publish aggregated data as CSV files,
-
-Aggregated data is more and more published as CSV files,
-allowing to perform first data calculations.
+The purpose of publicly available aggregated data is to get a first overview and to gain an interest in further analyses on the underlying person-level data.
+Aggregated data is more and more published in form of CSV files,
+allowing to perform data calculations.
 %For these calculations, definitions of the columns are needed (e.g. is a given variable interpreted numerically or as a string).
-\emph{Physical Data Description (PHDD)}\footnote{\url{https://github.com/linked-statistics/physical-data-description}} is a vocabulary to represent data in tabular format in RDF.\tb{tabular data} 
-The data could be either represented in records with character-separated values (CSV) or in records with fixed length. 
+%\emph{Physical Data Description (PHDD)}\footnote{\url{https://github.com/linked-statistics/physical-data-description}} is a vocabulary to represent data in tabular format in RDF.\tb{tabular data} 
+%The data could be either represented in records with character-separated values (CSV) or in records with fixed length. 
 
-For more detailed analyses, researchers refer to person-level data from which aggregated data is derived from, 
-as person-level data include additional variables needed for further research.
+For more detailed analyses, researchers refer to person-level data including additional variables needed to answer subsequent research questions
 %Although not that common, the other direction is also possible, 
 %i.e. researchers may use metadata on person-level data to search for aggregated data.
-One very common example for detailed analyses on person-level data is the content-driven comparison of multiple studies.
+like the comparison of studies between countries.
 A \emph{study} represents the process by which a data set was generated or collected.
-Eurostat\footnote{\url{http://ec.europa.eu/eurostat}} is the statistical office of the European Union. Its task is to provide statistics at European level that enable comparisons between countries and regions.
-Eurostat provides publicly available European aggregated data (downloadable as CSV files) and its metadata.
-This way, researchers get promising findings (in form of published tables with a few columns).
+Eurostat\footnote{\url{http://ec.europa.eu/eurostat}}, the statistical office of the European Union, provides research findings in form of aggregated data (downloadable as CSV files) and its metadata at European level that enable comparisons between countries.
+%This way, researchers get promising findings (in form of published tables with a few columns).
 
-We use the availability of childcare services in European Union Member States by year, duration, and child age leading to subsequent research questions as running example of this paper.\tb{nochmals drüber schauen}
+%We use the availability of childcare services in European Union member states by year, duration, and child age leading to subsequent research questions as running example of this paper.
 %The first step is to determine in which countries the unemployment rate is collected and which other variables of each country-specific study are theoretically comparable and can therefore be used to answer the underlying research question.
-The variable \emph{formal childcare}\footnote{The data set is available at: \url{http://ec.europa.eu/eurostat/web/products-datasets/-/ilc_caindformal}} (in contrast to childcare at home)
-captures the measured availability of childcare services in percent over the population.
-The present data collection refers to data on formal childcare by the variables \emph{year}, \emph{duration} (in hours per week), \emph{age} of the child, and \emph{country}.
+The variable \emph{formal childcare}\footnote{Aggregated data and its metadata is available at: \url{http://ec.europa.eu/eurostat/web/products-datasets/-/ilc_caindformal}} %(in contrast to childcare at home)
+captures the measured availability of childcare services in percent over the population in European Union member states by 
+the variables \emph{year}, \emph{duration} (in hours per week), \emph{age} of the child, and \emph{country}.
 Variables are constructed out of values (of one or multiple datatypes) and/or code lists.
 The variable \emph{age}, e.g., may be represented by values of the datatype \emph{xsd:nonNegativeInteger}, or by a code list including multiple age clusters (such as '0 to 10' and '11 to 20'). 
 
-To determine if variables measuring \emph{age}\tb{vielleicht zu den letzten paragraphen hinzufügen} 
+To determine if variables measuring \emph{age} 
 - collected for different countries (\emph{$age_{DE}$}, \emph{$age_{UK}$}) - 
 are comparable, both content-driven and technology-driven constraints are validated.
 Content-driven constraints ensure that the data is consistent with the intended syntax, semantics, and integrity of vocabularies' data models and 
@@ -386,6 +379,12 @@ technology-driven constraints can be generated completely automatically out of v
 Examples for content-driven constraints are to investigate (1) if variables are represented in a compatible way,
 i.e. are the variables' code lists theoretically comparable, and (2) if variables' code lists are properly structured.
 With technology-driven constraints, it can be validated (1) if variable definitions are available and (2) if for each code an associated category (a human-readable label) is specified.
+
+-----
+
+Portals harvest metadata (as well as publicly available data) from multiple RDF data providers.
+To ensure high quality, (meta)data must satisfy certain criteria - specified in terms of RDF constraints.  
+%After validating the metadata according to these constraints, portals offer added values to their customers, e.g., by searching over and comparing metadata of multiple providers. 
 
 %\textbf{Data validation.}
 %Data providers and harvesters do not only offer metadata but also publicly available data on different level of aggregation.
@@ -415,8 +414,9 @@ With technology-driven constraints, it can be validated (1) if variable definiti
 %In this section, we describe how data in rectangular format (\emph{PHDD}) and metadata on person-level data sets (\emph{Disco}), aggregated data sets (\emph{QB}), thesauri (\emph{SKOS}), and statistical classifications (\emph{XKOS}) are represented in RDF\footnote{The complete running example in RDF is available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/data/running-example}} and how therefore reused vocabularies are interrelated.
 
 %\textbf{Metadata on Aggregated Data.}
-\emph{QB} represents metadata on multi-dimensional aggregate data in two files: a \emph{qb:DataSet} and a \emph{qb:DataStructureDefinition}.
-The \emph{qb:DataStructureDefinition} contains metadata of the data collection.
+The \emph{RDF Data Cube Vocabulary (QB)}\footnote{http://www.w3.org/TR/vocab-data-cube/} is a W3C recommendation for representing metadata on \emph{data cubes}, i.e. multi-dimensional aggregated data, in RDF \cite{Cyganiak2010}. 
+%\emph{QB} represents metadata on multi-dimensional aggregate data in two files: a \emph{qb:DataSet} and a \emph{qb:DataStructureDefinition}.
+A \emph{qb:DataStructureDefinition} contains metadata of the data collection.
 The variable \emph{formal childcare} is modelled as \emph{qb:measure}, since it stands for what has been measured in the data collection.
 The variables \emph{year}, \emph{duration}, \emph{age}, and \emph{country} are \emph{qb:dimensions}.
 Data values, i.e., the availability of childcare services in percent over the population, are collected in a \emph{qb:DataSet}. 
@@ -424,7 +424,7 @@ Each data value is represented inside a \emph{qb:Observation} which contains val
 %(e.g., the year in which \emph{formal childcare} has been determined).
 
 %\textbf{Rectangular Data.}
-\emph{PHDD} represents data in tabular format in RDF enabling further aggregations and calculations. 
+\emph{Physical Data Description (PHDD)}\footnote{\url{https://github.com/linked-statistics/physical-data-description}} is a vocabulary to represent data in tabular format in RDF enabling further aggregations and calculations. 
 The data could be either represented in records with character-separated values (CSV) or fixed length. 
 \emph{Eurostat} provides a CSV file, a two-dimensional table (\emph{phdd:Table}) about \emph{formal childcare} 
 which is structured by a table structure (\emph{phdd:TableStructure}, \emph{phdd:Delimited})
