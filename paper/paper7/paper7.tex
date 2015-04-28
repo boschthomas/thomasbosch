@@ -224,6 +224,29 @@
 
 \usepackage{float}
 
+\usepackage{ntheorem}
+\newtheorem{hyp}{Hypothesis}
+
+\makeatletter
+\newcounter{subhyp} 
+\let\savedc@hyp\c@hyp
+\newenvironment{subhyp}
+ {%
+  \setcounter{subhyp}{0}%
+  \stepcounter{hyp}%
+  \edef\saved@hyp{\thehyp}% Save the current value of hyp
+  \let\c@hyp\c@subhyp     % Now hyp is subhyp
+  \renewcommand{\thehyp}{\saved@hyp\alph{hyp}}%
+ }
+ {}
+\newcommand{\normhyp}{%
+  \let\c@hyp\savedc@hyp % revert to the old one
+  \renewcommand\thehyp{\arabic{hyp}}%
+} 
+\makeatother
+
+\usepackage{multirow}
+
 \begin{document}
 \renewcommand{\arraystretch}{1.3}
 %
@@ -1160,36 +1183,106 @@ More than 50\% of the \emph{Disco} and \emph{SKOS} constraints, however, are ass
 \begin{table}[H]
 		\scriptsize
     \begin{center}
-    \begin{tabular}{@{}lcccc@{}}
-%           & \multicolumn{6}{c}{\textbf{Vocabularies}}
-%    \\  \cmidrule{2-7}
-    \\       \textbf{Criteria}
-           & \textbf{\emph{Disco}}
-           & \textbf{\emph{QB}}
-					 & \textbf{\emph{SKOS}}
-					 & \textbf{Total}
-    \\ \midrule
-		\emph{CV} & 3,575,002 & 45,635,861 & 5,540,988 & 54,751,851 \\
+    \begin{tabular}{@{}lcccccccc@{}}
+    %       & \multicolumn{2}{c}{\textbf{Vocabularies}}
+    %\\  \cmidrule{2-3}
 		\hline
-		\emph{CV (}$\mathcal{CT}_{C}$\emph{)} & 18.3\% & 45,634,084 (\textbf{100\%}) & 1,185,982 (21.4\%) & 47,472,846 (\textbf{86.7\%}) \\
-		\emph{CV (}$\mathcal{CT}_{S}$\emph{)} & 15.7\% & 0 (0\%) & 4,355,006 (\textbf{78.6\%}) & 4,915,863 (9\%) \\
-		\emph{CV (}$\mathcal{CT}_{B}$\emph{)} & \textbf{66.1\%} & 1,777 (0\%) & 0 (0\%) & 2,363,142 (4.3\%) \\
+    \multirow{2}{*}{} &
+      \multicolumn{2}{c}{\textbf{\emph{Disco}}} &
+      \multicolumn{2}{c}{\textbf{\emph{QB}}} &
+      \multicolumn{2}{c}{\textbf{\emph{SKOS}}} &
+      \multicolumn{2}{c}{\textbf{\emph{Total}}} \\
+    \textbf{} & C & CV & C & CV & C & CV & C & CV \\
+    \hline
+    %\\ \midrule
+		 & 143 & 3,575,002 & 35 & 45,635,861 & 35 & 5,540,988 & 213 & 54,751,851 \\
+		\hline
+		\textbf{\emph{complex}} & 25.9\% & 18.3\% & 37.1\% & \textbf{100\%} & \textbf{37.1\%} & 21.4\% & 33.4\% & \textbf{46.6\%} \\
+		\textbf{\emph{simple}} & 19.6\% & 15.7\% & 8.6\% & 0.0\% & \textbf{34.3\%} & \textbf{78.6\%} & 20.8\% & 31.4\% \\
+		\textbf{\emph{vocabulary}} & \textbf{54.6\%} & \textbf{66.1\%} & \textbf{54.3\%} & 0.0\% & \textbf{28.6\%} & 0.0\% & \textbf{45.8\%} & 22.0\% \\
 		%\hline
 		%\emph{CV (}$\mathcal{C}_B ^{\mathcal{R}}$\emph{)} & 2,333,365 (65.3\%) & 1,777 (0\%) & 0 (0\%) & 2,335,142 (4.3\%) \\
 		%\emph{CV (}$\overline{\mathcal{C}_B ^{\mathcal{R}}}$\emph{)} & 28,000 (0.8\%) & 0 (0\%) & 0 (0\%) & 28,000 (0.1\%) \\
 		\hline
-		\emph{CV ($\mathcal{SL}_{0}$)} & 1,880,777 (\textbf{52.6\%}) & 0 (0\%) & 2,281,740 (41.2\%) & 4,162,517 (7.6\%) \\
-		\emph{CV ($\mathcal{SL}_{1}$)} & 1,051,757 (29.4\%) & 45,520,613 (\textbf{99,8\%}) & 3,259,248 (\textbf{58.8\%}) & 49,831,618 (\textbf{91\%}) \\
-		\emph{CV ($\mathcal{SL}_{2}$)} & 642,468 (18\%) & 115,248 (0.3\%) & 0 (0\%) & 757,716 (1.4\%) \\
+		\textbf{\emph{info}} & \textbf{52.5\%} & \textbf{52.6\%} & 11.4\% & 0.0\% & \textbf{60.0\%} & 41.2\% & \textbf{41.3\%} & 31.3\% \\
+		\textbf{\emph{warning}} & 7.0\% & 29.4\% & 8.6\% & \textbf{99,8\%} & 14.3\% & \textbf{58.8\%} & 10.0\% & \textbf{62.7\%} \\
+		\textbf{\emph{error}} & 40.6\% & 18\% & \textbf{80.0\%} & 0.3\% & 25.7\% & 0.0\% & \textbf{48.8\%} & 6.1\%\\
     \bottomrule
     \end{tabular}
-    %\\ \emph{CV (constraint violations)}
-    \caption{Evaluation - Constraint Violations}
+    \\ \emph{C (constraints), CV (constraint violations)}
+    \caption{Constraints and Constraint Violations}
 		\label{tab:evaluation-constraint-violations}
     \end{center}
 \end{table}
-\tb{prozent beziehen sich auf die oberste zeile / auch 0.0\%}
-\textcolor{red}{wir versuchen eine aussage zu trefen für alle vokabulare mit werten nur von 3 vokabularen / vorsichtig generelle aussagen zu treffen / normalisiterte werte mit prozentwerten / neues vokabulare, noch nicht so konsistente daten / hypothesen werden aufgestellt / conclusion: hypothesen werden aufgestellt, die vorsichtig zu genießen sind / basic constraints sind bei etablierten vokabularen publitierte datensätze werden eingehalten hohe datenqualität / schwerwiegende constraintverletzungen treten kaum auf / schwere constraints sind in idesen vielen daten nicht auf / disco ist in beiden fällen anders / erheblichen anteil von schwersten constraint verletzungen / disco neues vokabular das noch daten gelten noch einenm draft von disco oder hat disco nicht verstanden schnlechtere daten als entabliete vokabulare / es ist sinnvoll sprachen zu entwickeln komplexere constraints auszudrücken / simple und vocabulary können heute schon sehr gut beschrieben werden / wir wünschen und dass es komplexere constraint languages gibt mit denen complex constraints besser abgebildet werden können / deulticherer verbesserung in der datenualitt wenn wir diese constraint languages hätten / gibt es weitere hypothesen? - alles was in der tabelle auffällig ist / normaliisert über die datensatzgröße / 3 sehr wichtige und repräsentative vokabulare im sbe bereich / interessanate constraints mit ausreißern / hypothesen über weitere vokabulare müssen verifiziert oder falsifiziert werden / diskussion: / 3 constraints werden zufällig nie verletzt / basis für future work / motivation, dass man constraint languages entwicken muss die complexe constraints abbilden / datenqualität ist generell sehr hoch / als hypothese postulieren}
+
+%\begin{table}[H]
+		%\scriptsize
+    %\begin{center}
+    %\begin{tabular}{@{}lcccccccc@{}}
+%%           & \multicolumn{6}{c}{\textbf{Vocabularies}}
+%%    \\  \cmidrule{2-7}
+    %\\       \textbf{}
+           %& \textbf{\emph{Disco}}
+           %& \textbf{\emph{QB}}
+					 %& \textbf{\emph{SKOS}}
+					 %& \textbf{Total}
+					 %& \textbf{\emph{Disco}}
+           %& \textbf{\emph{QB}}
+					 %& \textbf{\emph{SKOS}}
+					 %& \textbf{Total}
+    %\\ \midrule
+		 %& 3,575,002 & 45,635,861 & 5,540,988 & 54,751,851 & & & &  \\
+		%\hline
+		%\textbf{\emph{complex}} & 18.3\% & \textbf{100\%} & 21.4\% & \textbf{86.7\%} & & & & \\
+		%\textbf{\emph{simple}} & 15.7\% & 0.0\% & \textbf{78.6\%} & 9\% & & & & \\
+		%\textbf{\emph{vocabulary}} & \textbf{66.1\%} & 0.0\% & 0\% & 4.3\% & & & & \\
+		%%\hline
+		%%\emph{CV (}$\mathcal{C}_B ^{\mathcal{R}}$\emph{)} & 2,333,365 (65.3\%) & 1,777 (0\%) & 0 (0\%) & 2,335,142 (4.3\%) \\
+		%%\emph{CV (}$\overline{\mathcal{C}_B ^{\mathcal{R}}}$\emph{)} & 28,000 (0.8\%) & 0 (0\%) & 0 (0\%) & 28,000 (0.1\%) \\
+		%\hline
+		%\textbf{\emph{info}} & \textbf{52.6\%} & 0.0\% & 41.2\% & 7.6\% & & & & \\
+		%\textbf{\emph{warning}} & 29.4\% & \textbf{99,8\%} & \textbf{58.8\%} & \textbf{91\%} & & & & \\
+		%\textbf{\emph{error}} & 18\% & 0.3\% & 0.0\% & 1.4\% & & & & \\
+    %\bottomrule
+    %\end{tabular}
+    %%\\ \emph{CV (constraint violations)}
+    %\caption{Constraint Violations}
+		%\label{tab:evaluation-constraint-violations}
+    %\end{center}
+%\end{table}
+
+\tb{difference between 0\% and 78.6\%}
+\tb{basic constraints sind bei etablierten vokabularen publitierte datensätze werden eingehalten hohe datenqualität / schwerwiegende constraintverletzungen treten kaum auf / schwere constraints sind in idesen vielen daten nicht auf / disco ist in beiden fällen anders / erheblichen anteil von schwersten constraint verletzungen / disco neues vokabular das noch daten gelten noch einenm draft von disco oder hat disco nicht verstanden schnlechtere daten als entabliete vokabulare / es ist sinnvoll sprachen zu entwickeln komplexere constraints auszudrücken / simple und vocabulary können heute schon sehr gut beschrieben werden / wir wünschen und dass es komplexere constraint languages gibt mit denen complex constraints besser abgebildet werden können / deulticherer verbesserung in der datenualitt wenn wir diese constraint languages hätten / gibt es weitere hypothesen? - alles was in der tabelle auffällig ist / normaliisert über die datensatzgröße / 3 sehr wichtige und repräsentative vokabulare im sbe bereich / interessanate constraints mit ausreißern / hypothesen über weitere vokabulare müssen verifiziert oder falsifiziert werden / diskussion: / 3 constraints werden zufällig nie verletzt / basis für future work / motivation, dass man constraint languages entwicken muss die complexe constraints abbilden / datenqualität ist generell sehr hoch / als hypothese postulieren}
+
+-----
+
+\begin{hyp}
+
+\end{hyp}
+
+We hypothesise
+
+-----
+
+As the number of evaluated triples differs between the vocabularies, the stated total values are normalized percentage values.  
+
+-----
+
+Disco is a new vocabulary which is published in 2015
+
+for this vocabulary the published data is not consistent with the vocabulary 
+
+-----
+
+We have to be careful making general statements for all vocabularies as we evaluate only 3 vocabularies
+
+-----
+
+future work:
+To make general statements for all vocabularies, we will evaluate data sets of more vocabularies 
+
+-----
+
 More than 80\% of the overall approx. 55 million constraint violations are caused by \emph{QB} constraints (see table \ref{tab:evaluation-constraint-violations}).
 The majority (86.7\%) of the constraint violations are caused by $\mathcal{CT}_{C}$ constraints and only 9\% by $\mathcal{CT}_{S}$ constraints.
 The fact that only 4\% of all constraint violations result from $\mathcal{CT}_{B}$ constraints, 
@@ -1206,6 +1299,39 @@ As this evaluation serves as indication for \emph{good} or \emph{bad} (meta)data
 we conclude that
 the metadata quality of all evaluated \emph{Disco} data sets is \emph{good} and that the metadata quality of all evaluated \emph{QB} and \emph{SKOS} data sets is \emph{satisfactory}.
 %The constraints responsible for the largest amounts of constraint violations are \emph{DISCO-C-LABELING-AND-DOCUMENTATION-06} and \emph{DISCO-C-COMPARISON-VARIABLES-02} (both 547,916; \emph{Disco}), \emph{DATA-CUBE-C-DATA-MODEL-CONSISTENCY-05} (45,514,102; \emph{QB}), and \emph{SKOS-C-LANGUAGE-TAG-CARDINALITY-01} (2,508,903; \emph{SKOS}).
+
+-----
+
+\begin{hyp}
+More than the half of the vocabulary constraints are associated with the severity level error and
+more than 3/4 of the simple constraints are only informational constraints. 
+\end{hyp}
+Table \ref{tab:evaluation-complexity-severity} shows the relation between the complexity and the severity level of all 213 constraints.
+
+\begin{table}[H]
+		\scriptsize
+    \begin{center}
+    \begin{tabular}{@{}lcccc@{}}
+%           & \multicolumn{6}{c}{\textbf{Vocabularies}}
+%    \\  \cmidrule{2-7}
+    \\       \textbf{}
+           & \textbf{\emph{vocabulary}}
+           & \textbf{\emph{simple}}
+					 & \textbf{\emph{complex}}
+    \\ \midrule
+		%\emph{Triples} & 9,673,055 & 3,775,983,610 & 477,737,281 & 4,263,393,946 \\
+		%\emph{Data Sets} & 1,526 & 9,990 & 4,178 & 15,694 \\
+		%\hline
+		\textbf{\emph{info}} & 38.7 \% & \textbf{76.2 \%} & \textbf{42.3 \%} \\
+		\textbf{\emph{warning}} & 6.7 \% & 7.1 \% & 13.5 \% \\
+		\textbf{\emph{error}} & \textbf{54.6 \%} & 16.7 \% & \textbf{44.2 \%} \\
+    \bottomrule
+    \end{tabular}
+    %\\ \emph{C (constraints), CT (constraint types)}
+    \caption{Complexity vs. Severity of Constraints}
+		\label{tab:evaluation-complexity-severity}
+    \end{center}
+\end{table}
 
 \section{Related Work}
 \label{related-work}
