@@ -153,6 +153,7 @@
 \newenvironment{DL}{
   %\scriptsize
   %\sffamily
+  \small
   \vspace{0cm}
 	\begin{center}
   \begin{tabular}{c l}
@@ -288,7 +289,7 @@ and reuse data collected and archived for research \cite{Vardigan2008}.
 %and ICPSR - the largest SBE data archive in the US.
 Increasingly, data professionals, data archives, data libraries, government statisticians (e.g. \url{data.gov}, \url{data.gov.uk}), and national statistical institutes
 are very interested in having their data be discovered and used by exposing their metadata (e.g. about unemployment rates or income) within the Web of Linked Data.
-As DDI-XML documents are validated against diverse XSDs\footnote{\label{fnt:DDI-XSDs}\url{http://www.ddialliance.org/Specification/}} (section \ref{related-work}),
+As \emph{DDI} XML documents are validated against diverse XSDs\footnote{\label{fnt:DDI-XSDs}\url{http://www.ddialliance.org/Specification/}} (see section \ref{related-work}),
 the \emph{SBE} community is used to have this functionality in the XML world.
 %Recently, members of the \emph{SBE} and Linked Data community developed the \emph{DDI-RDF Discovery Vocabulary (Disco)}\footnote{\url{http://rdf-vocabulary.ddialliance.org/discovery.html}}, 
 %an effort to expose \emph{DDI} metadata within the Web of Linked Data. 
@@ -491,7 +492,7 @@ organize types (\emph{skos:Concept}) of descriptive statistics (\emph{disco:Summ
 \section{Classification of Constraint Types and Constraints}
 \label{classification}
 
-Bosch et al. identified 76 requirements to formulate RDF constraints (e.g. \emph{R-75, R-81: minimum qualified cardinality restrictions}); each of them corresponding to an RDF constraint type\footnote{Constraint types and constraints are uniquely identified by alphanumeric technical identifiers like \emph{R-71-CONDITIONAL-PROPERTIES}}\cite{BoschNolleAcarEckert2015}. 
+Bosch et al. identified 76 requirements to formulate RDF constraints (e.g. \emph{R-75: minimum qualified cardinality restrictions}); each of them corresponding to an RDF constraint type\footnote{Constraint types and constraints are uniquely identified by alphanumeric technical identifiers like \emph{R-71-CONDITIONAL-PROPERTIES}}\cite{BoschNolleAcarEckert2015}. 
 We published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} in which we explain each requirement/constraint type in detail and give examples for each expressed by different constraint languages.
 The knowledge representation formalism \emph{Description logics (DL)}, with its  well-studied theoretical properties, provides the foundational basis for each constraint type.
 Therefore, this technical report contains mappings to \emph{DL} to logically underpin each requirement and to determine which \emph{DL} constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
@@ -530,7 +531,7 @@ This way, it is expressible in \emph{OWL 2} that a \emph{phdd:TableStructure} ha
 
 \emph{Simple constraint types} ($\mathcal{CT}_{S}$) is the set of constraint types whose constraints can be easily defined without much effort in addition to $\mathcal{CT}_{B}$ constraints.
 {\emph{Data property facets} (\emph{R-46}) is an example of an $\mathcal{CT}_{S}$ constraint type which enables to declare frequently needed facets for data properties in order to validate input against simple conditions including min/max values, regular expressions, and string length.
-The abstract of series/studies, e.g., should have a minimum length ($\mathcal{SL}_{1}$).
+The abstract of series/studies, e.g., should have a minimum length.
 
 \emph{Complex constraint types} ($\mathcal{CT}_{C}$) encompass constraint types for which the definition of constraints is rather complex and cannot be derived from vocabulary definitions.
 Complex constraints show the importance of constraint languages enabling to describe more complex constraints.
