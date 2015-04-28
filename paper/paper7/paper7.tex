@@ -304,7 +304,7 @@ the W3C RDF Data Shapes working group\footnote{\url{http://www.w3.org/2014/rds/c
 Bosch and Eckert \cite{BoschEckert2014} collected the findings of these working groups and initiated a database of RDF validation requirements
 which is available for contribution at \url{http://purl.org/net/rdf-validation}.
 The intention is to collaboratively collect case studies, use cases, requirements, and solutions regarding RDF validation in a comprehensive and structured way. 
-The requirements are classified to better evaluate existing solutions and each requirement is directly mapped to a constraint type which is expressible by at least one existing constraint language.
+The requirements are classified to better evaluate existing solutions and each requirement is directly mapped to a constraint type which is expressible by at least one constraint language.
 As \emph{SPIN} is the within the RDF validation community accepted and widely adopted way to check constraints on RDF data, Bosch and Eckert \cite{BoschEckert2014-2} use \emph{SPIN} as basis to define a
 validation environment (available at \url{http://purl.org/net/rdfval-demo}) in which the validation of any constraint language\footnote{The only limitation is that constraint languages must be represented in RDF} can be implemented by representing them in SPARQL. 
 The SPIN engine checks for each resource if it satisfies all constraints, which are associated with its assigned classes, and generates a result RDF graph containing information about all constraint violations.
@@ -316,14 +316,14 @@ The SPIN engine checks for each resource if it satisfies all constraints, which 
 The \textbf{contribution} of this paper is the development of a system 
 \begin{enumerate}
 	\item to classify RDF constraints (according to their severity levels) to evaluate the quality of metadata and data which may be represented by any vocabulary and 
-	\item to classify RDF constraint types (according to their complexity) which in most cases correspond to RDF validation requirements\footnote{For simplicity reasons, we use the terms \emph{constraint types} and \emph{constraints} instead of \emph{RDF constraint types} and \emph{RDF constraints} in the rest of the paper} (section \ref{classification} - \ref{complex-constraint-types}).
+	\item to classify RDF constraint types (according to their complexity) which in most cases correspond to RDF validation requirements\footnote{For simplicity reasons, we use the terms \emph{constraint types} and \emph{constraints} instead of \emph{RDF constraint types} and \emph{RDF constraints} in the rest of the paper} (sections \ref{classification} - \ref{complex-constraint-types}).
 \end{enumerate}
-By defining a huge amount of constraints of different constraint types,   
-we apply the developed classification system to several and different vocabularies from the \emph{SBE} domain to represent both metadata and data and therefore prove the generality of the proposed classification system.
+By defining a huge amount of constraints of the majority of the constraint types,   
+we apply the developed classification system to several and different vocabularies from the \emph{SBE} domain to represent both metadata and data and therefore prove its generality.
 A complex and complete real world running example from the \emph{SBE} domain serves to prove the claim that the developed classification system perfectly applies for diverse vocabularies.
 %, i.e., that it does not matter which vocabularies are used to represent (meta)data and for which domains constraints are defined.
 We describe why RDF validation is important for the \emph{SBE} community (section \ref{motivation}), 
-how data in tabular format (expressed by the \emph{PHDD} vocabulary) and metadata on person-level data sets (\emph{Disco}), aggregated data sets (\emph{QB}), and thesauri (\emph{SKOS}) are represented in RDF, and how therefore reused vocabularies are interrelated (section \ref{rdf-representation}).
+how data in tabular format and metadata on person-level data sets, aggregated data sets, and thesauri are represented in RDF, and how therefore reused vocabularies are interrelated (section \ref{rdf-representation}).
 We explain how \emph{SBE} (meta)data is validated against constraints, instantiated from constraint types organized in the classification system, to ensure high quality of and trust in (meta)data.
 
 We evaluated the (meta)data quality of large real world data sets (more than 4.2 billion triples and 15 thousand data sets) from the \emph{SBE} domain represented by multiple and different vocabularies to get an understanding 
