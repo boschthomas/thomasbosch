@@ -231,7 +231,7 @@
 %\title{RDF Validation of Metadata \\ on Person-Level and Aggregated Data}
 %\title{RDF Constraints to Ensure High Quality \\ of Metadata and Data Represented by any Vocabulary }
 %\title{RDF Constraints to Ensure High Quality \\ of Metadata and Data}
-\title{Classification of RDF Constraint Types to Ensure High Quality of Metadata and Data}
+\title{RDF Constraint Types to Ensure High Data Quality}
 \subtitle{}
 
 \titlerunning{XXXXX}  % abbreviated title (for running head)
@@ -253,7 +253,7 @@ Stuttgart Media University, Germany \\
 \maketitle              % typeset the title of the contribution
 
 \begin{abstract}
-\tb{nur data und nicht metadata}
+
 For research institutes, data libraries, and data archives,
 RDF data validation according to predefined constraints is a much sought-after feature, 
 particularly as this is taken for granted in the XML world.
@@ -266,7 +266,7 @@ To ensure high quality and trust, both metadata and data must satisfy certain cr
 
 Based on our work in the DCMI RDF Application Profiles Task Group and in cooperation with the W3C Data Shapes Working Group, we identified and published by today 82 types of constraints that are required by various stakeholders for data applications.
 
-In this paper, we formulate 213 constraints of 53 different types on four different vocabularies (Disco, QB, SKOS, PHDD) and classify them according to the complexity level of their type and their severity level for the vocabulary. Further, for 114 of these constraints, we evaluate the data quality of 15,694 datasets (4,26 billion triples) of research data for the social, behavioural, and economic (SBE) sciences obtained from 33 SPARQL endpoints. 
+In this paper, we formulate 213 constraints of 53 different types on four different vocabularies (Disco, QB, SKOS, PHDD) and classify them according to the complexity level of their type and their severity level. For 114 of these constraints, we evaluate the data quality of 15,694 datasets (4,26 billion triples) of research data for the social, behavioural, and economic (SBE) sciences obtained from 33 SPARQL endpoints. 
 
 Based on the results, we postulate three important findings: (1) A significant amount of 47\% of the violations refer to complex constraints that are not easily expressible in existing languages which confirms the necessity to provide suitable constraint languages. (2) For well-established vocabularies, the explicitly defined constraints are almost completely satisfied which demonstrates that constraint formulation in general works. (3) The percentage of severe constraint violations is very low, compared to about 2/3 of warning violations and 1/3 of informational violations, which implies that proper constraint languages can significantly improve the data quality beyond fundamental requirements.
 
@@ -285,6 +285,8 @@ Based on the results, we postulate three important findings: (1) A significant a
 \end{abstract}
 
 \section{Introduction}
+
+\tb{nur data und nicht metadata}
 
 For more than a decade, members of the \emph{SBE} community have been developing and using a
 metadata standard, composed of almost twelve hundred metadata fields, known as the \emph{Data Documentation Initiative (DDI)},
@@ -1131,9 +1133,9 @@ For \emph{Disco}, \emph{QB}, and \emph{SKOS}, more than 50\% of the instantiated
 		\emph{C (}$\mathcal{CT}_{C}$\emph{)} & 37 (25.9\%) & 13 (37.1\%) & 13 (\textbf{37.1\%}) & 63 (29.6\%) \\
 		\emph{C (}$\mathcal{CT}_{S}$\emph{)} & 28 (19.6\%) & 3 (8.6\%) & 12 (\textbf{34.3\%}) & 43 (20.2\%) \\
 		\emph{C (}$\mathcal{CT}_{B}$\emph{)} & 78 (\textbf{54.6\%}) & 19 (\textbf{54.3\%}) & 10 (\textbf{28.6\%}) & 107 (\textbf{50.2\%}) \\
-		\hline
-		\emph{C (}$\mathcal{C}_B ^{\mathcal{R}}$\emph{)} & 67 (46.9\%) & 13 (37.1\%) & 4 (11.4\%) & 84 (39.4\%) \\
-		\emph{C (}$\overline{\mathcal{C}_B ^{\mathcal{R}}}$\emph{)} & 11 (7.7\%) & 6 (17.1\%) & 6 (17.1\%) & 23 (10.8\%) \\
+		%\hline
+		%\emph{C (}$\mathcal{C}_B ^{\mathcal{R}}$\emph{)} & 67 (46.9\%) & 13 (37.1\%) & 4 (11.4\%) & 84 (39.4\%) \\
+		%\emph{C (}$\overline{\mathcal{C}_B ^{\mathcal{R}}}$\emph{)} & 11 (7.7\%) & 6 (17.1\%) & 6 (17.1\%) & 23 (10.8\%) \\
 		\hline
 		\emph{C ($\mathcal{SL}_{0}$)} & 75 (\textbf{52.5\%}) & 4 (11.4\%) & 21 (\textbf{60\%}) & 100 (\textbf{46.9\%}) \\
 		\emph{C ($\mathcal{SL}_{1}$)} & 10 (7\%) & 3 (8.6\%) & 5 (14.3\%) & 18 (8.5\%) \\
@@ -1167,14 +1169,14 @@ More than 50\% of the \emph{Disco} and \emph{SKOS} constraints, however, are ass
 					 & \textbf{\emph{SKOS}}
 					 & \textbf{Total}
     \\ \midrule
-		\emph{CV} & 3,575,002 (6.5\%) & 45,635,861 (83.4\%) & 5,540,988 (10.1\%) & 54,751,851 \\
+		\emph{CV} & 3,575,002 & 45,635,861 & 5,540,988 & 54,751,851 \\
 		\hline
-		\emph{CV (}$\mathcal{CT}_{C}$\emph{)} & 652,780 (18.3\%) & 45,634,084 (\textbf{100\%}) & 1,185,982 (21.4\%) & 47,472,846 (\textbf{86.7\%}) \\
-		\emph{CV (}$\mathcal{CT}_{S}$\emph{)} & 560,857 (15.7\%) & 0 (0\%) & 4,355,006 (\textbf{78.6\%}) & 4,915,863 (9\%) \\
-		\emph{CV (}$\mathcal{CT}_{B}$\emph{)} & 2,361,365 (\textbf{66.1\%}) & 1,777 (0\%) & 0 (0\%) & 2,363,142 (4.3\%) \\
-		\hline
-		\emph{CV (}$\mathcal{C}_B ^{\mathcal{R}}$\emph{)} & 2,333,365 (65.3\%) & 1,777 (0\%) & 0 (0\%) & 2,335,142 (4.3\%) \\
-		\emph{CV (}$\overline{\mathcal{C}_B ^{\mathcal{R}}}$\emph{)} & 28,000 (0.8\%) & 0 (0\%) & 0 (0\%) & 28,000 (0.1\%) \\
+		\emph{CV (}$\mathcal{CT}_{C}$\emph{)} & 18.3\% & 45,634,084 (\textbf{100\%}) & 1,185,982 (21.4\%) & 47,472,846 (\textbf{86.7\%}) \\
+		\emph{CV (}$\mathcal{CT}_{S}$\emph{)} & 15.7\% & 0 (0\%) & 4,355,006 (\textbf{78.6\%}) & 4,915,863 (9\%) \\
+		\emph{CV (}$\mathcal{CT}_{B}$\emph{)} & \textbf{66.1\%} & 1,777 (0\%) & 0 (0\%) & 2,363,142 (4.3\%) \\
+		%\hline
+		%\emph{CV (}$\mathcal{C}_B ^{\mathcal{R}}$\emph{)} & 2,333,365 (65.3\%) & 1,777 (0\%) & 0 (0\%) & 2,335,142 (4.3\%) \\
+		%\emph{CV (}$\overline{\mathcal{C}_B ^{\mathcal{R}}}$\emph{)} & 28,000 (0.8\%) & 0 (0\%) & 0 (0\%) & 28,000 (0.1\%) \\
 		\hline
 		\emph{CV ($\mathcal{SL}_{0}$)} & 1,880,777 (\textbf{52.6\%}) & 0 (0\%) & 2,281,740 (41.2\%) & 4,162,517 (7.6\%) \\
 		\emph{CV ($\mathcal{SL}_{1}$)} & 1,051,757 (29.4\%) & 45,520,613 (\textbf{99,8\%}) & 3,259,248 (\textbf{58.8\%}) & 49,831,618 (\textbf{91\%}) \\
@@ -1186,7 +1188,8 @@ More than 50\% of the \emph{Disco} and \emph{SKOS} constraints, however, are ass
 		\label{tab:evaluation-constraint-violations}
     \end{center}
 \end{table}
-
+\tb{prozent beziehen sich auf die oberste zeile / auch 0.0\%}
+\textcolor{red}{wir versuchen eine aussage zu trefen für alle vokabulare mit werten nur von 3 vokabularen / vorsichtig generelle aussagen zu treffen / normalisiterte werte mit prozentwerten / neues vokabulare, noch nicht so konsistente daten / hypothesen werden aufgestellt / conclusion: hypothesen werden aufgestellt, die vorsichtig zu genießen sind / basic constraints sind bei etablierten vokabularen publitierte datensätze werden eingehalten hohe datenqualität / schwerwiegende constraintverletzungen treten kaum auf / schwere constraints sind in idesen vielen daten nicht auf / disco ist in beiden fällen anders / erheblichen anteil von schwersten constraint verletzungen / disco neues vokabular das noch daten gelten noch einenm draft von disco oder hat disco nicht verstanden schnlechtere daten als entabliete vokabulare / es ist sinnvoll sprachen zu entwickeln komplexere constraints auszudrücken / simple und vocabulary können heute schon sehr gut beschrieben werden / wir wünschen und dass es komplexere constraint languages gibt mit denen complex constraints besser abgebildet werden können / deulticherer verbesserung in der datenualitt wenn wir diese constraint languages hätten / gibt es weitere hypothesen? - alles was in der tabelle auffällig ist / normaliisert über die datensatzgröße / 3 sehr wichtige und repräsentative vokabulare im sbe bereich / interessanate constraints mit ausreißern / hypothesen über weitere vokabulare müssen verifiziert oder falsifiziert werden / diskussion: / 3 constraints werden zufällig nie verletzt / basis für future work / motivation, dass man constraint languages entwicken muss die complexe constraints abbilden / datenqualität ist generell sehr hoch / als hypothese postulieren}
 More than 80\% of the overall approx. 55 million constraint violations are caused by \emph{QB} constraints (see table \ref{tab:evaluation-constraint-violations}).
 The majority (86.7\%) of the constraint violations are caused by $\mathcal{CT}_{C}$ constraints and only 9\% by $\mathcal{CT}_{S}$ constraints.
 The fact that only 4\% of all constraint violations result from $\mathcal{CT}_{B}$ constraints, 
