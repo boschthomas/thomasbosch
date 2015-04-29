@@ -1404,9 +1404,15 @@ Table \ref{tab:evaluation-complexity-severity} shows the relation between the co
 \end{table}
 
 \begin{hyp}
-More than the half of the vocabulary constraints are associated with the severity level error and
-more than 3/4 of the simple constraints are only informational constraints. 
+More than the 1/2 of the vocabulary constraints are error constraints,
+more than 3/4 of the simple constraints are informational constraints, and
+complex constraints are either informational or error constraints. 
 \end{hyp}
+
+As vocabulary constraints are directly extractable from vocabularies and therefore ensure the syntax and semantics of vocabularies,
+violations of vocabulary constraints are more severe than violations caused by simple constraints which are easily defined in addition to vocabulary constraints.
+In many cases, complex constraints are also needed to express severe constraints which cannot be expressed by modeling languages.
+The relation between complexity and severity shows the importance to develop constraint languages 
 
 \section{Related Work}
 \label{related-work}
