@@ -473,7 +473,7 @@ issues that go beyond the integrity constraints defined in the SKOS specificatio
 %\label{running-example}
 \section{Common Vocabularies in SBE Sciences}
 \label{rdf-representation}
-
+\tb{jeweils ein satz zu DCAT und XKOS}
 %In this section, we describe how data in rectangular format (\emph{PHDD}) and metadata on person-level data sets (\emph{Disco}), aggregated data sets (\emph{QB}), thesauri (\emph{SKOS}), and statistical classifications (\emph{XKOS}) are represented in RDF\footnote{The complete running example in RDF is available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/data/running-example}} and how therefore reused vocabularies are interrelated.
 
 For our evaluation, we examined four different vocabularies commonly used in or developed for the SBE sciences which are briefly introduced in the following. For three of them, we analysed actual data according to constraint violations. For PHDD, there is not yet enough data available so we limit our examination to the vocabulary itself.\ke{Neuer Absatz von mir...}
@@ -1195,6 +1195,7 @@ A SPIN construct template creates constraint violation triples if all triple pat
 %in order to get an overview how many constraint types in relation to the total amount of constraint types are extractable from vocabularies ($\mathcal{CT}_{B}$), are easily definable ($\mathcal{CT}_{S}$), and are rather difficult to specify ($\mathcal{CT}_{C}$). 
 In close collaboration with several \emph{SBE} domain experts, we defined 246 constraint 
 of 53 different types on six vocabularies (\emph{Disco}, \emph{QB}, \emph{SKOS}, \emph{PHDD}, \emph{DCAT}, \emph{XKOS}) and classified them according to the complexity level of their type and their severity level. 
+\ke{Alle vokabulare in section "vocabularies" eingeführt?}\tb{mache ich}
 For 114 of these constraints, we evaluated the data quality of 15,694 data sets (4,26 billion triples) of \emph{SBE} research data on three common vocabularies in \emph{SBE} sciences (\emph{Disco}, \emph{QB}, \emph{SKOS}) obtained from 33 SPARQL endpoints.
 We distinct two classes of vocabularies: 
 (1) well-established vocabularies (e.g., \emph{QB}, \emph{SKOS}) which are widely adopted and accepted and 
@@ -1205,6 +1206,7 @@ Based on this evaluation we formulate hypotheses.
 Nevertheless, we have to be careful making general statements for all vocabularies 
 as these hypotheses still have to be verified or falsified in terms of future work 
 by evaluating the quality of data represented by additional well-established and newly developed vocabularies.
+\ke{das ist zu früh finde um schon einzuschränken, erst mal ergebnisse, dann hypothesen, dann kritische auseinandersetzung}
 
 We validated 
 9,990 / 3,775,983,610 (\emph{QB}),
@@ -1271,10 +1273,9 @@ Table \ref{tab:evaluation-constraint-violations} shows the results of the evalua
 The constraints and their raised constraint violations are grouped by vocabulary, complexity level of their type, and their severity level.
 The number of evaluated triples and data sets differs between the vocabularies
 as we evaluated 3.8 billion \emph{QB}, 480 million \emph{SKOS}, and 10 million \emph{Disco} triples.
-To be able to formulate hypotheses which apply for all vocabularies,  
-we normalize the total percentage values.
-As, e.g., 18\% of the \emph{Disco}, 100\% of the \emph{QB}, and 21\% of the \emph{SKOS} violations are caused by \emph{complex constraints},  
-we calculate that 46.6\% of the violations are raised by \emph{complex constraints} of all vocabularies.
+To be able to formulate hypotheses which apply for all vocabularies, 
+we only use normalized relative values representing the percentage of constraints and constraint violations belonging to the respective class
+
 %by building the arithmetic mean over the individual vocabularies' percentage values. 
 %\tb{More than 80\% of the overall approx. 55 million constraint violations are caused by \emph{QB} constraints.}
 
@@ -1317,6 +1318,10 @@ we calculate that 46.6\% of the violations are raised by \emph{complex constrain
 %For \emph{Disco}, \emph{QB}, and \emph{SKOS}, more than 50\% of the instantiated constraint types are $\mathcal{CT}_{B}$ constraint types 
 %(for \emph{QB} even three quarters).
 %\emph{Existential quantifications} (\emph{R-86}, 32.4\%, \emph{Disco}), \emph{data model consistency} (31.4\%, \emph{QB}), and \emph{structure} (28.6\%, \emph{SKOS}) are the constraint types the most constraints are instantiated from.
+
+\tb{Ich würde zu Beginn der Auswertung, nach den Tabellen, erklären, dass wir anhand der drei Vokabulare keine gesicherten allgemeinen Aussagen  machen können, aber dass wir im folgenden verschiedene Hypthesen aufstellen, die auf die Auswertung gestützt sind. / ann also erst die Fakten berichten, wie zum Beispiel bestimmte Prozentwerte / Und dann die Hypothese als Schluss, z..B. dass die Datenqualität bezüglich in den etablierten Vokabularen hinterlegter Constraints sehr gut ist, was darauf hindeutet, dass das hinterlegen von constraints sinnvoll ist und von den datenanbietern auch beachtet wird.
+ganz eigentlich ist ja sogar nur das zweite unsere hypothese
+die datenqualität in unserem sample IST gut, das ist auch keine hypothese / es muss halt klar werden, dass wir die hypothese im anschluss nicht beweisen, sondern dass wir sie lediglich postulieren, allerdings nicht komplett aus der luft sondern als interpretation unserer ergebnisse / Was zwar kein beweis ist wegen geringer zahl der vokabulare, aber eben auch nicht nix}
 
 Almost 1/2 of all 213 constraints and more than 50\% of the \emph{Disco} and the \emph{QB} constraints are \emph{vocabulary constraints}.
 The \emph{SKOS} constraints are equally distributed among the three disjoint sets of constraint types. 
@@ -1488,10 +1493,6 @@ as serious violations occur partially.
 		%\label{tab:evaluation-constraint-violations}
     %\end{center}
 %\end{table}
-
-\tb{established vocabularies meet vocabulary constraints / data sets represented by established vocabularies meet vocabulary constraints which indicates good data quality}
-
-\tb{QB data sets contain data and metadata and therefore there are the differences between constraint violations}
 
 %The constraints responsible for the largest amounts of constraint violations are \emph{DISCO-C-LABELING-AND-DOCUMENTATION-06} and \emph{DISCO-C-COMPARISON-VARIABLES-02} (both 547,916; \emph{Disco}), \emph{DATA-CUBE-C-DATA-MODEL-CONSISTENCY-05} (45,514,102; \emph{QB}), and \emph{SKOS-C-LANGUAGE-TAG-CARDINALITY-01} (2,508,903; \emph{SKOS}).
 
