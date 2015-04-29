@@ -1377,10 +1377,6 @@ and that early adopters did not properly understand its formal specification.
 \end{table}
 
 \begin{hyp}
-Complex constraints are met by data represented by established vocabularies but not by data represented by newly developed vocabularies. 
-\end{hyp}
-
-\begin{hyp}
 A significant amount of 47\% of the violations refer to complex constraints that are not easily expressible in existing languages which confirms the necessity to provide suitable constraint languages.
 \end{hyp} 
 \emph{Vocabulary} and \emph{simple constraints} can be easily, concisely, and intuitively expressed by either modeling languages (e.g., \emph{RDF}, \emph{RDFS}, \emph{OWL 2}) or constraint languages (e.g., \emph{ShEx}, \emph{ReSh}, \emph{SPIN}). 
@@ -1554,6 +1550,16 @@ The relation between complexity and severity shows the importance to develop con
 
 We implemented a validation environment (available at \url{http://purl.org/net/rdfval-demo}) to validate RDF data according to constraints expressed my arbitrary constraint languages and to ensure correct syntax and semantics of diverse vocabularies such as \emph{Disco}, \emph{QB}, \emph{SKOS}, and \emph{PHDD} (section \ref{implementation}).
 We exhaustively evaluated the metadata quality of large real world aggregated (\emph{QB}), person-level (\emph{Disco}), and thesauri (\emph{SKOS}) data sets (more than 4.2 billion triples and 15 thousand data sets) by means of 213  constraints of the majority of the constraint types\footnote{The second appendix of this paper describing the evaluation in detail is available at: \url{http://arxiv.org/abs/1504.04478} \cite{BoschZapilkoWackerowEckert2015-2}.} (section \ref{evaluation}).
+
+\tb{
+die vokabular-beschreibungen klarer strukturieren. du nutzt plötzlich disco elemente, disco wird überhaupt nicht vernünftig eingeführt, obwohl es später untersucht wird
+alles, was nicht der aussage des papers (neuer titel, btw) dient, solltest du weglassen
+klare, einfache struktur: 1. grundidee (constraints identifizieren, validieren auf datensets, zu belastbaren aussagen kommen für die weitere entwicklung von constraint languages)
+2. vorstellung der untersuchten vokabulare
+3. beschreiben, wo die constraints herkommen, bzw. wie die generiert wurden. dabei auch auf die klassifikation eingehen, aber nur im hinblick auf die spätere auswertung, nicht als main contribution des papers
+4. evaluation mit beschreibung der datasets in setup (das les ich mir gleich mal durch, das hast du ja schon neu geschrieben)
+ja, und dann prägnante conclusion mit zusammenfassung der hypothesen, der bedutung für die weitere entwicklung von CLs und natürlich future work
+}
 
 \bibliography{../../literature/literature}{}
 \bibliographystyle{plain}
