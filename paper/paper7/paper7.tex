@@ -584,6 +584,7 @@ As vocabularies have been specified using \emph{RDF}, \emph{RDFS}, and \emph{OWL
 %\ms{Study $\equiv$ $\exists$ product.LogicalDataSet} (\emph{DL}), e.g., restricts studies to contain at least one data set which is expressible in OWL 2:
 \emph{Minimum qualified cardinality restrictions} (\emph{R-74}), e.g., guarantee that individuals of given classes are connected by particular properties to at least n different individuals/literals of certain classes or data ranges.
 This way, it is expressible in \emph{OWL 2} that a \emph{phdd:TableStructure} has (\emph{phdd:column}) at least one \emph{phdd:Column}:
+\ke{Ich dachte, das kommt aus dem Vokabular. Dann muss das heißen: For example, in PHDD, a minimum qualified cardinality constraint can be obtained from the OWL definition of this restriction class, ensuring that a \emph{phdd:TableStructure} has (\emph{phdd:column}) at least one \emph{phdd:Column}:}
 \begin{ex}
 [   a owl:Restriction ; rdfs:subClassOf TableStructure ;
     owl:minQualifiedCardinality 1 ;
@@ -593,7 +594,7 @@ This way, it is expressible in \emph{OWL 2} that a \emph{phdd:TableStructure} ha
 
 \emph{Simple} and \emph{complex constraints} are in contrast to \emph{vocabulary constraints} not explicitly defined within formal specifications of vocabularies.
 \emph{Simple} and \emph{complex constraints} are defined according to textual descriptions of the intended semantics of vocabularies.  
-\emph{Simple constraint types} is the set of constraint types whose constraints can be easily defined without much effort in addition to \emph{vocabulary constraints}.
+\emph{Simple constraint types} is the set of constraint types whose constraints can be easily defined without much effort in addition to \ke{einfügen: the already defined (auf den Lesefluss achten, das ist eine sehr pragmatische klassifikation und muss nicht übertrieben formal und trocken geschrieben sein)} \emph{vocabulary constraints}.
 {\emph{Data property facets} (\emph{R-46}) is an example of a \emph{simple constraint type} which enables to declare frequently needed facets for data properties in order to validate input against simple conditions including min/max values, regular expressions, and string length.
 The abstract of series/studies, e.g., should have a minimum length.
 
@@ -601,13 +602,17 @@ The abstract of series/studies, e.g., should have a minimum length.
 For assessing the quality of thesauri, e.g., we concentrate on the graph-based structure and apply graph- and network-analysis techniques.
 An example of such constraints of the constraint type \emph{structure} is that 
 a thesaurus should not contain many orphan concepts, i.e., concepts without any associative or hierarchical relations, lacking context information valuable for search. 
-\emph{Complex constraints} show the importance to develop constraint languages enabling to describe more complex constraints. 
+\emph{Complex constraints} show the importance to develop constraint languages enabling to describe more complex constraints.\ke{der satz macht so keinen sinn... aber er ist ein weiteres gutes beispiel, warum du viel mehr auf die formulierungen achten musst. Ich weiß genau was du meinst, du hast auch recht, aber hier steht trotzdem ein sinnloser satz, so wie er formuliert ist.} 
+
+\ke{ich würde da auch für simple und vor allem für complex konkrete beispiele in code einfügen}
 
 \subsection{Classification of RDF Constraints}
 
+\ke{da muss mindestens ein überleitender satz rein, der noch mal den unterschied von constraint types und types aufgreift und erklärt, dass es jetzt um konkrete constraints auf den vokabularen geht, deren severity eben vom konkreten kontext abhängt und nicht allgemein über den type bestimmt werden kann.}
+
 \emph{SBE} experts determined the default \textbf{\emph{severity level}} (\emph{R-158}) for each of the 246 constraints to indicate how serious the violation of the constraint is.
-We propose an extensible metric to measure the continuum of severity levels ranging from \emph{informational} to \emph{error}.
-According to the default severity level of constraints, the complete set of constraints encompasses three disjoint \emph{sets of constraints}:
+We propose an extensible metric to measure the continuum of severity levels ranging from \emph{informational} to \emph{error}.\ke{oder etwas weniger anmaßend: we use the commonly accepted classification of log messages in software development and distingush informational, warning and error.}
+According to the default severity level of constraints, the complete set of constraints encompasses three disjoint \emph{sets of constraints}:\ke{auch dieser satz macht keinen sinn für mich, ebensowenig wie die extrem erhellende auflistung, die gleich folgt... mein vorschlag von eben kann das komplett ersetzen.}
 \begin{itemize}
 	\item \textbf{\emph{informational constraints}}: constraints with severity level \emph{informational}
 	\item \textbf{\emph{warning constraints}}: constraints with severity level \emph{warning}
@@ -621,6 +626,7 @@ As the purpose of \emph{vocabulary constraints} is to ensure explicitly stated s
 their default severity levels are in most cases very strong (\emph{error}) and 
 in average stronger than the severity levels of \emph{simple} and \emph{complex constraints}.
 As a consequence, violating many \emph{vocabulary constraints} is an indicator for bad (meta)data quality\footnote{For simplicity reasons, we only assign severity levels to \emph{vocabulary constraints} in this paper in case they differ from \emph{error constraints}.}.
+\ke{den ganzen letzten absatz finde ich unübersichtlich. Kann man das nicht klarer sagen: Error sind syntaktische oder semantische fehler, die zu einem abbruch der datenverarbeitung führen sollten. warnings sind syntaktische oder semantische fehler, die aber normalerweise nicht zu einem abbruch führen müssen. verletzungen von informational constraints weisen auf potentielle verbesserungen in den daten hin, werden aber nicht als fehler angesehen (der satz war in ordnung). die fussnote ist doch vollkommen fehl am platz, oder? es werden ja nicht alle constraints aufgelistet und wie ihr das implementiert habt und ob ihr euch arbeit erspart habt weil ihr default severity bei bestimmten constraint types vorgebt, das interessiert doch keinen.}
 
 Although, we provide default severity levels for each constraint, validation environments should enable users to adapt the severity levels of constraints according to their individual needs.
 Validation environments should enable users to select which constraints to validate against depending on their individual use cases.
