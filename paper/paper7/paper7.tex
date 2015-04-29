@@ -1195,6 +1195,7 @@ A SPIN construct template creates constraint violation triples if all triple pat
 %in order to get an overview how many constraint types in relation to the total amount of constraint types are extractable from vocabularies ($\mathcal{CT}_{B}$), are easily definable ($\mathcal{CT}_{S}$), and are rather difficult to specify ($\mathcal{CT}_{C}$). 
 In close collaboration with several \emph{SBE} domain experts, we defined 246 constraint 
 of 53 different types on six vocabularies (\emph{Disco}, \emph{QB}, \emph{SKOS}, \emph{PHDD}, \emph{DCAT}, \emph{XKOS}) and classified them according to the complexity level of their type and their severity level. 
+\ke{Alle vokabulare in section "vocabularies" eingeführt?}
 For 114 of these constraints, we evaluated the data quality of 15,694 data sets (4,26 billion triples) of \emph{SBE} research data on three common vocabularies in \emph{SBE} sciences (\emph{Disco}, \emph{QB}, \emph{SKOS}) obtained from 33 SPARQL endpoints.
 We distinct two classes of vocabularies: 
 (1) established vocabularies (e.g., \emph{QB}, \emph{SKOS}) which are widely adopted and accepted and 
@@ -1205,6 +1206,7 @@ Based on this evaluation we formulate hypotheses.
 Nevertheless, we have to be careful making general statements for all vocabularies 
 as these hypotheses still have to be verified or falsified in terms of future work 
 by evaluating the quality of data represented by additional established and newly developed vocabularies.
+\ke{das ist zu früh finde um schon einzuschränken, erst mal ergebnisse, dann hypothesen, dann kritische auseinandersetzung}
 
 We validated 
 9,990 / 3,775,983,610 (\emph{QB}),
@@ -1275,6 +1277,8 @@ To be able to formulate hypotheses which apply for all vocabularies,
 we normalize the total percentage values.
 As, e.g., 18\% of the \emph{Disco}, 100\% of the \emph{QB}, and 21\% of the \emph{SKOS} violations are caused by \emph{complex constraints},  
 we calculate that 46.6\% of the violations are raised by \emph{complex constraints} of all vocabularies.
+\ke{Prozentwerte kann man nicht normalisieren... Du musst auch nicht erklären, wie man normalisiert, schon gar nicht mit Rechenbeispiel. "... and 10 million Disco triples. Therefore, we only use normalized relative values representing the percentage of constraints and constraint violations belonging to the respective class.}
+
 %by building the arithmetic mean over the individual vocabularies' percentage values. 
 %\tb{More than 80\% of the overall approx. 55 million constraint violations are caused by \emph{QB} constraints.}
 
