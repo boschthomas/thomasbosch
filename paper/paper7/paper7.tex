@@ -573,7 +573,7 @@ a thesaurus should not contain many orphan concepts, i.e., concepts without any 
 
 \emph{SBE} experts determined the default \textbf{\emph{severity level}} (\emph{R-158}) for each of the 246 constraints to indicate how serious the violation of the constraint is.
 We propose an extensible metric to measure the continuum of severity levels ranging from \emph{informational} to \emph{error}.
-According to the constraints' default severity level, the complete set of constraints encompasses three disjoint \emph{sets of constraints}:
+According to the default severity level of constraints, the complete set of constraints encompasses three disjoint \emph{sets of constraints}:
 \begin{itemize}
 	\item \textbf{\emph{informational constraints}}: constraints with severity level {\emph{informational}
 	\item \textbf{\emph{warning constraints}}: constraints with severity level \emph{warning}
@@ -581,19 +581,19 @@ According to the constraints' default severity level, the complete set of constr
 \end{itemize}
 Violations of \emph{informational constraints} point to desirable but not necessary data improvements to achieve RDF representations which are ideal in terms of syntax and semantics of used vocabularies. 
 Data not conforming to \emph{warning} and \emph{error constraints} is syntactically and/or semantically not correctly represented.
-The difference between \emph{warning} and \emph{error constraints} constraints is that data, not conforming to \emph{warning constraints} but conforming to \emph{error constraints}, could be processed further,
-whereas data, not corresponding to \emph{error constraints}, cannot be processed further after validation. 
-As constraints of \emph{vocabulary constraint types} are derived from explicitly stated semantics of vocabularies, 
+Data not conforming to \emph{warning constraints} but to \emph{error constraints} could be processed further.
+Data not corresponding to \emph{error constraints}, however, cannot be processed further after validation. 
+As the purpose of \emph{vocabulary constraints} is to ensure explicitly stated semantics of vocabularies, 
 their default severity levels are in most cases very strong (\emph{error}) and 
-in average stronger than the severity levels of constraints assigned to \emph{simple and complex constraint types}.
-As a consequence, violating many constraints of \emph{vocabulary constraint types} is an indicator for bad (meta)data quality\footnote{For simplicity reasons, we only assign severity levels to \emph{vocabulary constraints} in this paper in case they differ from \emph{error constraints}.}.
+in average stronger than the severity levels of \emph{simple} and \emph{complex constraints}.
+As a consequence, violating many \emph{vocabulary constraints} is an indicator for bad (meta)data quality\footnote{For simplicity reasons, we only assign severity levels to \emph{vocabulary constraints} in this paper in case they differ from \emph{error constraints}.}.
 
-Although, we provide default severity levels for each constraint, validation environments should enable users to adapt constraints' severity levels according to their individual needs.
+Although, we provide default severity levels for each constraint, validation environments should enable users to adapt the severity levels of constraints according to their individual needs.
 Validation environments should enable users to select which constraints to validate against depending on their individual use cases.
 For some use cases, 
-validating constraints of $\mathcal{CT}_{B}$ constraint types may be more important than validating constraints of $\mathcal{CT}_{S}$ or $\mathcal{CT}_{C}$ constraint types.
+validating \emph{vocabulary constraints} may be more important than validating \emph{simple} or \emph{complex constraints}.
 For other use cases,
-validating $\mathcal{SL}_{2}$ constraints may be sufficient without taking $\mathcal{SL}_{1}$ and $\mathcal{SL}_{0}$ constraints into account.
+validating \emph{error constraints} may be sufficient without taking \emph{warning} and \emph{informational constraints} into account.
 We evaluated the (meta)data quality of large real world data sets represented by multiple and different vocabularies to get an understanding  
 (1) which sets of constraint types (on different levels of complexity) and 
 (2) which sets of constraints (associated with particular severity levels) encompass the constraints causing the most/fewest constraint violations (see section \ref{evaluation}).
