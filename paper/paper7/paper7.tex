@@ -441,6 +441,32 @@ If the intention of the researcher is to perform more sophisticated comparisons 
 %As data searchers know exactly which data sources they trust and which are reasonable to meet their individual use cases, 
 %RDF data validation can only be performed semi-automatically, i.e., an automatic approach serves as basis for intellectual decisions. 
 
+\section{Related Work}
+\label{related-work}
+
+%\textbf{XML vs. RDF Validation.}
+For data archives, research institutes, and data libraries,
+RDF validation according to predefined constraints is a much sought-after feature, 
+particularly as this is taken for granted in the XML world.
+DDI-XML documents, e.g., are validated against diverse XSDs\footnote{\url{http://www.ddialliance.org/Specification/}}.
+As certain constraints cannot be formulated and validated by XSDs, 
+so-called secondary-level validation tools like \emph{Schematron}\footnote{\url{https://msdn.microsoft.com/en-us/library/aa468554.aspx}} have been introduced to overcome the limitations of XML validation.
+\emph{Schematron} generates validation rules and validates XML documents according to them.
+With RDF validation, one can overcome drawbacks when validating XML documents\footnote{\url{http://www.xmlmind.com/xmleditor/_distrib/doc/xmltool/xsd_structure_limitations.html}}.
+It cannot be validated, e.g., if each code of a variable's code list is associated with a category (\emph{R-86}).
+Additionally, it cannot be validated that if an element has a specific value, then certain child elements must be present (\emph{R-71}).  
+A comprehensive comparison of XML and RDF validation, however, is not within the scope of this paper.
+
+%validation or relational databases: types, relations
+
+%\textbf{RDF Data Cube Vocabulary.}
+A well-formed \emph{RDF Data Cube} is an a RDF graph describing one or more instances of \emph{qb:DataSet} for which each of the 22 integrity constraints\footnote{http://www.w3.org/TR/vocab-data-cube/\#wf}, defined within the \emph{QB} specification, passes.
+Each integrity constraint is expressed as narrative prose and, where possible, a SPARQL ASK query or query template. 
+If the ASK query is applied to an RDF graph then it will return true if that graph contains one or more \emph{QB} instances which violate the corresponding constraint \cite{CyganiakReynolds2014}.
+Mader, Haslhofer, and Isaac investigated how to support
+taxonomists in improving SKOS vocabularies by pointing out quality
+issues that go beyond the integrity constraints defined in the SKOS specification \cite{MaderHaslhoferIsaac2012}.
+
 %\section{Running Example}
 %\label{running-example}
 \section{Common Vocabularies in SBE Sciences}
@@ -1165,8 +1191,8 @@ For 114 of these constraints, we evaluated the data quality of 15,694 data sets 
 We distinct two classes of vocabularies: 
 (1) established vocabularies (e.g., \emph{QB}, \emph{SKOS}) which are widely adopted and accepted and 
 (2) newly developed vocabularies (e.g., \emph{Disco} which will be published in 2015) which are either recently published or are still in the publication process.
-It is likely that such a vocabulary is still subject of constant change, that published data may not be consistent with its current version,
-and that early adopters did not properly understand its formal specification.
+%It is likely that such a vocabulary is still subject of constant change, that published data may not be consistent with its current version,
+%and that early adopters did not properly understand its formal specification.
 Based on this evaluation we formulate hypotheses.
 Nevertheless, we have to be careful making general statements for all vocabularies 
 as these hypotheses still have to be verified or falsified in terms of future work 
@@ -1290,6 +1316,29 @@ The \emph{SKOS} constraints are equally distributed among the three disjoint set
 A significant amount of 46 \% of the constraints are directly extractable from formal specifications of established and newly defined vocabularies. 
 \end{hyp} 
 
+Nearly 1/2 of the violations are caused by \emph{complex constraints}, 1/3 by \emph{simple constraints}, and 1/5 by \emph{vocabulary constraints}.
+
+\begin{hyp}
+The fact that only 1/5 of all violations result from vocabulary constraints, 
+even though, 46\% of all constraints are vocabulary constraints,
+indicates good data quality in general (according to formal specifications of vocabularies).
+\end{hyp}
+
+2/3 of the \emph{Disco} violations result from \emph{vocabulary constraints},
+almost only \emph{complex constraints} raised \emph{QB} violations, and 
+nearly 80\% of the \emph{SKOS} violations are caused by \emph{simple constraints}.
+
+\begin{hyp}
+For established vocabularies, vocabulary constraints caused nearly 0\% of all violations\footnote{e.g. only 1.777 \emph{QB} violations}
+which indicates good data quality (according to formal specifications of vocabularies). 
+For newly defined vocabularies, however, 2/3 of all violations are raised by vocabulary constraints
+which indicates good data quality (according to formal specifications of vocabularies).
+\end{hyp}
+
+It is likely that a newly developed vocabulary is still subject of constant change, 
+that published data may not be consistent with its current version,
+and that early adopters did not properly understand its formal specification.
+
 \begin{table}[H]
 		\scriptsize
     \begin{center}
@@ -1325,30 +1374,9 @@ A significant amount of 46 \% of the constraints are directly extractable from f
     \end{center}
 \end{table}
 
-Nearly 1/2 of the violations are caused by \emph{complex constraints}, 1/3 by \emph{simple constraints}, and 1/5 by \emph{vocabulary constraints}.
-
-\begin{hyp}
-The fact that only 1/5 of all violations result from vocabulary constraints, 
-even though, 46\% of all constraints are vocabulary constraints,
-indicates good data quality in general (according to formal specifications of vocabularies).
-\end{hyp}
-
-2/3 of the \emph{Disco} violations result from \emph{vocabulary constraints},
-almost only \emph{complex constraints} raised \emph{QB} violations, and 
-nearly 80\% of the \emph{SKOS} violations are caused by \emph{simple constraints}.
-
-\begin{hyp}
-For established vocabularies, vocabulary constraints caused nearly 0\% of all violations\footnote{e.g. only 1.777 \emph{QB} violations}
-which indicates good data quality (according to formal specifications of vocabularies). 
-For newly defined vocabularies, however, 2/3 of all violations are raised by vocabulary constraints
-which indicates good data quality (according to formal specifications of vocabularies).
-\end{hyp}
-
 \begin{hyp}
 Complex constraints are met by data represented by established vocabularies but not by data represented by newly developed vocabularies. 
 \end{hyp}
-It is likely that a newly developed vocabulary is still subject of constant change, that published data may not be consistent with its current version,
-and that early adopters did not properly understand its formal specification.
 
 \begin{hyp}
 A significant amount of 47\% of the violations refer to complex constraints that are not easily expressible in existing languages which confirms the necessity to provide suitable constraint languages.
@@ -1507,32 +1535,6 @@ As vocabulary constraints are directly extractable from vocabularies and therefo
 violations of vocabulary constraints are more severe than violations caused by simple constraints which are easily defined in addition to vocabulary constraints.
 In many cases, complex constraints are also needed to express severe constraints which cannot be expressed by modeling languages.
 The relation between complexity and severity shows the importance to develop constraint languages which are enable to express severe complex constraints. 
-
-\section{Related Work}
-\label{related-work}
-
-%\textbf{XML vs. RDF Validation.}
-For data archives, research institutes, and data libraries,
-RDF validation according to predefined constraints is a much sought-after feature, 
-particularly as this is taken for granted in the XML world.
-DDI-XML documents, e.g., are validated against diverse XSDs\footnote{\url{http://www.ddialliance.org/Specification/}}.
-As certain constraints cannot be formulated and validated by XSDs, 
-so-called secondary-level validation tools like \emph{Schematron}\footnote{\url{https://msdn.microsoft.com/en-us/library/aa468554.aspx}} have been introduced to overcome the limitations of XML validation.
-\emph{Schematron} generates validation rules and validates XML documents according to them.
-With RDF validation, one can overcome drawbacks when validating XML documents\footnote{\url{http://www.xmlmind.com/xmleditor/_distrib/doc/xmltool/xsd_structure_limitations.html}}.
-It cannot be validated, e.g., if each code of a variable's code list is associated with a category (\emph{R-86}).
-Additionally, it cannot be validated that if an element has a specific value, then certain child elements must be present (\emph{R-71}).  
-A comprehensive comparison of XML and RDF validation, however, is not within the scope of this paper.
-
-%validation or relational databases: types, relations
-
-%\textbf{RDF Data Cube Vocabulary.}
-A well-formed \emph{RDF Data Cube} is an a RDF graph describing one or more instances of \emph{qb:DataSet} for which each of the 22 integrity constraints\footnote{http://www.w3.org/TR/vocab-data-cube/\#wf}, defined within the \emph{QB} specification, passes.
-Each integrity constraint is expressed as narrative prose and, where possible, a SPARQL ASK query or query template. 
-If the ASK query is applied to an RDF graph then it will return true if that graph contains one or more \emph{QB} instances which violate the corresponding constraint \cite{CyganiakReynolds2014}.
-Mader, Haslhofer, and Isaac investigated how to support
-taxonomists in improving SKOS vocabularies by pointing out quality
-issues that go beyond the integrity constraints defined in the SKOS specification \cite{MaderHaslhoferIsaac2012}.
 
 \section{Conclusion and Future Work}
 
