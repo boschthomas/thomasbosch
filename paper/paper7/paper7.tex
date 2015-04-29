@@ -561,7 +561,7 @@ Bosch et al. identified 76 requirements to formulate RDF constraints (e.g. \emph
 We published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} in which we explain each requirement/constraint type in detail and give examples for each expressed by different constraint languages.
 The knowledge representation formalism \emph{Description logics (DL)}, with its  well-studied theoretical properties, provides the foundational basis for each constraint type.
 Therefore, this technical report contains mappings to \emph{DL} to logically underpin each requirement and to determine which \emph{DL} constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
-We classified both RDF constraint types and RDF constraints to evaluate the quality of metadata and data which may be represented by any vocabulary.
+We classified both RDF constraint types and RDF constraints to gain better insights into the quality of RDF data with respect to this classification, independent of the used vocabulary.
 %Constraints are instantiated from constraint types in order to validate both metadata and data represented by any vocabulary; thus, the proposed classification system is vocabulary-independent and therefore applicable generically.
 We recently published a technical report\footnote{\label{technical-report-1}Available at: \url{http://arxiv.org/abs/1504.04479}} (serving as first appendix of this paper) in which we describe 246 constraints of 53 distinct constraint types on six vocabularies \cite{BoschZapilkoWackerowEckert2015}.
 
@@ -1341,6 +1341,15 @@ It is likely that a newly developed vocabulary is still subject of constant chan
 that published data may not be consistent with its current version,
 and that early adopters did not properly understand its formal specification.
 
+\begin{hyp}
+A significant amount of 47\% of the violations refer to complex constraints that are not easily expressible in existing languages which confirms the necessity to provide suitable constraint languages.
+\end{hyp} 
+\emph{Vocabulary} and \emph{simple constraints} can be expressed easily, concisely, and intuitively by either modeling languages (e.g., \emph{RDF}, \emph{RDFS}, \emph{OWL 2}) or constraint languages (e.g., \emph{ShEx}, \emph{ReSh}, \emph{SPIN}). 
+This is not the case, however, for \emph{complex constraints} which in most cases still can only be expressed by plain \emph{SPARQL}. 
+As almost 1/2 of all violations are caused by \emph{complex constraints}, 
+data quality can be significantly improved when \emph{complex constraints} can also be expressed more easily, concisely, and intuitively.
+Therefore, existing constraint languages have to be extended or new constraint languages have to be developed.
+
 \begin{table}[H]
 		\scriptsize
     \begin{center}
@@ -1375,14 +1384,6 @@ and that early adopters did not properly understand its formal specification.
 		\label{tab:evaluation-constraint-violations}
     \end{center}
 \end{table}
-
-\begin{hyp}
-A significant amount of 47\% of the violations refer to complex constraints that are not easily expressible in existing languages which confirms the necessity to provide suitable constraint languages.
-\end{hyp} 
-\emph{Vocabulary} and \emph{simple constraints} can be easily, concisely, and intuitively expressed by either modeling languages (e.g., \emph{RDF}, \emph{RDFS}, \emph{OWL 2}) or constraint languages (e.g., \emph{ShEx}, \emph{ReSh}, \emph{SPIN}). 
-This is not the case, however, for \emph{complex constraints} which in most cases still have to be expressed by plain \emph{SPARQL}. 
-As almost the half of all constraint violations are caused by \emph{complex constraints}, 
-data quality can be significantly improved when existing constraint languages are extended or new constraint languages are developed to express \emph{complex constraints} more easily, concisely, and intuitively.
 
 63\% of all constraint violations are caused by warning constraints which are only 10\% of all constraints. 
 Only 6\% of the constraint violations are caused by error constraints which are 49\% of all constraints.
