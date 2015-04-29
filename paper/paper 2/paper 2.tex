@@ -184,12 +184,12 @@ Stuttgart Media University, Germany \\
 \begin{abstract}
 
 More and more domains adopt Linked Data principles
-and seek for ways to ensure data quality by validating RDF data according to predefined constraints.  In particular, as many communities are used to have this functionality in the XML world.
-XML Schema is the standard language to formulate constraints to validate XML documents.
-For RDF, however, there are several languages which can be used to express constraints on RDF data - but not a stand-alone standard one meeting the majority of RDF validation use cases. 
-% Truth be told, we do may two things, blabla on and to blabla, however for the flow of the text we dont need to overkill the text. In abstract and introduction, we just give general idea so at such points we better focus on flow.  
-We identified requirements to formulate constraints for  validating RDF data and mapped each requirement to a constraint type.
-The majority of these constraint types can be expressed in description logics providing which provides logical underpinning.
+and seek for ways to ensure data quality by validating RDF data according to predefined constraints, 
+particularly as many communities are used to have this functionality in the XML world.
+XML Schema is the standard language to formulate constraints on and to validate XML documents.
+For RDF, however, there are several languages which can be used to express constraints on RDF data - but no standard one meeting the majority of RDF validation use cases.
+We identified requirements to formulate constraints and to validate RDF data and mapped each requirement to a constraint type.
+The majority of these constraint types can be expressed in description logics providing their logical underpinning.
 
 %In this paper, we provide a basic terminology and classification system for RDF constraints.\tb{The contributions of this paper are the following. (1)...}
 %We developed a vocabulary to describe constraints of any RDF constraint type generically. 
@@ -197,11 +197,11 @@ The majority of these constraint types can be expressed in description logics pr
 %We show how to transform constraints, expressed by any constraint language \ms{$\alpha$}, into generically expressed constraints and into constraints represented by any other constraint language \ms{$\beta$} and discuss why these transformations are useful.
 %We explain how to overcome the necessity to implement the validation of each constraint type for multiple constraint languages by providing mappings to generically expressed constraints.
 
-The contributions of this paper are:
+The \textbf{contributions} of this paper are:
 (1) we provide a basic terminology and classification system for RDF constraints,
-(2) we develop a vocabulary to describe constraints of any constraint type generically and specified its underlying semantics,
-(3) we show how to transform constraints which are expressed by any constraint language, into generically expressed constraints and discuss why these transformations are useful, and
-(4) we explain how to overcome the problems to implement the validation of each constraint type for diverse constraint languages.
+(2) we developed a vocabulary to describe constraints of any constraint type generically and specified its underlying semantics,
+(3) we show how to transform constraints, expressed by any constraint language \ms{$\alpha$}, into generically expressed constraints and into constraints represented by any other constraint language \ms{$\beta$} and discuss why these transformations are useful, and
+(4) we explain how to overcome the necessity to implement the validation of each constraint type for diverse constraint languages.
 
 \keywords{RDF Validation, RDF Constraints, RDF Validation Requirements, Linked Data, Semantic Web}
 \end{abstract}
@@ -226,17 +226,18 @@ which is available for contribution at \url{http://purl.org/net/rdf-validation}.
 The intention is to collaboratively collect case studies, use cases, requirements, and solutions regarding RDF validation in a comprehensive and structured way. 
 Bosch et al. identified 74 requirements to formulate constraints; each of them corresponding to a constraint type which can be expressed by at least one existing constraint language \cite{BoschNolleAcarEckert2015}. 
 
-Recently, RDF validation as a research field gained speed due to common needs of data practitioners. A typical example is the library domain that co-developed and adopted Linked Data principles very early. For libraries, the common description of resources are key business and they have a long tradition in developing and using interoperable data formats. While they embrace the openness of Linked Data and the data modeling principles provided by RDF, the data is still mostly represented in XML and this is unlikely to change any time soon. 
+Recently, RDF validation as a research field gained speed due to common needs of data practitioners. A typical example is the library domain that co-developed and adopted Linked Data principles very early. For libraries, the common description of resources are key business and they have a long tradition in developing and using interoperable data formats. While they embrace the openness of Linked Data and the data modeling principles provided by RDF, the data is still mostly represented in XML and this is unlikely to change soon. 
 Among the reasons for the success of XML is the possibility to formulate fine-grained constraints to be met by the data and to validate the data according to these constraints using powerful systems like DTDs, XML Schemas, RELAX NG, or Schematron.
 A typical example is the definition of a library record describing a book. There are clear rules which information has to be available to describe a book properly (required fields, like a title), but also how information like an ISBN number is properly represented. Libraries seek to make their own data reusable for general purposes, but also to enrich and interlink their own data. Checking if third-party data meets own requirements or validating existing data according to new needs for a Linked Data application are among common use cases for RDF validation.
 
 \section{Motivation}
 
-As there is no do-it-all language meeting the majority of requirements to formulate constraints, and to validate RDF data,
-
+As there is not the one language meeting the majority of requirements to formulate constraints and to validate RDF data
+and as there are more than 10 candidate languages with different syntaxes and semantics, 
 %which can be used to express constraints and to validate RDF data, 
 %(e.g. existential and universal quantification, cardinality restrictions, and exclusive or of properties)
-language selection heavily depends on the individual use case.  Loosely speaking, there are more than 10 candidate languages with different syntaxes and semantics, and we will focus on five which, in our opinion, are the most promising languages on being the standard constraint languages. Those are
+language selection heavily depends on the individual use case.
+The five most promising languages on being the standard constraint language are
 \emph{Description Set Profiles (DSP)},
 \emph{Resource Shapes (ReSh)}, 
 \emph{Shape Expressions (ShEx)},
@@ -250,14 +251,13 @@ and the \emph{Web Ontology Language (OWL 2)}.
 % - constraint / constraint elements / constraint design patterns / constraint language
 %dependency between requirements / when this requirements is fulfilled then this is also fulfilled (e.g. min card and requ. car)
 %min car more powerful than req. propery
-The idea behind this paper is to achieve complete RDF validation requirements coverage by representing any constraint type (each of them corresponding to a requirement to formulate constraints and to validate RDF data) in a generic way using a lightweight vocabulary, say,  consisting of only a few terms (see section \ref{sec:vocabulary}).
+The idea behind this paper is to achieve complete RDF validation requirements coverage by representing any constraint type (each of them corresponding to a requirement to formulate constraints and to validate RDF data) in a generic way using a lightweight vocabulary consisting of only a few terms (see section \ref{sec:vocabulary}).
 
-\emph{Cardinality restrictions} can be expressed either generically (\textbf{\emph{generic constraints}}) by \emph{description logics (DL)} 
+\emph{Cardinality restrictions}, e.g., can be expressed either generically (\textbf{\emph{generic constraints}}) by \emph{description logics (DL)} 
 %and extensions  
 or specifically (\textbf{\emph{specific constraints}}) by domain-specific constraint languages such as \emph{OWL 2}, \emph{DSP}, \emph{ShEx}, \emph{ReSh}, and \emph{SPIN}.
 The knowledge representation formalism {\em DL}, with its  well-studied theoretical properties, provides the foundational basis to express constraints in a generic way. 
 For that reason, we map constraint types to \emph{DL} statements.
-
 With \emph{minimum qualified cardinality restrictions} (\emph{R-75/81})\footnote{Requirements/constraint types are uniquely identified by alphanumeric technical identifiers like \emph{R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES}}, researchers from the library domain may restrict
 that \emph{publications} must have at least one \emph{author} which must be a \emph{person}.
 This constraint can be represented generically (\emph{generic constraint}) in \emph{DL} (\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}), but also specifically (\emph{specific constraint}) by multiple constraint languages:
@@ -289,12 +289,12 @@ Publication a rs:ResourceShape ; rs:property [
             dsp:valueClass Person ] ] ] .
 \end{ex}
 
-As every \emph{publication} must have at least one \emph{author} which must be a \emph{person}, 
-and since the book \emph{The-Lord-Of-The-Rings} is a \emph{publication} \\(\ms{rdf:type(The-Lord-Of-The-Rings, Publication)}), 
+As each \emph{publication} must have at least one \emph{author} which must be a \emph{person} 
+and as the book \emph{The-Lord-Of-The-Rings} is a \emph{publication} (\ms{rdf:type(The-Lord-Of-The-Rings, Publication)}), 
 it must have at least one \emph{author} relationship to a \emph{person}.
 Constraint violations are raised either (1) if
 \emph{The-Lord-Of-The-Rings} does not have any \emph{author} relationship, or (2) if 
-it has an \emph{author} which is not a \emph{person} \\
+it has an \emph{author} which is not a \emph{person}
 (\ms{author(The-Lord-Of-The-Rings, Tolkien)}, \ms{rdf:type(Tolkien, Hobbit)}), 
 or (3) if it has an \emph{author} for which no class is assigned
 (\ms{author(The-Lord-Of-The-Rings, Tolkien)}).
@@ -302,15 +302,15 @@ In contrast, \emph{The-Lord-Of-The-Rings} is a valid \emph{publication}, if it i
 (\ms{author(The-Lord-Of-The-Rings, Tolkien)}, \ms{rdf:type(Tolkien, Person)}).
 
 As there is no standard way to formulate constraints, 
-semantically equivalent \emph{cardinality restrictions} may be represented by multiple constraint languages that have different syntax and semantics.
-This causes confusion and weakens the common understanding between several parties about the semantics of particular constraints. Also, it raises  questions on how to ensure high data quality. 
-Therefore, when choosing a constraint language, say \ms{$\alpha$}, to express a constraint of an arbitrary constraint type, it should be possible to transform this constraint into a semantically equivalent constraint in another other constraint language \ms{$\beta$} (see section \ref{sec:transformations}). 
+semantically equivalent \emph{cardinality restrictions} may be represented by multiple constraint languages having different syntax and semantics.
+This causes confusion and weakens the common understanding between several parties about the semantics of particular constraints and therefore how to ensure high data quality. 
+Thus, when choosing constraint language \ms{$\alpha$} to express a constraint of an arbitrary constraint type, it should be possible to transform this constraint into a semantically equivalent constraint formulated by any other constraint language \ms{$\beta$} (see section \ref{sec:transformations}). 
 This is important in order to enhance the interoperability of constraint languages and to resolve misunderstandings and ambiguities in the communication of RDF data producers and consumers, 
-since constraint transformations avoid the necessity to understand several constraint languages.
+as constraint transformations avoid the necessity to understand several constraint languages.
 
-We provide a validation environment \footnote{Available \url{http://purl.org/net/rdfval-demo}} which enables to validate RDF data according to constraints expressed by diverse  constraint languages.
-As a second step, the \emph{RDF Validator} is extended by validating RDF data conforming to constraints of any constraint type represented by any constraint language,  
-to perform validation on semantically equivalent \emph{specific constraints}, expressed by different constraint languages 
+We provide a validation environment (available at \url{http://purl.org/net/rdfval-demo}) which enables to validate RDF data according to constraints expressed by diverse  constraint languages.
+As a second step, the \emph{RDF Validator} is extended by validating RDF data conforming to constraints of any constraint type represented by any constraint language and 
+to perform validation on semantically equivalent \emph{specific constraints}, expressed by different constraint languages, in exactly the same way, 
 i.e., validation is independent from the used constraint language (see section \ref{sec:validation}). 
 %i.e., validation leads to identical validation results - independently from the used constraint language (see section \ref{sec:validation}).
 We are able to offer an already implemented validation mechanism for any \emph{specific constraint} out-of-the-box, 
@@ -408,18 +408,17 @@ The main \textbf{contributions} of this paper are:
 \section{A Vocabulary to Describe RDF Constraints Generically} 
 \label{sec:vocabulary}
 
-In order to develop a vocabulary to describe constraints of any constraint type in a generic way, what we need to do is to specify the vocabulary's underlying semantics and define the basic terminology for the formulation of constraints.
-The underlying \emph{semantics} for RDF validation are \emph{UNA} and \emph{CWA}.
+In order to develop a vocabulary to describe constraints of any constraint type in a generic way, prerequisites are to specify the vocabulary's underlying semantics, to define the basic terminology for the formulation of constraints, and to classify them. 
+The underlying \textbf{\emph{semantics}} for RDF validation are \emph{UNA} and \emph{CWA}.
 RDF validation requires that different names represent different objects ({\em unique name assumption (UNA)}), whereas,
-\emph{OWL 2} is based on the {\em non-unique name assumption (nUNA)}.  \tb{ Erman: One usual problem is that, a constraint that says book should have a single author in OWA, does not mean that it has a unique author. In every model  (an interpretation that makes a set of DL knowledge base true), it can be the case that a book has a single author, however, bringing all those together, this author is not unique. In some models it is Ali, in others its Veli. And since in every model there is only one, DL sentences are satisfied. But this does not correspond to the intended constraint which is usual in CWA way.} 
-A data property is \emph{functional} (\emph{R-65}) if for each individual \emph{x}, there can be at most one distinct literal \emph{y} such that \emph{x} is connected by the data property to \emph{y}. (See \cite{resource} for this terminology.)
+\emph{OWL 2} is based on the {\em non-unique name assumption (nUNA)}. 
+A data property is \emph{functional} (\emph{R-65}) if for each individual \emph{x}, there can be at most one distinct literal \emph{y} such that \emph{x} is connected by the data property to \emph{y}.
 When assuming \emph{UNA}, the functional property {\em title} (\ms{funct (title)}) causes a clash
 in case the book {\em Huckleberry-Finn} has more than one \emph{title}
 (\ms{title(Huckleberry-Finn, The-Adventures-of-Huckleberry-Finn)}, \ms{title(Huckleberry-Finn, Die-Abenteuer-des-Huckleberry-Finn)}).
 Assuming nUNA, however, reasoning concludes that the titles {\em The-Adventures-of-Huckleberry-Finn} and {\em Die-Abenteuer-des-Huckleberry-Finn} are the same (\ms{\{The-Adventures-of-Huckleberry-Finn\}} = \ms{\{Die-Abenteuer-des-Huckle} \ms{berry-}\ms{Finn\}}).  
 
-Reasoning in \emph{OWL 2} is based on the {\em open-world assumption (OWA)}, i.e., a statement cannot be inferred to be false if it cannot be proved to be true . 
-%which fits its primary design purpose to represent knowledge on the World Wide Web. 
+Reasoning in \emph{OWL 2} is based on the {\em open-world assumption (OWA)}, i.e., a statement cannot be inferred to be false if it cannot be proved to be true  which fits its primary design purpose to represent knowledge on the World Wide Web. 
 %Most of the constraint languages except OWL, have a major shortcoming of redundancy.
 %With its open-world semantics, used as a constraint language, OWL solves the redundancy problem. 
 %\tb{the following example does not show the redundancy problem!}
@@ -427,13 +426,12 @@ Reasoning in \emph{OWL 2} is based on the {\em open-world assumption (OWA)}, i.e
 As each \emph{book} must have a \emph{title} (\ms{Book $\sqsubseteq \exists$ title.$\top$}) and {\em Hamlet} is a \emph{book} (\ms{Book(Hamlet)}),
 {\em Hamlet} must have at least one \emph{title}.
 In an \emph{OWA} setting, this axiom does not cause a constraint violation (even if there is no explicitly defined \emph{title}), since there must be a \emph{title} for this \emph{book} which we may not know. 
-On the other hand, RDF validation scenarios require the {\em closed-world assumption (CWA)}, i.e., a statement is inferred to be false if it cannot be proved to be true. Classical constraint languages are based on the \emph{CWA} where constraints need to be satisfied only by named individuals which yields a constraint violation.
+On the other hand, RDF validation scenarios require the {\em closed-world assumption (CWA)}, i.e., a statement is inferred to be false if it cannot be proved to be true.
+Hence, classical constraint languages are based on the \emph{CWA} where constraints need to be satisfied only by named individuals which yields in return to a constraint violation.
 This ambiguity in semantics is one of the main reasons why \emph{OWL 2} has not been adopted as a standard constraint language for RDF validation in the past.  
-In case we want to use \emph{OWL 2} as a constraint language, we adopt the same semantics (CWA) that is for RDF validation in general. 
-\tb{feedback from Erman: the major problem is semantics. OWL basically work in different semantics than others. And their semantics are formal. Closed world vs. Open World is also a part of this. / Thomas: I think your issue is tackled now? No.}
-\tb{Erman: The problem is OWL doesn't work CWA way, just because we want it. If a constraint is represented (recognized) by two different languages, that means, whenever it is violated in one language it is violated in other. Since the time is tight and we cannot provide formal semantics for it; nor formally prove those statements. We  can go on with whats at hand. }
-\tb{Erman thinks formal generic semantics should be defined / Thomas: what do you mean by this? / I inserted these 2 paragraphs about RDF validation semantics. Are your concerns resolved now? }
-
+Thus, in case we want to use \emph{OWL 2} as a constraint language, we adopt the same semantics than for RDF validation in general. 
+\tb{feedback from Erman: the major problem is semantics. OWL basically work in different semantics than others. And their semantics are formal. Closed world vs. Open World is also a part of this. / Thomas: I think your issue is tackled now?}
+\tb{Erman thinks formal generic semantics should be defined / Thomas: what do you mean by this? / I inserted these 2 paragraphs about RDF validation semantics. Are your concerns resolved now?}
 
 A \textbf{\emph{constraint language}} is a language which is used to formulate constraints.
 The W3C Data Shapes working group defines \textbf{\emph{RDF constraint}} as a component of a schema what needs to be satisfied\footnote{\url{https://www.w3.org/2014/data-shapes/wiki/Glossary}}.
@@ -445,7 +443,8 @@ We identified four dimensions to classify constraint types:
 	\item \textbf{\emph{DL Expressivity:}} \emph{constraints expressible in DL} vs. \emph{constraints not expressible in DL}
 \end{itemize}
 
-As there are already five promising constraint languages and our purpose is not to put a new constraint language, we rather developed a very simple lightweight vocabulary (only three classes, three object properties, and three data properties) which is universal enough to describe constraints of any constraint type expressible by any constraint language (see the conceptual model in figure \ref{fig:RDF-CV-conceptual-model}).
+As there are already five promising constraint languages, our purpose is not to invent a new constraint language.
+We rather developed a very simple lightweight vocabulary (only three classes, three object properties, and three data properties) which is universal enough to describe constraints of any constraint type expressible by any constraint language (see the conceptual model in figure \ref{fig:RDF-CV-conceptual-model}).
 We call this vocabulary the \textbf{\emph{RDF Constraints Vocabulary (RDF-CV)}}\footnote{Available at: \url{https://github.com/boschthomas/RDF-Constraints-Vocabulary}}.
 
 \begin{figure}
@@ -459,11 +458,11 @@ Constraints can be expressed either generically (\textbf{\emph{generic constrain
 or specifically (\textbf{\emph{specific constraints}}) by domain-specific constraint languages.
 As the \emph{RDF-CV} describes constraints generically, the vocabulary does not distinguish constraints according to the dimension \emph{universality}. 
 The majority of the constraint types can be expressed in \emph{DL}.
-In contrast, there are certain constraint types which cannot be expressed in \emph{DL}, but are also expressible by the \emph{RDF-CV} . 
+In contrast, there are constraint types which cannot be expressed in \emph{DL}, but are also representable by the \emph{RDF-CV} (see section \ref{sec:evaluation}). 
 \textbf{\emph{Complex constraints}} encompass \textbf{\emph{simple constraints}} (atomic constraints) and/or further \emph{complex constraints},
 i.e. \emph{DL} statements representing \emph{complex constraints} are created out of \emph{DL} statements standing for atomic and composed constraints (if expressible in \emph{DL}). 
 Simple constraints may be applied to either properties (\textbf{\emph{property constraints}}) or classes (\textbf{\emph{class constraints}}).
-The \emph{RDF-CV} does not contain any terms standing for \emph{simple} and \emph{complex constraints}, since \emph{context classes} of \emph{simple constraints} are just reused within \emph{complex constraints} (\emph{simple constraints} associated with \emph{context classes} must hold for individuals of these \emph{context classes}). \tb{Erman: If you say its expressible in RDF-CV, than you impose that RDF-CV is a language rather than a vocabulary. "in different contexts they call it signature which is the same thing". Generally, a language uses vocabulary to construct sentences, and the set of those sentences, is the language.} (see section \ref{sec:evaluation})
+The \emph{RDF-CV} does not contain any terms standing for \emph{simple} and \emph{complex constraints}, since \emph{context classes} of \emph{simple constraints} are just reused within \emph{complex constraints} (\emph{simple constraints} associated with \emph{context classes} must hold for individuals of these \emph{context classes}).
 As a consequence, the distinction of \emph{property} and \emph{class constraints} is sufficient to describe constraints of all possible constraint types.
 
 \subsection{\emph{Simple Constraints} (Expressible in \emph{DL})}
@@ -555,8 +554,8 @@ Even though, the restriction of the datatype \emph{ISBN} cannot be expressed in 
 \begin{ex}
 ISBN a RDFS:Datatype ; owl:equivalentClass [ a RDFS:Datatype ;
     owl:onDatatype xsd:string ; 
-    owl:withRestrictions ([ xsd:pattern "^\d{9}[\d|X]" ])] .
-\end{ex} 
+    owl:withRestrictions ([ xsd:pattern "^\d{9}[\d|X]$" ])] .
+\end{ex}\$$
 The first OWL 2 axiom explicitly declares {\em ISBN} to be a datatype. %\er{Why start from second and then first? Also better we say "owl axiom" when we talk axiom of owl, to prevent ambiguity.}\tb{resolved}
 The second OWL 2 axiom defines {\em ISBN} as an abbreviation for a datatype restriction on {\em xsd:string}. 
 The datatype {\em ISBN} can be used just like any other datatype like in the \emph{universal restriction} above.
