@@ -609,7 +609,7 @@ Validation has to be implemented once for each \emph{generic constraint type} wh
 \emph{Exclusive or} is a logical operation that outputs true whenever both inputs differ (one is true, the other is false).
 The \emph{complex constraint} \emph{context-specific exclusive or of property groups} (\emph{R-13})
 restricts individuals of given classes to have properties of only one of multiple mutually exclusive property groups.
-\emph{Publications} are either identified by an \emph{ISBN} and a \emph{title} (for books) or by an \emph{ISSN} and a \emph{title} (for periodical \emph{publications}), but it should not be possible to assign both identifiers to a given \emph{publication}, which can be expressed in \emph{ShEx} as follows:
+\emph{Publications}, e.g., are either identified by an \emph{ISBN} and a \emph{title} (for books) or by an \emph{ISSN} and a \emph{title} (for periodical \emph{publications}), but it should not be possible to assign both identifiers to a given \emph{publication}, which can be expressed in \emph{ShEx} as follows:
 
 %Half-Klingons, e.g., either have a klingon mother and a human father or a human mother and a klingon father, which can be expressed by ShEx:
 
@@ -762,7 +762,7 @@ Such axioms, however, are just syntactic sugar -
 all role characteristics can be expressed using the basic features of \emph{DL}.
 The \emph{irreflexive object properties} constraint type (\emph{R-60}) 
 restricts that no individual is connected by a given object property to itself \cite{Kroetzsch2012}.
-With the following \emph{irreflexive object property} constraint, for instance, one can state that individuals cannot be authors of themselves:
+With the following \emph{irreflexive object property} constraint, e.g., one can state that individuals cannot be authors of themselves:
 \begin{DL}
 \ms{$\top$ $\sqsubseteq$ $\neg$ $\exists authorOf.Self$}
 \end{DL}
@@ -812,7 +812,7 @@ property & $\top$ & authorOf & - & - & irreflexive & - \\
 \end{table}
 
 The \emph{primary key properties} constraint type (\emph{R-226}) is often useful to declare a given (datatype) property as the "primary key" of a class, so that a system can enforce uniqueness. 
-For instance, \emph{Books} are uniquely identified by their \emph{ISBN} number, that is, the property \emph{isbn} is inverse functional \ms{$(\ms{funct } isbn\sp{\overline{\ }})$}, 
+\emph{Books}, e.g., are uniquely identified by their \emph{ISBN} number, i.e., the property \emph{isbn} is inverse functional \ms{$(\ms{funct } isbn\sp{\overline{\ }})$}, 
 which can be represented by the \emph{RDF-CV} in form of a \emph{complex constraint} (see table \ref{tab:primary-key-properties-as-complex-constraints}):
 
 %\begin{gcotable}
@@ -941,17 +941,17 @@ As there is no standard way to express constraints, they may be represented by a
 To overcome the necessity to understand diverse constraint languages, 
 we propose to transform any \emph{specific constraint} (\emph{$sc_{\alpha}$}) (expressed by any constraint language \emph{$\alpha$}) into any other \emph{specific constraint} (\emph{$sc_{\beta}$}) (expressed by any other constraint language \emph{$\beta$}) - in case they have the same semantics.
 We use the \emph{RDF-CV} to intermediately represent constraints in a generic way for these transformations.
-By defining mappings between equivalent \emph{specific constraints}, and the corresponding \emph{generic constraint} (\emph{gc}) we are able to convert them automatically:
+By defining mappings ($m(sc_{\alpha}), m(sc_{\beta})$) between equivalent \emph{specific constraints} and the corresponding \emph{generic constraint} (\emph{gc}) we are able to convert them automatically:
 
 \begin{DL}
-$ gc = m_1(sc_{\alpha}) = m_2(sc_{\beta}) $
+$ gc = m(sc_{\alpha}) = m(sc_{\beta}) $
 \end{DL}
 
 We do not need to define mappings between each pair of semantically equivalent \emph{specific constraints}.
-Let's assume we are able to express a particular constraint type by 5 constraint languages.
+Let's assume we are able to express a particular constraint type by 5/6/7/8/9/10 constraint languages.
 Without the intermediate \emph{generic constraint}, we would have to define for each constraint type \emph{1} mapping for each pair of \emph{specific constraints} (expressed by different constraint languages)
-- that are \emph{\( {n \choose 2} \)} mappings which is not very helpful.
-With an intermediate \emph{generic constraint}, however, we only need to define for each constraint type \emph{n} mappings (1 mapping for each \emph{specific constraint}) from \emph{n} \emph{specific constraints} to the corresponding \emph{generic constraint}.
+- that are \emph{\( {n \choose 2} \)} mappings (10/15/21/28/36/45 mappings).
+With an intermediate \emph{generic constraint}, however, we only need to define for each constraint type \emph{n} mappings (1 mapping for each \emph{specific constraint}) from \emph{n} \emph{specific constraints} to the corresponding \emph{generic constraint} (5/6/7/8/9/10 mappings).
 
 %(n(n+1))/2
 
@@ -1022,7 +1022,7 @@ CONSTRUCT {
 %First, we map these DL statements to two \emph{simple generic constraints} corresponding to the \emph{RDF-CV} (we define the class \ms{EnterpriseCaptains} by simply enumerating its instances):
 
 The \emph{DL} statement \ms{Publication $\equiv$ $\exists$ publisher.Publisher} is mapped to a \emph{(simple) generic constraint} conforming to the \emph{RDF-CV} (see table \ref{tab:existential-quantification-as-simple-constraints}).
-Then, one mapping (\emph{$m_1(sc_{OWL 2})$}, \emph{$m_2(sc_{ReSh})$}, \emph{$m_3(sc_{ShEx})$}, ...) is defined for each \emph{specific constraint} (\emph{$sc_{OWL 2}$}, \emph{$sc_{ReSh}$}, \emph{$sc_{ShEx}$}, ...) to the corresponding \emph{generic constraint} (\emph{gc}).
+Then, one mapping (\emph{$m(sc_{OWL 2})$}, \emph{$m(sc_{ReSh})$}, \emph{$m(sc_{ShEx})$}, ...) is defined for each \emph{specific constraint} (\emph{$sc_{OWL 2}$}, \emph{$sc_{ReSh}$}, \emph{$sc_{ShEx}$}, ...) to the corresponding \emph{generic constraint} (\emph{gc}).
 
 %\begin{gcotable}
 %property & StarfleetCaptain & overruledBy & - & CaptainOverruler & $\forall$ & - \\
@@ -1153,12 +1153,12 @@ in order to automatically validate RDF data complying with each type of \emph{ge
 \section{Evaluation}
 \label{sec:evaluation}
 
-We evaluated to which extend the five most promising constraint languages on being the standard for fulfilling each of the overall 74 requirements to formulate RDF constraints (each corresponds to a constraint type).
+We evaluated to which extend the five most promising constraint languages on being the standard fulfill each of the overall 74 requirements to formulate RDF constraints; each of them corresponding to a constraint type.
 We recently published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} (serving as appendix of this paper) in which we explain each constraint type in detail and give examples for each (represented by different constraint languages).
 The technical report also contains mappings to \emph{DL} to logically underpin each constraint type and to determine which \emph{DL} constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
-If a constraint type was expressible in \emph{DL}, we added the mapping to \emph{DL} and to the \emph{generic constraint} conforming to the \emph{RDF-CV}.
-In contrast, if a constraint type was not expressible in \emph{DL}, we only added the mapping to the \emph{generic constraint}.
-This way, we show that each constraint type can be mapped to a \emph{generic constraint} and therefore be represented generically by means of the \emph{RDF-CV}.
+If a constraint type can be expressed in \emph{DL}, we added the mapping to \emph{DL} and to the \emph{generic constraint} conforming to the \emph{RDF-CV}.
+In contrast, if a constraint type cannot be expressed in \emph{DL}, we only added the mapping to the \emph{generic constraint}.
+This way, we prove that each constraint type can be mapped to a \emph{generic constraint} and therefore be represented generically by means of the \emph{RDF-CV}.
 Table \ref{tab:evaluation} displays the classification of constraint types according to the dimensions \emph{context}, \emph{complexity}, and \emph{DL expressivity}:
 
 %\begin{evaluation-generic-overview}
@@ -1225,7 +1225,7 @@ Constraint types can be classified as \emph{property constraints} and \emph{clas
 Two thirds of the total amount of constraint types are \emph{property constraints} (e.g., \emph{R-86: existential quantification} and \emph{R-91: universal quantification}), one fifth are \emph{class constraints} (e.g., \emph{R-30/37: allowed values} for objects/literals), and approx. 10\% are composed of both \emph{property and class constraints} (e.g., \emph{R-13: context-specific exclusive or of property groups}).
 According to the dimesion \emph{complexity}, constraint types can be either atomic (\emph{simple constraints}) or complex (\emph{complex constraints}), i.e., created out of \emph{simple} and/or \emph{complex constraints}.
 Almost two thirds of the constraint types are \emph{simple constraints} (e.g., \emph{R-55: object property paths}), a quarter are \emph{complex constraints} (e.g., \emph{R-45: ranges of literal values}), and
-nearly 15 percent are \emph{complex constraints} which can be formulated as \emph{simple constraints} when used in terms of syntactic sugar (e.g., \emph{R-81/75/82/76/80/74: (un)qualified cardinality restrictions}).
+nearly 15 percent are \emph{complex constraints} which can be formulated as \emph{simple constraints} when using them in terms of syntactic sugar (e.g., \emph{R-81/75/82/76/80/74: (un)qualified cardinality restrictions}).
 Constraint types can either be \emph{expressible in DL} or \emph{not} (\emph{DL expressivity}).
 The majority - nearly 70\% - of the overall constraint types are expressible in \emph{DL}.	
 \emph{Literal pattern matching} (\emph{R-44}) is an example of a constraint type which cannot be represented in \emph{DL}, but can also be represented generically by means of the \emph{RDF-CV}.
