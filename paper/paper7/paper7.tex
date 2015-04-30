@@ -1342,6 +1342,16 @@ This is not the case, however, for \emph{complex constraints} which in most case
 As almost 1/2 of all violations are caused by \emph{complex constraints}, 
 data quality can be significantly improved when suitable constraint languages are developed which enable to define \emph{complex constraints} in an easy, concise, and intuitive way.
 %Therefore, existing constraint languages have to be extended or new constraint languages have to be developed.
+1/2 of all constraints are \emph{error constraints} and
+10\% of all constraints are \emph{warning constraints}.
+\emph{Informational constraints} caused 1/3 and
+\emph{warning constraints} 2/3 of all violations.
+As the percentage of severe violations is very low for all vocabularies,
+data quality is high with regard to the severity level of constraints.
+
+\begin{hyp}
+The percentage of severe violations is very low, compared to about 2/3 of warning violations and 1/3 of informational violations, which implies that proper constraint languages can significantly improve the data quality beyond fundamental requirements.
+\end{hyp} 
 
 \begin{table}[H]
 		\scriptsize
@@ -1378,26 +1388,19 @@ data quality can be significantly improved when suitable constraint languages ar
     \end{center}
 \end{table}
 
-1/2 of all constraints are \emph{error constraints} and
-10\% of all constraints are \emph{warning constraints}.
-\emph{Informational constraints} caused 1/3 and
-\emph{warning constraints} 2/3 of all violations.
-As the percentage of severe violations is very low for all vocabularies,
-data quality is high with regard to the severity level of constraints.
-
-\begin{hyp}
-The percentage of severe violations is very low, compared to about 2/3 of warning violations and 1/3 of informational violations, which implies that proper constraint languages can significantly improve the data quality beyond fundamental requirements.
-\end{hyp} 
-
-80\% of the \emph{QB} constraints are error constraints.
-More than 50\% of the \emph{Disco} and \emph{SKOS} constraints, however, are informational constraints.
-1/6 of the Disco violations are caused by error constraints.
-Almost all \emph{QB} violations and 59\% of the \emph{SKOS} violations are caused by warning constraints.  
-\begin{hyp}
+80\% of the \emph{QB} constraints are \emph{error constraints}.
+More than 50\% of the \emph{Disco} and \emph{SKOS} constraints, however, are \emph{informational constraints}.
+1/6 of the Disco violations are caused by \emph{error constraints} and
+almost all \emph{QB} violations and 59\% of the \emph{SKOS} violations are caused by \emph{warning constraints}.  
 For well-established vocabularies, data quality is high
 as serious violations rarely appear.
 For newly developed vocabularies, data quality is worse
 as serious violations occur partially.
+Constraints are serious when they violate the integrity of vocabularies.
+For well-established vocabularies, it is well documented and the experience is high how to guarantee this integrity.
+This is not the case or newly-developed vocabularies.
+\begin{hyp}
+Especially for newly developed vocabularies, constraint languages should be used to a larger extend to meet severe constraints which guarantee their integrity.   
 \end{hyp} 
 
 %For the vocabularies \emph{Disco}, \emph{QB}, and \emph{SKOS}, we defined 213 constraints of 53 constraint types .
