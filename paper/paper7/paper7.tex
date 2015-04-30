@@ -907,7 +907,7 @@ as language coverage incompleteness for some concepts may indicate shortcomings 
 %Per default, however, access to data sets should be restricted (\emph{false}) ($\mathcal{SL}_{0}$).
 %Many properties are not necessarily required but \emph{recommended} within a particular context (\emph{R-72}).
 %The property {\em skos:notation}, e.g., is not mandatory for {\em disco:Variable}s, but recommended to represent variable names ($\mathcal{SL}_{0}$).
-Percentage values are only valid when they are within the literal range of 0 and 100 (\emph{R-45: literal ranges}; $\mathcal{SL}_{2}$)
+Percentage values are only valid when they are within the literal range of 0 and 100 (\emph{R-45: literal ranges}; \emph{error})
 which is checked for \emph{disco:percentage} standing for the number of cases of a given code in relation to the total number of cases for a particular variable.
 
 %\begin{center}
@@ -950,7 +950,7 @@ Thus and as there are different sorts of key, and as keys can lead to undecidabi
 \emph{Data model consistency} constraints ensure the integrity of
 the data according to the intended semantics of vocabularies.
 Every \emph{qb:Observation}, e.g., must have a value for each dimension
-declared in its \emph{qb:DataStructureDefinition} ($\mathcal{SL}_{2}$)
+declared in its \emph{qb:DataStructureDefinition} (\emph{error})
 and no two \emph{qb:Observations} in the same \emph{qb:DataSet}
 can have the same value for all dimensions (\emph{warning}).
 If a \emph{qb:DataSet} \emph{D} has a \emph{qb:Slice} \emph{S}, and \emph{S} has an
@@ -960,7 +960,6 @@ If a \emph{qb:DataSet} \emph{D} has a \emph{qb:Slice} \emph{S}, and \emph{S} has
 %{\em Mathematical Operations} (\emph{R-41, R-42}; e.g. date calculations and statistical computations like average, mean, and sum) are performed to ensure the integrity of data models.
 %The sum of percentage values of all variable codes, e.g., must exactly be 100 ($\mathcal{SL}_{2}$)
 %and the minimum absolute frequency of all variable codes do not have to be greater than the maximum ($\mathcal{SL}_{2}$).
-
 %\textbf{Hierarchies and Ordering.}
 %\textbf{Structure and Ordering.}
 %For assessing the quality of \emph{SKOS} vocabularies, we concentrate on graph-based structures and apply graph- and network-analysis techniques (\emph{structure} constraints) like 
@@ -969,7 +968,6 @@ If a \emph{qb:DataSet} \emph{D} has a \emph{qb:Slice} \emph{S}, and \emph{S} has
 %(3) a thesaurus should not contain many orphan concepts 
 %(concepts without any associative or hierarchical relations) lacking valuable context information for retrieval.
 %, as, e.g., no hierarchical query expansion can be performed on search terms to find documents with more general content.) \cite{MaderHaslhoferIsaac2012}. 
-
 %A very common research question is to compare variables of multiple studies or countries (constraint type: \emph{comparison}).
 %To compare variables 
 %(1) their code lists must be structured properly and
@@ -990,29 +988,28 @@ If a \emph{qb:DataSet} \emph{D} has a \emph{qb:Slice} \emph{S}, and \emph{S} has
 %covering the first three constraints may be sufficient.
 %Thus, the severity level of the first three constraints is stronger ($\mathcal{SL}_{2}$) than for the last two constraints ($\mathcal{SL}_{1}$ and $\mathcal{SL}_{0}$).
 %If the intention of the researcher is to perform more detailed comparisons (use case 2), however, the violation of the remaining two constraints is getting more serious.
-
 %\textbf{Membership in Controlled Vocabularies.}
 In many cases, resources must be \emph{members of controlled vocabularies} (\emph{R-32}).
 If a dimension property, e.g., has a \emph{qb:codeList},
-then the value of the dimension property on every \emph{qb:Observation} must be in the code list ($\mathcal{SL}_{2}$).
-Summary statistics types like minimum, maximum, and arithmetic mean are maintained within a controlled vocabulary.  
-Thus, summary statistics can only have \emph{disco:summaryStatisticType} relationships to \emph{skos:Concept}s which must be members of the controlled vocabulary \emph{ddicv:SummaryStatisticType}, a \emph{skos:ConceptScheme} ($\mathcal{SL}_{2}$).
+then the value of the dimension property on every \emph{qb:Observation} must be in the code list (\emph{error}).
+%Summary statistics types like minimum, maximum, and arithmetic mean are maintained within a controlled vocabulary.  
+%Thus, summary statistics can only have \emph{disco:summaryStatisticType} relationships to \emph{skos:Concept}s which must be members of the controlled vocabulary \emph{ddicv:SummaryStatisticType}, a \emph{skos:ConceptScheme} ($\mathcal{SL}_{2}$).
 Objects/literals can be declared to be ordered for given properties (\emph{R-121/217: ordering}).
 Variables, questions, and codes, e.g., are typically organized in a particular order. 
-If codes (\emph{skos:Concept}) should be ordered, they must be members (\emph{skos:memberList}) in an ordered collection (\emph{skos:OrderedCollection}), the variable's code list ($\mathcal{SL}_{0}$).
+If codes (\emph{skos:Concept}) should be ordered, they must be members (\emph{skos:memberList}) in an ordered collection (\emph{skos:OrderedCollection}), the variable's code list (\emph{informational}).
 
 %\textbf{Constraints on Properties.}
 It is useful to declare properties to be \emph{conditional} (\emph{R-71}), i.e., if particular properties exist (or do not exist), then other properties must also be present (or absent).
 To get an overview over a series/study either an abstract, a title, an alternative title, or links to external descriptions should be provided. 
 If an abstract and an external description are absent, however,  
 a title or an alternative title should be given (\emph{warning}).
-In case a variable is represented in form of a code list, codes may be associated with categories, i.e., human-readable labels ($\mathcal{SL}_{0}$).
+In case a variable is represented in form of a code list, codes may be associated with categories, i.e., human-readable labels (\emph{informational}).
 The variable \emph{Education at pre-school}, e.g., is represented as ordered code list without any categories.
 %If a {\em skos:Concept} represents a code (having {\em skos:notation} and {\em skos:prefLabel} properties), 
 %then the property {\em disco:isValid} has to be stated indicating if the code stands for valid (\emph{true}) or missing (\emph{false}) cases ($\mathcal{SL}_{2}$).
 \emph{Context-specific exclusive or of property groups} (\emph{R-11}) constraints
 restrict individuals of given classes to have properties defined within exactly one of multiple property groups.
-\emph{skos:Concept}s can have either \emph{skos:definition} (when interpreted as theoretical concepts) or \emph{skos:notation} and \emph{skos:prefLabel} properties (when interpreted as codes), but not both ($\mathcal{SL}_{2}$).
+\emph{skos:Concept}s can have either \emph{skos:definition} (when interpreted as theoretical concepts) or \emph{skos:notation} and \emph{skos:prefLabel} properties (when interpreted as codes), but not both (\emph{error}).
 
 %\textbf{Constraints on Literals.}
 
