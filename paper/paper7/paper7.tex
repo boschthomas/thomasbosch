@@ -599,22 +599,25 @@ as the severity of the violation of a given constraint depends on the individual
 %as the violation of one constraint may be severe,
 %whereas, the violation of another constraint of the same type may be minor.
 \emph{SBE} experts determined the default \textbf{\emph{severity level}} (\emph{R-158}) for each of the 246 constraints to indicate how serious the violation of the constraint is.
-We propose an extensible metric to measure the continuum of severity levels ranging from \emph{informational} to \emph{error}.\ke{oder etwas weniger anmaßend: we use the commonly accepted classification of log messages in software development and distingush informational, warning and error.}
-According to the default severity level of constraints, the complete set of constraints encompasses three disjoint \emph{sets of constraints}:\ke{auch dieser satz macht keinen sinn für mich, ebensowenig wie die extrem erhellende auflistung, die gleich folgt... mein vorschlag von eben kann das komplett ersetzen.}
-\begin{itemize}
-	\item \textbf{\emph{informational constraints}}: constraints with severity level \emph{informational}
-	\item \textbf{\emph{warning constraints}}: constraints with severity level \emph{warning}
-	\item \textbf{\emph{error constraints}}: constraints with severity level \emph{error}
-\end{itemize}
+%We propose an extensible metric to measure the continuum of severity levels ranging from \emph{informational} to \emph{error}.
+We use the commonly accepted classification of log messages in software development and distinguish \emph{informational}, \emph{warning} and \emph{error}.
+%According to the default severity level of constraints, the complete set of constraints encompasses three disjoint \emph{sets of constraints}:\ke{auch dieser satz macht keinen sinn für mich, ebensowenig wie die extrem erhellende auflistung, die gleich folgt... mein vorschlag von eben kann das komplett ersetzen.}
+%\begin{itemize}
+	%\item \textbf{\emph{informational constraints}}: constraints with severity level \emph{informational}
+	%\item \textbf{\emph{warning constraints}}: constraints with severity level \emph{warning}
+	%\item \textbf{\emph{error constraints}}: constraints with severity level \emph{error}
+%\end{itemize}
 Violations of \emph{informational constraints} point to desirable but not necessary data improvements to achieve RDF representations which are ideal in terms of syntax and semantics of used vocabularies. 
-Data not conforming to \emph{warning} and \emph{error constraints} is syntactically and/or semantically not correctly represented.
-Data not conforming to \emph{warning constraints} but to \emph{error constraints} could be processed further.
-Data not corresponding to \emph{error constraints}, however, cannot be processed further after validation. 
+They are not seen as serious errors.
+\emph{Errors} are syntactic or semantic errors which should cause the abortion of data processing. 
+\emph{Warnings} are syntactic or semantic errors which typically should not lead to an abortion of data processing.
+%Data not conforming to \emph{warning} and \emph{error constraints} is syntactically and/or semantically not correctly represented.
+%Data not conforming to \emph{warning constraints} but to \emph{error constraints} could be processed further.
+%Data not corresponding to \emph{error constraints}, however, cannot be processed further after validation. 
 As the purpose of \emph{vocabulary constraints} is to ensure explicitly stated semantics of vocabularies, 
 their default severity levels are in most cases very strong (\emph{error}) and 
 in average stronger than the severity levels of \emph{simple} and \emph{complex constraints}.
-As a consequence, violating many \emph{vocabulary constraints} is an indicator for bad (meta)data quality\footnote{For simplicity reasons, we only assign severity levels to \emph{vocabulary constraints} in this paper in case they differ from \emph{error constraints}.}.
-\ke{den ganzen letzten absatz finde ich unübersichtlich. Kann man das nicht klarer sagen: Error sind syntaktische oder semantische fehler, die zu einem abbruch der datenverarbeitung führen sollten. warnings sind syntaktische oder semantische fehler, die aber normalerweise nicht zu einem abbruch führen müssen. verletzungen von informational constraints weisen auf potentielle verbesserungen in den daten hin, werden aber nicht als fehler angesehen (der satz war in ordnung). die fussnote ist doch vollkommen fehl am platz, oder? es werden ja nicht alle constraints aufgelistet und wie ihr das implementiert habt und ob ihr euch arbeit erspart habt weil ihr default severity bei bestimmten constraint types vorgebt, das interessiert doch keinen.}
+As a consequence, violating many \emph{vocabulary constraints} is an indicator for bad (meta)data quality.
 
 Although, we provide default severity levels for each constraint, validation environments should enable users to adapt the severity levels of constraints according to their individual needs.
 Validation environments should enable users to select which constraints to validate against depending on their individual use cases.
@@ -647,7 +650,7 @@ The constraint type \emph{vocabulary} guarantees that users do not invent new or
 %Out-dated classes and properties of previous vocabulary versions can be marked as deprecated.
 %The constraint types \emph{context-specific valid classes and properties} (\emph{R-209; R-210}) can be used to specify which classes and properties are valid in which context - here a given vocabulary version.
 \emph{Value is valid for datatype} (\emph{R-223}) constraints serve to make sure that all literal values are valid with regard to their datatypes - as stated in the vocabularies.
-Thus, it is checked that all date values (e.g., {{\em dcterms:date}) are actually of the datatype \emph{xsd:date} and that \emph{xsd:nonNegativeInteger} values (e.g. \emph{disco:frequency}) are not negative.
+Thus, it is checked that all date values (e.g., {{\em dcterms:date}) are actually of the datatype \emph{xsd:date} and that \emph{xsd:nonNegativeInteger} values (e.g. \emph{disco:frequency}) are not negative\footnote{For simplicity reasons, we only assign severity levels to \emph{vocabulary constraints} if they differ from \emph{error}.}.
 Depending on property datatypes, two different literal values have
 a specific ordering with respect to operators like \textless  (\emph{R-43: literal value comparison}).
 Start dates (\emph{disco:startDate}), e.g., must be before (\emph{\textless}) end dates (\emph{disco:endDate}).
