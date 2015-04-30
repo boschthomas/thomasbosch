@@ -441,7 +441,7 @@ issues that go beyond the integrity constraints defined in the SKOS specificatio
 %\label{running-example}
 \section{Common Vocabularies in SBE Sciences}
 \label{rdf-representation}
-\tb{Ich habe Beschreibungen von XKOS und DCAT noch ganz am Ende eingeführt (jeweils nur 1 Satz)}
+\tb{Ich habe Beschreibungen von XKOS und DCAT noch ganz am Ende eingeführt (jeweils nur 1 Satz)}\tb{die vokabular-beschreibungen klarer strukturieren}
 %In this section, we describe how data in rectangular format (\emph{PHDD}) and metadata on person-level data sets (\emph{Disco}), aggregated data sets (\emph{QB}), thesauri (\emph{SKOS}), and statistical classifications (\emph{XKOS}) are represented in RDF\footnote{The complete running example in RDF is available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/data/running-example}} and how therefore reused vocabularies are interrelated.
 
 For our evaluation, we examined six different vocabularies commonly used in or developed for the \emph{SBE} sciences which are briefly introduced in the following. For three of them, we analyzed actual data according to constraint violations. For \emph{PHDD} and \emph{XKOS}, there is not yet enough data available so we limit our examination to the vocabularies themselves.\tb{müssen wir auch noch schreiben wieso wie keine DCAT daten validiert haben?}
@@ -475,8 +475,8 @@ Where data collection is cyclic, data sets may be released as \emph{series},
 where each cycle produces one or more data sets. 
 %\emph{Missy} is an online service platform that provides systematically structured metadata for official statistics on European person-level data sets. 
 %This includes data documentation at the study and variable level as well as documentation materials, tools and further information. 
-\ke{Wieso jetzt wieder qb?}\tb{ich möchte zeigen wie aggregierte daten und personenbezogene daten in RDF verbunden sind. Weglassen?}
-Aggregated (qb:DataSet) and underlying person-level data sets (\emph{disco:LogicalDataSet}) are connected by \emph{prov:wasDerivedFrom}. 
+%\ke{Wieso jetzt wieder qb?}\tb{ich möchte zeigen wie aggregierte daten und personenbezogene daten in RDF verbunden sind. Weglassen?}
+%Aggregated (qb:DataSet) and underlying person-level data sets (\emph{disco:LogicalDataSet}) are connected by \emph{prov:wasDerivedFrom}. 
 The aggregated variable \emph{formal childcare} is calculated on the basis of six person-level variables 
 (e.g., \emph{Education at pre-school}\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC/2011/Cross-sectional/original#2011-Cross-sectional-RL010}})
 %(2) Education at compulsory school,
@@ -1310,6 +1310,7 @@ indicates good data quality for all vocabularies with regard to their formal spe
 For all vocabularies, data corresponds to their formal specifications which demonstrates that constraint formulation in general works. 
 \end{hyp}
 
+\tb{je nach hypothese spezifische aufgaben um die hypothese zu beweisen}
 2/3 of the \emph{Disco} violations result from \emph{vocabulary constraints},
 \emph{QB} violations are almost only raised by \emph{complex constraints}, and 
 nearly 80\% of the \emph{SKOS} violations are caused by \emph{simple constraints}.
@@ -1334,6 +1335,7 @@ As a consequence, vocabulary constraints are satisfied which leads to better dat
 \begin{hyp}
 A significant amount of 47\% of the violations refer to complex constraints that are not easily, concisely, and intuitively expressible in existing constraint languages which confirms the necessity to provide suitable constraint languages.
 \end{hyp} 
+
 In general, \emph{vocabulary} and \emph{simple constraints} are easily, concisely, and intuitively expressible by either modeling languages (e.g., \emph{RDF}, \emph{RDFS}, \emph{OWL 2}) or constraint languages (e.g., \emph{ShEx}, \emph{ReSh}, \emph{SPIN}). 
 This is not the case, however, for \emph{complex constraints} which in most cases are still only expressible by plain \emph{SPARQL}. 
 As almost 1/2 of all violations are caused by \emph{complex constraints}, 
@@ -1498,9 +1500,7 @@ there is an obvious need to develop constraint languages which enable to express
 We implemented a validation environment (available at \url{http://purl.org/net/rdfval-demo}) to validate RDF data according to constraints expressed my arbitrary constraint languages and to ensure correct syntax and semantics of diverse vocabularies such as \emph{Disco}, \emph{QB}, \emph{SKOS}, and \emph{PHDD} (section \ref{implementation}).
 We exhaustively evaluated the metadata quality of large real world aggregated (\emph{QB}), person-level (\emph{Disco}), and thesauri (\emph{SKOS}) data sets (more than 4.2 billion triples and 15 thousand data sets) by means of 213  constraints of the majority of the constraint types\footnote{The second appendix of this paper describing the evaluation in detail is available at: \url{http://arxiv.org/abs/1504.04478} \cite{BoschZapilkoWackerowEckert2015-2}.} (section \ref{evaluation}).
 
-\tb{
-die vokabular-beschreibungen klarer strukturieren. du nutzt plötzlich disco elemente, disco wird überhaupt nicht vernünftig eingeführt, obwohl es später untersucht wird
-alles, was nicht der aussage des papers (neuer titel, btw) dient, solltest du weglassen
+\tb{ 
 klare, einfache struktur: 1. grundidee (constraints identifizieren, validieren auf datensets, zu belastbaren aussagen kommen für die weitere entwicklung von constraint languages)
 2. vorstellung der untersuchten vokabulare
 3. beschreiben, wo die constraints herkommen, bzw. wie die generiert wurden. dabei auch auf die klassifikation eingehen, aber nur im hinblick auf die spätere auswertung, nicht als main contribution des papers
