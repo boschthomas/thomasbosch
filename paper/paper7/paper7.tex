@@ -673,15 +673,13 @@ which may indicate when the data is verbose/redundant or expressed at a too gene
 
 \begin{center}
 \begin{DL} 
-$\mathcal{K}=\{$ &\ms{Catalog $\sqsubseteq$ $\forall$ dataset.Dataset}, \\
+$\mathcal{K}=\{$ &\ms{Variable $\equiv$ $\exists$ concept.Concept}, \\
+&\ms{Catalog $\sqsubseteq$ $\forall$ dataset.Dataset}, \\
 &\ms{$\exists$ isStructuredBy.$\top$ $\sqsubseteq$ Table}, \\
-&\ms{$\top$ $\sqsubseteq$ $\forall$ belongsTo.Concept}, \\
-&\ms{Variable $\equiv$ $\exists$ concept.Concept}
+&\ms{$\top$ $\sqsubseteq$ $\forall$ belongsTo.Concept}
 \}\\ 
 \end{DL}
 \end{center}
-
------
 
 We extend $\mathcal{K}$ by \emph{existential quantifications} (\emph{R-86}) enforcing that instances of given classes must have some property relation to individuals/literals of certain types.
 Variables, e.g., should have a relation to a theoretical concept ($\mathcal{SL}_{0}$).
@@ -700,11 +698,11 @@ Only \emph{dcat:Catalogs}, e.g., can have \emph{dcat:dataset} relationships to \
 \emph{Property domain} (\emph{R-25, R-26}) and \emph{range} (\emph{R-28, R-35}) constraints restrict domains and ranges of properties.
 Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships and
 \emph{xkos:belongsTo} relationships can only point to \emph{skos:Concepts}.
-\emph{Existential quantifications} (\emph{R-86}) enforce that instances of given classes must have some property relation to individuals/literals of certain types.
-Variables, e.g., should have a relation to a theoretical concept ($\mathcal{SL}_{0}$).
-%The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
-The variable \emph{Education at pre-school} is associated with the theoretical concept \emph{Child Care}. 
-The default severity level of the constraint is weak, as in most cases research can be continued without having information about the theoretical concept of a variable.
+%\emph{Existential quantifications} (\emph{R-86}) enforce that instances of given classes must have some property relation to individuals/literals of certain types.
+%Variables, e.g., should have a relation to a theoretical concept ($\mathcal{SL}_{0}$).
+%%The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
+%The variable \emph{Education at pre-school} is associated with the theoretical concept \emph{Child Care}. 
+%The default severity level of the constraint is weak, as in most cases research can be continued without having information about the theoretical concept of a variable.
 %If a study, e.g., does not contain any data set ($\mathcal{SL}_{2}$), the actual description of the data is missing which may indicate that it is very hard or unlikely to get access to the data.
 %If metadata on data files, including the actual data, is missing (especially case and variable quantities; $\mathcal{SL}_{1}$), the description of the data sets and the study is not sufficient.
 %Case quantity measures how many cases are collected for a study.
@@ -785,20 +783,20 @@ fundedBy $\sqsubseteq$ contributor
 %Thus, constraints on catalog data sets are also validated for person-level data sets;
 %e.g., the \emph{existential quantification} below restricting that person-level data sets must have a distribution: 
 
-\begin{center}
-\begin{DL} 
-$\mathcal{K}=\{$ 
- &\ms{DataSet $\equiv$ $\exists$ distribution.Distribution},\\
-&\ms{Variable $\equiv$ $\exists$ concept.Concept}
- \}\\ 
-\end{DL}
-\end{center}
+%\begin{center}
+%\begin{DL} 
+%$\mathcal{K}=\{$ 
+ %&\ms{DataSet $\equiv$ $\exists$ distribution.Distribution},\\
+%&\ms{Variable $\equiv$ $\exists$ concept.Concept}
+ %\}\\ 
+%\end{DL}
+%\end{center}
 
-We extend $\mathcal{K}$ by \emph{existential quantifications} (\emph{R-86}) enforcing that instances of given classes must have some property relation to individuals/literals of certain types.
-Variables, e.g., should have a relation to a theoretical concept ($\mathcal{SL}_{0}$).
-%The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
-The variable \emph{Education at pre-school} is associated with the theoretical concept \emph{Child Care}. 
-The default severity level of the constraint is weak, as in most cases research can be continued without having information about the theoretical concept of a variable.
+%We extend $\mathcal{K}$ by \emph{existential quantifications} (\emph{R-86}) enforcing that instances of given classes must have some property relation to individuals/literals of certain types.
+%Variables, e.g., should have a relation to a theoretical concept ($\mathcal{SL}_{0}$).
+%%The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
+%The variable \emph{Education at pre-school} is associated with the theoretical concept \emph{Child Care}. 
+%The default severity level of the constraint is weak, as in most cases research can be continued without having information about the theoretical concept of a variable.
 %If a study, e.g., does not contain any data set ($\mathcal{SL}_{2}$), the actual description of the data is missing which may indicate that it is very hard or unlikely to get access to the data.
 %If metadata on data files, including the actual data, is missing (especially case and variable quantities; $\mathcal{SL}_{1}$), the description of the data sets and the study is not sufficient.
 %Case quantity measures how many cases are collected for a study.
