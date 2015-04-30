@@ -276,8 +276,8 @@ For research institutes, data libraries, and data archives,
 RDF data validation according to predefined constraints is a much sought-after feature, 
 particularly as this is taken for granted in the XML world.
 Based on our work in the DCMI RDF Application Profiles Task Group and in cooperation with the W3C Data Shapes Working Group, we identified and published by today 82 types of constraints that are required by various stakeholders for data applications.
-In this paper, we formulate 246 constraints of 53 different types on six different vocabularies (Disco, QB, SKOS, PHDD, DCAT, XKOS) and classify them according to the complexity level of their type and their severity level. For 114 of these constraints, we evaluate the data quality of 15,694 data sets (4,26 billion triples) of research data for the social, behavioural, and economic (SBE) sciences obtained from 33 SPARQL endpoints. 
-Based on the results, we formulate several hypotheses to direct the further development of constraint langugaes.
+In this paper, we formulate 246 constraints of 53 different types on six different vocabularies (Disco, QB, SKOS, PHDD, DCAT, XKOS) and classify them according to the complexity level of their type and their severity level. For 114 of these constraints, we evaluate the data quality of 15,694 data sets (4.26 billion triples) of research data for the social, behavioural, and economic (SBE) sciences obtained from 33 SPARQL endpoints. 
+Based on the results, we formulate several hypotheses to direct the further development of constraint languages.
 
 
 \keywords{Constraint Validation, Data Quality, RDF}
@@ -339,13 +339,11 @@ We evaluated the (meta)data quality of large real world data sets (more than 4.2
 (1) which sets of constraint types (on different levels of complexity) and 
 (2) which sets of constraints (associated with particular severity levels) encompass the constraints causing the most/fewest constraint violations (see section \ref{evaluation}).
 
-In this paper, we discuss constraints on RDF data in general. Note that the data represented in RDF can be data in the sense of SBE sciences, but also metadata about published or unpublished data. We generally refer to both simply as RDF data and only distinguish between data and metadata in the dataset descriptions and in the case that it matters for the purpose of this paper.\tb{hab ich eingefügt, ist der absatz von dir...}
+In this paper, we discuss constraints on RDF data in general. Note that the data represented in RDF can be data in the sense of SBE sciences, but also metadata about published or unpublished data. We generally refer to both simply as RDF data and only distinguish between data and metadata in the data set descriptions and in the case that it matters for the purpose of this paper.
 
 %We propose an extensible metric to measure the continuum of severity levels to indicate how serious the violation of given constraints is.
 %Constraints are instantiated from constraint types in order to validate both metadata and data represented by any vocabulary. 
 %As constraint types are used to define constraints on (meta)data expressed by any vocabulary, the proposed constraint classification can be applied generically, i.e. vocabulary-independent. 
-
-\ke{in guter tradition unserer arbeitsgruppe würde ich mich als senior researcher um die einleitung kümmern, die gefällt mir so nicht}\tb{sehr gerne}
 
 \section{Motivation}
 \label{motivation}
@@ -1174,17 +1172,13 @@ A SPIN construct template creates constraint violation triples if all triple pat
 %in order to get an overview how many constraint types in relation to the total amount of constraint types are extractable from vocabularies ($\mathcal{CT}_{B}$), are easily definable ($\mathcal{CT}_{S}$), and are rather difficult to specify ($\mathcal{CT}_{C}$). 
 In close collaboration with several \emph{SBE} domain experts, we defined 246 constraint 
 of 53 different types on six vocabularies (\emph{Disco}, \emph{QB}, \emph{SKOS}, \emph{PHDD}, \emph{DCAT}, \emph{XKOS}) and classified them according to the complexity level of their type and their severity level. 
-For 114 of these constraints, we evaluated the data quality of 15,694 data sets (4,26 billion triples) of \emph{SBE} research data on three common vocabularies in \emph{SBE} sciences (\emph{Disco}, \emph{QB}, \emph{SKOS}) obtained from 33 SPARQL endpoints.
+For 114 of these constraints, we evaluated the data quality of 15,694 data sets (4.26 billion triples) of \emph{SBE} research data on three common vocabularies in \emph{SBE} sciences (\emph{Disco}, \emph{QB}, \emph{SKOS}) obtained from 33 SPARQL endpoints.
 We distinct two classes of vocabularies: 
 (1) well-established vocabularies (e.g., \emph{QB}, \emph{SKOS}) which are widely adopted and accepted and 
 (2) newly developed vocabularies (e.g., \emph{Disco} which will be published in 2015) which are either recently published or are still in the publication process.
 %It is likely that such a vocabulary is still subject of constant change, that published data may not be consistent with its current version,
 %and that early adopters did not properly understand its formal specification.
-Based on this evaluation we formulate hypotheses.
-Nevertheless, we have to be careful making general statements for all vocabularies 
-as these hypotheses still have to be verified or falsified in terms of future work 
-by evaluating the quality of data represented by additional well-established and newly developed vocabularies.
-\ke{das ist zu früh finde um schon einzuschränken, erst mal ergebnisse, dann hypothesen, dann kritische auseinandersetzung}
+\ke{ergebnisse, dann hypothesen, dann kritische auseinandersetzung}
 
 We validated 
 9,990 / 3,775,983,610 (\emph{QB}),
@@ -1291,6 +1285,11 @@ we only use normalized relative values representing the percentage of constraint
 		\label{tab:evaluation-constraint-violations}
     \end{center}
 \end{table}
+
+Based on the results, we formulate several hypotheses to direct the further development of constraint languages.
+Nevertheless, we have to be careful making general statements for all vocabularies 
+as these hypotheses still have to be verified or falsified in terms of future work 
+by evaluating the quality of data represented by additional well-established and newly developed vocabularies.
 
 %More than the half of them are $\mathcal{CT}_{B}$, nearly a third $\mathcal{CT}_{S}$, and only a sixth $\mathcal{CT}_{C}$ constraint types.
 %For \emph{Disco}, \emph{QB}, and \emph{SKOS}, more than 50\% of the instantiated constraint types are $\mathcal{CT}_{B}$ constraint types 
