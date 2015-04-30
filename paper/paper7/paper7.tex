@@ -659,25 +659,22 @@ It is a common requirement to narrow down the value space of properties by an ex
 %If \emph{dcterms:coverage} and one of its sub properties (\emph{dcterms:spatial}, \emph{dcterms:temporal}) are given,
 %it is checked that \emph{dcterms:coverage} is not redundant with its sub-properties 
 %which may indicate when the data is verbose/redundant or expressed at a too general level.
-Consider the following \emph{DL} knowledge base $\mathcal{K}$\footnote{A knowledge base is a collection of formal statements which corresponds to \emph{facts} or what is known explicitly. For simplicity reasons, we do not state namespace prefixes in DL statements.}:
+Consider the following \emph{DL} knowledge base $\mathcal{K}$\footnote{A knowledge base is a collection of formal statements which corresponds to \emph{facts} or what is known explicitly. For simplicity reasons, we do not state namespace prefixes.}:
 \begin{center}
 \begin{DL} 
 $\mathcal{K}=\{$ 
 	%&\ms{isStructuredBy $\sqsubseteq$ $\neg$ column}, \\
 	%&\ms{TableDescription $\sqcap$ ColumnDescription $\sqsubseteq$ $\perp$}, \\
-	&\ms{CategoryStatistics $\equiv$} \\
-	&\ms{$\forall$ computationBase.\{valid,invalid\} $\sqcap$ langString}, \\
-  &\ms{Variable $\equiv$ $\exists$ concept.Concept}, \\
-  &\ms{Catalog $\sqsubseteq$ $\forall$ dataset.Dataset}, \\
-  &\ms{$\exists$ isStructuredBy.$\top$ $\sqsubseteq$ Table}, \\
-  &\ms{$\top$ $\sqsubseteq$ $\forall$ belongsTo.Concept}
+	&\ms{CategoryStatistics $\equiv$ $\forall$ computationBase.\{valid,invalid\} $\sqcap$ langString}, \\
+  &\ms{Variable $\equiv$ $\exists$ concept.Concept, Catalog $\sqsubseteq$ $\forall$ dataset.Dataset}, \\
+  &\ms{$\exists$ isStructuredBy.$\top$ $\sqsubseteq$ Table, $\top$ $\sqsubseteq$ $\forall$ belongsTo.Concept}
 \}\\ 
 \end{DL}
 \end{center}
 
 %We extend $\mathcal{K}$ by 
 \emph{Existential quantifications} (\emph{R-86}) enforce that instances of given classes must have some property relation to individuals/literals of certain types.
-Variables, e.g., should have a relation to a theoretical concept (\emph{info}).
+Variables, e.g., should have a relation to a theoretical concept (\emph{informational}).
 %The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
 The variable \emph{Education at pre-school} is associated with the theoretical concept \emph{Child Care}. 
 The default severity level of this constraint is weak, as in most cases research can be continued without having information about the theoretical concept of a variable.
@@ -896,43 +893,42 @@ Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships
 
 \subsection{Simple Constraint Types}
 
-$\mathcal{CT}_{S}$ is the set of constraint types whose constraints can be easily defined without much effort in addition to $\mathcal{CT}_{B}$ constraints.
+%{Simple constraint types} is the set of constraint types whose constraints can be easily defined without much effort in addition to $\mathcal{CT}_{B}$ constraints.
 For data properties, it may be desirable to restrict that values of predefined languages must be present for determined number of times (\emph{R-48/49: language tag cardinality}):
-(1) It is checked if literal language tags are set. Some controlled vocabularies, e.g., contain literals in natural language, but without information what language has actually been used ($\mathcal{SL}_{1}$). 
-(2) Language tags must conform to language standards ($\mathcal{SL}_{2}$). 
+(1) It is checked if literal language tags are set. Some controlled vocabularies, e.g., contain literals in natural language, but without information what language has actually been used (\emph{warning}). 
+(2) Language tags must conform to language standards (\emph{error}). 
 (3) Some thesaurus concepts are labeled in only one, others in multiple languages. 
 It may be desirable to have each concept labeled in each of the languages that are also used on the other concepts,
-as language coverage incompleteness for some concepts may indicate shortcomings of thesauri ($\mathcal{SL}_{0}$)
+as language coverage incompleteness for some concepts may indicate shortcomings of thesauri (\emph{informational})
 \cite{MaderHaslhoferIsaac2012}.
-
 %\textbf{Validation and Reasoning.}
-\emph{Default values} (\emph{R-31, R-38}) for objects/literals of given properties are inferred automatically when properties are not present in the data.
-The value \emph{true} for the property {\em disco:isPublic} indicates that a {\em disco:LogicalDataSet} can be accessed by anyone.
-Per default, however, access to data sets should be restricted (\emph{false}) ($\mathcal{SL}_{0}$).
-Many properties are not necessarily required but \emph{recommended} within a particular context (\emph{R-72}).
-The property {\em skos:notation}, e.g., is not mandatory for {\em disco:Variable}s, but recommended to represent variable names ($\mathcal{SL}_{0}$).
+%\emph{Default values} (\emph{R-31, R-38}) for objects/literals of given properties are inferred automatically when properties are not present in the data.
+%The value \emph{true} for the property {\em disco:isPublic} indicates that a {\em disco:LogicalDataSet} can be accessed by anyone.
+%Per default, however, access to data sets should be restricted (\emph{false}) ($\mathcal{SL}_{0}$).
+%Many properties are not necessarily required but \emph{recommended} within a particular context (\emph{R-72}).
+%The property {\em skos:notation}, e.g., is not mandatory for {\em disco:Variable}s, but recommended to represent variable names ($\mathcal{SL}_{0}$).
 Percentage values are only valid when they are within the literal range of 0 and 100 (\emph{R-45: literal ranges}; $\mathcal{SL}_{2}$)
 which is checked for \emph{disco:percentage} standing for the number of cases of a given code in relation to the total number of cases for a particular variable.
 
-\begin{center}
-\begin{DL} 
-$\mathcal{K}=\{$ 
-	&\ms{(funct identifier$\sp{\overline{\ }})$, identifier keyfor Resource}
- \}\\ 
-\end{DL}
-\end{center}
+%\begin{center}
+%\begin{DL} 
+%$\mathcal{K}=\{$ 
+	%&\ms{(funct identifier$\sp{\overline{\ }})$, identifier keyfor Resource}
+ %\}\\ 
+%\end{DL}
+%\end{center}
 
 It is often useful to declare a given (data) property as the \emph{primary key} (\emph{R-226}) of a class, so that a system can enforce uniqueness and build URIs from user inputs and imported data. 
 In \emph{Disco}, resources are uniquely identified by the property \emph{adms:identifier},
-which is therefore inverse-functional,
-i.e., for each \emph{rdfs:Resource x}, there can be at most one distinct resource \emph{y} such that \emph{y} is connected by \emph{adms:identifier$\sp{\overline{\ }}$} to \emph{x} ($\mathcal{SL}_{2}$).
+which is therefore inverse-functional $(\ms{funct identifier}\sp{\overline{\ }})$,
+i.e., for each \emph{rdfs:Resource x}, there can be at most one distinct resource \emph{y} such that \emph{y} is connected by \emph{adms:identifier$\sp{\overline{\ }}$} to \emph{x} (\emph{error}).
 %\begin{DL}
 %$(\ms{funct identifier}\sp{\overline{\ }})$
 %\end{DL} 
 Keys, however, are even more general than \emph{inverse-functional properties} (\emph{R-58}),
 as a key can be a data property, an object property, or a chain of properties \cite{Schneider2009}.
 Thus and as there are different sorts of key, and as keys can lead to undecidability, 
-\emph{DL} is extended with the construct \emph{keyfor} \cite{Lutz2005} which is implemented by the \emph{OWL 2} \emph{hasKey} construct.
+\emph{DL} is extended with the construct \emph{keyfor} (\ms{identifier \ms{keyfor} Resource}) \cite{Lutz2005} which is implemented by the \emph{OWL 2} \emph{hasKey} construct.
 %\emph{OWL 2} \emph{hasKey} implements \emph{keyfor} ($\mathcal{SL}_{2}$) and thus can be used to identify resources uniquely, to merge resources with identical key property values, and to recognize constraint violations.
 %\begin{DL}
 %identifier \ms{keyfor} Resource
@@ -950,20 +946,20 @@ Thus and as there are different sorts of key, and as keys can lead to undecidabi
 %- for each code list there should be a description.
 %- there should be a relationship to the underlying person-level data.
 
-$\mathcal{CT}_{C}$ denotes the set of constraint types for which the definition of constraints is rather complex and cannot be derived from vocabulary definitions.
+%$\mathcal{CT}_{C}$ denotes the set of constraint types for which the definition of constraints is rather complex and cannot be derived from vocabulary definitions.
 \emph{Data model consistency} constraints ensure the integrity of
 the data according to the intended semantics of vocabularies.
 Every \emph{qb:Observation}, e.g., must have a value for each dimension
 declared in its \emph{qb:DataStructureDefinition} ($\mathcal{SL}_{2}$)
 and no two \emph{qb:Observations} in the same \emph{qb:DataSet}
-can have the same value for all dimensions ($\mathcal{SL}_{1}$).
+can have the same value for all dimensions (\emph{warning}).
 If a \emph{qb:DataSet} \emph{D} has a \emph{qb:Slice} \emph{S}, and \emph{S} has an
-\emph{qb:Observation} \emph{O}, then the \emph{qb:DataSet} corresponding to \emph{O} must be \emph{D} ($\mathcal{SL}_{1}$).
+\emph{qb:Observation} \emph{O}, then the \emph{qb:DataSet} corresponding to \emph{O} must be \emph{D} (\emph{warning}).
 %Relative frequencies of variable codes are calculated correctly, if the cumulative percentage (\emph{disco:cumulativePercentage}) of a given code exactly matches the cumulative percentage of the previous code
 %plus the percentage value (\emph{disco:percentage}) of the current code ($\mathcal{SL}_{2}$).
-{\em Mathematical Operations} (\emph{R-41, R-42}; e.g. date calculations and statistical computations like average, mean, and sum) are performed to ensure the integrity of data models.
-The sum of percentage values of all variable codes, e.g., must exactly be 100 ($\mathcal{SL}_{2}$)
-and the minimum absolute frequency of all variable codes do not have to be greater than the maximum ($\mathcal{SL}_{2}$).
+%{\em Mathematical Operations} (\emph{R-41, R-42}; e.g. date calculations and statistical computations like average, mean, and sum) are performed to ensure the integrity of data models.
+%The sum of percentage values of all variable codes, e.g., must exactly be 100 ($\mathcal{SL}_{2}$)
+%and the minimum absolute frequency of all variable codes do not have to be greater than the maximum ($\mathcal{SL}_{2}$).
 
 %\textbf{Hierarchies and Ordering.}
 %\textbf{Structure and Ordering.}
@@ -1009,14 +1005,14 @@ If codes (\emph{skos:Concept}) should be ordered, they must be members (\emph{sk
 It is useful to declare properties to be \emph{conditional} (\emph{R-71}), i.e., if particular properties exist (or do not exist), then other properties must also be present (or absent).
 To get an overview over a series/study either an abstract, a title, an alternative title, or links to external descriptions should be provided. 
 If an abstract and an external description are absent, however,  
-a title or an alternative title should be given ($\mathcal{SL}_{1}$).
+a title or an alternative title should be given (\emph{warning}).
 In case a variable is represented in form of a code list, codes may be associated with categories, i.e., human-readable labels ($\mathcal{SL}_{0}$).
 The variable \emph{Education at pre-school}, e.g., is represented as ordered code list without any categories.
-If a {\em skos:Concept} represents a code (having {\em skos:notation} and {\em skos:prefLabel} properties), 
-then the property {\em disco:isValid} has to be stated indicating if the code stands for valid (\emph{true}) or missing (\emph{false}) cases ($\mathcal{SL}_{2}$).
+%If a {\em skos:Concept} represents a code (having {\em skos:notation} and {\em skos:prefLabel} properties), 
+%then the property {\em disco:isValid} has to be stated indicating if the code stands for valid (\emph{true}) or missing (\emph{false}) cases ($\mathcal{SL}_{2}$).
 \emph{Context-specific exclusive or of property groups} (\emph{R-11}) constraints
 restrict individuals of given classes to have properties defined within exactly one of multiple property groups.
-\emph{skos:Concept}s can have either \emph{skos:definition} (when interpreted as theoretical concepts) or \emph{skos:notation} and \emph{skos:prefLabel} properties (when interpreted as codes/categories), but not both ($\mathcal{SL}_{2}$).
+\emph{skos:Concept}s can have either \emph{skos:definition} (when interpreted as theoretical concepts) or \emph{skos:notation} and \emph{skos:prefLabel} properties (when interpreted as codes), but not both ($\mathcal{SL}_{2}$).
 
 %\textbf{Constraints on Literals.}
 
