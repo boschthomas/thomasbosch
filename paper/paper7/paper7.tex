@@ -551,17 +551,16 @@ According to the complexity of constraint types, the complete set of \emph{const
 	\item \textbf{\emph{Complex Constraint Types}}
 \end{enumerate}
 
-The modeling languages \emph{RDF}, \emph{RDFS}, and \emph{OWL} are typically used to define vocabularies.
+The modeling languages \emph{RDF}, \emph{RDFS}, and \emph{OWL} are typically used to formally specify vocabularies.
 \emph{Vocabulary constraint types}
 denotes the set of constraint types whose constraints 
-can be extracted completely automatically out of the formal specifications of vocabularies.
+can be extracted completely automatically out of formal specifications of vocabularies.
 As vocabularies have been specified using \emph{RDF}, \emph{RDFS}, and \emph{OWL},
 \emph{vocabulary constraints} ensure that the data is consistent with the intended syntaxes, semantics, and integrity of vocabularies' data models.
 %The {\em existential quantification} (\emph{R-86}) 
 %\ms{Study $\equiv$ $\exists$ product.LogicalDataSet} (\emph{DL}), e.g., restricts studies to contain at least one data set which is expressible in OWL 2:
 \emph{Minimum qualified cardinality restrictions} (\emph{R-74}), e.g., guarantee that individuals of given classes are connected by particular properties to at least n different individuals/literals of certain classes or data ranges.
-This way, it is expressible in \emph{OWL 2} that a \emph{phdd:TableStructure} has (\emph{phdd:column}) at least one \emph{phdd:Column}:
-\ke{Ich dachte, das kommt aus dem Vokabular. Dann muss das heißen: For example, in PHDD, a minimum qualified cardinality constraint can be obtained from the OWL definition of this restriction class, ensuring that a \emph{phdd:TableStructure} has (\emph{phdd:column}) at least one \emph{phdd:Column}:}
+In \emph{PHDD}, a \emph{minimum qualified cardinality restriction} can be obtained from the OWL definition of this restriction class, ensuring that a \emph{phdd:TableStructure} has (\emph{phdd:column}) at least one \emph{phdd:Column}:
 \begin{ex}
 [   a owl:Restriction ; rdfs:subClassOf TableStructure ;
     owl:minQualifiedCardinality 1 ;
@@ -571,22 +570,34 @@ This way, it is expressible in \emph{OWL 2} that a \emph{phdd:TableStructure} ha
 
 \emph{Simple} and \emph{complex constraints} are in contrast to \emph{vocabulary constraints} not explicitly defined within formal specifications of vocabularies.
 \emph{Simple} and \emph{complex constraints} are defined according to textual descriptions of the intended semantics of vocabularies.  
-\emph{Simple constraint types} is the set of constraint types whose constraints can be easily defined without much effort in addition to \ke{einfügen: the already defined (auf den Lesefluss achten, das ist eine sehr pragmatische klassifikation und muss nicht übertrieben formal und trocken geschrieben sein)} \emph{vocabulary constraints}.
+\emph{Simple constraint types} is the set of constraint types whose constraints can be easily defined without much effort in addition to the already defined \emph{vocabulary constraints}.
 {\emph{Data property facets} (\emph{R-46}) is an example of a \emph{simple constraint type} which enables to declare frequently needed facets for data properties in order to validate input against simple conditions including min/max values, regular expressions, and string length.
-The abstract of series/studies, e.g., should have a minimum length.
+The abstract of series/studies, e.g., should have a minimum length which is easily and concisely expressible by SPARQL: 
+\begin{ex}
+SELECT ?study WHERE {
+    ?study dcterms:abstract ?abstract . FILTER ( STRLEN ( ?abstract ) = 10 ) . }
+\end{ex}
 
 \emph{Complex constraint types} encompass constraint types for which the definition of constraints is rather complex and cannot be derived from vocabulary definitions.
 For assessing the quality of thesauri, e.g., we concentrate on the graph-based structure and apply graph- and network-analysis techniques.
 An example of such constraints of the constraint type \emph{structure} is that 
-a thesaurus should not contain many orphan concepts, i.e., concepts without any associative or hierarchical relations, lacking context information valuable for search. 
-\emph{Complex constraints} show the importance to develop constraint languages enabling to describe more complex constraints.\ke{der satz macht so keinen sinn... aber er ist ein weiteres gutes beispiel, warum du viel mehr auf die formulierungen achten musst. Ich weiß genau was du meinst, du hast auch recht, aber hier steht trotzdem ein sinnloser satz, so wie er formuliert ist.} 
-
-\ke{ich würde da auch für simple und vor allem für complex konkrete beispiele in code einfügen}
+a thesaurus should not contain many orphan concepts, i.e., concepts without any associative or hierarchical relations, lacking context information valuable for search. This \emph{complex constraint} is only expressible by \emph{SPARQL} and not directly understandable:
+\begin{ex}
+SELECT ?concept WHERE {
+    ?concept a [rdfs:subClassOf* skos:Concept] .
+    FILTER NOT EXISTS { ?concept ?p ?o . 
+        FILTER ( ?p IN ( skos:related, skos:relatedMatch, skos:broader, ... ) ) . }
+\end{ex}
+\emph{Complex constraints} are in most cases only expressible by plain \emph{SPARQL}
+which shows the importance to develop suitable constraint languages.
 
 \subsection{Classification of RDF Constraints}
 
-\ke{da muss mindestens ein überleitender satz rein, der noch mal den unterschied von constraint types und types aufgreift und erklärt, dass es jetzt um konkrete constraints auf den vokabularen geht, deren severity eben vom konkreten kontext abhängt und nicht allgemein über den type bestimmt werden kann.}
-
+A concrete constraint is instantiated from one of the 82 constraint types and is defined for a specific vocabulary.
+It does not make sense to determine the severity of constraint violations of a constraint type,
+as the severity of the violation of a given constraint depends on the individual context and vocabulary.
+%as the violation of one constraint may be severe,
+%whereas, the violation of another constraint of the same type may be minor.
 \emph{SBE} experts determined the default \textbf{\emph{severity level}} (\emph{R-158}) for each of the 246 constraints to indicate how serious the violation of the constraint is.
 We propose an extensible metric to measure the continuum of severity levels ranging from \emph{informational} to \emph{error}.\ke{oder etwas weniger anmaßend: we use the commonly accepted classification of log messages in software development and distingush informational, warning and error.}
 According to the default severity level of constraints, the complete set of constraints encompasses three disjoint \emph{sets of constraints}:\ke{auch dieser satz macht keinen sinn für mich, ebensowenig wie die extrem erhellende auflistung, die gleich folgt... mein vorschlag von eben kann das komplett ersetzen.}
