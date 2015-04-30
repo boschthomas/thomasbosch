@@ -1151,28 +1151,13 @@ restrict individuals of given classes to have properties defined within exactly 
 \subsection{Experimental Setup}
 \label{implementation}
 
-SPARQL is generally seen as the method of choice to validate RDF data according to certain constraints.
-We use \emph{SPIN}, 
-a SPARQL-based way to formulate and check constraints, as basis to develop a
-validation environment (available at \url{http://purl.org/net/rdfval-demo})\footnote{Source code downloadable at: \url{https://github.com/boschthomas/rdf-validator}} to validate RDF data according to constraints expressed my arbitrary constraint languages like Shape Expressions,
-%\footnote{\url{http://www.w3.org/Submission/shex-primer/}}
-Resource Shapes, and the Web Ontology Language\footnote{SPIN mappings available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/SPIN}} \cite{BoschEckert2014-2}.
-The \emph{RDF Validator} also validates RDF data to ensure correct syntax, semantics, and integrity of diverse vocabularies such as \emph{Disco}, \emph{QB}, \emph{SKOS}, and \emph{PHDD}.
-Although accessible within our validation tool, we provide all implemented constraints\footnote{\url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}} in form of SPARQL CONSTRUCT queries.
-For the subsequent evaluation, we implemented 213 constraints on \emph{Disco}, \emph{QB}, \emph{SKOS}, and \emph{PHDD} data sets.
-The SPIN engine checks for each resource if it satisfies all constraints, which are associated with its assigned classes, and generates a result RDF graph containing information about all constraint violations.
-There is one SPIN construct template for each constraint type and vocabulary-specific constraint\footnote{For a comprehensive description of the \emph{RDF Validator}, we refer to \cite{BoschEckert2014-2}}.
-A SPIN construct template contains a SPARQL CONSTRUCT query which generates constraint violation triples indicating the subject and the properties causing constraint violations, and the reason why constraint violations have been raised.
-A SPIN construct template creates constraint violation triples if all triple patterns within the SPARQL WHERE clause match.
-\emph{Missy}\footnote{\url{http://www.gesis.org/missy/eu/missy-home}} provides comprehensive Linked Data services like diverse RDF exports of person-level metadata conforming to the \emph{Disco} vocabulary in form of multiple concrete syntaxes. 
-
-\ke{Überarbeiten und mit nächstem teil mergen. Nur das erzählen, was für die Auswertung auf den Datensets relevant ist. 114 constraints, 3 vokabulare, wie wurden die datasets daraufhin validiert.}
+%\ke{Überarbeiten und mit nächstem teil mergen. Nur das erzählen, was für die Auswertung auf den Datensets relevant ist. 114 constraints, 3 vokabulare, wie wurden die datasets daraufhin validiert.}
 
 	%\item First, we assigned each constraint type to exactly one of the disjoint sets of constraint types 
 %in order to get an overview how many constraint types in relation to the total amount of constraint types are extractable from vocabularies ($\mathcal{CT}_{B}$), are easily definable ($\mathcal{CT}_{S}$), and are rather difficult to specify ($\mathcal{CT}_{C}$). 
 In close collaboration with several \emph{SBE} domain experts, we defined 246 constraint 
 of 53 different types on six vocabularies (\emph{Disco}, \emph{QB}, \emph{SKOS}, \emph{PHDD}, \emph{DCAT}, \emph{XKOS}) and classified them according to the complexity level of their type and their severity level. 
-For 114 of these constraints, we evaluated the data quality of 15,694 data sets (4.26 billion triples) of \emph{SBE} research data on three common vocabularies in \emph{SBE} sciences (\emph{Disco}, \emph{QB}, \emph{SKOS}) obtained from 33 SPARQL endpoints.
+For 114 of these constraints\footnote{\url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}}, we evaluated the data quality of 15,694 data sets (4.26 billion triples) of \emph{SBE} research data on three common vocabularies in \emph{SBE} sciences (\emph{Disco}, \emph{QB}, \emph{SKOS}) obtained from 33 SPARQL endpoints.
 We distinct two classes of vocabularies: 
 (1) well-established vocabularies (e.g., \emph{QB}, \emph{SKOS}) which are widely adopted and accepted and 
 (2) newly developed vocabularies (e.g., \emph{Disco} which will be published in 2015) which are either recently published or are still in the publication process.
@@ -1183,7 +1168,7 @@ We distinct two classes of vocabularies:
 We validated 
 9,990 / 3,775,983,610 (\emph{QB}),
 4,178 / 477,737,281 (\emph{SKOS}), and 
-1,526 / 9,673,055 (\emph{Disco}) data sets / triples using the \emph{RDF Validator} in batch mode.
+1,526 / 9,673,055 (\emph{Disco}) data sets / triples using our validation environment in batch mode.
 We validated, i.a., 
 (1) \emph{QB} data sets published by the \emph{Australian Bureau of Statistics (ABS)},
 the \emph{European Central Bank (ECB)}, and the
@@ -1198,6 +1183,18 @@ the \emph{DwB Discovery Portal}, the
 We recently published a technical report\footnote{\label{technical-report-2}Available at: \url{http://arxiv.org/abs/1504.04478}} (serving as second appendix of this paper) 
 in which we describe the evaluation in detail \cite{BoschZapilkoWackerowEckert2015-2}. 
 As we evaluated nearly 10 thousand \emph{QB} data sets, we published the evaluation results for each data set in form of one document per SPARQL endpoint\footnote{Available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/evaluation/data-sets/data-cube}}.
+
+As \emph{SPARQL} is generally seen as the method of choice to validate RDF data according to certain constraints,
+we use \emph{SPIN}, 
+a \emph{SPARQL}-based way to formulate and check constraints, as basis to develop a
+validation environment (available at \url{http://purl.org/net/rdfval-demo})\footnote{Source code downloadable at: \url{https://github.com/boschthomas/rdf-validator}} to validate RDF data according to constraints expressed my arbitrary constraint languages\footnote{SPIN mappings available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/SPIN}} \cite{BoschEckert2014-2}.
+The \emph{RDF Validator} also validates RDF data according to constraints defined for vocabularies such as \emph{Disco}, \emph{QB}, \emph{SKOS}, \emph{PHDD}, \emph{DCAT}, and \emph{XKOS}.
+%Although accessible within our validation tool, we provide all implemented constraints\footnote{\url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}} in form of SPARQL CONSTRUCT queries.
+The \emph{SPIN} engine checks for each resource if it satisfies all constraints, which are associated with its assigned classes, and generates a result RDF graph containing information about all constraint violations.
+There is one SPIN construct template for each constraint type\footnote{For a comprehensive description of the \emph{RDF Validator}, we refer to \cite{BoschEckert2014-2}}.
+A \emph{SPIN} construct template contains a \emph{SPARQL CONSTRUCT} query which generates constraint violation triples indicating the subject and the properties causing constraint violations, and the reason why constraint violations have been raised.
+A \emph{SPIN} construct template creates constraint violation triples if all triple patterns within the \emph{SPARQL WHERE clause} match.
+%\emph{Missy}\footnote{\url{http://www.gesis.org/missy/eu/missy-home}} provides comprehensive Linked Data services like diverse RDF exports of person-level metadata conforming to the \emph{Disco} vocabulary in form of multiple concrete syntaxes. 
 
 \subsection{Evaluation Results and Formulation of Hypotheses}
 
