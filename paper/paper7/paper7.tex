@@ -338,7 +338,7 @@ In this paper, we discuss constraints on RDF data in general. Note that the data
 %Constraints are instantiated from constraint types in order to validate both metadata and data represented by any vocabulary. 
 %As constraint types are used to define constraints on (meta)data expressed by any vocabulary, the proposed constraint classification can be applied generically, i.e. vocabulary-independent. 
 
-\section{Motivation}
+\subsection{Motivation}
 \label{motivation}
 
 The data most often used in research within the \emph{SBE} community is \emph{person-level data} (or more generally \emph{record-unit data}, i.e., data collected about individuals, businesses, and households) in form of responses to studies or taken from administrative registers
@@ -636,68 +636,60 @@ We evaluated the (meta)data quality of large real world data sets represented by
 %use-case specific constraints, e.g., DCAT: searching for metadata
 %\tb{Thomas: ToDo}
 
-\section{Vocabulary Constraint Types}
+\subsection{Vocabulary Constraint Types}
 \label{vocabulary-constraint-types}
 
-The constraint type \emph{vocabulary} guarantees that users do not invent new or use deprecated terms of vocabularies.
+%The constraint type \emph{vocabulary} guarantees that users do not invent new or use deprecated terms of vocabularies.
 %Out-dated classes and properties of previous vocabulary versions can be marked as deprecated.
 %The constraint types \emph{context-specific valid classes and properties} (\emph{R-209; R-210}) can be used to specify which classes and properties are valid in which context - here a given vocabulary version.
-\emph{Value is valid for datatype} (\emph{R-223}) constraints serve to make sure that all literal values are valid with regard to their datatypes - as stated in the vocabularies.
-Thus, it is checked that all date values (e.g., {{\em dcterms:date}) are actually of the datatype \emph{xsd:date} and that \emph{xsd:nonNegativeInteger} values (e.g. \emph{disco:frequency}) are not negative\footnote{For simplicity reasons, we only assign severity levels to \emph{vocabulary constraints} if they differ from \emph{error}.}.
-Depending on property datatypes, two different literal values have
-a specific ordering with respect to operators like \textless  (\emph{R-43: literal value comparison}).
-Start dates (\emph{disco:startDate}), e.g., must be before (\emph{\textless}) end dates (\emph{disco:endDate}).
+%\emph{Value is valid for datatype} (\emph{R-223}) constraints serve to make sure that all literal values are valid with regard to their datatypes - as stated in the vocabularies.
+%Thus, it is checked that all date values (e.g., {{\em dcterms:date}) are actually of the datatype \emph{xsd:date} and that \emph{xsd:nonNegativeInteger} values (e.g. \emph{disco:frequency}) are not negative\footnote{For simplicity reasons, we only assign severity levels to \emph{vocabulary constraints} if they differ from \emph{error}.}.
+%Depending on property datatypes, two different literal values have
+%a specific ordering with respect to operators like \textless  (\emph{R-43: literal value comparison}).
+%Start dates (\emph{disco:startDate}), e.g., must be before (\emph{\textless}) end dates (\emph{disco:endDate}).
+
+%All properties, not having the same domain and range types, are defined to be pairwise disjoint
+%(\emph{R-9: disjoint properties}), i.e., no individual \emph{x} can be connected to an individual/literal \emph{y} by disjoint properties (e.g., \emph{phdd:isStructuredBy} and \emph{phdd:column}).
+%All \emph{PHDD} classes (e.g., \emph{phdd:TableDescription}, \emph{phdd:ColumnDescription}) are pairwise disjoint (\emph{R-7: disjoint classes}),
+%i.e., individuals cannot be instances of multiple disjoint classes.
+It is a common requirement to narrow down the value space of properties by an exhaustive enumeration of valid values (\emph{R-30/37: allowed values}). 
+%\emph{Allowed values} (\emph{R-30, R-37}) for properties can be IRIs (matching one or multiple patterns), any literals, allowed literals (e.g. 'red' 'blue' 'green'), and typed literals of one or multiple type(s) (e.g. \emph{xsd:string}). 
+\emph{disco:CategoryStatistics}, e.g., can only have \emph{disco:computationBase} relationships to the values \emph{valid} and \emph{invalid} of the datatype \emph{rdf:langString}.
+%Validation should \emph{exploit sub-super relations} in vocabularies (\emph{R-224}).
+%If \emph{dcterms:coverage} and one of its sub properties (\emph{dcterms:spatial}, \emph{dcterms:temporal}) are given,
+%it is checked that \emph{dcterms:coverage} is not redundant with its sub-properties 
+%which may indicate when the data is verbose/redundant or expressed at a too general level.
 Consider the following \emph{DL} knowledge base $\mathcal{K}$\footnote{A knowledge base is a collection of formal statements which corresponds to \emph{facts} or what is known explicitly. For simplicity reasons, we do not state namespace prefixes in DL statements.}:
 \begin{center}
 \begin{DL} 
 $\mathcal{K}=\{$ 
-	&\ms{isStructuredBy $\sqsubseteq$ $\neg$ column}, \\
-	&\ms{TableDescription $\sqcap$ ColumnDescription $\sqsubseteq$ $\perp$}, \\
+	%&\ms{isStructuredBy $\sqsubseteq$ $\neg$ column}, \\
+	%&\ms{TableDescription $\sqcap$ ColumnDescription $\sqsubseteq$ $\perp$}, \\
 	&\ms{CategoryStatistics $\equiv$} \\
-	&\ms{$\forall$ computationBase.\{valid,invalid\} $\sqcap$ langString}
- \}\\ 
-\end{DL}
-\end{center}
-
-All properties, not having the same domain and range types, are defined to be pairwise disjoint
-(\emph{R-9: disjoint properties}), i.e., no individual \emph{x} can be connected to an individual/literal \emph{y} by disjoint properties (e.g., \emph{phdd:isStructuredBy} and \emph{phdd:column}).
-All \emph{PHDD} classes (e.g., \emph{phdd:TableDescription}, \emph{phdd:ColumnDescription}) are pairwise disjoint (\emph{R-7: disjoint classes}),
-i.e., individuals cannot be instances of multiple disjoint classes.
-It is a common requirement to narrow down the value space of properties by an exhaustive enumeration of valid values (\emph{R-30/37: allowed values}). 
-%\emph{Allowed values} (\emph{R-30, R-37}) for properties can be IRIs (matching one or multiple patterns), any literals, allowed literals (e.g. 'red' 'blue' 'green'), and typed literals of one or multiple type(s) (e.g. \emph{xsd:string}). 
-\emph{disco:CategoryStatistics}, e.g., can only have \emph{disco:computationBase} relationships to the values \emph{valid} and \emph{invalid} of the datatype \emph{rdf:langString}.
-Validation should \emph{exploit sub-super relations} in vocabularies (\emph{R-224}).
-If \emph{dcterms:coverage} and one of its sub properties (\emph{dcterms:spatial}, \emph{dcterms:temporal}) are given,
-it is checked that \emph{dcterms:coverage} is not redundant with its sub-properties 
-which may indicate when the data is verbose/redundant or expressed at a too general level.
-
-\begin{center}
-\begin{DL} 
-$\mathcal{K}=\{$ &\ms{Variable $\equiv$ $\exists$ concept.Concept}, \\
-&\ms{Catalog $\sqsubseteq$ $\forall$ dataset.Dataset}, \\
-&\ms{$\exists$ isStructuredBy.$\top$ $\sqsubseteq$ Table}, \\
-&\ms{$\top$ $\sqsubseteq$ $\forall$ belongsTo.Concept}
+	&\ms{$\forall$ computationBase.\{valid,invalid\} $\sqcap$ langString}, \\
+  &\ms{Variable $\equiv$ $\exists$ concept.Concept}, \\
+  &\ms{Catalog $\sqsubseteq$ $\forall$ dataset.Dataset}, \\
+  &\ms{$\exists$ isStructuredBy.$\top$ $\sqsubseteq$ Table}, \\
+  &\ms{$\top$ $\sqsubseteq$ $\forall$ belongsTo.Concept}
 \}\\ 
 \end{DL}
 \end{center}
 
-We extend $\mathcal{K}$ by \emph{existential quantifications} (\emph{R-86}) enforcing that instances of given classes must have some property relation to individuals/literals of certain types.
-Variables, e.g., should have a relation to a theoretical concept ($\mathcal{SL}_{0}$).
+%We extend $\mathcal{K}$ by 
+\emph{Existential quantifications} (\emph{R-86}) enforce that instances of given classes must have some property relation to individuals/literals of certain types.
+Variables, e.g., should have a relation to a theoretical concept (\emph{info}).
 %The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
 The variable \emph{Education at pre-school} is associated with the theoretical concept \emph{Child Care}. 
-The default severity level of the constraint is weak, as in most cases research can be continued without having information about the theoretical concept of a variable.
-
------
-
+The default severity level of this constraint is weak, as in most cases research can be continued without having information about the theoretical concept of a variable.
 A \emph{universal quantification} (\emph{R-91}) contains all those individuals that are connected by a property only to individuals/literals of particular classes  or data ranges.
 %Only \emph{dcat:Catalogs}, e.g., can have \emph{dcat:dataset} relationships to \emph{dcat:Datasets}:
 %\begin{DL}
 %Catalog $\sqsubseteq$ $\forall$ dataset.Dataset
 %\end{DL}
 Only \emph{dcat:Catalogs}, e.g., can have \emph{dcat:dataset} relationships to \emph{dcat:Datasets}.
-\emph{Property domain} (\emph{R-25, R-26}) and \emph{range} (\emph{R-28, R-35}) constraints restrict domains and ranges of properties.
+\emph{Property domain} (\emph{R-25, R-26}) and \emph{range} (\emph{R-28, R-35}) constraints restrict domains and ranges of properties:
 Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships and
-\emph{xkos:belongsTo} relationships can only point to \emph{skos:Concepts}.
+\emph{xkos:belongsTo} relations can only point to \emph{skos:Concepts}.
 %\emph{Existential quantifications} (\emph{R-86}) enforce that instances of given classes must have some property relation to individuals/literals of certain types.
 %Variables, e.g., should have a relation to a theoretical concept ($\mathcal{SL}_{0}$).
 %%The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
@@ -721,14 +713,14 @@ Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships
 %$\leq$1 structure.DSD
 %\end{DL}
 
-%\textbf{Validation and Reasoning.}
-Some constraint types enable performing reasoning prior to validation which may resolve or cause constraint violations.
-With \emph{subsumption} (\emph{R-100}), one can state that \emph{xkos:ClassificationLevel} is a sub-class of \emph{skos:Collection}, i.e., each \emph{xkos:ClassificationLevel} must also be part of the \emph{skos:Collection} class extension.
-With \emph{sub properties} (\emph{R-54, R-64}), one can state that \emph{disco:fundedBy} is a sub-property of \emph{dcterms:contributor} - i.e., if a study is funded by an organization, then this organization contributed to this study.
-\begin{DL}
-ClassificationLevel $\sqsubseteq$ Collection \\
-fundedBy $\sqsubseteq$ contributor
-\end{DL} 
+%%\textbf{Validation and Reasoning.}
+%Some constraint types enable performing reasoning prior to validation which may resolve or cause constraint violations.
+%With \emph{subsumption} (\emph{R-100}), one can state that \emph{xkos:ClassificationLevel} is a sub-class of \emph{skos:Collection}, i.e., each \emph{xkos:ClassificationLevel} must also be part of the \emph{skos:Collection} class extension.
+%With \emph{sub properties} (\emph{R-54, R-64}), one can state that \emph{disco:fundedBy} is a sub-property of \emph{dcterms:contributor} - i.e., if a study is funded by an organization, then this organization contributed to this study.
+%\begin{DL}
+%ClassificationLevel $\sqsubseteq$ Collection \\
+%fundedBy $\sqsubseteq$ contributor
+%\end{DL} 
 
 %\section{Basic Constraint Types}
 %\label{vocabulary-constraint-types}
@@ -742,8 +734,6 @@ fundedBy $\sqsubseteq$ contributor
 	%\item $\mathcal{C}_B ^{\mathcal{R}}$ corresponds to axioms in \emph{OWL 2} and denotes the set of constraint types which enable performing reasoning prior to validation, especially when not all the knowledge is explicit (section \ref{basic-constraint-types-with-reasoning}).  
   %\item $\overline{\mathcal{C}_B ^{\mathcal{R}}}$  denotes the set of constraint types for which reasoning cannot be done or does not improve the result in any obvious sense (section \ref{basic-constraint-types-without-reasoning}).
 %\end{enumerate}
-
------
 
 %\subsection{Basic Constraint Types with Reasoning}
 %\label{basic-constraint-types-with-reasoning}
@@ -802,19 +792,19 @@ fundedBy $\sqsubseteq$ contributor
 %Case quantity measures how many cases are collected for a study.
 %High case and variable quantities are indicators for high statistical quality and comprehensiveness of the underlying study ($\mathcal{SL}_{1}$).
 
-\begin{center}
-\begin{DL} 
-$\mathcal{K}=\{$ 
-  &\ms{fundedBy $\sqsubseteq$ contributor}
- \}\\ 
-\end{DL}
-\end{center}
-
-By stating that \emph{disco:fundedBy} is a sub property of \emph{dcterms:contributor},
-the {\em sub property} (\emph{R-54, R-64}) above assures that if a series is funded by an organization, then the organization must also contribute to the series.
-In case the \emph{sub-property} is applied without reasoning and $\mathcal{K}$ contains the triple \ms{disco:fundedBy} \ms{(EU-SILC,} \ms{organization)},
-a constraint violation is thrown if $\mathcal{K}$ does not explicitly include the triple \ms{dcterms:contributor} \ms{(EU-SILC,} \ms{organization)}.
-If the \emph{sub property} is applied with reasoning, on the other side, the latter triple is derived which resolves the constraint violation.
+%\begin{center}
+%\begin{DL} 
+%$\mathcal{K}=\{$ 
+  %&\ms{fundedBy $\sqsubseteq$ contributor}
+ %\}\\ 
+%\end{DL}
+%\end{center}
+%
+%By stating that \emph{disco:fundedBy} is a sub property of \emph{dcterms:contributor},
+%the {\em sub property} (\emph{R-54, R-64}) above assures that if a series is funded by an organization, then the organization must also contribute to the series.
+%In case the \emph{sub-property} is applied without reasoning and $\mathcal{K}$ contains the triple \ms{disco:fundedBy} \ms{(EU-SILC,} \ms{organization)},
+%a constraint violation is thrown if $\mathcal{K}$ does not explicitly include the triple \ms{dcterms:contributor} \ms{(EU-SILC,} \ms{organization)}.
+%If the \emph{sub property} is applied with reasoning, on the other side, the latter triple is derived which resolves the constraint violation.
 
 %\begin{DL}
 %fundedBy $\sqsubseteq$ contributor
@@ -904,7 +894,7 @@ If the \emph{sub property} is applied with reasoning, on the other side, the lat
 %it is checked that \emph{dcterms:coverage} is not redundant with its sub-properties 
 %which may indicate when the data is verbose/redundant or expressed at a too general level.
 
-\section{Simple Constraint Types}
+\subsection{Simple Constraint Types}
 
 $\mathcal{CT}_{S}$ is the set of constraint types whose constraints can be easily defined without much effort in addition to $\mathcal{CT}_{B}$ constraints.
 For data properties, it may be desirable to restrict that values of predefined languages must be present for determined number of times (\emph{R-48/49: language tag cardinality}):
@@ -948,7 +938,7 @@ Thus and as there are different sorts of key, and as keys can lead to undecidabi
 %identifier \ms{keyfor} Resource
 %\end{DL} 
 
-\section{Complex Constraint Types}
+\subsection{Complex Constraint Types}
 \label{complex-constraint-types}
 
 %\textcolor{red}{
@@ -1161,7 +1151,11 @@ restrict individuals of given classes to have properties defined within exactly 
 %The constraint type \emph{context-specific exclusive or of property groups} (\emph{R-11})
 %restricts individuals of given classes to have exactly one of multiple property groups.
 
-\section{Implementation}
+
+\section{Evaluation}
+\label{evaluation}
+
+\subsection{Experimental Setup}
 \label{implementation}
 
 SPARQL is generally seen as the method of choice to validate RDF data according to certain constraints.
@@ -1179,10 +1173,7 @@ A SPIN construct template contains a SPARQL CONSTRUCT query which generates cons
 A SPIN construct template creates constraint violation triples if all triple patterns within the SPARQL WHERE clause match.
 \emph{Missy}\footnote{\url{http://www.gesis.org/missy/eu/missy-home}} provides comprehensive Linked Data services like diverse RDF exports of person-level metadata conforming to the \emph{Disco} vocabulary in form of multiple concrete syntaxes. 
 
-\section{Evaluation}
-\label{evaluation}
-
-\subsection{Evaluation Setup}
+\ke{Überarbeiten und mit nächstem teil mergen. Nur das erzählen, was für die Auswertung auf den Datensets relevant ist. 114 constraints, 3 vokabulare, wie wurden die datasets daraufhin validiert.}
 
 	%\item First, we assigned each constraint type to exactly one of the disjoint sets of constraint types 
 %in order to get an overview how many constraint types in relation to the total amount of constraint types are extractable from vocabularies ($\mathcal{CT}_{B}$), are easily definable ($\mathcal{CT}_{S}$), and are rather difficult to specify ($\mathcal{CT}_{C}$). 
