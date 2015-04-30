@@ -1178,7 +1178,7 @@ We distinct two classes of vocabularies:
 (2) newly developed vocabularies (e.g., \emph{Disco} which will be published in 2015) which are either recently published or are still in the publication process.
 %It is likely that such a vocabulary is still subject of constant change, that published data may not be consistent with its current version,
 %and that early adopters did not properly understand its formal specification.
-\ke{ergebnisse, dann hypothesen, dann kritische auseinandersetzung}
+%\ke{ergebnisse, dann hypothesen, dann kritische auseinandersetzung}
 
 We validated 
 9,990 / 3,775,983,610 (\emph{QB}),
@@ -1298,12 +1298,14 @@ by evaluating the quality of data represented by further well-established and ne
 %(for \emph{QB} even three quarters).
 %\emph{Existential quantifications} (\emph{R-86}, 32.4\%, \emph{Disco}), \emph{data model consistency} (31.4\%, \emph{QB}), and \emph{structure} (28.6\%, \emph{SKOS}) are the constraint types the most constraints are instantiated from.
 
-\tb{1. Fakten (diese Fakten bewirken eine Erhöhung der Datenqualität) 2. Hypothese (unsere Interpretation der Ergebnisse, unsere Behauptung)}
+%\tb{1. Fakten (diese Fakten bewirken eine Erhöhung der Datenqualität) 2. Hypothese (unsere Interpretation der Ergebnisse, unsere Behauptung)}
 
 Almost 1/2 of all 213 constraints and more than 50\% of the \emph{Disco} and the \emph{QB} constraints are \emph{vocabulary constraints}.
-The \emph{SKOS} constraints are equally distributed among the three disjoint sets of constraint types. 
+The \emph{SKOS} constraints are nearly to the same extend \emph{vocabulary}, \emph{simple}, and \emph{complex constraints}. 
+Hence, a significant amount of 46 \% of the constraints are directly extractable from formal specifications of well-established and newly defined vocabularies. 
 \begin{hyp}
-A significant amount of 46 \% of the constraints are directly extractable from formal specifications of well-established and newly defined vocabularies. 
+As vocabulary constraints can be expressed by modeling languages like RDF, RDFS, and OWL 2,
+the further development of constraint languages should concentrate on expressing simple and especially complex constraints which in most cases can only be expressed by plain SPARQL.   
 \end{hyp} 
 
 Nearly 1/2 of the violations are caused by \emph{complex constraints}, 1/3 by \emph{simple constraints}, and 1/5 by \emph{vocabulary constraints}.
@@ -1331,8 +1333,8 @@ It is likely that a newly developed vocabulary is still subject of constant chan
 and that early adopters did not properly understand its formal specification.
 Thus, published data may not be consistent with its current draft or version.
 In case newly developed vocabularies turn into well-established ones,
-data providers are experienced in publishing their data represented by these vocabularies, 
-the formal specifications are more elaborated and therefore clearer to data providers. 
+data providers are experienced in publishing their data in conformance with these vocabularies, 
+and the formal specifications are more elaborated and therefore clearer. 
 As a consequence, vocabulary constraints are satisfied which leads to better data quality.  
 
 \begin{hyp}
