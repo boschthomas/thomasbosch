@@ -1286,21 +1286,19 @@ we only use normalized relative values representing the percentage of constraint
     \end{center}
 \end{table}
 
-Based on the evaluation results on three vocabularies, 
+As the evaluation is based on three vocabularies, 
 we cannot make valid general statements for all vocabularies,
 but we can formulate several hypotheses to direct the further development of constraint languages.
 As these hypotheses cannot be proved yet, 
-they still have to be verified or falsified in terms of future work 
-by evaluating the quality of data represented by additional well-established and newly developed vocabularies.
+they still have to be verified or falsified
+by evaluating the quality of data represented by further well-established and newly developed vocabularies.
 
 %More than the half of them are $\mathcal{CT}_{B}$, nearly a third $\mathcal{CT}_{S}$, and only a sixth $\mathcal{CT}_{C}$ constraint types.
 %For \emph{Disco}, \emph{QB}, and \emph{SKOS}, more than 50\% of the instantiated constraint types are $\mathcal{CT}_{B}$ constraint types 
 %(for \emph{QB} even three quarters).
 %\emph{Existential quantifications} (\emph{R-86}, 32.4\%, \emph{Disco}), \emph{data model consistency} (31.4\%, \emph{QB}), and \emph{structure} (28.6\%, \emph{SKOS}) are the constraint types the most constraints are instantiated from.
 
-\tb{ann also erst die Fakten berichten, wie zum Beispiel bestimmte Prozentwerte / Und dann die Hypothese als Schluss, z..B. dass die Datenqualität bezüglich in den etablierten Vokabularen hinterlegter Constraints sehr gut ist, was darauf hindeutet, dass das hinterlegen von constraints sinnvoll ist und von den datenanbietern auch beachtet wird.
-ganz eigentlich ist ja sogar nur das zweite unsere hypothese
-die datenqualität in unserem sample IST gut, das ist auch keine hypothese}
+\tb{1. Fakten (diese Fakten bewirken eine Erhöhung der Datenqualität) 2. Hypothese (unsere Interpretation der Ergebnisse, unsere Behauptung)}
 
 Almost 1/2 of all 213 constraints and more than 50\% of the \emph{Disco} and the \emph{QB} constraints are \emph{vocabulary constraints}.
 The \emph{SKOS} constraints are equally distributed among the three disjoint sets of constraint types. 
@@ -1317,18 +1315,27 @@ indicates good data quality in general (according to formal specifications of vo
 \end{hyp}
 
 2/3 of the \emph{Disco} violations result from \emph{vocabulary constraints},
-almost only \emph{complex constraints} raised \emph{QB} violations, and 
+\emph{QB} violations are almost only raised by \emph{complex constraints}, and 
 nearly 80\% of the \emph{SKOS} violations are caused by \emph{simple constraints}.
+For well-established vocabularies, vocabulary constraints are almost completely satisfied\footnote{e.g. only 1.777 \emph{QB} violations} which indicates good data quality according to formal specifications of vocabularies.
+This demonstrates that data providers take account of the formal specifications of well-established vocabularies and therefore constraint formulation in general works.
+For newly defined vocabularies, however, 2/3 of all violations are raised by vocabulary constraints
+which indicates bad data quality with regard to the formal specifications of newly defined vocabularies.
 
 \begin{hyp}
-For well-established vocabularies, vocabulary constraints are almost completely satisfied\footnote{e.g. only 1.777 \emph{QB} violations} which indicates good data quality (according to formal specifications of vocabularies) and which demonstrates that constraint formulation in general works.
-For newly defined vocabularies, however, 2/3 of all violations are raised by vocabulary constraints
-which indicates good data quality (according to formal specifications of vocabularies).
+Data represented by well-established vocabularies corresponds to formal specifications of these vocabularies which demonstrates that constraint formulation in general works. 
 \end{hyp}
 
-It is likely that a newly developed vocabulary is still subject of constant change, 
-that published data may not be consistent with its current version,
+\begin{hyp}
+Data represented by newly developed vocabularies, in contrast, does not correspond to formal specifications of these vocabularies.
+\end{hyp}
+
+It is likely that a newly developed vocabulary is still subject of constant change
 and that early adopters did not properly understand its formal specification.
+Thus, published data may not be consistent with its current version.
+In case newly developed vocabularies turn into well-established ones,
+their formal specifications and intended semantics will be clearer to data providers as the community will also have more experience in publishing data conforming to this vocabulary. 
+As a consequence, vocabulary constraints will be satisfied leading to better data quality.  
 
 \begin{hyp}
 A significant amount of 47\% of the violations refer to complex constraints that are not easily expressible in existing languages which confirms the necessity to provide suitable constraint languages.
