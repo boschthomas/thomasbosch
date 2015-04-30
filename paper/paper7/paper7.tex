@@ -276,7 +276,7 @@ For research institutes, data libraries, and data archives,
 RDF data validation according to predefined constraints is a much sought-after feature, 
 particularly as this is taken for granted in the XML world.
 Based on our work in the DCMI RDF Application Profiles Task Group and in cooperation with the W3C Data Shapes Working Group, we identified and published by today 82 types of constraints that are required by various stakeholders for data applications.
-In this paper, we formulate 246 constraints of 53 different types on six different vocabularies (\emph{Disco}, \emph{QB}, \emph{SKOS}, \emph{PHDD}, \emph{DCAT}, \emph{XKOS}) and classify them according to the complexity level of their type and their severity level. For 114 of these constraints, we evaluate the data quality of 15,694 data sets (4.26 billion triples) of research data for the social, behavioural, and economic (\emph{SBE}) sciences obtained from 33 SPARQL endpoints. \ke{check numbers}\tb{Zahlen stimmen!}
+In this paper, we formulate 246 constraints of 53 different types on six different vocabularies (\emph{Disco}, \emph{QB}, \emph{SKOS}, \emph{PHDD}, \emph{DCAT}, \emph{XKOS}) and classify them according to the complexity level of their type and their severity level. For 114 of these constraints, we evaluate the data quality of 15,694 data sets (4.26 billion triples) of research data for the social, behavioural, and economic (\emph{SBE}) sciences obtained from 33 SPARQL endpoints.
 Based on the results, we formulate several hypotheses to direct the further development of constraint languages.
 
 
@@ -301,7 +301,7 @@ In XML, the definition of schemas containing data constraints and the validation
 With the rise of the Web of Data, data professionals and institutions are very interested in having their data be discovered and used by publishing their data directly in RDF or at least publish accurate metadata about their data to facilitate data integration. Therefore, not only established vocabularies like \emph{SKOS} are used; 
 recently, members of the \emph{SBE} and Linked Data community developed with the \emph{DDI-RDF Discovery Vocabulary (Disco)}\footnote{\url{http://rdf-vocabulary.ddialliance.org/discovery.html}} a means to expose \emph{DDI} metadata as Linked Data. 
 
-For constraint formulation and validation on RDF data\tb{nicht validation of RDF data?}, several languages exist or are currently developed, like \emph{Shape Expressions}, \emph{Resource Shapes} or \emph{Description Set Profiles}. \emph{OWL 2} is also used as a constraint language under a closed world assumption. With its direct support of validation via \emph{SPARQL}, \emph{SPIN}%\footnote{\url{http://spinRDF.org/}}
+For constraint formulation and validation of RDF data, several languages exist or are currently developed, like \emph{Shape Expressions}, \emph{Resource Shapes} or \emph{Description Set Profiles}. \emph{OWL 2} is also used as a constraint language under a closed world assumption. With its direct support of validation via \emph{SPARQL}, \emph{SPIN}%\footnote{\url{http://spinRDF.org/}}
 is very popular and certainly plays an important role for future developments in this field. It is particularly interesting as a means to validate arbitrary constraint languages by mapping them to \emph{SPARQL} \cite{BoschEckert2014-2}. Yet, there is no clear favorite and none of the languages is able to meet all requirements raised by data practitioners. Further research and development therefore is needed.
 
 In 2013, the W3C organized the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/rdf-val/}}, 
@@ -1300,7 +1300,7 @@ The \emph{SKOS} constraints are nearly to the same extend \emph{vocabulary}, \em
 \begin{hyp}
 %As a significant amount of 46 \% of the constraints are vocabulary constraints which can be expressed by modeling languages like RDF, RDFS, and OWL 2,
 %the further development of constraint languages should concentrate on expressing simple and especially complex constraints which up to now in most cases can only be expressed by plain SPARQL.   
-As a significant amount of 54 \% of the constraints are either simple or complex constraints,
+As a significant amount of 54\% of the constraints are either simple or complex constraints,
 the further development of constraint languages should concentrate on expressing simple and especially complex constraints which up to now in most cases can only be expressed by plain SPARQL.  
 \end{hyp} 
 
@@ -1335,11 +1335,11 @@ and formal specifications are more elaborated.
 As a consequence, \emph{vocabulary constraints} are satisfied to a greater extend which leads to better data quality.  
 
 \begin{hyp}
-A significant amount of 47\% of the violations refer to complex constraints that are not easily, concisely, and intuitively expressible in existing constraint languages which confirms the necessity to provide suitable constraint languages.
+A significant amount of 47\% of the violations refer to complex constraints that are not easily, concisely, and intuitively expressible by existing constraint languages which confirms the necessity to provide suitable constraint languages.
 \end{hyp} 
 
-In general, \emph{vocabulary} and \emph{simple constraints} are easily, concisely, and intuitively expressible by either modeling languages (e.g., \emph{RDF}, \emph{RDFS}, \emph{OWL 2}) or constraint languages (e.g., \emph{ShEx}, \emph{ReSh}, \emph{SPIN}). 
-This is not the case, however, for \emph{complex constraints} which in most cases are still only expressible by plain \emph{SPARQL}. 
+In general, \emph{vocabulary constraints} are expressible by either modeling languages (e.g., \emph{RDF}, \emph{RDFS}, \emph{OWL 2}) or constraint languages. 
+\emph{Simple constraints} and especially \emph{complex constraints}, however, are in most cases only expressible by plain \emph{SPARQL}. 
 As almost 1/2 of all violations are caused by \emph{complex constraints}, 
 data quality can be significantly improved when suitable constraint languages are developed which enable to define \emph{complex constraints} in an easy, concise, and intuitive way.
 %Therefore, existing constraint languages have to be extended or new constraint languages have to be developed.
@@ -1347,7 +1347,7 @@ data quality can be significantly improved when suitable constraint languages ar
 10\% of all constraints are \emph{warning constraints}.
 \emph{Informational constraints} caused 1/3 and
 \emph{warning constraints} 2/3 of all violations.
-As the percentage of severe violations is very low for all vocabularies,
+As the percentage of severe violations is very low for all vocabularies (6.1\%),
 data quality is high with regard to the severity level of constraints.
 
 \begin{hyp}
@@ -1512,9 +1512,10 @@ To make valid general statements for all vocabularies, however,
 the hypotheses still have to be verified or falsified
 by evaluating the quality of data represented by more than three vocabularies.
 The main hypotheses are 
-(1) As a significant amount of 54 \% of the constraints are either simple or complex constraints,
+(1) The percentage of severe violations is very low, compared to about 2/3 of warning violations and 1/3 of informational violations, which implies that proper constraint languages can significantly improve the data quality beyond fundamental requirements.
+(2) A significant amount of 47\% of the violations refer to complex constraints that are not easily, concisely, and intuitively expressible by existing constraint languages which confirms the necessity to provide suitable constraint languages.
+(3) As a significant amount of 54\% of the constraints are either simple or complex constraints,
 the further development of constraint languages should concentrate on expressing simple and especially complex constraints which up to now in most cases can only be expressed by plain SPARQL. 
-(2) 
 
 \bibliography{../../literature/literature}{}
 \bibliographystyle{plain}
