@@ -1265,7 +1265,7 @@ we only use normalized relative values representing the percentage of constraint
     %\\ \midrule
 		 & 143 & 3,575,002 & 35 & 45,635,861 & 35 & 5,540,988 & 213 & 54,751,851 \\
 		\hline
-		\textbf{\emph{complex}} & 25.9\% & 18.3\% & 37.1\% & \textbf{100\%} & \textbf{37.1\%} & 21.4\% & 33.4\% & \textbf{46.6\%} \\
+		\textbf{\emph{complex}} & 25.9\% & 18.3\% & 37.1\% & \textbf{100.0\%} & \textbf{37.1\%} & 21.4\% & 33.4\% & \textbf{46.6\%} \\
 		\textbf{\emph{simple}} & 19.6\% & 15.7\% & 8.6\% & 0.0\% & \textbf{34.3\%} & \textbf{78.6\%} & 20.8\% & 31.4\% \\
 		\textbf{\emph{vocabulary}} & \textbf{54.6\%} & \textbf{66.1\%} & \textbf{54.3\%} & 0.0\% & \textbf{28.6\%} & 0.0\% & \textbf{45.8\%} & 22.0\% \\
 		%\hline
@@ -1273,8 +1273,8 @@ we only use normalized relative values representing the percentage of constraint
 		%\emph{CV (}$\overline{\mathcal{C}_B ^{\mathcal{R}}}$\emph{)} & 28,000 (0.8\%) & 0 (0\%) & 0 (0\%) & 28,000 (0.1\%) \\
 		\hline
 		\textbf{\emph{info}} & \textbf{52.5\%} & \textbf{52.6\%} & 11.4\% & 0.0\% & \textbf{60.0\%} & 41.2\% & \textbf{41.3\%} & 31.3\% \\
-		\textbf{\emph{warning}} & 7.0\% & 29.4\% & 8.6\% & \textbf{99,8\%} & 14.3\% & \textbf{58.8\%} & 10.0\% & \textbf{62.7\%} \\
-		\textbf{\emph{error}} & 40.6\% & 18\% & \textbf{80.0\%} & 0.3\% & 25.7\% & 0.0\% & \textbf{48.8\%} & 6.1\%\\
+		\textbf{\emph{warning}} & 7.0\% & 29.4\% & 8.6\% & \textbf{99.8\%} & 14.3\% & \textbf{58.8\%} & 10.0\% & \textbf{62.7\%} \\
+		\textbf{\emph{error}} & 40.6\% & 18.0\% & \textbf{80.0\%} & 0.3\% & 25.7\% & 0.0\% & \textbf{48.8\%} & 6.1\%\\
     \bottomrule
     \end{tabular}
     \\ \emph{C (constraints), CV (constraint violations)}
@@ -1294,12 +1294,14 @@ by evaluating the quality of data represented by further well-established and ne
 %(for \emph{QB} even three quarters).
 %\emph{Existential quantifications} (\emph{R-86}, 32.4\%, \emph{Disco}), \emph{data model consistency} (31.4\%, \emph{QB}), and \emph{structure} (28.6\%, \emph{SKOS}) are the constraint types the most constraints are instantiated from.
 %\tb{1. Fakten (diese Fakten bewirken eine Erhöhung der Datenqualität) 2. Hypothese (unsere Interpretation der Ergebnisse, unsere Behauptung)}
-Almost 1/2 of all 213 constraints and more than 50\% of the \emph{Disco} and the \emph{QB} constraints are \emph{vocabulary constraints}.
+Almost 1/2 of all 213 constraints and more than 1/2 of the \emph{Disco} and the \emph{QB} constraints are \emph{vocabulary constraints}.
 The \emph{SKOS} constraints are nearly to the same extend \emph{vocabulary}, \emph{simple}, and \emph{complex constraints}. 
 %Hence, a significant amount of 46 \% of the constraints are directly extractable from formal specifications of well-established and newly defined vocabularies. 
 \begin{hyp}
-As a significant amount of 46 \% of the constraints are vocabulary constraints which can be expressed by modeling languages like RDF, RDFS, and OWL 2,
-the further development of constraint languages should concentrate on expressing simple and especially complex constraints which up to now in most cases can only be expressed by plain SPARQL.   
+%As a significant amount of 46 \% of the constraints are vocabulary constraints which can be expressed by modeling languages like RDF, RDFS, and OWL 2,
+%the further development of constraint languages should concentrate on expressing simple and especially complex constraints which up to now in most cases can only be expressed by plain SPARQL.   
+As a significant amount of 54 \% of the constraints are either simple or complex constraints,
+the further development of constraint languages should concentrate on expressing simple and especially complex constraints which up to now in most cases can only be expressed by plain SPARQL.  
 \end{hyp} 
 
 Nearly 1/2 of all violations are caused by \emph{complex constraints}, 1/3 by \emph{simple constraints}, and 1/5 by \emph{vocabulary constraints}.
@@ -1310,27 +1312,27 @@ indicates good data quality for all vocabularies with regard to their formal spe
 For all vocabularies, data corresponds to their formal specifications which demonstrates that constraint formulation in general works. 
 \end{hyp}
 
-\tb{je nach hypothese spezifische aufgaben um die hypothese zu beweisen}
+%\tb{je nach hypothese spezifische aufgaben um die hypothese zu beweisen}
 2/3 of the \emph{Disco} violations result from \emph{vocabulary constraints},
 \emph{QB} violations are almost only raised by \emph{complex constraints}, and 
 nearly 80\% of the \emph{SKOS} violations are caused by \emph{simple constraints}.
-For well-established vocabularies, \emph{vocabulary constraints} are almost completely satisfied\footnote{e.g. only 1.777 \emph{QB} violations} which indicates good data quality according to formal specifications of vocabularies.
+For well-established vocabularies, \emph{vocabulary constraints} are almost completely satisfied\footnote{e.g. only 1.777 \emph{QB} violations} which indicates good data quality according to their formal specifications.
 %This demonstrates that data providers take account of the formal specifications of well-established vocabularies.
 For newly defined vocabularies, however, 2/3 of all violations are raised by \emph{vocabulary constraints}
-which indicates bad data quality with regard to the formal specifications of vocabularies.
+which indicates bad data quality with regard to their formal specifications.
 
 \begin{hyp}
-Data represented by well-established vocabularies corresponds to formal specifications of these vocabularies which demonstrates that constraint formulation in general works. 
-Data represented by newly developed vocabularies, in contrast, does not correspond to formal specifications of these vocabularies.
+Data represented by well-established vocabularies corresponds to their formal specifications which demonstrates that constraint formulation in general works. 
+Data represented by newly developed vocabularies, in contrast, does not correspond to their formal specifications.
 \end{hyp}
 
 It is likely that a newly developed vocabulary is still subject of constant change
 and that early adopters did not properly understand its formal specification.
 Thus, published data may not be consistent with its current draft or version.
 In case newly developed vocabularies turn into well-established ones,
-data providers are experienced in publishing their data in conformance with these vocabularies, 
-and the formal specifications are more elaborated and therefore clearer. 
-As a consequence, vocabulary constraints are satisfied which leads to better data quality.  
+data providers are experienced in publishing their data in conformance with these vocabularies
+and formal specifications are more elaborated. 
+As a consequence, \emph{vocabulary constraints} are satisfied to a greater extend which leads to better data quality.  
 
 \begin{hyp}
 A significant amount of 47\% of the violations refer to complex constraints that are not easily, concisely, and intuitively expressible in existing constraint languages which confirms the necessity to provide suitable constraint languages.
@@ -1495,10 +1497,24 @@ there is an obvious need to develop constraint languages which enable to express
 %We determined the default \emph{severity level} for each constraint to indicate how serious the violation of the constraint is
 %and propose an extensible metric to measure the continuum of severity levels.
 
+\tb{sollen wir die beiden appendixe diese paper hier nochmals erwähnen?}
+
 \footnote{The first appendix of this paper describing each constraint in detail is available at: \url{http://arxiv.org/abs/1504.04479} \cite{BoschZapilkoWackerowEckert2015}}
 
-We implemented a validation environment (available at \url{http://purl.org/net/rdfval-demo}) to validate RDF data according to constraints expressed my arbitrary constraint languages and to ensure correct syntax and semantics of diverse vocabularies such as \emph{Disco}, \emph{QB}, \emph{SKOS}, and \emph{PHDD} (section \ref{implementation}).
-We exhaustively evaluated the metadata quality of large real world aggregated (\emph{QB}), person-level (\emph{Disco}), and thesauri (\emph{SKOS}) data sets (more than 4.2 billion triples and 15 thousand data sets) by means of 213  constraints of the majority of the constraint types\footnote{The second appendix of this paper describing the evaluation in detail is available at: \url{http://arxiv.org/abs/1504.04478} \cite{BoschZapilkoWackerowEckert2015-2}.} (section \ref{evaluation}).
+\footnote{The second appendix of this paper describing the evaluation in detail is available at: \url{http://arxiv.org/abs/1504.04478} \cite{BoschZapilkoWackerowEckert2015-2}.}
+
+%We implemented a validation environment (available at \url{http://purl.org/net/rdfval-demo}) to validate RDF data according to constraints expressed my arbitrary constraint languages and to ensure correct syntax and semantics of diverse vocabularies such as \emph{Disco}, \emph{QB}, \emph{SKOS}, and \emph{PHDD} (section \ref{implementation}).
+%We exhaustively evaluated the metadata quality of large real world aggregated (\emph{QB}), person-level (\emph{Disco}), and thesauri (\emph{SKOS}) data sets (more than 4.2 billion triples and 15 thousand data sets) by means of 213  constraints of the majority of the constraint types\footnote{The second appendix of this paper describing the evaluation in detail is available at: \url{http://arxiv.org/abs/1504.04478} \cite{BoschZapilkoWackerowEckert2015-2}.} (section \ref{evaluation}).
+
+Based on the evaluation results,
+we formulated several hypotheses to direct the further development of constraint languages.
+To make valid general statements for all vocabularies, however,
+the hypotheses still have to be verified or falsified
+by evaluating the quality of data represented by more than three vocabularies.
+The main hypotheses are 
+(1) As a significant amount of 54 \% of the constraints are either simple or complex constraints,
+the further development of constraint languages should concentrate on expressing simple and especially complex constraints which up to now in most cases can only be expressed by plain SPARQL. 
+(2) 
 
 \bibliography{../../literature/literature}{}
 \bibliographystyle{plain}
