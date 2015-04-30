@@ -636,7 +636,7 @@ We evaluated the (meta)data quality of large real world data sets represented by
 %use-case specific constraints, e.g., DCAT: searching for metadata
 %\tb{Thomas: ToDo}
 
-\section{Vocabulary Constraint Types}
+\subsection{Vocabulary Constraint Types}
 \label{vocabulary-constraint-types}
 
 The constraint type \emph{vocabulary} guarantees that users do not invent new or use deprecated terms of vocabularies.
@@ -906,7 +906,7 @@ If the \emph{sub property} is applied with reasoning, on the other side, the lat
 %it is checked that \emph{dcterms:coverage} is not redundant with its sub-properties 
 %which may indicate when the data is verbose/redundant or expressed at a too general level.
 
-\section{Simple Constraint Types}
+\subsection{Simple Constraint Types}
 
 $\mathcal{CT}_{S}$ is the set of constraint types whose constraints can be easily defined without much effort in addition to $\mathcal{CT}_{B}$ constraints.
 For data properties, it may be desirable to restrict that values of predefined languages must be present for determined number of times (\emph{R-48/49: language tag cardinality}):
@@ -950,7 +950,7 @@ Thus and as there are different sorts of key, and as keys can lead to undecidabi
 %identifier \ms{keyfor} Resource
 %\end{DL} 
 
-\section{Complex Constraint Types}
+\subsection{Complex Constraint Types}
 \label{complex-constraint-types}
 
 %\textcolor{red}{
@@ -1163,7 +1163,11 @@ restrict individuals of given classes to have properties defined within exactly 
 %The constraint type \emph{context-specific exclusive or of property groups} (\emph{R-11})
 %restricts individuals of given classes to have exactly one of multiple property groups.
 
-\section{Implementation}
+
+\section{Evaluation}
+\label{evaluation}
+
+\subsection{Experimental Setup}
 \label{implementation}
 
 SPARQL is generally seen as the method of choice to validate RDF data according to certain constraints.
@@ -1181,10 +1185,7 @@ A SPIN construct template contains a SPARQL CONSTRUCT query which generates cons
 A SPIN construct template creates constraint violation triples if all triple patterns within the SPARQL WHERE clause match.
 \emph{Missy}\footnote{\url{http://www.gesis.org/missy/eu/missy-home}} provides comprehensive Linked Data services like diverse RDF exports of person-level metadata conforming to the \emph{Disco} vocabulary in form of multiple concrete syntaxes. 
 
-\section{Evaluation}
-\label{evaluation}
-
-\subsection{Evaluation Setup}
+\ke{Überarbeiten und mit nächstem teil mergen. Nur das erzählen, was für die Auswertung auf den Datensets relevant ist. 114 constraints, 3 vokabulare, wie wurden die datasets daraufhin validiert.}
 
 	%\item First, we assigned each constraint type to exactly one of the disjoint sets of constraint types 
 %in order to get an overview how many constraint types in relation to the total amount of constraint types are extractable from vocabularies ($\mathcal{CT}_{B}$), are easily definable ($\mathcal{CT}_{S}$), and are rather difficult to specify ($\mathcal{CT}_{C}$). 
