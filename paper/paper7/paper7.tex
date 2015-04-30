@@ -1317,25 +1317,23 @@ indicates good data quality in general (according to formal specifications of vo
 2/3 of the \emph{Disco} violations result from \emph{vocabulary constraints},
 \emph{QB} violations are almost only raised by \emph{complex constraints}, and 
 nearly 80\% of the \emph{SKOS} violations are caused by \emph{simple constraints}.
-For well-established vocabularies, vocabulary constraints are almost completely satisfied\footnote{e.g. only 1.777 \emph{QB} violations} which indicates good data quality according to formal specifications of vocabularies.
-This demonstrates that data providers take account of the formal specifications of well-established vocabularies and therefore constraint formulation in general works.
-For newly defined vocabularies, however, 2/3 of all violations are raised by vocabulary constraints
-which indicates bad data quality with regard to the formal specifications of newly defined vocabularies.
+For well-established vocabularies, \emph{vocabulary constraints} are almost completely satisfied\footnote{e.g. only 1.777 \emph{QB} violations} which indicates good data quality according to formal specifications of vocabularies.
+%This demonstrates that data providers take account of the formal specifications of well-established vocabularies.
+For newly defined vocabularies, however, 2/3 of all violations are raised by \emph{vocabulary constraints}
+which indicates bad data quality with regard to the formal specifications of vocabularies.
 
 \begin{hyp}
 Data represented by well-established vocabularies corresponds to formal specifications of these vocabularies which demonstrates that constraint formulation in general works. 
-\end{hyp}
-
-\begin{hyp}
 Data represented by newly developed vocabularies, in contrast, does not correspond to formal specifications of these vocabularies.
 \end{hyp}
 
 It is likely that a newly developed vocabulary is still subject of constant change
 and that early adopters did not properly understand its formal specification.
-Thus, published data may not be consistent with its current version.
+Thus, published data may not be consistent with its current draft or version.
 In case newly developed vocabularies turn into well-established ones,
-their formal specifications and intended semantics will be clearer to data providers as the community will also have more experience in publishing data conforming to this vocabulary. 
-As a consequence, vocabulary constraints will be satisfied leading to better data quality.  
+data providers are experienced in publishing their data represented by these vocabularies, 
+the formal specifications are more elaborated and therefore clearer to data providers. 
+As a consequence, vocabulary constraints are satisfied which leads to better data quality.  
 
 \begin{hyp}
 A significant amount of 47\% of the violations refer to complex constraints that are not easily expressible in existing languages which confirms the necessity to provide suitable constraint languages.
