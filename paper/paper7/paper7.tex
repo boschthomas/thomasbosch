@@ -399,7 +399,7 @@ covering the first three constraints may be sufficient,
 i.e., the violation of the first three constraints is more serious than the violation of the last constraint.
 If the intention of the researcher is to perform more sophisticated comparisons (use case 2), however, the user may raise the severity level of the last constraint.
  
-\ke{ich finde das immer noch recht verwirrend. Ist das mit den aggregierten Daten wichtig für dieses Paper? Wieso werden constraints nur gechecked wenn variablen auf vergleichbarkeit geprüft werden? das habt ihr doch gar nicht gemacht sondern ganz allgemein constraints für vokabulare aufgestellt. Ist QB und Disco nicht sowieso unabhängig von konkreten Variablen?}
+\ke{ich finde das immer noch recht verwirrend. Ist das mit den aggregierten Daten wichtig für dieses Paper? Wieso werden constraints nur gechecked wenn variablen auf vergleichbarkeit geprüft werden? das habt ihr doch gar nicht gemacht sondern ganz allgemein constraints für vokabulare aufgestellt. Ist QB und Disco nicht sowieso unabhängig von konkreten Variablen?}\tb{das soll nur ein beipsiel sein, wann eine komplexere validierung im kontext von sbe sinn macht (1) + (2) sind vocabulary constraints und (3) + (4) sind complex constraints}
  
 %After validating the metadata according to these constraints, portals offer added values to their customers, e.g., by searching over and comparing metadata of multiple providers. 
 
@@ -450,12 +450,12 @@ For our evaluation, we examined six different vocabularies commonly used in or d
 The \emph{RDF Data Cube Vocabulary (QB)}\footnote{http://www.w3.org/TR/vocab-data-cube/} is a W3C recommendation for representing metadata on \emph{data cubes}, i.e. multi-dimensional aggregated data, in RDF \cite{Cyganiak2010}. 
 %\emph{QB} represents metadata on multi-dimensional aggregate data in two files: a \emph{qb:DataSet} and a \emph{qb:DataStructureDefinition}.
 A \emph{qb:DataStructureDefinition} contains metadata of the data collection.
-The variable \emph{formal childcare} is modelled as \emph{qb:measure}, since it stands for what has been measured in the data collection.
+The variable \emph{formal childcare} is modeled as \emph{qb:measure}, since it stands for what has been measured in the data collection.
 The variables \emph{year}, \emph{duration}, \emph{age}, and \emph{country} are \emph{qb:dimensions}.
 Data values, i.e., the availability of childcare services in percent over the population, are collected in a \emph{qb:DataSet}. 
 Each data value is represented inside a \emph{qb:Observation} which contains values for each dimension\footnote{The complete running example in RDF is available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/data/running-example}}. 
 %(e.g., the year in which \emph{formal childcare} has been determined).
-\ke{Wieso springt das von einer sehr knappen Einführung direkt zu konkreten (beliebigen?) Variablen? Ich möchte wissen, wofür QB benutzt wird und gerne ein konkretes Beispiel sehen, um mir einen Data Cube vorstellen zu können.}
+\ke{Wieso springt das von einer sehr knappen Einführung direkt zu konkreten (beliebigen?) Variablen? Ich möchte wissen, wofür QB benutzt wird und gerne ein konkretes Beispiel sehen, um mir einen Data Cube vorstellen zu können.}\tb{hmm, ich halte das beispiel für ein knappes und verständliches beipsiel wie eine tabelle in qb dargestellt wird / es ist auch der link enthalten zu der tabelle von eurostat}
 
 %\textbf{Rectangular Data.}
 \emph{Physical Data Description (PHDD)}\footnote{\url{https://github.com/linked-statistics/physical-data-description}} is a vocabulary to represent data in tabular format in RDF enabling further aggregations and calculations. 
