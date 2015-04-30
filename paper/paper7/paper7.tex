@@ -608,7 +608,7 @@ We use the commonly accepted classification of log messages in software developm
 	%\item \textbf{\emph{error constraints}}: constraints with severity level \emph{error}
 %\end{itemize}
 Violations of \emph{informational constraints} point to desirable but not necessary data improvements to achieve RDF representations which are ideal in terms of syntax and semantics of used vocabularies. 
-They are not seen as serious errors.
+%They are not seen as serious errors.
 \emph{Errors} are syntactic or semantic errors which should cause the abortion of data processing. 
 \emph{Warnings} are syntactic or semantic errors which typically should not lead to an abortion of data processing.
 %Data not conforming to \emph{warning} and \emph{error constraints} is syntactically and/or semantically not correctly represented.
@@ -654,7 +654,7 @@ Thus, it is checked that all date values (e.g., {{\em dcterms:date}) are actuall
 Depending on property datatypes, two different literal values have
 a specific ordering with respect to operators like \textless  (\emph{R-43: literal value comparison}).
 Start dates (\emph{disco:startDate}), e.g., must be before (\emph{\textless}) end dates (\emph{disco:endDate}).
-
+Consider the following \emph{DL} knowledge base $\mathcal{K}$\footnote{A knowledge base is a collection of formal statements which corresponds to \emph{facts} or what is known explicitly. For simplicity reasons, we do not state namespace prefixes in DL statements.}:
 \begin{center}
 \begin{DL} 
 $\mathcal{K}=\{$ 
@@ -665,7 +665,7 @@ $\mathcal{K}=\{$
  \}\\ 
 \end{DL}
 \end{center}
-\tb{K einführen}
+
 All properties, not having the same domain and range types, are defined to be pairwise disjoint
 (\emph{R-9: disjoint properties}), i.e., no individual \emph{x} can be connected to an individual/literal \emph{y} by disjoint properties (e.g., \emph{phdd:isStructuredBy} and \emph{phdd:column}).
 All \emph{PHDD} classes (e.g., \emph{phdd:TableDescription}, \emph{phdd:ColumnDescription}) are pairwise disjoint (\emph{R-7: disjoint classes}),
@@ -678,31 +678,40 @@ If \emph{dcterms:coverage} and one of its sub properties (\emph{dcterms:spatial}
 it is checked that \emph{dcterms:coverage} is not redundant with its sub-properties 
 which may indicate when the data is verbose/redundant or expressed at a too general level.
 
+\begin{center}
+\begin{DL} 
+$\mathcal{K}=\{$ &\ms{Catalog $\sqsubseteq$ $\forall$ dataset.Dataset}, \\
+&\ms{$\exists$ isStructuredBy.$\top$ $\sqsubseteq$ Table}, \\
+&\ms{$\top$ $\sqsubseteq$ $\forall$ belongsTo.Concept}, \\
+&\ms{Variable $\equiv$ $\exists$ concept.Concept}
+\}\\ 
+\end{DL}
+\end{center}
+
 -----
 
-\emph{Property domain} (\emph{R-25, R-26}) and \emph{range} (\emph{R-28, R-35}) constraints restrict domains and ranges of properties.
-Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships and
-\emph{xkos:belongsTo} relationships can only point to \emph{skos:Concepts}:
-\begin{DL}
-$\exists$ isStructuredBy.$\top$ $\sqsubseteq$ Table \\
-$\top$ $\sqsubseteq$ $\forall$ belongsTo.Concept
-\end{DL}
+We extend $\mathcal{K}$ by \emph{existential quantifications} (\emph{R-86}) enforcing that instances of given classes must have some property relation to individuals/literals of certain types.
+Variables, e.g., should have a relation to a theoretical concept ($\mathcal{SL}_{0}$).
+%The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
+The variable \emph{Education at pre-school} is associated with the theoretical concept \emph{Child Care}. 
+The default severity level of the constraint is weak, as in most cases research can be continued without having information about the theoretical concept of a variable.
+
+-----
 
 A \emph{universal quantification} (\emph{R-91}) contains all those individuals that are connected by a property only to individuals/literals of particular classes  or data ranges.
-Only \emph{dcat:Catalogs}, e.g., can have \emph{dcat:dataset} relationships to \emph{dcat:Datasets}:
-\begin{DL}
-Catalog $\sqsubseteq$ $\forall$ dataset.Dataset
-\end{DL}
-
-%\textbf{Existential Quantifications.}
+%Only \emph{dcat:Catalogs}, e.g., can have \emph{dcat:dataset} relationships to \emph{dcat:Datasets}:
+%\begin{DL}
+%Catalog $\sqsubseteq$ $\forall$ dataset.Dataset
+%\end{DL}
+Only \emph{dcat:Catalogs}, e.g., can have \emph{dcat:dataset} relationships to \emph{dcat:Datasets}.
+\emph{Property domain} (\emph{R-25, R-26}) and \emph{range} (\emph{R-28, R-35}) constraints restrict domains and ranges of properties.
+Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships and
+\emph{xkos:belongsTo} relationships can only point to \emph{skos:Concepts}.
 \emph{Existential quantifications} (\emph{R-86}) enforce that instances of given classes must have some property relation to individuals/literals of certain types.
 Variables, e.g., should have a relation to a theoretical concept ($\mathcal{SL}_{0}$).
 %The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
 The variable \emph{Education at pre-school} is associated with the theoretical concept \emph{Child Care}. 
 The default severity level of the constraint is weak, as in most cases research can be continued without having information about the theoretical concept of a variable.
-\begin{DL}
-Variable $\equiv$ $\exists$ concept.Concept
-\end{DL}
 %If a study, e.g., does not contain any data set ($\mathcal{SL}_{2}$), the actual description of the data is missing which may indicate that it is very hard or unlikely to get access to the data.
 %If metadata on data files, including the actual data, is missing (especially case and variable quantities; $\mathcal{SL}_{1}$), the description of the data sets and the study is not sufficient.
 %Case quantity measures how many cases are collected for a study.
@@ -711,15 +720,15 @@ Variable $\equiv$ $\exists$ concept.Concept
 %\textbf{Cardinality Restrictions on Properties.}
 %An \emph{existential quantification} (\emph{R-86}) contains all those individuals that are connected by a property to individuals/literals of given classes or data ranges.
 %Every \emph{qb:SliceKey}, e.g., must be associated with (\emph{qb:sliceKey}) a \emph{qb:DataStructureDefinition} (\ms{SliceKey $\sqsubseteq$ $\exists$ sliceKey$^{-}$.DataStructureDefinition}).
-\emph{Minimum/maximum/exact qualified cardinality restrictions} (\emph{R-74, R-75, R-76}) contain all those individuals that are connected by a property to at least/at most/exactly n different individuals/literals of particular classes or data ranges.
-A \emph{phdd:TableStructure} has (\emph{phdd:column}) at least one \emph{phdd:Column},
-a \emph{disco:Variable} has at most one \emph{disco:concept} relationship to a theoretical concept (\emph{skos:Concept}), and a \emph{qb:DataSet} is structured by (\emph{qb:structure}) exactly one \emph{qb:DataStructureDefinition}.
-\begin{DL}
-TableStructure $\sqsubseteq$ $\geq$1 column.Column \\
-Variable $\sqsubseteq$ $\leq$1 concept.Concept \\
-DataSet $\sqsubseteq$ $\geq$1 structure.DSD $\sqcap$
-$\leq$1 structure.DSD
-\end{DL}
+%\emph{Minimum/maximum/exact qualified cardinality restrictions} (\emph{R-74, R-75, R-76}) contain all those individuals that are connected by a property to at least/at most/exactly n different individuals/literals of particular classes or data ranges.
+%A \emph{phdd:TableStructure} has (\emph{phdd:column}) at least one \emph{phdd:Column},
+%a \emph{disco:Variable} has at most one \emph{disco:concept} relationship to a theoretical concept (\emph{skos:Concept}), and a \emph{qb:DataSet} is structured by (\emph{qb:structure}) exactly one \emph{qb:DataStructureDefinition}.
+%\begin{DL}
+%TableStructure $\sqsubseteq$ $\geq$1 column.Column \\
+%Variable $\sqsubseteq$ $\leq$1 concept.Concept \\
+%DataSet $\sqsubseteq$ $\geq$1 structure.DSD $\sqcap$
+%$\leq$1 structure.DSD
+%\end{DL}
 
 %\textbf{Validation and Reasoning.}
 Some constraint types enable performing reasoning prior to validation which may resolve or cause constraint violations.
@@ -730,9 +739,9 @@ ClassificationLevel $\sqsubseteq$ Collection \\
 fundedBy $\sqsubseteq$ contributor
 \end{DL} 
 
-%\section{Basic Constraint Types}
-%\label{vocabulary-constraint-types}
-%
+\section{Basic Constraint Types}
+\label{vocabulary-constraint-types}
+
 %As \emph{RDFS} and \emph{OWL} are typically used to define vocabularies, \emph{RDFS} and \emph{OWL} reasoning may be performed prior to validation. 
 %Reasoning and validation are indeed very closely related. 
 %\emph{Reasoning} is the process of determining what follows from what has been stated.
@@ -742,14 +751,14 @@ fundedBy $\sqsubseteq$ contributor
 	%\item $\mathcal{C}_B ^{\mathcal{R}}$ corresponds to axioms in \emph{OWL 2} and denotes the set of constraint types which enable performing reasoning prior to validation, especially when not all the knowledge is explicit (section \ref{basic-constraint-types-with-reasoning}).  
   %\item $\overline{\mathcal{C}_B ^{\mathcal{R}}}$  denotes the set of constraint types for which reasoning cannot be done or does not improve the result in any obvious sense (section \ref{basic-constraint-types-without-reasoning}).
 %\end{enumerate}
-%
-%\subsection{Basic Constraint Types with Reasoning}
-%\label{basic-constraint-types-with-reasoning}
-%
-%Validation environments should enable users to decide if they wish to perform reasoning prior to validation.
-%Reasoning as an optional pre validation step is beneficial for RDF validation as 
-%(1) it may resolve constraint violations and  
-%(2) it may cause useful constraint violations.
+
+\subsection{Basic Constraint Types with Reasoning}
+\label{basic-constraint-types-with-reasoning}
+
+%%Validation environments should enable users to decide if they wish to perform reasoning prior to validation.
+%%Reasoning as an optional pre validation step is beneficial for RDF validation as 
+%%(1) it may resolve constraint violations and  
+%%(2) it may cause useful constraint violations.
 %A \emph{universal quantification} (\emph{R-91}) contains all those individuals that are connected by a property only to individuals/literals of particular classes  or data ranges.
 %%Only \emph{dcat:Catalogs}, e.g., can have \emph{dcat:dataset} relationships to \emph{dcat:Datasets}:
 %%\begin{DL}
@@ -780,92 +789,92 @@ fundedBy $\sqsubseteq$ contributor
 %i.e., each person-level data set is also a catalog data set.
 %Thus, constraints on catalog data sets are also validated for person-level data sets;
 %e.g., the \emph{existential quantification} below restricting that person-level data sets must have a distribution: 
-%
+
+\begin{center}
+\begin{DL} 
+$\mathcal{K}=\{$ 
+ &\ms{DataSet $\equiv$ $\exists$ distribution.Distribution},\\
+&\ms{Variable $\equiv$ $\exists$ concept.Concept}
+ \}\\ 
+\end{DL}
+\end{center}
+
+We extend $\mathcal{K}$ by \emph{existential quantifications} (\emph{R-86}) enforcing that instances of given classes must have some property relation to individuals/literals of certain types.
+Variables, e.g., should have a relation to a theoretical concept ($\mathcal{SL}_{0}$).
+%The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
+The variable \emph{Education at pre-school} is associated with the theoretical concept \emph{Child Care}. 
+The default severity level of the constraint is weak, as in most cases research can be continued without having information about the theoretical concept of a variable.
+%If a study, e.g., does not contain any data set ($\mathcal{SL}_{2}$), the actual description of the data is missing which may indicate that it is very hard or unlikely to get access to the data.
+%If metadata on data files, including the actual data, is missing (especially case and variable quantities; $\mathcal{SL}_{1}$), the description of the data sets and the study is not sufficient.
+%Case quantity measures how many cases are collected for a study.
+%High case and variable quantities are indicators for high statistical quality and comprehensiveness of the underlying study ($\mathcal{SL}_{1}$).
+
+\begin{center}
+\begin{DL} 
+$\mathcal{K}=\{$ 
+  &\ms{fundedBy $\sqsubseteq$ contributor}
+ \}\\ 
+\end{DL}
+\end{center}
+
+By stating that \emph{disco:fundedBy} is a sub property of \emph{dcterms:contributor},
+the {\em sub property} (\emph{R-54, R-64}) above assures that if a series is funded by an organization, then the organization must also contribute to the series.
+In case the \emph{sub-property} is applied without reasoning and $\mathcal{K}$ contains the triple \ms{disco:fundedBy} \ms{(EU-SILC,} \ms{organization)},
+a constraint violation is thrown if $\mathcal{K}$ does not explicitly include the triple \ms{dcterms:contributor} \ms{(EU-SILC,} \ms{organization)}.
+If the \emph{sub property} is applied with reasoning, on the other side, the latter triple is derived which resolves the constraint violation.
+
+%\begin{DL}
+%fundedBy $\sqsubseteq$ contributor
+%\end{DL} 
+
+%\emph{Asymmetric object properties} (\emph{R-62}) restrict that if individual \emph{x} is connected by the object property \emph{OP} to individual \emph{y}, then \emph{y} cannot be connected by \emph{OP} to \emph{x}. 
+%Such constraints are defined for each object property for which a semantically equivalent object property pointing from the other direction would also be possible but is not defined within the vocabulary.
+%A \emph{disco:Variable}, e.g., may be based on (\emph{disco:basedOn}) a \emph{disco:RepresentedVariable}.
+%A \emph{disco:RepresentedVariable}, however, cannot be based on a \emph{disco:Variable} (\ms{$disco:basedOn \sqcap disco:basedOn^{-} \sqsubseteq \bot$}).
+
+%\emph{Property domain} (\emph{R-25, R-26}) and \emph{range} (\emph{R-28, R-35}) constraints restrict domains and ranges of properties.
+%Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships and
+%\emph{xkos:belongsTo} relationships can only point to \emph{skos:Concepts}:
+%\begin{DL}
+%$\exists$ isStructuredBy.$\top$ $\sqsubseteq$ Table \\
+%$\top$ $\sqsubseteq$ $\forall$ belongsTo.Concept
+%\end{DL}
+
 %\begin{center}
 %\begin{DL} 
 %$\mathcal{K}=\{$ 
- %&\ms{DataSet $\equiv$ $\exists$ distribution.Distribution},\\
-%&\ms{Variable $\equiv$ $\exists$ concept.Concept}
+  %&\ms{TableStructure $\sqsubseteq$ $\geq$1 column.Column}, \\
+	%&\ms{Variable $\sqsubseteq$ $\leq$1 concept.Concept}, \\
+	%&\ms{DataSet $\sqsubseteq$ $\geq$1 structure.DataStructureDefinition} \\ 
+	%&\ms{$\sqcap$ $\leq$1 structure.DataStructureDefinition}
  %\}\\ 
 %\end{DL}
 %\end{center}
+
+%\textbf{Cardinality Restrictions on Properties.}
+%An \emph{existential quantification} (\emph{R-86}) contains all those individuals that are connected by a property to individuals/literals of given classes or data ranges.
+%Every \emph{qb:SliceKey}, e.g., must be associated with (\emph{qb:sliceKey}) a \emph{qb:DataStructureDefinition} (\ms{SliceKey $\sqsubseteq$ $\exists$ sliceKey$^{-}$.DataStructureDefinition}).
+%\emph{Minimum/maximum/exact qualified cardinality restrictions} (\emph{R-74, R-75, R-76}) contain all those individuals that are connected by a property to at least/at most/exactly n different individuals/literals of particular classes or data ranges.
+%A \emph{phdd:TableStructure} has (\emph{phdd:column}) at least one \emph{phdd:Column},
+%a \emph{disco:Variable} has at most one \emph{disco:concept} relationship to a theoretical concept (\emph{skos:Concept}), and a \emph{qb:DataSet} is structured by (\emph{qb:structure}) exactly one \emph{qb:DataStructureDefinition}.
+%DATA-CUBE-C-MINIMUM-QUALIFIED-CARDINALITY-RESTRICTIONS-
+%02: Unique data set (IC-1 [3]) - Every qb:Observation has (qb:dataSet) ex-
+%actly one associated qb:DataSet (Observation  ¥1 dataSet.DataSet [
+%¤1 dataSet.DataSet).
+%Severity level: ERROR
 %
-%We extend $\mathcal{K}$ by \emph{existential quantifications} (\emph{R-86}) enforcing that instances of given classes must have some property relation to individuals/literals of certain types.
-%Variables, e.g., should have a relation to a theoretical concept ($\mathcal{SL}_{0}$).
-%%The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
-%The variable \emph{Education at pre-school} is associated with the theoretical concept \emph{Child Care}. 
-%The default severity level of the constraint is weak, as in most cases research can be continued without having information about the theoretical concept of a variable.
-%%If a study, e.g., does not contain any data set ($\mathcal{SL}_{2}$), the actual description of the data is missing which may indicate that it is very hard or unlikely to get access to the data.
-%%If metadata on data files, including the actual data, is missing (especially case and variable quantities; $\mathcal{SL}_{1}$), the description of the data sets and the study is not sufficient.
-%%Case quantity measures how many cases are collected for a study.
-%%High case and variable quantities are indicators for high statistical quality and comprehensiveness of the underlying study ($\mathcal{SL}_{1}$).
+%(\emph{R-75: minimum qualified cardinality restrictions})
 %
-%\begin{center}
-%\begin{DL} 
-%$\mathcal{K}=\{$ 
-  %&\ms{fundedBy $\sqsubseteq$ contributor}
- %\}\\ 
-%\end{DL}
-%\end{center}
+%DATA-CUBE-C-EXACT-QUALIFIED-CARDINALITY-RESTRICTIONS-
+%02: Unique DSD (IC-2 [3]) - Every qb:DataSet has (qb:structure) exactly one
+%associated qb:DataStructureDefinition (DataSet  ¥1 structure.DataStructureDefinition
+%[ ¤1 structure.DataStructureDefinition).
+%Severity level: ERROR
 %
-%By stating that \emph{disco:fundedBy} is a sub property of \emph{dcterms:contributor},
-%the {\em sub property} (\emph{R-54, R-64}) above assures that if a series is funded by an organization, then the organization must also contribute to the series.
-%In case the \emph{sub-property} is applied without reasoning and $\mathcal{K}$ contains the triple \ms{disco:fundedBy} \ms{(EU-SILC,} \ms{organization)},
-%a constraint violation is thrown if $\mathcal{K}$ does not explicitly include the triple \ms{dcterms:contributor} \ms{(EU-SILC,} \ms{organization)}.
-%If the \emph{sub property} is applied with reasoning, on the other side, the latter triple is derived which resolves the constraint violation.
-%
-%%\begin{DL}
-%%fundedBy $\sqsubseteq$ contributor
-%%\end{DL} 
-%
-%%\emph{Asymmetric object properties} (\emph{R-62}) restrict that if individual \emph{x} is connected by the object property \emph{OP} to individual \emph{y}, then \emph{y} cannot be connected by \emph{OP} to \emph{x}. 
-%%Such constraints are defined for each object property for which a semantically equivalent object property pointing from the other direction would also be possible but is not defined within the vocabulary.
-%%A \emph{disco:Variable}, e.g., may be based on (\emph{disco:basedOn}) a \emph{disco:RepresentedVariable}.
-%%A \emph{disco:RepresentedVariable}, however, cannot be based on a \emph{disco:Variable} (\ms{$disco:basedOn \sqcap disco:basedOn^{-} \sqsubseteq \bot$}).
-%
-%%\emph{Property domain} (\emph{R-25, R-26}) and \emph{range} (\emph{R-28, R-35}) constraints restrict domains and ranges of properties.
-%%Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships and
-%%\emph{xkos:belongsTo} relationships can only point to \emph{skos:Concepts}:
-%%\begin{DL}
-%%$\exists$ isStructuredBy.$\top$ $\sqsubseteq$ Table \\
-%%$\top$ $\sqsubseteq$ $\forall$ belongsTo.Concept
-%%\end{DL}
-%
-%%\begin{center}
-%%\begin{DL} 
-%%$\mathcal{K}=\{$ 
-  %%&\ms{TableStructure $\sqsubseteq$ $\geq$1 column.Column}, \\
-	%%&\ms{Variable $\sqsubseteq$ $\leq$1 concept.Concept}, \\
-	%%&\ms{DataSet $\sqsubseteq$ $\geq$1 structure.DataStructureDefinition} \\ 
-	%%&\ms{$\sqcap$ $\leq$1 structure.DataStructureDefinition}
- %%\}\\ 
-%%\end{DL}
-%%\end{center}
-%
-%%\textbf{Cardinality Restrictions on Properties.}
-%%An \emph{existential quantification} (\emph{R-86}) contains all those individuals that are connected by a property to individuals/literals of given classes or data ranges.
-%%Every \emph{qb:SliceKey}, e.g., must be associated with (\emph{qb:sliceKey}) a \emph{qb:DataStructureDefinition} (\ms{SliceKey $\sqsubseteq$ $\exists$ sliceKey$^{-}$.DataStructureDefinition}).
-%%\emph{Minimum/maximum/exact qualified cardinality restrictions} (\emph{R-74, R-75, R-76}) contain all those individuals that are connected by a property to at least/at most/exactly n different individuals/literals of particular classes or data ranges.
-%%A \emph{phdd:TableStructure} has (\emph{phdd:column}) at least one \emph{phdd:Column},
-%%a \emph{disco:Variable} has at most one \emph{disco:concept} relationship to a theoretical concept (\emph{skos:Concept}), and a \emph{qb:DataSet} is structured by (\emph{qb:structure}) exactly one \emph{qb:DataStructureDefinition}.
-%%DATA-CUBE-C-MINIMUM-QUALIFIED-CARDINALITY-RESTRICTIONS-
-%%02: Unique data set (IC-1 [3]) - Every qb:Observation has (qb:dataSet) ex-
-%%actly one associated qb:DataSet (Observation  ¥1 dataSet.DataSet [
-%%¤1 dataSet.DataSet).
-%%Severity level: ERROR
-%%
-%%(\emph{R-75: minimum qualified cardinality restrictions})
-%%
-%%DATA-CUBE-C-EXACT-QUALIFIED-CARDINALITY-RESTRICTIONS-
-%%02: Unique DSD (IC-2 [3]) - Every qb:DataSet has (qb:structure) exactly one
-%%associated qb:DataStructureDefinition (DataSet  ¥1 structure.DataStructureDefinition
-%%[ ¤1 structure.DataStructureDefinition).
-%%Severity level: ERROR
-%%
-%%(\emph{R-74: exact qualified cardinality restrictions})
-%%\footnote{\emph{DATA-CUBE-C-EXACT-QUALIFIED-CARDINALITY-RESTRICTIONS-02}}.
-%%\textbf{Language Tag Cardinality.}
-%
+%(\emph{R-74: exact qualified cardinality restrictions})
+%\footnote{\emph{DATA-CUBE-C-EXACT-QUALIFIED-CARDINALITY-RESTRICTIONS-02}}.
+%\textbf{Language Tag Cardinality.}
+
 %\subsection{Basic Constraint Types without Reasoning}
 %\label{basic-constraint-types-without-reasoning}
 %
