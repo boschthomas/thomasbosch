@@ -295,9 +295,7 @@ and reuse data collected and archived for research \cite{Vardigan2008}.
 %DDI is heavily used by the CESSDA community of European national data archives, 
 %the International Household Survey Network community (made up of more than 90 statistical agencies),
 %and ICPSR - the largest SBE data archive in the US.
-
 In XML, the definition of schemas containing data constraints and the validation of data according to these constraints is commonly used to ensure a certain level of data quality.
-
 With the rise of the Web of Data, data professionals and institutions are very interested in having their data be discovered and used by publishing their data directly in RDF or at least publish accurate metadata about their data to facilitate data integration. Therefore, not only established vocabularies like \emph{SKOS} are used; 
 recently, members of the \emph{SBE} and Linked Data community developed with the \emph{DDI-RDF Discovery Vocabulary (Disco)}\footnote{\url{http://rdf-vocabulary.ddialliance.org/discovery.html}} a means to expose \emph{DDI} metadata as Linked Data. 
 
@@ -310,15 +308,24 @@ In 2014, two working groups on RDF validation have been established to develop a
 the W3C RDF Data Shapes working group\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles task group\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}} which among others bundles the requirements of data institutions of the cultural heritage and \emph{SBE} sector and represents them in the W3C group. 
 
 Within the DCMI task group, a collaboratively curated database of RDF validation requirements has been created which contains the findings of the working groups based on various case studies provided by data institutions \cite{BoschEckert2014}. It is publicly available and open for further contributions\footnote{Online at \url{http://purl.org/net/rdf-validation}}.
+The database connects requirements to use cases, case studies and implementations and forms the basis of this paper. 
+We distinguish 82 requirements to formulate RDF constraints; 
+each of them corresponding to an RDF constraint type.
 
-The database connects requirements to use cases, case studies and implementations and forms the basis of this paper. To gain a better understanding about the role of certain requirements for data quality and in order to direct the further development of constraint languages, we collected constraints for commonly used vocabularies in the \emph{SBE} domain, either from the vocabularies themselves or from domain and data experts. All in all, this lead to 246 constraints  of 53 different types on six vocabularies. \tb{in total 82 constraint types}
+To gain a better understanding about the role of certain requirements for data quality and in order to direct the further development of constraint languages, we collected constraints for commonly used vocabularies in the \emph{SBE} domain, either from the vocabularies themselves or from domain and data experts. All in all, this lead to 246 constraints  of 53 different types on six vocabularies. 
 We let the experts classify the constraints according to the severity if they are violated. Furthermore, we classified the type of each constraint (corresponding to a requirement) based on its complexity ranging from types commonly found in vocabulary specifications (e.g., domain, range, and cardinality restrictions), 
 over types that are simply stated using common constraint languages (e.g., language tag cardinality restrictions) to complex types that involve complex data structures or need more sophisticated languages to be easily expressible 
 %(e.g., constraints on network topologies)
-(e.g., constraints on graph-based structures).
+(e.g., constraints on graph-based structures) (section \ref{classification}).
 
-As we do not want to base our conclusions on the evaluations of vocabularies and constraint definitions alone, we conducted a large-scale experiment and evaluated the data quality of 15,694 data sets (4,26 billion triples) of research data for the social, behavioural, and economic (\emph{SBE}) sciences obtained from 33 SPARQL endpoints.
-
+As we do not want to base our conclusions on the evaluations of vocabularies and constraint definitions alone, we conducted a large-scale experiment.
+For 114 constraints, we evaluated the data quality of 15,694 data sets (4.26 billion triples) of \emph{SBE} research data on three common vocabularies in \emph{SBE} sciences (\emph{Disco}, \emph{QB}, \emph{SKOS}) obtained from 33 SPARQL endpoints.
+%evaluated the data quality of 15,694 data sets (4.26 billion triples) of research data for the social, behavioural, and economic (\emph{SBE}) sciences obtained from 33 SPARQL endpoints.
+Based on the evaluation results,
+we formulated several hypotheses to direct the further development of constraint languages.
+To make valid general statements for all vocabularies, however,
+the hypotheses still have to be verified or falsified
+by evaluating the quality of data represented by more than three vocabularies (section \ref{evaluation}).
 %The \textbf{contribution} of this paper is the development of a system 
 %\begin{enumerate}
 	%\item to classify RDF constraints (according to their severity levels) to evaluate the quality of metadata and data which may be represented by any vocabulary and 
@@ -335,17 +342,13 @@ As we do not want to base our conclusions on the evaluations of vocabularies and
 %We evaluated the (meta)data quality of large real world data sets (more than 4.2 billion triples and 15 thousand data sets) from the \emph{SBE} domain represented by multiple vocabularies to get an understanding 
 %(1) which sets of constraint types (on different levels of complexity) and 
 %(2) which sets of constraints (associated with particular severity levels) encompass the constraints causing the most/fewest constraint violations (see section \ref{evaluation}).
-
 In this paper, we discuss constraints on RDF data in general. Note that the data represented in RDF can be data in the sense of \emph{SBE} sciences, but also metadata about published or unpublished data. We generally refer to both simply as RDF data and only distinguish between data and metadata in the data set descriptions and in the case that it matters for the purpose of this paper.
-The remainder of the paper is structured as follows.
+%The remainder of the paper is structured as follows.
 
 
 %We propose an extensible metric to measure the continuum of severity levels to indicate how serious the violation of given constraints is.
 %Constraints are instantiated from constraint types in order to validate both metadata and data represented by any vocabulary. 
 %As constraint types are used to define constraints on (meta)data expressed by any vocabulary, the proposed constraint classification can be applied generically, i.e. vocabulary-independent. 
-
-\subsection{Motivation}
-\label{motivation}
 
 The data most often used in research within \emph{SBE} sciences is \emph{person-level data} (or more generally \emph{record-unit data}, i.e., data collected about individuals, businesses, and households) in form of responses to studies or taken from administrative registers
 (such as hospital records, registers of births and deaths). 
