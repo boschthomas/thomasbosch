@@ -539,16 +539,20 @@ which serve as typical entry points when searching for data.
 \section{Classification of Constraint Types and Constraints}
 \label{classification}
 
-Bosch et al. identified 82 requirements to formulate RDF constraints (e.g. \emph{R-75: minimum qualified cardinality restrictions}); each of them corresponding to an RDF constraint type\footnote{Constraint types and constraints are uniquely identified by alphanumeric technical identifiers like \emph{R-71-CONDITIONAL-PROPERTIES}}\cite{BoschNolleAcarEckert2015}. 
-We published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} (serving as first appendix of this paper) in which we explain each requirement/constraint type in detail and give examples for each expressed by different constraint languages.
-The knowledge representation formalism \emph{Description logics (DL)}, with its  well-studied theoretical properties, provides the foundational basis for each constraint type.
-Therefore, this technical report contains mappings to \emph{DL} to logically underpin each requirement and to determine which \emph{DL} constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
-%In total, we distinguish 82 RDF constraint types as we identified 6 RDF constraint types which are only necessary for validating particular vocabularies.
-We classified both RDF constraint types and RDF constraints to gain better insights into the quality of RDF data with respect to this classification, independent of the used vocabulary.
-%Constraints are instantiated from constraint types in order to validate both metadata and data represented by any vocabulary; thus, the proposed classification system is vocabulary-independent and therefore applicable generically.
-We recently published a technical report\footnote{\label{technical-report-1}Available at: \url{http://arxiv.org/abs/1504.04479}} (serving as second appendix of this paper) in which we describe 246 constraints of 53 distinct constraint types on six vocabularies \cite{BoschZapilkoWackerowEckert2015}.
+To gain better insights into the role that certain types of constraints play for the quality of RDF data, we use two simple classifications: on the one hand, we classify RDF constraint types according to their complexity and on the other hand, we classify concrete constraints formulated for a vocabulary according to the perceived severity of a violation. 
 
-\subsection{Classification of RDF Constraint Types}
+Within the working groups, we identified by today 82 requirements to formulate RDF constraints (e.g. \emph{R-75: minimum qualified cardinality restrictions}); each of them corresponding to an RDF constraint type\footnote{Constraint types and constraints are uniquely identified by alphanumeric technical identifiers like \emph{R-71-CONDITIONAL-PROPERTIES}}. 
+Within a technical report serving as first appendix of this paper we explain each requirement/constraint type in detail and give examples for each expressed by different constraint languages \cite{BoschNolleAcarEckert2015}. We provide mappings to representations in Description Logics (\emph{DL}) to logically underpin each requirement and to determine which \emph{DL} constructs are needed to express each constraint type.
+
+%In total, we distinguish 82 RDF constraint types as we identified 6 RDF constraint types which are only necessary for validating particular vocabularies.
+
+
+%Constraints are instantiated from constraint types in order to validate both metadata and data represented by any vocabulary; thus, the proposed classification system is vocabulary-independent and therefore applicable generically.
+
+The classification of the 246 concrete constraints on 6 vocabularies according to severity levels is published in a second technical report serving as second appendix of this paper \cite{BoschZapilkoWackerowEckert2015}.
+In the following, we summarize the results for the purpose of our evaluation.
+
+\subsection{Complexity of Constraint Types}
 
 According to the complexity of constraint types, the complete set of \emph{constraint types} encompasses three disjoint \emph{sets of constraint types}:
 \begin{enumerate}
@@ -559,10 +563,8 @@ According to the complexity of constraint types, the complete set of \emph{const
 
 The modeling languages \emph{RDF}, \emph{RDFS}, and \emph{OWL} are typically used to formally specify vocabularies.
 \emph{Vocabulary constraint types}
-denotes the set of constraint types whose constraints 
-can be extracted completely automatically out of formal specifications of vocabularies.
-As vocabularies have been specified using \emph{RDF}, \emph{RDFS}, and \emph{OWL},
-\emph{vocabulary constraints} ensure that the data is consistent with the intended syntaxes, semantics, and integrity of vocabularies' data models.
+denotes the set of constraint types that are commonly found for constraints within formal specifications of vocabularies, i.e., constraints that are formulated using \emph{RDFS} and common constructs of \emph{OWL}. We determined this set based on the evaluation of the six vocabularies. \emph{Vocabulary constraints} generally can be seen as a basic level of constraints ensuring that the data is consistent with the intended syntaxes, semantics, and integrity of vocabularies' data models.
+
 %The {\em existential quantification} (\emph{R-86}) 
 %\ms{Study $\equiv$ $\exists$ product.LogicalDataSet} (\emph{DL}), e.g., restricts studies to contain at least one data set which is expressible in OWL 2:
 \emph{Minimum qualified cardinality restrictions} (\emph{R-74}), e.g., guarantee that individuals of given classes are connected by particular properties to at least n different individuals/literals of certain classes or data ranges.
@@ -574,15 +576,16 @@ In \emph{PHDD}, a \emph{minimum qualified cardinality restriction} can be obtain
     owl:onClass Column ] .
 \end{ex}
 
-\emph{Simple} and \emph{complex constraints} are in contrast to \emph{vocabulary constraints} not explicitly defined within formal specifications of vocabularies.
-\emph{Simple} and \emph{complex constraints} are defined according to textual descriptions of the intended semantics of vocabularies.  
-\emph{Simple constraint types} is the set of constraint types whose constraints can be easily defined without much effort in addition to the already defined \emph{vocabulary constraints}.
-{\emph{Data property facets} (\emph{R-46}) is an example of a \emph{simple constraint type} which enables to declare frequently needed facets for data properties in order to validate input against simple conditions including min/max values, regular expressions, and string length.
+\emph{Simple} and \emph{complex constraints} are in contrast to \emph{vocabulary constraints} usually not (yet) explicitly defined within formal specifications of vocabularies. Instead, they are often defined in textual descriptions of the vocabularies. Additionally, we let our domain and data experts define constraints when they agreed that violating the constraint would affect the usefulness of the data.
+
+We further distinguished \emph{simple constraint types} as the set of constraint types whose constraints can be easily defined without much effort in addition to the already defined \emph{vocabulary constraints}.
+\emph{Data property facets} (\emph{R-46}) is an example of a \emph{simple constraint type} which enables to declare frequently needed facets for data properties in order to validate input against simple conditions including min/max values, regular expressions, and string length.
 The abstract of series/studies, e.g., should have a minimum length which is easily and concisely expressible by SPARQL: 
 \begin{ex}
 SELECT ?study WHERE {
     ?study dcterms:abstract ?abstract . FILTER ( STRLEN ( ?abstract ) = 10 ) . }
 \end{ex}
+For these constraints, we expect a straight-forward support in future constraint languages.
 
 \emph{Complex constraint types} encompass constraint types for which the definition of constraints is rather complex and cannot be derived from vocabulary definitions.
 For assessing the quality of thesauri, e.g., we concentrate on the graph-based structure and apply graph- and network-analysis techniques.
@@ -594,17 +597,16 @@ SELECT ?concept WHERE {
     FILTER NOT EXISTS { ?concept ?p ?o . 
         FILTER ( ?p IN ( skos:related, skos:relatedMatch, skos:broader, ... ) ) . }
 \end{ex}
-\emph{Complex constraints} are in most cases only expressible by plain \emph{SPARQL}
-which shows the importance to develop suitable constraint languages.
+\emph{Complex constraints} are today in most cases only expressible by plain \emph{SPARQL}. Depending on their usefulness, a support in constraint languages should be considered.
 
-\subsection{Classification of RDF Constraints}
+\subsection{Severity of Constraints}
 
 A concrete constraint is instantiated from one of the 82 constraint types and is defined for a specific vocabulary.
 It does not make sense to determine the severity of constraint violations of an entire constraint type,
 as the severity of the violation of a given constraint depends on the individual context and vocabulary.
 %as the violation of one constraint may be severe,
 %whereas, the violation of another constraint of the same type may be minor.
-\emph{SBE} experts determined the default \textbf{\emph{severity level}} (\emph{R-158}) for each of the 246 constraints to indicate how serious the violation of the constraint is.
+\emph{SBE} experts determined the default \textbf{\emph{severity level}}\footnote{The possibility to define severity levels in vocabularies is in itself a requirement (\emph{R-158}) defined by the DCMI task group.} for each of the 246 constraints to indicate how serious the violation of the constraint is.
 %We propose an extensible metric to measure the continuum of severity levels ranging from \emph{informational} to \emph{error}.
 We use the commonly accepted classification of log messages in software development and distinguish \emph{informational}, \emph{warning} and \emph{error}.
 %According to the default severity level of constraints, the complete set of constraints encompasses three disjoint \emph{sets of constraints}:\ke{auch dieser satz macht keinen sinn für mich, ebensowenig wie die extrem erhellende auflistung, die gleich folgt... mein vorschlag von eben kann das komplett ersetzen.}
@@ -615,25 +617,23 @@ We use the commonly accepted classification of log messages in software developm
 %\end{itemize}
 Violations of \emph{informational constraints} point to desirable but not necessary data improvements to achieve RDF representations which are ideal in terms of syntax and semantics of used vocabularies. 
 %They are not seen as serious errors.
+\emph{Warnings} are syntactic or semantic problems which typically should not lead to an abortion of data processing.
 \emph{Errors} are syntactic or semantic errors which should cause the abortion of data processing. 
-\emph{Warnings} are syntactic or semantic errors which typically should not lead to an abortion of data processing.
 %Data not conforming to \emph{warning} and \emph{error constraints} is syntactically and/or semantically not correctly represented.
 %Data not conforming to \emph{warning constraints} but to \emph{error constraints} could be processed further.
 %Data not corresponding to \emph{error constraints}, however, cannot be processed further after validation. 
-As the purpose of \emph{vocabulary constraints} is to ensure explicitly stated semantics of vocabularies, 
-their default severity levels are in most cases very strong (\emph{error}) and 
-in average stronger than the severity levels of \emph{simple} and \emph{complex constraints}.
-As a consequence, violating many \emph{vocabulary constraints} is an indicator for bad (meta)data quality.
 
-Although, we provide default severity levels for each constraint, validation environments should enable users to adapt the severity levels of constraints according to their individual needs.
-Validation environments should enable users to select which constraints to validate against depending on their individual use cases.
-For some use cases, 
-validating \emph{vocabulary constraints} may be more important than validating \emph{simple} or \emph{complex constraints}.
-For other use cases,
-validating \emph{error constraints} may be sufficient without taking \emph{warning} and \emph{informational constraints} into account.
-We evaluated the (meta)data quality of large real world data sets represented by multiple and different vocabularies to get an understanding  
-(1) which sets of constraint types (on different levels of complexity) and 
-(2) which sets of constraints (associated with particular severity levels) encompass the constraints causing the most/fewest constraint violations (see section \ref{evaluation}).
+Note that there is a correlation between the severity of a constraint and the complexity of its type: vocabulary constraint are in most cases classified with an \emph{error} level as they typically represent basic and important constraints; there is a reason why they have been included in the vocabulary specification.
+
+% Although, we provide default severity levels for each constraint, validation environments should enable users to adapt the severity levels of constraints according to their individual needs.
+% Validation environments should enable users to select which constraints to validate against depending on their individual use cases.
+% For some use cases, 
+% validating \emph{vocabulary constraints} may be more important than validating \emph{simple} or \emph{complex constraints}.
+% For other use cases,
+% validating \emph{error constraints} may be sufficient without taking \emph{warning} and \emph{informational constraints} into account.
+% We evaluated the (meta)data quality of large real world data sets represented by multiple and different vocabularies to get an understanding  
+% (1) which sets of constraint types (on different levels of complexity) and 
+% (2) which sets of constraints (associated with particular severity levels) encompass the constraints causing the most/fewest constraint violations (see section \ref{evaluation}).
 
 %
 %- different sets of constraints for different use cases / use case specific constraints
@@ -649,7 +649,7 @@ We evaluated the (meta)data quality of large real world data sets represented by
 %use-case specific constraints, e.g., DCAT: searching for metadata
 %\tb{Thomas: ToDo}
 
-\subsection{Vocabulary Constraint Types}
+\subsection{Examples}
 \label{vocabulary-constraint-types}
 
 %The constraint type \emph{vocabulary} guarantees that users do not invent new or use deprecated terms of vocabularies.
@@ -665,6 +665,7 @@ We evaluated the (meta)data quality of large real world data sets represented by
 %(\emph{R-9: disjoint properties}), i.e., no individual \emph{x} can be connected to an individual/literal \emph{y} by disjoint properties (e.g., \emph{phdd:isStructuredBy} and \emph{phdd:column}).
 %All \emph{PHDD} classes (e.g., \emph{phdd:TableDescription}, \emph{phdd:ColumnDescription}) are pairwise disjoint (\emph{R-7: disjoint classes}),
 %i.e., individuals cannot be instances of multiple disjoint classes.
+\subsubsection*{Vocabulary Constraint Types.}
 It is a common requirement to narrow down the value space of properties by an exhaustive enumeration of valid values (\emph{R-30/37: allowed values}). 
 %\emph{Allowed values} (\emph{R-30, R-37}) for properties can be IRIs (matching one or multiple patterns), any literals, allowed literals (e.g. 'red' 'blue' 'green'), and typed literals of one or multiple type(s) (e.g. \emph{xsd:string}). 
 \emph{disco:Category} \emph{Statistics}, e.g., can only have \emph{disco:computationBase} relationships to the values \emph{valid} and \emph{invalid} of the datatype \emph{rdf:langString}.
@@ -904,7 +905,7 @@ Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships
 %it is checked that \emph{dcterms:coverage} is not redundant with its sub-properties 
 %which may indicate when the data is verbose/redundant or expressed at a too general level.
 
-\subsection{Simple Constraint Types}
+\subsubsection*{Simple Constraint Types.}
 
 %{Simple constraint types} is the set of constraint types whose constraints can be easily defined without much effort in addition to $\mathcal{CT}_{B}$ constraints.
 For data properties, it may be desirable to restrict that values of predefined languages must be present for determined number of times (\emph{R-48/49: language tag cardinality}):
@@ -947,7 +948,7 @@ Thus and as there are different sorts of key, and as keys can lead to undecidabi
 %identifier \ms{keyfor} Resource
 %\end{DL} 
 
-\subsection{Complex Constraint Types}
+\subsubsection*{Complex Constraint Types.}
 \label{complex-constraint-types}
 
 %\textcolor{red}{
@@ -1160,6 +1161,8 @@ restrict individuals of given classes to have properties defined within exactly 
 
 \section{Evaluation}
 \label{evaluation}
+
+For the evaluat
 
 \subsection{Experimental Setup}
 \label{implementation}
