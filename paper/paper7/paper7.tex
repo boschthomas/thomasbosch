@@ -276,7 +276,7 @@ For research institutes, data libraries, and data archives,
 RDF data validation according to predefined constraints is a much sought-after feature, 
 particularly as this is taken for granted in the XML world.
 Based on our work in the DCMI RDF Application Profiles Task Group and in cooperation with the W3C Data Shapes Working Group, we identified and published by today 82 types of constraints that are required by various stakeholders for data applications.
-In this paper, we formulate 246 constraints of 53 different types on six different vocabularies (\emph{Disco}, \emph{QB}, \emph{SKOS}, \emph{PHDD}, \emph{DCAT}, \emph{XKOS}) and classify them according to the complexity level of their type and their severity level. For 114 of these constraints, we evaluate the data quality of 15,694 data sets (4.26 billion triples) of research data for the social, behavioural, and economic (\emph{SBE}) sciences obtained from 33 SPARQL endpoints.
+In this paper, we formulate 213 constraints of 53 different types on three different vocabularies (\emph{Disco}, \emph{QB}, and \emph{SKOS}) and classify them according to the complexity level of their type and their severity level. For 114 of these constraints, we evaluate the data quality of 15,694 data sets (4.26 billion triples) of research data for the social, behavioural, and economic (\emph{SBE}) sciences obtained from 33 SPARQL endpoints.
 Based on the results, we formulate several hypotheses to direct the further development of constraint languages.
 
 
@@ -312,7 +312,7 @@ The database connects requirements to use cases, case studies and implementation
 We distinguish 82 requirements to formulate RDF constraints; 
 each of them corresponding to an RDF constraint type.
 
-To gain a better understanding about the role of certain requirements for data quality and in order to direct the further development of constraint languages, we collected constraints for commonly used vocabularies in the \emph{SBE} domain, either from the vocabularies themselves or from domain and data experts. All in all, this lead to 246 constraints  of 53 different types on six vocabularies. 
+To gain a better understanding about the role of certain requirements for data quality and in order to direct the further development of constraint languages, we collected constraints for commonly used vocabularies in the \emph{SBE} domain, either from the vocabularies themselves or from domain and data experts. All in all, this lead to 213 constraints of 53 different types on three vocabularies. 
 We let the experts classify the constraints according to the severity if they are violated. Furthermore, we classified the type of each constraint (corresponding to a requirement) based on its complexity ranging from types commonly found in vocabulary specifications (e.g., domain, range, and cardinality restrictions), 
 over types that are simply stated using common constraint languages (e.g., language tag cardinality restrictions) to complex types that involve complex data structures or need more sophisticated languages to be easily expressible 
 %(e.g., constraints on network topologies)
@@ -455,7 +455,11 @@ issues that go beyond the integrity constraints defined in the SKOS specificatio
 
 %In this section, we describe how data in rectangular format (\emph{PHDD}) and metadata on person-level data sets (\emph{Disco}), aggregated data sets (\emph{QB}), thesauri (\emph{SKOS}), and statistical classifications (\emph{XKOS}) are represented in RDF\footnote{The complete running example in RDF is available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/data/running-example}} and how therefore reused vocabularies are interrelated.
 
-For our evaluation, we examined six different vocabularies commonly used in or developed for the \emph{SBE} sciences which are briefly introduced in the following. For three of them, we analyzed actual data according to constraint violations. For \emph{PHDD} and \emph{XKOS}, there is not yet enough data available so we limit our examination to the vocabularies themselves.
+We took all well-established and newly developed \emph{SBE} vocabularies into account and defined constraints for six vocabularies commonly used in or developed for the \emph{SBE} sciences which are briefly introduced in the following.
+For three of them, we analyzed actual data according to constraint violations, as for these vocabularies large data sets are already published.
+%e evaluated the data quality of large data sets on three of them, as for these vocabularies large data sets are published. 
+
+%For our evaluation, we examined six different vocabularies commonly used in or developed for the \emph{SBE} sciences which are briefly introduced in the following. For three of them, we analyzed actual data according to constraint violations. For \emph{PHDD} and \emph{XKOS}, there is not yet enough data available so we limit our examination to the vocabularies themselves.
 
 %\textbf{Metadata on Aggregated Data.}
 The \emph{RDF Data Cube Vocabulary (QB)}\footnote{http://www.w3.org/TR/vocab-data-cube/} is a W3C recommendation for representing \emph{data cubes}, i.e. multi-dimensional aggregated data, in RDF \cite{Cyganiak2010}. 
@@ -549,7 +553,7 @@ Within a technical report serving as first appendix of this paper we explain eac
 
 %Constraints are instantiated from constraint types in order to validate both metadata and data represented by any vocabulary; thus, the proposed classification system is vocabulary-independent and therefore applicable generically.
 
-The classification of the 246 concrete constraints on 6 vocabularies according to severity levels is published in a second technical report serving as second appendix of this paper \cite{BoschZapilkoWackerowEckert2015}.
+The classification of the 213 concrete constraints on three vocabularies according to severity levels is published in a second technical report serving as second appendix of this paper \cite{BoschZapilkoWackerowEckert2015}.
 In the following, we summarize the results for the purpose of our evaluation.
 
 \subsection{Complexity of Constraint Types}
@@ -606,7 +610,7 @@ It does not make sense to determine the severity of constraint violations of an 
 as the severity of the violation of a given constraint depends on the individual context and vocabulary.
 %as the violation of one constraint may be severe,
 %whereas, the violation of another constraint of the same type may be minor.
-\emph{SBE} experts determined the default \textbf{\emph{severity level}}\footnote{The possibility to define severity levels in vocabularies is in itself a requirement (\emph{R-158}) defined by the DCMI task group.} for each of the 246 constraints to indicate how serious the violation of the constraint is.
+\emph{SBE} experts determined the default \textbf{\emph{severity level}}\footnote{The possibility to define severity levels in vocabularies is in itself a requirement (\emph{R-158}) defined by the DCMI task group.} for each of the 213 constraints to indicate how serious the violation of the constraint is.
 %We propose an extensible metric to measure the continuum of severity levels ranging from \emph{informational} to \emph{error}.
 We use the commonly accepted classification of log messages in software development and distinguish \emph{informational}, \emph{warning} and \emph{error}.
 %According to the default severity level of constraints, the complete set of constraints encompasses three disjoint \emph{sets of constraints}:\ke{auch dieser satz macht keinen sinn für mich, ebensowenig wie die extrem erhellende auflistung, die gleich folgt... mein vorschlag von eben kann das komplett ersetzen.}
@@ -1540,8 +1544,8 @@ there is an obvious need to develop constraint languages which enable to express
 
 We identified and published by today 82 types of constraints\footnote{The first appendix of this paper, in which we explain each requirement/constraint type in detail, is available at: \url{http://arxiv.org/abs/1501.03933} \cite{BoschNolleAcarEckert2015}}
 that are required by various stakeholders for data applications.
-In close collaboration with several \emph{SBE} domain experts, we formulated 246 constraints\footnote{The second appendix of this paper, in which we describe each vocabulary-specific constraint in detail, is available at: \url{http://arxiv.org/abs/1504.04479} \cite{BoschZapilkoWackerowEckert2015}}
- of 53 different types on six different vocabularies (\emph{Disco}, \emph{QB}, \emph{SKOS}, \emph{PHDD}, \emph{DCAT}, \emph{XKOS}) and classified them according to the complexity level of their type and their severity level. 
+In close collaboration with several \emph{SBE} domain experts, we formulated 213 constraints\footnote{The second appendix of this paper, in which we describe each vocabulary-specific constraint in detail, is available at: \url{http://arxiv.org/abs/1504.04479} \cite{BoschZapilkoWackerowEckert2015}}
+ of 53 different types on three different vocabularies (\emph{Disco}, \emph{QB}, and \emph{SKOS}) and classified them according to the complexity level of their type and their severity level. 
 
 For 114 of these constraints, we evaluated\footnote{The third appendix of this paper, in which we describe the evaluation in detail, is available at: \url{http://arxiv.org/abs/1504.04478} \cite{BoschZapilkoWackerowEckert2015-2}.}
  the data quality of 15,694 data sets (4.26 billion triples) of research data for the \emph{SBE} sciences obtained from 33 SPARQL endpoints.
