@@ -458,10 +458,10 @@ issues that go beyond the integrity constraints defined in the SKOS specificatio
 For our evaluation, we examined six different vocabularies commonly used in or developed for the \emph{SBE} sciences which are briefly introduced in the following. For three of them, we analyzed actual data according to constraint violations. For \emph{PHDD} and \emph{XKOS}, there is not yet enough data available so we limit our examination to the vocabularies themselves.
 
 %\textbf{Metadata on Aggregated Data.}
-The \emph{RDF Data Cube Vocabulary (QB)}\footnote{http://www.w3.org/TR/vocab-data-cube/} is a W3C recommendation for representing metadata on \emph{data cubes}, i.e. multi-dimensional aggregated data, in RDF \cite{Cyganiak2010}. 
+The \emph{RDF Data Cube Vocabulary (QB)}\footnote{http://www.w3.org/TR/vocab-data-cube/} is a W3C recommendation for representing \emph{data cubes}, i.e. multi-dimensional aggregated data, in RDF \cite{Cyganiak2010}. 
 %\emph{QB} represents metadata on multi-dimensional aggregate data in two files: a \emph{qb:DataSet} and a \emph{qb:DataStructureDefinition}.
 A \emph{qb:DataStructureDefinition} contains metadata of the data collection.
-The variable \emph{formal childcare} is modeled as \emph{qb:measure}, since it stands for what has been measured in the data collection.
+The variable \emph{formal childcare}, e.g., is modeled as \emph{qb:measure}, since it stands for what has been measured in the data collection.
 The variables \emph{year}, \emph{duration}, \emph{age}, and \emph{country} are \emph{qb:dimensions}.
 Data values, i.e., the availability of childcare services in percent over the population, are collected in a \emph{qb:DataSet}. 
 Each data value is represented inside a \emph{qb:Observation} which contains values for each dimension\footnote{The complete running example in RDF is available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/data/running-example}}. 
@@ -475,12 +475,12 @@ The data could be either represented in records with character-separated values 
 which is structured by a table structure (\emph{phdd:TableStructure}, \emph{phdd:Delimited})
 including information about the character set (\emph{ASCII}), the variable delimiter (\emph{,}), the new line marker (\emph{CRLF}), and the first line where the data starts (\emph{2}).
 The table structure is related to table columns (\emph{phdd:Column}) which are described by column descriptions (\emph{phdd:DelimitedColumnDescription}).
-For the column containing the cell values in percent, the column position (\emph{5}), the recommended data type (\emph{xsd:nonNegativeInteger}), and the storage format (\emph{TINYINT}) is stated. 
+For the column containing the actual cell values in percent, the column position (\emph{5}), the recommended data type (\emph{xsd:non} \emph{NegativeInteger}), and the storage format (\emph{TINYINT}) is stated. 
 %The RDFication enables further aggregations and calculations, e.g., in order to compare \emph{formal childcare} between Northern and Southern Europe or between otherwise grouped countries.
 % macht mehr sinn wenn Tabelle in mehreren Dimensionen vorhanden ist ode wenn Klassifikationen wie ISCO verwendet werden 
 
 %\textbf{Metadata on Person-Level Data.}
-For more detailed analyses we refer to the metadata on person-level data collected for the series \emph{EU-SILC (European Union Statistics on Income and Living Conditions)}\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC}}. 
+For more detailed analyses we refer to the person-level data collected for the series \emph{EU-SILC (European Union Statistics on Income and Living Conditions)}\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC}}. 
 %published by the \emph{Microdata Information System (MISSY)}\footnote{\url{http://www.gesis.org/missy/eu/missy-home}}.
 Where data collection is cyclic, data sets may be released as \emph{series}, 
 where each cycle produces one or more data sets. 
@@ -489,7 +489,8 @@ where each cycle produces one or more data sets.
 %\ke{Wieso jetzt wieder qb?}\tb{ich möchte zeigen wie aggregierte daten und personenbezogene daten in RDF verbunden sind. Weglassen?}
 %Aggregated (qb:DataSet) and underlying person-level data sets (\emph{disco:LogicalDataSet}) are connected by \emph{prov:wasDerivedFrom}. 
 The aggregated variable \emph{formal childcare} is calculated on the basis of six person-level variables 
-(e.g., \emph{Education at pre-school}\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC/2011/Cross-sectional/original#2011-Cross-sectional-RL010}})
+(e.g., \emph{Education at pre-school})
+%\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC/2011/Cross-sectional/original#2011-Cross-sectional-RL010}})
 %(2) Education at compulsory school,
 %(3) Child care at centre-based services,
 %(4) Child care at day-care centre,
@@ -513,9 +514,9 @@ including person-level variables (\emph{disco:Variable}) like the six ones neede
 The \emph{Simple Knowledge Organization System (SKOS)} is reused multiple times to build \emph{SBE} vocabularies.
 %Variables are constructed out of values and/or (un)ordered code lists.
 The codes of the variable \emph{Education at pre-school} (number of education hours per week) are modeled as \emph{skos:Concepts} and 
-a \emph{skos:OrderedCollection} organizes them in a particular order within a \emph{skos:memberList}.
+a \emph{skos:OrderedCollection} organizes them in a particular order within a \emph{skos:member} \emph{List}.
 A variable may be associated with a theoretical concept (\emph{skos:Concept}). 
-\emph{skos:narrower} builds the hierarchy of theoretical concepts within a \emph{skos:ConceptScheme} of a series.
+\emph{skos:narrower} builds the hierarchy of theoretical concepts within a \emph{skos:Concept} \emph{Scheme} of a series.
 The variable \emph{Education at pre-school} is assigned to the theoretical concept \emph{Child Care} which is the narrower concept of \emph{Education} - one of the top concepts of the series \emph{EU-SILC}.
 Controlled vocabularies (\emph{skos:ConceptScheme}), serving as extension and reuse mechanism,
 organize types (\emph{skos:Concept}) of descriptive statistics (\emph{disco:SummaryStatistics}) like minimum, maximum, and arithmetic mean.
