@@ -648,7 +648,7 @@ Note that there is a correlation between the severity of a constraint and the co
 %use-case specific constraints, e.g., DCAT: searching for metadata
 %\tb{Thomas: ToDo}
 
-\subsection{Vocabulary Constraint Types}
+\subsection{Examples}
 \label{vocabulary-constraint-types}
 
 %The constraint type \emph{vocabulary} guarantees that users do not invent new or use deprecated terms of vocabularies.
@@ -664,6 +664,7 @@ Note that there is a correlation between the severity of a constraint and the co
 %(\emph{R-9: disjoint properties}), i.e., no individual \emph{x} can be connected to an individual/literal \emph{y} by disjoint properties (e.g., \emph{phdd:isStructuredBy} and \emph{phdd:column}).
 %All \emph{PHDD} classes (e.g., \emph{phdd:TableDescription}, \emph{phdd:ColumnDescription}) are pairwise disjoint (\emph{R-7: disjoint classes}),
 %i.e., individuals cannot be instances of multiple disjoint classes.
+\subsubsection*{Vocabulary Constraint Types.}
 It is a common requirement to narrow down the value space of properties by an exhaustive enumeration of valid values (\emph{R-30/37: allowed values}). 
 %\emph{Allowed values} (\emph{R-30, R-37}) for properties can be IRIs (matching one or multiple patterns), any literals, allowed literals (e.g. 'red' 'blue' 'green'), and typed literals of one or multiple type(s) (e.g. \emph{xsd:string}). 
 \emph{disco:Category} \emph{Statistics}, e.g., can only have \emph{disco:computationBase} relationships to the values \emph{valid} and \emph{invalid} of the datatype \emph{rdf:langString}.
@@ -903,7 +904,7 @@ Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships
 %it is checked that \emph{dcterms:coverage} is not redundant with its sub-properties 
 %which may indicate when the data is verbose/redundant or expressed at a too general level.
 
-\subsection{Simple Constraint Types}
+\subsubsection*{Simple Constraint Types.}
 
 %{Simple constraint types} is the set of constraint types whose constraints can be easily defined without much effort in addition to $\mathcal{CT}_{B}$ constraints.
 For data properties, it may be desirable to restrict that values of predefined languages must be present for determined number of times (\emph{R-48/49: language tag cardinality}):
@@ -946,7 +947,7 @@ Thus and as there are different sorts of key, and as keys can lead to undecidabi
 %identifier \ms{keyfor} Resource
 %\end{DL} 
 
-\subsection{Complex Constraint Types}
+\subsubsection*{Complex Constraint Types.}
 \label{complex-constraint-types}
 
 %\textcolor{red}{
