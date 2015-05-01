@@ -1194,7 +1194,7 @@ In this section, we describe our findings based on an automatic constraint check
 
 	%\item First, we assigned each constraint type to exactly one of the disjoint sets of constraint types 
 %in order to get an overview how many constraint types in relation to the total amount of constraint types are extractable from vocabularies ($\mathcal{CT}_{B}$), are easily definable ($\mathcal{CT}_{S}$), and are rather difficult to specify ($\mathcal{CT}_{C}$). 
-On the three vocabularies (\emph{Disco}, \emph{QB}, \emph{SKOS}), we identified and classified 114 of constraints,\footnote{\url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}} as described before. We evaluated the data quality of 15,694 data sets (4.26 billion triples) of \emph{SBE} research data using these vocabularies, obtained from 33 SPARQL endpoints.
+On the three vocabularies (\emph{Disco}, \emph{QB}, \emph{SKOS}), we identified and classified 213 constraints of which we implemented for the data validation 114 constraints.\footnote{\url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}} The reason is simply that more time is needed for the remaining implementation. We ensured, however, that the implementation is equally distributed over the classes and vocabularies we have. We then evaluated the data quality of 15,694 data sets (4.26 billion triples) of \emph{SBE} research data using these 114 constraints, obtained from 33 SPARQL endpoints.
 
 \emph{QB} and \emph{SKOS} are well-established vocabularies which are widely adopted and accepted. \emph{Disco} is a newly developed vocabulary which will be published in 2015.
 
@@ -1301,7 +1301,7 @@ A \emph{SPIN} construct template creates constraint violation triples if all tri
 %Table \ref{tab:evaluation-constraint-types} displays the evaluation of the metadata quality on real world data sets regarding constraint types.
 Table \ref{tab:evaluation-constraint-violations} shows the results of the evaluation, more specifically the constraints and the constraint violations, which are caused by these constraints, in percent.
 The constraints and their raised constraint violations are grouped by vocabulary, complexity level of their type, and their severity level.
-The number of evaluated triples and data sets differs between the vocabularies
+The numbers of evaluated triples and data sets differ between the vocabularies
 as we evaluated 3.8 billion \emph{QB}, 480 million \emph{SKOS}, and 10 million \emph{Disco} triples.
 To be able to formulate hypotheses which apply for all vocabularies, 
 we only use normalized relative values representing the percentage of constraints and constraint violations belonging to the respective class
@@ -1355,7 +1355,7 @@ by evaluating the quality of data represented by further well-established and ne
 %(for \emph{QB} even three quarters).
 %\emph{Existential quantifications} (\emph{R-86}, 32.4\%, \emph{Disco}), \emph{data model consistency} (31.4\%, \emph{QB}), and \emph{structure} (28.6\%, \emph{SKOS}) are the constraint types the most constraints are instantiated from.
 %\tb{1. Fakten (diese Fakten bewirken eine Erhöhung der Datenqualität) 2. Hypothese (unsere Interpretation der Ergebnisse, unsere Behauptung)}
-Almost 1/2 of all 213 constraints and more than 1/2 of the \emph{Disco} and the \emph{QB} constraints are \emph{vocabulary constraints}.
+Almost 1/2 of all constraints and more than 1/2 of the \emph{Disco} and the \emph{QB} constraints are \emph{vocabulary constraints}.
 The \emph{SKOS} constraints are nearly to the same extend \emph{vocabulary}, \emph{simple}, and \emph{complex constraints}. 
 %Hence, a significant amount of 46 \% of the constraints are directly extractable from formal specifications of well-established and newly defined vocabularies. 
 \begin{hyp}
@@ -1369,23 +1369,21 @@ Nearly 1/2 of all violations are caused by \emph{complex constraints}, 1/3 by \e
 The fact that only 1/5 of all violations result from \emph{vocabulary constraints}, 
 even though, 46\% of all constraints are \emph{vocabulary constraints},
 indicates good data quality for all vocabularies with regard to their formal specifications.
-\begin{hyp}
-For all vocabularies, data corresponds to their formal specifications which demonstrates that constraint formulation in general works. 
-\end{hyp}
 
 %\tb{je nach hypothese spezifische aufgaben um die hypothese zu beweisen}
-2/3 of the \emph{Disco} violations result from \emph{vocabulary constraints},
+Moreover, while 2/3 of the \emph{Disco} violations result from \emph{vocabulary constraints},
 \emph{QB} violations are almost only raised by \emph{complex constraints}, and 
 nearly 80\% of the \emph{SKOS} violations are caused by \emph{simple constraints}.
-For well-established vocabularies, \emph{vocabulary constraints} are almost completely satisfied\footnote{e.g. only 1.777 \emph{QB} violations} which indicates good data quality according to their formal specifications.
+This means that for the well-established vocabularies \emph{QB} and \emph{SKOS}, \emph{vocabulary constraints} are almost completely satisfied which indicates generally a very impressive data quality, at least in the SBE domain and for the basic requirements.
 %This demonstrates that data providers take account of the formal specifications of well-established vocabularies.
-For newly defined vocabularies, however, 2/3 of all violations are raised by \emph{vocabulary constraints}
-which indicates bad data quality with regard to their formal specifications.
+
+For \emph{Disco}, data providers still have to understand the vocabulary and of course, data can not have high quality if the specification is not yet stable.
 
 \begin{hyp}
-Data represented by well-established vocabularies corresponds to their formal specifications which demonstrates that constraint formulation in general works. 
-Data represented by newly developed vocabularies, in contrast, does not correspond to their formal specifications.
+Data corresponds to their formal specifications which demonstrates that constraint formulation in general works. 
 \end{hyp}
+
+
 
 It is likely that a newly developed vocabulary is still subject of constant change
 and that early adopters did not properly understand its formal specification.
@@ -1427,7 +1425,7 @@ as serious violations occur partially.
 %For well-established vocabularies, it is well documented and the experience is high how to guarantee this integrity
 %which is not the case or newly-developed vocabularies.
 \begin{hyp}
-Especially for newly developed vocabularies, constraint languages should be used to a larger extend to meet severe constraints.   
+Especially for newly developed vocabularies, constraint languages should be used to a larger extend to meet reduce severe violations.   
 \end{hyp} 
 
 %For the vocabularies \emph{Disco}, \emph{QB}, and \emph{SKOS}, we defined 213 constraints of 53 constraint types .
@@ -1540,7 +1538,7 @@ more than 3/4 of the \emph{simple constraints} are \emph{informational constrain
 \end{table}
 
 \begin{hyp}
-The further development of constraint languages should concentrate on how to express complex constraints as 44\% of all complex constraints are also serious ones.
+There is significant demand for constraint languages that support the expression of complex constraints as 44\% of all complex constraints are also serious ones.
 \end{hyp}
 
 As \emph{vocabulary constraints} are part of formal specifications of vocabularies,
