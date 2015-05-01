@@ -532,11 +532,12 @@ which serve as typical entry points when searching for data.
 
 \section{Classification of Constraint Types and Constraints}
 \label{classification}
-\tb{82 constraint types / 76 requirements}
-Bosch et al. identified 76 requirements to formulate RDF constraints (e.g. \emph{R-75: minimum qualified cardinality restrictions}); each of them corresponding to an RDF constraint type\footnote{Constraint types and constraints are uniquely identified by alphanumeric technical identifiers like \emph{R-71-CONDITIONAL-PROPERTIES}}\cite{BoschNolleAcarEckert2015}. 
+
+Bosch et al. identified 82 requirements to formulate RDF constraints (e.g. \emph{R-75: minimum qualified cardinality restrictions}); each of them corresponding to an RDF constraint type\footnote{Constraint types and constraints are uniquely identified by alphanumeric technical identifiers like \emph{R-71-CONDITIONAL-PROPERTIES}}\cite{BoschNolleAcarEckert2015}. 
 We published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} (serving as first appendix of this paper) in which we explain each requirement/constraint type in detail and give examples for each expressed by different constraint languages.
 The knowledge representation formalism \emph{Description logics (DL)}, with its  well-studied theoretical properties, provides the foundational basis for each constraint type.
 Therefore, this technical report contains mappings to \emph{DL} to logically underpin each requirement and to determine which \emph{DL} constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
+%In total, we distinguish 82 RDF constraint types as we identified 6 RDF constraint types which are only necessary for validating particular vocabularies.
 We classified both RDF constraint types and RDF constraints to gain better insights into the quality of RDF data with respect to this classification, independent of the used vocabulary.
 %Constraints are instantiated from constraint types in order to validate both metadata and data represented by any vocabulary; thus, the proposed classification system is vocabulary-independent and therefore applicable generically.
 We recently published a technical report\footnote{\label{technical-report-1}Available at: \url{http://arxiv.org/abs/1504.04479}} (serving as second appendix of this paper) in which we describe 246 constraints of 53 distinct constraint types on six vocabularies \cite{BoschZapilkoWackerowEckert2015}.
