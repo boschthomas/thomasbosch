@@ -1559,18 +1559,14 @@ there is an obvious need to develop constraint languages which enable to express
 %We implemented a validation environment (available at \url{http://purl.org/net/rdfval-demo}) to validate RDF data according to constraints expressed my arbitrary constraint languages and to ensure correct syntax and semantics of diverse vocabularies such as \emph{Disco}, \emph{QB}, \emph{SKOS}, and \emph{PHDD} (section \ref{implementation}).
 %We exhaustively evaluated the metadata quality of large real world aggregated (\emph{QB}), person-level (\emph{Disco}), and thesauri (\emph{SKOS}) data sets (more than 4.2 billion triples and 15 thousand data sets) by means of 213  constraints of the majority of the constraint types\footnote{The second appendix of this paper describing the evaluation in detail is available at: \url{http://arxiv.org/abs/1504.04478} \cite{BoschZapilkoWackerowEckert2015-2}.} (section \ref{evaluation}).
 
-We identified and published by today 82 types of constraints\footnote{The first appendix of this paper, in which we explain each requirement/constraint type in detail, is available at: \url{http://arxiv.org/abs/1501.03933} \cite{BoschNolleAcarEckert2015}}
-that are required by various stakeholders for data applications.
-In close collaboration with several \emph{SBE} domain experts, we formulated 213 constraints\footnote{The second appendix of this paper, in which we describe each vocabulary-specific constraint in detail, is available at: \url{http://arxiv.org/abs/1504.04479} \cite{BoschZapilkoWackerowEckert2015}}
- of 53 different types on three different vocabularies (\emph{Disco}, \emph{QB}, and \emph{SKOS}) and classified them according to the complexity level of their type and their severity level. 
+We identified and published by today 82 types of constraints  that are required by various stakeholders for data applications.
+In close collaboration with several \emph{SBE} domain experts, we formulated 213 constraints of 53 different types on three different vocabularies (\emph{Disco}, \emph{QB}, and \emph{SKOS}) and classified them according to the complexity level of their type and their severity level. 
 
-For 114 of these constraints, we evaluated\footnote{The third appendix of this paper, in which we describe the evaluation in detail, is available at: \url{http://arxiv.org/abs/1504.04478} \cite{BoschZapilkoWackerowEckert2015-2}.}
- the data quality of 15,694 data sets (4.26 billion triples) of research data for the \emph{SBE} sciences obtained from 33 SPARQL endpoints.
+For 114 of these constraints, we evaluated  the data quality of 15,694 data sets (4.26 billion triples) of research data for the \emph{SBE} sciences obtained from 33 SPARQL endpoints.
+
 Based on the evaluation results,
-we formulated several hypotheses to direct the further development of constraint languages.
-To make valid general statements for all vocabularies, however,
-the hypotheses still have to be verified or falsified
-by evaluating the quality of data represented by more than three vocabularies.
+we formulated several hypotheses to direct the further development of constraint languages. We regard to the results as hypotheses, as their general applicability beyond the examined vocabularies and for other domains is still to be confirmed.
+
 The main hypotheses are: 
 \begin{enumerate}
 	\item The percentage of severe violations is very low which implies that proper constraint languages can significantly improve the data quality beyond fundamental requirements.
@@ -1579,6 +1575,8 @@ The main hypotheses are:
   \item As 54\% of the constraints are either \emph{simple} or \emph{complex constraints},
 the further development of constraint languages should concentrate on expressing \emph{simple} and especially \emph{complex constraints} which up to now in most cases can only be expressed by plain \emph{SPARQL}. 
 \end{enumerate}
+
+We have been really impressed by the high quality of the \emph{QB} and \emph{SKOS} data. This is in contrast to the sometimes heard rumour that Linked Open Data lacks quality. We are actively involved in the further development and implementation of constraint languages and will use the results presented in the paper to set priorities on features where we expect the highest impact on the data quality of real-life data in the SBE domain.
 
 \bibliography{../../literature/literature}{}
 \bibliographystyle{plain}
