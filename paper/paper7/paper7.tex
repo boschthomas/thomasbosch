@@ -345,7 +345,7 @@ In this paper, we discuss constraints on RDF data in general. Note that the data
 \subsection{Motivation}
 \label{motivation}
 
-The data most often used in research within the \emph{SBE} community is \emph{person-level data} (or more generally \emph{record-unit data}, i.e., data collected about individuals, businesses, and households) in form of responses to studies or taken from administrative registers
+The data most often used in research within \emph{SBE} sciences is \emph{person-level data} (or more generally \emph{record-unit data}, i.e., data collected about individuals, businesses, and households) in form of responses to studies or taken from administrative registers
 (such as hospital records, registers of births and deaths). 
 The range of person-level data is very broad - 
 including census, education, health data and business, social, and labor force surveys.  
@@ -368,13 +368,13 @@ Aggregated data, which answers particular research questions, is derived from pe
 %Although, in most cases aggregated data is still published in form of PDFs, 
 %it is more and more common to publish aggregated data as CSV files,
 The purpose of publicly available aggregated data is to get a first overview and to gain an interest in further analyses on the underlying person-level data.
-Aggregated data is more and more published in form of CSV files,
-allowing to perform data calculations.\ke{abgeshen davon dass ich more and more nicht mehr sehen kann, ist der zusammenhang mit RDF daten und damit RDF providern im nächsten satz unklar}
+Aggregated data is published in form of CSV files,
+allowing to perform calculations on the data.
 %For these calculations, definitions of the columns are needed (e.g. is a given variable interpreted numerically or as a string).
 %\emph{Physical Data Description (PHDD)}\footnote{\url{https://github.com/linked-statistics/physical-data-description}} is a vocabulary to represent data in tabular format in RDF.\tb{tabular data} 
 %The data could be either represented in records with character-separated values (CSV) or in records with fixed length. 
-Portals harvest metadata (as well as publicly available data) from multiple RDF data providers.
-To ensure high quality, (meta)data must satisfy certain criteria - specified in terms of RDF constraints.\ke{verwirrend. wie gesagt, können wir nicht bei RDF data bleiben? was anderes behandelt ihr doch eh nicht und qb enthält doch keine metadaten.} \tb{ich wollte nu beschreiben, dass data provider verantwortlich dafür sind, dass ihre daten festgelegten regeln / bedingungen / constraints entsprechen / wenn von mehreren data providern geharvestet wird, ist das noch eine zusätzliche dimension, können wir aber auch weglassen}
+%Portals harvest metadata (as well as publicly available data) from multiple RDF data providers.
+\tb{To ensure high quality, data must satisfy certain criteria - specified in terms of RDF constraints.}
 
 For more detailed analyses, researchers refer to person-level data including additional variables needed to answer subsequent research questions
 %Although not that common, the other direction is also possible, 
@@ -391,9 +391,11 @@ the variables \emph{year}, \emph{duration} (in hours per week), \emph{age} of th
 Variables are constructed out of values (of one or multiple datatypes) and/or code lists.
 The variable \emph{age}, e.g., may be represented by values of the datatype \emph{xsd:nonNegativeInteger} or by a code list of age clusters (e.g., '0 to 10' and '11 to 20'). 
 
-To determine if variables measuring \emph{age} 
+A very important and representative RDF validation use case within SBE sciences is the comparison of variables between data collections of different countries.
+Several constraints on RDF data are checked 
+to determine if variables measuring \emph{age} 
 - collected for different countries (\emph{$age_{DE}$}, \emph{$age_{UK}$}) - 
-are comparable, diverse constraints are checked:
+are comparable:
 (1) variable definitions must be available, 
 (2) for each code a human-readable label has to be specified,
 (3) code lists must be structured properly, and
@@ -403,7 +405,7 @@ covering the first three constraints may be sufficient,
 i.e., the violation of the first three constraints is more serious than the violation of the last constraint.
 If the intention of the researcher is to perform more sophisticated comparisons (use case 2), however, the user may raise the severity level of the last constraint.
  
-\ke{ich finde das immer noch recht verwirrend. Ist das mit den aggregierten Daten wichtig für dieses Paper? Wieso werden constraints nur gechecked wenn variablen auf vergleichbarkeit geprüft werden? das habt ihr doch gar nicht gemacht sondern ganz allgemein constraints für vokabulare aufgestellt. Ist QB und Disco nicht sowieso unabhängig von konkreten Variablen?}\tb{das soll nur ein beipsiel sein, wann eine komplexere validierung im kontext von sbe sinn macht (1) + (2) sind vocabulary constraints und (3) + (4) sind complex constraints}
+%\ke{Wieso werden constraints nur gechecked wenn variablen auf vergleichbarkeit geprüft werden? das habt ihr doch gar nicht gemacht sondern ganz allgemein constraints für vokabulare aufgestellt. Ist QB und Disco nicht sowieso unabhängig von konkreten Variablen?}\tb{das soll nur ein beipsiel sein, wann eine komplexere validierung im kontext von sbe sinn macht (1) + (2) sind vocabulary constraints und (3) + (4) sind complex constraints}
  
 %After validating the metadata according to these constraints, portals offer added values to their customers, e.g., by searching over and comparing metadata of multiple providers. 
 
