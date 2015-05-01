@@ -1162,7 +1162,7 @@ restrict individuals of given classes to have properties defined within exactly 
 \section{Evaluation}
 \label{evaluation}
 
-For the evaluat
+In this section, we describe our findings based on an automatic constraint checking of a large dataset. Despite the large volume of the dataset in general, we have to keep in mind that this study only uses data for three vocabularies. As described in Section~\ref{rdf-representation}, for other vocabularies there is often not (yet) enough data openly available to draw general conclusions. The three vocabularies, however, are representative, cover different aspects of SBE data and are also a mixture of established vocabularies (\emph{QB}, \emph{SKOS}) and a vocabulary under development (\emph{Disco}). Due to this limitation, we will present several hypotheses together with a rationale based on the results for the three vocabularies. If the hypotheses hold generally is still to be determined, nevertheless they should provide valuable insights for future developments of constraint languages.
 
 \subsection{Experimental Setup}
 \label{implementation}
@@ -1171,21 +1171,16 @@ For the evaluat
 
 	%\item First, we assigned each constraint type to exactly one of the disjoint sets of constraint types 
 %in order to get an overview how many constraint types in relation to the total amount of constraint types are extractable from vocabularies ($\mathcal{CT}_{B}$), are easily definable ($\mathcal{CT}_{S}$), and are rather difficult to specify ($\mathcal{CT}_{C}$). 
-In close collaboration with several \emph{SBE} domain experts, we defined 246 constraint 
-of 53 different types on six vocabularies (\emph{Disco}, \emph{QB}, \emph{SKOS}, \emph{PHDD}, \emph{DCAT}, \emph{XKOS}) and classified them according to the complexity level of their type and their severity level. 
-For 114 of these constraints\footnote{\url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}}, we evaluated the data quality of 15,694 data sets (4.26 billion triples) of \emph{SBE} research data on three common vocabularies in \emph{SBE} sciences (\emph{Disco}, \emph{QB}, \emph{SKOS}) obtained from 33 SPARQL endpoints.
-We distinct two classes of vocabularies: 
-(1) well-established vocabularies (e.g., \emph{QB}, \emph{SKOS}) which are widely adopted and accepted and 
-(2) newly developed vocabularies (e.g., \emph{Disco} which will be published in 2015) which are either recently published or are still in the publication process.
+On the three vocabularies (\emph{Disco}, \emph{QB}, \emph{SKOS}), we identified and classified 114 of constraints,\footnote{\url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}} as described before. We evaluated the data quality of 15,694 data sets (4.26 billion triples) of \emph{SBE} research data using these vocabularies, obtained from 33 SPARQL endpoints.
+
+\emph{QB} and \emph{SKOS} are well-established vocabularies which are widely adopted and accepted. \emph{Disco} is a newly developed vocabulary which will be published in 2015.
+
 %It is likely that such a vocabulary is still subject of constant change, that published data may not be consistent with its current version,
 %and that early adopters did not properly understand its formal specification.
 %\ke{ergebnisse, dann hypothesen, dann kritische auseinandersetzung}
 
-We validated 
-9,990 / 3,775,983,610 (\emph{QB}),
-4,178 / 477,737,281 (\emph{SKOS}), and 
-1,526 / 9,673,055 (\emph{Disco}) data sets / triples using our validation environment in batch mode.
-We validated, i.a., 
+
+Table~\ref{tab:datasets} lists the number of datasets and the overall sizes in terms of triples for each of the vocabularies. We validated, i.a., 
 (1) \emph{QB} data sets published by the \emph{Australian Bureau of Statistics},
 the \emph{European Central Bank}, and the
 \emph{Organisation for Economic Co-operation and Development},
@@ -1196,18 +1191,45 @@ the \emph{STW Thesaurus for Economics}, and the
 the \emph{Data Without Boundaries Discovery Portal}, the
 \emph{Danish Data Archive}, and the
 \emph{Swedish National Data Service}.
-We recently published a technical report\footnote{\label{technical-report-2}Available at: \url{http://arxiv.org/abs/1504.04478}} (serving as third appendix of this paper) 
-in which we describe the evaluation in detail \cite{BoschZapilkoWackerowEckert2015-2}. 
-As we evaluated nearly 10 thousand \emph{QB} data sets, we published the evaluation results for each data set in form of one document per SPARQL endpoint\footnote{Available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/evaluation/data-sets/data-cube}}.
 
-As \emph{SPARQL} is generally seen as the method of choice to validate RDF data according to certain constraints,
-we use \emph{SPIN}, 
+
+\begin{table}[H]
+		\scriptsize
+    \begin{center}
+    \begin{tabular}{lrr}
+%           & \multicolumn{6}{c}{\textbf{Vocabularies}}
+%    \\  \cmidrule{2-7}
+           \textbf{Vocabulary}
+           & \textbf{Datasets}
+           & \textbf{Triples}
+					 
+    \\ \midrule
+		%\emph{Triples} & 9,673,055 & 3,775,983,610 & 477,737,281 & 4,263,393,946 \\
+		%\emph{Data Sets} & 1,526 & 9,990 & 4,178 & 15,694 \\
+		%\hline
+		\textbf{\emph{QB}} & $9,990$   & $3,775,983,610$  \\
+		\textbf{\emph{SKOS}} & $4,178$  & $477,737,281$ \\
+		\textbf{\emph{Disco}} & $1,526$  & $9,673,055$  \\
+    \bottomrule
+    \end{tabular}
+    %\\ \emph{C (constraints), CT (constraint types)}
+    \caption{Evaluated datasets for each vocabulary}
+		\label{tab:datasets}
+    \end{center}
+\end{table}
+
+
+In a technical report serving as third appendix of this paper, we describe the evaluation in further detail \cite{BoschZapilkoWackerowEckert2015-2}. Furthermore, we published the evaluation results for each data set in form of one document per SPARQL endpoint\footnote{Available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/evaluation/data-sets/data-cube}}.
+
+We use \emph{SPIN}, 
 a \emph{SPARQL}-based way to formulate and check constraints, as basis to develop a
-validation environment (available at \url{http://purl.org/net/rdfval-demo})\footnote{Source code downloadable at: \url{https://github.com/boschthomas/rdf-validator}} to validate RDF data according to constraints expressed my arbitrary constraint languages\footnote{SPIN mappings available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/SPIN}} \cite{BoschEckert2014-2}.
-The \emph{RDF Validator} also validates RDF data according to constraints defined for vocabularies such as \emph{Disco}, \emph{QB}, \emph{SKOS}, \emph{PHDD}, \emph{DCAT}, and \emph{XKOS}.
+validation environment\footnote{Online demo available at \url{http://purl.org/net/rdfval-demo}, source code at: \url{https://github.com/boschthomas/rdf-validator}} to validate RDF data according to constraints expressed by arbitrary constraint languages\footnote{SPIN mappings available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/SPIN}} \cite{BoschEckert2014-2}.
+
+The \emph{RDF Validator} can directly be used to validate arbitrary RDF data for the three vocabularies. Additionally, own constraints on vocabularies can be defined using several constraint languages.
+
 %Although accessible within our validation tool, we provide all implemented constraints\footnote{\url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}} in form of SPARQL CONSTRUCT queries.
 The \emph{SPIN} engine checks for each resource if it satisfies all constraints, which are associated with its assigned classes, and generates a result RDF graph containing information about all constraint violations.
-There is one SPIN construct template for each constraint type\footnote{For a comprehensive description of the \emph{RDF Validator}, we refer to \cite{BoschEckert2014-2}}.
+There is one SPIN construct template for each constraint type.
 A \emph{SPIN} construct template contains a \emph{SPARQL CONSTRUCT} query which generates constraint violation triples indicating the subject and the properties causing constraint violations, and the reason why constraint violations have been raised.
 A \emph{SPIN} construct template creates constraint violation triples if all triple patterns within the \emph{SPARQL WHERE clause} match.
 %\emph{Missy}\footnote{\url{http://www.gesis.org/missy/eu/missy-home}} provides comprehensive Linked Data services like diverse RDF exports of person-level metadata conforming to the \emph{Disco} vocabulary in form of multiple concrete syntaxes. 
