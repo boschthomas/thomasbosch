@@ -311,7 +311,7 @@ the W3C RDF Data Shapes working group\footnote{\url{http://www.w3.org/2014/rds/c
 
 Within the DCMI task group, a collaboratively curated database of RDF validation requirements has been created which contains the findings of the working groups based on various case studies provided by data institutions \cite{BoschEckert2014}. It is publicly available and open for further contributions\footnote{Online at \url{http://purl.org/net/rdf-validation}}.
 
-The database connects requirements to use cases, case studies and implementations and forms the basis of this paper. To gain a better understanding about the role of certain requirements for data quality and in order to direct the further development of constraint languages, we collected constraints for commonly used vocabularies in the \emph{SBE} domain, either from the vocabularies themselves or from domain and data experts. All in all, this lead to 246 constraints on six vocabularies. 
+The database connects requirements to use cases, case studies and implementations and forms the basis of this paper. To gain a better understanding about the role of certain requirements for data quality and in order to direct the further development of constraint languages, we collected constraints for commonly used vocabularies in the \emph{SBE} domain, either from the vocabularies themselves or from domain and data experts. All in all, this lead to 246 constraints  of 53 different types on six vocabularies. \tb{in total 82 constraint types}
 We let the experts classify the constraints according to the severity if they are violated. Furthermore, we classified the type of each constraint (corresponding to a requirement) based on its complexity ranging from types commonly found in vocabulary specifications (e.g., domain, range, and cardinality restrictions), 
 over types that are simply stated using common constraint languages (e.g., language tag cardinality restrictions) to complex types that involve complex data structures or need more sophisticated languages to be easily expressible 
 %(e.g., constraints on network topologies)
@@ -337,6 +337,8 @@ As we do not want to base our conclusions on the evaluations of vocabularies and
 %(2) which sets of constraints (associated with particular severity levels) encompass the constraints causing the most/fewest constraint violations (see section \ref{evaluation}).
 
 In this paper, we discuss constraints on RDF data in general. Note that the data represented in RDF can be data in the sense of \emph{SBE} sciences, but also metadata about published or unpublished data. We generally refer to both simply as RDF data and only distinguish between data and metadata in the data set descriptions and in the case that it matters for the purpose of this paper.
+The remainder of the paper is structured as follows.
+
 
 %We propose an extensible metric to measure the continuum of severity levels to indicate how serious the violation of given constraints is.
 %Constraints are instantiated from constraint types in order to validate both metadata and data represented by any vocabulary. 
@@ -1509,7 +1511,7 @@ there is an obvious need to develop constraint languages which enable to express
 
 We identified and published by today 82 types of constraints\footnote{The first appendix of this paper, in which we explain each requirement/constraint type in detail, is available at: \url{http://arxiv.org/abs/1501.03933} \cite{BoschNolleAcarEckert2015}}
 that are required by various stakeholders for data applications.
-In close collaboration with several SBE domain experts, we formulated 246 constraints\footnote{The second appendix of this paper, in which we describe each vocabulary-specific constraint in detail, is available at: \url{http://arxiv.org/abs/1504.04479} \cite{BoschZapilkoWackerowEckert2015}}
+In close collaboration with several \emph{SBE} domain experts, we formulated 246 constraints\footnote{The second appendix of this paper, in which we describe each vocabulary-specific constraint in detail, is available at: \url{http://arxiv.org/abs/1504.04479} \cite{BoschZapilkoWackerowEckert2015}}
  of 53 different types on six different vocabularies (\emph{Disco}, \emph{QB}, \emph{SKOS}, \emph{PHDD}, \emph{DCAT}, \emph{XKOS}) and classified them according to the complexity level of their type and their severity level. 
 
 For 114 of these constraints, we evaluated\footnote{The third appendix of this paper, in which we describe the evaluation in detail, is available at: \url{http://arxiv.org/abs/1504.04478} \cite{BoschZapilkoWackerowEckert2015-2}.}
