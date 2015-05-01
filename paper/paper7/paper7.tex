@@ -342,9 +342,28 @@ by evaluating the quality of data represented by more than three vocabularies (s
 %We evaluated the (meta)data quality of large real world data sets (more than 4.2 billion triples and 15 thousand data sets) from the \emph{SBE} domain represented by multiple vocabularies to get an understanding 
 %(1) which sets of constraint types (on different levels of complexity) and 
 %(2) which sets of constraints (associated with particular severity levels) encompass the constraints causing the most/fewest constraint violations (see section \ref{evaluation}).
-In this paper, we discuss constraints on RDF data in general. Note that the data represented in RDF can be data in the sense of \emph{SBE} sciences, but also metadata about published or unpublished data. We generally refer to both simply as RDF data and only distinguish between data and metadata in the data set descriptions and in the case that it matters for the purpose of this paper.
-%The remainder of the paper is structured as follows.
 
+In this paper, we discuss constraints on RDF data in general. Note that the data represented in RDF can be data in the sense of \emph{SBE} sciences, but also metadata about published or unpublished data. We generally refer to both simply as RDF data and only distinguish between data and metadata in the data set descriptions and in the case that it matters for the purpose of this paper.
+The underlying \emph{semantics} for RDF validation is \emph{UNA}/\emph{CWA}.
+RDF validation requires that different names represent different objects ({\em unique name assumption (UNA)}), whereas,
+\emph{OWL 2} is based on the {\em non-unique name assumption (nUNA)}.  
+%A data property is \emph{functional} (\emph{R-65}) if for each individual \emph{x}, there can be at most one distinct literal \emph{y} such that \emph{x} is connected by the data property to \emph{y}. (See \cite{resource} for this terminology.)
+%When assuming \emph{UNA}, the functional property {\em title} (\ms{funct (title)}) causes a clash
+%in case the book {\em Huckleberry-Finn} has more than one \emph{title}
+%(\ms{title(Huckleberry-Finn, The-Adventures-of-Huckleberry-Finn)}, \ms{title(Huckleberry-Finn, Die-Abenteuer-des-Huckleberry-Finn)}).
+%Assuming nUNA, however, reasoning concludes that the titles {\em The-Adventures-of-Huckleberry-Finn} and {\em Die-Abenteuer-des-Huckleberry-Finn} are the same (\ms{\{The-Adventures-of-Huckleberry-Finn\}} = \ms{\{Die-Abenteuer-des-Huckle} \ms{berry-}\ms{Finn\}}).  
+Reasoning in \emph{OWL 2} is based on the {\em open-world assumption (OWA)}, i.e., a statement cannot be inferred to be false if it cannot be proved to be true. 
+%which fits its primary design purpose to represent knowledge on the World Wide Web. 
+%Most of the constraint languages except OWL, have a major shortcoming of redundancy.
+%With its open-world semantics, used as a constraint language, OWL solves the redundancy problem. 
+%\tb{the following example does not show the redundancy problem!}
+%\tb{2. benefit: reasoning solves redundancy problem}
+%As each \emph{book} must have a \emph{title} (\ms{Book $\sqsubseteq \exists$ title.$\top$}) and {\em Hamlet} is a \emph{book} (\ms{Book(Hamlet)}),
+%{\em Hamlet} must have at least one \emph{title}.
+%In an \emph{OWA} setting, this axiom does not cause a constraint violation (even if there is no explicitly defined \emph{title}), since there must be a \emph{title} for this \emph{book} which we may not know. 
+On the other hand, RDF validation scenarios require the {\em closed-world assumption (CWA)}, i.e., a statement is inferred to be false if it cannot be proved to be true. Classical constraint languages are based on the \emph{CWA} where constraints need to be satisfied only by named individuals.
+This ambiguity in semantics is one of the main reasons why \emph{OWL 2} has not been adopted as a standard constraint language for RDF validation in the past.  
+In case we use \emph{OWL 2} constructs in terms of constraints, we adopt the same semantics (CWA) that is for RDF validation in general.
 
 %We propose an extensible metric to measure the continuum of severity levels to indicate how serious the violation of given constraints is.
 %Constraints are instantiated from constraint types in order to validate both metadata and data represented by any vocabulary. 
@@ -1533,11 +1552,13 @@ To make valid general statements for all vocabularies, however,
 the hypotheses still have to be verified or falsified
 by evaluating the quality of data represented by more than three vocabularies.
 The main hypotheses are: 
-(1) The percentage of severe violations is very low which implies that proper constraint languages can significantly improve the data quality beyond fundamental requirements.
-(2) The further development of constraint languages should concentrate on how to express \emph{complex constraints} as 44\% of all \emph{complex constraints} are also serious ones.
-(3) 47\% of the violations refer to complex constraints that are in most cases not expressible by existing constraint languages which confirms the necessity to provide suitable constraint languages.
-(4) As 54\% of the constraints are either \emph{simple} or \emph{complex constraints},
+\begin{enumerate}
+	\item The percentage of severe violations is very low which implies that proper constraint languages can significantly improve the data quality beyond fundamental requirements.
+  \item The further development of constraint languages should concentrate on how to express \emph{complex constraints} as 44\% of all \emph{complex constraints} are also serious ones.
+  \item 47\% of the violations refer to complex constraints that are in most cases not expressible by existing constraint languages which confirms the necessity to provide suitable constraint languages.
+  \item As 54\% of the constraints are either \emph{simple} or \emph{complex constraints},
 the further development of constraint languages should concentrate on expressing \emph{simple} and especially \emph{complex constraints} which up to now in most cases can only be expressed by plain \emph{SPARQL}. 
+\end{enumerate}
 
 \bibliography{../../literature/literature}{}
 \bibliographystyle{plain}
