@@ -319,22 +319,22 @@ over types that are simply stated using common constraint languages (e.g., langu
 
 As we do not want to base our conclusions on the evaluations of vocabularies and constraint definitions alone, we conducted a large-scale experiment and evaluated the data quality of 15,694 data sets (4,26 billion triples) of research data for the social, behavioural, and economic (\emph{SBE}) sciences obtained from 33 SPARQL endpoints.
 
-The \textbf{contribution} of this paper is the development of a system 
-\begin{enumerate}
-	\item to classify RDF constraints (according to their severity levels) to evaluate the quality of metadata and data which may be represented by any vocabulary and 
-	\item to classify RDF constraint types (according to their complexity) which in most cases correspond to RDF validation requirements\footnote{For simplicity reasons, we use the terms \emph{constraint types} and \emph{constraints} instead of \emph{RDF constraint types} and \emph{RDF constraints} in the rest of the paper} (sections \ref{classification} - \ref{complex-constraint-types}).
-\end{enumerate}
-By defining a huge amount of constraints of the majority of the constraint types,   
-we apply the developed classification system to several and different vocabularies from the \emph{SBE} domain to represent both metadata and data and therefore prove its generality.
-A complex and complete real world running example from the \emph{SBE} domain serves to prove the claim that the developed classification system perfectly applies for diverse vocabularies.
-%, i.e., that it does not matter which vocabularies are used to represent (meta)data and for which domains constraints are defined.
-We describe why RDF validation is important for the \emph{SBE} community (section \ref{motivation}), 
-how data in tabular format and metadata on person-level data sets, aggregated data sets, and thesauri are represented in RDF, 
-how therefore reused vocabularies are interrelated (section \ref{rdf-representation}),
-and how \emph{SBE} (meta)data is validated against constraints of different constraint types (sections \ref{classification} - \ref{complex-constraint-types}).
-We evaluated the (meta)data quality of large real world data sets (more than 4.2 billion triples and 15 thousand data sets) from the \emph{SBE} domain represented by multiple vocabularies to get an understanding 
-(1) which sets of constraint types (on different levels of complexity) and 
-(2) which sets of constraints (associated with particular severity levels) encompass the constraints causing the most/fewest constraint violations (see section \ref{evaluation}).
+%The \textbf{contribution} of this paper is the development of a system 
+%\begin{enumerate}
+	%\item to classify RDF constraints (according to their severity levels) to evaluate the quality of metadata and data which may be represented by any vocabulary and 
+	%\item to classify RDF constraint types (according to their complexity) which in most cases correspond to RDF validation requirements\footnote{For simplicity reasons, we use the terms \emph{constraint types} and \emph{constraints} instead of \emph{RDF constraint types} and \emph{RDF constraints} in the rest of the paper} (sections \ref{classification} - \ref{complex-constraint-types}).
+%\end{enumerate}
+%By defining a huge amount of constraints of the majority of the constraint types,   
+%we apply the developed classification system to several and different vocabularies from the \emph{SBE} domain to represent both metadata and data and therefore prove its generality.
+%A complex and complete real world running example from the \emph{SBE} domain serves to prove the claim that the developed classification system perfectly applies for diverse vocabularies.
+%%, i.e., that it does not matter which vocabularies are used to represent (meta)data and for which domains constraints are defined.
+%We describe why RDF validation is important for the \emph{SBE} community (section \ref{motivation}), 
+%how data in tabular format and metadata on person-level data sets, aggregated data sets, and thesauri are represented in RDF, 
+%how therefore reused vocabularies are interrelated (section \ref{rdf-representation}),
+%and how \emph{SBE} (meta)data is validated against constraints of different constraint types (sections \ref{classification} - \ref{complex-constraint-types}).
+%We evaluated the (meta)data quality of large real world data sets (more than 4.2 billion triples and 15 thousand data sets) from the \emph{SBE} domain represented by multiple vocabularies to get an understanding 
+%(1) which sets of constraint types (on different levels of complexity) and 
+%(2) which sets of constraints (associated with particular severity levels) encompass the constraints causing the most/fewest constraint violations (see section \ref{evaluation}).
 
 In this paper, we discuss constraints on RDF data in general. Note that the data represented in RDF can be data in the sense of \emph{SBE} sciences, but also metadata about published or unpublished data. We generally refer to both simply as RDF data and only distinguish between data and metadata in the data set descriptions and in the case that it matters for the purpose of this paper.
 
