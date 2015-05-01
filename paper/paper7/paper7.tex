@@ -391,8 +391,8 @@ the variables \emph{year}, \emph{duration} (in hours per week), \emph{age} of th
 Variables are constructed out of values (of one or multiple datatypes) and/or code lists.
 The variable \emph{age}, e.g., may be represented by values of the datatype \emph{xsd:nonNegativeInteger} or by a code list of age clusters (e.g., '0 to 10' and '11 to 20'). 
 
-A very important and representative RDF validation use case within SBE sciences is the comparison of variables between data collections of different countries.
-Several constraints on RDF data are checked 
+A very important and representative RDF validation case study within SBE sciences is the comparison of variables between data collections of different countries.
+Several constraints on RDF data are checked for each data collection
 to determine if variables measuring \emph{age} 
 - collected for different countries (\emph{$age_{DE}$}, \emph{$age_{UK}$}) - 
 are comparable:
@@ -400,7 +400,7 @@ are comparable:
 (2) for each code a human-readable label has to be specified,
 (3) code lists must be structured properly, and
 (4) code lists must either be identical or at least similar.
-If a researcher only wants to get a first overview over comparable variables (use case 1), 
+If a researcher only wants to get a first overview over the comparability of variables (use case 1), 
 covering the first three constraints may be sufficient,
 i.e., the violation of the first three constraints is more serious than the violation of the last constraint.
 If the intention of the researcher is to perform more sophisticated comparisons (use case 2), however, the user may raise the severity level of the last constraint.
