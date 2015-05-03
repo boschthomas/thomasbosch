@@ -216,6 +216,13 @@ Albstadt-Sigmaringen University, Germany \\
 For data practitioners embracing the world of RDF and Linked Data, the openness and flexibility is a mixed blessing. For them, data validation according to predefined constraints is a  much sought-after feature, particularly as this is taken for granted in the XML world. Several approaches exist to meet this requirement, ranging from using OWL as a constraint language to SPIN, a SPARQL-based way to formulate and check constraints. There are also specific constraint languages like Shape Expressions, Resource Shapes or Description Set Profiles that more or less explicitly address the aforementioned data practitioners.
 In this paper, we investigate the relationship of validation and reasoning and the role that reasoning plays in practical data validation. We formulate common types of constraints in Description Logic and use this formulation to determine their possible complexity when certain reasoning steps are involved. At last, we aggregate these findings for the most common constraint languages and show their commonalities and differences regarding constraint expressivity. We argue that so far no single best solution exists and that the results presented in this paper are crucial for a proper application of RDF validation.
 
+\begin{itemize}
+	\item Users should decide which constraints to use for completing data by reasoning 
+	and which ones should be considered as constraints about data accuracy and completeness.
+	These constraints could be transformed into SPARQL queries and checked over the data once completed using reasoning.
+	\item The purpose of the paper is to provide a basis for the development of constraint languages.
+	\item Tools, which apply the proposed classification system, should guide users to choose the right language for validation or to make trade-offs around the kinds of validation they need.
+\end{itemize}
 
 % There is no standard way to formulate RDF constraints for validation,
 % however there are several popular constraint languages (i.e., SPIN, ReSh, ShEx) covering major requirements on RDF validation. Amongst others, the ontology language OWL 2 can also be considered as an expressive constraint language with a high level human-readable syntax.
@@ -259,17 +266,9 @@ In this paper, we investigate the relationship of validation and reasoning and t
 	% Constraint Validation with and without OWL
 %\end{itemize}
 
-\section{ESWC Reviews}
+%\section{ESWC Reviews}
 
-\subsection{Reply}
-
-\begin{itemize}
-
-\item @Reviewer 4: If reasoning can be performed or if it does not make any sense to use it depends on the contraint type to be expressed and not on the constraint language. Although, reasoning is not yet implemented for other constraint languages than OWL 2, these constraint languages can easily be extended.
-
-\end{itemize}
-
-\subsection{Reviewer 2}
+%\subsection{Reviewer 2}
 
 %The paper addresses the problem of semantic RDF validation. This is an important topic related to data quality, and has not been much discussed in the litarature.
 %The topic is also timely due to the on-going work of the RDF Data Shapes Working Group Charter on this matter.
@@ -282,113 +281,78 @@ In this paper, we investigate the relationship of validation and reasoning and t
 
 %In addition, the paper presents a classification of existing constraint languages based on their expressivity, where SPIN is found to be the most expressive system.
  
-Minor comments.
+%Minor comments:
+%p.2 Add references to RELAX NG and Schematron
+%p.3 in Semantic Web community -> in the Semantic Web community
+%p.7 Use more new lines in the first code box, like in the second box?
  
-p.2 Add references to RELAX NG and Schematron
-p.3 in Semantic Web community -> in the Semantic Web community
-p.7 Use more new lines in the first code box, like in the second box?
+%subsection 3.3. The first paragraph is confusing. Refer to what? Follows? 
+%From this point on, the quality of the text decreases in general a bit...
  
-subsection 3.3. The first paragraph is confusing. Refer to what? Follows? From this point on, the quality of the text decreases in general a bit...
+%p.9 that, -> that
+%p.10 according -> According
+%p.10 needed[4] -> needed [4]
+%p.10 is, one may -> is, that one may
+%p.11 the all -> the set of all
+%p.13 results is -> result is
  
-p.9 that, -> that
-p.10 according -> According
-p.10 needed[4] -> needed [4]
-p.10 is, one may -> is, that one may
-p.11 the all -> the set of all
-p.13 results is -> result is
+%References
+%Capital letters are missing in several references. For example, ref->RDF in [3].  Check them all and use extra {} to correct.
+
+
+%\subsection{Reviewer 3}
+
+%This paper provides a comparison of various constraint languages for RDF data validation. Section 2 uses a simple example to demonstrate why constructs for representing constraints are needed; Section 3 classifies constraint Description Logic  (DL) languages in terms of the adoption of CWA/UNA etc.; Section 4 classifies constraint DL languages in terms of so-called expressivity scores.
+
+%The issue of representing integrity constraints in DL ontology languages has received significant attention in DLs and the Semantic Web due to its importance. So, the topic of the work is useful. 
+
+%Most part of the paper is understandable. There are some ideas that would be interesting if they are addressed properly. 
+
+%However, the contribution of this paper looked not very strong and results lack of depth, in my view.
  
-References
+%Detailed comments:
+
+%the metrics used in the paper are not specific to data validation.
+
+%4. Many terminologies are used but are not explained clearly, which bring a lot of sloppy sentences and statements in the paper.
+
+%5. A reader might want to see some lessons or experiences that could be learned from such a comparative study.
+
+
+%\subsection{Reviewer 4}
+
+%The paper provides a quantification of the number of kinds of
+%constraints that can be expressed/checked (from a curated set of use
+%cases) depending on the language used to express them.  It's not
+%obvious to me that this in itself is particularly noteworthy.
  
-Capital letters are missing in several references. For example, ref->RDF in [3].  Check them all and use extra {} to correct.
-
-
-\subsection{Reviewer 3}
-
-\textcolor{blue}{ 
-This paper provides a comparison of various constraint languages for RDF data validation. Section 2 uses a simple example to demonstrate why constructs for representing constraints are needed; Section 3 classifies constraint Description Logic  (DL) languages in terms of the adoption of CWA/UNA etc.; Section 4 classifies constraint DL languages in terms of so-called expressivity scores.
- }
-
-\textcolor{blue}{ 
-The issue of representing integrity constraints in DL ontology languages has received significant attention in DLs and the Semantic Web due to its importance. So, the topic of the work is useful. 
-}
-
-\textcolor{blue}{ 
-Most part of the paper is understandable. There are some ideas that would be interesting if they are addressed properly. 
-}
-
-\textcolor{blue}{ 
-However, the contribution of this paper looked not very strong and results lack of depth, in my view.
-}
+%On page 3 (end of section 1), define CWA/UNA at their first
+%appearance.
  
-Detailed comments:
+%The claim on page 4 that "Most of the constraint languages except OWL
+%2, have a major shortcoming of redundancy" seems to rely on the notion
+%that the inference of OWL 2 cannot be applied under the other
+%languages, but I don't see that, and the paper's own introduction
+%seems to agree with me.
 
-1. The paper claims to study constraints for RDF data validation but the metrics used in the paper are not specific to data validation.
-
-
-
-
-3. The term “expressivity scores” might be useful but a stronger argument is needed.
-
-4. Many terminologies are used but are not explained clearly, which bring a lot of sloppy sentences and statements in the paper.
-
-5. A reader might want to see some lessons or experiences that could be learned from such a comparative study.
-
-
-\subsection{Reviewer 4}
-
-\textcolor{blue}{
-The paper provides a quantification of the number of kinds of
-constraints that can be expressed/checked (from a curated set of use
-cases) depending on the language used to express them.  It's not
-obvious to me that this in itself is particularly noteworthy.
-}
+%Section 3.2.2 "For the majority of the constraint types, reasoning is
+%not needed to be performed prior to validation. It is possible,
+%however, to execute reasoning before validating constraints for which
+%reasoning does not affect validation results."  It's not clear to me
+%what this is trying to say.  I read it as 'in both cases reasoning
+%doesn't change the validation result', which is an odd statement.
  
-On page 3 (end of section 1), define CWA/UNA at their first
-appearance.
- 
-The claim on page 4 that "Most of the constraint languages except OWL
-2, have a major shortcoming of redundancy" seems to rely on the notion
-that the inference of OWL 2 cannot be applied under the other
-languages, but I don't see that, and the paper's own introduction
-seems to agree with me.
-
-Section 3.2.2 "For the majority of the constraint types, reasoning is
-not needed to be performed prior to validation. It is possible,
-however, to execute reasoning before validating constraints for which
-reasoning does not affect validation results."  It's not clear to me
-what this is trying to say.  I read it as 'in both cases reasoning
-doesn't change the validation result', which is an odd statement.
- 
-The numbers in parentheses in table 2: what are these
-extensions/restrictions?  The subsequent ordering of expressivity
-seems to include these values in the ranking: why?
- 
-While gross numbers give some insight, if the paper listed which
-problems can be solved by each constraint language, it might allow
-readers more insight. 
-
-Is there a useful grouping of the kinds of
-restrictions that can be stated by each language?  
-
-How would a user go
-about choosing the right language for validation, or make trade offs
-around the kinds of validation they need (I appreciate the authors
-anticipate building a tool to help decide this)?
- 
-Capitalization in the bibliography is awry ('dl-lite', 'rdf', 'Rdf',
-etc.).
+%The numbers in parentheses in table 2: what are these
+%extensions/restrictions?  The subsequent ordering of expressivity
+%seems to include these values in the ranking: why?
+  
+%Capitalization in the bibliography is awry ('dl-lite', 'rdf', 'Rdf',
+%etc.).
 
 \section{Introduction}
 
 reviews:
 \begin{itemize}
-	\item motivation
-	\begin{itemize}
-		\item 	A better angle for this paper would be to ask the administrator to point out among the positive constraints (such the PIs) which ones should be used for completing data by reasoning, and which ones should be considered as constraints about the data completeness that he/she wants to enforce. These constraints could be transformed into SPARQL unsat queries and checked over the data once completed using reasoning.
-		\item The intention of the paper is not to present any concrete normative suggestion or solution on how constraints for RDF validation should be represented.
-		The intention of this paper is not to suggest how RDF constraints should be represented as there are already five promising constraint languages which can be used to formulate RDF constraints. The developed constraint languages’ expressivity scores, however, enable systems to recommend constraint languages depending on individual use cases and therefore needed constraint types. 
-		\item paper should provide a basis for future constraint language developments.
-	\end{itemize}
 	\item logical semantics vs. notation
 	
 	\begin{itemize}
@@ -402,7 +366,20 @@ Section 2 makes complicate this basic property for which a sentence in the intro
 BTW, it is completely misleading to say in introduction  "Reasoning is a promising solution as a pre-validation step to overcome this shortcoming": reasoning must be part of RDF data management as soon as RDFS statements are declared (otherwise, why would they be declared ?).
     \item answer: We use RDF as data model (with intended semantics) when performing reasoning with RDFS/OWL 2 semantics (OWA/nUNA) as well as for RDF validation and not just as a notation. We suggest using RDFS/OWL 2 semantics (OWA, nUNA) when performing reasoning (the original intention of RDFS/OWL 2) and we propose to take multiple languages into account (i.a. OWL 2) with different semantics (CWA, UNA) for the purpose to validate RDF data. Reasoning should be an optional step prior to validation. When reasoning is not wished to be performed, however, then omitted class assignment triples, e.g., must cause constraint violations as they are not intended to be inferred. 
 	\end{itemize}
+	\item If reasoning can be performed or if it does not make any sense to use it depends on the constraint type to be expressed and not on the constraint language. Although, reasoning is not yet implemented for other constraint languages than OWL 2, these constraint languages can easily be extended.
+	\item While gross numbers give some insight, if the paper listed which
+problems can be solved by each constraint language, it might allow
+readers more insight. 
+  \item Is there a useful grouping of the kinds of
+restrictions that can be stated by each language?  
 \end{itemize}
+
+-----
+
+	\begin{itemize}
+		\item The intention of the paper is not to present any concrete normative suggestion or solution on how constraints for RDF validation should be represented.
+		The intention of this paper is not to suggest how RDF constraints should be represented as there are already five promising constraint languages which can be used to formulate RDF constraints. The developed constraint languages’ expressivity scores, however, enable systems to recommend constraint languages depending on individual use cases and therefore needed constraint types. 
+	\end{itemize}
 
 % How research about RDF validation started
 % -----
@@ -486,7 +463,7 @@ Defining \emph{books}, \emph{conference proceedings}, and \emph{journal articles
 %OWL is a reasoning language but is also used for validation and because of this leads to this discussion
 %
 %-----
-OWL is an expressive semantic web language which  is mainly praised for its reasoning capabilities in Semantic Web community. The knowledge representation formalism {\em Description logics} (DL), with its  well-studied theoretical properties, provides the foundational basis for OWL. Furthermore, DL can be used to express constraints like (1) \emph{publications} must have at least 1 \emph{author} which must be a \emph{person} (\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}) and
+OWL is an expressive semantic web language which  is mainly praised for its reasoning capabilities in the Semantic Web community. The knowledge representation formalism {\em Description logics} (DL), with its  well-studied theoretical properties, provides the foundational basis for OWL. Furthermore, DL can be used to express constraints like (1) \emph{publications} must have at least 1 \emph{author} which must be a \emph{person} (\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}) and
 (2) \emph{books}, \emph{conference proceedings}, and \emph{journal articles} are \emph{publications} (\ms{Book $\sqcup$ ConferenceArticle $\sqcup$ JournalArticle $\sqsubseteq$ Publication}). For that reason, in our work, we map constraint types to DL statements, in order to classify each constraint type according to some characteristics concerning semantics, reasoning, and expressivity, as well as to determine the capabilities of constraint languages in those manners.
 
 
@@ -905,7 +882,7 @@ This is not a problem if we add the UNA to the OWA, like in the \textit{DL-Lite}
 
 %As a result of its expressive power, OWL 2 DL allows a large variety of sophisticated modeling capabilities for many application domains.  On the other hand, to maintain the decidability, OWL 2 DL has numerous syntactic restrictions. One example is that OWL 2 DL allows  expressing transitive properties as well as asymmetric properties, however a property to be both transitive and asymmetric (just like \emph{ancestor relation}) is not allowed. In the sequel, from RDF validation perspective, we will give some examples of constraints that remain still at the outside of its scope. 
 
-\section{Classification of RDF Constraints according to CWA/UNA Dependency, Reasoning and Complexity}
+\section{Classification of RDF Constraints According to CWA/UNA Dependency, Reasoning and Complexity}
 \label{classification-rdf-constraints}
 
 \tb{R1: This is wrong that the Tbox axioms ( RDF constraints in this paper) can be classified as it is suggested in Section 3. The reason is that there exist possibly complex logical interferences between them. For instance, even in lightweight DLs such as  DL-Lite, positive inclusions (PIs) can be used to infer negative inclusions (NIs).}
@@ -1008,7 +985,8 @@ Thus, the restriction of the datatype {\em ISBN} cannot be expressed by OWL 2 QL
 
 \begin{ex}
 ISBN a RDFS:Datatype ; owl:equivalentClass [ a RDFS:Datatype ;
-    owl:onDatatype xsd:string ; owl:withRestrictions ([ xsd:pattern "^\d{9}[\d|X]\$" ])] .
+    owl:onDatatype xsd:string ; 
+    owl:withRestrictions ([ xsd:pattern "^\d{9}[\d|X]\$" ])] .
 \end{ex}
 
 The first OWL 2 axiom explicitly declares {\em ISBN} to be a datatype. %\er{Why start from second and then first? Also better we say "owl axiom" when we talk axiom of owl, to prevent ambiguity.}\tb{resolved}
@@ -1168,7 +1146,7 @@ each \emph{publication} can only have \emph{author} relationships to \emph{perso
 \subsubsection{Constraint Types without Reasoning}
 \label{RDF-Validation-Requirements-without-Reasoning}
 
-For the majority of the constraint types, reasoning is not needed to be performed prior to validation. 
+For the majority of the constraint types, reasoning is not needed to be performed prior to validation. \tb{unclear!}
 It is possible, however, to execute reasoning before validating constraints for which reasoning does not affect validation results.
 %\textbf{Expressible by OWL 2.}
 %\label{sec:RDF-validation-requirements-without-reasoning-2}
@@ -1364,6 +1342,7 @@ Semantic-Web-Publication a ResourceShape ; property [
 reviews:
 \begin{itemize}
 	\item However, if it is about the “complexity on reasoning”, as we do mean ontological reasoning  here, the discussion is done according to well-established complexity results (in literature) on reasoning in particular DL languages, having only those  features used in constraints. Therefore the complex interferences are included. 
+	\item The first paragraph is confusing. Refer to what? Follows? 
 \end{itemize}
 
 To have a further evaluation on the latter and to refer easily, we divide $\mathcal{C}_R$ into two classes (not disjoint). 
@@ -1410,16 +1389,23 @@ The  relation between those complexity classes is well-known \cite{Arora:2009:CC
 %There are constraints (e.g., class-specific property range, class-specific reflexive object properties) for which reasoning could be executed even though there is currently no implementation supported by any constraint language. 
 %We leave it as future work to write SPARQL CONSTRUCT queries in order to provide reasoning for these constraints.
 Note that there is also OWL 2 Full (which is not a DL) for reasoning that we will not include in our classification, since its high worst case complexity (undecidability) as well as interesting RDF constraint types with reasoning is already available in aforementioned OWLs (OWL 2 DL/QL).
-\section{Classification of Constraint Languages according to Expressivity}
+
+\section{Classification of Constraint Languages According to Expressivity}
 \label{classification-constraint-languages}
+
+reviews:
+\begin{itemize}
+	\item The term “expressivity scores” might be useful but a stronger argument is needed.
+\end{itemize}
  
 In this section, we concern ourselves with the expressivity of constraint languages, or constraint type (requirement) specific expressivity.
 Therefore, we evaluated the five most popular constraint languages on fulfilling each requirement to formulate RDF constraints.
-We also evaluated if a specific requirement is expressed by OWL 2 QL or if the more expressive OWL 2 DL is needed\cite{BoschNolleAcarEckert2015}.
+We also evaluated if a specific requirement is expressed by OWL 2 QL or if the more expressive OWL 2 DL is needed \cite{BoschNolleAcarEckert2015}.
  %As we identified three constraint-specific complexity classes in the previous section, we are now able to determine the performance (i.e. complexity) of constraint languages.  It can be beneficial not using the most expressive constraint languages when additional rather subjective criteria are evaluated.
 In evaluating the expressivity,  we introduce the intuitive notion of \emph{expressivity scores} rather than classical expressivity. The main motivation in that is, the list of constraint types is an updated list, and almost none (except SPIN) of the aforementioned languages contains one another.
 The expressivity score of a constraint language is how many constraint types can be expressed by this particular constraint language.
-While we evaluate expressivity scores, we use two sets of constraint types as before: $C_R$ and $\overline{C_R}$. The main motivation in that is, one may want to perform reasoning before actually validating the data.  For the sake of simplicity, we abbreviate \emph{expressing $C_R$} as $Expr(C_R)$, and \emph{expressing $\overline{C_R}$} as $Expr(\overline{C_R})$.
+While we evaluate expressivity scores, we use two sets of constraint types as before: $C_R$ and $\overline{C_R}$. 
+The main motivation in that is, that one may want to perform reasoning before actually validating the data.  For the sake of simplicity, we abbreviate \emph{expressing $C_R$} as $Expr(C_R)$, and \emph{expressing $\overline{C_R}$} as $Expr(\overline{C_R})$.
 
 %\emph{constraints with reasoning} can be used as axioms to infer new triples out of explicitly stated triples (see section \ref{sec:RDF-validation-requirements-and-reasoning}), but also to express constraints without reasoning. \er{Also to express constraints?}\tb{also to express constraints without reasoning}
 %If in our knowledge base it is stated that \ms{DarthVader} is a \ms{Sith} (e.g., \ms{Sith(DarthVader)}) and  Siths feel the force of the dark side (e.g., \ms{Sith $\sqsubseteq$ FeelingForceDarkSide}), it is either possible to infer that \ms{DarthVader} feels the force of the dark side (\ms{FeelingForceDarkSide(DarthVader)}) 
@@ -1445,7 +1431,9 @@ some constraint types in $\mathcal{C}_R$ are not only expressible by OWL 2  but 
 		\end{tabular}
 	\caption{Constraint Type Specific Expressivity}
 	\label{tab:constraint-type-specific-expressivity}
-\end{table}
+\end{table}\tb{The numbers in parentheses in table 2: what are these
+extensions/restrictions?  The subsequent ordering of expressivity
+seems to include these values in the ranking: why?}
 %\end{center}
 %\tb{this is indeed a misunderstanding. I only took into account that is DSP supports 6 EXPR-C constraints and OWL 2 DL 5, then DSP is more expressive than OWL 2 DL regarding the expressivity class EXPR-C / but this is not right?}
 
@@ -1465,7 +1453,7 @@ it can be more reasonable to use a more compact one like ShEx.
 
 For a validation labourer, it is relevant to question the expressivity interrelation between those constraint languages, e.g., "which constraint language could contain the whole DSP or  could be used instead?". This can also maintain the future development plans and directions of those languages in the way of achieving to be a solid standard constraint language.
 
- With the aforementioned concern, let us introduce  \emph{Expr(DSP)}  which denotes the all constraint types which are expressible by DSP.  We can consider \emph{Expr(DSP)} as an expressivity class for the constraint language DSP. Using the same fashion, one can obtain an expressivity class  per constraint language, which denotes the set of constraint types which  are expressible by that constraint language.
+With the aforementioned concern, let us introduce \emph{Expr(DSP)} which denotes the set of all constraint types which are expressible by DSP.  We can consider \emph{Expr(DSP)} as an expressivity class for the constraint language DSP. Using the same fashion, one can obtain an expressivity class  per constraint language, which denotes the set of constraint types which  are expressible by that constraint language.
 %\begin{itemize}
 	%\item \emph{Expr(DSP)}: constraints expressible by DSP
 	%\item \emph{Expr(OWL2-DL)}: constraints expressible by OWL2-DL
@@ -1791,6 +1779,11 @@ The first solution is applied on local knowledge bases whereas the second is mor
 
 \section{Conclusion and Future Work}
 
+reviews:
+\begin{itemize}
+	\item A reader might want to see some lessons or experiences that could be learned from such a comparative study.
+\end{itemize}
+
 In section \ref{the-role-of-reasoning-for-rdf-validation} we explained why reasoning is beneficial for validation and how reasoning interacts with validation.
 In section \ref{classification-rdf-constraints} we classified RDF constraints according to CWA/UNA dependency, reasoning, and complexity.
 Constraint types can either be dependent on the CWA with UNA ($\mathcal{C}_{CWA}$), when it makes a difference if the CWA/UNA or the OWA/nUNA is assumed, or independent on the CWA with UNA ($\overline{\mathcal{C}_{CWA}}$).
@@ -1801,7 +1794,7 @@ We divide $\mathcal{C}_R$ into two not disjoint classes ($\mathcal{C}_R ^{\mathc
 It is well known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}, 
 which is assigned to $\overline{\mathcal{C}_R}$ (validation by query answering without reasoning).
 In section \ref{classification-constraint-languages} we classified constraint languages according to expressivity scores and classes. 
-An interesting results is that in terms of expressivity on constraint types, 
+An interesting result is that in terms of expressivity on constraint types, 
 all constraint languages can be fully covered by SPIN (except one constraint type which is partly implemented).
 All supported constraint types are already implemented by particular constraint languages (except for SPIN).
 Another important finding is that, none of other languages covers the other so far in terms of expressivity.
