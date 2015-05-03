@@ -148,6 +148,7 @@
 % Todos
 \usepackage[colorinlistoftodos]{todonotes}
 \newcommand{\ke}[1]{\todo[size=\small, color=orange!40]{\textbf{Kai:} #1}}
+\newcommand{\er}[1]{\todo[size=\small, color=red!40]{\textbf{Erman:} #1}}
 \newcommand{\tb}[1]{\todo[size=\small, color=green!40]{\textbf{Thomas:} #1}}
 
 \setcounter{secnumdepth}{5}
@@ -408,17 +409,22 @@ The main \textbf{contributions} of this paper are:
 \section{A Vocabulary to Describe RDF Constraints Generically} 
 \label{sec:vocabulary}
 
-In order to develop a vocabulary to describe constraints of any constraint type in a generic way, what we need to do is to specify the vocabulary's underlying semantics and define the basic terminology for the formulation of constraints.
-The underlying \emph{semantics} for RDF validation are \emph{UNA} and \emph{CWA}.
+\er{A constraint that says book should have a single author in OWA, does not mean that it has a unique author. In every model  (an interpretation that makes a set of DL knowledge base true), it can be the case that a book has a single author, however, bringing all those together, this author is not unique. In some models it is Ali, in others its Veli. And since in every model there is only one, DL sentences are satisfied. But this does not correspond to the intended constraint which is usual in CWA way.} 
+
+In order to develop a vocabulary to describe constraints of any constraint type in a generic way, what we need to do is to specify the vocabulary's underlying semantics and to define the basic terminology for the formulation of constraints.
+
+\subsection{Semantics for RDF Validation}
+
+%The underlying \emph{semantics} for RDF validation is \emph{UNA} and \emph{CWA}.
 RDF validation requires that different names represent different objects ({\em unique name assumption (UNA)}), whereas,
-\emph{OWL 2} is based on the {\em non-unique name assumption (nUNA)}.  \tb{ Erman: One usual problem is that, a constraint that says book should have a single author in OWA, does not mean that it has a unique author. In every model  (an interpretation that makes a set of DL knowledge base true), it can be the case that a book has a single author, however, bringing all those together, this author is not unique. In some models it is Ali, in others its Veli. And since in every model there is only one, DL sentences are satisfied. But this does not correspond to the intended constraint which is usual in CWA way.} 
-A data property is \emph{functional} (\emph{R-65}) if for each individual \emph{x}, there can be at most one distinct literal \emph{y} such that \emph{x} is connected by the data property to \emph{y}. (See \cite{resource} for this terminology.)
+\emph{OWL 2} is based on the {\em non-unique name assumption (nUNA)}.  
+A data property is \emph{functional} (\emph{R-65}) if for each individual \emph{x}, there can be at most one distinct literal \emph{y} such that \emph{x} is connected by the data property to \emph{y}. 
 When assuming \emph{UNA}, the functional property {\em title} (\ms{funct (title)}) causes a clash
 in case the book {\em Huckleberry-Finn} has more than one \emph{title}
 (\ms{title(Huckleberry-Finn, The-Adventures-of-Huckleberry-Finn)}, \ms{title(Huckleberry-Finn, Die-Abenteuer-des-Huckleberry-Finn)}).
 Assuming nUNA, however, reasoning concludes that the titles {\em The-Adventures-of-Huckleberry-Finn} and {\em Die-Abenteuer-des-Huckleberry-Finn} are the same (\ms{\{The-Adventures-of-Huckleberry-Finn\}} = \ms{\{Die-Abenteuer-des-Huckle} \ms{berry-}\ms{Finn\}}).  
 
-Reasoning in \emph{OWL 2} is based on the {\em open-world assumption (OWA)}, i.e., a statement cannot be inferred to be false if it cannot be proved to be true . 
+Reasoning in \emph{OWL 2} is based on the {\em open-world assumption (OWA)}, i.e., a statement cannot be inferred to be false if it cannot be proved to be true. 
 %which fits its primary design purpose to represent knowledge on the World Wide Web. 
 %Most of the constraint languages except OWL, have a major shortcoming of redundancy.
 %With its open-world semantics, used as a constraint language, OWL solves the redundancy problem. 
@@ -429,11 +435,11 @@ As each \emph{book} must have a \emph{title} (\ms{Book $\sqsubseteq \exists$ tit
 In an \emph{OWA} setting, this axiom does not cause a constraint violation (even if there is no explicitly defined \emph{title}), since there must be a \emph{title} for this \emph{book} which we may not know. 
 On the other hand, RDF validation scenarios require the {\em closed-world assumption (CWA)}, i.e., a statement is inferred to be false if it cannot be proved to be true. Classical constraint languages are based on the \emph{CWA} where constraints need to be satisfied only by named individuals which yields a constraint violation.
 This ambiguity in semantics is one of the main reasons why \emph{OWL 2} has not been adopted as a standard constraint language for RDF validation in the past.  
-In case we want to use \emph{OWL 2} as a constraint language, we adopt the same semantics (CWA) that is for RDF validation in general. 
-\tb{feedback from Erman: the major problem is semantics. OWL basically work in different semantics than others. And their semantics are formal. Closed world vs. Open World is also a part of this. / Thomas: I think your issue is tackled now? No.}
-\tb{Erman: The problem is OWL doesn't work CWA way, just because we want it. If a constraint is represented (recognized) by two different languages, that means, whenever it is violated in one language it is violated in other. Since the time is tight and we cannot provide formal semantics for it; nor formally prove those statements. We  can go on with whats at hand. }
-\tb{Erman thinks formal generic semantics should be defined / Thomas: what do you mean by this? / I inserted these 2 paragraphs about RDF validation semantics. Are your concerns resolved now? }
+%In case we want to use \emph{OWL 2} as a constraint language, we adopt the same semantics (CWA) that is for RDF validation in general. 
+%\tb{feedback from Erman: the major problem is semantics. OWL basically work in different semantics than others. And their semantics are formal. Closed world vs. Open World is also a part of this. / Thomas: I think your issue is tackled now? No.}
+\er{If a constraint is represented (recognized) by two different languages, that means, whenever it is violated in one language it is violated in other. We have to provide formal generic semantics for it; nor formally prove those statements.}
 
+\subsection{Basic Terminology for the Formulation of RDF Constraints}
 
 A \textbf{\emph{constraint language}} is a language which is used to formulate constraints.
 The W3C Data Shapes working group defines \textbf{\emph{RDF constraint}} as a component of a schema what needs to be satisfied\footnote{\url{https://www.w3.org/2014/data-shapes/wiki/Glossary}}.
@@ -463,8 +469,10 @@ In contrast, there are certain constraint types which cannot be expressed in \em
 \textbf{\emph{Complex constraints}} encompass \textbf{\emph{simple constraints}} (atomic constraints) and/or further \emph{complex constraints},
 i.e. \emph{DL} statements representing \emph{complex constraints} are created out of \emph{DL} statements standing for atomic and composed constraints (if expressible in \emph{DL}). 
 Simple constraints may be applied to either properties (\textbf{\emph{property constraints}}) or classes (\textbf{\emph{class constraints}}).
-The \emph{RDF-CV} does not contain any terms standing for \emph{simple} and \emph{complex constraints}, since \emph{context classes} of \emph{simple constraints} are just reused within \emph{complex constraints} (\emph{simple constraints} associated with \emph{context classes} must hold for individuals of these \emph{context classes}). \tb{Erman: If you say its expressible in RDF-CV, than you impose that RDF-CV is a language rather than a vocabulary. "in different contexts they call it signature which is the same thing". Generally, a language uses vocabulary to construct sentences, and the set of those sentences, is the language.} (see section \ref{sec:evaluation})
+The \emph{RDF-CV} does not contain any terms standing for \emph{simple} and \emph{complex constraints}, since \emph{context classes} of \emph{simple constraints} are just reused within \emph{complex constraints} (\emph{simple constraints} associated with \emph{context classes} must hold for individuals of these \emph{context classes}). 
+%\tb{Erman: If you say its expressible in RDF-CV, than you impose that RDF-CV is a language rather than a vocabulary. "in different contexts they call it signature which is the same thing". Generally, a language uses vocabulary to construct sentences, and the set of those sentences, is the language.} (see section \ref{sec:evaluation})
 As a consequence, the distinction of \emph{property} and \emph{class constraints} is sufficient to describe constraints of all possible constraint types.
+\er{use RDF-CV / not: expressible in RDF-CV / RDF-CV is a vocabulary, not a language}
 
 \subsection{\emph{Simple Constraints} (Expressible in \emph{DL})}
 
