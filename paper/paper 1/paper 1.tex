@@ -379,8 +379,8 @@ For constraint formulation and RDF data validation, several languages exist or a
 %Shape Expressions (ShEx)\footnote{\url{http://www.w3.org/Submission/shex-primer/}}, 
 %Resource Shapes (ReSh)\footnote{\url{http://www.w3.org/Submission/shapes/}}, 
 %and Description Set Profiles (DSP)\footnote{\url{http://dublincore.org/documents/2008/03/31/dc-dsp/}}.
-The intention of the paper is not to present any concrete normative suggestion or solution on how constraints for RDF validation should be represented
-as there are already five promising languages which can be used to formulate constraints on RDF data. 
+The intention of this paper is not to present any concrete normative suggestion or solution on how constraints should be represented
+as there are already five promising languages which can be used to formulate constraints. 
 Their relevance varies with respect to several foremost criteria in the validation process, such as constraint expressivity (\emph{what kind of constraints can be expressed?}), performance (\emph{how efficient in terms of runtime can RDF data be validated?}), as well as intuitiveness and conciseness (\emph{how easy is it for a user to define constraints?}). 
 %Furthermore, the service of reasoning and its usability is in question. 
 
@@ -446,9 +446,27 @@ and to determine the capabilities of constraint languages with regard to the sam
 If reasoning can be performed or if it does not make any sense to use it depends on the individual constraint type to be expressed and not on the language. 
 Although, reasoning is not yet implemented for other languages than \emph{OWL 2}, languages can easily be extended in form of SPARQL queries.
 
-The effects of reasoning on the computational complexity of constraint types...
+Users should decide which constraints to use for completing data by reasoning 
+and which ones should be considered as constraints about data accuracy and completeness which could be checked over the data once completed using reasoning.
+Thus, we investigated for each constraint type if reasoning can be performed prior to validation to enhance data quality.
 
-The developed expressivity scores enable systems to recommend languages depending on individual use cases and therefore needed constraint types... 
+We examine the effects of reasoning on the computational complexity of constraint types...
+
+We determine constraint type specific expressivity scores of constraint languages
+which enable systems to recommend languages depending on individual use cases and therefore needed constraint types.
+
+The purpose of this paper is to provide a basis for the development of constraint languages.
+
+Tools, which apply the proposed classification system, should guide users to choose the right language for validation or to make trade-offs around the kinds of validation they need.
+
+To gain a better understanding about the role of reasoning for data quality and 
+to direct the further development of constraint languages, we investigated ...
+
+We formulate common types of constraints in \emph{Description Logics} and use this formulation to determine their possible complexity when certain reasoning steps are involved. 
+
+At last, we aggregate these findings for the most common constraint languages and show their commonalities and differences regarding constraint expressivity. 
+
+We argue that so far no single best solution exists and that the results presented in this paper are crucial for a proper application of RDF validation.
 
 This paper aims to address two main \textbf{audiences}: 
 (1) metadata practitioners seeking for the role of reasoning for validation and
@@ -457,7 +475,7 @@ The \textbf{contributions} of this paper are:
 (1) We lay the ground for discussions on RDF validation.
 (2) We work out the role that reasoning plays in practical data validation and why reasoning is important for validation (Section \ref{the-role-of-reasoning-for-rdf-validation}).
 %and therefore bridge the gap between these two worlds,
-(3) we classify RDF constraints according to CWA/UNA dependency, reasoning, and computational complexity (Section \ref{classification-rdf-constraints}).
+(3) we classify RDF constraint types according to CWA/UNA dependency, reasoning, and computational complexity (Section \ref{classification-rdf-constraints}).
 (4) We determine the constraint type specific expressivity of constraint languages (Section \ref{classification-constraint-languages}).
 
 %The remainder of the paper is as follows.
@@ -465,19 +483,6 @@ The \textbf{contributions} of this paper are:
 %In section \ref{classification-rdf-constraints}, we classify RDF constraints according to CWA/UNA dependency, reasoning, and computational complexity.
 %In section \ref{classification-constraint-languages}, we investigate the expressivity of constraint languages. 
 %Related work, conclusion and future work finalize the paper.
-
-\begin{itemize}
-	\item Users should decide which constraints to use for completing data by reasoning 
-	and which ones should be considered as constraints about data accuracy and completeness.
-	These constraints could be transformed into SPARQL queries and checked over the data once completed using reasoning.
-	\item The purpose of this paper is to provide a basis for the development of constraint languages.
-	\item Tools, which apply the proposed classification system, should guide users to choose the right language for validation or to make trade-offs around the kinds of validation they need.
-	\item To gain a better understanding about the role of reasoning for data
-  quality and in order to direct the further development of constraint languages, we investigated ...
-	\item We formulate common types of constraints in \emph{Description Logics} and use this formulation to determine their possible complexity when certain reasoning steps are involved. 
-  \item At last, we aggregate these findings for the most common constraint languages and show their commonalities and differences regarding constraint expressivity. 
-  \item We argue that so far no single best solution exists and that the results presented in this paper are crucial for a proper application of RDF validation.
-\end{itemize}
 
 %\section{This sections temporally serves to collect examples...}
 
