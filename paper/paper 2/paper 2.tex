@@ -418,9 +418,10 @@ RDF validation requires that different names represent different objects (\emph{
 \emph{OWL 2} is based on the {\em non-unique name assumption (nUNA)}.  
 A data property is \emph{functional} (\emph{R-65}) if for each individual \emph{x}, there can be at most one distinct literal \emph{y} such that \emph{x} is connected by the data property to \emph{y}. 
 When assuming \emph{UNA}, the functional property {\em title} (\ms{funct (title)}) causes a clash
-in case the book {\em Huckleberry-Finn} has more than one \emph{title}
-(\ms{title(Huckleberry-Finn, The-Adventures-of-Huckleberry-Finn)}, \ms{title(Huckleberry-Finn, Die-Abenteuer-des-Huckleberry-Finn)}).
-Assuming nUNA, however, reasoning concludes that the titles {\em The-Adventures-of-Huckleberry-Finn} and {\em Die-Abenteuer-des-Huckleberry-Finn} are the same (\ms{\{The-Adventures-of-Huckleberry-Finn\}} = \ms{\{Die-Abenteuer-des-Huckle} \ms{berry-}\ms{Finn\}}).
+in case the book {\em Huckleberry-Finn} has more than one \emph{title}.
+%(\ms{title(Huckleberry-Finn,} \ms{The-Adventures-of-Huckleberry-Finn)}, \ms{title} \ms{(Huckleberry-Finn,} \ms{Die-Abenteuer-des-Huckleberry-Finn)}).
+Assuming \emph{nUNA}, however, reasoning concludes that the titles {\em The-Adventures-of-Huckleberry-Finn} and {\em Die-Abenteuer-des-Huckleberry-Finn} are the same. 
+%(\ms{\{The-Adventures-of-Huckleberry-Finn\}} = \ms{\{Die-Abenteuer-des-Huckle} \ms{berry-}\ms{Finn\}}).
 
 Reasoning in \emph{OWL 2} is based on the {\em open-world assumption (OWA)}, i.e., a statement cannot be inferred to be false if it cannot be proved to be true. 
 %which fits its primary design purpose to represent knowledge on the World Wide Web. 
