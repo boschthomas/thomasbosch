@@ -213,8 +213,13 @@ Albstadt-Sigmaringen University, Germany \\
 
 \begin{abstract}
 
-For data practitioners embracing the world of RDF and Linked Data, the openness and flexibility is a mixed blessing. For them, data validation according to predefined constraints is a  much sought-after feature, particularly as this is taken for granted in the XML world. Several approaches exist to meet this requirement, ranging from using OWL as a constraint language to SPIN, a SPARQL-based way to formulate and check constraints. There are also specific constraint languages like Shape Expressions, Resource Shapes or Description Set Profiles that more or less explicitly address the aforementioned data practitioners.
-In this paper, we investigate the relationship of validation and reasoning and the role that reasoning plays in practical data validation. We formulate common types of constraints in Description Logic and use this formulation to determine their possible complexity when certain reasoning steps are involved. At last, we aggregate these findings for the most common constraint languages and show their commonalities and differences regarding constraint expressivity. We argue that so far no single best solution exists and that the results presented in this paper are crucial for a proper application of RDF validation.
+For data practitioners embracing the world of RDF and Linked Data, the openness and flexibility is a mixed blessing. For them, data validation according to predefined constraints is a  much sought-after feature, particularly as this is taken for granted in the XML world. 
+Several languages exist to meet this requirement, ranging from using \emph{OWL} as a constraint language to \emph{SPIN}, a SPARQL-based way to formulate and check constraints. 
+%There are also specific constraint languages like Shape Expressions, Resource Shapes or Description Set Profiles that more or less explicitly address the aforementioned data practitioners.
+In this paper, we investigate the relationship of validation and reasoning and the role that reasoning plays in practical data validation. 
+We formulate common types of constraints in \emph{Description Logics} and use this formulation to determine their possible complexity when certain reasoning steps are involved. 
+At last, we aggregate these findings for the most common constraint languages and show their commonalities and differences regarding constraint expressivity. 
+We argue that so far no single best solution exists and that the results presented in this paper are crucial for a proper application of RDF validation.
 
 % There is no standard way to formulate RDF constraints for validation,
 % however there are several popular constraint languages (i.e., SPIN, ReSh, ShEx) covering major requirements on RDF validation. Amongst others, the ontology language OWL 2 can also be considered as an expressive constraint language with a high level human-readable syntax.
@@ -362,7 +367,7 @@ each of them corresponding to an RDF constraint type.
 % -----
 
 Recently, RDF validation as a research field gained speed due to common needs of data practitioners. A typical example is the library domain that co-developed and adopted Linked Data principles very early. For libraries, the common description of resources are key business and they have a long tradition in developing and using interoperable data formats. While they embrace the openness of Linked Data and the data modeling principles provided by RDF, the data is still mostly represented in XML and this is unlikely to change soon. 
-Among the reasons for the success of XML is the possibility to formulate fine-grained constraints to be met by the data and to validate the data according to these constraints using powerful systems like DTDs, XML Schemas, RELAX NG, or Schematron.
+Among the reasons for the success of XML is the possibility to formulate fine-grained constraints to be met by the data and to validate the data according to these constraints using powerful systems like \emph{DTDs}, \emph{XML Schemas}, \emph{RELAX NG}, or \emph{Schematron}.
 
 A typical example is the definition of a library record describing a book. There are clear rules which information has to be available to describe a book properly (required fields, like a title), but also how information like an ISBN number is properly represented. Libraries seek to make their own data reusable for general purposes, but also to enrich and interlink their own data. Checking if third-party data meets own requirements or validating existing data according to new needs for a Linked Data application are among common use cases for RDF validation.
 
@@ -374,6 +379,8 @@ For constraint formulation and RDF data validation, several languages exist or a
 %Shape Expressions (ShEx)\footnote{\url{http://www.w3.org/Submission/shex-primer/}}, 
 %Resource Shapes (ReSh)\footnote{\url{http://www.w3.org/Submission/shapes/}}, 
 %and Description Set Profiles (DSP)\footnote{\url{http://dublincore.org/documents/2008/03/31/dc-dsp/}}.
+The intention of the paper is not to present any concrete normative suggestion or solution on how constraints for RDF validation should be represented
+as there are already five promising languages which can be used to formulate constraints on RDF data. 
 Their relevance varies with respect to several foremost criteria in the validation process, such as constraint expressivity (\emph{what kind of constraints can be expressed?}), performance (\emph{how efficient in terms of runtime can RDF data be validated?}), as well as intuitiveness and conciseness (\emph{how easy is it for a user to define constraints?}). 
 %Furthermore, the service of reasoning and its usability is in question. 
 
@@ -394,7 +401,12 @@ A major shortcoming when validating RDF data is \emph{redundancy}.
 %Reasoning can be used to recognize impossibilities 
 %(e.g., conference proceedings are publications, the {\em ESWC 2014 proceedings} are conference proceedings but not a publication, therefore leading to a contradiction).
 Consider that a \emph{publication} must have a \emph{publication date} which is a typical constraint.
-Defining \emph{books}, \emph{conference proceedings}, and \emph{journal articles} as a subclass of \emph{publication}, one would require to assign the concerned constraint explicitly for each, since each of them should have a \emph{publication date}, which is a typical example of redundancy. Reasoning\footnote{Reasoning in Semantic Web refers to logical reasoning that  makes implicitly available knowledge explicitly available.} is a promising solution as pre-validation step to overcome this shortcoming. Performing reasoning one can automatically infer that \emph{books} have \emph{publication date} from the facts of \emph{books} are \emph{publications}, and \emph{publications} have \emph{publications date}.  Hence, associating the constraint to the super-class \emph{publication} instead, one can overcome this problem.
+When defining \emph{books}, \emph{conference proceedings}, and \emph{journal articles} as a sub-class of \emph{publication}, one would require to assign the concerned constraint explicitly for each, since each of them should have a \emph{publication date}.
+Reasoning is a promising solution as pre-validation step to overcome this shortcoming. 
+Reasoning in Semantic Web refers to logical reasoning that  makes implicitly available knowledge explicitly available.
+When performing reasoning one can infer that \emph{books} must have a \emph{publication date} 
+from the facts that \emph{books} are \emph{publications} and \emph{publications} must have a \emph{publications date}.  
+Hence, we overcome this weakness of redundancy by associating the constraint with the super-class \emph{publication}.
 
 %(i.e., the constraint is also validated for instances of sub-classes).
 %If we define that books must have at least one author, publications must have at least one creator, and books are publications, books must also have at least one creator.
@@ -424,30 +436,35 @@ Defining \emph{books}, \emph{conference proceedings}, and \emph{journal articles
 %OWL is a reasoning language but is also used for validation and because of this leads to this discussion
 %
 %-----
-OWL is an expressive semantic web language which  is mainly praised for its reasoning capabilities in the Semantic Web community. The knowledge representation formalism {\em Description logics} (DL), with its  well-studied theoretical properties, provides the foundational basis for OWL. Furthermore, DL can be used to express constraints like (1) \emph{publications} must have at least 1 \emph{author} which must be a \emph{person} (\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}) and
-(2) \emph{books}, \emph{conference proceedings}, and \emph{journal articles} are \emph{publications} (\ms{Book $\sqcup$ ConferenceArticle $\sqcup$ JournalArticle $\sqsubseteq$ Publication}). For that reason, in our work, we map constraint types to DL statements, in order to classify each constraint type according to some characteristics concerning semantics, reasoning, and expressivity, as well as to determine the capabilities of constraint languages in those manners.
+\emph{OWL} is an expressive language which is mainly praised for its reasoning capabilities in the Semantic Web community. 
+The knowledge representation formalism {\em Description logics} (\emph{DL}), with its  well-studied theoretical properties, provides the foundational basis for \emph{OWL}. 
+\emph{DL} can be used to express constraints like (1) \emph{publications} must have at least one \emph{author} which must be a \emph{person} (\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}) and
+(2) \emph{books}, \emph{conference proceedings}, and \emph{journal articles} are \emph{publications} (\ms{Book $\sqcup$} \ms{ConferenceArticle $\sqcup$} \ms{JournalArticle $\sqsubseteq$ Publication}). 
+We map constraint types to \emph{DL} statements to classify each constraint type according to semantics, reasoning, and expressivity
+and to determine the capabilities of constraint languages with regard to the same characteristics.
 
 If reasoning can be performed or if it does not make any sense to use it depends on the individual constraint type to be expressed and not on the language. 
 Although, reasoning is not yet implemented for other languages than \emph{OWL 2}, languages can easily be extended in form of SPARQL queries.
 
-The intention of the paper is not to present any concrete normative suggestion or solution on how constraints for RDF validation should be represented
-as there are already five promising languages which can be used to formulate constraints on RDF data. 
-The developed expressivity scores, however, enable systems to recommend languages depending on individual use cases and therefore needed constraint types. 
+The effects of reasoning on the computational complexity of constraint types...
+
+The developed expressivity scores enable systems to recommend languages depending on individual use cases and therefore needed constraint types... 
 
 This paper aims to address two main \textbf{audiences}: 
 (1) metadata practitioners seeking for the role of reasoning for validation and
 (2) reasoning experts to raise the awareness for practical applications on validation.
-The \textbf{contributions} of this paper are
-(1) to lay the ground for discussions on RDF validation,
-(2) to work out the role of reasoning for validation, to show why reasoning is important for validation, and therefore bridge the gap between these two worlds,
-(3) to explain the effects of reasoning on the computational complexity of typical constraint types, and
-(4) to evaluate the constraint type specific expressivity of constraint languages.
+The \textbf{contributions} of this paper are:
+(1) We lay the ground for discussions on RDF validation.
+(2) We work out the role that reasoning plays in practical data validation and why reasoning is important for validation (Section \ref{the-role-of-reasoning-for-rdf-validation}).
+%and therefore bridge the gap between these two worlds,
+(3) we classify RDF constraints according to CWA/UNA dependency, reasoning, and computational complexity (Section \ref{classification-rdf-constraints}).
+(4) We determine the constraint type specific expressivity of constraint languages (Section \ref{classification-constraint-languages}).
 
-The remainder of the paper is as follows.
-In section \ref{the-role-of-reasoning-for-rdf-validation}, we show why reasoning is important for validation and how reasoning and validation interact.
-In section \ref{classification-rdf-constraints}, we classify RDF constraints according to CWA/UNA dependency, reasoning, and complexity.
-In section \ref{classification-constraint-languages}, we investigate the expressivity of constraint languages. 
-Related work, conclusion and future work finalize the paper.
+%The remainder of the paper is as follows.
+%In section \ref{the-role-of-reasoning-for-rdf-validation}, we show why reasoning is important for validation and how reasoning and validation interact.
+%In section \ref{classification-rdf-constraints}, we classify RDF constraints according to CWA/UNA dependency, reasoning, and computational complexity.
+%In section \ref{classification-constraint-languages}, we investigate the expressivity of constraint languages. 
+%Related work, conclusion and future work finalize the paper.
 
 \begin{itemize}
 	\item Users should decide which constraints to use for completing data by reasoning 
@@ -457,6 +474,9 @@ Related work, conclusion and future work finalize the paper.
 	\item Tools, which apply the proposed classification system, should guide users to choose the right language for validation or to make trade-offs around the kinds of validation they need.
 	\item To gain a better understanding about the role of reasoning for data
   quality and in order to direct the further development of constraint languages, we investigated ...
+	\item We formulate common types of constraints in \emph{Description Logics} and use this formulation to determine their possible complexity when certain reasoning steps are involved. 
+  \item At last, we aggregate these findings for the most common constraint languages and show their commonalities and differences regarding constraint expressivity. 
+  \item We argue that so far no single best solution exists and that the results presented in this paper are crucial for a proper application of RDF validation.
 \end{itemize}
 
 %\section{This sections temporally serves to collect examples...}
