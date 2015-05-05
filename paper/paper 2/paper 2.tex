@@ -445,7 +445,33 @@ But this does not correspond to the intended constraint which is usual in \emph{
 This ambiguity in semantics is one of the main reasons why \emph{OWL 2} has not been adopted as a standard constraint language for RDF validation in the past.  
 %In case we want to use \emph{OWL 2} as a constraint language, we adopt the same semantics (CWA) that is for RDF validation in general. 
 %\tb{feedback from Erman: the major problem is semantics. OWL basically work in different semantics than others. And their semantics are formal. Closed world vs. Open World is also a part of this. / Thomas: I think your issue is tackled now? No.}
-\er{If a constraint is represented (recognized) by two different languages, that means, whenever it is violated in one language it is violated in other. We have to provide formal generic semantics for it; formally prove those statements.}
+
+comments from Erman:
+
+\begin{itemize}
+%\item If a constraint is represented (recognized) by two different languages, that means, whenever it is violated in one language it is violated in other. We have to provide formal generic semantics for it; formally prove those statements.}
+
+\item This is simple. You write that:
+In case we want to use OWL 2 as a constraint language, we adopt the same semantics (CWA) that is for RDF validation in general.
+The question is how to adopt CWA for OWL2, because it wont behave CWA way, just because we want it. So I say, in order to show that it behaves exactly we want it to, we should show that for the cases that we express a constraint (that we speak) in a classical constraint language, say, Scheme (therefore CWA) and  also OWL,  whenever the constraint in Scheme is violated, it's OWL correspondence is also violated. That shows that they behave in the same way, as they should. 
+
+\item So if you read again my comment again, without knowing which semantics those constraint languages have, one actually does is to show, given an RDF-data it is violated in one language iff it is violated in other. And this actually corresponds to the very idea of transformation and generic semantics. 
+
+\item Now, what is a generic semantics? 
+It is, the semantics we had in our mind, when typing this long document, that we tried to underpin by the DL language. However, regarding CWA and OWA, it is possible that we made some mistakes. In order to ensure that, say, if its DL, one needs to show that, a constraint/query written a particular language should have the same answer with its correspondent DL query.
+\end{itemize}
+
+We defined the formal generic semantics of the \emph{RDF-CV} (see appendix of this paper)
+as we mapped constraint types to DL and as we described the intended \emph{CWA} and \emph{UNA} behavior of constraint types.
+In order to specify transformations between specific constraints,
+first we have to ensure identical semantics.
+Constraint languages assume identical semantics, 
+if for each constraint the following condition holds:
+If a given constraint is represented by two different languages, 
+the validation results must be exactly the same,
+i.e., whenever it is violated in one language it is also violated in the other language.
+In order to show that languages have the same semantics,
+we expressed constraint types in different languages.
 
 %Erman:
 %Section 3.1, explains a possible application only in an example specific to UNA and nUNA case, and I also have the 
