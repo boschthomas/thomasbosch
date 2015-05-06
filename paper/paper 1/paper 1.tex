@@ -1488,19 +1488,18 @@ Table \ref{tab:constraint-type-specific-complexity-classes} gives an overview of
 
 \begin{table}
 \centering
+\caption{Constraint Type Specific Complexity Classes}
 \scriptsize
-\begin{tabular}{c | c}
-
+\begin{tabular}{>{\centering\arraybackslash}m{1.5in} | >{\centering\arraybackslash}m{1in}} 
 \textbf{Constraint Type Class}  & \textbf{Complexity Class}\\
 \hline
-$\overline{\mathcal{C}_R}$ & \textsc{Pspace}-Complete \\
+$\overline{\mathcal{C}_R}$ & \textsc{Pspace}-Complete \\[7pt] 
 \hline
-$\mathcal{C}_R ^{\mathcal{QL}}$ & \textsc{Ptime} \\
+$\mathcal{C}_R ^{\mathcal{QL}}$ & \textsc{Ptime} \\[7pt]
 \hline
-$\mathcal{C}_R ^{\mathcal{DL}}$ & \textsc{N2exptime} \\
+$\mathcal{C}_R ^{\mathcal{DL}}$ & \textsc{N2exptime} \\[7pt]
 
 \end{tabular}
-\caption{Constraint Type Specific Complexity Classes}
 \label{tab:constraint-type-specific-complexity-classes}
 \end{table}
 
@@ -1549,22 +1548,39 @@ some constraint types in $\mathcal{C}_R$ are not only expressible by OWL 2  but 
 %\end{evaluation}
 %\end{center}
 %\begin{center}
-\begin{table}
-	\centering
-	  \scriptsize
-		\begin{tabular}{l|c|c|c|c|c|c}
-      \textbf{Expressivity Class} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\		
-      \hline
-      $Expr(\overline{\mathcal{C}_R})$ (42) & 6 & 18(4) & 7(4) & 8 & 12 & 41(1)\\
-      $Expr(\mathcal{C}_R)$ (32) & 8 & 29 & 11 & 11(2) & 11(1) & 32 \\ 	
-		\end{tabular}
-	\caption{Constraint Type Specific Expressivity}
-	\label{tab:constraint-type-specific-expressivity}
-\end{table}\textcolor{red}{The numbers in parentheses in table 2: what are these
+%\begin{table}
+	%\centering
+	  %\scriptsize
+		%\begin{tabular}{l|c|c|c|c|c|c}
+      %\textbf{Expressivity Class} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\		
+      %\hline
+      %$Expr(\overline{\mathcal{C}_R})$ (42) & 6 & 18(4) & 7(4) & 8 & 12 & 41(1)\\
+      %$Expr(\mathcal{C}_R)$ (32) & 8 & 29 & 11 & 11(2) & 11(1) & 32 \\ 	
+		%\end{tabular}
+	%\caption{Constraint Type Specific Expressivity}
+	%\label{tab:constraint-type-specific-expressivity}
+%\end{table}
+\textcolor{red}{The numbers in parentheses in table 2: what are these
 extensions/restrictions?  The subsequent ordering of expressivity
 seems to include these values in the ranking: why?}
 %\end{center}
 %\tb{this is indeed a misunderstanding. I only took into account that is DSP supports 6 EXPR-C constraints and OWL 2 DL 5, then DSP is more expressive than OWL 2 DL regarding the expressivity class EXPR-C / but this is not right?}
+\begin{table}
+	\centering
+	  \caption{Constraint Type Specific Expressivity}
+	  \scriptsize
+		\begin{tabular}{l|c|c}
+      \textbf{Expressivity Class} & $Expr(\overline{\mathcal{C}_R})$ (42) & $Expr(\mathcal{C}_R)$ (32) \\		
+      \hline
+			DSP & 6 & 8 \\
+			OWL2-DL & 18(4) & 29 \\ 
+			OWL2-QL & 7(4) & 11 \\
+			ReSh & 8 & 11(2) \\
+			ShEx & 12 & 11(1) \\
+			SPIN & 41(1)	& 32
+		\end{tabular}
+	\label{tab:constraint-type-specific-expressivity}
+\end{table}
 
 In Table \ref{tab:constraint-type-specific-expressivity}, the total amount of constraint types per constraint type specific expressivity is shown by numbers in round brackets in the first column.
 Numbers in paranthesis in the other columns indicate the number of constraint types which may be expressed by that particular constraint language - either by limitations, workarounds, or extensions.  
@@ -1604,21 +1620,53 @@ Table \ref{tab:expressivity-sores-according-to-expressivity-classes} shows the e
 %\emph{Expr(SPIN)} (73) & 13 & 50(4) & 15(4) & 12(9) & 23(1) & 73 \\
 %\end{evaluation}
 %\end{center}
+%\begin{table}
+	%\centering
+	  %\scriptsize
+		%\begin{tabular}{l|c|c|c|c|c|c}
+      %\textbf{Expressivity Class} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\		
+      %\hline
+			%\emph{Expr(DSP)} (14) & 14 & 13 & 1 & 7(6) & 13 & 13(1) \\
+			%\emph{Expr(OWL2DL)} (49) & 13 & 49 & 16(1) & 9(9) & 13(1) & 48(1) \\
+			%\emph{Expr(OWL2QL)} (16) & 1 & 16 & 16 & 1(2) & 2 & 15(1) \\
+			%\emph{Expr(ReSh)} (12) & 7 & 9(2) & 1(1) & 12 & 11 & 11(1) \\
+			%\emph{Expr(ShEx)} (23) & 13 & 19(2) & 2(1) & 11(7) & 23 & 22(1) \\
+			%\emph{Expr(SPIN)} (73) & 13 & 50(4) & 15(4) & 12(9) & 23(1) & 73 \\
+		%\end{tabular}
+	%\caption{Expressivity Scores according to Expressivity Classes (1)}
+	%\label{tab:expressivity-sores-according-to-expressivity-classes-1}
+%\end{table}
 \begin{table}
 	\centering
+	  \caption{Expressivity Scores according to Expressivity Classes (1)}
 	  \scriptsize
-		\begin{tabular}{l|c|c|c|c|c|c}
-      \textbf{Expressivity Class} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\		
+		\begin{tabular}{l|c|c|c}
+      \textbf{Expressivity Class} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL}\\		
       \hline
-			\emph{Expr(DSP)} (14) & 14 & 13 & 1 & 7(6) & 13 & 13(1) \\
-			\emph{Expr(OWL2DL)} (49) & 13 & 49 & 16(1) & 9(9) & 13(1) & 48(1) \\
-			\emph{Expr(OWL2QL)} (16) & 1 & 16 & 16 & 1(2) & 2 & 15(1) \\
-			\emph{Expr(ReSh)} (12) & 7 & 9(2) & 1(1) & 12 & 11 & 11(1) \\
-			\emph{Expr(ShEx)} (23) & 13 & 19(2) & 2(1) & 11(7) & 23 & 22(1) \\
-			\emph{Expr(SPIN)} (73) & 13 & 50(4) & 15(4) & 12(9) & 23(1) & 73 \\
+			\emph{Expr(DSP)} (14) & 14 & 13 & 1 \\
+			\emph{Expr(OWL2DL)} (49) & 13 & 49 & 16(1) \\
+			\emph{Expr(OWL2QL)} (16) & 1 & 16 & 16 \\
+			\emph{Expr(ReSh)} (12) & 7 & 9(2) & 1(1) \\
+			\emph{Expr(ShEx)} (23) & 13 & 19(2) & 2(1) \\
+			\emph{Expr(SPIN)} (73) & 13 & 50(4) & 15(4) \\
 		\end{tabular}
-	\caption{Expressivity Scores according to Expressivity Classes}
-	\label{tab:expressivity-sores-according-to-expressivity-classes}
+	\label{tab:expressivity-sores-according-to-expressivity-classes-1}
+\end{table}
+\begin{table}
+	\centering
+	  \caption{Expressivity Scores according to Expressivity Classes (2)}
+	  \scriptsize
+		\begin{tabular}{l|c|c|c}
+      \textbf{Expressivity Class} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\		
+      \hline
+			\emph{Expr(DSP)} (14) & 7(6) & 13 & 13(1) \\
+			\emph{Expr(OWL2DL)} (49) & 9(9) & 13(1) & 48(1) \\
+			\emph{Expr(OWL2QL)} (16) & 1(2) & 2 & 15(1) \\
+			\emph{Expr(ReSh)} (12) & 12 & 11 & 11(1) \\
+			\emph{Expr(ShEx)} (23) & 11(7) & 23 & 22(1) \\
+			\emph{Expr(SPIN)} (73) & 12(9) & 23(1) & 73 \\
+		\end{tabular}
+	\label{tab:expressivity-sores-according-to-expressivity-classes-2}
 \end{table}
 
 If we rank them according to their scores, just as before we get the following as a brief picture:
@@ -1643,7 +1691,7 @@ If we rank them according to their scores, just as before we get the following a
 \end{flalign*}
 }%
 
-From Table \ref{tab:expressivity-sores-according-to-expressivity-classes} (with numbers), one important finding is that in terms of expressivity on constraint types, 
+From Tables \ref{tab:expressivity-sores-according-to-expressivity-classes-1}-\ref{tab:expressivity-sores-according-to-expressivity-classes-2} (with numbers), one important finding is that in terms of expressivity on constraint types, 
 all constraint languages can be fully covered by SPIN if we ignore one last constraint type (i.e., the recursive queries which is partly implemented in SPIN). 
 Except for SPIN, all supported constraint types are already implemented by particular constraint languages.
 Yet another interesting message is that, none of other languages covers the other so far in terms of expressivity.
