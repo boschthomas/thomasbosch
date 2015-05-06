@@ -143,7 +143,7 @@
   %\scriptsize
   %\sffamily
   \vspace{0cm}
-  \begin{tabular}{r l}
+  \begin{tabular}{l l}
 
 }{
   \end{tabular}
@@ -879,16 +879,19 @@ Reasoning is beneficial for RDF validation as
 (3) it solves the redundancy problem. 
 Consider the following DL knowledge base $\mathcal{K}$\footnote{A knowledge base is a collection of formal statements  which corresponds to \emph{facts} or  \emph{what is known} explicitly.}
 
+{\scriptsize
 \begin{center}
 \begin{DL} 
-$\mathcal{K}=\{$ & \ms{Book $\sqsubseteq \exists$ title.$\top$}, \ms{Book $\sqsubseteq \forall$ author.Person }\\
- &(\ms{funct (title)}),\\
- &\ms{Book(Huckleberry-Finn)}, \ms{Book(Hamlet)},\\
- &\ms{author(Huckleberry-Finn, Mark-Twain)},\\
- &\ms{title(Huckleberry-Finn, The-Adventures-of-Huckleberry-Finn)},\\
- &\ms{title(Huckleberry-Finn, Die-Abenteuer-des-Huckleberry-Finn)}\}\\ 
+$\mathcal{K}=\{$ \\ 
+ \ms{ Book $\sqsubseteq \exists$ title.$\top$}, \ms{Book $\sqsubseteq \forall$ author.Person }\\
+ \ms{ ( funct (title) )},\\
+ \ms{ Book(Huckleberry-Finn)}, \ms{Book(Hamlet)},\\
+ \ms{ author(Huckleberry-Finn, Mark-Twain)},\\
+ \ms{ title(Huckleberry-Finn, The-Adventures-of-Huckleberry-Finn)},\\
+ \ms{ title(Huckleberry-Finn, Die-Abenteuer-des-Huckleberry-Finn)}\}\\ 
 \end{DL}
 \end{center}
+}%
 
 %\begin{center}
 %\begin{DL} 
@@ -1098,7 +1101,7 @@ We denote the whole set of constraint types with $\mathcal{C}$. We divide it int
 (2) $\overline{\mathcal{C}_{R}}$  which denotes the complement that is the set of constraint types for which reasoning cannot be done or does not improve the result in any obvious sense.
 
 
-{\em Literal Pattern Matching}\footnote{Corresponds to {\em R-44-PATTERN-MATCHING-ON-RDF-LITERALS}}, restricting literals to match given patterns,
+{\em Literal Pattern Matching} (\emph{R-44}), restricting literals to match given patterns,
 is a $\overline{\mathcal{C}_R}$ constraint type.
 The universal restriction \ms{Book $\sqsubseteq$ $\forall$ identifier.ISBN}, e.g., ensures that \emph{books} can only have valid ISBN identifiers, 
 i.e. strings that match a given regular expression. 
@@ -1134,7 +1137,7 @@ $C_R$ corresponds to axioms in OWL 2. %  e.g., subsumption, sub-properties, card
 %then the triple \ms{attackingByWeapon(Luke, DarthVader)} has to be stated explicitly.
 %If this triple is not stated, a constraint violation occurs.
 %If we use sub-properties with reasoning, the triple (which would cause a constraint violation) is inferred and therefore resolves the possible constraint violation.
-{\em Sub-Properties}\footnote{Corresponds to \emph{R-54-SUB-OBJECT-PROPERTIES~}, \emph{R-54-SUB-DATA-PROPERTIES}}, e.g., 
+{\em Sub-Properties} (\emph{R-54/64}), e.g., 
 is a constraint type for which reasoning may be performed.
 For instance, if a \emph{journal volume} has an {\em editor} relationship to a \emph{person}, 
 then the \emph{journal volume} must also have a {\em creator} relationship to the same \emph{person} (\ms{editor $\sqsubseteq$ creator}).
@@ -1190,7 +1193,7 @@ There are many constraint types for which {\em OWL 2 QL reasoning} can be perfor
 %These class assignments can be either explicitly stated or implicitly inferred when reasoning is performed before actually validating the data.
 %When only the triple \ms{Yoda a JediMaster} is given and reasoning is not executed, then a constraint violation is raised.
 %After reasoning, however, the triples \ms{Yoda a Jedi , FeelingForce} are inferred resulting in valid data. 
-The {\em Property Domain}\footnote{Corresponds to {\em R-25-PROPERTY-DOMAIN}} constraint
+The {\em Property Domain} (\emph{R-25}) constraint
 \ms{$\exists$ author.$\top$ $\sqsubseteq$ Publication}, e.g., 
 ensures that only \emph{publications} can have {\em author} relationships to \emph{persons}.
 This constraint can be expressed by OWL 2 QL: \ms{author rdfs:domain Publication}.
@@ -1209,18 +1212,18 @@ When reasoning is performed before validating, the class assignment \ms{rdf:type
 %Without reasoning, the data \ms{Anakin studentOf Obi-Wan} is invalid and causes a constraint violation, as it is not explicitly stated that \ms{Anakin} is assigned to the class \ms{Jedi}. 
 %When inferencing is performed before validating, the class assignment \ms{Anakin a Jedi} is inferred which prevents the constraint violation to be raised.
 
-The {\em existential quantification}\footnote{Corresponds to {\em R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}}
-\ms{Publication $\equiv$ $\exists$ publisher.Publisher} restricts publications to have at least one publisher - which can be expressed in OWL 2 QL:
+The {\em existential quantification} (\emph{R-86})
+\ms{Publication} \ms{$\equiv$} \ms{$\exists$} \ms{publisher.} \ms{Publisher} restricts publications to have at least one publisher - which can be expressed in OWL 2 QL:
 \begin{ex}
 [ a owl:Restriction ;
   owl:onProperty publisher ;
   owl:someValuesFrom Publisher ;
   rdfs:subClassOf Publication ] .
 \end{ex}
-If we execute reasoning on data containing the triples \ms{publisher(A+Conference} \ms{Proceedings, A+Publisher)} and \ms{rdf:type(A+Publisher, Publisher)}, 
+If we execute reasoning on data containing the triples \ms{publisher(A+Conference} \ms{Proceedings, A+Publisher)} and \ms{rdf:} \ms{type (A+Publisher, Publisher)}, 
 it can be inferred that {\em A+ConferenceProceedings} is a {\em publication}.
 Now, all constraints associated with {\em publications} are also validated for the individual {\em A+Conference} \emph{Proceedings} (e.g. that \emph{publications} must have at least one \emph{author}).
-Without reasoning, constraints on {\em publications} are not validated as {\em A+ConferenceProceedings} is not part of the class extension of {\em publication}.
+Without reasoning, constraints on {\em publications} are not validated as \emph{A+Conference} \emph{Proceedings} is not part of the class extension of {\em publication}.
 
 %The {\em Existential Quantification}\footnote{Corresponds to {\em R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}}
 %\ms{Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword} let us refer to all those individuals that are connected by \ms{hasLaserSword} to an individual that is an instance of the class \ms{LaserSword}.
@@ -1238,7 +1241,7 @@ Without reasoning, constraints on {\em publications} are not validated as {\em A
 %Without reasoning, these constraints won't be validated as \ms{Luke} is not within the class extension of \ms{Jedi}.
 
 \textbf{With OWL 2 DL}
-{\em Universal quantifications}\footnote{Corresponds to {\em R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}}
+{\em Universal quantifications} (\emph{R-91})
 are used to build anonymous classes containing all individuals that are connected by a particular property only to instances of a specific class.
 \emph{Publications}, e.g., can only have \emph{persons} as \emph{authors} (\ms{Publication $\sqsubseteq$ $\forall$ author.Person}), 
 which cannot be expressed by OWL 2 QL, but by OWL 2 DL \cite{owl2profiles2008}:
@@ -1332,7 +1335,7 @@ It is possible, however, to execute reasoning before validating constraints for 
 %
 %Data containing the triples \ms{Yoda a Jedi ; laserSwordColor 'blue'} is valid, 
 %whereas data including the triples \ms{DarthMaul a Jedi ; laserSwordColor 'red'} is invalid.
-With the constraint type {\em Context-Specific Exclusive OR of Properties}\footnote{Corresponds to {\em R-11-CONTEXT-SPECIFIC-EXCLUSIVE-OR-OF-PROPERTIES}} 
+With the constraint type {\em Context-Specific Exclusive OR of Properties} (\emph{R-11}) 
 it can be defined that an individual can either have a relationship via property A or via property B to given classes, but not both.
 Identifiers of publications, e.g., can either be ISBNs (for books) or ISSNs (for periodical publications), but it should not be possible to assign both identifiers to a given publication:
 \begin{center}
@@ -1401,7 +1404,7 @@ Publication { (
 
 %\textbf{Expressible by Other Constraint Languages.}
 The majority of constraints can neither be expressed by OWL 2 QL nor by OWL 2 DL, but by other constraint languages like DSP, ShEx, ReSh, or SPIN.
-{\em Default values}\footnote{Corresponds to {\em R-31-DEFAULT-VALUES-OF-RDF-OBJECTS}, {\em R-38-DEFAULT-VALUES-OF-RDF-LITERALS}}
+{\em Default values} (\emph{R-31/38})
 for properties, e.g., can be represented by ReSh and SPIN,
 so that input forms can be pre-populated. % and to insert a required property that is missing in a web service call. 
 If, e.g., no keyword is stated for \emph{Semantic Web publications}, default \emph{keywords} could be 'Semantic Web' and 'Linked Data'.
@@ -1410,7 +1413,8 @@ default triples for keywords like (\ms{keyword(This-} \ms{Paper,"Semantic Web")}
 In SPIN, rules can be associated with the class {\em owl:Thing}:
 \begin{ex}
 owl:Thing spin:rule [ a sp:Construct ; sp:text """
-    CONSTRUCT { ?subject keyword "Semantic Web", "Linked Data" . }
+    CONSTRUCT { 
+        ?subject keyword "Semantic Web", "Linked Data" . }
     WHERE { ?subject a Semantic-Web-Publication . } """ ; ] .
 \end{ex}
 This rule is applicable for each resource, as each resource is implicitly of the type {\em owl:Thing}. 
@@ -1418,9 +1422,10 @@ For each resource, the SPARQL CONSTRUCT query within the rule body is executed c
 ReSh can also be used to represent default values:
 \begin{ex}
 Semantic-Web-Publication a ResourceShape ; property [
-    name "keyword" ; propertyDefinition keyword ; valueType xsd:string ;
+    propertyDefinition keyword ; valueType xsd:string ;
     defaultValue "Semantic Web", "Linked Data" ; ] .
 \end{ex}
+%name "keyword" ; propertyDefinition keyword ; valueType xsd:string ;
 
 %Siths have per default two red laser swords.
 %If there is only stated that Darth Maul is a Sith (\ms{DarthMaul a Sith .}), then additional default triples should be inferred: 
@@ -1483,7 +1488,7 @@ Table \ref{tab:constraint-type-specific-complexity-classes} gives an overview of
 
 \begin{table}
 \centering
-
+\scriptsize
 \begin{tabular}{c | c}
 
 \textbf{Constraint Type Class}  & \textbf{Complexity Class}\\
@@ -1546,6 +1551,7 @@ some constraint types in $\mathcal{C}_R$ are not only expressible by OWL 2  but 
 %\begin{center}
 \begin{table}
 	\centering
+	  \scriptsize
 		\begin{tabular}{l|c|c|c|c|c|c}
       \textbf{Expressivity Class} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\		
       \hline
@@ -1564,11 +1570,13 @@ In Table \ref{tab:constraint-type-specific-expressivity}, the total amount of co
 Numbers in paranthesis in the other columns indicate the number of constraint types which may be expressed by that particular constraint language - either by limitations, workarounds, or extensions.  
 %\er{One possible misunderstanding (maybe not) is the ordering. It is not only based on the size of the number of the constrains that they satisfies right? For instance, if there are 6 constraints (from EXPR-C) that  DSP satisfies and OWL2-DL  can satisfy lets say only 5 of them but 13 other, in such scenario OWL2 DL and DSP would be incomparable (no ordering). It is more expressive only if it contains those 6 and extras.}
 The following order is derived from expressivity scores:
+{\tiny
 \begin{eqnarray*}
 %Expr(\mathcal{C}): ... \\
 Expr(\overline{\mathcal{C}_R}): DSP \prec OWL2QL \prec ReSh \prec ShEx \prec OWL2DL \prec SPIN \\
 Expr(\mathcal{C}_R): DSP \prec OWL2QL \prec ShEx \prec ReSh \prec OWL2DL \prec SPIN
 \end{eqnarray*}
+}%
 It depends on the individual use case which constraint language to use in order to fulfill related requirements, i.e., to express associated constraint types.
 If, e.g., many constraint types in $\mathcal{C_R}$ are needed, the constraint language SPIN is the most expressive one.
 On the other hand, if only specific requirements in $\overline{\mathcal{C_R}}$ or $\mathcal{C_R}$ are needed, 
@@ -1598,6 +1606,7 @@ Table \ref{tab:expressivity-sores-according-to-expressivity-classes} shows the e
 %\end{center}
 \begin{table}
 	\centering
+	  \scriptsize
 		\begin{tabular}{l|c|c|c|c|c|c}
       \textbf{Expressivity Class} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\		
       \hline
@@ -1613,14 +1622,26 @@ Table \ref{tab:expressivity-sores-according-to-expressivity-classes} shows the e
 \end{table}
 
 If we rank them according to their scores, just as before we get the following as a brief picture:
-\begin{eqnarray*} 
-\emph{Expr(DSP):} OWL2QL \prec ReSh \prec ShEx \preceq OWL2DL \prec SPIN \prec DSP \\
-\emph{Expr(OWL2DL):} ReSh \prec ShEx \prec DSP \prec OWL2QL \prec SPIN \prec OWL2DL \\
-\emph{Expr(OWL2QL):} DSP \prec ReSh \prec ShEx \prec SPIN \prec OWL2DL \preceq OWL2QL \\
-\emph{Expr(ReSh):} OWL2QL \prec DSP \prec OWLDL \prec ShEx \prec SPIN \prec ReSh \\
-\emph{Expr(ShEx):} OWL2QL \prec ReSh \prec DSP \prec OWL2DL \prec SPIN \prec ShEx \\
-\emph{Expr(SPIN):} ReSh \prec DSP \prec OWL2QL \prec ShEx \prec OWL2DL \prec SPIN
-\end{eqnarray*}
+%{\tiny
+%\begin{eqnarray*} 
+%\emph{Expr(DSP):} OWL2QL \prec ReSh \prec ShEx \preceq OWL2DL \prec SPIN \prec DSP \\
+%\emph{Expr(OWL2DL):} ReSh \prec ShEx \prec DSP \prec OWL2QL \prec SPIN \prec OWL2DL \\
+%\emph{Expr(OWL2QL):} DSP \prec ReSh \prec ShEx \prec SPIN \prec OWL2DL \preceq OWL2QL \\
+%\emph{Expr(ReSh):} OWL2QL \prec DSP \prec OWLDL \prec ShEx \prec SPIN \prec ReSh \\
+%\emph{Expr(ShEx):} OWL2QL \prec ReSh \prec DSP \prec OWL2DL \prec SPIN \prec ShEx \\
+%\emph{Expr(SPIN):} ReSh \prec DSP \prec OWL2QL \prec ShEx \prec OWL2DL \prec SPIN
+%\end{eqnarray*}
+%}%
+{\tiny
+\begin{flalign*}
+& \emph{Expr(DSP):} OWL2QL \prec ReSh \prec ShEx \preceq OWL2DL \prec SPIN \prec DSP & \\
+& \emph{Expr(OWL2DL):} ReSh \prec ShEx \prec DSP \prec OWL2QL \prec SPIN \prec OWL2DL & \\
+& \emph{Expr(OWL2QL):} DSP \prec ReSh \prec ShEx \prec SPIN \prec OWL2DL \preceq OWL2QL & \\
+& \emph{Expr(ReSh):} OWL2QL \prec DSP \prec OWLDL \prec ShEx \prec SPIN \prec ReSh & \\
+& \emph{Expr(ShEx):} OWL2QL \prec ReSh \prec DSP \prec OWL2DL \prec SPIN \prec ShEx & \\
+& \emph{Expr(SPIN):} ReSh \prec DSP \prec OWL2QL \prec ShEx \prec OWL2DL \prec SPIN &
+\end{flalign*}
+}%
 
 From Table \ref{tab:expressivity-sores-according-to-expressivity-classes} (with numbers), one important finding is that in terms of expressivity on constraint types, 
 all constraint languages can be fully covered by SPIN if we ignore one last constraint type (i.e., the recursive queries which is partly implemented in SPIN). 
@@ -1925,8 +1946,6 @@ As part of future work we will extend our validator to provide a list of constra
 The validator may also recommend one of these constraint languages having the highest expressivity score and lowest complexity.
 As reasoning may cause high complexity, the validator may show which constraint types from the user's selection cause the higher complexity class 
 and it may provide solutions how to get to the next lower complexity class. In this regard, it would be charming to have an estimation on which group of constraint types would demand what class of complexity. However, this is not an easy question, since complexity results are language specific and operational semantics is involved as well. Therefore, it is hard to maintain a general complexity result for a constraint type independent of the language chosen. Yet, providing an estimation for particular cases can still be straightforward.
-
-\textcolor{red}{ToDo: requirements in brackets}
 
 reviews:
 \begin{itemize}
