@@ -936,13 +936,16 @@ In an \emph{OWA} setting, this axiom does not cause a violation, even if there i
 \emph{OWA} would be a shortcoming in RDF validation.  
 Many RDF validation scenarios require the {\em closed-world assumption} (\emph{CWA}), i.e., a statement is inferred to be false if it cannot be proved to be true.
 Classical constraint languages are based on \emph{CWA} where constraints need to be satisfied only by named individuals which yields in return to a violation as there is no explicitly defined \emph{title}. 
-\emph{OWL 2} is based on the {\em non-unique name assumption} (\emph{nUNA}) whereas RDF validation requires that different names represent different objects ({\em unique name assumption} (\emph{UNA})) (see Section \ref{CWA-UNA-dependency}). 
+\emph{OWL 2} is based on the {\em non-unique name assumption} (\emph{nUNA}) whereas RDF validation requires that different names represent different objects ({\em unique name assumption} (\emph{UNA})) (for a detailed distinction see Section \ref{CWA-UNA-dependency}). 
 %There is a clash caused by the functional property {\em title} {\small\ms{(funct (title))}} and the \emph{UNA},
 %since the book {\em Huckleberry-Finn} has more than one title
 %{\small\ms{(title(Huckleberry-Finn, The-Adventures-of-Huckleberry-Finn)}}, {\small\ms{title(Huckleberry-Finn, Die-Abenteuer-des-Huckleberry-Finn))}}.
 %In \emph{OWA}, however, there is no \emph{UNA} by default, therefore reasoning will conclude that {\em The-Adventures-of-Huckleberry-Finn} is the same as {\em Die-Abenteuer-des-Huckleberry-Finn} {\small\ms{(\{The-Adventures-of-Huckleberry-Finn\}} = \ms{\{Die-Abenteuer-des-Huckleberry-Finn\})}}. 
 %This is not a problem if we add the \emph{UNA} to the \emph{OWA}, like in the \textit{DL-Lite} family \cite{Calvanese2007,Artale2009}, which is the basis for \emph{OWL 2 QL}. 
 This ambiguity in semantics is one of the main reasons why \emph{OWL 2} has not been adopted as a standard constraint language for RDF validation in the past.  
+%The prerequisite to use \emph{OWL 2} constructs in terms of constraint types, we adopt the same semantics for them (\emph{CWA} and \emph{UNA}) as for RDF validation in general.
+%Therefore, we described the intended behavior of each constraint type in terms of validation results depending on \emph{CWA} and \emph{UNA}.
+%We show for each constraint type that the corresponding OWL 2 axioms leads to the same answer as the corresponding \emph{DL} query.
 
 %\subsection{Expressivity and Complexity in OWL 2}
 
@@ -977,8 +980,8 @@ This ambiguity in semantics is one of the main reasons why \emph{OWL 2} has not 
 	%\item constraints not expressible by OWL 2 QL but by OWL 2 DL
 	%\item constraints only expressible by other constraint languages
 %\end{itemize}
-For this paper, we identified in total 74 requirements to formulate RDF constraints; each of them corresponding to a constraint type.\textcolor{red}{ToDO: 74 - 82} 
-We recently published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} (serving as appendix of this paper) in which we explain each requirement (constraint type) in detail and give examples for each (represented by listed constraint languages).
+For this paper, we identified in total 74 requirements to formulate RDF constraints; each of them corresponding to a constraint type.
+We recently published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} (serving as appendix of this paper) in which we explain each requirement (constraint type) in detail and give examples for each represented by different constraint languages.
 This technical report also contains mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
 %When the DL constructs  which are needed to express a particular constraint are known, the required expressivity and the computational complexity to perform reasoning for that constraint can be determined. 
 %The constraint \ms{Context-Specific Exclusive OR of Properties} (see section~\ref{sec:RDF-validation-requirements-without-reasoning-2}), e.g., can generically be expressed as follows:
@@ -993,7 +996,7 @@ This technical report also contains mappings to DL to logically underpin each re
 %The DL constructs \ms{property inclusion}, \ms{complement}, \ms{intersection}, \ms{union}, and \ms{existential restriction} are used to express this constraint.  
 % As existential restrictions are part of OWL 2 DL reasoning, the constraint's complexity is \textsc{N2exptime}.
 % \er{Now computational complexity? Existential restrictions are not necessarily \textsc{N2Exptime}}
-The subsequent steps are needed to get an idea about the performance (i.e. computational complexity) to validate simple (atomic) and complex (composed) constraint types:
+The subsequent steps are needed to get an idea about the performance (i.e., computational complexity) to validate simple (atomic) and complex (composed) constraint types:
 \begin{enumerate}
 	\item As reasoning may be performed as a pre-validation step, we determine for each constraint type if it makes sense to perform reasoning prior to validation.
 	\item When combining reasoning and validation, 
