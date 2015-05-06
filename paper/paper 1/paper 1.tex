@@ -431,6 +431,7 @@ We argue that so far no single best solution exists and that the results present
 %etc.).
 
 \section{Introduction}
+\label{introduction}
 
 % How research about RDF validation started
 % -----
@@ -487,10 +488,10 @@ A major shortcoming when validating RDF data is \emph{redundancy}.
 Consider that a \emph{publication} must have a \emph{publication date} which is a typical constraint.
 When defining \emph{books}, \emph{conference proceedings}, and \emph{journal articles} as a sub-class of \emph{publication}, one would require to assign the concerned constraint explicitly for each, since each of them should have a \emph{publication date}.
 Reasoning is a promising solution as pre-validation step to overcome this shortcoming. 
-Reasoning in Semantic Web refers to logical reasoning that  makes implicitly available knowledge explicitly available.
+\emph{Reasoning} in Semantic Web refers to logical reasoning that  makes implicitly available knowledge explicitly available.
 When performing reasoning one can infer that \emph{books} must have a \emph{publication date} 
 from the facts that \emph{books} are \emph{publications} and \emph{publications} must have a \emph{publications date}.  
-Hence, we overcome this weakness of redundancy by associating the constraint with the super-class \emph{publication}.
+We overcome this weakness of redundancy by associating the constraint with the super-class \emph{publication}.
 
 %(i.e., the constraint is also validated for instances of sub-classes).
 %If we define that books must have at least one author, publications must have at least one creator, and books are publications, books must also have at least one creator.
@@ -522,8 +523,8 @@ Hence, we overcome this weakness of redundancy by associating the constraint wit
 %-----
 \emph{OWL} is an expressive language which is mainly praised for its reasoning capabilities in the Semantic Web community. 
 The knowledge representation formalism {\em Description logics} (\emph{DL}), with its  well-studied theoretical properties, provides the foundational basis for \emph{OWL}. 
-\emph{DL} can be used to express constraints like (1) \emph{publications} must have at least one \emph{author} which must be a \emph{person} ({\small\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}}) and
-(2) \emph{books}, \emph{conference proceedings}, and \emph{journal articles} are \emph{publications} ({\small\ms{Book $\sqcup$} \ms{ConferenceArticle $\sqcup$} \ms{JournalArticle $\sqsubseteq$ Publication}}). 
+\emph{DL} can be used to express constraints like (1) \emph{publications} must have at least one \emph{author} which must be a \emph{person} {\small\ms{(Publication $\sqsubseteq$ $\geq$1 author.Person)}} and
+(2) \emph{books}, \emph{conference proceedings}, and \emph{journal articles} are \emph{publications} {\small\ms{(Book $\sqcup$} \ms{ConferenceArticle $\sqcup$} \ms{JournalArticle $\sqsubseteq$ Publication)}}. 
 We map constraint types to \emph{DL} statements to classify each constraint type according to semantics, reasoning, and expressivity
 and to determine the capabilities of constraint languages with regard to the same characteristics.
 
@@ -876,9 +877,9 @@ In practice, \emph{OWL 2} is well-spread and \emph{RDFS}/\emph{OWL 2} constructs
 \emph{RDF} documents follow the structure of \emph{RDFS}/\emph{OWL 2} ontologies which can therefore be reused for validation according to this structure. 
 %In particular, most of the constraint languages except OWL, have a major shortcoming of redundancy.\tb{the following example is not about solving the redundancy problem, it is about how constraint violations cab be resolved when performing reasoning / we should delete this sentence here, as we starting talking about redundancy problem below}
 Reasoning is beneficial for \emph{RDF} validation as 
-(1) it may resolve constraint violations, 
+(1) it may resolve constraint violations\footnote{For simplicity reasons, we use the term \emph{violations} instead of \emph{constraint violations} in the remainder of the paper}, 
 (2) it may cause useful constraint violations, and 
-(3) it solves the redundancy problem. 
+(3) it solves the \emph{redundancy} problem. 
 Consider the following \emph{DL} knowledge base $\mathcal{K}$\footnote{A knowledge base is a collection of formal statements  which corresponds to \emph{facts} or  \emph{what is known} explicitly.}:
 
 {\scriptsize
@@ -909,17 +910,17 @@ $\mathcal{K}=\{$ \\
 %\end{DL}
 %\end{center}
 
-As we know that \emph{books} can only have \emph{persons} as \emph{authors} ({\small \ms{Book} \ms{$\sqsubseteq$} \ms{$\forall$} \ms{author} \ms{.} \ms{Person} }), 
-{\em Huckleberry-Finn} is a \emph{book}  ({\small\ms{Book(Huckleberry-Finn)}}), 
-and \emph{Mark Twain} is its \emph{author} ({\small\ms{author(Huckleberry-Finn, Mark-Twain)}}),
-we conclude that \emph{Mark Twain} must be a \emph{person}.
+As we know that \emph{books} can only have \emph{persons} as \emph{authors} {\small \ms{(Book} \ms{$\sqsubseteq$} \ms{$\forall$} \ms{author.Person)}}, 
+{\em Huckleberry-Finn} is a \emph{book}  {\small\ms{(Book(Huckleberry-Finn))}}, 
+and \emph{Mark Twain} is its \emph{author} {\small\ms{(author(Huckleberry-Finn, Mark-Twain))}},
+we conclude that \emph{Mark Twain} is a \emph{person}.
 %The statement \ms{Book $\sqsubseteq \forall$ author.Person } says \emph{Books can have only persons as authors}. 
 %Furthermore, we know that {\em Huckleberry-Finn} is a book  (i.e., \ms{Book(Huckleberry-Finn)}) and Mark Twain is the author of this book (\ms{author(Huckleberry-Finn, Mark-Twain)}.  
 As \emph{Mark Twain} is not explicitly defined to be a \emph{person}, however, a constraint violation is raised.
-But if we apply a reasoner before validating, this constraint violation is resolved since the implicit triple {\small\ms{Person(Mark-Twain)}} is inferred. 
-Reasoning may cause additional constraint violations needed to enhance data quality, e.g., as \emph{books} are \emph{publications}, constraints on publications are also validated for \emph{books} (e.g. each publication must have a publisher).
-Most of the constraint languages except OWL 2, have a major shortcoming of redundancy.
-With its open-world semantics, used as a constraint language, \emph{OWL 2} solves the redundancy problem (see introduction). 
+(1) If we apply reasoning before validating, the violation is resolved since the implicit triple {\small\ms{Person(Mark-Twain)}} is inferred. 
+(2) Reasoning may cause additional violations needed to enhance data quality.
+As \emph{books} are \emph{publications} {\small\ms{(Book $\sqsubseteq$ Publication),}} constraints on \emph{publications} are also validated for \emph{books} (e.g. each \emph{publication} must have a \emph{publisher}) which may result in further violations.
+(3) The major shortcoming of classical constraint languages is \emph{redundancy} which is solved by \emph{OWL 2} with its open-world semantics (see Section \ref{introduction}). 
 %\tb{there is no example for solving redundancy problem / can we use the one of the introduction (just referring to this example in 1 sentence)}
 %\tb{we have no example why R causes new valuable constraint violations}
 
@@ -931,16 +932,16 @@ Reasoning in OWL 2 is based on the semantics of {\em open-world assumption} (\em
 %With its open-world semantics, used as a constraint language, OWL solves the redundancy problem. 
 %\tb{the following example does not show the redundancy problem!}
 %\tb{2. benefit: reasoning solves redundancy problem}
-As each \emph{book} must have a title ({\small\ms{Book $\sqsubseteq \exists$ title.$\top$}}) and {\em Hamlet} is a book ({\small\ms{Book(Hamlet)}}),
+As each \emph{book} must have a title {\small\ms{(Book $\sqsubseteq \exists$ title.$\top$)}} and {\em Hamlet} is a book {\small\ms{(Book(Hamlet))}},
 the \emph{book} {\em Hamlet} must have at least one title.
 In an OWA setting, this axiom does not cause a constraint violation (even if there is no explicitly defined title), since there must be a title for this \emph{book} which we may not know ($\mathcal{K}$ is consistent). 
 
 On the other hand, many RDF validation scenarios require the {\em closed-world assumption} (\emph{CWA}) (i.e., a statement is inferred to be false if it cannot be proved to be true).
 Hence, classical constraint languages are based on CWA where constraints need to be satisfied only by named individuals which yields in return to a constraint violation. This would be a shortcoming of \emph{OWA} in RDF validation. 
-We can further observe that there is a clash caused by the functional property {\em title} ({\small\ms{funct (title)}}) and the \emph{UNA},
+We can further observe that there is a clash caused by the functional property {\em title} {\small\ms{(funct (title))}} and the \emph{UNA},
 since the book {\em Huckleberry-Finn} has more than one title
-({\small\ms{title(Huckleberry-Finn, The-Adventures-of-Huckleberry-Finn)}}, {\small\ms{title(Huckleberry-Finn, Die-Abenteuer-des-Huckleberry-Finn)}}).
-In \emph{OWA}, however, there is no \emph{UNA} by default, therefore reasoning will conclude that {\em The-Adventures-of-Huckleberry-Finn} is the same as {\em Die-Abenteuer-des-Huckleberry-Finn} ({\small\ms{\{The-Adventures-of-Huckleberry-Finn\}} = \ms{\{Die-Abenteuer-des-Huckleberry-Finn\}}}). 
+{\small\ms{(title(Huckleberry-Finn, The-Adventures-of-Huckleberry-Finn)}}, {\small\ms{title(Huckleberry-Finn, Die-Abenteuer-des-Huckleberry-Finn))}}.
+In \emph{OWA}, however, there is no \emph{UNA} by default, therefore reasoning will conclude that {\em The-Adventures-of-Huckleberry-Finn} is the same as {\em Die-Abenteuer-des-Huckleberry-Finn} {\small\ms{(\{The-Adventures-of-Huckleberry-Finn\}} = \ms{\{Die-Abenteuer-des-Huckleberry-Finn\})}}. 
 This is not a problem if we add the \emph{UNA} to the \emph{OWA}, like in the \textit{DL-Lite} family \cite{Calvanese2007,Artale2009}, which is the basis for \emph{OWL 2 QL}. 
 
 %\subsection{Expressivity and Complexity in OWL 2}
