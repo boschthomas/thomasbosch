@@ -925,24 +925,24 @@ As \emph{books} are \emph{publications} {\small\ms{(Book $\sqsubseteq$ Publicati
 %\tb{we have no example why R causes new valuable constraint violations}
 
 %\tb{the next 2 paragraphs are about differences in semantics}
-\emph{OWL 2} is based on the {\em non-unique name assumption} (\emph{nUNA}) whereas RDF validation requires that different names represent different objects (a.k.a. {\em unique name assumption} (\emph{UNA})). 
-This ambiguity in semantics is one of the main reasons why \emph{OWL 2} has not been adopted as a standard constraint language for RDF validation in the past.  
-Reasoning in OWL 2 is based on the semantics of {\em open-world assumption} (\emph{OWA}), i.e., a statement cannot be inferred to be false if it cannot be proved to be true  which fits its primary design purpose: to represent knowledge on the World Wide Web. 
+Reasoning in \emph{OWL 2} is based on the {\em open-world assumption} (\emph{OWA}), i.e., a statement cannot be inferred to be false if it cannot be proved to be true  which fits its primary design purpose to represent knowledge on the \emph{WWW}. 
 %Most of the constraint languages except OWL, have a major shortcoming of redundancy.
 %With its open-world semantics, used as a constraint language, OWL solves the redundancy problem. 
 %\tb{the following example does not show the redundancy problem!}
 %\tb{2. benefit: reasoning solves redundancy problem}
-As each \emph{book} must have a title {\small\ms{(Book $\sqsubseteq \exists$ title.$\top$)}} and {\em Hamlet} is a book {\small\ms{(Book(Hamlet))}},
-the \emph{book} {\em Hamlet} must have at least one title.
-In an OWA setting, this axiom does not cause a constraint violation (even if there is no explicitly defined title), since there must be a title for this \emph{book} which we may not know ($\mathcal{K}$ is consistent). 
-
-On the other hand, many RDF validation scenarios require the {\em closed-world assumption} (\emph{CWA}) (i.e., a statement is inferred to be false if it cannot be proved to be true).
-Hence, classical constraint languages are based on CWA where constraints need to be satisfied only by named individuals which yields in return to a constraint violation. This would be a shortcoming of \emph{OWA} in RDF validation. 
-We can further observe that there is a clash caused by the functional property {\em title} {\small\ms{(funct (title))}} and the \emph{UNA},
-since the book {\em Huckleberry-Finn} has more than one title
-{\small\ms{(title(Huckleberry-Finn, The-Adventures-of-Huckleberry-Finn)}}, {\small\ms{title(Huckleberry-Finn, Die-Abenteuer-des-Huckleberry-Finn))}}.
-In \emph{OWA}, however, there is no \emph{UNA} by default, therefore reasoning will conclude that {\em The-Adventures-of-Huckleberry-Finn} is the same as {\em Die-Abenteuer-des-Huckleberry-Finn} {\small\ms{(\{The-Adventures-of-Huckleberry-Finn\}} = \ms{\{Die-Abenteuer-des-Huckleberry-Finn\})}}. 
-This is not a problem if we add the \emph{UNA} to the \emph{OWA}, like in the \textit{DL-Lite} family \cite{Calvanese2007,Artale2009}, which is the basis for \emph{OWL 2 QL}. 
+As each \emph{book} must have a \emph{title} {\small\ms{(Book $\sqsubseteq \exists$ title.$\top$)}} and {\em Hamlet} is a book {\small\ms{(Book(Hamlet)),}}
+{\em Hamlet} must have at least one \emph{title}.
+In an \emph{OWA} setting, this axiom does not cause a violation, even if there is no explicitly defined \emph{title}, since there must be a \emph{title} for this \emph{book} which we may not know ($\mathcal{K}$ is consistent).
+\emph{OWA} would be a shortcoming in RDF validation.  
+Many RDF validation scenarios require the {\em closed-world assumption} (\emph{CWA}), i.e., a statement is inferred to be false if it cannot be proved to be true.
+Classical constraint languages are based on \emph{CWA} where constraints need to be satisfied only by named individuals which yields in return to a violation as there is no explicitly defined \emph{title}. 
+\emph{OWL 2} is based on the {\em non-unique name assumption} (\emph{nUNA}) whereas RDF validation requires that different names represent different objects ({\em unique name assumption} (\emph{UNA})) (see Section \ref{CWA-UNA-dependency}). 
+%There is a clash caused by the functional property {\em title} {\small\ms{(funct (title))}} and the \emph{UNA},
+%since the book {\em Huckleberry-Finn} has more than one title
+%{\small\ms{(title(Huckleberry-Finn, The-Adventures-of-Huckleberry-Finn)}}, {\small\ms{title(Huckleberry-Finn, Die-Abenteuer-des-Huckleberry-Finn))}}.
+%In \emph{OWA}, however, there is no \emph{UNA} by default, therefore reasoning will conclude that {\em The-Adventures-of-Huckleberry-Finn} is the same as {\em Die-Abenteuer-des-Huckleberry-Finn} {\small\ms{(\{The-Adventures-of-Huckleberry-Finn\}} = \ms{\{Die-Abenteuer-des-Huckleberry-Finn\})}}. 
+%This is not a problem if we add the \emph{UNA} to the \emph{OWA}, like in the \textit{DL-Lite} family \cite{Calvanese2007,Artale2009}, which is the basis for \emph{OWL 2 QL}. 
+This ambiguity in semantics is one of the main reasons why \emph{OWL 2} has not been adopted as a standard constraint language for RDF validation in the past.  
 
 %\subsection{Expressivity and Complexity in OWL 2}
 
@@ -1005,6 +1005,7 @@ The subsequent steps are needed to get an idea about the performance (i.e. compu
 \end{enumerate}
 
 \subsection{CWA and UNA Dependency}
+\label{CWA-UNA-dependency}
 
 %reviews:
 %\begin{itemize}
