@@ -437,7 +437,7 @@ We argue that so far no single best solution exists and that the results present
 % -----
 %For many RDF applications, the formulation of constraints and the automatic validation of data according to these constraints is a much sought-after feature. 
 In 2013, the W3C invited experts from industry, government, and academia to the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/RDF-val/}}, 
-where first use cases for RDF constraint formulation and RDF data validation have been presented and discussed. 
+where first use cases for RDF constraint\footnote{For simplicity reasons, we use the terms \emph{constraint types/constraints} instead of \emph{RDF constraint types/RDF constraints} in the remainder of the paper} formulation and RDF data validation have been presented and discussed. 
 Two working groups (WGs) that follow up on this workshop are established in 2014 to develop a language to express constraints on RDF data: 
 the W3C RDF Data Shapes WG\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles task group\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
 % RDF validation requirements database
@@ -445,8 +445,8 @@ the W3C RDF Data Shapes WG\footnote{\url{http://www.w3.org/2014/rds/charter}} an
 
 Within the DCMI task group, a collaboratively curated database of RDF validation requirements has been created which contains the findings of the working groups based on various case studies provided by data institutions \cite{BoschEckert2014}. It is publicly available and open for further contributions\footnote{Online at \url{http://purl.org/net/rdf-validation}}.
 The database connects requirements to use cases, case studies and implementations and forms the basis of this paper. 
-We distinguish 82 requirements to formulate RDF constraints; 
-each of them corresponding to an RDF constraint type.
+We distinguish 82 requirements to formulate constraints; 
+each of them corresponding to a constraint type.
 
 % RDF validation in the library domain
 % -----
@@ -529,13 +529,14 @@ We map constraint types to \emph{DL} statements to classify each constraint type
 and to determine the capabilities of constraint languages with regard to the same characteristics.
 
 If reasoning can be performed or if it does not make any sense to use it depends on the individual constraint type to be expressed and not on the language. 
+Hence, we determined for each constraint type if it makes sense to perform reasoning prior to validation.
 Although, reasoning is not yet implemented for other languages than \emph{OWL 2}, languages can easily be extended in form of SPARQL queries.
 
 Users should decide which constraints to use for completing data by reasoning 
 and which ones should be considered as constraints about data accuracy and completeness which could be checked over the data once completed using reasoning.
 Thus, we investigated for each constraint type if reasoning can be performed prior to validation to enhance data quality.
 
-We examine the effects of reasoning on the computational complexity of constraint types...
+We examine the effects of reasoning on the performance, i.e., the computational complexity of constraint types.
 
 We determine constraint type specific expressivity scores of constraint languages
 which enable systems to recommend languages depending on individual use cases and therefore needed constraint types.
@@ -560,7 +561,7 @@ The \textbf{contributions} of this paper are:
 (1) We lay the ground for discussions on RDF validation.
 (2) We work out the role that reasoning plays in practical data validation and why reasoning is important for validation (Section \ref{the-role-of-reasoning-for-rdf-validation}).
 %and therefore bridge the gap between these two worlds,
-(3) we classify RDF constraint types according to CWA/UNA dependency, reasoning, and computational complexity (Section \ref{classification-rdf-constraints}).
+(3) we classify constraint types according to CWA/UNA dependency, reasoning, and computational complexity (Section \ref{classification-rdf-constraints}).
 (4) We determine the constraint type specific expressivity of constraint languages (Section \ref{classification-constraint-languages}).
 
 %The remainder of the paper is as follows.
@@ -969,10 +970,12 @@ This ambiguity in semantics is one of the main reasons why \emph{OWL 2} has not 
 
 %As a result of its expressive power, OWL 2 DL allows a large variety of sophisticated modeling capabilities for many application domains.  On the other hand, to maintain the decidability, OWL 2 DL has numerous syntactic restrictions. One example is that OWL 2 DL allows  expressing transitive properties as well as asymmetric properties, however a property to be both transitive and asymmetric (just like \emph{ancestor relation}) is not allowed. In the sequel, from RDF validation perspective, we will give some examples of constraints that remain still at the outside of its scope. 
 
-\section{Classification of RDF Constraint Types According to CWA/UNA Dependency, Reasoning and Complexity}
+\section{Classification of RDF Constraint Types According to CWA/UNA Dependency, Reasoning, and Complexity}
 \label{classification-rdf-constraints}
 
-\textcolor{red}{R1: This is wrong that the Tbox axioms ( RDF constraints in this paper) can be classified as it is suggested in Section 3. The reason is that there exist possibly complex logical interferences between them. For instance, even in lightweight DLs such as  DL-Lite, positive inclusions (PIs) can be used to infer negative inclusions (NIs).}
+\begin{itemize}
+	\item \textcolor{red}{R1: This is wrong that the Tbox axioms ( RDF constraints in this paper) can be classified as it is suggested in Section 3. The reason is that there exist possibly complex logical interferences between them. For instance, even in lightweight DLs such as  DL-Lite, positive inclusions (PIs) can be used to infer negative inclusions (NIs).}
+\end{itemize}
 
 %We divide these constraints into three classes:
 %\begin{itemize}
@@ -980,9 +983,9 @@ This ambiguity in semantics is one of the main reasons why \emph{OWL 2} has not 
 	%\item constraints not expressible by OWL 2 QL but by OWL 2 DL
 	%\item constraints only expressible by other constraint languages
 %\end{itemize}
-For this paper, we identified in total 74 requirements to formulate RDF constraints; each of them corresponding to a constraint type.
-We recently published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} (serving as appendix of this paper) in which we explain each requirement (constraint type) in detail and give examples for each represented by different constraint languages.
-This technical report also contains mappings to DL to logically underpin each requirement and to determine which DL constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
+For this paper, we identified in total 74 requirements to formulate constraints; each of them corresponding to a constraint type.
+We recently published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} (serving as appendix of this paper) in which we explain each requirement/constraint type in detail and give examples for each represented by different languages.
+This technical report also contains mappings to \emph{DL} to logically underpin each requirement and to determine which \emph{DL} constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
 %When the DL constructs  which are needed to express a particular constraint are known, the required expressivity and the computational complexity to perform reasoning for that constraint can be determined. 
 %The constraint \ms{Context-Specific Exclusive OR of Properties} (see section~\ref{sec:RDF-validation-requirements-without-reasoning-2}), e.g., can generically be expressed as follows:
 %\begin{center}
@@ -996,15 +999,15 @@ This technical report also contains mappings to DL to logically underpin each re
 %The DL constructs \ms{property inclusion}, \ms{complement}, \ms{intersection}, \ms{union}, and \ms{existential restriction} are used to express this constraint.  
 % As existential restrictions are part of OWL 2 DL reasoning, the constraint's complexity is \textsc{N2exptime}.
 % \er{Now computational complexity? Existential restrictions are not necessarily \textsc{N2Exptime}}
-The subsequent steps are needed to get an idea about the performance (i.e., computational complexity) to validate simple (atomic) and complex (composed) constraint types:
+The subsequent steps are needed to get an idea about the performance (i.e., the computational complexity) to validate \textcolor{red}{simple (atomic) and complex (composed) constraint types}:
 \begin{enumerate}
 	\item As reasoning may be performed as a pre-validation step, we determine for each constraint type if it makes sense to perform reasoning prior to validation.
-	\item When combining reasoning and validation, 
-	the distinction of constraint types regarding the dependency on the CWA and
-  on the UNA is an important aspect.
-  Thus, we evaluate each constraint type regarding the CWA and UNA dependency.
+	\item As, when combining reasoning and validation, 
+	the distinction of constraint types regarding the dependency on the \emph{CWA} and
+  on the UNA is an important aspect,
+	we determine for each constraint type if it depends on the \emph{CWA} and if it depends on the \emph{UNA}.
 	\item  Since reasoning makes difference  for some validation types, we note them with the computational complexity  of  the language that they are expressed in.
-	\item Since the combination of DL constructs of a constraint type determines its complexity, by mapping to DL we get an idea of the complexity for each constraint type in worst case.
+	\item Since the combination of \emph{DL} constructs of a constraint type determines its complexity, by mapping to \emph{DL} we get an idea of the complexity for each constraint type in worst case.
 \end{enumerate}
 
 \subsection{CWA and UNA Dependency}
@@ -1522,7 +1525,7 @@ The  relation between those complexity classes is well-known \cite{Arora:2009:CC
 \end{eqnarray*}
 %There are constraints (e.g., class-specific property range, class-specific reflexive object properties) for which reasoning could be executed even though there is currently no implementation supported by any constraint language. 
 %We leave it as future work to write SPARQL CONSTRUCT queries in order to provide reasoning for these constraints.
-Note that there is also OWL 2 Full (which is not a DL) for reasoning that we will not include in our classification, since its high worst case complexity (undecidability) as well as interesting RDF constraint types with reasoning is already available in aforementioned OWLs (OWL 2 DL/QL).
+Note that there is also OWL 2 Full (which is not a DL) for reasoning that we will not include in our classification, since its high worst case complexity (undecidability) as well as interesting constraint types with reasoning is already available in aforementioned OWLs (OWL 2 DL/QL).
 
 \section{Classification of Constraint Languages According to Expressivity}
 \label{classification-constraint-languages}
@@ -1533,7 +1536,7 @@ reviews:
 \end{itemize}
  
 In this section, we concern ourselves with the expressivity of constraint languages, or constraint type (requirement) specific expressivity.
-Therefore, we evaluated the five most popular constraint languages on fulfilling each requirement to formulate RDF constraints.
+Therefore, we evaluated the five most popular constraint languages on fulfilling each requirement to formulate constraints.
 We also evaluated if a specific requirement is expressed by OWL 2 QL or if the more expressive OWL 2 DL is needed \cite{BoschNolleAcarEckert2015}.
  %As we identified three constraint-specific complexity classes in the previous section, we are now able to determine the performance (i.e. complexity) of constraint languages.  It can be beneficial not using the most expressive constraint languages when additional rather subjective criteria are evaluated.
 In evaluating the expressivity,  we introduce the intuitive notion of \emph{expressivity scores} rather than classical expressivity. The main motivation in that is, the list of constraint types is an updated list, and almost none (except SPIN) of the aforementioned languages contains one another.
@@ -1979,7 +1982,7 @@ The first solution is applied on local knowledge bases whereas the second is mor
 \section{Conclusion and Future Work}
 
 In section \ref{the-role-of-reasoning-for-rdf-validation} we explained why reasoning is beneficial for validation and how reasoning interacts with validation.
-In section \ref{classification-rdf-constraints} we classified RDF constraints according to CWA/UNA dependency, reasoning, and complexity.
+In section \ref{classification-rdf-constraints} we classified constraints according to CWA/UNA dependency, reasoning, and complexity.
 Constraint types can either be dependent on the CWA with UNA ($\mathcal{C}_{CWA}$), when it makes a difference if the CWA/UNA or the OWA/nUNA is assumed, or independent on the CWA with UNA ($\overline{\mathcal{C}_{CWA}}$).
 We distinguish two disjoint sets of constraint types $\mathcal{C}_{R}$ ({\em constraints with reasoning}) and $\overline{\mathcal{C}_{R}}$ ({\em constraints without reasoning}).
 For each of them, we presented representative constraint types to investigate the effects of reasoning to the validation process.
