@@ -439,14 +439,16 @@ We argue that so far no single best solution exists and that the results present
 In 2013, the W3C invited experts from industry, government, and academia to the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/RDF-val/}}, 
 where first use cases for RDF constraint\footnote{For simplicity reasons, we use the terms \emph{constraint types/constraints} instead of \emph{RDF constraint types/RDF constraints} in the remainder of the paper} formulation and RDF data validation have been presented and discussed. 
 Two working groups (WGs) that follow up on this workshop are established in 2014 to develop a language to express constraints on RDF data: 
-the W3C RDF Data Shapes WG\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles task group\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
+the \emph{W3C RDF Data Shapes WG}\footnote{\url{http://www.w3.org/2014/rds/charter}} and the \emph{DCMI RDF Application Profiles task group}\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
 % RDF validation requirements database
 % -----
 
-Within the DCMI task group, a collaboratively curated database of RDF validation requirements has been created which contains the findings of the working groups based on various case studies provided by data institutions \cite{BoschEckert2014}. It is publicly available and open for further contributions\footnote{Online at \url{http://purl.org/net/rdf-validation}}.
+Within the \emph{DCMI task group}, a collaboratively curated database of RDF validation requirements has been created which contains the findings of the working groups based on various case studies provided by data institutions \cite{BoschEckert2014}. It is publicly available and open for further contributions\footnote{Online at \url{http://purl.org/net/rdf-validation}}.
 The database connects requirements to use cases, case studies and implementations and forms the basis of this paper. 
 We distinguish 82 requirements to formulate constraints; 
 each of them corresponding to a constraint type.
+The \emph{W3C} WG defines \emph{constraint} as a component of a schema what needs to be satisfied\footnote{\url{https://www.w3.org/2014/data-shapes/wiki/Glossary}.}. 
+A concrete constraint is instantiated from exactly one \emph{constraint type}.
 
 % RDF validation in the library domain
 % -----
@@ -531,13 +533,13 @@ and to determine the capabilities of constraint languages with regard to the sam
 As \emph{OWL 2} has different semantics than RDF validation and as we want to use \emph{OWL 2} axioms as constraint types, 
 we determine the semantics in terms of validation results for each constraint type.
 
-If reasoning can be performed or if it does not make any sense to use it depends on the individual constraint type to be expressed and not on the language. 
-Hence, we determined for each constraint type if it makes sense to perform reasoning prior to validation.
-Although, reasoning is not yet implemented for other languages than \emph{OWL 2}, languages can easily be extended in form of SPARQL queries.
-
-Users should decide which constraints to use for completing data by reasoning 
-and which ones should be considered as constraints about data accuracy and completeness which could be checked over the data once completed using reasoning.
-Thus, we investigated for each constraint type if reasoning can be performed prior to validation to enhance data quality.
+Validation environments should enable users to select which constraint types to use for completing data by reasoning 
+and which ones should be considered as constraint types about data accuracy and completeness which could be checked over the data once completed using reasoning.
+Therefore, we investigate the affect of reasoning to the validation process of each constraint type, i.e.,
+we examine if reasoning can be performed prior to validation to enhance data quality
+either (1) by resolving violations or (2) by raising valuable violations.
+If reasoning can be performed to enhance data quality depends on the individual constraint type and not on the language. 
+Although, reasoning is not yet implemented for other languages than \emph{OWL 2}, languages can easily be extended in form of \emph{SPARQL} queries.
 
 We examine the effects of reasoning on the performance, i.e., the computational complexity of constraint types.
 
@@ -946,7 +948,10 @@ Classical constraint languages are based on \emph{CWA} where constraints need to
 %{\small\ms{(title(Huckleberry-Finn, The-Adventures-of-Huckleberry-Finn)}}, {\small\ms{title(Huckleberry-Finn, Die-Abenteuer-des-Huckleberry-Finn))}}.
 %In \emph{OWA}, however, there is no \emph{UNA} by default, therefore reasoning will conclude that {\em The-Adventures-of-Huckleberry-Finn} is the same as {\em Die-Abenteuer-des-Huckleberry-Finn} {\small\ms{(\{The-Adventures-of-Huckleberry-Finn\}} = \ms{\{Die-Abenteuer-des-Huckleberry-Finn\})}}. 
 %This is not a problem if we add the \emph{UNA} to the \emph{OWA}, like in the \textit{DL-Lite} family \cite{Calvanese2007,Artale2009}, which is the basis for \emph{OWL 2 QL}. 
-This ambiguity in semantics is one of the main reasons why \emph{OWL 2} has not been adopted as a standard constraint language for RDF validation in the past.  
+This ambiguity in semantics is one of the main reasons why \emph{OWL 2} has not been adopted as a standard constraint language for RDF validation in the past.
+
+\textcolor{red}{introduction of OWL 2 QL and DL}
+  
 %The prerequisite to use \emph{OWL 2} constructs in terms of constraint types, we adopt the same semantics for them (\emph{CWA} and \emph{UNA}) as for RDF validation in general.
 %Therefore, we described the intended behavior of each constraint type in terms of validation results depending on \emph{CWA} and \emph{UNA}.
 %We show for each constraint type that the corresponding OWL 2 axioms leads to the same answer as the corresponding \emph{DL} query.
@@ -1010,8 +1015,8 @@ The subsequent steps are needed to get an idea about the performance (i.e., the 
 	%\item As the distinction of constraint types regarding the dependency on the \emph{CWA} and
   %on the UNA is an important aspect when combining reasoning and validation,
 	%we determine for each constraint type if it depends on the \emph{CWA} and if it depends on the \emph{UNA}.
-	\item We determine for each constraint type if it makes sense to perform reasoning prior to validation
-  in order to investigate the affect of reasoning to the validation process.
+	\item  We investigate the affect of reasoning to the validation process of each constraint type, i.e.,
+we examine if reasoning can be performed prior to validation to enhance data quality.
 	\item Since reasoning makes difference  for some validation types, we note them with the computational complexity  of  the language that they are expressed in.
 	\item Since the combination of \emph{DL} constructs of a constraint type determines its complexity, by mapping to \emph{DL} we get an idea of the complexity for each constraint type in worst case.
 \end{enumerate}
@@ -1050,14 +1055,14 @@ We classify constraint types according to the dependency on the \emph{CWA} and t
 
 (1) $\mathcal{CT}_{CWA}$ denotes the set of constraint types which are dependent on the \emph{CWA},
 	i.e., the set of constraint types for which it makes a difference if the CWA or the OWA is assumed.
-{\em Minimum qualified cardinality restrictions} (\emph{R-75}) is a $\mathcal{CT}_{CWA}$ constraint type, i.e., depends on the \emph{CWA}.
-\emph{Publications}, e.g., must have at least one \emph{author} (\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}).
+{\em Minimum qualified cardinality restrictions} (\emph{R-75})\footnote{The constraint type corresponds to the requirement \emph{R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES}; requirements/constraint types are uniquely identified by alphanumeric technical identifiers.} is a $\mathcal{CT}_{CWA}$ constraint type, i.e., depends on the \emph{CWA}.
+\emph{Publications}, e.g., must have at least one \emph{author} {\small\ms{(Publication $\sqsubseteq$ $\geq$1 author.Person)}}.
 In a \emph{CWA} setting, a \emph{publication} without an explicitly stated author violates the constraint, 
 whereas, with \emph{OWA} semantics, 
 a \emph{publication} without an explicitly stated \emph{author} does not raise a constraint violation 
 as the axiom entails that there must be an \emph{author} which we may not know.
 (2) $\overline{\mathcal{CT}_{CWA}}$ is the complement of $\mathcal{CT}_{CWA}$ and thus includes constraint types which are independent on the \emph{CWA}.
-Nothing can be a \emph{book} and a \emph{journal article}  at the same time (\ms{Book $\sqcap$ JournalArticle $\sqsubseteq$ $\perp$}).
+Nothing can be a \emph{book} and a \emph{journal article}  at the same time {\small\ms{(Book $\sqcap$ JournalArticle $\sqsubseteq$ $\perp$)}}.
 For the constraint type {\em disjoint classes} (\emph{R-7}), it does not make any difference if the \emph{CWA} or the \emph{OWA} is taken,
 as if there is a \emph{publication} which is a \emph{book} and a \emph{journal article} a constraint violation is raised in both settings.
 %as all information needed for validation is explicitly available in both cases. 
@@ -1072,7 +1077,7 @@ as if there is a \emph{publication} which is a \emph{book} and a \emph{journal a
 
 (3) $\mathcal{CT}_{UNA}$ denotes the set of constraint types which are dependent on the \emph{UNA}.
 For \emph{Functional properties} (\emph{R-57/65}), it makes a difference if \emph{UNA} or \emph{nUNA} is assumed.
-The property \emph{title} is functional (\ms{funct (title)}), i.e., for each \emph{book} there can be at most one distinct \emph{title}.
+The property \emph{title} is functional {\small\ms{(funct (title))}}, i.e., for each \emph{book} there can be at most one distinct \emph{title}.
 \emph{UNA} causes a clash
 if the \emph{book} {\em Huckleberry-Finn} has more than one \emph{title}.
 %(\ms{title(Huckleberry-Finn, The-Adventures-of-Huckleberry-Finn)}, \ms{title(Huckleberry-Finn, Die-Abenteuer-des-Huckleberry-Finn)}).
@@ -1080,7 +1085,7 @@ For \emph{nUNA}, however, reasoning concludes that the \emph{title} {\em The-Adv
 %(\ms{\{The-Adventures-of-Huckleberry-Finn\}} = \ms{\{Die-Abenteuer-des-Huckle} \ms{berry-}\ms{Finn\}}) 
 which resolves the constraint violation. 
 (4) $\overline{\mathcal{CT}_{UNA}}$ (complement of $\mathcal{CT}_{UNA}$) denotes the set of constraint types which are independent on the \emph{UNA}.
-The {\em existential quantification} (\emph{R-86}) \ms{Publication $\equiv$ $\exists$ publisher.Publisher}, e.g., restricts \emph{publications} to have at least one \emph{publisher}.
+The {\em existential quantification} (\emph{R-86}) {\small\ms{Publication $\equiv$ $\exists$ publisher.Publisher}}, e.g., restricts \emph{publications} to have at least one \emph{publisher}.
 If \emph{A+ConferenceProceedings} are published by \emph{A+Publisher} and \emph{APlusPublisher},
 it does not matter if \emph{A+Publisher} and \emph{APlusPublisher} refer to one identical \emph{publisher} or to two distinct \emph{publishers}
 as in both cases the \emph{publication} has a \emph{publisher} which satisfies the constraint.
@@ -1112,37 +1117,49 @@ Hence, for the majority of constraint types it makes a difference if the \emph{C
 %... after thinking a while I have a feeling that there is no real
 %dictsinction between  C_R and C_R'.
 
-We determine for each constraint type if it makes sense to perform reasoning prior to validation
-in order to investigate the affect of reasoning to the validation process.
-The W3C WG defines \emph{constraint} as a component of a schema what needs to be satisfied\footnote{\url{https://www.w3.org/2014/data-shapes/wiki/Glossary}.}. 
-A concrete constraint is instantiated from exactly one \emph{constraint type}.
+Validation environments should enable users to select which constraint types to use for completing data by reasoning 
+and which ones should be considered as constraint types about data accuracy and completeness which could be checked over the data once completed using reasoning.
+Therefore, we investigate the affect of reasoning to the validation process of each constraint type, i.e.,
+we examine if reasoning can be performed prior to validation to enhance data quality
+either (1) by resolving violations or (2) by raising valuable violations.
 We denote the whole set of constraint types with $\mathcal{CT}$ which we divide into two disjoint sets: 
-(1) $\mathcal{CT}_R$ is the set of constraint types that can carry out the validation process via reasoning, especially when not all the knowledge is explicit.  
-(2) $\overline{\mathcal{CT}_{R}}$  denotes the complement that is the set of constraint types for which reasoning cannot be done or does not improve the result in any obvious sense.
+(1) $\mathcal{CT}_R$ is the set of constraint types for which reasoning can be performed prior to validation (especially when not all the knowledge is explicit) in order to enhance data quality
+either by resolving violations or by raising valuable violations.
+%that can carry out the validation process via reasoning, especially when not all the knowledge is explicit.  
+(2) $\overline{\mathcal{CT}_{R}}$  denotes the complement that is the set of constraint types for which reasoning cannot be done or which do not contribute to improve data quality in any obvious sense.
 
+{\em Sub-Properties} (\emph{R-54/64}) is an example of a $\mathcal{CT}_R$ constraint type for which reasoning can be performed prior to validation to enhace data quality.
+%corresponds to axioms in \emph{OWL 2}
+If a \emph{journal volume}, e.g., has an {\em editor} relationship to a \emph{person}, 
+then the \emph{journal volume} must also have a {\em creator} relationship to the same \emph{person} {\small\ms{(editor $\sqsubseteq$ creator),}}i.e., 
+\emph{editor} is a sub-property of \emph{creator}.
+If we use \emph{sub-properties} without reasoning and the data contains the triple {\small\ms{editor(A+JournalVolume, A+Editor)}},
+then the triple {\small\ms{creator(A+JournalVolume, A+Editor)}} has to be stated explicitly.
+If this triple is not stated, a constraint violation occurs.
+If we use \emph{sub-properties} with reasoning, however, the required triple is inferred which resolves the violation.
 
-{\em Literal Pattern Matching} (\emph{R-44}), restricting literals to match given patterns,
-is a $\overline{\mathcal{C}_R}$ constraint type.
-The universal restriction \ms{Book $\sqsubseteq$ $\forall$ identifier.ISBN}, e.g., ensures that \emph{books} can only have valid ISBN identifiers, 
-i.e. strings that match a given regular expression. 
-%\er{This is no OWL.}\tb{resolved}
-A data range expression is restricted in OWL 2 QL to the predefined datatypes and the intersection of data ranges. 
-Thus, the restriction of the datatype {\em ISBN} cannot be expressed by OWL 2 QL, but by OWL 2 DL: % \er{DL can naturally express datatypes. All you need to do is to define \emph{DroidNumber} as a concrete domain.}\tb{resolved}  
-
+{\em Literal Pattern Matching} (\emph{R-44}), which restricts literals to match given patterns,
+is an example of a $\overline{\mathcal{CT}_R}$ constraint type:
+% \er{DL can naturally express datatypes. All you need to do is to define \emph{DroidNumber} as a concrete domain.}\tb{resolved}  
 \begin{ex}
 ISBN a RDFS:Datatype ; owl:equivalentClass [ a RDFS:Datatype ;
     owl:onDatatype xsd:string ; 
     owl:withRestrictions ([ xsd:pattern "^\d{9}[\d|X]\$" ])] .
 \end{ex}
 
-The first OWL 2 axiom explicitly declares {\em ISBN} to be a datatype. %\er{Why start from second and then first? Also better we say "owl axiom" when we talk axiom of owl, to prevent ambiguity.}\tb{resolved}
-The second OWL 2 axiom defines {\em ISBN} as an abbreviation for a datatype restriction on {\em xsd:string}. 
-The datatype {\em ISBN} can be used just like any other datatype like in the universal restriction above.
+The first \emph{OWL 2} axiom explicitly declares {\em ISBN} to be a datatype. %\er{Why start from second and then first? Also better we say "owl axiom" when we talk axiom of owl, to prevent ambiguity.}\tb{resolved}
+The second \emph{OWL 2} axiom defines {\em ISBN} as an abbreviation for a datatype restriction on {\em xsd:string}. 
+The datatype {\em ISBN} can be used just like any other datatype such as in
+the universal restriction \ms{Book $\sqsubseteq$ $\forall$ identifier.ISBN} which ensures that \emph{books} can only have valid \emph{ISBN} identifiers, 
+i.e., strings that match a given regular expression. 
+%\er{This is no OWL.}\tb{resolved}
+The restriction of the datatype {\em ISBN} is only expressible in \emph{OWL 2 DL},
+as a data range expression is restricted to the predefined datatypes and the intersection of data ranges in \emph{OWL 2 QL}. 
 %The literal pattern matching constraint validates {\em ISBN} literals according to the stated regular expression. 
 %The triples \ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber} cause a constraint violation. 
 %The triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}, however, lead to valid data. %\er{Let us divide this last sentence of the paragraph.}\tb{resolved}
 
-$C_R$ corresponds to axioms in OWL 2. %  e.g., subsumption, sub-properties, cardinality restrictions, existential, and universal restrictions.
+%  e.g., subsumption, sub-properties, cardinality restrictions, existential, and universal restrictions.
 %As we are dealing with fields from different research communities, we define our own nomenclature for RDF validation instead of reusing the heavily overloaded term axiom.
 %For instance, for  many in DL community, axioms are only those which are statements of TBox (subsumption statements), if there is a TBox and ABox. 
 %In OWL community, an ABox statement  i.e., "class assertion" is also called "class membership axiom". 
@@ -1157,14 +1174,6 @@ $C_R$ corresponds to axioms in OWL 2. %  e.g., subsumption, sub-properties, card
 %then the triple \ms{attackingByWeapon(Luke, DarthVader)} has to be stated explicitly.
 %If this triple is not stated, a constraint violation occurs.
 %If we use sub-properties with reasoning, the triple (which would cause a constraint violation) is inferred and therefore resolves the possible constraint violation.
-{\em Sub-Properties} (\emph{R-54/64}), e.g., 
-is a constraint type for which reasoning may be performed.
-For instance, if a \emph{journal volume} has an {\em editor} relationship to a \emph{person}, 
-then the \emph{journal volume} must also have a {\em creator} relationship to the same \emph{person} (\ms{editor $\sqsubseteq$ creator}).
-If we use \emph{sub-properties} without reasoning and the data contains the triple \ms{editor(A+Journal} \ms{Volume, A+Editor)},
-then the triple \ms{creator(A+JournalVolume, A+Editor)} has to be stated explicitly.
-If this triple is not stated, a constraint violation occurs.
-But if we use \emph{sub-properties} with reasoning, the triple (which would cause a constraint violation) is inferred and therefore resolves the constraint violation.
 
 \subsubsection{Constraint Types with Reasoning}
 \label{sec:RDF-validation-requirements-and-reasoning}
@@ -1189,7 +1198,7 @@ Reasoning may be a pre validation step to infer triples resolving constraint vio
 %The existential restriction is not checked for the triple \ms{YediMaster(Yoda)}, as \ms{Yoda} is a \ms{JediMaster} and not a \ms{Jedi} as well.
 %If, however, our knowledge base contains the axiom \ms{JediMaster $\sqsubseteq$ Jedi}, the triple \ms{Jedi(Yoda)} is inferred and the existential restrictions is validated for the individual \ms{Yoda}, raising a constraint violation if a triple such as \ms{hasLaserSword(Yoda, GreenLaserSword)} is not included in the knowledge base. 
 
-\textbf{With OWL 2 QL}
+\textbf{With \emph{OWL 2 QL}}
 There are many constraint types for which {\em OWL 2 QL reasoning} can be performed. 
 %{\em Subsumption}\footnote{Corresponds to {\em R-100-SUBSUMPTION}}
 %relationships of both classes and properties are part of basic reasoning.
@@ -1260,11 +1269,11 @@ Without reasoning, constraints on {\em publications} are not validated as \emph{
 %As the individual \ms{Luke} is assigned to the class \ms{Jedi}, all constraint associated with this class are also validated, for example that Jedis must have blue laser swords.
 %Without reasoning, these constraints won't be validated as \ms{Luke} is not within the class extension of \ms{Jedi}.
 
-\textbf{With OWL 2 DL}
+\textbf{With \emph{OWL 2 DL}}
 {\em Universal quantifications} (\emph{R-91})
 are used to build anonymous classes containing all individuals that are connected by a particular property only to instances of a specific class.
 \emph{Publications}, e.g., can only have \emph{persons} as \emph{authors} (\ms{Publication $\sqsubseteq$ $\forall$ author.Person}), 
-which cannot be expressed by OWL 2 QL, but by OWL 2 DL \cite{owl2profiles2008}:
+which cannot be expressed by \emph{OWL 2 QL}, but by \emph{OWL 2 DL} \cite{owl2profiles2008}:
 \begin{ex}
 [ a owl:Restriction ;
   owl:onProperty author ;
