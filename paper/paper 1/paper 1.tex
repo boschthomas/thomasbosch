@@ -1128,7 +1128,8 @@ We denote the whole set of constraint types with $\mathcal{CT}$ which we divide 
 (1) $\mathcal{CT}_R$ is the set of constraint types for which reasoning can be performed prior to validation (especially when not all the knowledge is explicit) in order to enhance data quality
 either by resolving violations or by raising valuable violations.
 %that can carry out the validation process via reasoning, especially when not all the knowledge is explicit.  
-(2) $\overline{\mathcal{CT}_{R}}$  denotes the complement that is the set of constraint types for which reasoning cannot be done or which do not contribute to improve data quality in any obvious sense.
+(2) $\overline{\mathcal{CT}_{R}}$  denotes the complement that is the set of constraint types for which reasoning cannot be done or 
+for which reasoning does not improve data quality in any obvious sense.
 
 {\em Sub-Properties} (\emph{R-54/64}) is an example of a $\mathcal{CT}_R$ constraint type for which reasoning can be performed prior to validation to enhace data quality.
 %corresponds to axioms in \emph{OWL 2}
@@ -1315,10 +1316,10 @@ since it is not explicitly stated that \emph{Tolkien} is a \emph{person}.
 \subsubsection{Constraint Types without Reasoning}
 \label{RDF-Validation-Requirements-without-Reasoning}
 
-$\overline{\mathcal{CT}_{R}}$ is the set of constraint types for which reasoning cannot be done or which do not contribute to improve data quality in any obvious sense.
-
-\textcolor{red}{For the majority of the constraint types, reasoning is not needed to be performed prior to validation.
-It is possible, however, to execute reasoning before validating constraints for which reasoning does not affect validation results.}
+$\overline{\mathcal{CT}_{R}}$ is the set of constraint types for which reasoning cannot be done or 
+for which reasoning does not improve data quality in any obvious sense.
+%\textcolor{red}{For the majority of the constraint types, reasoning is not needed to be performed prior to validation.
+%It is possible, however, to execute reasoning before validating constraints for which reasoning does not affect validation results.}
 %\textbf{Expressible by OWL 2.}
 %\label{sec:RDF-validation-requirements-without-reasoning-2}
 %\textbf{Literal Pattern Matching}\footnote{corresponds to R-44-PATTERN-MATCHING-ON-RDF-LITERALS}\textbf{.} 
@@ -1381,15 +1382,15 @@ It is possible, however, to execute reasoning before validating constraints for 
 %Data containing the triples \ms{Yoda a Jedi ; laserSwordColor 'blue'} is valid, 
 %whereas data including the triples \ms{DarthMaul a Jedi ; laserSwordColor 'red'} is invalid.
 With the constraint type {\em Context-Specific Exclusive OR of Properties} (\emph{R-11}) 
-it can be defined that an individual can either have a relationship via property A or via property B to given classes, but not both.
-Identifiers of publications, e.g., can either be ISBNs (for books) or ISSNs (for periodical publications), but it should not be possible to assign both identifiers to a given publication:
+it can be defined that an individual can either have property A or property B, but not both.
+Identifiers of \emph{publications}, e.g., can either be ISBNs (for books) or ISSNs (for periodical publications), but it should not be possible to assign both identifiers to a given \emph{publication}:
 \begin{center}
 \begin{DL}
 Publication $\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
 A $\equiv$ $\exists$ isbn.xsd:string , B $\equiv$ $\exists$ issn.xsd:string \\ 
 \end{DL} 
 \end{center}
-Expressing this constraint by OWL 2 DL can be seen as a workaround, 
+Representing this constraint in \emph{OWL 2 DL} can be seen as a workaround 
 as anonymous classes are built for each of the exclusive properties:
 \begin{ex}
 Publication owl:disjointUnionOf ( CC1 CC2 ) . 
@@ -1400,7 +1401,7 @@ CC2 rdfs:subClassOf [ a owl:Restriction ;
     owl:onProperty issn ;
     owl:someValuesFrom xsd:string ] .
 \end{ex}
-The same constraint can be expressed by ShEx more intuitively and concisely:
+The same constraint can be represented by \emph{ShEx} more intuitively and concisely:
 \begin{ex}
 Publication { ( isbn xsd:string | issn xsd:string ) }
 \end{ex}
@@ -1447,23 +1448,24 @@ Publication { ( isbn xsd:string | issn xsd:string ) }
 %As Darth Sidious has both relationships, a constraint Violation is raised.
 
 %\textbf{Expressible by Other Constraint Languages.}
-The majority of constraints can neither be expressed by OWL 2 QL nor by OWL 2 DL, but by other constraint languages like DSP, ShEx, ReSh, or SPIN.
+The majority of the $\overline{\mathcal{CT}_{R}}$ constraint types can neither be expressed by \emph{OWL 2 QL} nor by \emph{OWL 2 DL}, 
+but by other constraint languages like \emph{DSP}, \emph{ShEx}, \emph{ReSh}, or \emph{SPIN}.
 {\em Default values} (\emph{R-31/38})
-for properties, e.g., can be represented by ReSh and SPIN,
-so that input forms can be pre-populated. % and to insert a required property that is missing in a web service call. 
-If, e.g., no keyword is stated for \emph{Semantic Web publications}, default \emph{keywords} could be 'Semantic Web' and 'Linked Data'.
+for properties are expressible by \emph{ReSh} and \emph{SPIN}.
+%so that input forms can be pre-populated. % and to insert a required property that is missing in a web service call. 
+In case no keyword is stated for \emph{Semantic Web publications}, default \emph{keywords} could be 'Semantic Web' and 'Linked Data'.
 As this paper is a \emph{Semantic Web publication} {\small\ms{(rdf:type(This-Paper, Semantic-Web-Publication))}}, 
-default triples for keywords like {\small\ms{(keyword(This-} \ms{Paper,"Semantic Web")}} could be inferred.
-In SPIN, rules can be associated with the class {\em owl:Thing}:
+default values for keywords like {\small\ms{keyword(This-Paper,"Semantic Web")}} are inferred.
+In \emph{SPIN}, rules can be associated with the class {\em owl:Thing}:
 \begin{ex}
 owl:Thing spin:rule [ a sp:Construct ; sp:text """
     CONSTRUCT { 
         ?subject keyword "Semantic Web", "Linked Data" . }
     WHERE { ?subject a Semantic-Web-Publication . } """ ; ] .
 \end{ex}
-This rule is applicable for each resource, as each resource is implicitly of the type {\em owl:Thing}. 
-For each resource, the SPARQL CONSTRUCT query within the rule body is executed creating the default triples.
-ReSh can also be used to represent default values:
+This rule is applicable for each resource as each resource is implicitly of the type {\em owl:Thing}. 
+For each resource, the \emph{SPARQL CONSTRUCT} query within the rule body is executed which generates the default triples.
+The same \emph{default values} constraint can also be represented by \emph{ReSh}:
 \begin{ex}
 Semantic-Web-Publication a ResourceShape ; property [
     propertyDefinition keyword ; valueType xsd:string ;
