@@ -528,6 +528,9 @@ The knowledge representation formalism {\em Description logics} (\emph{DL}), wit
 We map constraint types to \emph{DL} statements to classify each constraint type according to semantics, reasoning, and expressivity
 and to determine the capabilities of constraint languages with regard to the same characteristics.
 
+As \emph{OWL 2} has different semantics than RDF validation and as we want to use \emph{OWL 2} axioms as constraint types, 
+we determine the semantics in terms of validation results for each constraint type.
+
 If reasoning can be performed or if it does not make any sense to use it depends on the individual constraint type to be expressed and not on the language. 
 Hence, we determined for each constraint type if it makes sense to perform reasoning prior to validation.
 Although, reasoning is not yet implemented for other languages than \emph{OWL 2}, languages can easily be extended in form of SPARQL queries.
@@ -1001,12 +1004,15 @@ This technical report also contains mappings to \emph{DL} to logically underpin 
 % \er{Now computational complexity? Existential restrictions are not necessarily \textsc{N2Exptime}}
 The subsequent steps are needed to get an idea about the performance (i.e., the computational complexity) to validate \textcolor{red}{simple (atomic) and complex (composed) constraint types}:
 \begin{enumerate}
-	\item As reasoning may be performed as a pre-validation step, we determine for each constraint type if it makes sense to perform reasoning prior to validation.
-	\item As, when combining reasoning and validation, 
-	the distinction of constraint types regarding the dependency on the \emph{CWA} and
-  on the UNA is an important aspect,
-	we determine for each constraint type if it depends on the \emph{CWA} and if it depends on the \emph{UNA}.
-	\item  Since reasoning makes difference  for some validation types, we note them with the computational complexity  of  the language that they are expressed in.
+	\item As 34 of 74 constraint types correspond to \emph{OWL 2} axioms and as \emph{OWL 2} has different semantics than RDF validation, 
+	we have to determine the semantics in terms of validation results for each constraint type.
+	Thus, we determine for each constraint type if it depends on the \emph{CWA} and if it depends on the \emph{UNA}.
+	%\item As the distinction of constraint types regarding the dependency on the \emph{CWA} and
+  %on the UNA is an important aspect when combining reasoning and validation,
+	%we determine for each constraint type if it depends on the \emph{CWA} and if it depends on the \emph{UNA}.
+	\item We determine for each constraint type if it makes sense to perform reasoning prior to validation
+  in order to investigate the affect of reasoning to the validation process.
+	\item Since reasoning makes difference  for some validation types, we note them with the computational complexity  of  the language that they are expressed in.
 	\item Since the combination of \emph{DL} constructs of a constraint type determines its complexity, by mapping to \emph{DL} we get an idea of the complexity for each constraint type in worst case.
 \end{enumerate}
 
@@ -1023,7 +1029,7 @@ The subsequent steps are needed to get an idea about the performance (i.e., the 
 %\end{itemize}
 
 The distinction of constraint types regarding the dependency on the \emph{CWA} and on the \emph{UNA} is an important aspect when combining reasoning with validation.
-As many \emph{OWL 2} axioms correspond to constraint types we want to use for validation, 
+As 34 of 74 constraint types correspond to \emph{OWL 2} axioms we want to use for validation, 
 we investigate their behavior in terms of validation results in different semantic settings. 
 \emph{OWL 2} reasoning requires the OWA with the \emph{nUNA}\footnote{While \emph{DLs/OWL} do not assume \emph{UNA}, they have a construct (\emph{owl:sameAs}) to express when two names are the same or not.
 } whereas RDF validation has its origin in the XML world and is therefore classically based on the \emph{CWA} and the \emph{UNA}.
@@ -1106,9 +1112,13 @@ Hence, for the majority of constraint types it makes a difference if the \emph{C
 %... after thinking a while I have a feeling that there is no real
 %dictsinction between  C_R and C_R'.
 
-The W3C WG defines \emph{constraint} as a component of a schema what needs to be satisfied\footnote{See \url{https://www.w3.org/2014/data-shapes/wiki/Glossary}.}. 
-We denote the whole set of constraint types with $\mathcal{C}$. We divide it into two disjoint sets  to investigate the affect of reasoning to the validation process; (1) $\mathcal{C}_R$ which denotes the constraint types with reasoning that can carry out the validation process via reasoning, especially when not all the knowledge is explicit.  
-(2) $\overline{\mathcal{C}_{R}}$  which denotes the complement that is the set of constraint types for which reasoning cannot be done or does not improve the result in any obvious sense.
+We determine for each constraint type if it makes sense to perform reasoning prior to validation
+in order to investigate the affect of reasoning to the validation process.
+The W3C WG defines \emph{constraint} as a component of a schema what needs to be satisfied\footnote{\url{https://www.w3.org/2014/data-shapes/wiki/Glossary}.}. 
+A concrete constraint is instantiated from exactly one \emph{constraint type}.
+We denote the whole set of constraint types with $\mathcal{CT}$ which we divide into two disjoint sets: 
+(1) $\mathcal{CT}_R$ is the set of constraint types that can carry out the validation process via reasoning, especially when not all the knowledge is explicit.  
+(2) $\overline{\mathcal{CT}_{R}}$  denotes the complement that is the set of constraint types for which reasoning cannot be done or does not improve the result in any obvious sense.
 
 
 {\em Literal Pattern Matching} (\emph{R-44}), restricting literals to match given patterns,
@@ -1483,7 +1493,7 @@ reviews:
 	\item The first paragraph is confusing. Refer to what? Follows? 
 \end{itemize}
 
-To have a further evaluation on the latter and to refer easily, we divide $\mathcal{C}_R$ into two classes (not disjoint). 
+To have a further evaluation on the latter and to refer easily, we divide $\mathcal{CT}_R$ into two classes (not disjoint). 
 Overall, we have the following. Since, OWL 2 DL is more expressive than OWL 2 QL,  $\mathcal{C}_R ^{\mathcal{QL}} \subseteq \mathcal{C}_R ^{\mathcal{DL}}$ follows. 
 \begin{enumerate}\itemsep0.5em
 	\item $\overline{\mathcal{C}_R}$: validation by query answering without reasoning
@@ -1492,7 +1502,7 @@ Overall, we have the following. Since, OWL 2 DL is more expressive than OWL 2 QL
 \end{enumerate}
 Recall that, in this work we limit $C_R$ to the constraint types which can be expressed by OWL 2 DL and still requires reasoning  (i.e., $C_R = C_R ^{\mathcal{DL}}$). This is due the fact that, OWL 2 DL is still quite expressive\footnote{It could alternatively be set to a more expressive language (e.g., OWL 2 Full). Such treatment can be done in future work, if it is understood that we require that.}. 
 Some of those constraint types can still be expressed in some constraint languages, which will be the focus of next section.
-%The complexity class $\mathcal{C}_R$ encompasses all \emph{constraints with reasoning} for which reasoning can be executed but cannot be expressed by OWL 2.  \er{What/Why can't  be expressed by OWL 2  while being inferred? }\tb{e.g. class-specific property ranges or class-specific reflexive object properties cannot be expressed in OWL / these 2 axioms can only be stated globally for the properties, we cannot restrict it to individuals of specific classes}
+%The complexity class $\mathcal{CT}_R$ encompasses all \emph{constraints with reasoning} for which reasoning can be executed but cannot be expressed by OWL 2.  \er{What/Why can't  be expressed by OWL 2  while being inferred? }\tb{e.g. class-specific property ranges or class-specific reflexive object properties cannot be expressed in OWL / these 2 axioms can only be stated globally for the properties, we cannot restrict it to individuals of specific classes}
 Table \ref{tab:constraint-type-specific-complexity-classes} gives an overview of the computational complexity for RDF validation when reasoning is performed and when reasoning is not performed:
 
 
@@ -1548,7 +1558,7 @@ The main motivation in that is, that one may want to perform reasoning before ac
 %If in our knowledge base it is stated that \ms{DarthVader} is a \ms{Sith} (e.g., \ms{Sith(DarthVader)}) and  Siths feel the force of the dark side (e.g., \ms{Sith $\sqsubseteq$ FeelingForceDarkSide}), it is either possible to infer that \ms{DarthVader} feels the force of the dark side (\ms{FeelingForceDarkSide(DarthVader)}) 
 %or to check if this class assignment is explicitly stated in the data without reasoning. 
 Although  OWL 2  is the only implementation (which can be used/considered as a constraint language) with reasoning features, 
-some constraint types in $\mathcal{C}_R$ are not only expressible by OWL 2  but also by other constraint languages. 
+some constraint types in $\mathcal{CT}_R$ are not only expressible by OWL 2  but also by other constraint languages. 
 %\er{This is again the part I don't understand.}\tb{but also by other constraint languages}
 %\begin{center}
 %\begin{evaluation}
@@ -1788,7 +1798,7 @@ As we keep the validation requirements updated and those languages are further d
 %\begin{constraint-languages-complexity}
 %$\mathcal{C}_R ^{\mathcal{QL}}$ (11) & 0 & 11 & 11 & 0(2) & 1 & 11 \\
 %$\mathcal{C}_R ^{\mathcal{DL}}$ (21) & 8 & 21 & 0 & 11 & 10(1) & 21 \\
-%$\mathcal{C}_R$ $\equiv$ $\mathcal{C}_R ^{\mathcal{DL}}$(32) & 8 & 32 & 11 & 11(2) & 11(1) & 32 \\ 
+%$\mathcal{CT}_R$ $\equiv$ $\mathcal{C}_R ^{\mathcal{DL}}$(32) & 8 & 32 & 11 & 11(2) & 11(1) & 32 \\ 
 %$\overline{\mathcal{C}_R}$ (42) & 6 & 18(4) & 7(4) & 8 & 12 & 41(1)\\
 %$\mathcal{C}$ (74) & 14 & 47(4) & 18(4) & 19(2) & 23(1) & 73(1) \\
 %\end{constraint-languages-complexity}
@@ -1984,10 +1994,10 @@ The first solution is applied on local knowledge bases whereas the second is mor
 In section \ref{the-role-of-reasoning-for-rdf-validation} we explained why reasoning is beneficial for validation and how reasoning interacts with validation.
 In section \ref{classification-rdf-constraints} we classified constraints according to CWA/UNA dependency, reasoning, and complexity.
 Constraint types can either be dependent on the CWA with UNA ($\mathcal{C}_{CWA}$), when it makes a difference if the CWA/UNA or the OWA/nUNA is assumed, or independent on the CWA with UNA ($\overline{\mathcal{C}_{CWA}}$).
-We distinguish two disjoint sets of constraint types $\mathcal{C}_{R}$ ({\em constraints with reasoning}) and $\overline{\mathcal{C}_{R}}$ ({\em constraints without reasoning}).
+We distinguish two disjoint sets of constraint types $\mathcal{C}_{R}$ ({\em constraints with reasoning}) and $\overline{\mathcal{CT}_{R}}$ ({\em constraints without reasoning}).
 For each of them, we presented representative constraint types to investigate the effects of reasoning to the validation process.
 Regarding the performance of constraints, we refer to worst case complexity.
-We divide $\mathcal{C}_R$ into two not disjoint classes ($\mathcal{C}_R ^{\mathcal{QL}} \subseteq \mathcal{C}_R ^{\mathcal{DL}}$) for the validation by query answering with OWL 2 QL and OWL 2 DL reasoning respectively.
+We divide $\mathcal{CT}_R$ into two not disjoint classes ($\mathcal{C}_R ^{\mathcal{QL}} \subseteq \mathcal{C}_R ^{\mathcal{DL}}$) for the validation by query answering with OWL 2 QL and OWL 2 DL reasoning respectively.
 It is well known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}, 
 which is assigned to $\overline{\mathcal{C}_R}$ (validation by query answering without reasoning).
 In section \ref{classification-constraint-languages} we classified constraint languages according to expressivity scores and classes. 
