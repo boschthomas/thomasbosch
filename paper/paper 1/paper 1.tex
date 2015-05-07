@@ -533,6 +533,8 @@ and to determine the capabilities of constraint languages with regard to the sam
 As \emph{OWL 2} has different semantics than RDF validation and as we want to use \emph{OWL 2} axioms as constraint types, 
 we determine the semantics in terms of validation results for each constraint type.
 
+Reasoning and validation are very closely related. 
+Both should be possible: (1) validation with reasoning and (2) validation without reasoning. 
 Validation environments should enable users to select which constraint types to use for completing data by reasoning 
 and which ones should be considered as constraint types about data accuracy and completeness which could be checked over the data once completed using reasoning.
 Therefore, we investigate the affect of reasoning to the validation process of each constraint type, i.e.,
@@ -1150,7 +1152,7 @@ ISBN a RDFS:Datatype ; owl:equivalentClass [ a RDFS:Datatype ;
 The first \emph{OWL 2} axiom explicitly declares {\em ISBN} to be a datatype. %\er{Why start from second and then first? Also better we say "owl axiom" when we talk axiom of owl, to prevent ambiguity.}\tb{resolved}
 The second \emph{OWL 2} axiom defines {\em ISBN} as an abbreviation for a datatype restriction on {\em xsd:string}. 
 The datatype {\em ISBN} can be used just like any other datatype such as in
-the universal restriction \ms{Book $\sqsubseteq$ $\forall$ identifier.ISBN} which ensures that \emph{books} can only have valid \emph{ISBN} identifiers, 
+the universal restriction {\small\ms{Book $\sqsubseteq$ $\forall$ identifier.ISBN}} which ensures that \emph{books} can only have valid \emph{ISBN} identifiers, 
 i.e., strings that match a given regular expression. 
 %\er{This is no OWL.}\tb{resolved}
 The restriction of the datatype {\em ISBN} is only expressible in \emph{OWL 2 DL},
@@ -1178,13 +1180,19 @@ as a data range expression is restricted to the predefined datatypes and the int
 \subsubsection{Constraint Types with Reasoning}
 \label{sec:RDF-validation-requirements-and-reasoning}
 
-Reasoning and validation are very closely related. 
+$\mathcal{CT}_R$ is the set of constraint types for which reasoning can be performed prior to validation 
+in order to enhance data quality either by resolving violations or by causing additional useful violations.
+We distinguish between two disjoint sub sets of $\mathcal{CT}_R$:
+(1) Constraint types for which \emph{OWL 2 QL reasoning} can be performed as they are expressible by \emph{OWL 2 QL}.
+(2) Constraint types for which \emph{OWL 2 DL reasoning} can be executed as \emph{OWL 2 QL} is not expressive enough to represent these constraint types \cite{owl2profiles2008}.
+
+%Reasoning and validation are very closely related. 
 %Reasoning is the process of determining what follows from what has been
 %stated.  Reasoning ranges from simple (Jedi students are Jedis, Luke is a Jedi student, therefore Luke is a Jedi) to the very complex. Reasoning can
 %also recognize impossibilities ( Jedi masters are Jedis, Yoda is a Jedi master, Yoda
 %is not a Jedi, therefore there is a contradiction). 
-Both should be possible: (1) validation with reasoning and (2) validation without reasoning. 
-Reasoning may be a pre validation step to infer triples resolving constraint violations or to infer triples for which constraints are validated.
+%Both should be possible: (1) validation with reasoning and (2) validation without reasoning. 
+%Reasoning may be a pre-validation step to infer triples resolving constraint violations or to infer triples for which constraints are validated.
 
 %Reasoning may be a pre validation step to infer triples resolving constraint violations.
 %According to the existential restriction \ms{Jedi $\sqsubseteq$ $\exists$ hasJediWaepon . JediWeapon} every Jedi has at least one Jedi weapon.
@@ -1198,8 +1206,9 @@ Reasoning may be a pre validation step to infer triples resolving constraint vio
 %The existential restriction is not checked for the triple \ms{YediMaster(Yoda)}, as \ms{Yoda} is a \ms{JediMaster} and not a \ms{Jedi} as well.
 %If, however, our knowledge base contains the axiom \ms{JediMaster $\sqsubseteq$ Jedi}, the triple \ms{Jedi(Yoda)} is inferred and the existential restrictions is validated for the individual \ms{Yoda}, raising a constraint violation if a triple such as \ms{hasLaserSword(Yoda, GreenLaserSword)} is not included in the knowledge base. 
 
-\textbf{With \emph{OWL 2 QL}}
-There are many constraint types for which {\em OWL 2 QL reasoning} can be performed. 
+\textbf{\emph{OWL 2 QL} Reasoning.}
+Reasoning may resolve violations which improves data quality.
+%There are many constraint types for which {\em OWL 2 QL reasoning} can be performed. 
 %{\em Subsumption}\footnote{Corresponds to {\em R-100-SUBSUMPTION}}
 %relationships of both classes and properties are part of basic reasoning.
 %
@@ -1223,11 +1232,12 @@ There are many constraint types for which {\em OWL 2 QL reasoning} can be perfor
 %When only the triple \ms{Yoda a JediMaster} is given and reasoning is not executed, then a constraint violation is raised.
 %After reasoning, however, the triples \ms{Yoda a Jedi , FeelingForce} are inferred resulting in valid data. 
 The {\em Property Domain} (\emph{R-25}) constraint
-\ms{$\exists$ author.$\top$ $\sqsubseteq$ Publication}, e.g., 
-ensures that only \emph{publications} can have {\em author} relationships to \emph{persons}.
-This constraint can be expressed by OWL 2 QL: \ms{author rdfs:domain Publication}.
-Without reasoning, the triple \ms{Alices-Adventures-} \ms{In-Wonderland author Lewis-Carroll} causes a constraint violation, when it is not explicitly stated that \emph{Lewis-Carroll} is a \emph{person}. 
-When reasoning is performed before validating, the class assignment \ms{rdf:type(Lewis-Carroll, Person)} is inferred which prevents the constraint violation to be raised.
+{\small\ms{$\exists$ author.$\top$ $\sqsubseteq$ Publication}} 
+ensures that only \emph{publications} can have {\em author} relationships to \emph{persons}
+(in \emph{OWL 2 QL}: {\small\ms{author rdfs:domain Publication).}}
+Without reasoning, the triple {\small\ms{author(Alices-Adventures-In-Wonderland, Lewis-Carroll)}} leads to a violation
+if it is not explicitly stated that \emph{Lewis-Carroll} is a \emph{person}. 
+With reasoning, on the contrary, the class assignment {\small\ms{rdf:type(Lewis-Carroll, Person)}} is inferred which prevents the violation to be raised.
 
 %The {\em Property Domain}\footnote{Corresponds to {\em R-25-PROPERTY-DOMAIN}} constraint
 %\ms{$\exists$ studentOf.$\top$ $\sqsubseteq$ JediStudent}
@@ -1241,18 +1251,21 @@ When reasoning is performed before validating, the class assignment \ms{rdf:type
 %Without reasoning, the data \ms{Anakin studentOf Obi-Wan} is invalid and causes a constraint violation, as it is not explicitly stated that \ms{Anakin} is assigned to the class \ms{Jedi}. 
 %When inferencing is performed before validating, the class assignment \ms{Anakin a Jedi} is inferred which prevents the constraint violation to be raised.
 
+Reasoning may cause valuable violations which increase data quality.
 The {\em existential quantification} (\emph{R-86})
-\ms{Publication} \ms{$\equiv$} \ms{$\exists$} \ms{publisher.} \ms{Publisher} restricts publications to have at least one publisher - which can be expressed in OWL 2 QL:
+{\small\ms{Publication} \ms{$\equiv$} \ms{$\exists$} \ms{publisher.Publisher}} restricts publications to have at least one publisher: 
+%- which can be expressed in \emph{OWL 2 QL}:
 \begin{ex}
 [ a owl:Restriction ;
   owl:onProperty publisher ;
   owl:someValuesFrom Publisher ;
   rdfs:subClassOf Publication ] .
 \end{ex}
-If we execute reasoning on data containing the triples \ms{publisher(A+Conference} \ms{Proceedings, A+Publisher)} and \ms{rdf:} \ms{type (A+Publisher, Publisher)}, 
-it can be inferred that {\em A+ConferenceProceedings} is a {\em publication}.
-Now, all constraints associated with {\em publications} are also validated for the individual {\em A+Conference} \emph{Proceedings} (e.g. that \emph{publications} must have at least one \emph{author}).
-Without reasoning, constraints on {\em publications} are not validated as \emph{A+Conference} \emph{Proceedings} is not part of the class extension of {\em publication}.
+If reasoning is executed on the triples {\small\ms{publisher(A+Conference-Proceedings, A+Publisher)} and \ms{rdf:type (A+Publisher, Publisher),}} 
+it is inferred that {\em A+Conference-Proceedings} is a {\em publication}.
+Now, all constraints associated with {\em publications} are also validated for {\em A+Conference-Proceedings} (e.g. that \emph{publications} must have at least one \emph{author}).
+Without reasoning, in contrast, the fact that \emph{A+Conference-Proceedings} is a publication is not explicit
+which is the reason why constraints on {\em publications} are not validated for \emph{A+Conference-Proceedings}.
 
 %The {\em Existential Quantification}\footnote{Corresponds to {\em R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}}
 %\ms{Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword} let us refer to all those individuals that are connected by \ms{hasLaserSword} to an individual that is an instance of the class \ms{LaserSword}.
@@ -1269,21 +1282,22 @@ Without reasoning, constraints on {\em publications} are not validated as \emph{
 %As the individual \ms{Luke} is assigned to the class \ms{Jedi}, all constraint associated with this class are also validated, for example that Jedis must have blue laser swords.
 %Without reasoning, these constraints won't be validated as \ms{Luke} is not within the class extension of \ms{Jedi}.
 
-\textbf{With \emph{OWL 2 DL}}
+\textbf{\emph{OWL 2 DL} Reasoning.}
 {\em Universal quantifications} (\emph{R-91})
-are used to build anonymous classes containing all individuals that are connected by a particular property only to instances of a specific class.
-\emph{Publications}, e.g., can only have \emph{persons} as \emph{authors} (\ms{Publication $\sqsubseteq$ $\forall$ author.Person}), 
-which cannot be expressed by \emph{OWL 2 QL}, but by \emph{OWL 2 DL} \cite{owl2profiles2008}:
+are used to build anonymous classes containing all individuals that are connected by particular properties only to instances/literals of certain classes/data ranges.
+\emph{Publications}, e.g., can only have \emph{persons} as \emph{authors} {\small\ms{(Publication $\sqsubseteq$ $\forall$ author.Person):}}
+%which cannot be expressed by \emph{OWL 2 QL}, but by \emph{OWL 2 DL} :
 \begin{ex}
 [ a owl:Restriction ;
   owl:onProperty author ;
   owl:allValuesFrom Person ;
-  RDFs:subClassOf Publication ] .
+  rdfs:subClassOf Publication ] .
 \end{ex}
-When performing reasoning, the triples \ms{author(The-Lord-Of-The-Rings,} \ms{Tol} \ms{kien} and \ms{rdf:type(The-Lord-Of-The-Rings, Publication)} infer that \emph{Tolkien} is a \emph{person}.
-When reasoning is not executed, a constraint violation is raised, 
-as it is not explicitly stated that \emph{Tolkien} is a \emph{person} and
-each \emph{publication} can only have \emph{author} relationships to \emph{persons}.
+When performing reasoning, the triples {\small\ms{author(The-Lord-Of-The-Rings,} \ms{Tolkien)}} and {\small\ms{rdf:type(The-Lord-Of-The-Rings, Publication)}} 
+let a reasoner infer that \emph{Tolkien} is a \emph{person}.
+In case reasoning is not executed, a violation is raised
+since it is not explicitly stated that \emph{Tolkien} is a \emph{person}.
+%and each \emph{publication} can only have \emph{author} relationships to \emph{persons}.
 
 %{\em Universal quantifications}\footnote{Corresponds to {\em R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}}
 %contain all those individuals that are connected by a particular property only to individuals that are instances of a specific class.
@@ -1301,8 +1315,10 @@ each \emph{publication} can only have \emph{author} relationships to \emph{perso
 \subsubsection{Constraint Types without Reasoning}
 \label{RDF-Validation-Requirements-without-Reasoning}
 
-For the majority of the constraint types, reasoning is not needed to be performed prior to validation. \textcolor{red}{unclear!}
-It is possible, however, to execute reasoning before validating constraints for which reasoning does not affect validation results.
+$\overline{\mathcal{CT}_{R}}$ is the set of constraint types for which reasoning cannot be done or which do not contribute to improve data quality in any obvious sense.
+
+\textcolor{red}{For the majority of the constraint types, reasoning is not needed to be performed prior to validation.
+It is possible, however, to execute reasoning before validating constraints for which reasoning does not affect validation results.}
 %\textbf{Expressible by OWL 2.}
 %\label{sec:RDF-validation-requirements-without-reasoning-2}
 %\textbf{Literal Pattern Matching}\footnote{corresponds to R-44-PATTERN-MATCHING-ON-RDF-LITERALS}\textbf{.} 
@@ -1369,8 +1385,8 @@ it can be defined that an individual can either have a relationship via property
 Identifiers of publications, e.g., can either be ISBNs (for books) or ISSNs (for periodical publications), but it should not be possible to assign both identifiers to a given publication:
 \begin{center}
 \begin{DL}
-Publication &$\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
-A &$\equiv$ $\exists$ isbn.xsd:string , B $\equiv$ $\exists$ issn.xsd:string \\ 
+Publication $\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
+A $\equiv$ $\exists$ isbn.xsd:string , B $\equiv$ $\exists$ issn.xsd:string \\ 
 \end{DL} 
 \end{center}
 Expressing this constraint by OWL 2 DL can be seen as a workaround, 
@@ -1386,8 +1402,7 @@ CC2 rdfs:subClassOf [ a owl:Restriction ;
 \end{ex}
 The same constraint can be expressed by ShEx more intuitively and concisely:
 \begin{ex}
-Publication { (  
-    isbn xsd:string | issn xsd:string ) }
+Publication { ( isbn xsd:string | issn xsd:string ) }
 \end{ex}
 
 %With the constraint type {\em Context-Specific Exclusive OR of Properties}\footnote{Corresponds to {\em R-11-CONTEXT-SPECIFIC-EXCLUSIVE-OR-OF-PROPERTIES}} 
@@ -1437,8 +1452,8 @@ The majority of constraints can neither be expressed by OWL 2 QL nor by OWL 2 DL
 for properties, e.g., can be represented by ReSh and SPIN,
 so that input forms can be pre-populated. % and to insert a required property that is missing in a web service call. 
 If, e.g., no keyword is stated for \emph{Semantic Web publications}, default \emph{keywords} could be 'Semantic Web' and 'Linked Data'.
-As this paper is a \emph{Semantic Web publication} (\ms{rdf:type(This-Paper, Semantic-Web-Publication)}), 
-default triples for keywords like (\ms{keyword(This-} \ms{Paper,"Semantic Web")} could be inferred.
+As this paper is a \emph{Semantic Web publication} {\small\ms{(rdf:type(This-Paper, Semantic-Web-Publication))}}, 
+default triples for keywords like {\small\ms{(keyword(This-} \ms{Paper,"Semantic Web")}} could be inferred.
 In SPIN, rules can be associated with the class {\em owl:Thing}:
 \begin{ex}
 owl:Thing spin:rule [ a sp:Construct ; sp:text """
