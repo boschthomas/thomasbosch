@@ -190,7 +190,7 @@ XML Schema is the standard language to formulate constraints to validate XML doc
 For RDF, however, there are several languages which can be used to express constraints on RDF data - but not a stand-alone standard one meeting the majority of RDF validation use cases. 
 % Truth be told, we do may two things, blabla on and to blabla, however for the flow of the text we dont need to overkill the text. In abstract and introduction, we just give general idea so at such points we better focus on flow.  
 We identified requirements to formulate constraints for  validating RDF data and mapped each requirement to a constraint type.
-The majority of these constraint types can be expressed in description logics providing which provides logical underpinning.
+The majority of these constraint types can be expressed in description logics which provides their logical underpinning.
 
 %In this paper, we provide a basic terminology and classification system for RDF constraints.\tb{The contributions of this paper are the following. (1)...}
 %We developed a vocabulary to describe constraints of any RDF constraint type generically. 
@@ -463,20 +463,53 @@ In case we want to use \emph{OWL 2} as a constraint language, we adopt the same 
 %It is, the semantics we had in our mind, when typing this long document, that we tried to underpin by the DL language. However, regarding CWA and OWA, it is possible that we made some mistakes. In order to ensure that, say, if its DL, one needs to show that, a constraint/query written a particular language should have the same answer with its correspondent DL query.
 %\end{itemize}
 
-We defined the \textbf{formal generic semantics of the vocabulary} to describe constraints of any constraint type in a generic way (see paper appendix):
-(1) We mapped constraint types to \emph{DL} to logically underpin them and 
-(2) we described the constraint types' intended behavior in terms of validation results depending on \emph{CWA} and \emph{UNA}.
-To be able to define mappings between \emph{specific constraints} (expressed by different languages) and \emph{generic constraints},
-we show for each constraint type that a constraint expressed by a particular language leads to the same answer as the corresponding \emph{DL} query.
-To be able to specify transformations between \emph{specific constraints} (expressed by different languages),
-identical semantics of the languages with regard to the particular constraint type has to be ensured.
-%Constraint languages assume identical semantics, 
-%if for each constraint the following condition holds:
-If a constraint is represented by \emph{ShEx} and \emph{OWL 2}, 
-the validation results must be exactly the same, i.e.,
-whenever the \emph{specific constraint} \emph{$sc_{ShEx}$} is violated, its \emph{$sc_{OWL 2}$} correspondence is also violated which shows that they behave in the same way.
+We describe the intended behavior for each constraint type in terms of validation results depending on \emph{CWA} and \emph{UNA}.
+If any two constraints are semantically the same (w.r.t. RDF semantics), they should detect the same set of violations regardless of concrete RDF data, 
+which means whenever the constraints are applied to any RDF data they point out the same violations or they have the same effect.
+To be able to define mappings between semantically equivalent \emph{specific constraints} (expressed by different languages) and 
+between \emph{specific constraints} and \emph{generic constraints},
+we show for each constraint type that their constraints lead to exactly the same violations which shows that they behave in the same way. 
 We expressed constraint types by different languages
 to document identical semantics for these languages with regard to appropriate constraint types. 
+
+%We defined the \textbf{formal generic semantics of the vocabulary} to describe constraints of any constraint type in a generic way (see paper appendix):
+%(1) We mapped constraint types to \emph{DL} to logically underpin them and 
+%(2) we described the constraint types' intended behavior in terms of validation results depending on \emph{CWA} and \emph{UNA}.
+%To be able to define mappings between \emph{specific constraints} (expressed by different languages) and \emph{generic constraints},
+%we show for each constraint type that a constraint expressed by a particular language leads to the same answer as the corresponding \emph{DL} query.
+%To be able to specify transformations between \emph{specific constraints} (expressed by different languages),
+%identical semantics of the languages with regard to the particular constraint type has to be ensured.
+%%Constraint languages assume identical semantics, 
+%%if for each constraint the following condition holds:
+%If a constraint is represented by \emph{ShEx} and \emph{OWL 2}, 
+%the validation results must be exactly the same, i.e.,
+%whenever the \emph{specific constraint} \emph{$sc_{ShEx}$} is violated, its \emph{$sc_{OWL 2}$} correspondence is also violated which shows that they behave in the same way.
+%We expressed constraint types by different languages
+%to document identical semantics for these languages with regard to appropriate constraint types. 
+
+%\textcolor{red}{feedback from Erman:}
+
+\tb{use NO bold}
+
+\tb{Frage an Kai: wann soll ich in kursiv hervorheben?}
+
+%\textcolor{red}{
+%-About the paragraph; it says we defined a formal generic semantics. Did we? (if you think so please defend) but i think its not true. A formal semantics, is where you talk about an interpretation e.g., like in DL, there the semantics/interpretation is a mathematical object (therefore formally defined). What i believe is that paper propose  rather a schema for transforming constraint languages to one another (in particular to assess them in the first paper), that a person who doesn't know one language can have operation power etc.. .
+%}
+%
+%\textcolor{red}{
+%-so I think we should get rid of this paragraph either totally or partially and you talk about the formulation instead briefly one-two sentence. I know that you wrote this paragraph to make my points and thanks a lot for that, but they were general remarks, so we cannot point out something that we do not do at that point, if its not at the "future work" or smth. Also this underpininng and  so on, these things were in the other paper (arxiv).  If it has a point, then better referencing it.
+%}
+
+%\textcolor{red}{
+%-please be careful with the narration:
+%To be able to define mappings between specific constraints (expressed by different languages) and generic constraints, we show for each constraint type that a constraint expressed by a particular language leads to the same answer as the corresponding DL query. 
+%When you read it and next sentence, it does not flow.  I know that it is not easy to write it nicely. But it also has technical problems, like
+%}
+%
+%\textcolor{red}{
+%A constraint  that is expected to give the same answer with a query. Those things are not of the same type. When I have written this query/constraint analogy, it was rather to provide an intuition. If we gonna talk about constraints; a constraint written in different languages always have the same restriction on any possible rdf-data. This means, if any two constraints are semantically the same (w.r.t. RDF data semantics), they should detect the same set of violations regardless of RDF data (which means whenever you apply them to any rdf data they point out the same violations or they have the same effect). Using a query language for validation, is a related but another thing. You actually know what it is better than I do.
+%}
 
 %Erman:
 %Section 3.1, explains a possible application only in an example specific to UNA and nUNA case, and I also have the 

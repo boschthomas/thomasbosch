@@ -1094,6 +1094,18 @@ The result of this evaluation is that we distinguish between XX $\mathcal{CT}_{C
 Hence, for the majority of constraint types it makes a difference if the \emph{CWA} or the \emph{OWA} and if the \emph{UNA} or the \emph{nUNA} is assumed.
 \textcolor{red}{ToDo: evaluation}
 
+\textcolor{red}{
+feedback from Erman:
+}
+
+\textcolor{red}{
+I think using a closed world logical language, you would never have such problems , like datalog, however, since there has been lots of work by you so far. So I think rather the use of integrity constraints together with the benefits of OWL reasoning can be discussed, but about underpinning all constraints with DL , i think is a dareful attempt and i very much respect that. But i am not sure how much possible is that.  Those ppl came up with adding integrity constraints to close the world, and they didnt do it for no reason. I couldn't see that in the beginning as well. This is my intuition. 
+}
+
+\textcolor{red}{
+Logically underpining something, means they have the same formal interpretation in terms of models (in logic). Going on with DL, I would very much to go on with DL-Logic programs. This is for instance closed world with DL.
+}
+
 \subsection{Reasoning}
 
 % Feedback Christian
@@ -1513,7 +1525,7 @@ Semantic-Web-Publication a ResourceShape ; property [
 \begin{itemize}
   \item \textcolor{red}{Reviewer1: This is wrong that the Tbox axioms ( RDF constraints in this paper) can be classified as it is suggested in Section 3. The reason is that there exist possibly complex logical interferences between them. For instance, even in lightweight DLs such as  DL-Lite, positive inclusions (PIs) can be used to infer negative inclusions (NIs).}
 	\item \textcolor{red}{Erman: we mean ontological reasoning  here, the discussion is done according to well-established complexity results (in literature) on reasoning in particular DL languages, having only those  features used in constraints. Therefore the complex interferences are included. }
-	\item \textcolor{red}{The first paragraph is confusing. Refer to what? Follows? }
+%	\item \textcolor{red}{The first paragraph is confusing. Refer to what? Follows? }
 \end{itemize}
 
 Since the combination of \emph{DL} constructs, needed to express a constraint type, determines its computational complexity, 
@@ -1528,7 +1540,7 @@ Overall, we have the following. Since, \emph{OWL 2 DL} is more expressive than \
 	\item $\mathcal{CT}_R ^{\mathcal{QL}}$: validation by query answering with \emph{OWL 2 QL} reasoning
 	\item $\mathcal{CT}_R ^{\mathcal{DL}}$: validation by query answering with \emph{OWL 2 DL} reasoning
 \end{enumerate}
-Recall that, in this work we limit $\mathcal{CT}_R$ to the constraint types which can be expressed by \emph{OWL 2 DL} and still requires reasoning 
+We limit $\mathcal{CT}_R$ to the constraint types which can be expressed by \emph{OWL 2 DL} and still requires reasoning 
 (i.e., $\mathcal{CT}_R$ = $\mathcal{CT}_R ^{\mathcal{DL}}$). This is due the fact that, \emph{OWL 2 DL} is still quite expressive\footnote{It could alternatively be set to a more expressive language (e.g., \emph{OWL 2 Full}). Such treatment can be done in future work, if it is understood that we require that.}. 
 Some of these constraint types can still be expressed by constraint languages which is the focus of the next section.
 %The complexity class $\mathcal{CT}_R$ encompasses all \emph{constraints with reasoning} for which reasoning can be executed but cannot be expressed by OWL 2.  \er{What/Why can't  be expressed by OWL 2  while being inferred? }\tb{e.g. class-specific property ranges or class-specific reflexive object properties cannot be expressed in OWL / these 2 axioms can only be stated globally for the properties, we cannot restrict it to individuals of specific classes}
