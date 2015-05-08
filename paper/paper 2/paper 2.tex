@@ -463,9 +463,10 @@ In case we want to use \emph{OWL 2} as a constraint language, we adopt the same 
 %It is, the semantics we had in our mind, when typing this long document, that we tried to underpin by the DL language. However, regarding CWA and OWA, it is possible that we made some mistakes. In order to ensure that, say, if its DL, one needs to show that, a constraint/query written a particular language should have the same answer with its correspondent DL query.
 %\end{itemize}
 
-We describe the intended behavior for each constraint type in terms of validation results depending on \emph{CWA} and \emph{UNA}.
-If any two constraints are semantically the same (w.r.t. RDF semantics), they should detect the same set of violations regardless of concrete RDF data, 
-which means whenever the constraints are applied to any RDF data they point out the same violations or they have the same effect.
+We recently published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} (serving as appendix of this paper) in which
+we describe the intended behavior of each constraint type in terms of validation results depending on \emph{CWA} and \emph{UNA}.
+If any two constraints are semantically the same (w.r.t. RDF semantics), they should detect the same set of violations regardless of RDF data, 
+which means whenever the constraints are applied to any RDF data they point out the same violations.
 To be able to define mappings between semantically equivalent \emph{specific constraints} (expressed by different languages) and 
 between \emph{specific constraints} and \emph{generic constraints},
 we show for each constraint type that their constraints lead to exactly the same violations which shows that they behave in the same way. 
