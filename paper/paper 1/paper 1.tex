@@ -1604,20 +1604,23 @@ as $\mathcal{CT}_R$ constraint types are already expressible either by \emph{OWL
 	\item \textcolor{red}{reviewer: The term “expressivity scores” might be useful but a stronger argument is needed.}
 \end{itemize}
  
-In this section, we concern ourselves with the expressivity of constraint languages, or constraint type (requirement) specific expressivity.
-Therefore, we evaluated the five most popular constraint languages on fulfilling each requirement to formulate constraints.
-We also evaluated if a specific requirement is expressed by \emph{OWL 2 QL} or if the more expressive \emph{OWL 2 DL} is needed \cite{BoschNolleAcarEckert2015}.
+We investigate the expressivity of constraint languages - more specifically the constraint type/requirement specific expressivity of constraint languages.
+Therefore, we evaluated the five most promising languages on fulfilling each requirement to formulate constraints.
+We also evaluated if constraint types are expressible by \emph{OWL 2 QL} or if the more expressive \emph{OWL 2 DL} is needed \cite{BoschNolleAcarEckert2015}.
  %As we identified three constraint-specific complexity classes in the previous section, we are now able to determine the performance (i.e. complexity) of constraint languages.  It can be beneficial not using the most expressive constraint languages when additional rather subjective criteria are evaluated.
-In evaluating the expressivity,  we introduce the intuitive notion of \emph{expressivity scores} rather than classical expressivity. The main motivation in that is, the list of constraint types is an updated list, and almost none (except \emph{SPIN}) of the constraint languages contains one another.
-The expressivity score of a constraint language is how many constraint types can be expressed by this particular constraint language.
-While we evaluate expressivity scores, we use two sets of constraint types as before: $\mathcal{CT}_R$ and $\overline{\mathcal{CT}_R}$. 
-The main motivation in that is, that one may want to perform reasoning before actually validating the data.  For the sake of simplicity, we abbreviate \emph{expressing} $\mathcal{CT}_R$ as $Expr(\mathcal{CT}_R)$, and \emph{expressing} $\overline{\mathcal{CT}_R}$ as $Expr(\overline{\mathcal{CT}_R})$.
-
+We introduce the intuitive notion of \emph{expressivity scores} rather than classical \emph{expressivity}. 
+The main motivation in that is, the list of constraint types is an updated list, and almost none (except \emph{SPIN}) of the languages contains one another.
+With the expressivity score of a language, we measure how many constraint types can be expressed by that particular language.
+As one may want to perform reasoning before actually validating the data,
+we use the two sets of constraint types as before: $\mathcal{CT}_R$ and $\overline{\mathcal{CT}_R}$. 
+%The main motivation in that is, that one may want to perform reasoning before actually validating the data.  
+For the sake of simplicity, we abbreviate \emph{expressing} $\mathcal{CT}_R$ \emph{constraint types} as $Expr(\mathcal{CT}_R)$, 
+and \emph{expressing} $\overline{\mathcal{CT}_R}$ \emph{constraint types} as $Expr(\overline{\mathcal{CT}_R})$.
 %\emph{constraints with reasoning} can be used as axioms to infer new triples out of explicitly stated triples (see section \ref{sec:RDF-validation-requirements-and-reasoning}), but also to express constraints without reasoning. \er{Also to express constraints?}\tb{also to express constraints without reasoning}
 %If in our knowledge base it is stated that \ms{DarthVader} is a \ms{Sith} (e.g., \ms{Sith(DarthVader)}) and  Siths feel the force of the dark side (e.g., \ms{Sith $\sqsubseteq$ FeelingForceDarkSide}), it is either possible to infer that \ms{DarthVader} feels the force of the dark side (\ms{FeelingForceDarkSide(DarthVader)}) 
 %or to check if this class assignment is explicitly stated in the data without reasoning. 
-Although  \emph{OWL 2}  is the only implementation (which can be used/considered as a constraint language) with reasoning features, 
-some constraint types in $\mathcal{CT}_R$ are not only expressible by \emph{OWL 2}  but also by other constraint languages. 
+Although, \emph{OWL 2}  is the only implementation (which can be used/considered as a constraint language) with reasoning features, 
+some constraint types in $\mathcal{CT}_R$ are not only expressible by \emph{OWL 2}  but also by other languages. 
 %\er{This is again the part I don't understand.}\tb{but also by other constraint languages}
 %\begin{center}
 %\begin{evaluation}
