@@ -305,14 +305,14 @@ In contrast, \emph{The-Lord-Of-The-Rings} is a valid \emph{publication}, if it i
 As there is no standard way to formulate constraints, 
 semantically equivalent \emph{cardinality restrictions} may be represented by multiple constraint languages that have different syntax and semantics.
 This causes confusion and weakens the common understanding between several parties about the semantics of particular constraints. Also, it raises  questions on how to ensure high data quality. 
-Therefore, when choosing a constraint language, say \ms{$\alpha$}, to express a constraint of an arbitrary constraint type, it should be possible to transform this constraint into a semantically equivalent constraint in another other constraint language \ms{$\beta$} (see section \ref{sec:transformations}). 
+Therefore, when choosing a constraint language, say \ms{$\alpha$}, to express a constraint of an arbitrary constraint type, it should be possible to transform this constraint into a semantically equivalent constraint in another other constraint language \ms{$\beta$} (see Section \ref{sec:transformations}). 
 This is important in order to enhance the interoperability of constraint languages and to resolve misunderstandings and ambiguities in the communication of RDF data producers and consumers, 
 since constraint transformations avoid the necessity to understand several constraint languages.
 
 We provide a validation environment \footnote{Available \url{http://purl.org/net/rdfval-demo}} which enables to validate RDF data according to constraints expressed by diverse  constraint languages.
 As a second step, the \emph{RDF Validator} is extended by validating RDF data conforming to constraints of any constraint type represented by any constraint language,  
 to perform validation on semantically equivalent \emph{specific constraints}, expressed by different constraint languages 
-i.e., validation is independent from the used constraint language (see section \ref{sec:validation}). 
+i.e., validation is independent from the used constraint language (see Section \ref{sec:validation}). 
 %i.e., validation leads to identical validation results - independently from the used constraint language (see section \ref{sec:validation}).
 We are able to offer an already implemented validation mechanism for any \emph{specific constraint} out-of-the-box, 
 (1) if we implement the validation of the corresponding \emph{generic constraint type} once and 
@@ -332,10 +332,10 @@ We are able to offer an already implemented validation mechanism for any \emph{s
 %(1) RDF data providers and consumers seeking how to ensure high data quality and thus for ways to enhance the interoperability and common understanding of constraints expressible by multiple constraint languages and  
 %(2) RDF practitioners thinking of how to provide aligned implementations for the validation of both existing an newly developed constraint languages.
 The main contributions of this paper are:
-(1) we provide a basic terminology and classification system for RDF constraints (section \ref{sec:vocabulary}),
-(2) we developed a vocabulary to describe constraints of any RDF constraint type generically and specified its underlying semantics (section \ref{sec:vocabulary}),
-(3) we show how to transform constraints, expressed by any constraint language \ms{$\alpha$}, into generically expressed constraints and into constraints represented by any other constraint language \ms{$\beta$} and discuss why these transformations are useful (section \ref{sec:transformations}), and
-(4) we explain how to overcome the necessity to implement the validation of each constraint type for multiple constraint languages (section \ref{sec:validation}).
+(1) we provide a basic terminology and classification system for RDF constraints (Section \ref{sec:vocabulary}),
+(2) we developed a vocabulary to describe constraints of any RDF constraint type generically and specified its underlying semantics (Section \ref{sec:vocabulary}),
+(3) we show how to transform constraints, expressed by any constraint language \ms{$\alpha$}, into generically expressed constraints and into constraints represented by any other constraint language \ms{$\beta$} and discuss why these transformations are useful (Section \ref{sec:transformations}), and
+(4) we explain how to overcome the necessity to implement the validation of each constraint type for multiple constraint languages (Section \ref{sec:validation}).
 %(if the validation is implemented once for the corresponding \emph{generic constraint type} to which the \emph{specific constraint type} is mapped)
 
 %The remainder of the paper is as follows.
@@ -575,7 +575,7 @@ Consider, e.g., the following \emph{minimum qualified cardinality restriction} o
 \begin{DL}
 $Publication \sqsubseteq \geq1 author . Person $
 \end{DL}
-The cardinality restriction is a constraint on the property \emph{author} and is therefore classified as a \emph{property constraint} which holds for all individuals of the class \emph{Publication} (see table \ref{tab:property-constraint-cardinality-restriction} for the mapping to \emph{RDF-CV}):
+The cardinality restriction is a constraint on the property \emph{author} and is therefore classified as a \emph{property constraint} which holds for all individuals of the class \emph{Publication} (see Table \ref{tab:property-constraint-cardinality-restriction} for the mapping to \emph{RDF-CV}):
 
 \begin{table}
   \scriptsize
@@ -611,7 +611,7 @@ the following \emph{object property path} infers that \emph{Stephen-Hawking} is 
 \begin{DL}
 authorOf $\circ$ genre $\sqsubseteq$ authorOfGenre 
 \end{DL}
-Thus, when mapped to the \emph{RDF-CV} (see table \ref{tab:property-constraint-object-property-paths}), the properties \emph{authorOf} and \emph{genre} are on the left side of the \emph{constraining element} \emph{$\sqsubseteq$},
+Thus, when mapped to the \emph{RDF-CV} (see Table \ref{tab:property-constraint-object-property-paths}), the properties \emph{authorOf} and \emph{genre} are on the left side of the \emph{constraining element} \emph{$\sqsubseteq$},
 and the property \emph{authorOfGenre} is on the right side:
 
 \begin{table}
@@ -669,7 +669,7 @@ The datatype {\em ISBN} can be used just like any other datatype like in the \em
 The \emph{literal pattern matching} constraint validates \emph{ISBN} literals according to the regular expression causing constraint violations for triples which do not not match. 
 %\ms{Janeway commandsEnterprise Voyager} and \ms{Voyager registryNumber "NCC-74656"\textasciicircum{}\textasciicircum{}RegistryNumber}, 
 %but not for the triples \ms{Picard commandsEnterprise Enterprise} and \ms{Enterprise registryNumber "NCC-1701-E"\textasciicircum{}\textasciicircum{}RegistryNumber}.
-In table \ref{tab:simple-constraint-not-expressible-in-dl)}, the \emph{simple constraint} (\emph{literal pattern matching}) and the \emph{complex constraint} (\emph{universal restriction}) are mapped to the \emph{RDF-CV}:
+In Table \ref{tab:simple-constraint-not-expressible-in-dl)}, the \emph{simple constraint} (\emph{literal pattern matching}) and the \emph{complex constraint} (\emph{universal restriction}) are mapped to the \emph{RDF-CV}:
 
 %\begin{gcotable}
 %property & Enterprise & registryNumber & - & RegistryNumber & $\forall$ & - \\
@@ -729,7 +729,7 @@ As the \emph{The-Great-Gatsby} is a \emph{publication} (\ms{rdf:type(The-Great-G
 %klingonMother(BElannaTorres,Miral) \\
 %klingonMother(BElannaTorres,JohnTorres)
 %\end{DL}
-The \emph{complex constraint} is mapped to the \emph{RDF-CV} (see table \ref{tab:complex-constraints}) and expressed in \emph{DL} as follows:
+The \emph{complex constraint} is mapped to the \emph{RDF-CV} (see Table \ref{tab:complex-constraints}) and expressed in \emph{DL} as follows:
 
 %\begin{DL}
 %Half-Klingon $\sqsubseteq$ ($\neg$E $\sqcap$ F) $\sqcup$ (E $\sqcap$ $\neg$F) \\ 
@@ -809,7 +809,7 @@ property & D2 & title & - & string & $\leq$ & 1 \\
 \emph{Complex constraints} are composed of many other \emph{complex} (e.g. \emph{minimum and maximum qualified cardinality restrictions}) and \emph{simple constraints} (e.g. constraints on sets).
 As \emph{exact (un)qualified cardinality restrictions (=n)} and \emph{exclusive or (XOR)} are frequently used \emph{complex constraints},
 we propose using them as \emph{simple constraints} - in terms of syntactic sugar.
-As a consequence, the \emph{context-specific exclusive or of property groups} constraint above is represented as a \emph{generic constraint} more intuitively and concisely (see table \ref{tab:simplified-complex-constraints}).
+As a consequence, the \emph{context-specific exclusive or of property groups} constraint above is represented as a \emph{generic constraint} more intuitively and concisely (see Table \ref{tab:simplified-complex-constraints}).
 
 %\begin{gcotable}
 %class & Half-Klingon & - & - & E, F & XOR \\
@@ -843,7 +843,7 @@ property & D & title & - & string & = & 1 \\
 
 \subsection{\emph{Complex Constraints} as \emph{Simple Constraints}}
 
-Almost 15 percent of all constraint types are \emph{complex constraints} which can be simplified and therefore formulated as \emph{simple constraints} when using them in terms of syntactic sugar (see section \ref{sec:evaluation}).
+Almost 15 percent of all constraint types are \emph{complex constraints} which can be simplified and therefore formulated as \emph{simple constraints} when using them in terms of syntactic sugar (see Section \ref{sec:evaluation}).
 
 There are three forms of \emph{OWL RBox axioms}: \emph{role inclusions}, \emph{equivalence} and \emph{disjointness}. 
 \emph{OWL} provides a variety of other axiom types: \emph{role transitivity}, \emph{symmetry}, \emph{asymmetry}, \emph{reflexivity} and \emph{irreflexivity}. 
@@ -857,7 +857,7 @@ With the following \emph{irreflexive object property} constraint, for instance, 
 \begin{DL}
 \ms{$\top$ $\sqsubseteq$ $\neg$ $\exists authorOf.Self$}
 \end{DL}
-When mapped to the \emph{RDF-CV} (see table \ref{tab:irreflexive-object-properties-as-complex-constraints}), the \emph{complex constraint} aggregates three \emph{simple constraints} (one \emph{property} and two \emph{class constraints}):
+When mapped to the \emph{RDF-CV} (see Table \ref{tab:irreflexive-object-properties-as-complex-constraints}), the \emph{complex constraint} aggregates three \emph{simple constraints} (one \emph{property} and two \emph{class constraints}):
 
 %\begin{gcotable}
 %property & $\exists$ marriedTo . Self & marriedTo & - & Self & $\exists$ & - \\
@@ -882,7 +882,7 @@ class & $\top$ & - & - & $\top$, $\neg$ $\exists$ authorOf.Self & $\sqsubseteq$ 
 \end{table}
 
 When using the \emph{OWL RBox axiom} \emph{role irreflexivity} in terms of syntactic sugar, 
-the \emph{complex constraint} can be expressed more concisely in form of a \emph{simple property constraint} with exactly the same semantics (see table \ref{tab:irreflexive-object-properties-as-simple-constraints}):
+the \emph{complex constraint} can be expressed more concisely in form of a \emph{simple property constraint} with exactly the same semantics (see Table \ref{tab:irreflexive-object-properties-as-simple-constraints}):
 
 %\begin{gcotable}
 %property & $\top$ & marriedTo & - & - & irreflexive & - \\
@@ -904,7 +904,7 @@ property & $\top$ & authorOf & - & - & irreflexive & - \\
 
 The \emph{primary key properties} constraint type (\emph{R-226}) is often useful to declare a given (datatype) property as the "primary key" of a class, so that a system can enforce uniqueness. 
 For instance, \emph{Books} are uniquely identified by their \emph{ISBN} number, that is, the property \emph{isbn} is inverse functional \ms{$(\ms{funct } isbn\sp{\overline{\ }})$}, 
-which can be represented by the \emph{RDF-CV} in form of a \emph{complex constraint} (see table \ref{tab:primary-key-properties-as-complex-constraints}):
+which can be represented by the \emph{RDF-CV} in form of a \emph{complex constraint} (see Table \ref{tab:primary-key-properties-as-complex-constraints}):
 
 %\begin{gcotable}
 %property & $\top$ & commandAuthorizationCode$^{-}$ & commandAuthorizationCode$^{-}$ & - & inverse & - \\
@@ -930,7 +930,7 @@ property & Book & isbn$^{-}$ & - & - & functional & - \\
 A key can be a datatype, an object property, or a chain of properties.
 For these generalization purposes, as there are different sorts of keys, and as keys can lead to undecidability, 
 \emph{DL} is extended with \emph{key boxes} and a special construct \emph{keyfor} \cite{Lutz2005}.
-When using the \emph{keyfor} \emph{DL} construct (\ms{isbn keyfor Book}), the \emph{complex constraint} can be expressed by only one \emph{simple property constraint} (see table \ref{tab:primary-key-properties-as-simple-constraints} for the mapping to the \emph{RDF-CV}).
+When using the \emph{keyfor} \emph{DL} construct (\ms{isbn keyfor Book}), the \emph{complex constraint} can be expressed by only one \emph{simple property constraint} (see Table \ref{tab:primary-key-properties-as-simple-constraints} for the mapping to the \emph{RDF-CV}).
 
 %\begin{gcotable}
 %property & StarFleetOfficer & commandAuthorizationCode & - & - & keyfor & - \\
@@ -1112,7 +1112,7 @@ CONSTRUCT {
 
 %First, we map these DL statements to two \emph{simple generic constraints} corresponding to the \emph{RDF-CV} (we define the class \ms{EnterpriseCaptains} by simply enumerating its instances):
 
-The \emph{DL} statement \ms{Publication $\equiv$ $\exists$ publisher.Publisher} is mapped to a \emph{(simple) generic constraint} conforming to the \emph{RDF-CV} (see table \ref{tab:existential-quantification-as-simple-constraints}).
+The \emph{DL} statement \ms{Publication $\equiv$ $\exists$ publisher.Publisher} is mapped to a \emph{(simple) generic constraint} conforming to the \emph{RDF-CV} (see Table \ref{tab:existential-quantification-as-simple-constraints}).
 Then, one mapping (\emph{$m_1(sc_{OWL 2})$}, \emph{$m_2(sc_{ReSh})$}, \emph{$m_3(sc_{ShEx})$}, ...) is defined for each \emph{specific constraint} (\emph{$sc_{OWL 2}$}, \emph{$sc_{ReSh}$}, \emph{$sc_{ShEx}$}, ...) to the corresponding \emph{generic constraint} (\emph{gc}).
 
 %\begin{gcotable}
