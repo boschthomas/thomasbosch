@@ -198,6 +198,8 @@
   \linebreak
 }
 
+\usepackage{float}
+
 \begin{document}
 
 \title{The Role of Constraint Languages and Reasoning for RDF Validation}
@@ -1015,7 +1017,6 @@ This technical report also contains mappings to \emph{DL} to logically underpin 
 	%we determine for each constraint type if it depends on the \emph{CWA} and if it depends on the \emph{UNA}.
 	\item  We investigate the affect of reasoning to the validation process of each constraint type, i.e.,
 we examine if reasoning can be performed prior to validation to enhance data quality.
-	\item \textcolor{red}{Since reasoning makes difference  for some validation types, we note them with the computational complexity  of  the language that they are expressed in.}
 	\item Since the combination of \emph{DL} constructs of a constraint type determines its complexity, by mapping to \emph{DL} we get an idea of the complexity for each constraint type in worst case.
 \end{enumerate}
 
@@ -1521,55 +1522,57 @@ Semantic-Web-Publication a ResourceShape ; property [
 \label{sec:constraints-complexity}
 %\tb{I think this sub section is not that fluently to read}
 
-\textcolor{red}{reviews:}
 \begin{itemize}
   \item \textcolor{red}{Reviewer1: This is wrong that the Tbox axioms ( RDF constraints in this paper) can be classified as it is suggested in Section 3. The reason is that there exist possibly complex logical interferences between them. For instance, even in lightweight DLs such as  DL-Lite, positive inclusions (PIs) can be used to infer negative inclusions (NIs).}
-	\item \textcolor{red}{Erman: we mean ontological reasoning  here, the discussion is done according to well-established complexity results (in literature) on reasoning in particular DL languages, having only those  features used in constraints. Therefore the complex interferences are included. }
+%	\item \textcolor{red}{Erman: we mean ontological reasoning  here, the discussion is done according to well-established complexity results (in literature) on reasoning in particular DL languages, having only those  features used in constraints. Therefore the complex interferences are included. }
 %	\item \textcolor{red}{The first paragraph is confusing. Refer to what? Follows? }
 \end{itemize}
 
 Since the combination of \emph{DL} constructs, needed to express a constraint type, determines its computational complexity, 
 by mapping to \emph{DL} we get an idea of the performance for each constraint type in worst case.
-
------
-
-To have a further evaluation on the latter and to refer easily, we divide $\mathcal{CT}_R$ into two classes (not disjoint). 
-Overall, we have the following. Since, \emph{OWL 2 DL} is more expressive than \emph{OWL 2 QL},  $\mathcal{C}_R ^{\mathcal{QL}} \subseteq \mathcal{C}_R ^{\mathcal{DL}}$ follows. 
+We divide $\mathcal{CT}_R$ into two not disjoint sets of constraint types: 
+$\mathcal{CT}_R ^{\mathcal{QL}} \subseteq \mathcal{CT}_R ^{\mathcal{DL}}$ (\emph{OWL 2 DL} is more expressive than \emph{OWL 2 QL}).
+According to the execution of reasoning prior to validation, we distinguish three different types of validation: 
 \begin{enumerate}\itemsep0.5em
-	\item $\overline{\mathcal{CT}_R}$: validation by query answering without reasoning
-	\item $\mathcal{CT}_R ^{\mathcal{QL}}$: validation by query answering with \emph{OWL 2 QL} reasoning
-	\item $\mathcal{CT}_R ^{\mathcal{DL}}$: validation by query answering with \emph{OWL 2 DL} reasoning
+	\item $\overline{\mathcal{CT}_R}$ denotes the set of constraint types for which validation is performed by query answering without reasoning.
+	\item $\mathcal{CT}_R ^{\mathcal{QL}}$ is the set of constraint types which are expressible by \emph{OWL 2 QL} and for which validation is executed by query answering with \emph{OWL 2 QL} reasoning.
+	\item $\mathcal{CT}_R ^{\mathcal{DL}}$ stands for the set of constraint types which are expressible by \emph{OWL 2 DL} and for which validation is run by query answering with \emph{OWL 2 DL} reasoning.
 \end{enumerate}
-We limit $\mathcal{CT}_R$ to the constraint types which can be expressed by \emph{OWL 2 DL} and still requires reasoning 
-(i.e., $\mathcal{CT}_R$ = $\mathcal{CT}_R ^{\mathcal{DL}}$). This is due the fact that, \emph{OWL 2 DL} is still quite expressive\footnote{It could alternatively be set to a more expressive language (e.g., \emph{OWL 2 Full}). Such treatment can be done in future work, if it is understood that we require that.}. 
-Some of these constraint types can still be expressed by constraint languages which is the focus of the next section.
+We limit $\mathcal{CT}_R$ to the set of constraint types which can be expressed by \emph{OWL 2 DL} %and still require reasoning 
+($\mathcal{CT}_R$ = $\mathcal{CT}_R ^{\mathcal{DL}}$), as \emph{OWL 2 DL} is still quite expressive.
+%\footnote{Alternatively, it could be set to a more expressive language (e.g., \emph{OWL 2 Full}).}. %Such treatment can be done in future work, if it is understood that we require that.}. 
+Some of these constraint types can also be represented by constraint languages which is the focus of the next section.
 %The complexity class $\mathcal{CT}_R$ encompasses all \emph{constraints with reasoning} for which reasoning can be executed but cannot be expressed by OWL 2.  \er{What/Why can't  be expressed by OWL 2  while being inferred? }\tb{e.g. class-specific property ranges or class-specific reflexive object properties cannot be expressed in OWL / these 2 axioms can only be stated globally for the properties, we cannot restrict it to individuals of specific classes}
-Table \ref{tab:constraint-type-specific-complexity-classes} gives an overview over the complexity for RDF validation when reasoning is performed and when reasoning is not performed.
-\begin{table}
+
+Table \ref{tab:constraint-type-specific-complexity-classes} gives an overview over the complexity of RDF validation when reasoning is performed and when reasoning is not performed grouped by validation type.
+Since reasoning makes difference  for some validation types, we note them with the computational complexity of the language their associated constraint types are expressed in.
+\begin{table}[H]
 \centering
-\caption{Constraint Type Specific Complexity Classes}
+%\caption{Constraint Type Specific Complexity Classes}
+\caption{Complexity of Validation According to Reasoning}
 \scriptsize
 \begin{tabular}{>{\centering\arraybackslash}m{1.5in} | >{\centering\arraybackslash}m{1in}} 
-\textbf{Constraint Type Class}  & \textbf{Complexity Class}\\
+\textbf{Validation Type}  & \textbf{Complexity Class}\\
 \hline
 $\overline{\mathcal{CT}_R}$ & \textsc{Pspace}-Complete \\[7pt] 
 \hline
 $\mathcal{CT}_R ^{\mathcal{QL}}$ & \textsc{Ptime} \\[7pt]
 \hline
 $\mathcal{CT}_R ^{\mathcal{DL}}$ & \textsc{N2exptime} \\[7pt]
-
 \end{tabular}
 \label{tab:constraint-type-specific-complexity-classes}
 \end{table}
-
-
-What is considered by RDF validation with or without reasoning corresponds to performing \emph{SPARQL} queries.  
-It is known that performing \emph{SPARQL} queries is in \textsc{Pspace}-Complete \cite{Perez2009}. 
-Since \emph{OWL 2} profiles are based on the \textit{DL-Lite} family and query answering in \emph{OWL 2 QL} (which is based on \textit{DL-Lit}$e_R$ is in \textsc{LogSpace} (or rather in \emph{AC$^0$} ) \cite{Calvanese2007}, so is the constraint validation by queries with  reasoning. 
-Furthermore, TBox reasoning is performed in \emph{OWL 2 QL} is in \textsc{Ptime} \cite{Calvanese2007}, 
-hence complete query rewriting as well as combined complexity (reasoning and than querying) is in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  
+RDF validation with or without reasoning corresponds to performing \emph{SPARQL} queries.  
+It is known that performing \emph{SPARQL} queries is carried out in \textsc{Pspace}-Complete \cite{Perez2009}. 
+As \emph{OWL 2} profiles are based on the \textit{DL-Lite} family and query answering in \emph{OWL 2 QL} (which is based on \textit{DL-Lit}$e_R$) is performed in \textsc{LogSpace} (or rather in \emph{AC$^0$}) \cite{Calvanese2007}, the same complexity class applies for
+constraint validation by queries with reasoning.
+As TBox reasoning in \emph{OWL 2 QL} is performed in \textsc{Ptime} \cite{Calvanese2007}, 
+complete query rewriting as well as reasoning and subsequent querying (combined complexity) is carried out in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  
 With the more expressive profile \emph{OWL 2 DL}, reasoning is executed in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
-The  relation between those complexity classes is well-known \cite{Arora:2009:CCM:1540612} and as follows:
+As we consider ontological reasoning, complexity classes are assigned to validation types 
+according to well-established complexity results on reasoning of \emph{DL} languages.
+Therefore, the classification also includes complex logical interferences between TBox axioms.
+The relation between the complexity classes is \cite{Arora:2009:CCM:1540612}:
 %\begin{eqnarray*}
 %\overline{\mathcal{C}_R} \subset \mathcal{C}_R ^{\mathcal{QL}} \subset \mathcal{C}_R \subseteq \mathcal{C}_R ^{\mathcal{DL}}
 %\end{eqnarray*}
@@ -1578,9 +1581,8 @@ The  relation between those complexity classes is well-known \cite{Arora:2009:CC
 \end{eqnarray*}
 %There are constraints (e.g., class-specific property range, class-specific reflexive object properties) for which reasoning could be executed even though there is currently no implementation supported by any constraint language. 
 %We leave it as future work to write SPARQL CONSTRUCT queries in order to provide reasoning for these constraints.
-We do not include \emph{OWL 2 Full} 
+We do not consider \emph{OWL 2 Full} 
 %\textcolor{red}{(which is not a \emph{DL})} 
-in our classification
 due to its high worst case complexity (undecidability) and
 as $\mathcal{CT}_R$ constraint types are already expressible either by \emph{OWL 2 QL} or \emph{OWL 2 DL}.
 
@@ -1629,12 +1631,12 @@ some constraint types in $\mathcal{CT}_R$ are not only expressible by OWL 2  but
 	%\caption{Constraint Type Specific Expressivity}
 	%\label{tab:constraint-type-specific-expressivity}
 %\end{table}
-\textcolor{red}{The numbers in parentheses in table 2: what are these
+\textcolor{red}{The numbers in parentheses in table 2 what are these
 extensions/restrictions?  The subsequent ordering of expressivity
 seems to include these values in the ranking: why?}
 %\end{center}
 %\tb{this is indeed a misunderstanding. I only took into account that is DSP supports 6 EXPR-C constraints and OWL 2 DL 5, then DSP is more expressive than OWL 2 DL regarding the expressivity class EXPR-C / but this is not right?}
-\begin{table}
+\begin{table}[H]
 	\centering
 	  \caption{Constraint Type Specific Expressivity}
 	  \scriptsize
@@ -1652,7 +1654,7 @@ seems to include these values in the ranking: why?}
 \end{table}
 
 In Table \ref{tab:constraint-type-specific-expressivity}, the total amount of constraint types per constraint type specific expressivity is shown by numbers in round brackets in the first column.
-Numbers in paranthesis in the other columns indicate the number of constraint types which may be expressed by that particular constraint language - either by limitations, workarounds, or extensions.  
+Numbers in parentheses in the other columns indicate the number of constraint types which may be expressed by that particular constraint language - either by limitations, workarounds, or extensions.  
 %\er{One possible misunderstanding (maybe not) is the ordering. It is not only based on the size of the number of the constrains that they satisfies right? For instance, if there are 6 constraints (from EXPR-C) that  DSP satisfies and OWL2-DL  can satisfy lets say only 5 of them but 13 other, in such scenario OWL2 DL and DSP would be incomparable (no ordering). It is more expressive only if it contains those 6 and extras.}
 The following order is derived from expressivity scores:
 {\tiny
@@ -1705,7 +1707,7 @@ Table \ref{tab:expressivity-sores-according-to-expressivity-classes} shows the e
 	%\caption{Expressivity Scores according to Expressivity Classes (1)}
 	%\label{tab:expressivity-sores-according-to-expressivity-classes-1}
 %\end{table}
-\begin{table}
+\begin{table}[H]
 	\centering
 	  \caption{Expressivity Scores according to Expressivity Classes (1)}
 	  \scriptsize
@@ -1721,7 +1723,7 @@ Table \ref{tab:expressivity-sores-according-to-expressivity-classes} shows the e
 		\end{tabular}
 	\label{tab:expressivity-sores-according-to-expressivity-classes-1}
 \end{table}
-\begin{table}
+\begin{table}[H]
 	\centering
 	  \caption{Expressivity Scores according to Expressivity Classes (2)}
 	  \scriptsize
