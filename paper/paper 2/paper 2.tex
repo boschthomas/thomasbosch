@@ -253,9 +253,9 @@ and the \emph{Web Ontology Language (OWL 2)}.
 %min car more powerful than req. propery
 The idea behind this paper is to achieve complete RDF validation requirements coverage by representing any constraint type (each of them corresponding to a requirement to formulate constraints and to validate RDF data) in a generic way using a lightweight vocabulary, say,  consisting of only a few terms (see section \ref{sec:vocabulary}).
 
-\emph{Cardinality restrictions} can be expressed either generically (\textbf{\emph{generic constraints}}) by \emph{description logics (DL)} 
+\emph{Cardinality restrictions} can be expressed either generically (\emph{generic constraints}) by \emph{description logics (DL)} 
 %and extensions  
-or specifically (\textbf{\emph{specific constraints}}) by domain-specific constraint languages such as \emph{OWL 2}, \emph{DSP}, \emph{ShEx}, \emph{ReSh}, and \emph{SPIN}.
+or specifically (\emph{specific constraints}) by domain-specific constraint languages such as \emph{OWL 2}, \emph{DSP}, \emph{ShEx}, \emph{ReSh}, and \emph{SPIN}.
 The knowledge representation formalism {\em DL}, with its  well-studied theoretical properties, provides the foundational basis to express constraints in a generic way. 
 For that reason, we map constraint types to \emph{DL} statements.
 
@@ -331,7 +331,7 @@ We are able to offer an already implemented validation mechanism for any \emph{s
 %This paper aims to address two main \textbf{audiences}:
 %(1) RDF data providers and consumers seeking how to ensure high data quality and thus for ways to enhance the interoperability and common understanding of constraints expressible by multiple constraint languages and  
 %(2) RDF practitioners thinking of how to provide aligned implementations for the validation of both existing an newly developed constraint languages.
-The main \textbf{contributions} of this paper are:
+The main contributions of this paper are:
 (1) we provide a basic terminology and classification system for RDF constraints (section \ref{sec:vocabulary}),
 (2) we developed a vocabulary to describe constraints of any RDF constraint type generically and specified its underlying semantics (section \ref{sec:vocabulary}),
 (3) we show how to transform constraints, expressed by any constraint language \ms{$\alpha$}, into generically expressed constraints and into constraints represented by any other constraint language \ms{$\beta$} and discuss why these transformations are useful (section \ref{sec:transformations}), and
@@ -414,7 +414,7 @@ In order to develop a vocabulary to describe constraints of any constraint type 
 \subsection{RDF Validation Semantics}
 
 %The underlying \emph{semantics} for RDF validation is \emph{UNA} and \emph{CWA}.
-RDF validation requires that different names represent different objects (\emph{\textbf{unique name assumption (UNA)}}), whereas,
+RDF validation requires that different names represent different objects (\emph{unique name assumption (UNA)}), whereas,
 \emph{OWL 2} is based on the {\em non-unique name assumption (nUNA)}.  
 A data property is \emph{functional} (\emph{R-65}) if for each individual \emph{x}, there can be at most one distinct literal \emph{y} such that \emph{x} is connected by the data property to \emph{y}. 
 When assuming \emph{UNA}, the functional property {\em title} (\ms{funct (title)}) causes a clash
@@ -432,7 +432,7 @@ Reasoning in \emph{OWL 2} is based on the {\em open-world assumption (OWA)}, i.e
 As each \emph{book} must have a \emph{title} (\ms{Book $\sqsubseteq \exists$ title.$\top$}) and {\em Hamlet} is a \emph{book} (\ms{Book(Hamlet)}),
 {\em Hamlet} must have at least one \emph{title}.
 In an \emph{OWA} setting, this axiom does not cause a constraint violation (even if there is no explicitly defined \emph{title}), since there must be a \emph{title} for this \emph{book} which we may not know. 
-On the other hand, RDF validation scenarios require the \emph{\textbf{closed-world assumption (CWA)}}, i.e., a statement is inferred to be false if it cannot be proved to be true.
+On the other hand, RDF validation scenarios require the \emph{closed-world assumption (CWA)}, i.e., a statement is inferred to be false if it cannot be proved to be true.
 When assuming the \emph{CWA}, a constraint violation is raised as there is no explicitly defined title. 
 A constraint that says that a book must have at least one title in \emph{OWA}, 
 does not mean that the title has to be unique. 
@@ -524,18 +524,18 @@ to document identical semantics for these languages with regard to appropriate c
 
 \subsection{Basic Terminology for the Formulation of RDF Constraints}
 
-A \textbf{\emph{constraint language}} is a language which is used to formulate constraints.
-The W3C Data Shapes working group defines \textbf{\emph{RDF constraint}} as a component of a schema what needs to be satisfied\footnote{\url{https://www.w3.org/2014/data-shapes/wiki/Glossary}}.
+A \emph{constraint language} is a language which is used to formulate constraints.
+The W3C Data Shapes working group defines \emph{RDF constraint} as a component of a schema what needs to be satisfied\footnote{\url{https://www.w3.org/2014/data-shapes/wiki/Glossary}}.
 We identified four dimensions to classify constraint types:
 \begin{itemize}
-  \item \textbf{\emph{Universality:}} \emph{specific constraints} vs. \emph{generic constraints}
-	\item \textbf{\emph{Complexity:}} \emph{simple constraints} vs. \emph{complex constraints}
-	\item \textbf{\emph{Context:}} \emph{property constraints} vs. \emph{class constraints}
-	\item \textbf{\emph{DL Expressivity:}} \emph{constraints expressible in DL} vs. \emph{constraints not expressible in DL}
+  \item \emph{Universality:} \emph{specific constraints} vs. \emph{generic constraints}
+	\item \emph{Complexity:} \emph{simple constraints} vs. \emph{complex constraints}
+	\item \emph{Context:} \emph{property constraints} vs. \emph{class constraints}
+	\item \emph{DL Expressivity:} \emph{constraints expressible in DL} vs. \emph{constraints not expressible in DL}
 \end{itemize}
 
 As there are already five promising constraint languages and our purpose is not to put a new constraint language, we rather developed a very simple lightweight vocabulary (only three classes, three object properties, and three data properties) which is universal enough to describe constraints of any constraint type expressible by any constraint language (see the conceptual model in figure \ref{fig:RDF-CV-conceptual-model}).
-We call this vocabulary the \textbf{\emph{RDF Constraints Vocabulary (RDF-CV)}}\footnote{Available at: \url{https://github.com/boschthomas/RDF-Constraints-Vocabulary}}.
+We call this vocabulary the \emph{RDF Constraints Vocabulary (RDF-CV)}\footnote{Available at: \url{https://github.com/boschthomas/RDF-Constraints-Vocabulary}}.
 
 \begin{figure}
 	\centering
@@ -544,14 +544,14 @@ We call this vocabulary the \textbf{\emph{RDF Constraints Vocabulary (RDF-CV)}}\
 	\label{fig:RDF-CV-conceptual-model}
 \end{figure}
 
-Constraints can be expressed either generically (\textbf{\emph{generic constraints}}) by the \emph{RDF-CV}   
-or specifically (\textbf{\emph{specific constraints}}) by domain-specific constraint languages.
+Constraints can be expressed either generically (\emph{generic constraints}) by the \emph{RDF-CV}   
+or specifically (\emph{specific constraints}) by domain-specific constraint languages.
 As the \emph{RDF-CV} describes constraints generically, the vocabulary does not distinguish constraints according to the dimension \emph{universality}. 
 The majority of the constraint types can be expressed in \emph{DL}.
 In contrast, there are certain constraint types which cannot be expressed in \emph{DL}, but are also expressible by the \emph{RDF-CV} . 
-\textbf{\emph{Complex constraints}} encompass \textbf{\emph{simple constraints}} (atomic constraints) and/or further \emph{complex constraints},
+\emph{Complex constraints} encompass \emph{simple constraints} (atomic constraints) and/or further \emph{complex constraints},
 i.e. \emph{DL} statements representing \emph{complex constraints} are created out of \emph{DL} statements standing for atomic and composed constraints (if expressible in \emph{DL}). 
-Simple constraints may be applied to either properties (\textbf{\emph{property constraints}}) or classes (\textbf{\emph{class constraints}}).
+Simple constraints may be applied to either properties (\emph{property constraints}) or classes (\emph{class constraints}).
 The \emph{RDF-CV} does not contain any terms standing for \emph{simple} and \emph{complex constraints}, since \emph{context classes} of \emph{simple constraints} are just reused within \emph{complex constraints} (\emph{simple constraints} associated with \emph{context classes} must hold for individuals of these \emph{context classes}). 
 %\tb{Erman: If you say its expressible in RDF-CV, than you impose that RDF-CV is a language rather than a vocabulary. "in different contexts they call it signature which is the same thing". Generally, a language uses vocabulary to construct sentences, and the set of those sentences, is the language.} (see section \ref{sec:evaluation})
 As a consequence, the distinction of \emph{property} and \emph{class constraints} is sufficient to describe constraints of all possible constraint types.
@@ -559,7 +559,7 @@ As a consequence, the distinction of \emph{property} and \emph{class constraints
 
 \subsection{\emph{Simple Constraints} (Expressible in \emph{DL})}
 
-Sub-classes of \textbf{\emph{simple constraints}} are \textbf{\emph{property constraints}} and \textbf{\emph{class constraints}} (see the \emph{RDF-CV} implementation model in figure \ref{fig:RDF-CV-implementation-model}). 
+Sub-classes of \emph{simple constraints} are \emph{property constraints} and \emph{class constraints} (see the \emph{RDF-CV} implementation model in figure \ref{fig:RDF-CV-implementation-model}). 
 For both \emph{property} and \emph{class constraints} a \emph{context class}, a list of \emph{classes}, the \emph{constraining element}, and the \emph{constraining value} can be stated. 
 Lists of \emph{left} and \emph{right properties} can only be specified for \emph{property constraints}.
 
@@ -570,7 +570,7 @@ Lists of \emph{left} and \emph{right properties} can only be specified for \emph
 	\label{fig:RDF-CV-implementation-model}
 \end{figure}
 
-A \emph{simple constraint} holds for all individuals of a \textbf{\emph{context class}}.
+A \emph{simple constraint} holds for all individuals of a \emph{context class}.
 Consider, e.g., the following \emph{minimum qualified cardinality restriction} on the object property \emph{author}, which restricts \emph{publications} to have at least one \emph{author} which is a \emph{person}: 
 \begin{DL}
 $Publication \sqsubseteq \geq1 author . Person $
@@ -591,17 +591,17 @@ The cardinality restriction is a constraint on the property \emph{author} and is
 	\label{tab:property-constraint-cardinality-restriction}
 \end{table}
 
-The \textbf{\emph{constraining element}} indicates the actual type of constraint like \emph{DL} concept and role constructors, (in)equality, and further keywords for constraint types which cannot be expressed in \emph{DL} (e.g. regular expressions and constraining facets).
-In some cases, a constraint is only complete when in addition to the \emph{constraining element} a \textbf{\emph{constraining value}} is stated.
+The \emph{constraining element} indicates the actual type of constraint like \emph{DL} concept and role constructors, (in)equality, and further keywords for constraint types which cannot be expressed in \emph{DL} (e.g. regular expressions and constraining facets).
+In some cases, a constraint is only complete when in addition to the \emph{constraining element} a \emph{constraining value} is stated.
 The cardinality restriction 
 \ms{$\geq$1 author.Person}, e.g., 
 constructs an anonymous class of all individuals having at least one \emph{author} relationship to \emph{persons}.
 The \emph{constraining element} of this \emph{property constraint} is the \emph{DL} at-least restriction \emph{$\geq$} and the \emph{constraining value} is \emph{1}.
-\emph{Simple constraints} may refer to a list of \textbf{\emph{classes}}.
+\emph{Simple constraints} may refer to a list of \emph{classes}.
 The qualified cardinality restriction above, e.g., refers to the class \emph{Person}, 
 i.e. restricts the objects of the property \emph{author} to be of the class \emph{Person}.
 
-For \emph{property constraints}, \textbf{\emph{left}} and \textbf{\emph{right property lists}} are specified.
+For \emph{property constraints}, \emph{left} and \emph{right property lists} are specified.
 The assignment of properties to these lists happens relative to the \emph{constraining element} - which may be an operator (e.g., $\sqsubseteq$ in case of \emph{object property paths}).
 \emph{Object Property Paths} (\emph{R-55}; also called \emph{complex role inclusion axioms} in \emph{DL})
 express that, if an individual \emph{x} is connected by a sequence of object properties with an individual \emph{y}, 
@@ -696,7 +696,7 @@ Validation has to be implemented once for each \emph{generic constraint type} wh
 
 \subsection{\emph{Complex Constraints}}
 
-\textbf{\emph{Complex constraints}} are composed out of \emph{simple constraints} and/or \emph{complex constraints}.
+\emph{Complex constraints} are composed out of \emph{simple constraints} and/or \emph{complex constraints}.
 \emph{Exclusive or} is a logical operation that outputs true whenever both inputs differ (one is true, the other is false).
 The \emph{complex constraint} \emph{context-specific exclusive or of property groups} (\emph{R-13})
 restricts individuals of given classes to have properties of only one of multiple mutually exclusive property groups.
