@@ -1639,9 +1639,9 @@ some constraint types in $\mathcal{CT}_R$ are not only expressible by \emph{OWL 
 	%\caption{Constraint Type Specific Expressivity}
 	%\label{tab:constraint-type-specific-expressivity}
 %\end{table}
-\textcolor{red}{The numbers in parentheses in table 2 what are these
-extensions/restrictions?  The subsequent ordering of expressivity
-seems to include these values in the ranking: why?}
+%\textcolor{red}{The numbers in parentheses in table 2 what are these
+%extensions/restrictions?  The subsequent ordering of expressivity
+%seems to include these values in the ranking: why?}
 %\end{center}
 %\tb{this is indeed a misunderstanding. I only took into account that is DSP supports 6 EXPR-C constraints and OWL 2 DL 5, then DSP is more expressive than OWL 2 DL regarding the expressivity class EXPR-C / but this is not right?}
 \begin{table}[H]
@@ -1649,7 +1649,8 @@ seems to include these values in the ranking: why?}
 	  \caption{Constraint Type Specific Expressivity}
 	  \scriptsize
 		\begin{tabular}{l|c|c}
-      \textbf{Expressivity Class} & $Expr(\overline{\mathcal{C}_R})$ (42) & $Expr(\mathcal{C}_R)$ (32) \\		
+      %\textbf{Expressivity Class} & $Expr(\overline{\mathcal{CT}_R})$ (42) & $Expr(\mathcal{CT}_R)$ (32) \\		
+			\textbf{} & $Expr(\overline{\mathcal{CT}_R})$ (42) & $Expr(\mathcal{CT}_R)$ (32) \\	
       \hline
 			DSP & 6 & 8 \\
 			OWL2-DL & 18(4) & 29 \\ 
@@ -1660,11 +1661,13 @@ seems to include these values in the ranking: why?}
 		\end{tabular}
 	\label{tab:constraint-type-specific-expressivity}
 \end{table}
-
-In Table \ref{tab:constraint-type-specific-expressivity}, the total amount of constraint types per constraint type specific expressivity is shown by numbers in round brackets in the first column.
-Numbers in parentheses in the other columns indicate the number of constraint types which may be expressed by that particular constraint language - either by limitations, workarounds, or extensions.  
+In total, there are 42 $\overline{\mathcal{CT}_R}$ and 32 $\mathcal{CT}_R$ constraint types (see Table \ref{tab:constraint-type-specific-expressivity}).
+%In Table \ref{tab:constraint-type-specific-expressivity}, the total amount of constraint types per constraint type specific expressivity is shown by numbers in round brackets in the first column.
+Numbers in parentheses in table cells indicate the number of constraint types which may be expressed by a particular constraint language - either by limitations, workarounds, or extensions.  
 %\er{One possible misunderstanding (maybe not) is the ordering. It is not only based on the size of the number of the constrains that they satisfies right? For instance, if there are 6 constraints (from EXPR-C) that  DSP satisfies and OWL2-DL  can satisfy lets say only 5 of them but 13 other, in such scenario OWL2 DL and DSP would be incomparable (no ordering). It is more expressive only if it contains those 6 and extras.}
-The following order is derived from expressivity scores:
+Representing {\em context-specific exclusive or of properties} (\emph{R-11}) constraints in \emph{OWL 2 DL}, e.g., can be seen as a workaround 
+as anonymous classes are built for each of the exclusive properties (see Section \ref{RDF-Validation-Requirements-without-Reasoning}).
+The following order is derived from the expressivity scores\footnote{Including limitations, workarounds, and extensions since constraint types are still expressible.}:
 {\tiny
 \begin{eqnarray*}
 %Expr(\mathcal{C}): ... \\
@@ -1715,7 +1718,7 @@ Table \ref{tab:expressivity-sores-according-to-expressivity-classes} shows the e
 	%\caption{Expressivity Scores according to Expressivity Classes (1)}
 	%\label{tab:expressivity-sores-according-to-expressivity-classes-1}
 %\end{table}
-\begin{table}[H]
+\begin{table}
 	\centering
 	  \caption{Expressivity Scores according to Expressivity Classes (1)}
 	  \scriptsize
@@ -1731,7 +1734,7 @@ Table \ref{tab:expressivity-sores-according-to-expressivity-classes} shows the e
 		\end{tabular}
 	\label{tab:expressivity-sores-according-to-expressivity-classes-1}
 \end{table}
-\begin{table}[H]
+\begin{table}
 	\centering
 	  \caption{Expressivity Scores according to Expressivity Classes (2)}
 	  \scriptsize
