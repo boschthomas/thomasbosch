@@ -503,7 +503,11 @@ we identified and published by today 82 requirements to formulate RDF constraint
 Each of these requirements corresponds to a constraint type from which concrete constraints are instantiated to be checked against RDF data.
 We recently published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} (serving as appendix of this paper) 
 in which we explain each requirement/constraint type in detail and give examples for each represented by different constraint languages.
-This technical report also contains mappings to \emph{DL} to logically underpin each requirement and to determine which \emph{DL} constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
+This technical report also contains mappings to {\em Description logics} (\emph{DL}) to logically underpin each requirement and to determine which \emph{DL} constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
+The knowledge representation formalism \emph{DL}, with its well-studied theoretical properties, 
+provides the foundational basis for constraint types. 
+\emph{DL} can be used to express constraints like (1) \emph{publications} must have at least one \emph{author} which must be a \emph{person} {\small\ms{(Publication $\sqsubseteq$ $\geq$1 author.Person)}} and
+(2) \emph{books}, \emph{conference proceedings}, and \emph{journal articles} are \emph{publications} {\small\ms{(Book $\sqcup$} \ms{ConferenceArticle $\sqcup$} \ms{JournalArticle $\sqsubseteq$ Publication)}}. 
 
 For each constraint type we examine if validation results depend on different underlying semantics, 
 especially as \textcolor{red}{34} of 82 constraint types 
@@ -520,22 +524,14 @@ either (1) by resolving violations or (2) by raising valuable violations (Sectio
 %If reasoning can be performed to enhance data quality depends on the individual constraint type and not on the language. 
 %Although, reasoning is not yet implemented for other languages than \emph{OWL 2}, languages can easily be extended in form of \emph{SPARQL} queries.
 
------
-
-For each constraint type we investigate how efficient in terms of runtime can reasoning be performed (Section \ref{reasoning}).
-
-We examine the effects of reasoning on the performance, i.e., the computational complexity of constraint types.
-
+For each constraint type we investigate how efficient in terms of runtime reasoning is performed.
+%We examine the effects of reasoning on the performance, i.e., the computational complexity of constraint types.
 Since the combination of \emph{DL} constructs, needed to express a constraint type, determines its computational complexity, 
-by mapping to \emph{DL} we get an idea of the performance for each constraint type in worst case.
-
-Since the combination of \emph{DL} constructs of a constraint type determines its complexity, by mapping to \emph{DL} we get an idea of the complexity for each constraint type in worst case.
-
-We formulate common types of constraints in \emph{Description Logics} and use this formulation to determine their possible complexity when certain reasoning steps are involved. 
-
------
+by mapping to \emph{DL} we get an idea of the performance for each constraint type in worst case (Section \ref{reasoning}).
 
 Using these findings, we determine for the most common constraint languages which constraint types they are able to express.
+Having this information enables systems to recommend the right language to formulate constraints depending on individual use cases of users.
+These use cases determine which requirements have to be fulfilled and therefore which constraint types have to be expressed to meet these use cases.
 We argue that so far no single best solution exists and give directions for the further development of constraint languages (Section \ref{expressivity-constraint-languages}).
 
 % RDF validation in the library domain
@@ -607,14 +603,12 @@ We argue that so far no single best solution exists and give directions for the 
 %
 %-----
 
-Although, reasoning is not yet implemented for other languages than \emph{OWL 2}, languages can easily be extended in form of \emph{SPARQL} queries.
+%Although, reasoning is not yet implemented for other languages than \emph{OWL 2}, languages can easily be extended in form of \emph{SPARQL} queries.
 
-We determine constraint type specific expressivity scores of constraint languages
-which enable systems to recommend languages depending on individual use cases and therefore needed constraint types.
+%We determine constraint type specific expressivity scores of constraint languages
+%which enable systems to recommend languages depending on individual use cases and therefore needed constraint types.
 
-The purpose of this paper is to provide a basis for the development of constraint languages.
-
-Tools, which apply the proposed classification system, should guide users to choose the right language for validation or to make trade-offs around the kinds of validation they need.
+%Tools, which apply the proposed classification system, should guide users to choose the right language for validation or to make trade-offs around the kinds of validation they need.
 
 -----
 
@@ -942,10 +936,11 @@ This has lead to claims that \emph{OWL 2} cannot be used for validation.
 In practice, \emph{OWL 2} is well-spread and \emph{RDFS}/\emph{OWL 2} constructs are widely used to tell people and applications about how valid instances should look like.
 \emph{RDF} documents follow the structure of \emph{RDFS}/\emph{OWL 2} ontologies which can therefore be reused for validation according to this structure. 
 %In particular, most of the constraint languages except OWL, have a major shortcoming of redundancy.\tb{the following example is not about solving the redundancy problem, it is about how constraint violations cab be resolved when performing reasoning / we should delete this sentence here, as we starting talking about redundancy problem below}
-The knowledge representation formalism {\em Description logics} (\emph{DL}), with its well-studied theoretical properties, 
-provides the foundational basis for \emph{OWL}. 
-\emph{DL} can be used to express constraints like (1) \emph{publications} must have at least one \emph{author} which must be a \emph{person} {\small\ms{(Publication $\sqsubseteq$ $\geq$1 author.Person)}} and
-(2) \emph{books}, \emph{conference proceedings}, and \emph{journal articles} are \emph{publications} {\small\ms{(Book $\sqcup$} \ms{ConferenceArticle $\sqcup$} \ms{JournalArticle $\sqsubseteq$ Publication)}}. 
+\emph{DL} provides the foundational basis for \emph{OWL}.  
+%The knowledge representation formalism {\em Description logics} (\emph{DL}), with its well-studied theoretical properties, 
+%provides the foundational basis for \emph{OWL}. 
+%\emph{DL} can be used to express constraints like (1) \emph{publications} must have at least one \emph{author} which must be a \emph{person} {\small\ms{(Publication $\sqsubseteq$ $\geq$1 author.Person)}} and
+%(2) \emph{books}, \emph{conference proceedings}, and \emph{journal articles} are \emph{publications} {\small\ms{(Book $\sqcup$} \ms{ConferenceArticle $\sqcup$} \ms{JournalArticle $\sqsubseteq$ Publication)}}. 
 
 Reasoning is beneficial for \emph{RDF} validation as 
 (1) it may resolve constraint violations\footnote{For simplicity reasons, we use the term \emph{violations} instead of \emph{constraint violations} in the remainder of the paper}, 
