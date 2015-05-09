@@ -202,7 +202,8 @@
 
 \begin{document}
 
-\title{The Role of Constraint Languages and Reasoning for RDF Validation}
+%\title{The Role of Constraint Languages and Reasoning for RDF Validation}
+\title{The Role Reasoning for RDF Validation}
 % On Constraint Languages for RDF Validation with an account to Reasoning
 %On Constraint Languages for RDF Validation and Reasoning
 %RDF Validation - Classification of Constraints and Constraint Languages According to Reasoning, Expressivity, and Complexity
@@ -293,13 +294,34 @@ Erman Acar\\
 
 \maketitle
 \begin{abstract}
-For data practitioners embracing the world of RDF and Linked Data, the openness and flexibility is a mixed blessing. For them, data validation according to predefined constraints is a  much sought-after feature, particularly as this is taken for granted in the XML world. 
-Several languages exist to meet this requirement, ranging from using \emph{OWL} as a constraint language to \emph{SPIN}, a SPARQL-based way to formulate and check constraints. 
-%There are also specific constraint languages like Shape Expressions, Resource Shapes or Description Set Profiles that more or less explicitly address the aforementioned data practitioners.
-In this paper, we investigate the relationship of validation and reasoning and the role that reasoning plays in practical data validation. 
-We formulate common types of constraints in \emph{Description Logics} and use this formulation to determine their possible complexity when certain reasoning steps are involved. 
-At last, we aggregate these findings for the most common constraint languages and show their commonalities and differences regarding constraint expressivity. 
-We argue that so far no single best solution exists and that the results presented in this paper are crucial for a proper application of RDF validation.
+For data practitioners embracing the world of RDF and Linked Data, the openness and flexibility is a mixed blessing. 
+For them, data validation according to predefined constraints is a much sought-after feature, particularly as this is taken for granted in the XML world.
+
+We investigate the role that reasoning plays in practical data validation and 
+how to overcome the major shortcomings when validating RDF data by performing reasoning prior to validation.
+Based on our work in the DCMI RDF Application Profiles Task Group and in cooperation with the W3C Data Shapes Working Group, 
+we identified and published by today 82 types of constraints that are required by various stakeholders for data applications. 
+For each constraint type we examine
+(1) if validation results depend on different underlying semantics,
+(2) if reasoning may improve data quality, and 
+(3) how efficient in terms of runtime can reasoning be performed.
+Using these findings, we determine for the most common constraint languages which constraint types they are able to express.
+We argue that so far no single best solution exists and give directions for the further development of constraint languages.
+%\begin{abstract}
+%For data practitioners embracing the world of RDF and Linked Data, the openness and flexibility is a mixed blessing. For them, data validation according to predefined constraints is a  much sought-after feature, particularly as this is taken for granted in the XML world. 
+%Several languages exist to meet this requirement, ranging from using \emph{OWL} as a constraint language to \emph{SPIN}, a SPARQL-based way to formulate and check constraints. 
+%In this paper, we investigate the relationship of validation and reasoning and the role that reasoning plays in practical data validation. 
+%We formulate common types of constraints in \emph{Description Logics} and use this formulation to determine their possible complexity when certain reasoning steps are involved. 
+%At last, we aggregate these findings for the most common constraint languages and show their commonalities and differences regarding constraint expressivity. 
+%We argue that so far no single best solution exists and that the results presented in this paper are crucial for a proper application of RDF validation.
+%\begin{abstract}
+%For data practitioners embracing the world of RDF and Linked Data, the openness and flexibility is a mixed blessing. For them, data validation according to predefined constraints is a  much sought-after feature, particularly as this is taken for granted in the XML world. 
+%Several languages exist to meet this requirement, ranging from using \emph{OWL} as a constraint language to \emph{SPIN}, a SPARQL-based way to formulate and check constraints. 
+%%There are also specific constraint languages like Shape Expressions, Resource Shapes or Description Set Profiles that more or less explicitly address the aforementioned data practitioners.
+%In this paper, we investigate the relationship of validation and reasoning and the role that reasoning plays in practical data validation. 
+%We formulate common types of constraints in \emph{Description Logics} and use this formulation to determine their possible complexity when certain reasoning steps are involved. 
+%At last, we aggregate these findings for the most common constraint languages and show their commonalities and differences regarding constraint expressivity. 
+%We argue that so far no single best solution exists and that the results presented in this paper are crucial for a proper application of RDF validation.
 
 % There is no standard way to formulate RDF constraints for validation,
 % however there are several popular constraint languages (i.e., SPIN, ReSh, ShEx) covering major requirements on RDF validation. Amongst others, the ontology language OWL 2 can also be considered as an expressive constraint language with a high level human-readable syntax.
@@ -326,7 +348,7 @@ We argue that so far no single best solution exists and that the results present
 
 \terms{Theory}
 
-\keywords{RDF Validation, RDF Constraints, OWL 2, Reasoning, RDF Validation Requirements, Linked Data, Semantic Web} % NOT required for Proceedings
+\keywords{RDF Validation, RDF Constraint Types, Data Quality, Reasoning, OWL 2, RDF Validation Requirements, Linked Data, Semantic Web} % NOT required for Proceedings
 
 %\section{Possible Titles}
 %
@@ -545,7 +567,14 @@ either (1) by resolving violations or (2) by raising valuable violations.
 If reasoning can be performed to enhance data quality depends on the individual constraint type and not on the language. 
 Although, reasoning is not yet implemented for other languages than \emph{OWL 2}, languages can easily be extended in form of \emph{SPARQL} queries.
 
+-----
+
 We examine the effects of reasoning on the performance, i.e., the computational complexity of constraint types.
+
+Since the combination of \emph{DL} constructs, needed to express a constraint type, determines its computational complexity, 
+by mapping to \emph{DL} we get an idea of the performance for each constraint type in worst case.
+
+-----
 
 We determine constraint type specific expressivity scores of constraint languages
 which enable systems to recommend languages depending on individual use cases and therefore needed constraint types.
@@ -1532,6 +1561,7 @@ Semantic-Web-Publication a ResourceShape ; property [
 %\tb{I think this sub section is not that fluently to read}
 
 \begin{itemize}
+  \item \textcolor{blue}{incorporate complexity in reasoning section} 
   \item \textcolor{red}{Reviewer1: This is wrong that the Tbox axioms ( RDF constraints in this paper) can be classified as it is suggested in Section 3. The reason is that there exist possibly complex logical interferences between them. For instance, even in lightweight DLs such as  DL-Lite, positive inclusions (PIs) can be used to infer negative inclusions (NIs).}
 %	\item \textcolor{red}{Erman: we mean ontological reasoning  here, the discussion is done according to well-established complexity results (in literature) on reasoning in particular DL languages, having only those  features used in constraints. Therefore the complex interferences are included. }
 %	\item \textcolor{red}{The first paragraph is confusing. Refer to what? Follows? }
