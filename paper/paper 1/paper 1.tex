@@ -1604,23 +1604,23 @@ as $\mathcal{CT}_R$ constraint types are already expressible either by \emph{OWL
 	\item \textcolor{red}{reviewer: The term “expressivity scores” might be useful but a stronger argument is needed.}
 \end{itemize}
  
-We investigate the expressivity of constraint languages - more specifically the constraint type/requirement specific expressivity of constraint languages.
-Therefore, we evaluated the five most promising languages on fulfilling each requirement to formulate constraints.
-We also evaluated if constraint types are expressible by \emph{OWL 2 QL} or if the more expressive \emph{OWL 2 DL} is needed \cite{BoschNolleAcarEckert2015}.
+We investigate the expressivity of constraint languages - more specifically their constraint type/requirement specific expressivity.
+Therefore, we evaluated the five most promising languages on fulfilling each requirement to formulate constraints
+and checked if constraint types are expressible by \emph{OWL 2 QL} or if the more expressive \emph{OWL 2 DL} is needed \cite{BoschNolleAcarEckert2015}.
  %As we identified three constraint-specific complexity classes in the previous section, we are now able to determine the performance (i.e. complexity) of constraint languages.  It can be beneficial not using the most expressive constraint languages when additional rather subjective criteria are evaluated.
-We introduce the intuitive notion of \emph{expressivity scores} rather than classical \emph{expressivity}. 
-The main motivation in that is, the list of constraint types is an updated list, and almost none (except \emph{SPIN}) of the languages contains one another.
-With the expressivity score of a language, we measure how many constraint types can be expressed by that particular language.
+We introduce the intuitive notion of \emph{expressivity scores} rather than classical \emph{expressivity}
+as the list of constraint types is an updated list and almost none (except \emph{SPIN}) of the languages contains one another.
+With the expressivity score of a language, we measure how many constraint types the language is able to express.
 As one may want to perform reasoning before actually validating the data,
 we use the two sets of constraint types as before: $\mathcal{CT}_R$ and $\overline{\mathcal{CT}_R}$. 
 %The main motivation in that is, that one may want to perform reasoning before actually validating the data.  
-For the sake of simplicity, we abbreviate \emph{expressing} $\mathcal{CT}_R$ \emph{constraint types} as $Expr(\mathcal{CT}_R)$, 
+For the sake of simplicity, we abbreviate \emph{expressing} $\mathcal{CT}_R$ \emph{constraint types} as $Expr(\mathcal{CT}_R)$ 
 and \emph{expressing} $\overline{\mathcal{CT}_R}$ \emph{constraint types} as $Expr(\overline{\mathcal{CT}_R})$.
 %\emph{constraints with reasoning} can be used as axioms to infer new triples out of explicitly stated triples (see section \ref{sec:RDF-validation-requirements-and-reasoning}), but also to express constraints without reasoning. \er{Also to express constraints?}\tb{also to express constraints without reasoning}
 %If in our knowledge base it is stated that \ms{DarthVader} is a \ms{Sith} (e.g., \ms{Sith(DarthVader)}) and  Siths feel the force of the dark side (e.g., \ms{Sith $\sqsubseteq$ FeelingForceDarkSide}), it is either possible to infer that \ms{DarthVader} feels the force of the dark side (\ms{FeelingForceDarkSide(DarthVader)}) 
 %or to check if this class assignment is explicitly stated in the data without reasoning. 
-Although, \emph{OWL 2}  is the only implementation (which can be used/considered as a constraint language) with reasoning features, 
-some constraint types in $\mathcal{CT}_R$ are not only expressible by \emph{OWL 2}  but also by other languages. 
+Although, \emph{OWL 2} is the only implementation (which can be considered as a constraint language) with reasoning features, 
+some $\mathcal{CT}_R$ constraint types are not only expressible by \emph{OWL 2}  but also by other languages. 
 %\er{This is again the part I don't understand.}\tb{but also by other constraint languages}
 %\begin{center}
 %\begin{evaluation}
@@ -1649,25 +1649,26 @@ some constraint types in $\mathcal{CT}_R$ are not only expressible by \emph{OWL 
 %\tb{this is indeed a misunderstanding. I only took into account that is DSP supports 6 EXPR-C constraints and OWL 2 DL 5, then DSP is more expressive than OWL 2 DL regarding the expressivity class EXPR-C / but this is not right?}
 \begin{table}[H]
 	\centering
-	  \caption{Constraint Type Specific Expressivity}
+	  %\caption{Constraint Type Specific Expressivity}
+		\caption{Expressivity Scores}
 	  \scriptsize
 		\begin{tabular}{l|c|c}
       %\textbf{Expressivity Class} & $Expr(\overline{\mathcal{CT}_R})$ (42) & $Expr(\mathcal{CT}_R)$ (32) \\		
 			\textbf{} & $Expr(\overline{\mathcal{CT}_R})$ (42) & $Expr(\mathcal{CT}_R)$ (32) \\	
       \hline
-			DSP & 6 & 8 \\
-			OWL2-DL & 18(4) & 29 \\ 
-			OWL2-QL & 7(4) & 11 \\
-			ReSh & 8 & 11(2) \\
-			ShEx & 12 & 11(1) \\
-			SPIN & 41(1)	& 32
+			\emph{DSP} & 6 & 8 \\
+			\emph{OWL2-DL} & 18(4) & 29 \\ 
+			\emph{OWL2-QL} & 7(4) & 11 \\
+			\emph{ReSh} & 8 & 11(2) \\
+			\emph{ShEx} & 12 & 11(1) \\
+			\emph{SPIN} & 41(1)	& 32
 		\end{tabular}
 	\label{tab:constraint-type-specific-expressivity}
 \end{table}
-Table \ref{tab:constraint-type-specific-expressivity} displays how many of the overall 42 $\overline{\mathcal{CT}_R}$ and 32 $\mathcal{CT}_R$ constraint types are expressible by listed constraint languages.
+Table \ref{tab:constraint-type-specific-expressivity} displays the expressivity scores of constraint languages, i.e., how many of the overall 42 $\overline{\mathcal{CT}_R}$ and 32 $\mathcal{CT}_R$ constraint types are expressible by listed languages.
 %In total, there are 42 $\overline{\mathcal{CT}_R}$ and 32 $\mathcal{CT}_R$ constraint types (see Table \ref{tab:constraint-type-specific-expressivity}).
 %In Table \ref{tab:constraint-type-specific-expressivity}, the total amount of constraint types per constraint type specific expressivity is shown by numbers in round brackets in the first column.
-Numbers in parentheses indicate the amount of constraint types which may be expressed by a particular constraint language - either by limitations, workarounds, or extensions.  
+Numbers in parentheses indicate the amount of constraint types which may be expressed by a particular language - either by limitations, workarounds, or extensions.  
 %\er{One possible misunderstanding (maybe not) is the ordering. It is not only based on the size of the number of the constrains that they satisfies right? For instance, if there are 6 constraints (from EXPR-C) that  DSP satisfies and OWL2-DL  can satisfy lets say only 5 of them but 13 other, in such scenario OWL2 DL and DSP would be incomparable (no ordering). It is more expressive only if it contains those 6 and extras.}
 Representing {\em context-specific exclusive or of properties} (\emph{R-11}) constraints in \emph{OWL 2 DL}, e.g., can be seen as a workaround 
 as anonymous classes are built for each of the exclusive properties (see Section \ref{RDF-Validation-Requirements-without-Reasoning}).
