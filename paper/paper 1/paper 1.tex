@@ -1090,9 +1090,9 @@ This ambiguity in semantics is one of the main reasons why \emph{OWL 2} has not 
 \section{CWA and UNA Dependency}
 \label{CWA-UNA-dependency}
 
-\begin{itemize}
-	\item \textcolor{blue}{Kai: CT always as part of the notation of sets: suggestion: $\mathcal{CWA}$ and $\overline{\mathcal{CWA}}$} 
-\end{itemize}
+%\begin{itemize}
+	%\item \textcolor{blue}{Kai: CT always as part of the notation of sets: suggestion: $\mathcal{CWA}$ and $\overline{\mathcal{CWA}}$} 
+%\end{itemize}
 
 %reviews:
 %\begin{itemize}
@@ -1103,18 +1103,16 @@ This ambiguity in semantics is one of the main reasons why \emph{OWL 2} has not 
 %Why is CWA tied to UNA, and OWA to nUNA, other than convention?
 %\end{itemize}
 
-For each constraint type we examine if validation results depend on different underlying semantics, 
-especially as \textcolor{red}{34} of 82 constraint types correspond to \emph{OWL 2} axioms and as \emph{OWL 2} has different semantics than RDF validation in general.
-Thus, we determine for each constraint type if it depends on the \emph{CWA} and if it depends on the \emph{UNA}.
-
------
+%For each constraint type we examine if validation results depend on different underlying semantics, 
+%especially as \textcolor{red}{34} of 82 constraint types correspond to \emph{OWL 2} axioms and as \emph{OWL 2} has different semantics than RDF validation in general.
+%Thus, we determine for each constraint type if it depends on the \emph{CWA} and if it depends on the \emph{UNA}.
 
 The distinction of constraint types regarding the dependency on the \emph{CWA} and on the \emph{UNA} is an important aspect when combining reasoning with validation.
-As 34 of 74 constraint types correspond to \emph{OWL 2} axioms we want to use for validation, 
+As \textcolor{red}{34} of 74 constraint types correspond to \emph{OWL 2} axioms and as \emph{OWL 2} has different semantics than RDF validation in general, 
 we investigate their behavior in terms of validation results in different semantic settings. 
-\emph{OWL 2} reasoning requires the OWA with the \emph{nUNA}\footnote{While \emph{DLs/OWL} do not assume \emph{UNA}, they have a construct (\emph{owl:sameAs}) to express when two names are the same or not.
+\emph{OWL 2} reasoning requires the \emph{OWA} with the \emph{nUNA}\footnote{While \emph{DLs/OWL} do not assume \emph{UNA}, they have a construct (\emph{owl:sameAs}) to express when two names are the same or not.
 } whereas RDF validation has its origin in the XML world and is therefore classically based on the \emph{CWA} and the \emph{UNA}.
-When assuming \emph{OWA} and \emph{nUNA} for RDF validation, validation won’t be that restrictive and therefore we won’t get the intended validation results.
+Assuming \emph{OWA} and \emph{nUNA} for RDF validation, validation won’t be that restrictive and therefore we won’t get the intended validation results.
 %We classify constraint types according to the dependency on the CWA with UNA; (1) $\mathcal{C}_{CWA}$ which is  the set of constraint types dependent on the CWA with UNA,  and (2) $\overline{\mathcal{C}_{CWA}}$, its complement (set of constraint types independent on the CWA with UNA).  
 %Therefore, $\mathcal{C}_{CWA}$ includes constraint types for which it makes a difference if the CWA/UNA or the OWA/nUNA is assumed.
 %If something is a \emph{publication}, e.g., it has at least one \emph{author} (\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}).
@@ -1129,18 +1127,18 @@ When assuming \emph{OWA} and \emph{nUNA} for RDF validation, validation won’t 
 %as all information needed for validation is explicitly available in both cases. 
 We classify constraint types according to the dependency on the \emph{CWA} and the \emph{UNA} which leads to four sets of constraint types:
 
-(1) $\mathcal{CT}_{CWA}$ denotes the set of constraint types which are dependent on the \emph{CWA},
-	i.e., the set of constraint types for which it makes a difference if the CWA or the OWA is assumed.
-{\em Minimum qualified cardinality restrictions} (\emph{R-75})\footnote{The constraint type corresponds to the requirement \emph{R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES}; requirements/constraint types are uniquely identified by alphanumeric technical identifiers.} is a $\mathcal{CT}_{CWA}$ constraint type, i.e., depends on the \emph{CWA}.
-\emph{Publications}, e.g., must have at least one \emph{author} {\small\ms{(Publication $\sqsubseteq$ $\geq$1 author.Person)}}.
+(1) $\mathcal{CWA}$ denotes the set of constraint types which are dependent on the \emph{CWA},
+	i.e., the set of constraint types for which it makes a difference if the \emph{CWA} or the \emph{OWA} is assumed.
+{\em Minimum qualified cardinality restrictions} (\emph{R-75})\footnote{The constraint type corresponds to the requirement \emph{R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES}; requirements/constraint types are uniquely identified by alphanumeric technical identifiers.} is a $\mathcal{CWA}$ constraint type, i.e., depends on the \emph{CWA}.
+\emph{Publications}, e.g., must have at least one \emph{author} {\small\ms{(Publication $\sqsubseteq$ $\geq$1 author.Person).}}
 In a \emph{CWA} setting, a \emph{publication} without an explicitly stated author violates the constraint, 
 whereas, with \emph{OWA} semantics, 
-a \emph{publication} without an explicitly stated \emph{author} does not raise a constraint violation 
+a \emph{publication} without an explicitly stated \emph{author} does not raise a violation 
 as the axiom entails that there must be an \emph{author} which we may not know.
-(2) $\overline{\mathcal{CT}_{CWA}}$ is the complement of $\mathcal{CT}_{CWA}$ and thus includes constraint types which are independent on the \emph{CWA}.
-Nothing can be a \emph{book} and a \emph{journal article}  at the same time {\small\ms{(Book $\sqcap$ JournalArticle $\sqsubseteq$ $\perp$)}}.
+(2) $\overline{\mathcal{CWA}}$ is the complement of $\mathcal{CWA}$ and thus includes constraint types which are independent on the \emph{CWA}.
+Nothing can be a \emph{book} and a \emph{journal article}  at the same time {\small\ms{(Book $\sqcap$ JournalArticle $\sqsubseteq$ $\perp$).}}
 For the constraint type {\em disjoint classes} (\emph{R-7}), it does not make any difference if the \emph{CWA} or the \emph{OWA} is taken,
-as if there is a \emph{publication} which is a \emph{book} and a \emph{journal article} a constraint violation is raised in both settings.
+as if there is a \emph{publication} which is a \emph{book} and a \emph{journal article} a violation is raised in both settings.
 %as all information needed for validation is explicitly available in both cases. 
 
 %\begin{itemize}
@@ -1151,27 +1149,27 @@ as if there is a \emph{publication} which is a \emph{book} and a \emph{journal a
 	%\item $\mathcal{CT}_{nUNA}$ (complement of $\mathcal{C}_{UNA}$) denotes the set of constraint types which are dependent on the \emph{nUNA}
 %\end{itemize}
 
-(3) $\mathcal{CT}_{UNA}$ denotes the set of constraint types which are dependent on the \emph{UNA}.
+(3) $\mathcal{UNA}$ denotes the set of constraint types which are dependent on the \emph{UNA}.
 For \emph{Functional properties} (\emph{R-57/65}), it makes a difference if \emph{UNA} or \emph{nUNA} is assumed.
-The property \emph{title} is functional {\small\ms{(funct (title))}}, i.e., for each \emph{book} there can be at most one distinct \emph{title}.
+The property \emph{title} is functional {\small\ms{(funct (title)),}} i.e., for each \emph{book} there can be at most one distinct \emph{title}.
 \emph{UNA} causes a clash
 if the \emph{book} {\em Huckleberry-Finn} has more than one \emph{title}.
 %(\ms{title(Huckleberry-Finn, The-Adventures-of-Huckleberry-Finn)}, \ms{title(Huckleberry-Finn, Die-Abenteuer-des-Huckleberry-Finn)}).
 For \emph{nUNA}, however, reasoning concludes that the \emph{title} {\em The-Adventures-of-Huckleberry-Finn} is the same as the \emph{title} {\em Die-Abenteuer-des-Huckleberry-Finn} 
 %(\ms{\{The-Adventures-of-Huckleberry-Finn\}} = \ms{\{Die-Abenteuer-des-Huckle} \ms{berry-}\ms{Finn\}}) 
-which resolves the constraint violation. 
-(4) $\overline{\mathcal{CT}_{UNA}}$ (complement of $\mathcal{CT}_{UNA}$) denotes the set of constraint types which are independent on the \emph{UNA}.
-The {\em existential quantification} (\emph{R-86}) {\small\ms{Publication $\equiv$ $\exists$ publisher.Publisher}}, e.g., restricts \emph{publications} to have at least one \emph{publisher}.
-If \emph{A+ConferenceProceedings} are published by \emph{A+Publisher} and \emph{APlusPublisher},
-it does not matter if \emph{A+Publisher} and \emph{APlusPublisher} refer to one identical \emph{publisher} or to two distinct \emph{publishers}
-as in both cases the \emph{publication} has a \emph{publisher} which satisfies the constraint.
+which resolves the violation. 
+(4) $\overline{\mathcal{UNA}}$ (complement of $\mathcal{UNA}$) denotes the set of constraint types which are independent on the \emph{UNA}.
+The {\em existential quantification} (\emph{R-86}) {\small\ms{Publication $\equiv$ $\exists$ publisher.Publisher,}} e.g., restricts \emph{publications} to have at least one \emph{publisher}.
+If \emph{A+Conference-Proceedings} are published by \emph{A+Publisher} and \emph{A-Plus-Publisher},
+it does not matter if \emph{A+Publisher} and \emph{A-Plus-Publisher} refer to one identical \emph{publisher} or to two distinct \emph{publishers}
+as in both cases the \emph{publication} has at least one \emph{publisher} which, in consequence, satisfies the \emph{existential quantification}.
 
-For this work, following the similar fashion, we evaluated for each constraint type 
+We evaluated for each constraint type 
 if it is dependent or independent on the \emph{CWA} and on the \emph{UNA} (for a detailed analysis we refer to the appendix of this paper \cite{BoschNolleAcarEckert2015}). 
-The result of this evaluation is that we distinguish between XX $\mathcal{CT}_{CWA}$ and XX $\overline{\mathcal{CT}_{CWA}}$ and between XX $\mathcal{CT}_{UNA}$ and XX $\overline{\mathcal{CT}_{UNA}}$ constraint types.
-Hence, for the majority of constraint types it makes a difference if the \emph{CWA} or the \emph{OWA} and if the \emph{UNA} or the \emph{nUNA} is assumed.
-\textcolor{red}{ToDo: evaluation}
-
+The result of this evaluation is that we distinguish between \textcolor{red}{XX} $\mathcal{CWA}$ and \textcolor{red}{XX} $\overline{\mathcal{CWA}}$ and between \textcolor{red}{XX} $\mathcal{UNA}$ and \textcolor{red}{XX} $\overline{\mathcal{UNA}}$ constraint types.
+Hence, for the majority of the constraint types it makes a difference if the \emph{CWA} or the \emph{OWA} and if the \emph{UNA} or the \emph{nUNA} is assumed.
+For the $\mathcal{CWA}$ and the $\mathcal{UNA}$ constraint types, we have to be careful in case we want to use them for reasoning and for validation
+as in both usage scenarios we assume different semantics and as for these constraint types validation results differ depending on these different underlying semantics.
 %\textcolor{red}{
 %feedback from Erman:
 %}
@@ -1623,7 +1621,7 @@ $\mathcal{CT}_R ^{\mathcal{QL}} \subseteq \mathcal{CT}_R ^{\mathcal{DL}}$ (\emph
 According to the execution of reasoning prior to validation, we distinguish three different types of validation: 
 \begin{enumerate}\itemsep0.5em
 	\item $\overline{\mathcal{CT}_R}$ denotes the set of constraint types for which validation is performed by query answering without reasoning.
-	\item $\mathcal{CT}_R ^{\mathcal{QL}}$ is the set of constraint types which are expressible by \emph{OWL 2 QL} and for which validation is executed by query answering with \emph{OWL 2 QL} reasoning.
+	\item $\mathcal{R}_{QL}$ is the set of constraint types which are expressible by \emph{OWL 2 QL} and for which validation is executed by query answering with \emph{OWL 2 QL} reasoning.
 	\item $\mathcal{CT}_R ^{\mathcal{DL}}$ stands for the set of constraint types which are expressible by \emph{OWL 2 DL} and for which validation is run by query answering with \emph{OWL 2 DL} reasoning.
 \end{enumerate}
 We limit $\mathcal{CT}_R$ to the set of constraint types which can be expressed by \emph{OWL 2 DL} %and still require reasoning 
