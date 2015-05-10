@@ -304,7 +304,7 @@ we identified and published by today 82 types of constraints that are required b
 For each constraint type we examine
 (1) if validation results depend on different underlying semantics,
 (2) if reasoning may improve data quality, and 
-(3) how efficient in terms of runtime reasoning is performed.
+(3) how efficient in terms of runtime validation is performed with and without reasoning.
 Using these findings, we determine for the most common constraint languages which constraint types they are able to express.
 We argue that so far no single best solution exists and give directions for the further development of constraint languages.
 %\begin{abstract}
@@ -522,7 +522,7 @@ either (1) by resolving violations or (2) by raising valuable violations (Sectio
 %If reasoning can be performed to enhance data quality depends on the individual constraint type and not on the language. 
 %Although, reasoning is not yet implemented for other languages than \emph{OWL 2}, languages can easily be extended in form of \emph{SPARQL} queries.
 
-For each constraint type we investigate how efficient in terms of runtime reasoning is performed.
+For each constraint type we investigate how efficient in terms of runtime validation is performed with and without reasoning.
 %We examine the effects of reasoning on the performance, i.e., the computational complexity of constraint types.
 Since the combination of \emph{DL} constructs, needed to express a constraint type, determines its computational complexity, 
 by mapping to \emph{DL} we get an idea of the performance for each constraint type in worst case (Section \ref{reasoning}).
@@ -619,7 +619,7 @@ how to overcome the major shortcomings when validating RDF data by performing re
 (2) We identified and published by today 82 types of constraints that are required by various stakeholders for data applications. 
 (3) For each constraint type we examine if validation results depend on different underlying semantics,
     if reasoning may improve data quality, and 
-    how efficient in terms of runtime reasoning is performed.
+    how efficient in terms of runtime validation is performed with and without reasoning.
 (4) Using these findings, we determine for the most common constraint languages which constraint types they are able to express
     and give directions for the further development of constraint languages.
 
@@ -1211,24 +1211,30 @@ we examine for each constraint type if reasoning may be performed prior to valid
 either (1) by resolving violations or (2) by raising valuable violations.
 
 We denote the whole set of constraint types with $\mathcal{CT}$ which we divide into two disjoint sets: 
-(1) $\mathcal{R}$ is the set of constraint types for which reasoning may be performed prior to validation (especially when not all the knowledge is explicit) in order to enhance data quality
+\begin{enumerate}
+\item $\mathcal{R}$ is the set of constraint types for which reasoning may be performed prior to validation (especially when not all the knowledge is explicit) in order to enhance data quality
 either by resolving violations or by raising valuable violations.
+For $\mathcal{R}$ constraint types, validation is executed by query answering with optional reasoning prior to validation.
+32 of the overall 82 constraint types are $\mathcal{R}$ constraint types.
 %that can carry out the validation process via reasoning, especially when not all the knowledge is explicit.  
-(2) $\overline{\mathcal{R}}$  denotes the complement that is the set of constraint types for which reasoning cannot be done or 
-for which reasoning does not improve data quality in any obvious sense.
+\item $\overline{\mathcal{R}}$  denotes the complement of $\mathcal{R}$, that is the set of constraint types 
+for which reasoning cannot be done or for which reasoning does not improve data quality in any obvious sense.
+For $\overline{\mathcal{R}}$ constraint types, validation is performed by query answering without reasoning.
+42 of the overall 82 constraint types are $\overline{\mathcal{R}}$ constraint types.
+\end{enumerate}
 
-{\em Sub-Properties} (\emph{R-54/64}) is an $\mathcal{R}$ constraint type.
 %corresponds to axioms in \emph{OWL 2}
-If a \emph{journal volume}, e.g., has an {\em editor} relationship to a \emph{person}, 
+If a \emph{journal volume} has an {\em editor} relationship to a \emph{person}, 
 then the \emph{journal volume} must also have a {\em creator} relationship to the same \emph{person} {\small\ms{(editor $\sqsubseteq$ creator),}}i.e., 
-\emph{editor} is a sub-property of \emph{creator}.
-If we use \emph{sub-properties} without reasoning and the data contains the triple {\small\ms{editor(A+JournalVolume, A+Editor)}},
-then the triple {\small\ms{creator(A+JournalVolume, A+Editor)}} has to be stated explicitly.
-If this triple is not stated, a constraint violation occurs.
+\emph{editor} is a sub property of \emph{creator}.
+If we use \emph{sub properties} (\emph{R-54/64}) without reasoning and the data contains the triple {\small\ms{editor(A+Journal-Volume, A+Editor),}}
+then the triple {\small\ms{creator(A+Journal-Volume, A+Editor)}} has to be stated explicitly.
+If this triple is not present in the data, a violation occurs.
 If we use \emph{sub-properties} with reasoning, however, the required triple is inferred which resolves the violation.
+{\em Sub properties} is an $\mathcal{R}$ constraint type, 
+since reasoning is performed prior to validation to improve data quality by resolving the violation.
 
-{\em Literal Pattern Matching} (\emph{R-44}), which restricts literals to match given patterns,
-is an $\overline{\mathcal{R}}$ constraint type:
+{\em Literal pattern matching} (\emph{R-44}) restricts literals to match given patterns:
 % \er{DL can naturally express datatypes. All you need to do is to define \emph{DroidNumber} as a concrete domain.}\tb{resolved}  
 \begin{ex}
 ISBN a RDFS:Datatype ; owl:equivalentClass [ a RDFS:Datatype ;
@@ -1241,9 +1247,10 @@ The second \emph{OWL 2} axiom defines {\em ISBN} as an abbreviation for a dataty
 The datatype {\em ISBN} can be used just like any other datatype such as in
 the universal restriction {\small\ms{Book $\sqsubseteq$ $\forall$ identifier.ISBN}} which ensures that \emph{books} can only have valid \emph{ISBN} identifiers, 
 i.e., strings that match a given regular expression. 
+{\em Literal pattern matching} is an $\overline{\mathcal{R}}$ constraint type since reasoning cannot be done.
 %\er{This is no OWL.}\tb{resolved}
-The restriction of the datatype {\em ISBN} is only expressible in \emph{OWL 2 DL},
-as a data range expression is restricted to the predefined datatypes and the intersection of data ranges in \emph{OWL 2 QL}. 
+%The restriction of the datatype {\em ISBN} is only expressible in \emph{OWL 2 DL},
+%as a data range expression is restricted to the predefined datatypes and the intersection of data ranges in \emph{OWL 2 QL}. 
 %The literal pattern matching constraint validates {\em ISBN} literals according to the stated regular expression. 
 %The triples \ms{Luke hasDroid Droideka} and \ms{Droideka droidNumber "Droideka"\textasciicircum{}\textasciicircum{}DroidNumber} cause a constraint violation. 
 %The triples \ms{Luke hasDroid R2-D2} and \ms{R2-D2 droidNumber "R2-D2"\textasciicircum{}\textasciicircum{}DroidNumber}, however, lead to valid data. %\er{Let us divide this last sentence of the paragraph.}\tb{resolved}
@@ -1270,25 +1277,42 @@ as a data range expression is restricted to the predefined datatypes and the int
 %	\item \textcolor{red}{The first paragraph is confusing. Refer to what? Follows? }
 \end{itemize}
 
-For each constraint type we investigate how efficient in terms of runtime reasoning is performed.
+For each constraint type we investigate how efficient in terms of runtime validation is performed with and without reasoning.
 Since the combination of \emph{DL} constructs, needed to express a constraint type, determines its computational complexity, 
 by mapping to \emph{DL} we get an idea of the performance for each constraint type in worst case.
 
 \subsection{Constraint Types with Reasoning}
 \label{sec:RDF-validation-requirements-and-reasoning}
 
-$\mathcal{R}$ is the set of constraint types for which reasoning can be performed prior to validation 
-in order to enhance data quality either by resolving violations or by causing additional useful violations.
-We distinguish between two disjoint sub sets of $\mathcal{R}$:
-(1) Constraint types for which \emph{OWL 2 QL reasoning} can be performed as they are expressible by \emph{OWL 2 QL}.
-(2) Constraint types for which \emph{OWL 2 DL reasoning} can be executed as \emph{OWL 2 QL} is not expressive enough to represent these constraint types \cite{owl2profiles2008}.
-
+$\mathcal{R}$ is the set of constraint types for which reasoning may be performed prior to validation 
+in order to enhance data quality either by resolving violations or by causing useful violations.
+For $\mathcal{R}$ constraint types, different types of reasoning may be performed
+which depends on the language used to formulate the constraint type. 
+11 of 32 $\mathcal{R}$ constraint types are representable by the less expressive but better performing \emph{OWL 2 QL}.
+18 $\mathcal{R}$ constraint types, in contrast, are not expressible by \emph{OWL 2 QL} and therefore the more expressive but less performing \emph{OWL 2 DL} is used.
+%(in total, 29 0f 32 $\mathcal{R}$ constraint types are representable by \emph{OWL 2 DL}). 
 \emph{OWL 2} profiles are restricted versions of \emph{OWL 2} that offer different trade-offs regarding expressivity vs. efficiency in reasoning. 
 \emph{OWL 2 QL} is an \emph{OWL 2} profile which focuses on reasoning in the context of query answering with very large size of instance data. 
 \emph{OWL 2 QL} is based on the \textit{DL-Lite} family of \emph{DL} \cite{Artale2009,Calvanese2007}.
 \emph{OWL 2 DL} was standardized as a \emph{DL}-like formalism with high expressivity, yet maintains decidability for main reasoning tasks.
 As a result of its expressive power, \emph{OWL 2 DL} allows a large variety of sophisticated modeling capabilities for many application domains.
 The drawback of its expressive power results as a lack of computational efficiency in performance. 
+
+With regard to the two different types of reasoning
+we divide $\mathcal{R}$ into two not disjoint sets of constraint types: 
+$\mathcal{R}_{QL}$ $\subseteq$ $\mathcal{R}_{DL}$ (\emph{OWL 2 DL} is more expressive than \emph{OWL 2 QL}).
+\begin{enumerate}
+\item $\mathcal{R}_{QL}$ is the set of $\mathcal{R}$ constraint types for which \emph{OWL 2 QL reasoning} may be performed as they are expressible by \emph{OWL 2 QL}.
+11 of 32 $\mathcal{R}$ constraint types are $\mathcal{R}_{QL}$ constraint types.
+%which are expressible by \emph{OWL 2 QL} and thus
+%for which validation is executed by query answering with \emph{OWL 2 QL} reasoning.
+\item $\mathcal{R}_{DL}$ stands for the set of $\mathcal{R}$ constraint types for which \emph{OWL 2 DL reasoning} may be executed as \emph{OWL 2 QL} is not expressive enough to represent them \cite{owl2profiles2008}.
+29 of 32 $\mathcal{R}$ constraint types are $\mathcal{R}_{DL}$ constraint types.
+%which are expressible by \emph{OWL 2 DL} and for which validation is run by query answering with \emph{OWL 2 DL} reasoning.
+\end{enumerate}
+We limit $\mathcal{R}$ to the set of constraint types which can be expressed by \emph{OWL 2 DL}
+($\mathcal{R}$ = $\mathcal{R}_{DL}$), as \emph{OWL 2 DL} is still quite expressive.
+Some of these constraint types can also be represented by classical constraint languages.
 
 %Reasoning and validation are very closely related. 
 %Reasoning is the process of determining what follows from what has been
@@ -1616,21 +1640,21 @@ Semantic-Web-Publication a ResourceShape ; property [
 \label{sec:constraints-complexity}
 %\tb{I think this sub section is not that fluently to read}
 
-Since the combination of \emph{DL} constructs, needed to express a constraint type, determines its computational complexity, 
-by mapping to \emph{DL} we get an idea of the performance for each constraint type in worst case.
-We divide $\mathcal{R}$ into two not disjoint sets of constraint types: 
-$\mathcal{R}_{QL}$ $\subseteq$ $\mathcal{R}_{DL}$ (\emph{OWL 2 DL} is more expressive than \emph{OWL 2 QL}).
-According to the execution of reasoning prior to validation, we distinguish three different types of validation: 
-\begin{enumerate}\itemsep0.5em
-	\item $\overline{\mathcal{R}}$ denotes the set of constraint types for which validation is performed by query answering without reasoning.
-	\item $\mathcal{R}_{QL}$ is the set of constraint types which are expressible by \emph{OWL 2 QL} and for which validation is executed by query answering with \emph{OWL 2 QL} reasoning.
-	\item $\mathcal{R}_{DL}$ stands for the set of constraint types which are expressible by \emph{OWL 2 DL} and for which validation is run by query answering with \emph{OWL 2 DL} reasoning.
-\end{enumerate}
-We limit $\mathcal{R}$ to the set of constraint types which can be expressed by \emph{OWL 2 DL} %and still require reasoning 
-($\mathcal{R}$ = $\mathcal{R}_{DL}$), as \emph{OWL 2 DL} is still quite expressive.
-%\footnote{Alternatively, it could be set to a more expressive language (e.g., \emph{OWL 2 Full}).}. %Such treatment can be done in future work, if it is understood that we require that.}. 
-Some of these constraint types can also be represented by constraint languages which is the focus of the next section.
-%The complexity class $\mathcal{CT}_R$ encompasses all \emph{constraints with reasoning} for which reasoning can be executed but cannot be expressed by OWL 2.  \er{What/Why can't  be expressed by OWL 2  while being inferred? }\tb{e.g. class-specific property ranges or class-specific reflexive object properties cannot be expressed in OWL / these 2 axioms can only be stated globally for the properties, we cannot restrict it to individuals of specific classes}
+%Since the combination of \emph{DL} constructs, needed to express a constraint type, determines its computational complexity, 
+%by mapping to \emph{DL} we get an idea of the performance for each constraint type in worst case.
+%We divide $\mathcal{R}$ into two not disjoint sets of constraint types: 
+%$\mathcal{R}_{QL}$ $\subseteq$ $\mathcal{R}_{DL}$ (\emph{OWL 2 DL} is more expressive than \emph{OWL 2 QL}).
+%According to the execution of reasoning prior to validation, we distinguish three different types of validation: 
+%\begin{enumerate}\itemsep0.5em
+	%\item $\overline{\mathcal{R}}$ denotes the set of constraint types for which validation is performed by query answering without reasoning.
+	%\item $\mathcal{R}_{QL}$ is the set of constraint types which are expressible by \emph{OWL 2 QL} and for which validation is executed by query answering with \emph{OWL 2 QL} reasoning.
+	%\item $\mathcal{R}_{DL}$ stands for the set of constraint types which are expressible by \emph{OWL 2 DL} and for which validation is run by query answering with \emph{OWL 2 DL} reasoning.
+%\end{enumerate}
+%We limit $\mathcal{R}$ to the set of constraint types which can be expressed by \emph{OWL 2 DL} %and still require reasoning 
+%($\mathcal{R}$ = $\mathcal{R}_{DL}$), as \emph{OWL 2 DL} is still quite expressive.
+%%\footnote{Alternatively, it could be set to a more expressive language (e.g., \emph{OWL 2 Full}).}. %Such treatment can be done in future work, if it is understood that we require that.}. 
+%Some of these constraint types can also be represented by constraint languages which is the focus of the next section.
+%%The complexity class $\mathcal{CT}_R$ encompasses all \emph{constraints with reasoning} for which reasoning can be executed but cannot be expressed by OWL 2.  \er{What/Why can't  be expressed by OWL 2  while being inferred? }\tb{e.g. class-specific property ranges or class-specific reflexive object properties cannot be expressed in OWL / these 2 axioms can only be stated globally for the properties, we cannot restrict it to individuals of specific classes}
 
 Table \ref{tab:constraint-type-specific-complexity-classes} gives an overview over the complexity of RDF validation when reasoning is performed and when reasoning is not performed grouped by validation type.
 Since reasoning makes difference  for some validation types, we note them with the computational complexity of the language their associated constraint types are expressed in.
