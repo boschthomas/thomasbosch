@@ -477,6 +477,7 @@ further research and development is needed.
 %Their relevance varies with respect to several foremost criteria in the validation process, such as constraint expressivity (\emph{what kind of constraints can be expressed?}), performance (\emph{how efficient in terms of runtime can RDF data be validated?}), as well as intuitiveness and conciseness (\emph{how easy is it for a user to define constraints?}). 
 
 \section{Motivation}
+\label{motivation}
 
 A major shortcoming when validating RDF data is \emph{redundancy}.
 %\emph{Reasoning} is a promising solution as pre-validation step to overcome this weakness. Reasoning (logical) is used in order to make the implicit knowledge explicit 
@@ -494,9 +495,6 @@ from the facts that \emph{books} are \emph{publications} and \emph{publications}
 We overcome this weakness of redundancy by associating the constraint with the super-class \emph{publication}.
 In this paper, we investigate the role that reasoning plays in practical data validation and 
 how to overcome the major shortcomings when validating RDF data by performing reasoning prior to validation (Section \ref{the-role-of-reasoning-for-rdf-validation}).
-
-
-
 
 Based on our work in the DCMI RDF Application Profiles Task Group and in cooperation with the W3C Data Shapes Working Group, 
 we identified and published by today 82 requirements to formulate RDF constraints that are required by various stakeholders for data applications.
@@ -934,15 +932,15 @@ how to overcome the major shortcomings when validating RDF data by performing re
 	%\item advantages and disadvantages of OWL in terms of validation
 %\end{itemize}
 
-The \emph{Web Ontology Language (OWL)} in its current version \emph{OWL 2} is an expressive language which offers knowledge representation and reasoning services - 
-validation, however, is not the primary purpose of its design. 
-This has lead to claims that \emph{OWL 2} cannot be used for validation. 
+The \emph{Web Ontology Language (OWL)} in its current version \emph{OWL 2} is an expressive language 
+for which \emph{DL} provides the foundational basis and
+which offers knowledge representation and reasoning services. 
+Validation, however, is not the primary purpose of its design which has lead to claims that \emph{OWL 2} cannot be used for validation. 
 %There have been long and controversial discussions\footnote{\url{http://lists.w3.org/Archives/Public/public-data-shapes-wg/}\\ \url{https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=dc-architecture}} in the W3C and DCMI WGs if \emph{OWL 2} should be used for RDF validation.
 %However, OWL 2 is high-level  expressive  language with a compact human-readable syntax.
-In practice, \emph{OWL 2} is well-spread and \emph{RDFS}/\emph{OWL 2} constructs are widely used to tell people and applications about how valid instances should look like.
-\emph{RDF} documents follow the structure of \emph{RDFS}/\emph{OWL 2} ontologies which can therefore be reused for validation according to this structure. 
-%In particular, most of the constraint languages except OWL, have a major shortcoming of redundancy.\tb{the following example is not about solving the redundancy problem, it is about how constraint violations cab be resolved when performing reasoning / we should delete this sentence here, as we starting talking about redundancy problem below}
-\emph{DL} provides the foundational basis for \emph{OWL}.  
+In practice, however, \emph{OWL 2} is well-spread and \emph{RDFS}/\emph{OWL 2} constructs are widely used to tell people and applications about how valid instances should look like.
+\emph{RDF} documents follow the syntactic structure and semantics of \emph{RDFS}/\emph{OWL 2} ontologies which can therefore be reused for validation. 
+%In particular, most of the constraint languages except OWL, have a major shortcoming of redundancy.\tb{the following example is not about solving the redundancy problem, it is about how constraint violations cab be resolved when performing reasoning / we should delete this sentence here, as we starting talking about redundancy problem below}  
 %The knowledge representation formalism {\em Description logics} (\emph{DL}), with its well-studied theoretical properties, 
 %provides the foundational basis for \emph{OWL}. 
 %\emph{DL} can be used to express constraints like (1) \emph{publications} must have at least one \emph{author} which must be a \emph{person} {\small\ms{(Publication $\sqsubseteq$ $\geq$1 author.Person)}} and
@@ -953,13 +951,12 @@ Reasoning is beneficial for \emph{RDF} validation as
 (2) it may cause useful constraint violations, and 
 (3) it solves the \emph{redundancy} problem. 
 Consider the following \emph{DL} knowledge base $\mathcal{K}$\footnote{A knowledge base is a collection of formal statements  which corresponds to \emph{facts} or  \emph{what is known} explicitly.}:
-
 {\scriptsize
 \begin{center}
 \begin{DL} 
 $\mathcal{K}=\{$ \\ 
- \ms{ Book $\sqsubseteq \exists$ title.$\top$}, \ms{Book $\sqsubseteq \forall$ author.Person }\\
- \ms{ ( funct (title) )},\\
+ \ms{ Book $\sqsubseteq$ Publication}, \ms{Book $\sqsubseteq \forall$ author.Person}, \ms{Book $\sqsubseteq \exists$ title.$\top$}\\
+% \ms{ ( funct (title) )},\\
  \ms{ Book(Huckleberry-Finn)}, \ms{Book(Hamlet)},\\
  \ms{ author(Huckleberry-Finn, Mark-Twain)},\\
  \ms{ title(Huckleberry-Finn, The-Adventures-of-Huckleberry-Finn)},\\
@@ -967,7 +964,6 @@ $\mathcal{K}=\{$ \\
 \end{DL}
 \end{center}
 }%
-
 %\begin{center}
 %\begin{DL} 
 %$\mathcal{K}=\{$ & \ms{Person $\sqsubseteq \exists$ hasAncestor.Person}, \\
@@ -981,18 +977,23 @@ $\mathcal{K}=\{$ \\
  %&\ms{hasAncestor(Luke, Shmi)}$\}$
 %\end{DL}
 %\end{center}
-
-As we know that \emph{books} can only have \emph{persons} as \emph{authors} {\small \ms{(Book} \ms{$\sqsubseteq$} \ms{$\forall$} \ms{author.Person)}}, 
-{\em Huckleberry-Finn} is a \emph{book}  {\small\ms{(Book(Huckleberry-Finn))}}, 
-and \emph{Mark Twain} is its \emph{author} {\small\ms{(author(Huckleberry-Finn, Mark-Twain))}},
+As we know that \emph{books} can only have \emph{persons} as \emph{authors} {\small \ms{(Book} \ms{$\sqsubseteq$} \ms{$\forall$} \ms{author.Person),}} 
+{\em Huckleberry-Finn} is a \emph{book}  {\small\ms{(Book(Huckleberry-Finn)),}} 
+and \emph{Mark Twain} is its \emph{author} {\small\ms{(author(Huckleberry-Finn, Mark-Twain)),}}
 we conclude that \emph{Mark Twain} is a \emph{person}.
 %The statement \ms{Book $\sqsubseteq \forall$ author.Person } says \emph{Books can have only persons as authors}. 
 %Furthermore, we know that {\em Huckleberry-Finn} is a book  (i.e., \ms{Book(Huckleberry-Finn)}) and Mark Twain is the author of this book (\ms{author(Huckleberry-Finn, Mark-Twain)}.  
-As \emph{Mark Twain} is not explicitly defined to be a \emph{person}, however, a constraint violation is raised.
-(1) If we apply reasoning before validating, the violation is resolved since the implicit triple {\small\ms{Person(Mark-Twain)}} is inferred. 
+As \emph{Mark Twain} is not explicitly defined to be a \emph{person}, however, a violation is raised.
+(1) Reasoning may resolve violations. If we apply reasoning before validating, the violation is resolved since the implicit triple {\small\ms{Person(Mark-Twain)}} is inferred. 
 (2) Reasoning may cause additional violations needed to enhance data quality.
-As \emph{books} are \emph{publications} {\small\ms{(Book $\sqsubseteq$ Publication),}} constraints on \emph{publications} are also validated for \emph{books} (e.g. each \emph{publication} must have a \emph{publisher}) which may result in further violations.
-(3) The major shortcoming of classical constraint languages is \emph{redundancy} which is solved by \emph{OWL 2} with its open-world semantics (see Section \ref{introduction}). 
+As \emph{books} are \emph{publications} {\small\ms{(Book $\sqsubseteq$ Publication),}} constraints on \emph{publications} are also validated for \emph{books} 
+%(e.g. each \emph{publication} must have a \emph{publisher}) 
+which may result in further valuable violations.
+As each \emph{publication} must have a \emph{publisher}, e.g., a \emph{book} is a \emph{publication}, {\em Huckleberry-Finn} is a \emph{book}, and {\em Huckleberry-Finn} does not have a \emph{publisher}, 
+an additional violation occurs.
+This violation would not have been raised without reasoning before actually validating and 
+thus increases data quality in case the violation is tackled.
+(3) The major shortcoming of classical constraint languages is \emph{redundancy} which is solved by \emph{OWL 2} with its open-world semantics (see first paragraph in Section \ref{motivation}). 
 %\tb{there is no example for solving redundancy problem / can we use the one of the introduction (just referring to this example in 1 sentence)}
 %\tb{we have no example why R causes new valuable constraint violations}
 
@@ -1002,12 +1003,13 @@ Reasoning in \emph{OWL 2} is based on the {\em open-world assumption} (\emph{OWA
 %With its open-world semantics, used as a constraint language, OWL solves the redundancy problem. 
 %\tb{the following example does not show the redundancy problem!}
 %\tb{2. benefit: reasoning solves redundancy problem}
-As each \emph{book} must have a \emph{title} {\small\ms{(Book $\sqsubseteq \exists$ title.$\top$)}} and {\em Hamlet} is a book {\small\ms{(Book(Hamlet)),}}
+As each \emph{book} must have a \emph{title} {\small\ms{(Book $\sqsubseteq \exists$ title.$\top$)}} and {\em Hamlet} is a \emph{book} {\small\ms{(Book(Hamlet)),}}
 {\em Hamlet} must have at least one \emph{title}.
 In an \emph{OWA} setting, this axiom does not cause a violation, even if there is no explicitly defined \emph{title}, since there must be a \emph{title} for this \emph{book} which we may not know ($\mathcal{K}$ is consistent).
-\emph{OWA} would be a shortcoming in RDF validation.  
+Hence, \emph{OWA} would be a shortcoming in RDF validation.  
 Many RDF validation scenarios require the {\em closed-world assumption} (\emph{CWA}), i.e., a statement is inferred to be false if it cannot be proved to be true.
-Classical constraint languages are based on \emph{CWA} where constraints need to be satisfied only by named individuals which yields in return to a violation as there is no explicitly defined \emph{title}. 
+Classical constraint languages are based on \emph{CWA} where constraints need to be satisfied only by named individuals 
+which yields in return to a violation in the example since there is no explicitly defined \emph{title} for the \emph{book} {\em Hamlet}. 
 \emph{OWL 2} is based on the {\em non-unique name assumption} (\emph{nUNA}) whereas RDF validation requires that different names represent different objects ({\em unique name assumption} (\emph{UNA})) (for a detailed distinction see Section \ref{CWA-UNA-dependency}). 
 %There is a clash caused by the functional property {\em title} {\small\ms{(funct (title))}} and the \emph{UNA},
 %since the book {\em Huckleberry-Finn} has more than one title
@@ -1033,13 +1035,7 @@ This ambiguity in semantics is one of the main reasons why \emph{OWL 2} has not 
 
 %\textbf{OWL 2 QL Reasoning.}
 %OWL 2 QL is an OWL 2 profile which focuses on reasoning in the context of query answering with very large size of instance data. The acronym QL stands for query language as query answering in this profile can be done by rewriting queries into a standard relational query language (also known as First-Order Rewritability). Also, conjunctive query answering can be done by using conventional relational database systems. Aiming at efficiency on working with large size data, the expressive power of the profile is quite limited as expected. As a result of this, reasoning in OWL 2 QL is highly efficient so that sound and complete conjunctive query answering can be performed in \textsc{LogSpace} in the size of the data assertions as well as  the ontology consistency and class expression subsumption can be performed in polynomial time.
-
-\emph{OWL 2} profiles are restricted versions of \emph{OWL 2} that offer different trade-offs regarding expressivity vs. efficiency in reasoning. 
-\emph{OWL 2 QL} is an \emph{OWL 2} profile which focuses on reasoning in the context of query answering with very large size of instance data. 
-\emph{OWL 2 QL} is based on the \textit{DL-Lite} family of description logics \cite{Artale2009,Calvanese2007}.
-\emph{OWL 2 DL} was standardized as a \emph{DL}-like formalism with high expressivity, yet maintains decidability for main reasoning tasks.
-As a result of its expressive power, \emph{OWL 2 DL} allows a large variety of sophisticated modeling capabilities for many application domains.
-The drawback of its expressive power results as a lack of computational efficiency in performance.   
+  
 %To maintain decidability, on the other hand, \emph{OWL 2 DL} has numerous syntactic restrictions. 
 
 %OWL 2 QL is based on the \textit{DL-Lite} family of description logics, a tractable family of fragments of first-order logic \cite{Artale2009,Calvanese2007}. 
@@ -1093,6 +1089,10 @@ The drawback of its expressive power results as a lack of computational efficien
 
 \section{CWA and UNA Dependency}
 \label{CWA-UNA-dependency}
+
+\begin{itemize}
+	\item \textcolor{blue}{Kai: CT always as part of the notation of sets: suggestion: $\mathcal{CWA}$ and $\overline{\mathcal{CWA}}$} 
+\end{itemize}
 
 %reviews:
 %\begin{itemize}
@@ -1186,6 +1186,15 @@ Hence, for the majority of constraint types it makes a difference if the \emph{C
 
 \section{Reasoning}
 \label{reasoning}
+
+\emph{OWL 2} profiles are restricted versions of \emph{OWL 2} that offer different trade-offs regarding expressivity vs. efficiency in reasoning. 
+\emph{OWL 2 QL} is an \emph{OWL 2} profile which focuses on reasoning in the context of query answering with very large size of instance data. 
+\emph{OWL 2 QL} is based on the \textit{DL-Lite} family of \emph{DL} \cite{Artale2009,Calvanese2007}.
+\emph{OWL 2 DL} was standardized as a \emph{DL}-like formalism with high expressivity, yet maintains decidability for main reasoning tasks.
+As a result of its expressive power, \emph{OWL 2 DL} allows a large variety of sophisticated modeling capabilities for many application domains.
+The drawback of its expressive power results as a lack of computational efficiency in performance. 
+
+-----
 
 % Feedback Christian
 %-------------------
@@ -1294,7 +1303,7 @@ We distinguish between two disjoint sub sets of $\mathcal{CT}_R$:
 %The existential restriction is not checked for the triple \ms{YediMaster(Yoda)}, as \ms{Yoda} is a \ms{JediMaster} and not a \ms{Jedi} as well.
 %If, however, our knowledge base contains the axiom \ms{JediMaster $\sqsubseteq$ Jedi}, the triple \ms{Jedi(Yoda)} is inferred and the existential restrictions is validated for the individual \ms{Yoda}, raising a constraint violation if a triple such as \ms{hasLaserSword(Yoda, GreenLaserSword)} is not included in the knowledge base. 
 
-\textbf{\emph{OWL 2 QL} Reasoning.}
+\subsubsection{OWL 2 QL Reasoning.}
 Reasoning may resolve violations which improves data quality.
 %There are many constraint types for which {\em OWL 2 QL reasoning} can be performed. 
 %{\em Subsumption}\footnote{Corresponds to {\em R-100-SUBSUMPTION}}
@@ -1370,7 +1379,7 @@ which is the reason why constraints on {\em publications} are not validated for 
 %As the individual \ms{Luke} is assigned to the class \ms{Jedi}, all constraint associated with this class are also validated, for example that Jedis must have blue laser swords.
 %Without reasoning, these constraints won't be validated as \ms{Luke} is not within the class extension of \ms{Jedi}.
 
-\textbf{\emph{OWL 2 DL} Reasoning.}
+\subsubsection{OWL 2 DL Reasoning.}
 {\em Universal quantifications} (\emph{R-91})
 are used to build anonymous classes containing all individuals that are connected by particular properties only to instances/literals of certain classes/data ranges.
 \emph{Publications}, e.g., can only have \emph{persons} as \emph{authors} {\small\ms{(Publication $\sqsubseteq$ $\forall$ author.Person):}}
@@ -1672,6 +1681,8 @@ as $\mathcal{CT}_R$ constraint types are already expressible either by \emph{OWL
 
 \begin{itemize}
 	\item \textcolor{red}{reviewer: The term “expressivity scores” might be useful but a stronger argument is needed.}
+	\item \textcolor{blue}{suggestion of Kai: expressivity in motivation section (or conclusion)} 
+	\item \textcolor{blue}{Kai: expressivity scores do not have any message} 
 \end{itemize}
  
 We investigate the expressivity of constraint languages - more specifically their constraint type/requirement specific expressivity.
@@ -2140,6 +2151,10 @@ The first solution is applied on local knowledge bases whereas the second is mor
 %http://www2.informatik.uni-freiburg.de/~mschmidt/docs/sparql_constraints.pdf
 
 \section{Conclusion and Future Work}
+
+\begin{itemize}
+	\item \textcolor{blue}{ToDo}
+\end{itemize}
 
 In section \ref{the-role-of-reasoning-for-rdf-validation} we explained why reasoning is beneficial for validation and how reasoning interacts with validation.
 In section \ref{classification-rdf-constraints} we classified constraints according to CWA/UNA dependency, reasoning, and complexity.
