@@ -304,7 +304,7 @@ we identified and published by today 82 types of constraints that are required b
 For each constraint type we examine
 (1) if validation results depend on different underlying semantics,
 (2) if reasoning may improve data quality, and 
-(3) how efficient in terms of runtime can reasoning be performed.
+(3) how efficient in terms of runtime reasoning is performed.
 Using these findings, we determine for the most common constraint languages which constraint types they are able to express.
 We argue that so far no single best solution exists and give directions for the further development of constraint languages.
 %\begin{abstract}
@@ -610,14 +610,20 @@ We argue that so far no single best solution exists and give directions for the 
 
 %Tools, which apply the proposed classification system, should guide users to choose the right language for validation or to make trade-offs around the kinds of validation they need.
 
------
-
 This paper aims to address two main audiences: 
-(1) metadata practitioners seeking for the role of reasoning for validation and
+(1) data practitioners seeking for the role of reasoning for validation and
 (2) reasoning experts to raise the awareness for practical applications on validation.
 The contributions of this paper are:
-(1) We lay the ground for discussions on RDF validation.
-(2) We work out the role that reasoning plays in practical data validation and why reasoning is important for validation.
+%(1) We lay the ground for discussions on RDF validation.
+%(2) We work out the role that reasoning plays in practical data validation and why reasoning is important for validation.
+(1) We work out the role that reasoning plays in practical data validation and 
+how to overcome the major shortcomings when validating RDF data by performing reasoning prior to validation. 
+(2) We identified and published by today 82 types of constraints that are required by various stakeholders for data applications. 
+(3) For each constraint type we examine if validation results depend on different underlying semantics,
+    if reasoning may improve data quality, and 
+    how efficient in terms of runtime reasoning is performed.
+(4) Using these findings, we determine for the most common constraint languages which constraint types they are able to express
+    and give directions for the further development of constraint languages.
 
 %The remainder of the paper is as follows.
 %In section \ref{the-role-of-reasoning-for-rdf-validation}, we show why reasoning is important for validation and how reasoning and validation interact.
