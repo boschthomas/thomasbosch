@@ -1215,12 +1215,12 @@ We denote the whole set of constraint types with $\mathcal{CT}$ which we divide 
 \item $\mathcal{R}$ is the set of constraint types for which reasoning may be performed prior to validation (especially when not all the knowledge is explicit) in order to enhance data quality
 either by resolving violations or by raising valuable violations.
 For $\mathcal{R}$ constraint types, validation is executed by query answering with optional reasoning prior to validation.
-32 of the overall 82 constraint types are $\mathcal{R}$ constraint types.
+\textcolor{red}{32} of the overall 82 constraint types are $\mathcal{R}$ constraint types.
 %that can carry out the validation process via reasoning, especially when not all the knowledge is explicit.  
 \item $\overline{\mathcal{R}}$  denotes the complement of $\mathcal{R}$, that is the set of constraint types 
 for which reasoning cannot be done or for which reasoning does not improve data quality in any obvious sense.
 For $\overline{\mathcal{R}}$ constraint types, validation is performed by query answering without reasoning.
-42 of the overall 82 constraint types are $\overline{\mathcal{R}}$ constraint types.
+\textcolor{red}{42} of the overall 82 constraint types are $\overline{\mathcal{R}}$ constraint types.
 \end{enumerate}
 
 %corresponds to axioms in \emph{OWL 2}
@@ -1288,8 +1288,8 @@ $\mathcal{R}$ is the set of constraint types for which reasoning may be performe
 in order to enhance data quality either by resolving violations or by causing useful violations.
 For $\mathcal{R}$ constraint types, different types of reasoning may be performed
 which depends on the language used to formulate the constraint type. 
-11 of 32 $\mathcal{R}$ constraint types are representable by the less expressive but better performing \emph{OWL 2 QL}.
-18 $\mathcal{R}$ constraint types, in contrast, are not expressible by \emph{OWL 2 QL} and therefore the more expressive but less performing \emph{OWL 2 DL} is used.
+\textcolor{red}{11} of \textcolor{red}{32} $\mathcal{R}$ constraint types are representable by the less expressive but better performing \emph{OWL 2 QL}.
+\textcolor{red}{18} $\mathcal{R}$ constraint types, in contrast, are not expressible by \emph{OWL 2 QL} and therefore the more expressive but less performing \emph{OWL 2 DL} is used.
 %(in total, 29 0f 32 $\mathcal{R}$ constraint types are representable by \emph{OWL 2 DL}). 
 \emph{OWL 2} profiles are restricted versions of \emph{OWL 2} that offer different trade-offs regarding expressivity vs. efficiency in reasoning. 
 \emph{OWL 2 QL} is an \emph{OWL 2} profile which focuses on reasoning in the context of query answering with very large size of instance data. 
@@ -1303,16 +1303,16 @@ we divide $\mathcal{R}$ into two not disjoint sets of constraint types:
 $\mathcal{R}_{QL}$ $\subseteq$ $\mathcal{R}_{DL}$ (\emph{OWL 2 DL} is more expressive than \emph{OWL 2 QL}).
 \begin{enumerate}
 \item $\mathcal{R}_{QL}$ is the set of $\mathcal{R}$ constraint types for which \emph{OWL 2 QL reasoning} may be performed as they are expressible by \emph{OWL 2 QL}.
-11 of 32 $\mathcal{R}$ constraint types are $\mathcal{R}_{QL}$ constraint types.
+\textcolor{red}{11} of \textcolor{red}{32} $\mathcal{R}$ constraint types are $\mathcal{R}_{QL}$ constraint types.
 %which are expressible by \emph{OWL 2 QL} and thus
 %for which validation is executed by query answering with \emph{OWL 2 QL} reasoning.
 \item $\mathcal{R}_{DL}$ stands for the set of $\mathcal{R}$ constraint types for which \emph{OWL 2 DL reasoning} may be executed as \emph{OWL 2 QL} is not expressive enough to represent them \cite{owl2profiles2008}.
-29 of 32 $\mathcal{R}$ constraint types are $\mathcal{R}_{DL}$ constraint types.
+\textcolor{red}{29} of \textcolor{red}{32} $\mathcal{R}$ constraint types are $\mathcal{R}_{DL}$ constraint types.
 %which are expressible by \emph{OWL 2 DL} and for which validation is run by query answering with \emph{OWL 2 DL} reasoning.
 \end{enumerate}
 We limit $\mathcal{R}$ to the set of constraint types which can be expressed by \emph{OWL 2 DL}
 ($\mathcal{R}$ = $\mathcal{R}_{DL}$), as \emph{OWL 2 DL} is still quite expressive.
-Some of these constraint types can also be represented by classical constraint languages.
+Some of these constraint types are also representable by classical constraint languages.
 
 %Reasoning and validation are very closely related. 
 %Reasoning is the process of determining what follows from what has been
@@ -1395,6 +1395,12 @@ Now, all constraints associated with {\em publications} are also validated for {
 Without reasoning, in contrast, the fact that \emph{A+Conference-Proceedings} is a publication is not explicit
 which is the reason why constraints on {\em publications} are not validated for \emph{A+Conference-Proceedings}.
 
+RDF validation with reasoning corresponds to performing \emph{SPARQL} queries. 
+As \emph{OWL 2} profiles are based on the \textit{DL-Lite} family and query answering in \emph{OWL 2 QL} (which is based on \textit{DL-Lit}$e_R$) is performed in \textsc{LogSpace} (or rather in \emph{AC$^0$}) \cite{Calvanese2007}, the same complexity class applies for
+constraint validation by queries with reasoning.
+As TBox reasoning in \emph{OWL 2 QL} is performed in \textsc{Ptime} \cite{Calvanese2007}, 
+complete query rewriting as well as reasoning and subsequent querying (combined complexity) is carried out in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  
+
 %The {\em Existential Quantification}\footnote{Corresponds to {\em R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}}
 %\ms{Jedi $\sqsubseteq$ $\exists$ hasLaserSword . LaserSword} let us refer to all those individuals that are connected by \ms{hasLaserSword} to an individual that is an instance of the class \ms{LaserSword}.
 %In OWL 2 DL, this existential quantification can also be expressed:
@@ -1426,6 +1432,11 @@ let a reasoner infer that \emph{Tolkien} is a \emph{person}.
 In case reasoning is not executed, a violation is raised
 since it is not explicitly stated that \emph{Tolkien} is a \emph{person}.
 %and each \emph{publication} can only have \emph{author} relationships to \emph{persons}.
+
+With the more expressive profile \emph{OWL 2 DL}, reasoning is executed in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
+As we consider ontological reasoning, complexity classes are assigned to validation types 
+according to well-established complexity results on reasoning of \emph{DL} languages.
+Therefore, the classification also includes complex logical interferences between TBox axioms.
 
 %{\em Universal quantifications}\footnote{Corresponds to {\em R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}}
 %contain all those individuals that are connected by a particular property only to individuals that are instances of a specific class.
@@ -1598,6 +1609,36 @@ Semantic-Web-Publication a ResourceShape ; property [
     propertyDefinition keyword ; valueType xsd:string ;
     defaultValue "Semantic Web", "Linked Data" ; ] .
 \end{ex}
+
+RDF validation without reasoning corresponds to performing \emph{SPARQL} queries.  
+It is known that performing \emph{SPARQL} queries is carried out in \textsc{Pspace}-Complete \cite{Perez2009}. 
+
+Table \ref{tab:constraint-type-specific-complexity-classes} gives an overview over the complexity of RDF validation when reasoning is performed and when reasoning is not performed grouped by validation type.
+Since reasoning makes difference  for some validation types, we note them with the computational complexity of the language their associated constraint types are expressed in.
+\begin{table}[H]
+\centering
+%\caption{Constraint Type Specific Complexity Classes}
+\caption{Complexity of Validation According to Reasoning}
+\scriptsize
+\begin{tabular}{>{\centering\arraybackslash}m{1.5in} | >{\centering\arraybackslash}m{1in}} 
+\textbf{Validation Type}  & \textbf{Complexity Class}\\
+\hline
+$\overline{\mathcal{R}}$ & \textsc{Pspace}-Complete \\[7pt] 
+\hline
+$\mathcal{R}_{QL}$ & \textsc{Ptime} \\[7pt]
+\hline
+$\mathcal{R}_{DL}$ & \textsc{N2exptime} \\[7pt]
+\end{tabular}
+\label{tab:constraint-type-specific-complexity-classes}
+\end{table}
+The relation between the complexity classes is \cite{Arora:2009:CCM:1540612}:
+\begin{eqnarray*}
+\textsc{LogSpace} \subseteq \textsc{Ptime} \subseteq \textsc{Pspace-}\text{Complete} \subseteq \textsc{N2exptime} 
+\end{eqnarray*}
+We do not consider \emph{OWL 2 Full} 
+due to its high worst case complexity (undecidability) and
+as $\mathcal{CT}_R$ constraint types are already expressible either by \emph{OWL 2 QL} or \emph{OWL 2 DL}.
+
 %name "keyword" ; propertyDefinition keyword ; valueType xsd:string ;
 
 %Siths have per default two red laser swords.
@@ -1636,8 +1677,8 @@ Semantic-Web-Publication a ResourceShape ; property [
         %occurs Exactly-one ; ] .
 %\end{ex}
 
-\subsection{Complexity}
-\label{sec:constraints-complexity}
+%\subsection{Complexity}
+%\label{sec:constraints-complexity}
 %\tb{I think this sub section is not that fluently to read}
 
 %Since the combination of \emph{DL} constructs, needed to express a constraint type, determines its computational complexity, 
@@ -1656,47 +1697,24 @@ Semantic-Web-Publication a ResourceShape ; property [
 %Some of these constraint types can also be represented by constraint languages which is the focus of the next section.
 %%The complexity class $\mathcal{CT}_R$ encompasses all \emph{constraints with reasoning} for which reasoning can be executed but cannot be expressed by OWL 2.  \er{What/Why can't  be expressed by OWL 2  while being inferred? }\tb{e.g. class-specific property ranges or class-specific reflexive object properties cannot be expressed in OWL / these 2 axioms can only be stated globally for the properties, we cannot restrict it to individuals of specific classes}
 
-Table \ref{tab:constraint-type-specific-complexity-classes} gives an overview over the complexity of RDF validation when reasoning is performed and when reasoning is not performed grouped by validation type.
-Since reasoning makes difference  for some validation types, we note them with the computational complexity of the language their associated constraint types are expressed in.
-\begin{table}[H]
-\centering
-%\caption{Constraint Type Specific Complexity Classes}
-\caption{Complexity of Validation According to Reasoning}
-\scriptsize
-\begin{tabular}{>{\centering\arraybackslash}m{1.5in} | >{\centering\arraybackslash}m{1in}} 
-\textbf{Validation Type}  & \textbf{Complexity Class}\\
-\hline
-$\overline{\mathcal{R}}$ & \textsc{Pspace}-Complete \\[7pt] 
-\hline
-$\mathcal{R}_{QL}$ & \textsc{Ptime} \\[7pt]
-\hline
-$\mathcal{R}_{DL}$ & \textsc{N2exptime} \\[7pt]
-\end{tabular}
-\label{tab:constraint-type-specific-complexity-classes}
-\end{table}
-RDF validation with or without reasoning corresponds to performing \emph{SPARQL} queries.  
-It is known that performing \emph{SPARQL} queries is carried out in \textsc{Pspace}-Complete \cite{Perez2009}. 
-As \emph{OWL 2} profiles are based on the \textit{DL-Lite} family and query answering in \emph{OWL 2 QL} (which is based on \textit{DL-Lit}$e_R$) is performed in \textsc{LogSpace} (or rather in \emph{AC$^0$}) \cite{Calvanese2007}, the same complexity class applies for
-constraint validation by queries with reasoning.
-As TBox reasoning in \emph{OWL 2 QL} is performed in \textsc{Ptime} \cite{Calvanese2007}, 
-complete query rewriting as well as reasoning and subsequent querying (combined complexity) is carried out in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  
-With the more expressive profile \emph{OWL 2 DL}, reasoning is executed in \textsc{N2exptime} \cite{owl2profiles2008} which is a class of considerably higher complexity.
-As we consider ontological reasoning, complexity classes are assigned to validation types 
-according to well-established complexity results on reasoning of \emph{DL} languages.
-Therefore, the classification also includes complex logical interferences between TBox axioms.
-The relation between the complexity classes is \cite{Arora:2009:CCM:1540612}:
+
+ 
+%It is known that performing \emph{SPARQL} queries is carried out in \textsc{Pspace}-Complete \cite{Perez2009}. 
+
+
+%The relation between the complexity classes is \cite{Arora:2009:CCM:1540612}:
 %\begin{eqnarray*}
 %\overline{\mathcal{C}_R} \subset \mathcal{C}_R ^{\mathcal{QL}} \subset \mathcal{C}_R \subseteq \mathcal{C}_R ^{\mathcal{DL}}
 %\end{eqnarray*}
-\begin{eqnarray*}
-\textsc{LogSpace} \subseteq \textsc{Ptime} \subseteq \textsc{Pspace-}\text{Complete} \subseteq \textsc{N2exptime} 
-\end{eqnarray*}
+%\begin{eqnarray*}
+%\textsc{LogSpace} \subseteq \textsc{Ptime} \subseteq \textsc{Pspace-}\text{Complete} \subseteq \textsc{N2exptime} 
+%\end{eqnarray*}
 %There are constraints (e.g., class-specific property range, class-specific reflexive object properties) for which reasoning could be executed even though there is currently no implementation supported by any constraint language. 
 %We leave it as future work to write SPARQL CONSTRUCT queries in order to provide reasoning for these constraints.
-We do not consider \emph{OWL 2 Full} 
+%We do not consider \emph{OWL 2 Full} 
 %\textcolor{red}{(which is not a \emph{DL})} 
-due to its high worst case complexity (undecidability) and
-as $\mathcal{CT}_R$ constraint types are already expressible either by \emph{OWL 2 QL} or \emph{OWL 2 DL}.
+%due to its high worst case complexity (undecidability) and
+%as $\mathcal{CT}_R$ constraint types are already expressible either by \emph{OWL 2 QL} or \emph{OWL 2 DL}.
 
 %\section{Classification of Constraint Languages According to Expressivity}
 %\section{Constraint Type Specific Expressivity of Constraint Languages}
