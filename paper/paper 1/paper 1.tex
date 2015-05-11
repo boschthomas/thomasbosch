@@ -527,10 +527,86 @@ For each constraint type we investigate how efficient in terms of runtime valida
 Since the combination of \emph{DL} constructs, needed to express a constraint type, determines its computational complexity, 
 by mapping to \emph{DL} we get an idea of the performance for each constraint type in worst case (Section \ref{reasoning}).
 
-Using these findings, we determine for the most common constraint languages which constraint types they are able to express.
-Having this information enables systems to recommend the right language to formulate constraints depending on individual use cases of users.
+Using these findings, we are able to determine for the most common constraint languages which constraint types they are able to express, i.e., we determine their constraint type specific expressivity.
+Therefore, we evaluated the five most promising languages on fulfilling each requirement to formulate constraints (see appendix of this paper) \cite{BoschNolleAcarEckert2015}.
+ %As we identified three constraint-specific complexity classes in the previous section, we are now able to determine the performance (i.e. complexity) of constraint languages.  It can be beneficial not using the most expressive constraint languages when additional rather subjective criteria are evaluated.
+We introduce the intuitive notion of \emph{expressivity scores} rather than classical \emph{expressivity} of languages
+as the list of constraint types is an updated list and almost none (except \emph{SPIN}) of the languages contains one another.
+With the expressivity score of a language, we measure how many constraint types the language is able to express. 
+For the sake of simplicity, we abbreviate 
+(1) expressing the 32 constraint types for which reasoning may be performed before actually validating the data as $Expr(\mathcal{R})$ and 
+(2) expressing the 42 constraint types for which reasoning does not improve data quality in any obvious sense as $Expr(\overline{\mathcal{R}})$.
+%\emph{constraints with reasoning} can be used as axioms to infer new triples out of explicitly stated triples (see section \ref{sec:RDF-validation-requirements-and-reasoning}), but also to express constraints without reasoning. \er{Also to express constraints?}\tb{also to express constraints without reasoning}
+%If in our knowledge base it is stated that \ms{DarthVader} is a \ms{Sith} (e.g., \ms{Sith(DarthVader)}) and  Siths feel the force of the dark side (e.g., \ms{Sith $\sqsubseteq$ FeelingForceDarkSide}), it is either possible to infer that \ms{DarthVader} feels the force of the dark side (\ms{FeelingForceDarkSide(DarthVader)}) 
+%or to check if this class assignment is explicitly stated in the data without reasoning. 
+Although, \emph{OWL 2} is the only language for which reasoning features are already implemented, 
+some constraint types, for which reasoning may be executed before validation, are also expressible by other languages. 
+%\er{This is again the part I don't understand.}\tb{but also by other constraint languages}
+%\begin{center}
+%\begin{evaluation}
+%%$Expr(\mathcal{C})$ & & & & & & \\
+%$Expr(\overline{\mathcal{C}_R})$ (42) & 6 & 18(4) & 7(4) & 8 & 12 & 41(1)\\
+%$Expr(\mathcal{C}_R)$ (32) & 8 & 29 & 11 & 11(2) & 11(1) & 32 \\ 
+%\end{evaluation}
+%\end{center}
+%\begin{center}
+%\begin{table}
+	%\centering
+	  %\scriptsize
+		%\begin{tabular}{l|c|c|c|c|c|c}
+      %\textbf{Expressivity Class} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\		
+      %\hline
+      %$Expr(\overline{\mathcal{C}_R})$ (42) & 6 & 18(4) & 7(4) & 8 & 12 & 41(1)\\
+      %$Expr(\mathcal{C}_R)$ (32) & 8 & 29 & 11 & 11(2) & 11(1) & 32 \\ 	
+		%\end{tabular}
+	%\caption{Constraint Type Specific Expressivity}
+	%\label{tab:constraint-type-specific-expressivity}
+%\end{table}
+%\textcolor{red}{The numbers in parentheses in table 2 what are these
+%extensions/restrictions?  The subsequent ordering of expressivity
+%seems to include these values in the ranking: why?}
+%\end{center}
+%\tb{this is indeed a misunderstanding. I only took into account that is DSP supports 6 EXPR-C constraints and OWL 2 DL 5, then DSP is more expressive than OWL 2 DL regarding the expressivity class EXPR-C / but this is not right?}
+\begin{table}[H]
+	\centering
+	  %\caption{Constraint Type Specific Expressivity}
+		\caption{Expressivity Scores of Constraint Languages}
+	  \scriptsize
+		\begin{tabular}{l|c|c}
+      %\textbf{Expressivity Class} & $Expr(\overline{\mathcal{CT}_R})$ (42) & $Expr(\mathcal{CT}_R)$ (32) \\		
+			\textbf{} & $Expr(\overline{\mathcal{R}})$ (42) & $Expr(\mathcal{R})$ (32) \\	
+      \hline
+			\emph{DSP} & 6 & 8 \\
+			\emph{OWL2-DL} & 18(4) & 29 \\ 
+			\emph{OWL2-QL} & 7(4) & 11 \\
+			\emph{ReSh} & 8 & 11(2) \\
+			\emph{ShEx} & 12 & 11(1) \\
+			\emph{SPIN} & 41(1)	& 32
+		\end{tabular}
+	\label{tab:constraint-type-specific-expressivity}
+\end{table}
+Table \ref{tab:constraint-type-specific-expressivity} displays the expressivity scores of constraint languages.
+%In total, there are 42 $\overline{\mathcal{CT}_R}$ and 32 $\mathcal{CT}_R$ constraint types (see Table \ref{tab:constraint-type-specific-expressivity}).
+%In Table \ref{tab:constraint-type-specific-expressivity}, the total amount of constraint types per constraint type specific expressivity is shown by numbers in round brackets in the first column.
+Numbers in parentheses indicate the amount of constraint types which may be expressed by a particular language - either by limitations, workarounds, or extensions.  
+%\er{One possible misunderstanding (maybe not) is the ordering. It is not only based on the size of the number of the constrains that they satisfies right? For instance, if there are 6 constraints (from EXPR-C) that  DSP satisfies and OWL2-DL  can satisfy lets say only 5 of them but 13 other, in such scenario OWL2 DL and DSP would be incomparable (no ordering). It is more expressive only if it contains those 6 and extras.}
+Representing {\em context-specific exclusive or of properties} (\emph{R-11}) constraints in \emph{OWL 2 DL}, e.g., can be seen as a workaround 
+as anonymous classes are built for each of the exclusive properties (see Section \ref{RDF-Validation-Requirements-without-Reasoning}).
+The following order is derived from the expressivity scores of constraint languages\footnote{Including limitations, workarounds, and extensions since constraint types are still expressible.}:
+{\tiny
+\begin{eqnarray*}
+%Expr(\mathcal{C}): ... \\
+Expr(\overline{\mathcal{R}}): DSP \prec OWL2QL \prec ReSh \prec ShEx \prec OWL2DL \prec SPIN \\
+Expr(\mathcal{R}): DSP \prec OWL2QL \prec ShEx \prec ReSh \prec OWL2DL \prec SPIN
+\end{eqnarray*}
+}%
+Having this information enables systems to recommend the right language to formulate constraints depending on individual use cases.
 These use cases determine which requirements have to be fulfilled and therefore which constraint types have to be expressed to meet these use cases.
-We argue that so far no single best solution exists and give directions for the further development of constraint languages (Section \ref{expressivity-constraint-languages}).
+We argue that so far no single best solution exists and give directions for the further development of constraint languages.
+
+\begin{itemize}
+	\item \textcolor{red}{reviewer: The term “expressivity scores” might be useful but a stronger argument is needed.}
+\end{itemize}
 
 % RDF validation in the library domain
 % -----
@@ -607,6 +683,61 @@ We argue that so far no single best solution exists and give directions for the 
 %which enable systems to recommend languages depending on individual use cases and therefore needed constraint types.
 
 %Tools, which apply the proposed classification system, should guide users to choose the right language for validation or to make trade-offs around the kinds of validation they need.
+
+%For a language designer, it is relevant to question the expressivity interrelation between constraint languages, e.g., 
+%"which language could contain the whole \emph{DSP} and could therefore be used instead?". 
+%This can also maintain the future development plans and directions of those languages in the way of achieving to be a solid standard constraint language.
+%Thus, we introduce \emph{Expr(DSP)} which denotes the set of all constraint types which are expressible by \emph{DSP}.  
+%We consider \emph{Expr(DSP)} as an expressivity class for the language \emph{DSP}. 
+%Using the same fashion, we obtain one expressivity class per language (see Tables \ref{tab:expressivity-sores-according-to-expressivity-classes-1}-\ref{tab:expressivity-sores-according-to-expressivity-classes-2}).
+%\begin{table}[H]
+	%\centering
+	  %\caption{Expressivity Scores according to Expressivity Classes (1)}
+	  %\scriptsize
+		%\begin{tabular}{l|c|c|c}
+      %\textbf{Expressivity Class} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL}\\		
+      %\hline
+			%\emph{Expr(DSP)} (14) & 14 & 13 & 1 \\
+			%\emph{Expr(OWL2DL)} (49) & 13 & 49 & 16(1) \\
+			%\emph{Expr(OWL2QL)} (16) & 1 & 16 & 16 \\
+			%\emph{Expr(ReSh)} (12) & 7 & 9(2) & 1(1) \\
+			%\emph{Expr(ShEx)} (23) & 13 & 19(2) & 2(1) \\
+			%\emph{Expr(SPIN)} (73) & 13 & 50(4) & 15(4) \\
+		%\end{tabular}
+	%\label{tab:expressivity-sores-according-to-expressivity-classes-1}
+%\end{table}
+%\begin{table}[H]
+	%\centering
+	  %\caption{Expressivity Scores according to Expressivity Classes (2)}
+	  %\scriptsize
+		%\begin{tabular}{l|c|c|c}
+      %\textbf{Expressivity Class} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\		
+      %\hline
+			%\emph{Expr(DSP)} (14) & 7(6) & 13 & 13(1) \\
+			%\emph{Expr(OWL2DL)} (49) & 9(9) & 13(1) & 48(1) \\
+			%\emph{Expr(OWL2QL)} (16) & 1(2) & 2 & 15(1) \\
+			%\emph{Expr(ReSh)} (12) & 12 & 11 & 11(1) \\
+			%\emph{Expr(ShEx)} (23) & 11(7) & 23 & 22(1) \\
+			%\emph{Expr(SPIN)} (73) & 12(9) & 23(1) & 73 \\
+		%\end{tabular}
+	%\label{tab:expressivity-sores-according-to-expressivity-classes-2}
+%\end{table}
+%If we rank the languages according to their expressivity scores we get the following as a brief picture:
+%{\tiny
+%\begin{flalign*}
+%& \emph{Expr(DSP):} OWL2QL \prec ReSh \prec ShEx \preceq OWL2DL \prec SPIN \prec DSP & \\
+%& \emph{Expr(OWL2DL):} ReSh \prec ShEx \prec DSP \prec OWL2QL \prec SPIN \prec OWL2DL & \\
+%& \emph{Expr(OWL2QL):} DSP \prec ReSh \prec ShEx \prec SPIN \prec OWL2DL \preceq OWL2QL & \\
+%& \emph{Expr(ReSh):} OWL2QL \prec DSP \prec OWLDL \prec ShEx \prec SPIN \prec ReSh & \\
+%& \emph{Expr(ShEx):} OWL2QL \prec ReSh \prec DSP \prec OWL2DL \prec SPIN \prec ShEx & \\
+%& \emph{Expr(SPIN):} ReSh \prec DSP \prec OWL2QL \prec ShEx \prec OWL2DL \prec SPIN &
+%\end{flalign*}
+%}%
+%One important finding is that all languages can be fully covered by \emph{SPIN} (if we ignore the last constraint type \emph{recursive queries} which is partly implemented in \emph{SPIN}). 
+%Except for \emph{SPIN}, all supported constraint types are already implemented by particular languages.
+%Yet another interesting message is that, none of other languages covers the other so far in terms of expressivity.
+%As we keep the RDF validation requirements updated and those languages are further developed, it is likely that this list will change in the direction of needs of the RDF validation community.
+
 
 This paper aims to address two main audiences: 
 (1) data practitioners seeking for the role of reasoning for validation and
@@ -1661,7 +1792,7 @@ It is a common requirement to narrow down the value space of properties by an ex
 %\end{center}
 %}%
 \emph{Books} on the topics \emph{Computer Science} and \emph{Librarianship}, e.g., should only have \emph{subject} relationships to \emph{ComputerScience} and \emph{Librarianship}.
-The corresponding \emph{DL} statement {\small\ms{Book $\equiv$ $\forall$ dcterms:subject.\{ComputerScience,Librarianship\}}}
+The corresponding \emph{DL} statement {\small\ms{Book $\equiv$ $\forall$ subject.\{Computer-Science,Librarianship\}}}
 is representable by \emph{DSP} and \emph{OWL 2 DL}:
 \begin{ex}
 [ a dsp:DescriptionTemplate ;
@@ -1681,9 +1812,8 @@ subject rdfs:range [ owl:equivalentClass [ a owl:Class;
 
 RDF validation without reasoning corresponds to performing \emph{SPARQL} queries.  
 It is known that performing \emph{SPARQL} queries is carried out in \textsc{Pspace}-Complete \cite{Perez2009}. 
-
-Table \ref{tab:constraint-type-specific-complexity-classes} gives an overview over the complexity of RDF validation when reasoning is performed and when reasoning is not performed grouped by validation type.
-Since reasoning makes difference  for some validation types, we note them with the computational complexity of the language their associated constraint types are expressed in.
+Table \ref{tab:constraint-type-specific-complexity-classes} gives an overview over the complexity of RDF validation with and without reasoning prior to validation.
+%Since reasoning makes difference  for some validation types, we note them with the computational complexity of the language their associated constraint types are expressed in.
 \begin{table}[H]
 \centering
 %\caption{Constraint Type Specific Complexity Classes}
@@ -1706,7 +1836,7 @@ The relation between the complexity classes is \cite{Arora:2009:CCM:1540612}:
 \end{eqnarray*}
 We do not consider \emph{OWL 2 Full} 
 due to its high worst case complexity (undecidability) and
-as $\mathcal{CT}_R$ constraint types are already expressible either by \emph{OWL 2 QL} or \emph{OWL 2 DL}.
+as $\mathcal{R}$ constraint types are already expressible either by \emph{OWL 2 QL} or \emph{OWL 2 DL}.
 
 %name "keyword" ; propertyDefinition keyword ; valueType xsd:string ;
 
@@ -1787,32 +1917,26 @@ as $\mathcal{CT}_R$ constraint types are already expressible either by \emph{OWL
 
 %\section{Classification of Constraint Languages According to Expressivity}
 %\section{Constraint Type Specific Expressivity of Constraint Languages}
-\section{Expressivity of Constraint Languages}
-\label{expressivity-constraint-languages}
-
-\begin{itemize}
-	\item \textcolor{red}{reviewer: The term “expressivity scores” might be useful but a stronger argument is needed.}
-	\item \textcolor{blue}{suggestion of Kai: expressivity in motivation section (or conclusion)} 
-	\item \textcolor{blue}{Kai: expressivity scores do not have any message} 
-\end{itemize}
+%\section{Expressivity of Constraint Languages}
+%\label{expressivity-constraint-languages}
  
-We investigate the expressivity of constraint languages - more specifically their constraint type/requirement specific expressivity.
-Therefore, we evaluated the five most promising languages on fulfilling each requirement to formulate constraints
-and checked if constraint types are expressible by \emph{OWL 2 QL} or if the more expressive \emph{OWL 2 DL} is needed \cite{BoschNolleAcarEckert2015}.
- %As we identified three constraint-specific complexity classes in the previous section, we are now able to determine the performance (i.e. complexity) of constraint languages.  It can be beneficial not using the most expressive constraint languages when additional rather subjective criteria are evaluated.
-We introduce the intuitive notion of \emph{expressivity scores} rather than classical \emph{expressivity}
-as the list of constraint types is an updated list and almost none (except \emph{SPIN}) of the languages contains one another.
-With the expressivity score of a language, we measure how many constraint types the language is able to express.
-As one may want to perform reasoning before actually validating the data,
-we use the two sets of constraint types as before: $\mathcal{CT}_R$ and $\overline{\mathcal{CT}_R}$. 
-%The main motivation in that is, that one may want to perform reasoning before actually validating the data.  
-For the sake of simplicity, we abbreviate \emph{expressing} $\mathcal{CT}_R$ \emph{constraint types} as $Expr(\mathcal{CT}_R)$ 
-and \emph{expressing} $\overline{\mathcal{CT}_R}$ \emph{constraint types} as $Expr(\overline{\mathcal{CT}_R})$.
-%\emph{constraints with reasoning} can be used as axioms to infer new triples out of explicitly stated triples (see section \ref{sec:RDF-validation-requirements-and-reasoning}), but also to express constraints without reasoning. \er{Also to express constraints?}\tb{also to express constraints without reasoning}
-%If in our knowledge base it is stated that \ms{DarthVader} is a \ms{Sith} (e.g., \ms{Sith(DarthVader)}) and  Siths feel the force of the dark side (e.g., \ms{Sith $\sqsubseteq$ FeelingForceDarkSide}), it is either possible to infer that \ms{DarthVader} feels the force of the dark side (\ms{FeelingForceDarkSide(DarthVader)}) 
-%or to check if this class assignment is explicitly stated in the data without reasoning. 
-Although, \emph{OWL 2} is the only implementation (which can be considered as a constraint language) with reasoning features, 
-some $\mathcal{CT}_R$ constraint types are not only expressible by \emph{OWL 2}  but also by other languages. 
+%We investigate the expressivity of constraint languages - more specifically their constraint type/requirement specific expressivity.
+%Therefore, we evaluated the five most promising languages on fulfilling each requirement to formulate constraints
+%and checked if constraint types are expressible by \emph{OWL 2 QL} or if the more expressive \emph{OWL 2 DL} is needed \cite{BoschNolleAcarEckert2015}.
+ %%As we identified three constraint-specific complexity classes in the previous section, we are now able to determine the performance (i.e. complexity) of constraint languages.  It can be beneficial not using the most expressive constraint languages when additional rather subjective criteria are evaluated.
+%We introduce the intuitive notion of \emph{expressivity scores} rather than classical \emph{expressivity}
+%as the list of constraint types is an updated list and almost none (except \emph{SPIN}) of the languages contains one another.
+%With the expressivity score of a language, we measure how many constraint types the language is able to express.
+%As one may want to perform reasoning before actually validating the data,
+%we use the two sets of constraint types as before: $\mathcal{CT}_R$ and $\overline{\mathcal{CT}_R}$. 
+%%The main motivation in that is, that one may want to perform reasoning before actually validating the data.  
+%For the sake of simplicity, we abbreviate \emph{expressing} $\mathcal{CT}_R$ \emph{constraint types} as $Expr(\mathcal{CT}_R)$ 
+%and \emph{expressing} $\overline{\mathcal{CT}_R}$ \emph{constraint types} as $Expr(\overline{\mathcal{CT}_R})$.
+%%\emph{constraints with reasoning} can be used as axioms to infer new triples out of explicitly stated triples (see section \ref{sec:RDF-validation-requirements-and-reasoning}), but also to express constraints without reasoning. \er{Also to express constraints?}\tb{also to express constraints without reasoning}
+%%If in our knowledge base it is stated that \ms{DarthVader} is a \ms{Sith} (e.g., \ms{Sith(DarthVader)}) and  Siths feel the force of the dark side (e.g., \ms{Sith $\sqsubseteq$ FeelingForceDarkSide}), it is either possible to infer that \ms{DarthVader} feels the force of the dark side (\ms{FeelingForceDarkSide(DarthVader)}) 
+%%or to check if this class assignment is explicitly stated in the data without reasoning. 
+%Although, \emph{OWL 2} is the only implementation (which can be considered as a constraint language) with reasoning features, 
+%some $\mathcal{CT}_R$ constraint types are not only expressible by \emph{OWL 2}  but also by other languages. 
 %\er{This is again the part I don't understand.}\tb{but also by other constraint languages}
 %\begin{center}
 %\begin{evaluation}
@@ -1839,63 +1963,63 @@ some $\mathcal{CT}_R$ constraint types are not only expressible by \emph{OWL 2} 
 %seems to include these values in the ranking: why?}
 %\end{center}
 %\tb{this is indeed a misunderstanding. I only took into account that is DSP supports 6 EXPR-C constraints and OWL 2 DL 5, then DSP is more expressive than OWL 2 DL regarding the expressivity class EXPR-C / but this is not right?}
-\begin{table}[H]
-	\centering
-	  %\caption{Constraint Type Specific Expressivity}
-		\caption{Expressivity Scores}
-	  \scriptsize
-		\begin{tabular}{l|c|c}
-      %\textbf{Expressivity Class} & $Expr(\overline{\mathcal{CT}_R})$ (42) & $Expr(\mathcal{CT}_R)$ (32) \\		
-			\textbf{} & $Expr(\overline{\mathcal{CT}_R})$ (42) & $Expr(\mathcal{CT}_R)$ (32) \\	
-      \hline
-			\emph{DSP} & 6 & 8 \\
-			\emph{OWL2-DL} & 18(4) & 29 \\ 
-			\emph{OWL2-QL} & 7(4) & 11 \\
-			\emph{ReSh} & 8 & 11(2) \\
-			\emph{ShEx} & 12 & 11(1) \\
-			\emph{SPIN} & 41(1)	& 32
-		\end{tabular}
-	\label{tab:constraint-type-specific-expressivity}
-\end{table}
-Table \ref{tab:constraint-type-specific-expressivity} displays the expressivity scores of constraint languages, i.e., how many of the overall 42 $\overline{\mathcal{CT}_R}$ and 32 $\mathcal{CT}_R$ constraint types are expressible by listed languages.
-%In total, there are 42 $\overline{\mathcal{CT}_R}$ and 32 $\mathcal{CT}_R$ constraint types (see Table \ref{tab:constraint-type-specific-expressivity}).
-%In Table \ref{tab:constraint-type-specific-expressivity}, the total amount of constraint types per constraint type specific expressivity is shown by numbers in round brackets in the first column.
-Numbers in parentheses indicate the amount of constraint types which may be expressed by a particular language - either by limitations, workarounds, or extensions.  
-%\er{One possible misunderstanding (maybe not) is the ordering. It is not only based on the size of the number of the constrains that they satisfies right? For instance, if there are 6 constraints (from EXPR-C) that  DSP satisfies and OWL2-DL  can satisfy lets say only 5 of them but 13 other, in such scenario OWL2 DL and DSP would be incomparable (no ordering). It is more expressive only if it contains those 6 and extras.}
-Representing {\em context-specific exclusive or of properties} (\emph{R-11}) constraints in \emph{OWL 2 DL}, e.g., can be seen as a workaround 
-as anonymous classes are built for each of the exclusive properties (see Section \ref{RDF-Validation-Requirements-without-Reasoning}).
-The following order is derived from the expressivity scores\footnote{Including limitations, workarounds, and extensions since constraint types are still expressible.}:
-{\tiny
-\begin{eqnarray*}
-%Expr(\mathcal{C}): ... \\
-Expr(\overline{\mathcal{CT}_R}): DSP \prec OWL2QL \prec ReSh \prec ShEx \prec OWL2DL \prec SPIN \\
-Expr(\mathcal{CT}_R): DSP \prec OWL2QL \prec ShEx \prec ReSh \prec OWL2DL \prec SPIN
-\end{eqnarray*}
-}%
+%\begin{table}[H]
+	%\centering
+	  %%\caption{Constraint Type Specific Expressivity}
+		%\caption{Expressivity Scores}
+	  %\scriptsize
+		%\begin{tabular}{l|c|c}
+      %%\textbf{Expressivity Class} & $Expr(\overline{\mathcal{CT}_R})$ (42) & $Expr(\mathcal{CT}_R)$ (32) \\		
+			%\textbf{} & $Expr(\overline{\mathcal{CT}_R})$ (42) & $Expr(\mathcal{CT}_R)$ (32) \\	
+      %\hline
+			%\emph{DSP} & 6 & 8 \\
+			%\emph{OWL2-DL} & 18(4) & 29 \\ 
+			%\emph{OWL2-QL} & 7(4) & 11 \\
+			%\emph{ReSh} & 8 & 11(2) \\
+			%\emph{ShEx} & 12 & 11(1) \\
+			%\emph{SPIN} & 41(1)	& 32
+		%\end{tabular}
+	%\label{tab:constraint-type-specific-expressivity}
+%\end{table}
+%Table \ref{tab:constraint-type-specific-expressivity} displays the expressivity scores of constraint languages, i.e., how many of the overall 42 $\overline{\mathcal{CT}_R}$ and 32 $\mathcal{CT}_R$ constraint types are expressible by listed languages.
+%%In total, there are 42 $\overline{\mathcal{CT}_R}$ and 32 $\mathcal{CT}_R$ constraint types (see Table \ref{tab:constraint-type-specific-expressivity}).
+%%In Table \ref{tab:constraint-type-specific-expressivity}, the total amount of constraint types per constraint type specific expressivity is shown by numbers in round brackets in the first column.
+%Numbers in parentheses indicate the amount of constraint types which may be expressed by a particular language - either by limitations, workarounds, or extensions.  
+%%\er{One possible misunderstanding (maybe not) is the ordering. It is not only based on the size of the number of the constrains that they satisfies right? For instance, if there are 6 constraints (from EXPR-C) that  DSP satisfies and OWL2-DL  can satisfy lets say only 5 of them but 13 other, in such scenario OWL2 DL and DSP would be incomparable (no ordering). It is more expressive only if it contains those 6 and extras.}
+%Representing {\em context-specific exclusive or of properties} (\emph{R-11}) constraints in \emph{OWL 2 DL}, e.g., can be seen as a workaround 
+%as anonymous classes are built for each of the exclusive properties (see Section \ref{RDF-Validation-Requirements-without-Reasoning}).
+%The following order is derived from the expressivity scores\footnote{Including limitations, workarounds, and extensions since constraint types are still expressible.}:
+%{\tiny
+%\begin{eqnarray*}
+%%Expr(\mathcal{C}): ... \\
+%Expr(\overline{\mathcal{CT}_R}): DSP \prec OWL2QL \prec ReSh \prec ShEx \prec OWL2DL \prec SPIN \\
+%Expr(\mathcal{CT}_R): DSP \prec OWL2QL \prec ShEx \prec ReSh \prec OWL2DL \prec SPIN
+%\end{eqnarray*}
+%}%
 
------
+%-----
+%
+%We determine constraint type specific expressivity scores of
+%constraint languages which enable systems to recommend
+%languages depending on individual use cases and therefore
+%needed constraint types.
+%
+%-----
 
-We determine constraint type specific expressivity scores of
-constraint languages which enable systems to recommend
-languages depending on individual use cases and therefore
-needed constraint types.
+%Expressivity scores enable validation environments to recommend languages depending on users' individual use cases.
+%In order to meet certain use cases particular requirements have to be fulfilled, i.e., constraint types need to be expressed. 
+%%These use case determine which language to use in order to fulfill related requirements, i.e., to express associated constraint types.
+%If, e.g., many $\mathcal{CT}_R$ constraint types are needed, \emph{SPIN} is the most expressive language (use case 1).
+%If only specific $\overline{\mathcal{CT}_R}$ or $\mathcal{CT}_R$ constraint types are needed for a given purpose, 
+%it may be more reasonable to use a more compact one like \emph{ShEx} (use case 2).
 
------
-
-Expressivity scores enable validation environments to recommend languages depending on users' individual use cases.
-In order to meet certain use cases particular requirements have to be fulfilled, i.e., constraint types need to be expressed. 
-%These use case determine which language to use in order to fulfill related requirements, i.e., to express associated constraint types.
-If, e.g., many $\mathcal{CT}_R$ constraint types are needed, \emph{SPIN} is the most expressive language (use case 1).
-If only specific $\overline{\mathcal{CT}_R}$ or $\mathcal{CT}_R$ constraint types are needed for a given purpose, 
-it may be more reasonable to use a more compact one like \emph{ShEx} (use case 2).
-
-For a language designer, it is relevant to question the expressivity interrelation between constraint languages, e.g., 
-"which language could contain the whole \emph{DSP} or  could be used instead?". 
-This can also maintain the future development plans and directions of those languages in the way of achieving to be a solid standard constraint language.
-Thus, we introduce \emph{Expr(DSP)} which denotes the set of all constraint types which are expressible by \emph{DSP}.  
-We consider \emph{Expr(DSP)} as an expressivity class for the language \emph{DSP}. 
-Using the same fashion, we obtain one expressivity class per language (see Tables \ref{tab:expressivity-sores-according-to-expressivity-classes-1}-\ref{tab:expressivity-sores-according-to-expressivity-classes-2}).
-If we rank the languages according to their expressivity scores we get the following as a brief picture:
+%For a language designer, it is relevant to question the expressivity interrelation between constraint languages, e.g., 
+%"which language could contain the whole \emph{DSP} and could therefore be used instead?". 
+%This can also maintain the future development plans and directions of those languages in the way of achieving to be a solid standard constraint language.
+%Thus, we introduce \emph{Expr(DSP)} which denotes the set of all constraint types which are expressible by \emph{DSP}.  
+%We consider \emph{Expr(DSP)} as an expressivity class for the language \emph{DSP}. 
+%Using the same fashion, we obtain one expressivity class per language (see Tables \ref{tab:expressivity-sores-according-to-expressivity-classes-1}-\ref{tab:expressivity-sores-according-to-expressivity-classes-2}).
+%If we rank the languages according to their expressivity scores we get the following as a brief picture:
 %\begin{itemize}
 	%\item \emph{Expr(DSP)}: constraints expressible by DSP
 	%\item \emph{Expr(OWL2-DL)}: constraints expressible by OWL2-DL
@@ -1931,38 +2055,38 @@ If we rank the languages according to their expressivity scores we get the follo
 	%\caption{Expressivity Scores according to Expressivity Classes (1)}
 	%\label{tab:expressivity-sores-according-to-expressivity-classes-1}
 %\end{table}
-\begin{table}
-	\centering
-	  \caption{Expressivity Scores according to Expressivity Classes (1)}
-	  \scriptsize
-		\begin{tabular}{l|c|c|c}
-      \textbf{Expressivity Class} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL}\\		
-      \hline
-			\emph{Expr(DSP)} (14) & 14 & 13 & 1 \\
-			\emph{Expr(OWL2DL)} (49) & 13 & 49 & 16(1) \\
-			\emph{Expr(OWL2QL)} (16) & 1 & 16 & 16 \\
-			\emph{Expr(ReSh)} (12) & 7 & 9(2) & 1(1) \\
-			\emph{Expr(ShEx)} (23) & 13 & 19(2) & 2(1) \\
-			\emph{Expr(SPIN)} (73) & 13 & 50(4) & 15(4) \\
-		\end{tabular}
-	\label{tab:expressivity-sores-according-to-expressivity-classes-1}
-\end{table}
-\begin{table}
-	\centering
-	  \caption{Expressivity Scores according to Expressivity Classes (2)}
-	  \scriptsize
-		\begin{tabular}{l|c|c|c}
-      \textbf{Expressivity Class} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\		
-      \hline
-			\emph{Expr(DSP)} (14) & 7(6) & 13 & 13(1) \\
-			\emph{Expr(OWL2DL)} (49) & 9(9) & 13(1) & 48(1) \\
-			\emph{Expr(OWL2QL)} (16) & 1(2) & 2 & 15(1) \\
-			\emph{Expr(ReSh)} (12) & 12 & 11 & 11(1) \\
-			\emph{Expr(ShEx)} (23) & 11(7) & 23 & 22(1) \\
-			\emph{Expr(SPIN)} (73) & 12(9) & 23(1) & 73 \\
-		\end{tabular}
-	\label{tab:expressivity-sores-according-to-expressivity-classes-2}
-\end{table}
+%\begin{table}
+	%\centering
+	  %\caption{Expressivity Scores according to Expressivity Classes (1)}
+	  %\scriptsize
+		%\begin{tabular}{l|c|c|c}
+      %\textbf{Expressivity Class} & \textbf{DSP} & \textbf{OWL2-DL} & \textbf{OWL2-QL}\\		
+      %\hline
+			%\emph{Expr(DSP)} (14) & 14 & 13 & 1 \\
+			%\emph{Expr(OWL2DL)} (49) & 13 & 49 & 16(1) \\
+			%\emph{Expr(OWL2QL)} (16) & 1 & 16 & 16 \\
+			%\emph{Expr(ReSh)} (12) & 7 & 9(2) & 1(1) \\
+			%\emph{Expr(ShEx)} (23) & 13 & 19(2) & 2(1) \\
+			%\emph{Expr(SPIN)} (73) & 13 & 50(4) & 15(4) \\
+		%\end{tabular}
+	%\label{tab:expressivity-sores-according-to-expressivity-classes-1}
+%\end{table}
+%\begin{table}
+	%\centering
+	  %\caption{Expressivity Scores according to Expressivity Classes (2)}
+	  %\scriptsize
+		%\begin{tabular}{l|c|c|c}
+      %\textbf{Expressivity Class} & \textbf{ReSh} & \textbf{ShEx} & \textbf{SPIN} \\		
+      %\hline
+			%\emph{Expr(DSP)} (14) & 7(6) & 13 & 13(1) \\
+			%\emph{Expr(OWL2DL)} (49) & 9(9) & 13(1) & 48(1) \\
+			%\emph{Expr(OWL2QL)} (16) & 1(2) & 2 & 15(1) \\
+			%\emph{Expr(ReSh)} (12) & 12 & 11 & 11(1) \\
+			%\emph{Expr(ShEx)} (23) & 11(7) & 23 & 22(1) \\
+			%\emph{Expr(SPIN)} (73) & 12(9) & 23(1) & 73 \\
+		%\end{tabular}
+	%\label{tab:expressivity-sores-according-to-expressivity-classes-2}
+%\end{table}
 %If we rank the languages according to their expressivity scores we get the following as a brief picture:
 %{\tiny
 %\begin{eqnarray*} 
@@ -1974,20 +2098,20 @@ If we rank the languages according to their expressivity scores we get the follo
 %\emph{Expr(SPIN):} ReSh \prec DSP \prec OWL2QL \prec ShEx \prec OWL2DL \prec SPIN
 %\end{eqnarray*}
 %}%
-{\tiny
-\begin{flalign*}
-& \emph{Expr(DSP):} OWL2QL \prec ReSh \prec ShEx \preceq OWL2DL \prec SPIN \prec DSP & \\
-& \emph{Expr(OWL2DL):} ReSh \prec ShEx \prec DSP \prec OWL2QL \prec SPIN \prec OWL2DL & \\
-& \emph{Expr(OWL2QL):} DSP \prec ReSh \prec ShEx \prec SPIN \prec OWL2DL \preceq OWL2QL & \\
-& \emph{Expr(ReSh):} OWL2QL \prec DSP \prec OWLDL \prec ShEx \prec SPIN \prec ReSh & \\
-& \emph{Expr(ShEx):} OWL2QL \prec ReSh \prec DSP \prec OWL2DL \prec SPIN \prec ShEx & \\
-& \emph{Expr(SPIN):} ReSh \prec DSP \prec OWL2QL \prec ShEx \prec OWL2DL \prec SPIN &
-\end{flalign*}
-}%
-One important finding is that all languages can be fully covered by \emph{SPIN} (if we ignore the last constraint type \emph{recursive queries} which is partly implemented in \emph{SPIN}). 
-Except for \emph{SPIN}, all supported constraint types are already implemented by particular languages.
-Yet another interesting message is that, none of other languages covers the other so far in terms of expressivity.
-As we keep the RDF validation requirements updated and those languages are further developed, it is likely that this list will change in the direction of needs of the RDF validation community.
+%{\tiny
+%\begin{flalign*}
+%& \emph{Expr(DSP):} OWL2QL \prec ReSh \prec ShEx \preceq OWL2DL \prec SPIN \prec DSP & \\
+%& \emph{Expr(OWL2DL):} ReSh \prec ShEx \prec DSP \prec OWL2QL \prec SPIN \prec OWL2DL & \\
+%& \emph{Expr(OWL2QL):} DSP \prec ReSh \prec ShEx \prec SPIN \prec OWL2DL \preceq OWL2QL & \\
+%& \emph{Expr(ReSh):} OWL2QL \prec DSP \prec OWLDL \prec ShEx \prec SPIN \prec ReSh & \\
+%& \emph{Expr(ShEx):} OWL2QL \prec ReSh \prec DSP \prec OWL2DL \prec SPIN \prec ShEx & \\
+%& \emph{Expr(SPIN):} ReSh \prec DSP \prec OWL2QL \prec ShEx \prec OWL2DL \prec SPIN &
+%\end{flalign*}
+%}%
+%One important finding is that all languages can be fully covered by \emph{SPIN} (if we ignore the last constraint type \emph{recursive queries} which is partly implemented in \emph{SPIN}). 
+%Except for \emph{SPIN}, all supported constraint types are already implemented by particular languages.
+%Yet another interesting message is that, none of other languages covers the other so far in terms of expressivity.
+%As we keep the RDF validation requirements updated and those languages are further developed, it is likely that this list will change in the direction of needs of the RDF validation community.
 
 %\subsection{Classification Dimension Expressivity [Old]}
 %
