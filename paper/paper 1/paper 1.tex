@@ -527,10 +527,10 @@ For each constraint type we investigate how efficient in terms of runtime valida
 Since the combination of \emph{DL} constructs, needed to express a constraint type, determines its computational complexity, 
 by mapping to \emph{DL} we get an idea of the performance for each constraint type in worst case (Section \ref{reasoning}).
 
-Using these findings, we are able to determine for the five most common constraint languages which constraint types they are able to express, i.e., we determine their constraint type specific expressivity\footnote{The detailed evaluation is described in the appendix of this paper.} \cite{BoschNolleAcarEckert2015}.
+Using these findings, we are able to determine for the five most common constraint languages which constraint types they are able to express, i.e., we evaluate their constraint type specific expressivity\footnote{The detailed evaluation is described in the appendix of this paper.} \cite{BoschNolleAcarEckert2015}.
  %As we identified three constraint-specific complexity classes in the previous section, we are now able to determine the performance (i.e. complexity) of constraint languages.  It can be beneficial not using the most expressive constraint languages when additional rather subjective criteria are evaluated.
 We introduce the intuitive notion of \emph{expressivity scores} rather than classical \emph{expressivity}
-as the list of constraint types is an updated list and almost none (except \emph{SPIN}) of the languages contains one another.
+as the list of constraint types is a continuously updated list and almost none (except \emph{SPIN}) of the languages contains one another.
 With the expressivity score of a language, we measure how many constraint types the language is able to express. 
 For the sake of simplicity, we abbreviate 
 (1) expressing the \textcolor{red}{32} constraint types for which reasoning may be performed before actually validating the data as $Expr(\mathcal{R})$ and 
@@ -539,7 +539,9 @@ For the sake of simplicity, we abbreviate
 %If in our knowledge base it is stated that \ms{DarthVader} is a \ms{Sith} (e.g., \ms{Sith(DarthVader)}) and  Siths feel the force of the dark side (e.g., \ms{Sith $\sqsubseteq$ FeelingForceDarkSide}), it is either possible to infer that \ms{DarthVader} feels the force of the dark side (\ms{FeelingForceDarkSide(DarthVader)}) 
 %or to check if this class assignment is explicitly stated in the data without reasoning. 
 Although, \emph{OWL 2} is the only language for which reasoning features are already implemented, 
-some constraint types, for which reasoning may be executed before validation, are also expressible by other languages. 
+constraint types with reasoning are also expressible by other languages. 
+\emph{SPIN} is the only language we consider as being a constraint language,
+for which an actual implementation of the validation of constraints types does not yet exist. 
 %\er{This is again the part I don't understand.}\tb{but also by other constraint languages}
 %\begin{center}
 %\begin{evaluation}
@@ -599,19 +601,19 @@ Expr(\overline{\mathcal{R}}): DSP \prec OWL2QL \prec ReSh \prec ShEx \prec OWL2D
 Expr(\mathcal{R}): DSP \prec OWL2QL \prec ShEx \prec ReSh \prec OWL2DL \prec SPIN
 \end{eqnarray*}
 }%
-Having this information enables systems to recommend the right language to formulate constraints depending on individual use cases.
+Having information on expressivity scores enables systems to recommend the right language to formulate constraints depending on individual use cases.
 These use cases determine which requirements have to be fulfilled and therefore which constraint types have to be expressed to meet these use cases.
 We argue that so far no single best solution exists.
 By revealing which constraint types are not covered by exiting languages 
 we give directions for the further development of constraint languages.
-As \emph{SPIN} is the only language which supports all \textcolor{red}{32} constraint types 
-for which reasoning may be executed to improve data quality 
-we show the importance to actually implement reasoning capabilities by \emph{SPIN} (or plain \emph{SPARQL}9.
-Furthermore, the fact that all (1) constraint types with reasoning and (2) constraint types without reasoning are representable by \emph{SPIN} or \emph{SPARQL}\footnote{If we ignore the last constraint type \emph{recursive queries} which is partly implemented in \emph{SPIN}.} 
-emphasizes the important role \emph{SPIN} (and \emph{SPARQL}) play for the future developments in this field.
+The finding that \emph{SPIN} is the only language which supports all reasoning constraint types 
+underpins the importance to actually implement reasoning capabilities by \emph{SPIN} (or plain \emph{SPARQL}).
+Furthermore, the fact that all (1) constraint types with reasoning and (2) constraint types without reasoning are representable by \emph{SPIN}\footnote{If we ignore the last constraint type \emph{recursive queries} which is partly implemented in \emph{SPIN}.} 
+emphasizes the significant role \emph{SPIN} plays for the future developments in this field.
 
 \begin{itemize}
 	\item \textcolor{red}{reviewer: The term “expressivity scores” might be useful but a stronger argument is needed.}
+	\item \textcolor{blue}{question for Erman: Why did you choose this term? Can you give a stronger argument in the paragraphs before?}
 \end{itemize}
 
 % RDF validation in the library domain
