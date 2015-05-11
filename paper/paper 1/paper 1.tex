@@ -1526,15 +1526,24 @@ for which reasoning does not improve data quality in any obvious sense.
 %Data containing the triples \ms{Yoda a Jedi ; laserSwordColor 'blue'} is valid, 
 %whereas data including the triples \ms{DarthMaul a Jedi ; laserSwordColor 'red'} is invalid.
 With the constraint type {\em context-specific exclusive or of properties} (\emph{R-11}) 
-it can be defined that an individual can either have property A or property B, but not both.
+it can be defined that an individual can either have property \emph{A} or property \emph{B}, but not both.
 Identifiers of \emph{publications}, e.g., can either be ISBNs (for books) or ISSNs (for periodical publications), but it should not be possible to assign both identifiers to a given \emph{publication}:
+%\begin{center}
+%\begin{DL}
+%Publication $\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
+%A $\equiv$ $\exists$ isbn.xsd:string , B $\equiv$ $\exists$ issn.xsd:string \\ 
+%\end{DL} 
+%\end{center}
+{\scriptsize
 \begin{center}
-\begin{DL}
-Publication $\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B) \\
-A $\equiv$ $\exists$ isbn.xsd:string , B $\equiv$ $\exists$ issn.xsd:string \\ 
-\end{DL} 
+\begin{DL} 
+$\mathcal{K}=\{$ \\ 
+ \ms{ Publication $\sqsubseteq$ ($\neg$ A $\sqcap$ B) $\sqcup$ (A $\sqcap$ $\neg$ B)}, \\
+ \ms{ A $\equiv	$ $\exists$ isbn.xsd:string}, \ms{B $\equiv$ $\exists$ issn.xsd:string}\\
+\end{DL}
 \end{center}
-Representing this constraint in \emph{OWL 2 DL} can be seen as a workaround 
+}%
+Representing this constraint by \emph{OWL 2 DL} can be seen as a workaround 
 as anonymous classes are built for each of the exclusive properties:
 \begin{ex}
 Publication owl:disjointUnionOf ( CC1 CC2 ) . 
@@ -1545,7 +1554,7 @@ CC2 rdfs:subClassOf [ a owl:Restriction ;
     owl:onProperty issn ;
     owl:someValuesFrom xsd:string ] .
 \end{ex}
-The same constraint can be represented by \emph{ShEx} more intuitively and concisely:
+Exactly the same constraint can be represented by \emph{ShEx} more intuitively and concisely:
 \begin{ex}
 Publication { ( isbn xsd:string | issn xsd:string ) }
 \end{ex}
@@ -1592,29 +1601,83 @@ Publication { ( isbn xsd:string | issn xsd:string ) }
 %As Darth Sidious has both relationships, a constraint Violation is raised.
 
 %\textbf{Expressible by Other Constraint Languages.}
-The majority of the $\overline{\mathcal{R}}$ constraint types can neither be expressed by \emph{OWL 2 QL} nor by \emph{OWL 2 DL}, 
-but by other constraint languages like \emph{DSP}, \emph{ShEx}, \emph{ReSh}, or \emph{SPIN}.
-{\em Default values} (\emph{R-31/38})
-for properties are expressible by \emph{ReSh} and \emph{SPIN}.
-%so that input forms can be pre-populated. % and to insert a required property that is missing in a web service call. 
-In case no keyword is stated for \emph{Semantic Web publications}, default \emph{keywords} could be 'Semantic Web' and 'Linked Data'.
-As this paper is a \emph{Semantic Web publication} {\small\ms{(rdf:type(This-Paper, Semantic-Web-Publication))}}, 
-default values for keywords like {\small\ms{keyword(This-Paper,"Semantic Web")}} are inferred.
-In \emph{SPIN}, rules can be associated with the class {\em owl:Thing}:
+%The majority of the $\overline{\mathcal{R}}$ constraint types can neither be expressed by \emph{OWL 2 QL} nor by \emph{OWL 2 DL}, 
+%but by other languages like \emph{DSP}, \emph{ShEx}, \emph{ReSh}, or \emph{SPIN}.
+%{\em Default values} (\emph{R-31/38})
+%for properties are expressible by \emph{ReSh} and \emph{SPIN}.
+%%so that input forms can be pre-populated. % and to insert a required property that is missing in a web service call. 
+%In case no keyword is stated for \emph{Semantic Web publications}, default \emph{keywords} could be 'Semantic Web' and 'Linked Data'.
+%As this paper is a \emph{Semantic Web publication} {\small\ms{(rdf:type(This-Paper, Semantic-Web-Publication)),}}
+%default values for keywords like {\small\ms{keyword(This-Paper,"Semantic Web")}} are generated.
+%In \emph{SPIN}, rules can be associated with the class {\em owl:Thing}:
+%\begin{ex}
+%owl:Thing spin:rule [ a sp:Construct ; sp:text """
+    %CONSTRUCT { 
+        %?subject keyword "Semantic Web", "Linked Data" . }
+    %WHERE { ?subject a Semantic-Web-Publication . } """ ; ] .
+%\end{ex}
+%This rule is applicable for each resource as each resource is implicitly of the type {\em owl:Thing}. 
+%For each resource, the \emph{SPARQL CONSTRUCT} query within the rule body is executed which generates the default triples.
+%The same \emph{default values} constraint can also be represented by \emph{ReSh}:
+%\begin{ex}
+%Semantic-Web-Publication a ResourceShape ; property [
+    %propertyDefinition keyword ; valueType xsd:string ;
+    %defaultValue "Semantic Web", "Linked Data" ; ] .
+%\end{ex}
+%\emph{Data property facets} (\emph{R-46}) enable to declare frequently needed facets for data properties in order to validate input against simple conditions including min/max values, regular expressions, and string length.
+%By means of a \emph{data property facets} constraint it can be ensured that social security numbers match a given regular expression which can be expressed by \emph{OWL 2 QL}: 
+%\begin{ex}
+%hasSSN rdfs:range SSN .
+%SSN a rdfs:Datatype ; owl:equivalentClass [ a rdfs:Datatype ;
+    %owl:onDatatype xsd:string ;
+    %owl:withRestrictions ( 
+        %[ xsd:pattern "[0-9]{3}-[0-9]{2}-[0-9]{4}" ] ) ] .
+%\end{ex}
+%
+%The second axiom defines SSN as an abbreviation for a datatype restriction on xsd:string. 
+%The first axiom explicitly declares SSN to be a datatype. 
+%The datatype SSN can be used just like any other datatype; 
+%for example, it is used in the third axiom to define the range of the hasSSN property. 
+%
+%\begin{ex}
+%# valid data:
+%TimBernersLee
+    %hasSSN "123-45-6789"^^SSN .
+%\end{ex}
+%
+%\begin{ex}
+%# invalid data:
+%TimBernersLee
+    %hasSSN "123456789"^^SSN .
+%\end{ex}
+It is a common requirement to narrow down the value space of properties by an exhaustive enumeration of valid values (\emph{R-30/37: allowed values}). 
+%{\scriptsize
+%\begin{center}
+%\begin{DL} 
+%$\mathcal{K}=\{$ \\ 
+ %\ms{Book $\equiv$}, \\
+ %\ms{ $\forall$ subject.\{Computer Science,Librarianship\} $\sqcap$ Concept}\\
+%\end{DL}
+%\end{center}
+%}%
+\emph{Books} on the topics \emph{Computer Science} and \emph{Librarianship}, e.g., should only have \emph{subject} relationships to \emph{ComputerScience} and \emph{Librarianship}.
+The corresponding \emph{DL} statement {\small\ms{Book $\equiv$ $\forall$ dcterms:subject.\{ComputerScience,Librarianship\}}}
+is representable by \emph{DSP} and \emph{OWL 2 DL}:
 \begin{ex}
-owl:Thing spin:rule [ a sp:Construct ; sp:text """
-    CONSTRUCT { 
-        ?subject keyword "Semantic Web", "Linked Data" . }
-    WHERE { ?subject a Semantic-Web-Publication . } """ ; ] .
+[ a dsp:DescriptionTemplate ;
+  dsp:resourceClass Book ; 
+  dsp:statementTemplate [ 
+    dsp:minOccur 0 ; dsp:maxOccur "infinity" ; 
+    dsp:property subject ; 
+    dsp:nonLiteralConstraint [ 
+      dsp:valueURI ComputerScience, Librarianship ] ] ] .
+
+subject rdfs:range [ owl:equivalentClass [ a owl:Class;
+    owl:oneOf ( ComputerScience Librarianship ) ] ] .
 \end{ex}
-This rule is applicable for each resource as each resource is implicitly of the type {\em owl:Thing}. 
-For each resource, the \emph{SPARQL CONSTRUCT} query within the rule body is executed which generates the default triples.
-The same \emph{default values} constraint can also be represented by \emph{ReSh}:
-\begin{ex}
-Semantic-Web-Publication a ResourceShape ; property [
-    propertyDefinition keyword ; valueType xsd:string ;
-    defaultValue "Semantic Web", "Linked Data" ; ] .
-\end{ex}
+%\end{ex}
+%Exactly the same constraint is expressible by \emph{OWL 2 DL}:
+%\begin{ex}
 
 RDF validation without reasoning corresponds to performing \emph{SPARQL} queries.  
 It is known that performing \emph{SPARQL} queries is carried out in \textsc{Pspace}-Complete \cite{Perez2009}. 
