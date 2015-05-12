@@ -762,6 +762,10 @@ how to overcome the major shortcomings when validating RDF data by performing re
 (4) Using these findings, we determine for the most common constraint languages which constraint types they are able to express
     and give directions for the further development of constraint languages.
 
+\begin{itemize}
+	\item \textcolor{blue}{complete OWL 2 DL SPIN mapping}
+\end{itemize}
+
 %The remainder of the paper is as follows.
 %In section \ref{the-role-of-reasoning-for-rdf-validation}, we show why reasoning is important for validation and how reasoning and validation interact.
 %In section \ref{classification-rdf-constraints}, we classify RDF constraints according to CWA/UNA dependency, reasoning, and computational complexity.
@@ -2366,18 +2370,22 @@ as $\mathcal{R}$ constraint types are already expressible either by \emph{OWL 2 
 \section{Related Work}
 \label{sec:related-Work}
 
-Tao \cite{tao2012integrity} proposed an OWL 2 DL extension to support integrity constraints and enables thereby the use of OWL 2 as a constraint language for validation including the CWA by conjunctive query answering. Tao also provides a solution to explain and repair integrity constraint violations.
-Siren and Tao proposed an alternate semantics for OWL 2 using CWA so that it could be used to validate integrity constraints\footnote{This semantics is implemented in the Stardog database: \url{http://stardog.com/}}\cite{SirinTao2009}. 
-They examined integrity constraint semantics proposed in the deductive databases literature and adopted them for OWL
-by reducing the validation of integrity constraints to SPARQL query answering by means of reasoners.
-This OWL 2 semantics, however, was never submitted to a standards organization such as the W3C.
+Tao \cite{tao2012integrity} suggested an \emph{OWL 2 DL} extension to support integrity constraints 
+which enables thereby the use of \emph{OWL 2} as a constraint language for validation under the \emph{CWA} by conjunctive query answering. 
+Tao also provides a solution to explain and to repair integrity constraint violations.
+Siren and Tao \cite{SirinTao2009} proposed an alternative semantics for \emph{OWL 2} using the \emph{CWA} 
+so that it could be used to validate integrity constraints.
+They examined integrity constraint semantics proposed in the deductive databases literature and adopted them for \emph{OWL 2}
+by reducing the validation of integrity constraints to \emph{SPARQL} query answering by means of reasoners.
+Although, the alternative semantics for \emph{OWL 2} is implemented in the \emph{Stardog} database\footnote{\url{http://stardog.com/}}, it was never submitted to a standards organization such as the \emph{W3C}.
 
+In \emph{DL}, reasoning tasks like query answering or detection of inconsistencies require the consideration of knowledge that is not only defined explicitly but also implicitly. To do so there are two different ways called forward- and backward-chaining. 
+The first method implies a materialized knowledge base, where the original knowledge base is extended by all assertions that can be inferred. State-of-the-art \emph{DL} or \emph{OWL} reasoners following this approach are \emph{FaCT++} \cite{tsarkov2006fact++}, \emph{Pellet} \cite{sirin2007pellet},  \emph{RacerPro} \cite{haarslev2001racer}, or \emph{HermiT} \cite{horrocks2012hermit}. 
 
-In Description Logics, reasoning tasks like query answering or detection of inconsistencies require the consideration of knowledge that is not only defined explicitly but also implicitly. To do so there are two different ways called forward- and backward-chaining. The first implies a materialized knowledge base, where the original knowledge base is extended by all assertions that can be inferred. State-of-the-art DL or OWL reasoners following this approach are e.g. FaCT++ \cite{tsarkov2006fact++}, Pellet \cite{sirin2007pellet},  RacerPro \cite{haarslev2001racer}, or HermiT \cite{horrocks2012hermit}. 
-
-On the second approach, the original knowledge base is kept in its original state and before queries are evaluated against the knowledge base, the queries are rewritten such that the rewritings also consider the implicit knowledge in the result set. 
+On the second approach, the original knowledge base is kept in its original state.
+Before queries are evaluated against the knowledge base, the queries are rewritten such that the rewritings also consider the implicit knowledge in the result set. 
 Approaches following this way are \emph{PerfectRef} given by Calvanese et al. \cite{Calvanese2007} or \emph{TreeWitness} proposed by Kontchakov et al. \cite{kontchakov2011combined}, which are both implemented in the --ontop-- framework\footnote{\url{http://ontop.inf.unibz.it}} for ontology-based data access. 
-The first solution is applied on local knowledge bases whereas the second is more appropriated for federative environments like in \cite{nolle2014efficient,nolle2013elite}. 
+The first solution is applied on local knowledge bases whereas the second is more appropriate for federative environments like in \cite{nolle2014efficient,nolle2013elite}. 
 %So, even if reasoning is performed by query rewriting in terms of backward-chaining and constraint validation queries are evaluated through such an engine, rewritings will only be generated if possible and will not affect constraint validation that are checked e.g. by pattern matching.
 
 
@@ -2399,24 +2407,40 @@ The first solution is applied on local knowledge bases whereas the second is mor
 	\item \textcolor{blue}{ToDo}
 \end{itemize}
 
-In section \ref{the-role-of-reasoning-for-rdf-validation} we explained why reasoning is beneficial for validation and how reasoning interacts with validation.
-In section \ref{classification-rdf-constraints} we classified constraints according to CWA/UNA dependency, reasoning, and complexity.
-Constraint types can either be dependent on the CWA with UNA ($\mathcal{C}_{CWA}$), when it makes a difference if the CWA/UNA or the OWA/nUNA is assumed, or independent on the CWA with UNA ($\overline{\mathcal{C}_{CWA}}$).
-We distinguish two disjoint sets of constraint types $\mathcal{C}_{R}$ ({\em constraints with reasoning}) and $\overline{\mathcal{CT}_{R}}$ ({\em constraints without reasoning}).
-For each of them, we presented representative constraint types to investigate the effects of reasoning to the validation process.
+%In section \ref{the-role-of-reasoning-for-rdf-validation} we explained why reasoning is beneficial for validation and how reasoning interacts with validation.
+%In section \ref{classification-rdf-constraints} we classified constraints according to CWA/UNA dependency, reasoning, and complexity.
+%Constraint types can either be dependent on the CWA with UNA ($\mathcal{C}_{CWA}$), when it makes a difference if the CWA/UNA or the OWA/nUNA is assumed, or independent on the CWA with UNA ($\overline{\mathcal{C}_{CWA}}$).
+%We distinguish two disjoint sets of constraint types $\mathcal{C}_{R}$ ({\em constraints with reasoning}) and $\overline{\mathcal{CT}_{R}}$ ({\em constraints without reasoning}).
+%For each of them, we presented representative constraint types to investigate the effects of reasoning to the validation process.
 Regarding the performance of constraints, we refer to worst case complexity.
-We divide $\mathcal{CT}_R$ into two not disjoint classes ($\mathcal{C}_R ^{\mathcal{QL}} \subseteq \mathcal{C}_R ^{\mathcal{DL}}$) for the validation by query answering with OWL 2 QL and OWL 2 DL reasoning respectively.
-It is well known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}, 
-which is assigned to $\overline{\mathcal{C}_R}$ (validation by query answering without reasoning).
-In section \ref{classification-constraint-languages} we classified constraint languages according to expressivity scores and classes. 
-An interesting result is that in terms of expressivity on constraint types, 
-all constraint languages can be fully covered by SPIN (except one constraint type which is partly implemented).
-All supported constraint types are already implemented by particular constraint languages (except for SPIN).
-Another important finding is that, none of other languages covers the other so far in terms of expressivity.
-We implemented the validation of all OWL 2 QL, OWL 2 DL, DSP (and major ReSh and ShEx) constructs
-within our SPIN validation environment in form of SPARQL CONSTRUCT queries (\url{http://purl.org/net/RDFval-demo}).
+
+%We divide $\mathcal{CT}_R$ into two not disjoint classes ($\mathcal{C}_R ^{\mathcal{QL}} \subseteq \mathcal{C}_R ^{\mathcal{DL}}$) for the validation by query answering with OWL 2 QL and OWL 2 DL reasoning respectively.
+%It is well known that performing SPARQL queries is in \textsc{Pspace}-Complete \cite{Perez2009}, 
+%which is assigned to $\overline{\mathcal{C}_R}$ (validation by query answering without reasoning).
+
+%In section \ref{classification-constraint-languages} we classified constraint languages according to expressivity scores and classes. 
+%An interesting result is that in terms of expressivity on constraint types, 
+%all constraint languages can be fully covered by SPIN (except one constraint type which is partly implemented).
+%All supported constraint types are already implemented by particular constraint languages (except for SPIN).
+
+%Another important finding is that, none of other languages covers the other so far in terms of expressivity.
+
+We use \emph{SPIN}, 
+a \emph{SPARQL}-based way to formulate and check constraints, as basis to develop a
+validation environment\footnote{Online demo available at \url{http://purl.org/net/rdfval-demo}, source code at: \url{https://github.com/boschthomas/rdf-validator}} to validate RDF data according to constraints expressed by arbitrary constraint languages\footnote{SPIN mappings available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/SPIN}} \cite{BoschEckert2014-2}.
+
+The \emph{RDF Validator} can directly be used to validate arbitrary RDF data for the three vocabularies. Additionally, own constraints on vocabularies can be defined using several constraint languages.
+
+%Although accessible within our validation tool, we provide all implemented constraints\footnote{\url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}} in form of SPARQL CONSTRUCT queries.
+The \emph{SPIN} engine checks for each resource if it satisfies all constraints, which are associated with its assigned classes, and generates a result RDF graph containing information about all constraint violations.
+There is one \emph{SPIN} construct template for each constraint type.
+A \emph{SPIN} construct template contains a \emph{SPARQL CONSTRUCT} query which generates constraint violation triples indicating the subject and the properties causing constraint violations, and the reason why constraint violations have been raised.
+A \emph{SPIN} construct template creates constraint violation triples if all triple patterns within the \emph{SPARQL WHERE clause} match.
+
+We implemented the validation of all \emph{OWL 2 QL}, \emph{OWL 2 DL}, \emph{DSP} (and major \emph{ReSh} and \emph{ShEx}) constructs
+within our \emph{SPIN} validation environment in form of \emph{SPARQL CONSTRUCT queries} (\url{http://purl.org/net/RDFval-demo}).
 %\cite{BoschEckert2014-2}\footnote{SPIN mappings: \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}, \url{https://github.com/dcmi/DSP-SPIN-Mapping}}.
-For $\mathcal{C}_{R}$ constraint types (represented in OWL 2), you can choose if reasoning should be performed prior to validation.
+For $\mathcal{R}$ constraint types (represented in \emph{OWL 2 DL}), you can choose if reasoning should be performed prior to validation.
 
 As part of future work we will extend our validator to provide a list of constraint languages for which the expressivity is enough to express selected constraint types.
 The validator may also recommend one of these constraint languages having the highest expressivity score and lowest complexity.
@@ -2437,7 +2461,7 @@ This is the interest of RDF triplestores: to allow incomplete description of dat
 Section 2 makes complicate this basic property for which a sentence in the introduction would have been sufficient.
 BTW, it is completely misleading to say in introduction  "Reasoning is a promising solution as a pre-validation step to overcome this shortcoming": reasoning must be part of RDF data management as soon as RDFS statements are declared (otherwise, why would they be declared ?).}
     \item \textcolor{blue}{answer from Erman and Thomas: We use RDF as data model (with intended semantics) when performing reasoning with RDFS/OWL 2 semantics (OWA/nUNA) as well as for RDF validation and not just as a notation. We suggest using RDFS/OWL 2 semantics (OWA, nUNA) when performing reasoning (the original intention of RDFS/OWL 2) and we propose to take multiple languages into account (i.a. OWL 2) with different semantics (CWA, UNA) for the purpose to validate RDF data. Reasoning should be an optional step prior to validation. When reasoning is not wished to be performed, however, then omitted class assignment triples, e.g., must cause constraint violations as they are not intended to be inferred.} 
-		\item \textcolor{blue}{question for Erman: How to tackle this issue in our paper?}
+		\item \textcolor{blue}{question for Erman: How and where to tackle this issue in our paper?}
 \end{itemize}
 %	\item While gross numbers give some insight, if the paper listed which
 %problems can be solved by each constraint language, it might allow

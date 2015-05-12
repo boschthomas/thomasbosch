@@ -1252,7 +1252,7 @@ The \emph{RDF Validator} can directly be used to validate arbitrary RDF data for
 
 %Although accessible within our validation tool, we provide all implemented constraints\footnote{\url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}} in form of SPARQL CONSTRUCT queries.
 The \emph{SPIN} engine checks for each resource if it satisfies all constraints, which are associated with its assigned classes, and generates a result RDF graph containing information about all constraint violations.
-There is one SPIN construct template for each constraint type.
+There is one \emph{SPIN} construct template for each constraint type.
 A \emph{SPIN} construct template contains a \emph{SPARQL CONSTRUCT} query which generates constraint violation triples indicating the subject and the properties causing constraint violations, and the reason why constraint violations have been raised.
 A \emph{SPIN} construct template creates constraint violation triples if all triple patterns within the \emph{SPARQL WHERE clause} match.
 %\emph{Missy}\footnote{\url{http://www.gesis.org/missy/eu/missy-home}} provides comprehensive Linked Data services like diverse RDF exports of person-level metadata conforming to the \emph{Disco} vocabulary in form of multiple concrete syntaxes. 
