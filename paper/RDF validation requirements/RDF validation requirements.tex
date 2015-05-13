@@ -183,6 +183,23 @@
 	\end{center}
 }
 
+\newenvironment{cwa-una-dependency}{
+  \scriptsize
+  \sffamily
+  \vspace{0cm}
+	\begin{center}
+  \begin{tabular}{l|c|c}
+  \hline
+  \textbf{Constraint Type} & \textbf{CWA/UNA Dependent} & \textbf{CWA/UNA Dependent} \\
+  \hline
+
+}{
+  \hline
+  \end{tabular}
+  \linebreak
+	\end{center}
+}
+
 \usepackage{xspace}
 % Einfache und doppelte Anfuehrungszeichen
 \newcommand{\qs}{``} 
@@ -215,6 +232,21 @@
 \newcommand{\ke}[1]{\todo[size=\small, color=orange!40]{\textbf{Kai:} #1}}
 \newcommand{\an}[1]{\todo[size=\small, color=green!40]{\textbf{Andy:} #1}}
 \newcommand{\er}[1]{\todo[size=\small, color=red!40]{\textbf{Erman:} #1}}
+
+% tables
+\usepackage{array,graphicx}
+\usepackage{booktabs}
+\usepackage{pifont}
+\newcommand*\rot{\rotatebox{90}}
+\newcommand*\OK{\ding{51}}
+\usepackage{booktabs}
+\newcommand*\ON[0]{$\surd$}
+
+\usepackage{tablefootnote}
+
+\usepackage{float}
+
+
 
 \setcounter{secnumdepth}{5}
 
@@ -672,7 +704,7 @@ class & Hologram & - & - & Human & $\ne$ \\
 class & Human & - & - & Hologram & $\ne$ \\
 \end{gcotable}
 
-\section{Existential Quantification on Properties}
+\section{Existential Quantifications}
 
 \ms{Existential Quantification on Properties} conforms to the requirement \\
 \ms{R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}.
@@ -725,7 +757,7 @@ ParentOfSon $\equiv$ $\exists$ parentOf . Male
 property & ParentOfSon & parentOf & - & Male & $\exists$ \\
 \end{gcotable}
 
-\section{Universal Quantification on Properties}
+\section{Universal Quantifications}
 
 \ms{Universal Quantification on Properties} corresponds to the requirement \ms{R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}, 
 which is also called \ms{value} \ms{restriction} in DL terminology.
@@ -749,7 +781,7 @@ The set of individuals all of whose children are female also includes those that
 property & $\forall$ parentOf . Female & parentOf & - & Female & $\forall$ \\
 \end{gcotable}
 
-\section{Property Domain}
+\section{Property Domains}
 
 \ms{Property Domain} corresponds to the requirements \ms{R-25-OBJECT-PROPERTY-DOMAIN} and \ms{R-26-DATA-PROPERTY-DOMAIN}.
 The constraint restricts the domain of object and data properties.
@@ -771,7 +803,7 @@ syntactic sugar:
 property & $\top$ & sonOf & - & Male & domain \\
 \end{gcotable}
 
-\section{Property Range}
+\section{Property Ranges}
 
 \ms{Property Range} corresponds to the requirements \ms{R-28-OBJECT-PROPERTY-RANGE} and \ms{R-35-DATA-PROPERTY-RANGE}.
 This constraint restricts the range of object and data properties
@@ -842,7 +874,7 @@ Only vulcans can have friendship relationships to cardassians
 $\neg$Vulcan $\sqsubseteq$ $\neg\exists$ friendOf.Carsassian
 \end{DL}
 
-\section{Minimum Unqualified Cardinality Restrictions on Properties}
+\section{Minimum Unqualified Cardinality Restrictions}
 
 \ms{Minimum Unqualified Cardinality Restrictions on Properties}
 corresponds to the requirements
@@ -922,7 +954,7 @@ Captains command at least one vessel.
 property & Captain & commandsVessel & - & $\top$ & $\geq$ & 1 \\
 \end{gcotable}
 
-\section{Minimum Qualified Cardinality Restrictions on Properties}
+\section{Minimum Qualified Cardinality Restrictions}
 
 \ms{Minimum Qualified Cardinality Restrictions on Properties} corresponds to the requirements
 \ms{R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES} and \ms{R-211-CARDINALITY-CONSTRAINTS}
@@ -1058,7 +1090,7 @@ property & $\geq$1 commandsVessel . Vessel & commandsVessel & - & Vessel & $\geq
 class & FederationCaptain & - & - & Federation, $\geq$1 commandsVessel . Vessel & $\sqcap$ & - \\
 \end{gcotable}
 
-\section{Maximum Unqualified Cardinality Restrictions on Properties}
+\section{Maximum Unqualified Cardinality Restrictions}
 
 \ms{Maximum Unqualified Cardinality Restrictions on Properties} corresponds to the requirements 
 \ms{R-82-MAXIMUM-UNQUALIFIED-CARDINALITY-ON-PROPERTIES} and \ms{R-211-CARDINALITY-CONSTRAINTS}.
@@ -1120,7 +1152,7 @@ $JediMasters \sqsubseteq Jedi \sqcap \geq1 mentorOf.\top \sqcap \leq2 mentorOf.\
 $SuperJediMaster \sqsubseteq Jedi \sqcap  \geq3 mentorOf.\top $
 \end{DL}
 
-\section{Maximum Qualified Cardinality Restrictions on Properties}
+\section{Maximum Qualified Cardinality Restrictions}
 
 \ms{Maximum Qualified Cardinality Restrictions on Properties} corresponds to the requirements
 \ms{R-76-MAXIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES} and
@@ -1199,7 +1231,7 @@ $JediMasters \sqsubseteq Jedi \sqcap \geq1 mentorOf.Jedi \sqcap \leq2 mentorOf.J
 $SuperJediMaster \sqsubseteq Jedi \sqcap  \geq3 mentorOf.Jedi $
 \end{DL}
 
-\section{Exact Unqualified Cardinality Restrictions on Properties}
+\section{Exact Unqualified Cardinality Restrictions}
 
 \ms{Exact Unqualified Cardinality Restrictions on Properties} corresponds to the requirements
 \ms{R-80-EXACT-UNQUALIFIED-CARDINALITY-ON-PROPERTIES} and
@@ -1264,7 +1296,7 @@ $\geq n R. \top \sqcap \leq n R. \top $ is an exact unqualified cardinality rest
 $JediStudent \sqsubseteq Jedi \sqcap \geq1 studentOf.\top \sqcap \leq1 studentOf.\top$ \\
 \end{DL}
 
-\section{Exact Qualified Cardinality Restrictions on Properties}
+\section{Exact Qualified Cardinality Restrictions}
 
 \ms{Exact Qualified Cardinality Restrictions on Properties} corresponds to the requirements
 \ms{R-74-EXACT-QUALIFIED-CARDINALITY-ON-PROPERTIES} and \\
@@ -1591,6 +1623,12 @@ A resource cannot be its own parent (dbo:parent).
 \subsection{Simple Example}
 
 A resource cannot be its own child (dbo:child).
+
+\subsection{Class-Specific Irreflexive Object Properties*}
+
+A property is \emph{irreflexive} if it is never locally reflexive \cite{Kroetzsch2012}.
+An object property irreflexivity axiom states that the object property \emph{OP} is irreflexive - that is, no individual is connected by \emph{OP} to itself.
+\emph{Class-Specific Irreflexive Object Properties} are object properties which are irreflexive within a given context, e.g. a class. 
 
 \section{Context-Specific Property Groups}
 
@@ -2603,7 +2641,7 @@ class & 1-23 & - & - & xsd:nonNegativeInteger & $\leq$ & 23 \\
 %property & $\top$ & position & - & 1-23 & range& - \\
 %\end{gcotable}
 
-\section{Define Order}
+\section{Ordering}
 
 \ms{Define Order} corresponds to the requirements
 \ms{R-121-SPECIFY-ORDER-OF-RDF-} \ms{RESOURCES} and
@@ -2698,7 +2736,7 @@ Not expressible in DL!
 property & AP & dcterms:subject, dcterms:title & - & - & context-specific valid properties & false \\
 \end{gcotable}
 
-\section{Default Values}
+\section{Default Values*}
 
 \ms{Default Values} corresponds to the requirements
 \ms{R-31-DEFAULT-VALUES-OF-RDF-} \ms{OBJECTS} and
@@ -3593,7 +3631,7 @@ commandAuthorizationCode \ms{keyfor} StarfleetOfficer
 property & StarFleetOfficer & commandAuthorizationCode & - & - & keyfor & - \\
 \end{gcotable}
 
-\section{Exploiting Class/Property Specialization Ontology Axioms}
+\section{Use Sub-Super Relations in Validation}
 
 \ms{Exploiting Class/Property Specialization Ontology Axioms} corresponds to the requirement
 \ms{R-224-instance-level-data-validation-exploitingclass/} \ms{property-specialization-axioms-in-ontologies}.
@@ -3652,6 +3690,24 @@ Not expressible in DL
 \begin{gcotable}
 property & C & p & q & - & count & - \\
 \end{gcotable}
+
+\section{Provenance}
+
+\section{Data Model Consistency}
+
+Is the data consistent with the intended semantics of the data model?
+Such validation rules ensure the integrity of the data according to the data model.
+
+\section{Structure}
+
+SKOS is based on RDF, which is a graph-based data model. Therefore we can concentrate on the vocabulary's graph-based structure for assessing the quality of SKOS vocabularies and apply graph- and network-analysis techniques. 
+
+\section{Labeling and Documentation}
+
+\section{Vocabulary}
+Vocabularies should not invent any new terms or use deprecated elements. 
+
+\section{HTTP URI Scheme Violation}
 
 \section{Evaluation}
 
@@ -3728,7 +3784,7 @@ String Operations & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & 
 \begin{evaluation-overall}
 Context-Specific Valid Classes & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Context-Specific Valid Properties & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-Default Values & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & \ding{55} & $\checkmark$ \\
+Default Values* & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & \ding{55} & $\checkmark$ \\
 Mathematical Operations & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Language Tag Matching & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Language Tag Cardinality & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
@@ -3839,7 +3895,7 @@ String Operations & $\checkmark$ & $\checkmark$ & \ding{55} \\
 \begin{evaluation-generic}
 Context-Specific Valid Classes & \ding{55} & $\checkmark$ & \ding{55} \\   
 Context-Specific Valid Properties & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
-Default Values & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
+Default Values* & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
 Mathematical Operations & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
 Language Tag Matching & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
 Language Tag Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
@@ -3862,89 +3918,208 @@ Almost 15 percent are complex constraints which can be formulated as simple cons
 Constraints can either be expressible in DL or not.
 The majority - nearly 70\% - of the overall constraints are expressible in DL.
 
-\subsection{Evaluation of CWA/UNA Dependency}
+\subsection{CWA and UNA Dependency}
 
+\begin{itemize}
+	\item Dependent on the \emph{CWA}: do further triples change the validation result?
+	\item Dependent on the \emph{UNA}: Do validation results changes in case two resources are the same?
+\end{itemize}
 
+\begin{table}[H]
+    \begin{center}
+    \begin{tabular}{@{}lcc@{}}
+           & \multicolumn{2}{c}{\textbf{Dependency}}
+    \\  \cmidrule{2-3}
+    \\       \textbf{Constraint Types}
+           & \rot{\emph{CWA}}
+           & \rot{\emph{UNA}}
+    \\ \midrule
+		*Subsumption & $\checkmark$ & $\checkmark$ \\
+		*Class Equivalence & $\checkmark$ & $\checkmark$ \\
+		*Sub Properties & $\checkmark$  & $\checkmark$ \\
+		*Property Domain & $\checkmark$ & $\checkmark$ \\
+		*Property Range & $\checkmark$ & $\checkmark$ \\
+		*Inverse Object Properties & $\checkmark$ & $\checkmark$ \\
+		*Symmetric Object Properties & $\checkmark$ & $\checkmark$ \\
+		*Asymmetric Object Properties & \ding{55} & \ding{55} \\
+		*Reflexive Object Properties & $\checkmark$ & $\checkmark$ \\
+		*Irreflexive Object Properties & \ding{55} & \ding{55} \\
+		Disjoint Properties & \ding{55} & \ding{55} \\
+		Disjoint Classes & \ding{55} & \ding{55} \\
+		Context-Sp. Property Groups & $\checkmark$ & $\checkmark$ \\
+		Context-Sp. Inclusive OR of P. & $\checkmark$ & $\checkmark$ \\
+		Context-Sp. Inclusive OR of P. Groups & $\checkmark$ & $\checkmark$ \\
+		Recursive Queries & \ding{55} & \ding{55} \\
+		Individual Inequality & \ding{55} & \ding{55} \\
+		*Equivalent Properties & $\checkmark$ & $\checkmark$ \\
+		Property Assertions & $\checkmark$ & $\checkmark$ \\
+		Data Property Facets & \ding{55} & \ding{55} \\
+		Literal Pattern Matching & \ding{55} & \ding{55} \\
+		Negative Literal Pattern Matching & \ding{55} & \ding{55} \\
+		*Object Property Paths & $\checkmark$ & $\checkmark$ \\
+		*Intersection & $\checkmark$ & $\checkmark$ \\
+		*Disjunction & $\checkmark$ & $\checkmark$ \\
+		*Negation & \ding{55} & $\checkmark$ \\
+		*Existential Quantification & $\checkmark$ & \ding{55} \\
+		*Universal Quantification & \ding{55} & $\checkmark$ \\
+		*Minimum Unqualified Cardinality & $\checkmark$ & $\checkmark$ \\
+		*Minimum Qualified Cardinality & $\checkmark$ & $\checkmark$ \\
+		*Maximum Unqualified Cardinality & \ding{55} & $\checkmark$ \\
+		*Maximum Qualified Cardinality & \ding{55} & $\checkmark$ \\
+		*Exact Unqualified Cardinality & $\checkmark$ & $\checkmark$ \\
+		*Exact Qualified Cardinality & $\checkmark$ & $\checkmark$ \\
+		*Transitive Object Properties & $\checkmark$ & $\checkmark$ \\
+		Context-Sp. Exclusive OR of P. & \ding{55} & \ding{55} \\
+		Context-Sp. Exclusive OR of P. Groups & \ding{55} & \ding{55} \\	
+		Allowed Values & \ding{55} & \ding{55} \\
+		Not Allowed Values & \ding{55} & \ding{55} \\
+		Literal Ranges & \ding{55} & \ding{55} \\
+		Negative Literal Ranges & \ding{55} & \ding{55} \\
+		Required Properties & $\checkmark$ & $\checkmark$ \\
+		Optional Properties & \ding{55} & \ding{55} \\
+		Repeatable Properties & $\checkmark$ & \ding{55} \\
+		Negative Property Constraints & \ding{55} & $\checkmark$ \\
+		*Individual Equality & $\checkmark$ & \ding{55} \\
+		*Functional Properties & $\checkmark$ & $\checkmark$ \\
+		*Inverse-Functional Properties & $\checkmark$ & $\checkmark$ \\
+		*Value Restrictions & $\checkmark$ & $\checkmark$ \\
+		*Self Restrictions & $\checkmark$ & $\checkmark$ \\
+    \bottomrule
+    \end{tabular}
+		\label{tab:evaluation-cwa-una-dependency-1}
+    \end{center}
+\end{table}
 
-\begin{evaluation-cwa-una-dependency}
-*Subsumption & $\checkmark$ \\
-*Class Equivalence & \ding{55} \\
-*Sub Properties & $\checkmark$ \\
-*Property Domain & $\checkmark$ \\ 
-*Property Range & $\checkmark$ \\ 
-*Inverse Object Properties & $\checkmark$ \\ 
-*Symmetric Object Properties & $\checkmark$ \\ 
-*Asymmetric Object Properties & $\checkmark$ \\ 
-*Reflexive Object Properties & $\checkmark$ \\ 
-*Irreflexive Object Properties & $\checkmark$ \\
-Disjoint Properties & \ding{55} \\ 
-Disjoint Classes & \ding{55} \\
-Context-Sp. Property Groups & \ding{55} \\ 
-Context-Sp. Inclusive OR of P. & \ding{55} \\
-Context-Sp. Inclusive OR of P. Groups & \ding{55} \\ 
-Recursive Queries & \ding{55} \\ 
-Individual Inequality & $\checkmark$ \\ 
-*Equivalent Properties & \ding{55} \\ 
-Property Assertions & \ding{55} \\ 
-Data Property Facets & \ding{55} \\ 
-Literal Pattern Matching & \ding{55} \\ 
-Negative Literal Pattern Matching & \ding{55} \\ 
-*Object Property Paths & $\checkmark$ \\ 
-*Intersection & $\checkmark$ \\ 
-*Disjunction & $\checkmark$ \\ 
-*Negation & $\checkmark$ \\ 
-*Existential Quantification & $\checkmark$ \\ 
-*Universal Quantification & $\checkmark$ \\ 
-*Minimum Unqualified Cardinality & $\checkmark$ \\ 
-*Minimum Qualified Cardinality & $\checkmark$ \\ 
-*Maximum Unqualified Cardinality & $\checkmark$ \\ 
-*Maximum Qualified Cardinality & $\checkmark$ \\ 
-*Exact Unqualified Cardinality & $\checkmark$ \\ 
-*Exact Qualified Cardinality & $\checkmark$ \\ 
-*Transitive Object Properties & $\checkmark$ \\ 
-Context-Sp. Exclusive OR of P. & $\checkmark$ \\ 
-Context-Sp. Exclusive OR of P. Groups & $\checkmark$ \\
-Allowed Values & $\checkmark$ \\ 
-Not Allowed Values & $\checkmark$ \\ 
-Literal Ranges & \ding{55} \\ 
-Negative Literal Ranges & \ding{55} \\ 
-Required Properties & $\checkmark$ \\ 
-Optional Properties & \ding{55} \\
-Repeatable Properties & $\checkmark$ \\ 
-Negative Property Constraints & $\checkmark$ \\ 
-*Individual Equality & $\checkmark$ \\ 
-*Functional Properties & $\checkmark$ \\
-*Inverse-Functional Properties & $\checkmark$ \\ 
-*Value Restrictions & $\checkmark$ \\
-*Self Restrictions & $\checkmark$ \\
-Primary Key Properties & $\checkmark$ \\ 
-*Class-Specific Property Range & $\checkmark$ \\ 
-*Class-Sp. Reflexive Object P. & $\checkmark$ \\ 
-Membership in Controlled Vocabularies & $\checkmark$ \\ 
-IRI Pattern Matching & \ding{55} \\ 
-Literal Value Comparison & \ding{55} \\ 
-Define Order & \ding{55} \\ 
-Validation Levels & \ding{55} \\ 
-String Operations & \ding{55} \\ 
-\end{evaluation-cwa-una-dependency}
+\begin{table}[H]
+    \begin{center}
+    \begin{tabular}{@{}lcc@{}}
+           & \multicolumn{2}{c}{\textbf{Dependency}}
+    \\  \cmidrule{2-3}
+    \\       \textbf{Constraint Types}
+           & \rot{\emph{CWA}}
+           & \rot{\emph{UNA}}
+    \\ \midrule
+		Primary Key Properties & $\checkmark$ & $\checkmark$ \\
+		*Class-Specific Property Range & $\checkmark$ & \ding{55} \\
+		*Class-Sp. Reflexive Object P. & $\checkmark$ & $\checkmark$ \\
+		Membership in Controlled Vocabularies & $\checkmark$ & $\checkmark$ \\
+		IRI Pattern Matching & \ding{55} & \ding{55} \\
+		Literal Value Comparison & \ding{55} & \ding{55} \\
+		Define Order & $\checkmark$ & $\checkmark$ \\
+		Validation Levels & $\checkmark$ & $\checkmark$ \\
+		String Operations & \ding{55} & \ding{55} \\
+		Context-Specific Valid Classes & \ding{55} & $\checkmark$ \\
+		Context-Specific Valid Properties & \ding{55} & $\checkmark$ \\
+		Default Values* & $\checkmark$ & $\checkmark$ \\
+		Mathematical Operations & \ding{55} & \ding{55} \\
+		Language Tag Matching & $\checkmark$ & $\checkmark$ \\
+		Language Tag Cardinality & $\checkmark$ & $\checkmark$ \\
+		Whitespace Handling & \ding{55} & \ding{55} \\
+		HTML Handling & \ding{55} & \ding{55} \\
+		Conditional Properties & $\checkmark$ & $\checkmark$ \\
+		Recommended Properties & $\checkmark$ & $\checkmark$ \\
+		Handle RDF Collections & \ding{55} & \ding{55} \\
+		Value is Valid for Datatype & \ding{55} & \ding{55} \\
+		*Exploiting Class/Property Specialization Ontology Axioms & \ding{55} & $\checkmark$ \\
+		*Cardinality Shortcuts & $\checkmark$ & $\checkmark$ \\ 
+		Aggregations & \ding{55} & \ding{55} \\
+		
+		Class-Specific Irreflexive Object Properties* & \ding{55} & $\checkmark$ \\
+		Provenance & $\checkmark$ & $\checkmark$ \\ 
+		Data Model Consistency & $\checkmark$ & $\checkmark$ \\ 
+		Structure & $\checkmark$ & $\checkmark$ \\  
+		Labeling and Documentation & $\checkmark$ & $\checkmark$ \\ 
+		Vocabulary & $\checkmark$ & \ding{55} \\
+		HTTP URI Scheme Violation & \ding{55} & \ding{55} \\
+    \bottomrule
+    \end{tabular}
+		\label{tab:evaluation-cwa-una-dependency-2}
+    \end{center}
+\end{table}
 
-\begin{evaluation-cwa-una-dependency}
-Context-Specific Valid Classes & \ding{55} \\
-Context-Specific Valid Properties & \ding{55} \\ 
-Default Values & \ding{55} \\ 
-Mathematical Operations & \ding{55} \\ 
-Language Tag Matching & \ding{55} \\ 
-Language Tag Cardinality & $\checkmark$ \\ 
-Whitespace Handling & \ding{55} \\ 
-HTML Handling & \ding{55} \\ 
-Conditional Properties & $\checkmark$ \\ 
-Recommended Properties & \ding{55} \\ 
-Handle RDF Collections & \ding{55} \\ 
-Value is Valid for Datatype & \ding{55} \\ 
-*Exploiting Class/Property Specialization Ontology Axioms & \ding{55} \\ 
-*Cardinality Shortcuts & $\checkmark$ \\ 
-Aggregations & \ding{55} \\ 
-\end{evaluation-cwa-una-dependency}
+%\subsection{Evaluation of CWA/UNA Dependency}
+%
+%
+%
+%\begin{evaluation-cwa-una-dependency}
+%*Subsumption & $\checkmark$ \\
+%*Class Equivalence & \ding{55} \\
+%*Sub Properties & $\checkmark$ \\
+%*Property Domain & $\checkmark$ \\ 
+%*Property Range & $\checkmark$ \\ 
+%*Inverse Object Properties & $\checkmark$ \\ 
+%*Symmetric Object Properties & $\checkmark$ \\ 
+%*Asymmetric Object Properties & $\checkmark$ \\ 
+%*Reflexive Object Properties & $\checkmark$ \\ 
+%*Irreflexive Object Properties & $\checkmark$ \\
+%Disjoint Properties & \ding{55} \\ 
+%Disjoint Classes & \ding{55} \\
+%Context-Sp. Property Groups & \ding{55} \\ 
+%Context-Sp. Inclusive OR of P. & \ding{55} \\
+%Context-Sp. Inclusive OR of P. Groups & \ding{55} \\ 
+%Recursive Queries & \ding{55} \\ 
+%Individual Inequality & $\checkmark$ \\ 
+%*Equivalent Properties & \ding{55} \\ 
+%Property Assertions & \ding{55} \\ 
+%Data Property Facets & \ding{55} \\ 
+%Literal Pattern Matching & \ding{55} \\ 
+%Negative Literal Pattern Matching & \ding{55} \\ 
+%*Object Property Paths & $\checkmark$ \\ 
+%*Intersection & $\checkmark$ \\ 
+%*Disjunction & $\checkmark$ \\ 
+%*Negation & $\checkmark$ \\ 
+%*Existential Quantification & $\checkmark$ \\ 
+%*Universal Quantification & $\checkmark$ \\ 
+%*Minimum Unqualified Cardinality & $\checkmark$ \\ 
+%*Minimum Qualified Cardinality & $\checkmark$ \\ 
+%*Maximum Unqualified Cardinality & $\checkmark$ \\ 
+%*Maximum Qualified Cardinality & $\checkmark$ \\ 
+%*Exact Unqualified Cardinality & $\checkmark$ \\ 
+%*Exact Qualified Cardinality & $\checkmark$ \\ 
+%*Transitive Object Properties & $\checkmark$ \\ 
+%Context-Sp. Exclusive OR of P. & $\checkmark$ \\ 
+%Context-Sp. Exclusive OR of P. Groups & $\checkmark$ \\
+%Allowed Values & $\checkmark$ \\ 
+%Not Allowed Values & $\checkmark$ \\ 
+%Literal Ranges & \ding{55} \\ 
+%Negative Literal Ranges & \ding{55} \\ 
+%Required Properties & $\checkmark$ \\ 
+%Optional Properties & \ding{55} \\
+%Repeatable Properties & $\checkmark$ \\ 
+%Negative Property Constraints & $\checkmark$ \\ 
+%*Individual Equality & $\checkmark$ \\ 
+%*Functional Properties & $\checkmark$ \\
+%*Inverse-Functional Properties & $\checkmark$ \\ 
+%*Value Restrictions & $\checkmark$ \\
+%*Self Restrictions & $\checkmark$ \\
+%Primary Key Properties & $\checkmark$ \\ 
+%*Class-Specific Property Range & $\checkmark$ \\ 
+%*Class-Sp. Reflexive Object P. & $\checkmark$ \\ 
+%Membership in Controlled Vocabularies & $\checkmark$ \\ 
+%IRI Pattern Matching & \ding{55} \\ 
+%Literal Value Comparison & \ding{55} \\ 
+%Define Order & \ding{55} \\ 
+%Validation Levels & \ding{55} \\ 
+%String Operations & \ding{55} \\ 
+%\end{evaluation-cwa-una-dependency}
+%
+%\begin{evaluation-cwa-una-dependency}
+%Context-Specific Valid Classes & \ding{55} \\
+%Context-Specific Valid Properties & \ding{55} \\ 
+%Default Values & \ding{55} \\ 
+%Mathematical Operations & \ding{55} \\ 
+%Language Tag Matching & \ding{55} \\ 
+%Language Tag Cardinality & $\checkmark$ \\ 
+%Whitespace Handling & \ding{55} \\ 
+%HTML Handling & \ding{55} \\ 
+%Conditional Properties & $\checkmark$ \\ 
+%Recommended Properties & \ding{55} \\ 
+%Handle RDF Collections & \ding{55} \\ 
+%Value is Valid for Datatype & \ding{55} \\ 
+%*Exploiting Class/Property Specialization Ontology Axioms & \ding{55} \\ 
+%*Cardinality Shortcuts & $\checkmark$ \\ 
+%Aggregations & \ding{55} \\ 
+%\end{evaluation-cwa-una-dependency}
 
 % -----
 
