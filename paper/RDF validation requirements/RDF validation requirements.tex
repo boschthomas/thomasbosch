@@ -1624,7 +1624,7 @@ A resource cannot be its own parent (dbo:parent).
 
 A resource cannot be its own child (dbo:child).
 
-\subsection{Class-Specific Irreflexive Object Properties*}
+\subsection{Class-Specific Irreflexive Object Properties}
 
 A property is \emph{irreflexive} if it is never locally reflexive \cite{Kroetzsch2012}.
 An object property irreflexivity axiom states that the object property \emph{OP} is irreflexive - that is, no individual is connected by \emph{OP} to itself.
@@ -2643,7 +2643,7 @@ class & 1-23 & - & - & xsd:nonNegativeInteger & $\leq$ & 23 \\
 
 \section{Ordering}
 
-\ms{Define Order} corresponds to the requirements
+\ms{Ordering} corresponds to the requirements
 \ms{R-121-SPECIFY-ORDER-OF-RDF-} \ms{RESOURCES} and
 \ms{R-217-DEFINE-ORDER-FOR-FORMS/DISPLAY}.
 With this constraint objects of object properties can be ordered as well as literals of data properties and objects of object properties.
@@ -2736,7 +2736,7 @@ Not expressible in DL!
 property & AP & dcterms:subject, dcterms:title & - & - & context-specific valid properties & false \\
 \end{gcotable}
 
-\section{Default Values*}
+\section{Default Values}
 
 \ms{Default Values} corresponds to the requirements
 \ms{R-31-DEFAULT-VALUES-OF-RDF-} \ms{OBJECTS} and
@@ -3723,8 +3723,8 @@ Inferencing may be performed prior to validating constraints. This is marked wit
 *Subsumption & \ding{55} & $\checkmark$ & $\checkmark$ & $\sim$ & $\checkmark$ & $\checkmark$ \\
 *Class Equivalence & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
 *Sub Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-*Property Domain & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
-*Property Range & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+*Property Domains & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
+*Property Ranges & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
 *Inverse Object Properties & \ding{55} & $\checkmark$ & $\checkmark$ & $\sim$ & \ding{55} & $\checkmark$ \\
 *Symmetric Object Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
 *Asymmetric Object Properties & \ding{55} & $\checkmark$ & $\checkmark$ & \ding{55} & \ding{55} & $\checkmark$ \\
@@ -3746,8 +3746,8 @@ Negative Literal Pattern Matching & \ding{55} & $\checkmark$ & \ding{55} & \ding
 *Intersection & \ding{55} & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
 *Disjunction & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 *Negation & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-*Existential Quantification & \ding{55} & $\checkmark$ & \ding{55} & $\sim$ & $\sim$ & $\checkmark$ \\
-*Universal Quantification & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+*Existential Quantifications & \ding{55} & $\checkmark$ & \ding{55} & $\sim$ & $\sim$ & $\checkmark$ \\
+*Universal Quantifications & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 *Minimum Unqualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
 *Minimum Qualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
 *Maximum Unqualified Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} & $\sim$ & $\checkmark$ & $\checkmark$ \\
@@ -3770,13 +3770,13 @@ Negative Property Constraints & \ding{55} & $\checkmark$ & \ding{55} & \ding{55}
 *Inverse-Functional Properties & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 *Value Restrictions & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
 *Self Restrictions & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-Primary Key Properties & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+*Primary Key Properties & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 *Class-Specific Property Range & $\checkmark$ & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
 *Class-Sp. Reflexive Object P. & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Membership in Controlled Vocabularies & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 IRI Pattern Matching & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ \\
 Literal Value Comparison & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & $\checkmark$ \\
-Define Order & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+Ordering & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Validation Levels & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 String Operations & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 \end{evaluation-overall}
@@ -3784,7 +3784,7 @@ String Operations & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & 
 \begin{evaluation-overall}
 Context-Specific Valid Classes & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Context-Specific Valid Properties & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-Default Values* & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & \ding{55} & $\checkmark$ \\
+*Default Values & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ & \ding{55} & $\checkmark$ \\
 Mathematical Operations & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Language Tag Matching & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Language Tag Cardinality & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
@@ -3794,9 +3794,18 @@ Conditional Properties & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{5
 Recommended Properties & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Handle RDF Collections & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 Value is Valid for Datatype & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
-Exploiting Class/Property Specialization Ontology Axioms & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+Use Sub-Super Relations in Validation & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 *Cardinality Shortcuts & \ding{55} & $\checkmark$ & \ding{55} & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
 Aggregations & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+
+
+*Class-Specific Irreflexive Object Properties & \ding{55} & $\checkmark$ & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+Provenance & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+Data Model Consistency & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+Structure & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\  
+Labeling and Documentation & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+Vocabulary & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
+HTTP URI Scheme Violation & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & $\checkmark$ \\
 \end{evaluation-overall}
 
 \subsection{Evaluation of Constraints Classes}
@@ -3834,8 +3843,8 @@ legend of the detailed evaluation:
 *Subsumption & \ding{55} & $\checkmark$ & $\checkmark$ \\ 
 *Class Equivalence & \ding{55} & \ding{55} & $\checkmark$ \\ 
 *Sub Properties & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
-*Property Domain & $\checkmark$ & $\sim$ & $\checkmark$ \\ 
-*Property Range & $\checkmark$ & $\sim$ & $\checkmark$ \\ 
+*Property Domains & $\checkmark$ & $\sim$ & $\checkmark$ \\ 
+*Property Ranges & $\checkmark$ & $\sim$ & $\checkmark$ \\ 
 *Inverse Object Properties & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
 *Symmetric Object Properties & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
 *Asymmetric Object Properties & $\checkmark$ & $\sim$ & $\checkmark$ \\ 
@@ -3857,8 +3866,8 @@ Negative Literal Pattern Matching & \ding{55} & \ding{55} & \ding{55} \\
 *Intersection & \ding{55} & $\checkmark$ & $\checkmark$ \\  
 *Disjunction & \ding{55} & $\checkmark$ & $\checkmark$ \\ 
 *Negation & \ding{55} & $\checkmark$ & $\checkmark$ \\ 
-*Existential Quantification & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
-*Universal Quantification & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
+*Existential Quantifications & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
+*Universal Quantifications & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
 *Minimum Unqualified Cardinality & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
 *Minimum Qualified Cardinality & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
 *Maximum Unqualified Cardinality & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
@@ -3881,13 +3890,13 @@ Negative Property Constraints & $\sim$ & \ding{55} & $\checkmark$ \\
 *Inverse-Functional Properties & $\checkmark$ & \ding{55} & $\checkmark$ \\ 
 *Value Restrictions & $\checkmark$ & $\checkmark$ & $\checkmark$ \\ 
 *Self Restrictions & $\sim$ & \ding{55} & $\checkmark$ \\
-Primary Key Properties & $\checkmark$ & $\sim$ & $\checkmark$ \\ 
+*Primary Key Properties & $\checkmark$ & $\sim$ & $\checkmark$ \\ 
 *Class-Specific Property Range & $\checkmark$ & $\sim$ & $\checkmark$ \\ 
 *Class-Sp. Reflexive Object P. & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
 Membership in Controlled Vocabularies & $\sim$ & \ding{55} & $\checkmark$ \\ 
 IRI Pattern Matching & \ding{55} & $\checkmark$ & \ding{55} \\   
 Literal Value Comparison & $\checkmark$ & $\checkmark$ & \ding{55} \\   
-Define Order & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
+Ordering & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
 Validation Levels & $\sim$ & $\checkmark$ & \ding{55} \\
 String Operations & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
 \end{evaluation-generic}
@@ -3895,7 +3904,7 @@ String Operations & $\checkmark$ & $\checkmark$ & \ding{55} \\
 \begin{evaluation-generic}
 Context-Specific Valid Classes & \ding{55} & $\checkmark$ & \ding{55} \\   
 Context-Specific Valid Properties & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
-Default Values* & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
+*Default Values & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
 Mathematical Operations & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
 Language Tag Matching & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
 Language Tag Cardinality & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
@@ -3905,9 +3914,16 @@ Conditional Properties & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
 Recommended Properties & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
 Handle RDF Collections & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
 Value is Valid for Datatype & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
-*Exploiting Class/Property Specialization Ontology Axioms & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
+Use Sub-Super Relations in Validation & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
 *Cardinality Shortcuts & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
 Aggregations & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
+*Class-Specific Irreflexive Object Properties & & & \\
+Provenance & & & \\
+Data Model Consistency & & & \\
+Structure & & & \\  
+Labeling and Documentation & & & \\
+Vocabulary & & & \\
+HTTP URI Scheme Violation & & & \\
 \end{evaluation-generic}
 
 Constraints can be classified as \ms{property constraints} and \ms{class constraints}.
@@ -3937,15 +3953,15 @@ The majority - nearly 70\% - of the overall constraints are expressible in DL.
 		*Subsumption & $\checkmark$ & $\checkmark$ \\
 		*Class Equivalence & $\checkmark$ & $\checkmark$ \\
 		*Sub Properties & $\checkmark$  & $\checkmark$ \\
-		*Property Domain & $\checkmark$ & $\checkmark$ \\
-		*Property Range & $\checkmark$ & $\checkmark$ \\
+		*Property Domains & $\checkmark$ & $\checkmark$ \\
+		*Property Ranges & $\checkmark$ & $\checkmark$ \\
 		*Inverse Object Properties & $\checkmark$ & $\checkmark$ \\
 		*Symmetric Object Properties & $\checkmark$ & $\checkmark$ \\
 		*Asymmetric Object Properties & \ding{55} & \ding{55} \\
 		*Reflexive Object Properties & $\checkmark$ & $\checkmark$ \\
 		*Irreflexive Object Properties & \ding{55} & \ding{55} \\
 		Disjoint Properties & \ding{55} & \ding{55} \\
-		Disjoint Classes & \ding{55} & \ding{55} \\
+		Disjoint Classes & \ding{55} & $\checkmark$ \\
 		Context-Sp. Property Groups & $\checkmark$ & $\checkmark$ \\
 		Context-Sp. Inclusive OR of P. & $\checkmark$ & $\checkmark$ \\
 		Context-Sp. Inclusive OR of P. Groups & $\checkmark$ & $\checkmark$ \\
@@ -3959,9 +3975,9 @@ The majority - nearly 70\% - of the overall constraints are expressible in DL.
 		*Object Property Paths & $\checkmark$ & $\checkmark$ \\
 		*Intersection & $\checkmark$ & $\checkmark$ \\
 		*Disjunction & $\checkmark$ & $\checkmark$ \\
-		*Negation & \ding{55} & $\checkmark$ \\
-		*Existential Quantification & $\checkmark$ & \ding{55} \\
-		*Universal Quantification & \ding{55} & $\checkmark$ \\
+		*Negation & \ding{55} & \ding{55} \\
+		*Existential Quantifications & $\checkmark$ & $\checkmark$ \\
+		*Universal Quantifications & \ding{55} & $\checkmark$ \\
 		*Minimum Unqualified Cardinality & $\checkmark$ & $\checkmark$ \\
 		*Minimum Qualified Cardinality & $\checkmark$ & $\checkmark$ \\
 		*Maximum Unqualified Cardinality & \ding{55} & $\checkmark$ \\
@@ -3969,10 +3985,10 @@ The majority - nearly 70\% - of the overall constraints are expressible in DL.
 		*Exact Unqualified Cardinality & $\checkmark$ & $\checkmark$ \\
 		*Exact Qualified Cardinality & $\checkmark$ & $\checkmark$ \\
 		*Transitive Object Properties & $\checkmark$ & $\checkmark$ \\
-		Context-Sp. Exclusive OR of P. & \ding{55} & \ding{55} \\
-		Context-Sp. Exclusive OR of P. Groups & \ding{55} & \ding{55} \\	
-		Allowed Values & \ding{55} & \ding{55} \\
-		Not Allowed Values & \ding{55} & \ding{55} \\
+		Context-Sp. Exclusive OR of P. & \ding{55} & $\checkmark$ \\
+		Context-Sp. Exclusive OR of P. Groups & \ding{55} & $\checkmark$ \\	
+		Allowed Values & \ding{55} & $\checkmark$ \\
+		Not Allowed Values & \ding{55} & $\checkmark$ \\
 		Literal Ranges & \ding{55} & \ding{55} \\
 		Negative Literal Ranges & \ding{55} & \ding{55} \\
 		Required Properties & $\checkmark$ & $\checkmark$ \\
@@ -3999,20 +4015,20 @@ The majority - nearly 70\% - of the overall constraints are expressible in DL.
            & \rot{\emph{CWA}}
            & \rot{\emph{UNA}}
     \\ \midrule
-		Primary Key Properties & $\checkmark$ & $\checkmark$ \\
-		*Class-Specific Property Range & $\checkmark$ & \ding{55} \\
+		*Primary Key Properties & $\checkmark$ & $\checkmark$ \\
+		*Class-Specific Property Range & $\checkmark$ & $\checkmark$ \\
 		*Class-Sp. Reflexive Object P. & $\checkmark$ & $\checkmark$ \\
 		Membership in Controlled Vocabularies & $\checkmark$ & $\checkmark$ \\
-		IRI Pattern Matching & \ding{55} & \ding{55} \\
+		IRI Pattern Matching & \ding{55} & $\checkmark$ \\
 		Literal Value Comparison & \ding{55} & \ding{55} \\
-		Define Order & $\checkmark$ & $\checkmark$ \\
-		Validation Levels & $\checkmark$ & $\checkmark$ \\
+		Ordering & $\checkmark$ & \ding{55} \\
+		Validation Levels & $\checkmark$ & \ding{55} \\
 		String Operations & \ding{55} & \ding{55} \\
-		Context-Specific Valid Classes & \ding{55} & $\checkmark$ \\
-		Context-Specific Valid Properties & \ding{55} & $\checkmark$ \\
-		Default Values* & $\checkmark$ & $\checkmark$ \\
+		Context-Specific Valid Classes & \ding{55} & \ding{55} \\
+		Context-Specific Valid Properties & \ding{55} & \ding{55} \\
+		*Default Values & $\checkmark$ & $\checkmark$ \\
 		Mathematical Operations & \ding{55} & \ding{55} \\
-		Language Tag Matching & $\checkmark$ & $\checkmark$ \\
+		Language Tag Matching & $\checkmark$ & \ding{55} \\
 		Language Tag Cardinality & $\checkmark$ & $\checkmark$ \\
 		Whitespace Handling & \ding{55} & \ding{55} \\
 		HTML Handling & \ding{55} & \ding{55} \\
@@ -4020,17 +4036,16 @@ The majority - nearly 70\% - of the overall constraints are expressible in DL.
 		Recommended Properties & $\checkmark$ & $\checkmark$ \\
 		Handle RDF Collections & \ding{55} & \ding{55} \\
 		Value is Valid for Datatype & \ding{55} & \ding{55} \\
-		*Exploiting Class/Property Specialization Ontology Axioms & \ding{55} & $\checkmark$ \\
+		Use Sub-Super Relations in Validation & \ding{55} & $\checkmark$ \\
 		*Cardinality Shortcuts & $\checkmark$ & $\checkmark$ \\ 
 		Aggregations & \ding{55} & \ding{55} \\
-		
-		Class-Specific Irreflexive Object Properties* & \ding{55} & $\checkmark$ \\
+		*Class-Specific Irreflexive Object Properties & \ding{55} & $\checkmark$ \\
 		Provenance & $\checkmark$ & $\checkmark$ \\ 
 		Data Model Consistency & $\checkmark$ & $\checkmark$ \\ 
 		Structure & $\checkmark$ & $\checkmark$ \\  
 		Labeling and Documentation & $\checkmark$ & $\checkmark$ \\ 
-		Vocabulary & $\checkmark$ & \ding{55} \\
-		HTTP URI Scheme Violation & \ding{55} & \ding{55} \\
+		Vocabulary & $\checkmark$ & $\checkmark$ \\
+		HTTP URI Scheme Violation & \ding{55} & $\checkmark$ \\
     \bottomrule
     \end{tabular}
 		\label{tab:evaluation-cwa-una-dependency-2}

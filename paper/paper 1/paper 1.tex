@@ -300,7 +300,7 @@ For them, data validation according to predefined constraints is a much sought-a
 We investigate the role that reasoning plays in practical data validation and 
 how to overcome the major shortcomings when validating RDF data by performing reasoning prior to validation.
 Based on our work in the DCMI RDF Application Profiles Task Group and in cooperation with the W3C Data Shapes Working Group, 
-we identified and published by today 82 types of constraints that are required by various stakeholders for data applications. 
+we identified and published by today 81 types of constraints that are required by various stakeholders for data applications. 
 For each constraint type we examine
 (1) if validation results depend on different underlying semantics,
 (2) if reasoning may improve data quality, and 
@@ -497,7 +497,7 @@ In this paper, we investigate the role that reasoning plays in practical data va
 how to overcome the major shortcomings when validating RDF data by performing reasoning prior to validation (Section \ref{the-role-of-reasoning-for-rdf-validation}).
 
 Based on our work in the DCMI RDF Application Profiles Task Group and in cooperation with the W3C Data Shapes Working Group, 
-we identified and published by today 82 requirements to formulate RDF constraints that are required by various stakeholders for data applications.
+we identified and published by today 81 requirements to formulate RDF constraints that are required by various stakeholders for data applications.
 Each of these requirements corresponds to a constraint type from which concrete constraints are instantiated to be checked against RDF data.
 We recently published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} (serving as appendix of this paper) 
 in which we explain each requirement/constraint type in detail and give examples for each represented by different constraint languages.
@@ -508,7 +508,7 @@ provides the foundational basis for constraint types.
 (2) \emph{books}, \emph{conference proceedings}, and \emph{journal articles} are \emph{publications} {\small\ms{(Book $\sqcup$} \ms{ConferenceArticle $\sqcup$} \ms{JournalArticle $\sqsubseteq$ Publication)}}. 
 
 For each constraint type we examine if validation results depend on different underlying semantics, 
-especially as \textcolor{red}{34} of 82 constraint types 
+especially as 35 (43.2\%) of 81 constraint types 
 correspond to \emph{OWL 2} axioms and as \emph{OWL 2} has different semantics than RDF validation in general (Section \ref{CWA-UNA-dependency}).
 
 %Reasoning and validation are very closely related. 
@@ -533,8 +533,8 @@ We introduce the intuitive notion of \emph{expressivity scores} rather than clas
 as the list of constraint types is a continuously updated list and almost none (except \emph{SPIN}) of the languages contains one another.
 With the expressivity score of a language, we measure how many constraint types the language is able to express. 
 For the sake of simplicity, we abbreviate 
-(1) expressing the \textcolor{red}{32} constraint types for which reasoning may be performed before actually validating the data as $Expr(\mathcal{R})$ and 
-(2) expressing the \textcolor{red}{42} constraint types for which reasoning does not improve data quality in any obvious sense as $Expr(\overline{\mathcal{R}})$.
+(1) expressing the 35 constraint types for which reasoning may be performed before actually validating the data as $Expr(\mathcal{R})$ and 
+(2) expressing the 46 constraint types for which reasoning does not improve data quality in any obvious sense as $Expr(\overline{\mathcal{R}})$.
 %\emph{constraints with reasoning} can be used as axioms to infer new triples out of explicitly stated triples (see section \ref{sec:RDF-validation-requirements-and-reasoning}), but also to express constraints without reasoning. \er{Also to express constraints?}\tb{also to express constraints without reasoning}
 %If in our knowledge base it is stated that \ms{DarthVader} is a \ms{Sith} (e.g., \ms{Sith(DarthVader)}) and  Siths feel the force of the dark side (e.g., \ms{Sith $\sqsubseteq$ FeelingForceDarkSide}), it is either possible to infer that \ms{DarthVader} feels the force of the dark side (\ms{FeelingForceDarkSide(DarthVader)}) 
 %or to check if this class assignment is explicitly stated in the data without reasoning. 
@@ -575,7 +575,7 @@ for which an actual implementation of the validation of constraints types does n
 	  \scriptsize
 		\begin{tabular}{l|c|c}
       %\textbf{Expressivity Class} & $Expr(\overline{\mathcal{CT}_R})$ (42) & $Expr(\mathcal{CT}_R)$ (32) \\		
-			\textbf{} & $Expr(\overline{\mathcal{R}})$ (\textcolor{red}{42}) & $Expr(\mathcal{R})$ (\textcolor{red}{32}) \\	
+			\textbf{} & $Expr(\overline{\mathcal{R}})$ (\textcolor{red}{46}) & $Expr(\mathcal{R})$ (\textcolor{red}{35}) \\	
       \hline
 			\emph{DSP} & 6 & 8 \\
 			\emph{OWL2-DL} & 18(4) & 29 \\ 
@@ -755,7 +755,7 @@ The contributions of this paper are:
 %(2) We work out the role that reasoning plays in practical data validation and why reasoning is important for validation.
 (1) We work out the role that reasoning plays in practical data validation and 
 how to overcome the major shortcomings when validating RDF data by performing reasoning prior to validation. 
-(2) We identified and published by today 82 types of constraints that are required by various stakeholders for data applications. 
+(2) We identified and published by today 81 types of constraints that are required by various stakeholders for data applications. 
 (3) For each constraint type we examine if validation results depend on different underlying semantics,
     if reasoning may improve data quality, and 
     how efficient in terms of runtime validation is performed with and without reasoning.
@@ -1251,7 +1251,7 @@ This ambiguity in semantics is one of the main reasons why \emph{OWL 2} has not 
 %Thus, we determine for each constraint type if it depends on the \emph{CWA} and if it depends on the \emph{UNA}.
 
 The distinction of constraint types regarding the dependency on the \emph{CWA} and on the \emph{UNA} is an important aspect when combining reasoning with validation.
-As \textcolor{red}{34} of 74 constraint types correspond to \emph{OWL 2} axioms and as \emph{OWL 2} has different semantics than RDF validation in general, 
+As 35 of 81 constraint types correspond to \emph{OWL 2} axioms and as \emph{OWL 2} has different semantics than RDF validation in general, 
 we investigate their behavior in terms of validation results in different semantic settings. 
 \emph{OWL 2} reasoning requires the \emph{OWA} with the \emph{nUNA}\footnote{While \emph{DLs/OWL} do not assume \emph{UNA}, they have a construct (\emph{owl:sameAs}) to express when two names are the same or not.
 } whereas RDF validation has its origin in the XML world and is therefore classically based on the \emph{CWA} and the \emph{UNA}.
@@ -1306,10 +1306,11 @@ The {\em existential quantification} (\emph{R-86}) {\small\ms{Publication $\equi
 If \emph{A+Conference-Proceedings} are published by \emph{A+Publisher} and \emph{A-Plus-Publisher},
 it does not matter if \emph{A+Publisher} and \emph{A-Plus-Publisher} refer to one identical \emph{publisher} or to two distinct \emph{publishers}
 as in both cases the \emph{publication} has at least one \emph{publisher} which, in consequence, satisfies the \emph{existential quantification}.
+\textcolor{red}{asymmetric object properties / irreflexive / disjoint properties / literal value comparison}
 
 We evaluated for each constraint type 
 if it is dependent or independent on the \emph{CWA} and on the \emph{UNA} (for a detailed analysis we refer to the appendix of this paper \cite{BoschNolleAcarEckert2015}). 
-The result of this evaluation is that we distinguish between \textcolor{red}{XX} $\mathcal{CWA}$ and \textcolor{red}{XX} $\overline{\mathcal{CWA}}$ and between \textcolor{red}{XX} $\mathcal{UNA}$ and \textcolor{red}{XX} $\overline{\mathcal{UNA}}$ constraint types.
+The result of this evaluation is that we distinguish between 46 (56.8\%) $\mathcal{CWA}$ and 35 (43.2\%) $\overline{\mathcal{CWA}}$ and between 54 (66.6\%) $\mathcal{UNA}$ and 27 (33.3\%) $\overline{\mathcal{UNA}}$ constraint types.
 Hence, for the majority of the constraint types it makes a difference if the \emph{CWA} or the \emph{OWA} and if the \emph{UNA} or the \emph{nUNA} is assumed.
 For the $\mathcal{CWA}$ and the $\mathcal{UNA}$ constraint types, we have to be careful in case we want to use them for reasoning and for validation
 as in both usage scenarios we assume different semantics and as for these constraint types validation results differ depending on these different underlying semantics.
@@ -1358,12 +1359,12 @@ We denote the whole set of constraint types with $\mathcal{CT}$ which we divide 
 \item $\mathcal{R}$ is the set of constraint types for which reasoning may be performed prior to validation (especially when not all the knowledge is explicit) in order to enhance data quality
 either by resolving violations or by raising valuable violations.
 For $\mathcal{R}$ constraint types, validation is executed by query answering with optional reasoning prior to validation.
-\textcolor{red}{32} of the overall 82 constraint types are $\mathcal{R}$ constraint types.
+35 (43.2\%) of the overall 81 constraint types are $\mathcal{R}$ constraint types.
 %that can carry out the validation process via reasoning, especially when not all the knowledge is explicit.  
 \item $\overline{\mathcal{R}}$  denotes the complement of $\mathcal{R}$, that is the set of constraint types 
 for which reasoning cannot be done or for which reasoning does not improve data quality in any obvious sense.
 For $\overline{\mathcal{R}}$ constraint types, validation is performed by query answering without reasoning.
-\textcolor{red}{42} of the overall 82 constraint types are $\overline{\mathcal{R}}$ constraint types.
+46 (56.8\%) of the overall 81 constraint types are $\overline{\mathcal{R}}$ constraint types.
 \end{enumerate}
 
 %corresponds to axioms in \emph{OWL 2}
