@@ -477,7 +477,7 @@ further research and development is needed.
 %as there are already five promising languages which can be used to formulate constraints. 
 %Their relevance varies with respect to several foremost criteria in the validation process, such as constraint expressivity (\emph{what kind of constraints can be expressed?}), performance (\emph{how efficient in terms of runtime can RDF data be validated?}), as well as intuitiveness and conciseness (\emph{how easy is it for a user to define constraints?}). 
 
-\section{Motivation}
+\subsection{Motivation}
 \label{motivation}
 
 A major shortcoming when validating RDF data is \emph{redundancy}.
@@ -532,6 +532,18 @@ For each constraint type we investigate how efficient in terms of runtime valida
 Since the combination of \emph{DL} constructs, needed to express a constraint type, determines its computational complexity, 
 by mapping to \emph{DL} we get an idea of the performance for each constraint type in worst case (Section \ref{reasoning}).
 
+-----
+
+- We denote the whole set of constraint types with $\mathcal{CT}$
+- percent values include workarounds...
+
+
+allgemeiner satz schon hier sieht man dass viele constraints auch ohne reasoning funnkzionieren
+es macht sinn sicvh auf diese zu bschränken für bestimmte anwendungen
+und was genau diese sind das schauen wir uns im laufe des papers bin
+
+-----
+
 Using these findings, we are able to determine for the five most common constraint languages which constraint types they are able to express, i.e., we evaluate their constraint type specific expressivity (the detailed evaluation is described in the appendix of this paper) \cite{BoschNolleAcarEckert2015}.
  %As we identified three constraint-specific complexity classes in the previous section, we are now able to determine the performance (i.e. complexity) of constraint languages.  It can be beneficial not using the most expressive constraint languages when additional rather subjective criteria are evaluated.
 We introduce the intuitive notion of \emph{expressivity scores} rather than classical \emph{expressivity}
@@ -576,18 +588,36 @@ for which an actual implementation of the validation of constraints types does n
 \begin{table}[H]
 	\centering
 	  %\caption{Constraint Type Specific Expressivity}
-		\caption{Expressivity Scores of Constraint Languages}
+		\caption{Overview on the Expressivity of Constraint Languages (Absolute Values)}
 	  \scriptsize
-		\begin{tabular}{l|c|c}
+		\begin{tabular}{l|c|c|c}
       %\textbf{Expressivity Class} & $Expr(\overline{\mathcal{CT}_R})$ (42) & $Expr(\mathcal{CT}_R)$ (32) \\		
-			\textbf{} & $Expr(\overline{\mathcal{R}})$ (46) & $Expr(\mathcal{R})$ (35) \\	
+			\textbf{} & $\mathcal{CT}$ (81) & $\overline{\mathcal{R}}$ (46) & $\mathcal{R}$ (35) \\	
       \hline
-			\emph{DSP} & 6 & 8 \\
-			\emph{OWL2-DL} & 17(4) & 34 \\ 
-			\emph{OWL2-QL} & 5(4) & 11 \\
-			\emph{ReSh} & 7 & 5(9) \\
-			\emph{ShEx} & 12 & 11(1) \\
-			\emph{SPIN} & 45(1)	& 35
+			\emph{DSP} & 14 & 6 & 8 \\
+			\emph{OWL2-DL} & 51(4) & 17(4) & 34 \\ 
+			\emph{OWL2-QL} & 16(4) & 5(4) & 11 \\
+			\emph{ReSh} & 12(9) & 7 & 5(9) \\
+			\emph{ShEx} & 23(1) & 12 & 11(1) \\
+			\emph{SPIN} & 80(1) & 45(1)	& 35
+		\end{tabular}
+	\label{tab:constraint-type-specific-expressivity}
+\end{table}
+\begin{table}[H]
+	\centering
+	  %\caption{Constraint Type Specific Expressivity}
+		\caption{Overview on the Expressivity of Constraint Languages (Percentage Values)}
+	  \scriptsize
+		\begin{tabular}{l|c|c|c}
+      %\textbf{Expressivity Class} & $Expr(\overline{\mathcal{CT}_R})$ (42) & $Expr(\mathcal{CT}_R)$ (32) \\		
+			\textbf{} & $\mathcal{CT}$ (81) & $\overline{\mathcal{R}}$ (46) & $\mathcal{R}$ (35) \\	
+      \hline
+			\emph{DSP} & 17.3 & 13.0 & 22.9 \\
+			\emph{OWL2-DL} & 67.9 & 45.7 & 97.1 \\ 
+			\emph{OWL2-QL} & 24.7 & 19.6 & 31.4 \\
+			\emph{ReSh} & 25.9 & 15.2 & 40.0 \\
+			\emph{ShEx} & 29.6 & 26.1 & 34.3 \\
+			\emph{SPIN} & 100.0 & 100.0 & 100.0
 		\end{tabular}
 	\label{tab:constraint-type-specific-expressivity}
 \end{table}
@@ -615,11 +645,6 @@ The finding that \emph{SPIN} is the only language which supports all reasoning c
 underpins the importance to actually implement reasoning capabilities by \emph{SPIN} (or plain \emph{SPARQL}).
 Furthermore, the fact that all (1) constraint types with reasoning and (2) constraint types without reasoning are representable by \emph{SPIN} (if we ignore the last constraint type \emph{recursive queries} which is partly implemented in \emph{SPIN}) 
 emphasizes the significant role \emph{SPIN} plays for the future developments in this field.
-
-\begin{itemize}
-	\item \textcolor{red}{reviewer: The term “expressivity scores” might be useful but a stronger argument is needed.}
-	\item \textcolor{blue}{question for Erman: Why did you choose this term? Can you give a stronger argument in the paragraphs before?}
-\end{itemize}
 
 % RDF validation in the library domain
 % -----
@@ -1070,7 +1095,7 @@ how to overcome the major shortcomings when validating RDF data by performing re
 %\er{We can reserve a paragraph (flowing text) for those  item as well. }
 
 %\section{OWL as a Constraint Language / The Role of Reasoning for Validation / Reasoning for Validation}
-\section{The Role of Reasoning for RDF Validation}
+\subsection{The Role of Reasoning for RDF Validation}
 \label{the-role-of-reasoning-for-rdf-validation}
 
 In this section, we investigate the role that reasoning plays in practical data validation and 
@@ -1095,7 +1120,7 @@ In practice, however, \emph{OWL 2} is well-spread and \emph{RDFS}/\emph{OWL 2} c
 %(2) \emph{books}, \emph{conference proceedings}, and \emph{journal articles} are \emph{publications} {\small\ms{(Book $\sqcup$} \ms{ConferenceArticle $\sqcup$} \ms{JournalArticle $\sqsubseteq$ Publication)}}. 
 
 Reasoning is beneficial for \emph{RDF} validation as 
-(1) it may resolve constraint violations in the remainder of the paper}, 
+(1) it may resolve constraint violations, 
 (2) it may cause useful constraint violations, and 
 (3) it solves the \emph{redundancy} problem. 
 Consider the following \emph{DL} knowledge base $\mathcal{K}$ which is a collection of formal statements  which corresponds to \emph{facts} or  \emph{what is known} explicitly:
