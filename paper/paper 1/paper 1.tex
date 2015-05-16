@@ -532,32 +532,22 @@ For each constraint type we investigate how efficient in terms of runtime valida
 Since the combination of \emph{DL} constructs, needed to express a constraint type, determines its computational complexity, 
 by mapping to \emph{DL} we get an idea of the performance for each constraint type in worst case (Section \ref{reasoning}).
 
------
-
-- We denote the whole set of constraint types with $\mathcal{CT}$
-- percent values include workarounds...
-
-
-allgemeiner satz schon hier sieht man dass viele constraints auch ohne reasoning funnkzionieren
-es macht sinn sicvh auf diese zu bschränken für bestimmte anwendungen
-und was genau diese sind das schauen wir uns im laufe des papers bin
-
------
-
-Using these findings, we are able to determine for the five most common constraint languages which constraint types they are able to express, i.e., we evaluate their constraint type specific expressivity (the detailed evaluation is described in the appendix of this paper) \cite{BoschNolleAcarEckert2015}.
+Using these findings, we are able to determine for the five most common constraint languages which and how many constraint types they are able to express, i.e., we evaluate their constraint type specific expressivity (the evaluation is described in detail in the appendix of this paper) \cite{BoschNolleAcarEckert2015}.
  %As we identified three constraint-specific complexity classes in the previous section, we are now able to determine the performance (i.e. complexity) of constraint languages.  It can be beneficial not using the most expressive constraint languages when additional rather subjective criteria are evaluated.
-We introduce the intuitive notion of \emph{expressivity scores} rather than classical \emph{expressivity}
-as the list of constraint types is a continuously updated list and almost none (except \emph{SPIN}) of the languages contains one another.
-With the expressivity score of a language, we measure how many constraint types the language is able to express. 
-For the sake of simplicity, we abbreviate 
-(1) expressing the 35 constraint types for which reasoning may be performed before actually validating the data as $Expr(\mathcal{R})$ and 
-(2) expressing the 46 constraint types for which reasoning does not improve data quality in any obvious sense as $Expr(\overline{\mathcal{R}})$.
+%We introduce the intuitive notion of \emph{expressivity scores} rather than classical \emph{expressivity}
+%as the list of constraint types is a continuously updated list and almost none (except \emph{SPIN}) of the languages contains one another.
+%With the expressivity score of a language, we measure how many constraint types the language is able to express. 
+%For the sake of simplicity, 
+We use 
+(1) $\mathcal{CT}$ to refer to the whole set of constraint types,
+(2) $\mathcal{R}$ to abbreviate the 35 constraint types for which reasoning may be performed before actually validating the data and
+(3) $\overline{\mathcal{R}}$ to denote the 46 constraint types for which reasoning does not improve data quality in any obvious sense as.
 %\emph{constraints with reasoning} can be used as axioms to infer new triples out of explicitly stated triples (see section \ref{sec:RDF-validation-requirements-and-reasoning}), but also to express constraints without reasoning. \er{Also to express constraints?}\tb{also to express constraints without reasoning}
 %If in our knowledge base it is stated that \ms{DarthVader} is a \ms{Sith} (e.g., \ms{Sith(DarthVader)}) and  Siths feel the force of the dark side (e.g., \ms{Sith $\sqsubseteq$ FeelingForceDarkSide}), it is either possible to infer that \ms{DarthVader} feels the force of the dark side (\ms{FeelingForceDarkSide(DarthVader)}) 
 %or to check if this class assignment is explicitly stated in the data without reasoning. 
 Although, \emph{OWL 2} is the only language for which reasoning features are already implemented, 
-constraint types with reasoning are also expressible by other languages. 
-\emph{SPIN} is the only language we consider as being a constraint language,
+$\mathcal{R}$ constraint types are also expressible by other languages. 
+\emph{SPIN} is the only language, we consider as being a constraint language,
 for which an actual implementation of the validation of constraints types does not yet exist. 
 %\er{This is again the part I don't understand.}\tb{but also by other constraint languages}
 %\begin{center}
@@ -588,7 +578,7 @@ for which an actual implementation of the validation of constraints types does n
 \begin{table}[H]
 	\centering
 	  %\caption{Constraint Type Specific Expressivity}
-		\caption{Overview on the Expressivity of Constraint Languages (Absolute Values)}
+		\caption{Overview on the Constraint Type Specific Expressivity of Constraint Languages (Absolute Values)}
 	  \scriptsize
 		\begin{tabular}{l|c|c|c}
       %\textbf{Expressivity Class} & $Expr(\overline{\mathcal{CT}_R})$ (42) & $Expr(\mathcal{CT}_R)$ (32) \\		
@@ -601,12 +591,12 @@ for which an actual implementation of the validation of constraints types does n
 			\emph{ShEx} & 23(1) & 12 & 11(1) \\
 			\emph{SPIN} & 80(1) & 45(1)	& 35
 		\end{tabular}
-	\label{tab:constraint-type-specific-expressivity}
+	\label{tab:constraint-type-specific-expressivity-absolute-values}
 \end{table}
 \begin{table}[H]
 	\centering
 	  %\caption{Constraint Type Specific Expressivity}
-		\caption{Overview on the Expressivity of Constraint Languages (Percentage Values)}
+		\caption{Overview on the Constraint Type Specific Expressivity of Constraint Languages (Percentage Values)}
 	  \scriptsize
 		\begin{tabular}{l|c|c|c}
       %\textbf{Expressivity Class} & $Expr(\overline{\mathcal{CT}_R})$ (42) & $Expr(\mathcal{CT}_R)$ (32) \\		
@@ -619,21 +609,26 @@ for which an actual implementation of the validation of constraints types does n
 			\emph{ShEx} & 29.6 & 26.1 & 34.3 \\
 			\emph{SPIN} & 100.0 & 100.0 & 100.0
 		\end{tabular}
-	\label{tab:constraint-type-specific-expressivity}
+	\label{tab:constraint-type-specific-expressivity-percentage-values}
 \end{table}
-Table \ref{tab:constraint-type-specific-expressivity} displays the expressivity scores of constraint languages.
+Tables \ref{tab:constraint-type-specific-expressivity-absolute-values} and \ref{tab:constraint-type-specific-expressivity-percentage-values} 
+give an overview on the constraint type specific expressivity of the five most common constraint languages.
+Table \ref{tab:constraint-type-specific-expressivity-absolute-values} contains the absolute numbers of supported constrain types, 
+Table \ref{tab:constraint-type-specific-expressivity-percentage-values} appropriate percentage values.
 %In total, there are 42 $\overline{\mathcal{CT}_R}$ and 32 $\mathcal{CT}_R$ constraint types (see Table \ref{tab:constraint-type-specific-expressivity}).
 %In Table \ref{tab:constraint-type-specific-expressivity}, the total amount of constraint types per constraint type specific expressivity is shown by numbers in round brackets in the first column.
-Numbers in parentheses indicate the amount of constraint types which may be expressed by a particular language - either by limitations, workarounds, or extensions.  
+Numbers in parentheses indicate the amount of constraint types which may be expressed by a particular language - either by limitations, workarounds, or extensions.
+Percentage values include constraint types supported by means of limitations, workarounds, or extensions.   
 %\er{One possible misunderstanding (maybe not) is the ordering. It is not only based on the size of the number of the constrains that they satisfies right? For instance, if there are 6 constraints (from EXPR-C) that  DSP satisfies and OWL2-DL  can satisfy lets say only 5 of them but 13 other, in such scenario OWL2 DL and DSP would be incomparable (no ordering). It is more expressive only if it contains those 6 and extras.}
 Representing {\em context-specific exclusive or of properties} (\emph{R-11}) constraints in \emph{OWL 2 DL}, e.g., can be seen as a workaround 
 as anonymous classes are built for each of the exclusive properties (see Section \ref{RDF-Validation-Requirements-without-Reasoning}).
-The following order is derived from the expressivity scores of constraint languages - including limitations, workarounds, and extensions since constraint types are still expressible:
+The following order is derived from the constraint type specific expressivity of constraint languages - including limitations, workarounds, and extensions since constraint types are still expressible:
 {\tiny
 \begin{eqnarray*}
 %Expr(\mathcal{C}): ... \\
-Expr(\overline{\mathcal{R}}): DSP \prec OWL2QL \prec ReSh \prec ShEx \prec OWL2DL \prec SPIN \\
-Expr(\mathcal{R}): DSP \prec OWL2QL \prec ShEx \prec ReSh \prec OWL2DL \prec SPIN
+$\mathcal{CT}$: DSP \prec OWL2QL \prec ReSh \prec ShEx \prec OWL2DL \prec SPIN \\
+\overline{\mathcal{R}}: DSP \prec OWL2QL \prec ReSh \prec ShEx \prec OWL2DL \prec SPIN \\
+\mathcal{R}: DSP \prec OWL2QL \prec ShEx \prec ReSh \prec OWL2DL \prec SPIN
 \end{eqnarray*}
 }%
 Having information on expressivity scores enables systems to recommend the right language to formulate constraints depending on individual use cases.
@@ -645,6 +640,14 @@ The finding that \emph{SPIN} is the only language which supports all reasoning c
 underpins the importance to actually implement reasoning capabilities by \emph{SPIN} (or plain \emph{SPARQL}).
 Furthermore, the fact that all (1) constraint types with reasoning and (2) constraint types without reasoning are representable by \emph{SPIN} (if we ignore the last constraint type \emph{recursive queries} which is partly implemented in \emph{SPIN}) 
 emphasizes the significant role \emph{SPIN} plays for the future developments in this field.
+
+-----
+
+allgemeiner satz schon hier sieht man dass viele constraints auch ohne reasoning funnkzionieren
+es macht sinn sicvh auf diese zu bschränken für bestimmte anwendungen
+und was genau diese sind das schauen wir uns im laufe des papers bin
+
+-----
 
 % RDF validation in the library domain
 % -----
