@@ -462,8 +462,9 @@ Among the reasons for the success of XML is the possibility to formulate fine-gr
 
 A typical example is the definition of a library record describing a book. There are clear rules which information has to be available to describe a book properly (required fields, like a title), but also how information like an ISBN number is properly represented. Libraries seek to make their own data reusable for general purposes, but also to enrich and interlink their own data. Checking if third-party data meets own requirements or validating existing data according to new needs for a Linked Data application are among common use cases for RDF validation.
 
- In 2013, the W3C invited experts from industry, government, and academia to the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/RDF-val/}}, 
-where first use cases for RDF constraint\footnote{For simplicity reasons, we use the terms \emph{constraint types/constraints} instead of \emph{RDF constraint types/RDF constraints} in the remainder of the paper} formulation and RDF data validation have been presented and discussed. 
+In 2013, the W3C invited experts from industry, government, and academia to the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/RDF-val/}}, 
+where first use cases for RDF constraint formulation and RDF data validation have been presented and discussed. 
+For simplicity reasons, we use the terms \emph{constraint types/constraints} instead of \emph{RDF constraint types/RDF constraints} in the remainder of the paper.
 Two working groups (WGs) that follow up on this workshop are established in 2014 to develop a language to express constraints on RDF data: 
 the \emph{W3C RDF Data Shapes WG}\footnote{\url{http://www.w3.org/2014/rds/charter}} and the \emph{DCMI RDF Application Profiles task group}\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
 Within the \emph{DCMI task group}, a collaboratively curated database of RDF validation requirements has been created which contains the findings of the working groups based on various case studies provided by data institutions \cite{BoschEckert2014}. It is publicly available and open for further contributions\footnote{Online at \url{http://purl.org/net/rdf-validation}}.
@@ -499,7 +500,11 @@ how to overcome the major shortcomings when validating RDF data by performing re
 Based on our work in the DCMI RDF Application Profiles Task Group and in cooperation with the W3C Data Shapes Working Group, 
 we identified and published by today 81 requirements to formulate RDF constraints that are required by various stakeholders for data applications.
 Each of these requirements corresponds to a constraint type from which concrete constraints are instantiated to be checked against RDF data.
-We recently published a technical report\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} (serving as appendix of this paper) 
+Requirements/constraint types are uniquely identified by alphanumeric technical identifiers.
+\emph{Minimum qualified cardinality restrictions} (\emph{R-75}) is an example of a constraint type which corresponds to the requirement {\small\emph{R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES}}. 
+We recently published a technical report
+%\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} 
+(serving as appendix of this paper) 
 in which we explain each requirement/constraint type in detail and give examples for each represented by different constraint languages.
 This technical report also contains mappings to {\em Description logics} (\emph{DL}) to logically underpin each requirement and to determine which \emph{DL} constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
 The knowledge representation formalism \emph{DL}, with its well-studied theoretical properties, 
@@ -527,7 +532,7 @@ For each constraint type we investigate how efficient in terms of runtime valida
 Since the combination of \emph{DL} constructs, needed to express a constraint type, determines its computational complexity, 
 by mapping to \emph{DL} we get an idea of the performance for each constraint type in worst case (Section \ref{reasoning}).
 
-Using these findings, we are able to determine for the five most common constraint languages which constraint types they are able to express, i.e., we evaluate their constraint type specific expressivity\footnote{The detailed evaluation is described in the appendix of this paper.} \cite{BoschNolleAcarEckert2015}.
+Using these findings, we are able to determine for the five most common constraint languages which constraint types they are able to express, i.e., we evaluate their constraint type specific expressivity (the detailed evaluation is described in the appendix of this paper) \cite{BoschNolleAcarEckert2015}.
  %As we identified three constraint-specific complexity classes in the previous section, we are now able to determine the performance (i.e. complexity) of constraint languages.  It can be beneficial not using the most expressive constraint languages when additional rather subjective criteria are evaluated.
 We introduce the intuitive notion of \emph{expressivity scores} rather than classical \emph{expressivity}
 as the list of constraint types is a continuously updated list and almost none (except \emph{SPIN}) of the languages contains one another.
@@ -593,7 +598,7 @@ Numbers in parentheses indicate the amount of constraint types which may be expr
 %\er{One possible misunderstanding (maybe not) is the ordering. It is not only based on the size of the number of the constrains that they satisfies right? For instance, if there are 6 constraints (from EXPR-C) that  DSP satisfies and OWL2-DL  can satisfy lets say only 5 of them but 13 other, in such scenario OWL2 DL and DSP would be incomparable (no ordering). It is more expressive only if it contains those 6 and extras.}
 Representing {\em context-specific exclusive or of properties} (\emph{R-11}) constraints in \emph{OWL 2 DL}, e.g., can be seen as a workaround 
 as anonymous classes are built for each of the exclusive properties (see Section \ref{RDF-Validation-Requirements-without-Reasoning}).
-The following order is derived from the expressivity scores of constraint languages\footnote{Including limitations, workarounds, and extensions since constraint types are still expressible.}:
+The following order is derived from the expressivity scores of constraint languages - including limitations, workarounds, and extensions since constraint types are still expressible:
 {\tiny
 \begin{eqnarray*}
 %Expr(\mathcal{C}): ... \\
@@ -608,7 +613,7 @@ By revealing which constraint types are not covered by exiting languages
 we give directions for the further development of constraint languages.
 The finding that \emph{SPIN} is the only language which supports all reasoning constraint types 
 underpins the importance to actually implement reasoning capabilities by \emph{SPIN} (or plain \emph{SPARQL}).
-Furthermore, the fact that all (1) constraint types with reasoning and (2) constraint types without reasoning are representable by \emph{SPIN}\footnote{If we ignore the last constraint type \emph{recursive queries} which is partly implemented in \emph{SPIN}.} 
+Furthermore, the fact that all (1) constraint types with reasoning and (2) constraint types without reasoning are representable by \emph{SPIN} (if we ignore the last constraint type \emph{recursive queries} which is partly implemented in \emph{SPIN}) 
 emphasizes the significant role \emph{SPIN} plays for the future developments in this field.
 
 \begin{itemize}
@@ -1090,10 +1095,10 @@ In practice, however, \emph{OWL 2} is well-spread and \emph{RDFS}/\emph{OWL 2} c
 %(2) \emph{books}, \emph{conference proceedings}, and \emph{journal articles} are \emph{publications} {\small\ms{(Book $\sqcup$} \ms{ConferenceArticle $\sqcup$} \ms{JournalArticle $\sqsubseteq$ Publication)}}. 
 
 Reasoning is beneficial for \emph{RDF} validation as 
-(1) it may resolve constraint violations\footnote{For simplicity reasons, we use the term \emph{violations} instead of \emph{constraint violations} in the remainder of the paper}, 
+(1) it may resolve constraint violations in the remainder of the paper}, 
 (2) it may cause useful constraint violations, and 
 (3) it solves the \emph{redundancy} problem. 
-Consider the following \emph{DL} knowledge base $\mathcal{K}$\footnote{A knowledge base is a collection of formal statements  which corresponds to \emph{facts} or  \emph{what is known} explicitly.}:
+Consider the following \emph{DL} knowledge base $\mathcal{K}$ which is a collection of formal statements  which corresponds to \emph{facts} or  \emph{what is known} explicitly:
 {\scriptsize
 \begin{center}
 \begin{DL} 
@@ -1253,8 +1258,8 @@ This ambiguity in semantics is one of the main reasons why \emph{OWL 2} has not 
 The distinction of constraint types regarding the dependency on the \emph{CWA} and on the \emph{UNA} is an important aspect when combining reasoning with validation.
 As 35 of 81 constraint types correspond to \emph{OWL 2} axioms and as \emph{OWL 2} has different semantics than RDF validation in general, 
 we investigate their behavior in terms of validation results in different semantic settings. 
-\emph{OWL 2} reasoning requires the \emph{OWA} with the \emph{nUNA}\footnote{While \emph{DLs/OWL} do not assume \emph{UNA}, they have a construct (\emph{owl:sameAs}) to express when two names are the same or not.
-} whereas RDF validation has its origin in the XML world and is therefore classically based on the \emph{CWA} and the \emph{UNA}.
+\emph{OWL 2} reasoning requires the \emph{OWA} with the \emph{nUNA} whereas RDF validation has its origin in the XML world and is therefore classically based on the \emph{CWA} and the \emph{UNA}.
+While \emph{DLs/OWL} do not assume \emph{UNA}, they have the construct \emph{owl:sameAs} to express when two names are the same or not.
 Assuming \emph{OWA} and \emph{nUNA} for RDF validation, validation won’t be that restrictive and therefore we won’t get the intended validation results.
 %We classify constraint types according to the dependency on the CWA with UNA; (1) $\mathcal{C}_{CWA}$ which is  the set of constraint types dependent on the CWA with UNA,  and (2) $\overline{\mathcal{C}_{CWA}}$, its complement (set of constraint types independent on the CWA with UNA).  
 %Therefore, $\mathcal{C}_{CWA}$ includes constraint types for which it makes a difference if the CWA/UNA or the OWA/nUNA is assumed.
@@ -1272,7 +1277,7 @@ We classify constraint types according to the dependency on the \emph{CWA} and t
 
 (1) $\mathcal{CWA}$ denotes the set of constraint types which are dependent on the \emph{CWA},
 	i.e., the set of constraint types for which it makes a difference if the \emph{CWA} or the \emph{OWA} is assumed.
-{\em Minimum qualified cardinality restrictions} (\emph{R-75})\footnote{The constraint type corresponds to the requirement \emph{R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES}; requirements/constraint types are uniquely identified by alphanumeric technical identifiers.} is a $\mathcal{CWA}$ constraint type, i.e., depends on the \emph{CWA}.
+{\em Minimum qualified cardinality restrictions} (\emph{R-75}) is a $\mathcal{CWA}$ constraint type, i.e., depends on the \emph{CWA}.
 \emph{Publications}, e.g., must have at least one \emph{author} {\small\ms{(Publication $\sqsubseteq$ $\geq$1 author.Person).}}
 In a \emph{CWA} setting, a \emph{publication} without an explicitly stated author violates the constraint, 
 whereas, with \emph{OWA} semantics, 
