@@ -2418,62 +2418,42 @@ We use \emph{SPIN},
 a \emph{SPARQL}-based way to formulate and check constraints, as basis to develop a
 validation environment\footnote{Online demo available at \url{http://purl.org/net/rdfval-demo}, source code at: \url{https://github.com/boschthomas/rdf-validator}} to validate RDF data according to constraints expressed by arbitrary constraint languages\footnote{SPIN mappings available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/SPIN}} \cite{BoschEckert2014-2}.
 The \emph{SPIN} engine checks for each resource if it satisfies all constraints, which are associated with its assigned classes, and generates a result RDF graph containing information about all constraint violations.
-There is one \emph{SPIN} construct template for each constraint type.
-A \emph{SPIN} construct template contains a \emph{SPARQL CONSTRUCT} query which generates constraint violation triples indicating the subject and the properties causing constraint violations, and the reason why constraint violations have been raised.
-A \emph{SPIN} construct template creates constraint violation triples if all triple patterns within the \emph{SPARQL WHERE clause} match.
 
-Within the \emph{RDF Validator}\footnote{For details about the validation environment see \cite{BoschEckert2014-2}}, we define one SPIN construct template for each \emph{generic constraint} and therefore constraint type.
-A SPIN construct template contains a SPARQL CONSTRUCT query which generates constraint violation triples (\emph{spin:ConstraintViolation}) indicating the subject (\emph{spin:violationRoot}) and the properties (\emph{spin:violationPath}) causing constraint violations, and the reason why constraint violations have been raised (\emph{rdfs:label}).
-A SPIN construct template creates constraint violation triples if all triple patterns within the SPARQL WHERE clause match.
-
-We implemented the validation of all \emph{OWL 2 QL}, \emph{OWL 2 DL}, \emph{DSP} (and major \emph{ReSh} and \emph{ShEx}) constructs
-within our \emph{SPIN} validation environment in form of \emph{SPARQL CONSTRUCT queries} (\url{http://purl.org/net/RDFval-demo}).
-%\cite{BoschEckert2014-2}\footnote{SPIN mappings: \url{https://github.com/boschthomas/OWL2-SPIN-Mapping}, \url{https://github.com/dcmi/DSP-SPIN-Mapping}}.
-For $\mathcal{R}$ constraint types (represented in \emph{OWL 2 DL}), you can choose if reasoning should be performed prior to validation.
-
-\emph{Property ranges} (\emph{R-28, R-35}) constraints restrict ranges of properties:
-\emph{author} relations can only point to \emph{persons}.
+By means of a \emph{property ranges} (\emph{R-28, R-35}) constraint it can be restricted that \emph{author} relations can only point to \emph{persons} (\emph{DL}: \small{\ms{$\top$ $\sqsubseteq$ $\forall$ author.Person,}} \emph{OWL 2 DL}: \small{\ms{author rdfs:range Person.).}}
+There is one \emph{SPIN} construct template for each constraint type, so for the constraint type \emph{property ranges}:
 
 \begin{ex}
-owl2spin:ObjectPropertyRange a spin:ConstructTemplate ;
-    rdfs:subClassOf spin:ConstructTemplates ;
-    spin:labelTemplate "Axioms - Object Property Axioms - Object Property Range" ; # spin:violationSource
-    spin:body [
-        rdf:type sp:Construct ;
-        sp:text """
-            PREFIX owl2spin: <http://constraints.org/owl2#>
-            CONSTRUCT {
-                _:cv 
-                	a spin:ConstraintViolation ;
-                    spin:violationRoot ?this ;
-                    rdfs:label ?violationMessage ;
-                    spin:violationPath ?OPE .
-            }
-            WHERE {	  
-			    ?OPE rdfs:range ?CE . 
-                ?x ?OPE ?this .
-				?this rdf:type owl:Thing . # ?OPE is OPE
-				FILTER NOT EXISTS { ?this rdf:type ?CE } .
-                
-#               violation message
-#               -----
-                BIND ( CONCAT( 
-                    \"ObjectPropertyRange ( \", 
-                    xsd:string( ?OPE ), 
-                    \" \", 
-                    xsd:string( ?CE ), 
-                    \" ) - The object '\",
-                    xsd:string( ?this ), 
-                    \"' must be an instance of '\", 
-                    xsd:string( ?CE ), 
-                    \"'\") 
-                    AS ?violationMessage ) . 
-            }
-            """ ;
-    ] .
+owl2spin:PropertyRanges a spin:ConstructTemplate ;
+  spin:body [ a sp:Construct ; sp:text """
+    CONSTRUCT {
+      _:cv a spin:ConstraintViolation ;
+        spin:violationRoot ?this ;
+        rdfs:label ?violationMessage ;
+        spin:violationPath ?OP ;
+        spin:violationSource "Property Ranges" . }
+    WHERE {	  
+      ?OP rdfs:range ?C . ?x ?OP ?this . ?this a owl:Thing .
+      FILTER NOT EXISTS { ?this a ?C } . } """ ; ] .
 \end{ex}
 
-For all resources for which reasoning should be performed prior to validation (resources of the class \emph{Reasoning}) the \emph{SPIN} rule is executed. 
+A SPIN construct template contains a SPARQL CONSTRUCT query which generates constraint violation triples (\emph{spin:Constraint Violation}) indicating the subject (\emph{spin:violationRoot}) and the properties (\emph{spin:violationPath}) causing constraint violations, and the reason why constraint violations have been raised (\emph{rdfs:label}).
+A \emph{SPIN} construct template creates constraint violation triples if all triple patterns within the \emph{SPARQL WHERE clause} match.
+If \emph{Doyle}, the \emph{author} of the book \emph{Sherlock-Holmes} {\small\ms{(author(Sherlock-Holmes, Doyle))}}, is not explicitly declared to be a \emph{person},
+all triple patterns within the \emph{SPARQL WHERE clause} match.
+As a consequence, the \emph{SPIN} construct template generates a constraint violation triple.
+
+As \emph{property ranges} is an $\mathcal{R}$ constraint type 
+for which reasoning may be performed prior to validation to enhance data quality by resolving violations.
+Therefore, validation environments should enable users to decide if reasoning should be executed for the \emph{property ranges} constraint type. 
+If a users decides to use reasoning for the \emph{property ranges} constraint type, 
+the triple {\small\ms{rdf:type(Doyle, Person)}}, whose absence caused the violation, is inferred before the validation is executed which resolves the violation. 
+Validation environments should enable users
+(1) to select individual resources for which reasoning should be performed when they are validated against $\mathcal{R}$ constraints,
+(2) to select individual $\mathcal{R}$ constraint types for which reasoning should be executed, and
+(3) to globally decide if for all $\mathcal{R}$ constraint types reasoning should be done. 
+All resources, for which reasoning should be performed prior to validation, are assigned to the class \emph{Reasoning}.
+The class \emph{Reasoning} is associated with these resources either manually (1) or automatically (2+3) in terms of a pre-reasoning step.
+There is one \emph{SPIN} rule for each $\mathcal{R}$ constraint type, so for the $\mathcal{R}$ constraint type \emph{property ranges}:
 
 \begin{ex}
 owl2spin:Reasoning spin:rule [ a sp:Construct ; sp:text """
@@ -2482,17 +2462,12 @@ owl2spin:Reasoning spin:rule [ a sp:Construct ; sp:text """
   FILTER NOT EXISTS { ?this a ?C } . } """ ; ] .	
 \end{ex}
 
-\begin{ex}
-    :hasDog rdfs:range :Dog .
-    :Peter 
-        a owl:Thing, owl2spin:Reasoning ;
-        :hasDog :Brian .
-    :Brian 
-        a owl:Thing, owl2spin:Reasoning . 
-    # --> :Brian a :Dog . 
-\end{ex}
+The \emph{SPIN} rule is executed for each resources of the class \emph{Reasoning}.
+A \emph{SPIN} rule contains a \emph{SPARQL CONSTRUCT} query which generates triples 
+if all triple patterns within the \emph{SPARQL WHERE clause} match.
 
-
+We implemented the validation of all \emph{OWL 2 QL}, \emph{OWL 2 DL}, \emph{DSP} (and major \emph{ReSh} and \emph{ShEx}) constructs
+within our \emph{SPIN} validation environment in form of \emph{SPARQL CONSTRUCT queries}.
 
 \section{Related Work}
 \label{sec:related-Work}
