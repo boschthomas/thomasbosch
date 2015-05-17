@@ -351,7 +351,7 @@ We argue that so far no single best solution exists and give directions for the 
 
 \terms{Theory}
 
-\keywords{RDF Validation, RDF Constraint Types, Data Quality, Reasoning, OWL 2, RDF Validation Requirements, Linked Data, Semantic Web} % NOT required for Proceedings
+\keywords{RDF Validation, RDF Constraint Types, Data Quality, Reasoning, OWL, RDF Validation Requirements, Linked Data, Semantic Web} % NOT required for Proceedings
 
 %\section{Possible Titles}
 %
@@ -1344,11 +1344,24 @@ For \emph{nUNA}, however, reasoning concludes that the \emph{title} {\em The-Adv
 %(\ms{\{The-Adventures-of-Huckleberry-Finn\}} = \ms{\{Die-Abenteuer-des-Huckle} \ms{berry-}\ms{Finn\}}) 
 which resolves the violation. 
 (4) $\overline{\mathcal{UNA}}$ (complement of $\mathcal{UNA}$) denotes the set of constraint types which are independent on the \emph{UNA}.
-The {\em existential quantification} (\emph{R-86}) {\small\ms{Publication $\equiv$ $\exists$ publisher.Publisher,}} e.g., restricts \emph{publications} to have at least one \emph{publisher}.
-If \emph{A+Conference-Proceedings} are published by \emph{A+Publisher} and \emph{A-Plus-Publisher},
-it does not matter if \emph{A+Publisher} and \emph{A-Plus-Publisher} refer to one identical \emph{publisher} or to two distinct \emph{publishers}
-as in both cases the \emph{publication} has at least one \emph{publisher} which, in consequence, satisfies the \emph{existential quantification}.
-\textcolor{red}{asymmetric object properties / irreflexive / disjoint properties / literal value comparison}
+%The {\em existential quantification} (\emph{R-86}) {\small\ms{Publication $\equiv$ $\exists$ publisher.Publisher,}} e.g., restricts \emph{publications} to have at least one \emph{publisher}.
+%If \emph{A+Conference-Proceedings} are published by \emph{A+Publisher} and \emph{A-Plus-Publisher},
+%it does not matter if \emph{A+Publisher} and \emph{A-Plus-Publisher} refer to one identical \emph{publisher} or to two distinct \emph{publishers}
+%as in both cases the \emph{publication} has at least one \emph{publisher} which, in consequence, satisfies the \emph{existential quantification}.
+%\textcolor{red}{asymmetric object properties / irreflexive / disjoint properties / literal value comparison}
+\emph{Literal value comparison} (\emph{R-43}) is an example of a $\overline{\mathcal{UNA}}$ constraint type
+which ensures that,
+depending on property datatypes,
+two different literal values have
+a specific ordering with respect to an operator like \textless, \textless=, \textgreater, and \textgreater=.
+It has to be guaranteed, e.g. that \emph{birth dates} are before (\emph{\textless}) \emph{death dates}.
+If the \emph{birth date} and the \emph{death date} of \emph{Albert-Einstein} is interchanged
+{\small\ms{(birthDate(Albert-Einstein, "1955-04-18"), deathDate(Albert-Einstein, "1879-03-14")),}}
+a violation is thrown.
+The \emph{literal value comparison} constraint type is independent from the \emph{UNA}
+as the violation is not resolved 
+in case there are further resources (e.g. \emph{AlbertEinstein}, \emph{Albert\_Einstein}) which point to correct \emph{birth} and \emph{death dates}
+and which may be the same as the violating resources when \emph{nUNA} is assumed.
 
 We evaluated for each constraint type 
 if it is dependent or independent on the \emph{CWA} and on the \emph{UNA} (for a detailed analysis we refer to the appendix of this paper \cite{BoschNolleAcarEckert2015}). 
@@ -2522,7 +2535,7 @@ Regarding the performance of constraints, we refer to worst case complexity.
 
 We use \emph{SPIN}, 
 a \emph{SPARQL}-based way to formulate and check constraints, as basis to develop a
-validation environment\footref{rdf-validator} to validate RDF data according to constraints expressed by arbitrary constraint languages by mapping them to \emph{SPIN}\footref{spin-mappings}} \cite{BoschEckert2014-2}.
+validation environment\footref{rdf-validator} to validate RDF data according to constraints expressed by arbitrary constraint languages by mapping them to \emph{SPIN}\footref{spin-mappings} \cite{BoschEckert2014-2}.
 The \emph{SPIN} engine checks for each resource if it satisfies all constraints, which are associated with classes assigned to the resources, and generates a result RDF graph containing information about all constraint violations.
 We fully implemented the validation of all constraint types which are expressible by \emph{OWL 2 QL}, \emph{OWL 2 DL}, and \emph{DSP} 
 as well as major constraint types representable by \emph{ReSh} and \emph{ShEx}\footref{spin-mappings}.
@@ -2552,14 +2565,14 @@ Section 2 makes complicate this basic property for which a sentence in the intro
 BTW, it is completely misleading to say in introduction  "Reasoning is a promising solution as a pre-validation step to overcome this shortcoming": reasoning must be part of RDF data management as soon as RDFS statements are declared (otherwise, why would they be declared ?).}
     \item \textcolor{blue}{answer from Erman and Thomas: We use RDF as data model (with intended semantics) when performing reasoning with RDFS/OWL 2 semantics (OWA/nUNA) as well as for RDF validation and not just as a notation. We suggest using RDFS/OWL 2 semantics (OWA, nUNA) when performing reasoning (the original intention of RDFS/OWL 2) and we propose to take multiple languages into account (i.a. OWL 2) with different semantics (CWA, UNA) for the purpose to validate RDF data. Reasoning should be an optional step prior to validation. When reasoning is not wished to be performed, however, then omitted class assignment triples, e.g., must cause constraint violations as they are not intended to be inferred.} 
 		\item \textcolor{blue}{question for Erman: How and where to tackle this issue in our paper?}
-%\end{itemize}
+\end{itemize}
 %	\item While gross numbers give some insight, if the paper listed which
 %problems can be solved by each constraint language, it might allow
 %readers more insight. 
 %  \item Is there a useful grouping of the kinds of
 %restrictions that can be stated by each language?  
 %	\item \textcolor{red}{A reader might want to see some lessons or experiences that could be learned from such a comparative study.}
-%\end{itemize}
+\end{itemize}
 
 %\section{Christian's Feedback}
 %
