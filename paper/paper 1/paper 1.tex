@@ -200,6 +200,9 @@
 
 \usepackage{float}
 
+% footnotes
+\usepackage{scrextend}
+
 \begin{document}
 
 %\title{The Role of Constraint Languages and Reasoning for RDF Validation}
@@ -789,10 +792,6 @@ we cannot use them directly for validating RDF data since \emph{OWL 2} and RDF v
 %Except for \emph{SPIN}, all supported constraint types are already implemented by particular languages.
 %Yet another interesting message is that, none of other languages covers the other so far in terms of expressivity.
 %As we keep the RDF validation requirements updated and those languages are further developed, it is likely that this list will change in the direction of needs of the RDF validation community.
-
-\begin{itemize}
-	\item \textcolor{blue}{complete OWL 2 DL SPIN mapping}
-\end{itemize}
 
 %The remainder of the paper is as follows.
 %In section \ref{the-role-of-reasoning-for-rdf-validation}, we show why reasoning is important for validation and how reasoning and validation interact.
@@ -1469,8 +1468,8 @@ $\mathcal{R}$ is the set of constraint types for which reasoning may be performe
 in order to enhance data quality either by resolving violations or by causing useful violations.
 For $\mathcal{R}$ constraint types, different types of reasoning may be performed
 which depends on the language used to formulate the constraint type. 
-\textcolor{red}{11} of \textcolor{red}{32} $\mathcal{R}$ constraint types are representable by the less expressive but better performing \emph{OWL 2 QL}.
-\textcolor{red}{18} $\mathcal{R}$ constraint types, in contrast, are not expressible by \emph{OWL 2 QL} and therefore the more expressive but less performing \emph{OWL 2 DL} is used.
+11 of 35 $\mathcal{R}$ constraint types are representable by the less expressive but better performing \emph{OWL 2 QL}.
+23 $\mathcal{R}$ constraint types, in contrast, are not expressible by \emph{OWL 2 QL} and therefore the more expressive but less performing \emph{OWL 2 DL} is used.
 %(in total, 29 0f 32 $\mathcal{R}$ constraint types are representable by \emph{OWL 2 DL}). 
 \emph{OWL 2} profiles are restricted versions of \emph{OWL 2} that offer different trade-offs regarding expressivity vs. efficiency in reasoning. 
 \emph{OWL 2 QL} is an \emph{OWL 2} profile which focuses on reasoning in the context of query answering with very large size of instance data. 
@@ -1484,11 +1483,11 @@ we divide $\mathcal{R}$ into two not disjoint sets of constraint types:
 $\mathcal{R}_{QL}$ $\subseteq$ $\mathcal{R}_{DL}$ (\emph{OWL 2 DL} is more expressive than \emph{OWL 2 QL}).
 \begin{enumerate}
 \item $\mathcal{R}_{QL}$ is the set of $\mathcal{R}$ constraint types for which \emph{OWL 2 QL reasoning} may be performed as they are expressible by \emph{OWL 2 QL}.
-\textcolor{red}{11} of \textcolor{red}{32} $\mathcal{R}$ constraint types are $\mathcal{R}_{QL}$ constraint types.
+11 of 35 $\mathcal{R}$ constraint types are $\mathcal{R}_{QL}$ constraint types.
 %which are expressible by \emph{OWL 2 QL} and thus
 %for which validation is executed by query answering with \emph{OWL 2 QL} reasoning.
 \item $\mathcal{R}_{DL}$ stands for the set of $\mathcal{R}$ constraint types for which \emph{OWL 2 DL reasoning} may be executed as \emph{OWL 2 QL} is not expressive enough to represent them \cite{owl2profiles2008}.
-\textcolor{red}{29} of \textcolor{red}{32} $\mathcal{R}$ constraint types are $\mathcal{R}_{DL}$ constraint types.
+34 of 35 $\mathcal{R}$ constraint types are $\mathcal{R}_{DL}$ constraint types.
 %which are expressible by \emph{OWL 2 DL} and for which validation is run by query answering with \emph{OWL 2 DL} reasoning.
 \end{enumerate}
 We limit $\mathcal{R}$ to the set of constraint types which can be expressed by \emph{OWL 2 DL}
@@ -2416,10 +2415,11 @@ as $\mathcal{R}$ constraint types are already expressible either by \emph{OWL 2 
 
 We use \emph{SPIN}, 
 a \emph{SPARQL}-based way to formulate and check constraints, as basis to develop a
-validation environment\footnote{Online demo available at \url{http://purl.org/net/rdfval-demo}, source code at: \url{https://github.com/boschthomas/rdf-validator}} to validate RDF data according to constraints expressed by arbitrary constraint languages\footnote{SPIN mappings available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/SPIN}} \cite{BoschEckert2014-2}.
-The \emph{SPIN} engine checks for each resource if it satisfies all constraints, which are associated with its assigned classes, and generates a result RDF graph containing information about all constraint violations.
-
-By means of a \emph{property ranges} (\emph{R-28, R-35}) constraint it can be restricted that \emph{author} relations can only point to \emph{persons} (\emph{DL}: \small{\ms{$\top$ $\sqsubseteq$ $\forall$ author.Person,}} \emph{OWL 2 DL}: \small{\ms{author rdfs:range Person.).}}
+validation environment\footnote{Online demo available at \url{http://purl.org/net/rdfval-demo}, source code available at: \url{https://github.com/boschthomas/rdf-validator}\label{rdf-validator}} to validate RDF data according to constraints expressed by arbitrary constraint languages by mapping them to \emph{SPIN}\footnote{\emph{SPIN} mappings available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/SPIN}\label{spin-mappings}} \cite{BoschEckert2014-2}.
+The \emph{SPIN} engine checks for each resource if it satisfies all constraints, which are associated with classes assigned to the resources, and generates a result RDF graph containing information about all constraint violations.
+We fully implemented the validation of all constraint types which are expressible by \emph{OWL 2 QL}, \emph{OWL 2 DL}, and \emph{DSP} 
+as well as major constraint types representable by \emph{ReSh} and \emph{ShEx}\footref{spin-mappings}.
+By means of a \emph{property ranges} (\emph{R-28, R-35}) constraint it can be restricted that \emph{author} relations can only point to \emph{persons} (\emph{DL}: {\small\ms{$\top$ $\sqsubseteq$ $\forall$ author.Person,}} \emph{OWL 2 DL}: {\small\ms{author rdfs:range Person.).}}
 There is one \emph{SPIN} construct template for each constraint type, so for the constraint type \emph{property ranges}:
 
 \begin{ex}
@@ -2436,23 +2436,22 @@ owl2spin:PropertyRanges a spin:ConstructTemplate ;
       FILTER NOT EXISTS { ?this a ?C } . } """ ; ] .
 \end{ex}
 
-A SPIN construct template contains a SPARQL CONSTRUCT query which generates constraint violation triples (\emph{spin:Constraint Violation}) indicating the subject (\emph{spin:violationRoot}) and the properties (\emph{spin:violationPath}) causing constraint violations, and the reason why constraint violations have been raised (\emph{rdfs:label}).
-A \emph{SPIN} construct template creates constraint violation triples if all triple patterns within the \emph{SPARQL WHERE clause} match.
-If \emph{Doyle}, the \emph{author} of the book \emph{Sherlock-Holmes} {\small\ms{(author(Sherlock-Holmes, Doyle))}}, is not explicitly declared to be a \emph{person},
-all triple patterns within the \emph{SPARQL WHERE clause} match.
-As a consequence, the \emph{SPIN} construct template generates a constraint violation triple.
+A \emph{SPIN} construct template contains a \emph{SPARQL CONSTRUCT} query which generates constraint violation triples (\emph{spin:Constraint Violation}) indicating the subject (\emph{spin:violationRoot}) and the properties (\emph{spin:violationPath}) causing violations, and the reason why violations have been raised (\emph{rdfs:label}).
+A \emph{SPIN} construct template creates violation triples if all triple patterns within the \emph{SPARQL WHERE clause} match.
+If \emph{Doyle}, the \emph{author} of the book \emph{Sherlock-Holmes} {\small\ms{(author(Sherlock-Holmes, Doyle)),}} is not explicitly declared to be a \emph{person},
+all triple patterns within the \emph{SPARQL WHERE clause} match
+and the \emph{SPIN} construct template generates a violation triple.
 
-As \emph{property ranges} is an $\mathcal{R}$ constraint type 
-for which reasoning may be performed prior to validation to enhance data quality by resolving violations.
-Therefore, validation environments should enable users to decide if reasoning should be executed for the \emph{property ranges} constraint type. 
+\emph{Property ranges} is an $\mathcal{R}$ constraint type 
+for which reasoning may be performed prior to validation to enhance data quality by resolving violations or by raising valuable violations.
+Therefore, validation environments should enable users to decide if reasoning should be executed for constraints of the \emph{property ranges} constraint type. 
 If a users decides to use reasoning for the \emph{property ranges} constraint type, 
-the triple {\small\ms{rdf:type(Doyle, Person)}}, whose absence caused the violation, is inferred before the validation is executed which resolves the violation. 
+the triple {\small\ms{rdf:type(Doyle, Person),}} whose absence caused the violation, is inferred before data is validated which resolves the violation. 
 Validation environments should enable users
 (1) to select individual resources for which reasoning should be performed when they are validated against $\mathcal{R}$ constraints,
 (2) to select individual $\mathcal{R}$ constraint types for which reasoning should be executed, and
-(3) to globally decide if for all $\mathcal{R}$ constraint types reasoning should be done. 
-All resources, for which reasoning should be performed prior to validation, are assigned to the class \emph{Reasoning}.
-The class \emph{Reasoning} is associated with these resources either manually (1) or automatically (2+3) in terms of a pre-reasoning step.
+(3) to globally determine if for all $\mathcal{R}$ constraint types reasoning should be done. 
+All resources, for which reasoning should be performed prior to validation, are automatically assigned to the class \emph{Reasoning} in terms of a pre-reasoning step.
 There is one \emph{SPIN} rule for each $\mathcal{R}$ constraint type, so for the $\mathcal{R}$ constraint type \emph{property ranges}:
 
 \begin{ex}
@@ -2465,9 +2464,7 @@ owl2spin:Reasoning spin:rule [ a sp:Construct ; sp:text """
 The \emph{SPIN} rule is executed for each resources of the class \emph{Reasoning}.
 A \emph{SPIN} rule contains a \emph{SPARQL CONSTRUCT} query which generates triples 
 if all triple patterns within the \emph{SPARQL WHERE clause} match.
-
-We implemented the validation of all \emph{OWL 2 QL}, \emph{OWL 2 DL}, \emph{DSP} (and major \emph{ReSh} and \emph{ShEx}) constructs
-within our \emph{SPIN} validation environment in form of \emph{SPARQL CONSTRUCT queries}.
+We completely implemented reasoning capabilities for all $\mathcal{R}$ constraint types which are expressible by \emph{OWL 2 QL} and \emph{OWL 2 DL}\footref{spin-mappings}. 
 
 \section{Related Work}
 \label{sec:related-Work}
@@ -2505,10 +2502,6 @@ The first solution is applied on local knowledge bases whereas the second is mor
 
 \section{Conclusion and Future Work}
 
-\begin{itemize}
-	\item \textcolor{blue}{ToDo}
-\end{itemize}
-
 %In section \ref{the-role-of-reasoning-for-rdf-validation} we explained why reasoning is beneficial for validation and how reasoning interacts with validation.
 %In section \ref{classification-rdf-constraints} we classified constraints according to CWA/UNA dependency, reasoning, and complexity.
 %Constraint types can either be dependent on the CWA with UNA ($\mathcal{C}_{CWA}$), when it makes a difference if the CWA/UNA or the OWA/nUNA is assumed, or independent on the CWA with UNA ($\overline{\mathcal{C}_{CWA}}$).
@@ -2527,7 +2520,17 @@ Regarding the performance of constraints, we refer to worst case complexity.
 
 %Another important finding is that, none of other languages covers the other so far in terms of expressivity.
 
-
+We use \emph{SPIN}, 
+a \emph{SPARQL}-based way to formulate and check constraints, as basis to develop a
+validation environment\footref{rdf-validator} to validate RDF data according to constraints expressed by arbitrary constraint languages by mapping them to \emph{SPIN}\footref{spin-mappings}} \cite{BoschEckert2014-2}.
+The \emph{SPIN} engine checks for each resource if it satisfies all constraints, which are associated with classes assigned to the resources, and generates a result RDF graph containing information about all constraint violations.
+We fully implemented the validation of all constraint types which are expressible by \emph{OWL 2 QL}, \emph{OWL 2 DL}, and \emph{DSP} 
+as well as major constraint types representable by \emph{ReSh} and \emph{ShEx}\footref{spin-mappings}.
+Validation environments should enable users
+(1) to select individual resources for which reasoning should be performed when they are validated against $\mathcal{R}$ constraints,
+(2) to select individual $\mathcal{R}$ constraint types for which reasoning should be executed, and
+(3) to globally determine if for all $\mathcal{R}$ constraint types reasoning should be done. 
+We completely implemented reasoning capabilities for all $\mathcal{R}$ constraint types which are expressible by \emph{OWL 2 QL} and \emph{OWL 2 DL}\footref{spin-mappings}.
 
 As part of future work we will extend our validator to provide a list of constraint languages for which the expressivity is enough to express selected constraint types.
 The validator may also recommend one of these constraint languages having the highest expressivity score and lowest complexity.
@@ -2549,14 +2552,14 @@ Section 2 makes complicate this basic property for which a sentence in the intro
 BTW, it is completely misleading to say in introduction  "Reasoning is a promising solution as a pre-validation step to overcome this shortcoming": reasoning must be part of RDF data management as soon as RDFS statements are declared (otherwise, why would they be declared ?).}
     \item \textcolor{blue}{answer from Erman and Thomas: We use RDF as data model (with intended semantics) when performing reasoning with RDFS/OWL 2 semantics (OWA/nUNA) as well as for RDF validation and not just as a notation. We suggest using RDFS/OWL 2 semantics (OWA, nUNA) when performing reasoning (the original intention of RDFS/OWL 2) and we propose to take multiple languages into account (i.a. OWL 2) with different semantics (CWA, UNA) for the purpose to validate RDF data. Reasoning should be an optional step prior to validation. When reasoning is not wished to be performed, however, then omitted class assignment triples, e.g., must cause constraint violations as they are not intended to be inferred.} 
 		\item \textcolor{blue}{question for Erman: How and where to tackle this issue in our paper?}
-\end{itemize}
+%\end{itemize}
 %	\item While gross numbers give some insight, if the paper listed which
 %problems can be solved by each constraint language, it might allow
 %readers more insight. 
 %  \item Is there a useful grouping of the kinds of
 %restrictions that can be stated by each language?  
-	\item \textcolor{red}{A reader might want to see some lessons or experiences that could be learned from such a comparative study.}
-\end{itemize}
+%	\item \textcolor{red}{A reader might want to see some lessons or experiences that could be learned from such a comparative study.}
+%\end{itemize}
 
 %\section{Christian's Feedback}
 %
