@@ -2598,10 +2598,12 @@ as well as major constraint types representable by \emph{ReSh} and \emph{ShEx}\f
 %(3) to globally determine if for all $\mathcal{R}$ constraint types reasoning should be done. 
 In addition, we completely implemented reasoning capabilities for all constraint types for which reasoning may improve data quality and which are expressible by \emph{OWL 2 QL} and \emph{OWL 2 DL}\footref{spin-mappings}.
 
-As part of future work we will extend our validator to provide a list of constraint languages for which the expressivity is enough to express selected constraint types.
-The validator may also recommend one of these constraint languages having the highest expressivity score and lowest complexity.
-As reasoning may cause high complexity, the validator may show which constraint types from the user's selection cause the higher complexity class 
-and it may provide solutions how to get to the next lower complexity class. In this regard, it would be charming to have an estimation on which group of constraint types would demand what class of complexity. However, this is not an easy question, since complexity results are language specific and operational semantics is involved as well. Therefore, it is hard to maintain a general complexity result for a constraint type independent of the language chosen. Yet, providing an estimation for particular cases can still be straightforward.
+As part of future work we extend the \emph{RDF Validator} to provide a list of languages for which the expressivity is enough to express selected constraint types
+depending on users' individual needs.
+The validation environment may also recommend one of these languages which covers the most of the required constraint types which lead to the lowest acceptable complexity class.
+As reasoning may cause high complexity and thus bad performance, the validator may show which constraint types from the users' selections cause the higher complexity class 
+and may provide solutions how to get to the next lower complexity class. 
+In this regard, it would be charming to have an estimation on which group of constraint types would demand what class of complexity. However, this is not an easy question, since complexity results are language specific and operational semantics is involved as well. Therefore, it is hard to maintain a general complexity result for a constraint type independent of the language chosen. Yet, providing an estimation for particular cases can still be straightforward.
 
 %\textcolor{red}{reviews:}
 %\begin{itemize}
