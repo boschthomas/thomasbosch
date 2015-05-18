@@ -2569,37 +2569,19 @@ Reasoning is beneficial for \emph{RDF} validation as
 (3) it solves the \emph{redundancy} problem (Section \ref{the-role-of-reasoning-for-rdf-validation}).
 
 We published by today 81 requirements to formulate RDF constraints that are required by various stakeholders for data applications.
-Each of these requirements corresponds to a constraint type.
-We recently published a technical report
-%\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} 
-(serving as appendix of this paper) 
-in which we explain each requirement/constraint type in detail and give examples for each represented by different constraint languages.
-This technical report also contains mappings to \emph{DL}
+Each of these requirements corresponds to a constraint type and is mapped to \emph{DL}
 to determine which \emph{DL} constructs are needed to express each constraint type
 and therefore to provide the foundational basis for constraint types \cite{BoschNolleAcarEckert2015}.
-
-For each constraint type, we investigated if validation results depend on the \emph{CWA} and on the \emph{UNA} (for a detailed analysis we refer to the appendix of this paper \cite{BoschNolleAcarEckert2015})
+For each constraint type, we investigated if validation results depend on the \emph{CWA} and on the \emph{UNA}
 since reasoning and therefore \emph{OWL 2} have different semantics than RDF validation.
 \emph{OWL 2} reasoning requires the \emph{OWA} with the \emph{nUNA} 
 whereas RDF validation has its origin in the XML world and is therefore classically based on the \emph{CWA} and the \emph{UNA}.
 For the majority of the constraint types it makes a difference if the \emph{CWA} or the \emph{OWA} and if the \emph{UNA} or the \emph{nUNA} is assumed (Section \ref{CWA-UNA-dependency}).
 
-Validation environments should enable users to select which constraint types to use for completing data by reasoning 
-and which ones should be considered as constraint types about data accuracy and completeness which could be checked over the data once completed using reasoning.
-Therefore, we investigate the effect of reasoning to the validation process of each constraint type, i.e.,
-we examine for each constraint type if reasoning may be performed prior to validation in order to enhance data quality
+We investigated for each constraint type if reasoning may be performed prior to validation in order to enhance data quality
 either (1) by resolving violations or (2) by raising valuable violations.
-For each constraint type we investigate how efficient in terms of runtime validation is performed with and without reasoning.
-Since the combination of \emph{DL} constructs, needed to express a constraint type, determines its computational complexity, 
-by mapping to \emph{DL} we get an idea of the performance for each constraint type in worst case (Section \ref{reasoning}).
-
------
-
-Regarding the performance of constraints, we refer to worst case complexity.
-
------
-
-Using these findings, we are able to determine for the five most common constraint languages which and how many constraint types they are able to express, i.e., we evaluate their constraint type specific expressivity (the evaluation is described in detail in the appendix of this paper) \cite{BoschNolleAcarEckert2015}.
+For each constraint type we examined how efficient in terms of runtime validation is performed with and without reasoning in worst case by mapping each constraint type to \emph{DL} (Section \ref{reasoning}).
+Using these findings, we determined for the five most common constraint languages which constraint types they are able to express, i.e., we evaluated their constraint type specific expressivity.
 
 We use \emph{SPIN}, 
 a \emph{SPARQL}-based way to formulate and check constraints, as basis to develop a
