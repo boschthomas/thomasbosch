@@ -538,7 +538,7 @@ For each constraint type we investigate how efficient in terms of runtime valida
 Since the combination of \emph{DL} constructs, needed to express a constraint type, determines its computational complexity, 
 by mapping to \emph{DL} we get an idea of the performance for each constraint type in worst case (Section \ref{reasoning}).
 
-Using these findings, we are able to determine for the five most common constraint languages which and how many constraint types they are able to express, i.e., we evaluate their constraint type specific expressivity (the evaluation is described in detail in the appendix of this paper) \cite{BoschNolleAcarEckert2015}.
+Using these findings, we are able to determine for the five most common constraint languages which constraint types they are able to express, i.e., we evaluate their constraint type specific expressivity (the evaluation is described in detail in the appendix of this paper \cite{BoschNolleAcarEckert2015}).
  %As we identified three constraint-specific complexity classes in the previous section, we are now able to determine the performance (i.e. complexity) of constraint languages.  It can be beneficial not using the most expressive constraint languages when additional rather subjective criteria are evaluated.
 %We introduce the intuitive notion of \emph{expressivity scores} rather than classical \emph{expressivity}
 %as the list of constraint types is a continuously updated list and almost none (except \emph{SPIN}) of the languages contains one another.
@@ -644,7 +644,7 @@ The following order is derived from the constraint type specific expressivity of
 Having information on the constraint type specific expressivity of constraint languages 
 enables validation environments to recommend the right language to formulate constraints depending on individual use cases.
 These use cases determine which requirements have to be fulfilled and therefore which constraint types have to be expressed to meet these use cases.
-We argue that so far no single best solution exists, since constraint formulation and RDF data validation is not yet implemented in \emph{SPIN}.
+We argue that so far no single best solution exists since constraint formulation and RDF data validation is not yet implemented in \emph{SPIN}.
 By revealing which constraint types are not covered by exiting languages, 
 we give directions for the further development of constraint languages.
 The finding that \emph{SPIN} is the only language which supports all reasoning constraint types 
@@ -656,7 +656,7 @@ nearly 1/2 of the $\overline{\mathcal{R}}$ constraint types, and
 almost all $\mathcal{R}$ constraint types
 are expressible with \emph{OWL 2 DL}.
 Even though, $\mathcal{R}$ constraint types corresponding to \emph{OWL 2 DL} axioms are fully implemented,
-we cannot use them directly for validating RDF data since \emph{OWL 2} and RDF validation assume different semantics, i.e., validation results depend on different underling semantics. 
+we cannot use them directly to validate RDF data since \emph{OWL 2} and RDF validation assume different semantics which leads to differences in results. 
 
 %-----
 %
@@ -1665,12 +1665,12 @@ As we consider ontological reasoning, complexity classes are assigned to sets of
 according to well-established complexity results in literature on reasoning of \emph{DL} languages.
 Therefore, the classification also includes complex logical interferences between TBox axioms.
 
-\begin{itemize}
-  \item \textcolor{red}{Reviewer1: This is wrong that the Tbox axioms ( RDF constraints in this paper) can be classified as it is suggested in Section 3. The reason is that there exist possibly complex logical interferences between them. For instance, even in lightweight DLs such as  DL-Lite, positive inclusions (PIs) can be used to infer negative inclusions (NIs).}
-	\item \textcolor{blue}{question for Erman: Is the reviewer's issue sufficiently tackled by the paragraph before?}
+%\begin{itemize}
+%  \item \textcolor{red}{Reviewer1: This is wrong that the Tbox axioms ( RDF constraints in this paper) can be classified as it is suggested in Section 3. The reason is% that there exist possibly complex logical interferences between them. For instance, even in lightweight DLs such as  DL-Lite, positive inclusions (PIs) can be used to %infer negative inclusions (NIs).}
+%	\item \textcolor{blue}{question for Erman: Is the reviewer's issue sufficiently tackled by the paragraph before?}
 %	\item \textcolor{red}{Erman: we mean ontological reasoning  here, the discussion is done according to well-established complexity results (in literature) on reasoning in particular DL languages, having only those  features used in constraints. Therefore the complex interferences are included. }
 %	\item \textcolor{red}{The first paragraph is confusing. Refer to what? Follows? }
-\end{itemize}
+%\end{itemize}
 
 %{\em Universal quantifications}\footnote{Corresponds to {\em R-91-UNIVERSAL-QUANTIFICATION-ON-PROPERTIES}}
 %contain all those individuals that are connected by a particular property only to individuals that are instances of a specific class.
@@ -2458,7 +2458,7 @@ as $\mathcal{R}$ constraint types are already expressible either by \emph{OWL 2 
 We use \emph{SPIN}, 
 a \emph{SPARQL}-based way to formulate and check constraints, as basis to develop a
 validation environment\footnote{Online demo available at \url{http://purl.org/net/rdfval-demo}, source code available at: \url{https://github.com/boschthomas/rdf-validator}\label{rdf-validator}} to validate RDF data according to constraints expressed by arbitrary constraint languages by mapping them to \emph{SPIN}\footnote{\emph{SPIN} mappings available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/SPIN}\label{spin-mappings}} \cite{BoschEckert2014-2}.
-The \emph{SPIN} engine checks for each resource if it satisfies all constraints, which are associated with classes assigned to the resources, and generates a result RDF graph containing information about all constraint violations.
+The \emph{SPIN} engine checks for each resource if it satisfies all constraints, which are associated with classes assigned to the resource, and generates a result RDF graph containing information about all constraint violations.
 We fully implemented the validation of all constraint types which are expressible by \emph{OWL 2 QL}, \emph{OWL 2 DL}, and \emph{DSP} 
 as well as major constraint types representable by \emph{ReSh} and \emph{ShEx}\footref{spin-mappings}.
 By means of a \emph{property ranges} (\emph{R-28, R-35}) constraint it can be restricted that \emph{author} relations can only point to \emph{persons} (\emph{DL}: {\small\ms{$\top$ $\sqsubseteq$ $\forall$ author.Person,}} \emph{OWL 2 DL}: {\small\ms{author rdfs:range Person.).}}
@@ -2567,7 +2567,6 @@ Reasoning is beneficial for \emph{RDF} validation as
 (1) it may resolve violations, 
 (2) it may cause valuable violations, and 
 (3) it solves the \emph{redundancy} problem (Section \ref{the-role-of-reasoning-for-rdf-validation}).
-
 We published by today 81 requirements to formulate RDF constraints that are required by various stakeholders for data applications.
 Each of these requirements corresponds to a constraint type and is mapped to \emph{DL}
 to determine which \emph{DL} constructs are needed to express each constraint type
@@ -2580,49 +2579,53 @@ For the majority of the constraint types it makes a difference if the \emph{CWA}
 
 We investigated for each constraint type if reasoning may be performed prior to validation in order to enhance data quality
 either (1) by resolving violations or (2) by raising valuable violations.
+For 43.2\% of the constraint types, reasoning may be performed before actually validating the data to improve data quality.
+For 56.8\% of the constraint types, however, reasoning does not improve data quality in any obvious sense.
 For each constraint type we examined how efficient in terms of runtime validation is performed with and without reasoning in worst case by mapping each constraint type to \emph{DL} (Section \ref{reasoning}).
 Using these findings, we determined for the five most common constraint languages which constraint types they are able to express, i.e., we evaluated their constraint type specific expressivity.
+By revealing which constraint types are not covered by exiting languages, 
+we give directions and emphasize the significant role \emph{SPIN} and \emph{OWL 2 DL} play for the future development of constraint languages (Section \ref{motivation}).
 
 We use \emph{SPIN}, 
 a \emph{SPARQL}-based way to formulate and check constraints, as basis to develop a
 validation environment\footref{rdf-validator} to validate RDF data according to constraints expressed by arbitrary constraint languages by mapping them to \emph{SPIN}\footref{spin-mappings} \cite{BoschEckert2014-2}.
-The \emph{SPIN} engine checks for each resource if it satisfies all constraints, which are associated with classes assigned to the resources, and generates a result RDF graph containing information about all constraint violations.
+%The \emph{SPIN} engine checks for each resource if it satisfies all constraints, which are associated with classes assigned to the resource, and generates a result RDF graph containing information about all constraint violations.
 We fully implemented the validation of all constraint types which are expressible by \emph{OWL 2 QL}, \emph{OWL 2 DL}, and \emph{DSP} 
 as well as major constraint types representable by \emph{ReSh} and \emph{ShEx}\footref{spin-mappings}.
-Validation environments should enable users
-(1) to select individual resources for which reasoning should be performed when they are validated against $\mathcal{R}$ constraints,
-(2) to select individual $\mathcal{R}$ constraint types for which reasoning should be executed, and
-(3) to globally determine if for all $\mathcal{R}$ constraint types reasoning should be done. 
-We completely implemented reasoning capabilities for all $\mathcal{R}$ constraint types which are expressible by \emph{OWL 2 QL} and \emph{OWL 2 DL}\footref{spin-mappings}.
+%Validation environments should enable users
+%(1) to select individual resources for which reasoning should be performed when they are validated against $\mathcal{R}$ constraints,
+%(2) to select individual $\mathcal{R}$ constraint types for which reasoning should be executed, and
+%(3) to globally determine if for all $\mathcal{R}$ constraint types reasoning should be done. 
+In addition, we completely implemented reasoning capabilities for all constraint types for which reasoning may improve data quality and which are expressible by \emph{OWL 2 QL} and \emph{OWL 2 DL}\footref{spin-mappings}.
 
 As part of future work we will extend our validator to provide a list of constraint languages for which the expressivity is enough to express selected constraint types.
 The validator may also recommend one of these constraint languages having the highest expressivity score and lowest complexity.
 As reasoning may cause high complexity, the validator may show which constraint types from the user's selection cause the higher complexity class 
 and it may provide solutions how to get to the next lower complexity class. In this regard, it would be charming to have an estimation on which group of constraint types would demand what class of complexity. However, this is not an easy question, since complexity results are language specific and operational semantics is involved as well. Therefore, it is hard to maintain a general complexity result for a constraint type independent of the language chosen. Yet, providing an estimation for particular cases can still be straightforward.
 
-\textcolor{red}{reviews:}
-\begin{itemize}
-	\item \textcolor{red}{logical semantics vs. notation}
-	
-	\begin{itemize}
-			\item 
-\textcolor{red}{This paper makes a confusion between notations and logical semantics.
-It is not clear whether they consider RDF as a notation or as a data model with a logical semantics.
-This makes a lot of difference because several ontological statements can be expressed in RDF notation, even complex OWL inclusion statements. Their logical semantics cannot be ignored, even for the practioners.
-When they write <author, rdfs:range, Person>, this means precisely that they do not have to add explicitly for every triple <uri\_j, author, uri\_k> as many triples <uri\_k, rdf:type, Person>.
-This is the interest of RDF triplestores: to allow incomplete description of data, while allowing reasoning to complete it.
-Section 2 makes complicate this basic property for which a sentence in the introduction would have been sufficient.
-BTW, it is completely misleading to say in introduction  "Reasoning is a promising solution as a pre-validation step to overcome this shortcoming": reasoning must be part of RDF data management as soon as RDFS statements are declared (otherwise, why would they be declared ?).}
-    \item \textcolor{blue}{answer from Erman and Thomas: We use RDF as data model (with intended semantics) when performing reasoning with RDFS/OWL 2 semantics (OWA/nUNA) as well as for RDF validation and not just as a notation. We suggest using RDFS/OWL 2 semantics (OWA, nUNA) when performing reasoning (the original intention of RDFS/OWL 2) and we propose to take multiple languages into account (i.a. OWL 2) with different semantics (CWA, UNA) for the purpose to validate RDF data. Reasoning should be an optional step prior to validation. When reasoning is not wished to be performed, however, then omitted class assignment triples, e.g., must cause constraint violations as they are not intended to be inferred.} 
-		\item \textcolor{blue}{question for Erman: How and where to tackle this issue in our paper?}
-\end{itemize}
+%\textcolor{red}{reviews:}
+%\begin{itemize}
+	%\item \textcolor{red}{logical semantics vs. notation}
+	%
+	%\begin{itemize}
+			%\item 
+%\textcolor{red}{This paper makes a confusion between notations and logical semantics.
+%It is not clear whether they consider RDF as a notation or as a data model with a logical semantics.
+%This makes a lot of difference because several ontological statements can be expressed in RDF notation, even complex OWL inclusion statements. Their logical semantics cannot be ignored, even for the practioners.
+%When they write <author, rdfs:range, Person>, this means precisely that they do not have to add explicitly for every triple <uri\_j, author, uri\_k> as many triples <uri\_k, rdf:type, Person>.
+%This is the interest of RDF triplestores: to allow incomplete description of data, while allowing reasoning to complete it.
+%Section 2 makes complicate this basic property for which a sentence in the introduction would have been sufficient.
+%BTW, it is completely misleading to say in introduction  "Reasoning is a promising solution as a pre-validation step to overcome this shortcoming": reasoning must be part of RDF data management as soon as RDFS statements are declared (otherwise, why would they be declared ?).}
+    %\item \textcolor{blue}{answer from Erman and Thomas: We use RDF as data model (with intended semantics) when performing reasoning with RDFS/OWL 2 semantics (OWA/nUNA) as well as for RDF validation and not just as a notation. We suggest using RDFS/OWL 2 semantics (OWA, nUNA) when performing reasoning (the original intention of RDFS/OWL 2) and we propose to take multiple languages into account (i.a. OWL 2) with different semantics (CWA, UNA) for the purpose to validate RDF data. Reasoning should be an optional step prior to validation. When reasoning is not wished to be performed, however, then omitted class assignment triples, e.g., must cause constraint violations as they are not intended to be inferred.} 
+		%\item \textcolor{blue}{question for Erman: How and where to tackle this issue in our paper?}
+%\end{itemize}
 %	\item While gross numbers give some insight, if the paper listed which
 %problems can be solved by each constraint language, it might allow
 %readers more insight. 
 %  \item Is there a useful grouping of the kinds of
 %restrictions that can be stated by each language?  
 %	\item \textcolor{red}{A reader might want to see some lessons or experiences that could be learned from such a comparative study.}
-\end{itemize}
+%\end{itemize}
 
 %\section{Christian's Feedback}
 %
