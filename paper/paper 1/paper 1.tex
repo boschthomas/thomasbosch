@@ -1649,13 +1649,13 @@ are used to build anonymous classes containing all individuals that are connecte
   rdfs:subClassOf Publication ] .
 \end{ex}
 When performing reasoning, the triples {\small\ms{author(The-Lord-Of-The-Rings,} \ms{Tolkien)}} and {\small\ms{rdf:type(The-Lord-Of-The-Rings, Publication)}} 
-let a reasoner infer that \emph{Tolkien} is a \emph{person}.
+let a reasoner infer that \emph{Tolkien} is a \emph{person} which satisfies the {\em universal quantification}.
 In case reasoning is not executed, a violation is raised
 since it is not explicitly stated that \emph{Tolkien} is a \emph{person}.
-As a consequence, violations on \emph{persons} are not checked for \emph{Tolkien} which prevents further validation. 
+As a consequence, constraints on \emph{persons} are not checked for \emph{Tolkien} which prevents further validation. 
 %and each \emph{publication} can only have \emph{author} relationships to \emph{persons}.
 
-With the more expressive profile \emph{OWL 2 DL}, reasoning is executed in \textsc{N2exptime} \cite{owl2profiles2008} 
+With \emph{OWL 2 DL}, the more expressive profile than \emph{OWL 2 QL}, reasoning is executed in \textsc{N2exptime} \cite{owl2profiles2008} 
 which is a class of considerably higher complexity than \textsc{Ptime}, the complexity class for \emph{OWL 2 QL} reasoning.
 As we consider ontological reasoning, complexity classes are assigned to sets of constraint types 
 according to well-established complexity results in literature on reasoning of \emph{DL} languages.
