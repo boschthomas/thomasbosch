@@ -1435,12 +1435,11 @@ as in both usage scenarios we assume different semantics and therefore validatio
 Validation environments should enable users to select which constraint types to use for completing data by reasoning 
 and which ones should be considered as constraint types about data accuracy and completeness which could be checked over the data once completed using reasoning.
 Therefore, we investigate the effect of reasoning to the validation process of each constraint type, i.e.,
-we examine for each constraint type if reasoning may be performed prior to validation in order to enhance data quality
+we examine for each constraint type if reasoning may be performed prior to validation to enhance data quality
 either (1) by resolving violations or (2) by raising valuable violations.
-
 We denote the whole set of constraint types with $\mathcal{CT}$ which we divide into two disjoint sets: 
 \begin{enumerate}
-\item $\mathcal{R}$ is the set of constraint types for which reasoning may be performed prior to validation (especially when not all the knowledge is explicit) in order to enhance data quality
+\item $\mathcal{R}$ is the set of constraint types for which reasoning may be performed prior to validation (especially when not all the knowledge is explicit) to enhance data quality
 either by resolving violations or by raising valuable violations.
 For $\mathcal{R}$ constraint types, validation is executed by query answering with optional reasoning prior to validation.
 35 (43.2\%) of the overall 81 constraint types are $\mathcal{R}$ constraint types.
@@ -1454,14 +1453,13 @@ For $\overline{\mathcal{R}}$ constraint types, validation is performed by query 
 %corresponds to axioms in \emph{OWL 2}
 If a \emph{journal volume} has an {\em editor} relationship to a \emph{person}, 
 then the \emph{journal volume} must also have a {\em creator} relationship to the same \emph{person} {\small\ms{(editor $\sqsubseteq$ creator),}}i.e., 
-\emph{editor} is a sub property of \emph{creator}.
-If we use \emph{sub properties} (\emph{R-54/64}) without reasoning and the data contains the triple {\small\ms{editor(A+Journal-Volume, A+Editor),}}
-then the triple {\small\ms{creator(A+Journal-Volume, A+Editor)}} has to be stated explicitly.
+\emph{editor} is a sub-property of \emph{creator}.
+If we use \emph{sub-properties} (\emph{R-54/64}) without reasoning and the data contains the triple {\small\ms{editor (A+Journal-Volume, A+Editor),}}
+then the triple {\small\ms{creator (A+Journal-Volume, A+Editor)}} has to be stated explicitly.
 If this triple is not present in the data, a violation occurs.
 If we use \emph{sub-properties} with reasoning, however, the required triple is inferred which resolves the violation.
-{\em Sub properties} is an $\mathcal{R}$ constraint type, 
-since reasoning is performed prior to validation to improve data quality by resolving the violation.
-
+{\em Sub-properties} is an $\mathcal{R}$ constraint type 
+since reasoning may be performed prior to validation to improve data quality by resolving the violation.
 {\em Literal pattern matching} (\emph{R-44}) restricts literals to match given patterns:
 % \er{DL can naturally express datatypes. All you need to do is to define \emph{DroidNumber} as a concrete domain.}\tb{resolved}  
 \begin{ex}
@@ -1475,7 +1473,7 @@ The second \emph{OWL 2} axiom defines {\em ISBN} as an abbreviation for a dataty
 The datatype {\em ISBN} can be used just like any other datatype such as in
 the universal restriction {\small\ms{Book $\sqsubseteq$ $\forall$ identifier.ISBN}} which ensures that \emph{books} can only have valid \emph{ISBN} identifiers, 
 i.e., strings that match a given regular expression. 
-{\em Literal pattern matching} is an $\overline{\mathcal{R}}$ constraint type since reasoning cannot be done.
+{\em Literal pattern matching} is an $\overline{\mathcal{R}}$ constraint type since reasoning cannot be done for this constraint type.
 %\er{This is no OWL.}\tb{resolved}
 %The restriction of the datatype {\em ISBN} is only expressible in \emph{OWL 2 DL},
 %as a data range expression is restricted to the predefined datatypes and the intersection of data ranges in \emph{OWL 2 QL}. 
@@ -1507,19 +1505,17 @@ by mapping to \emph{DL} we get an idea of the performance for each constraint ty
 \label{sec:RDF-validation-requirements-and-reasoning}
 
 $\mathcal{R}$ is the set of constraint types for which reasoning may be performed prior to validation 
-in order to enhance data quality either by resolving violations or by causing useful violations.
+to enhance data quality either by resolving violations or by causing useful violations.
 For $\mathcal{R}$ constraint types, different types of reasoning may be performed
 which depends on the language used to formulate the constraint type. 
 11 of 35 $\mathcal{R}$ constraint types are representable by the less expressive but better performing \emph{OWL 2 QL}.
 23 $\mathcal{R}$ constraint types, in contrast, are not expressible by \emph{OWL 2 QL} and therefore the more expressive but less performing \emph{OWL 2 DL} is used.
 %(in total, 29 0f 32 $\mathcal{R}$ constraint types are representable by \emph{OWL 2 DL}). 
 \emph{OWL 2} profiles are restricted versions of \emph{OWL 2} that offer different trade-offs regarding expressivity vs. efficiency in reasoning. 
-\emph{OWL 2 QL} is an \emph{OWL 2} profile which focuses on reasoning in the context of query answering with very large size of instance data. 
-\emph{OWL 2 QL} is based on the \textit{DL-Lite} family of \emph{DL} \cite{Artale2009,Calvanese2007}.
+\emph{OWL 2 QL}, based on the \textit{DL-Lite} family of \emph{DL} \cite{Artale2009,Calvanese2007}, is an \emph{OWL 2} profile which focuses on reasoning in the context of query answering with very large size of instance data. 
 \emph{OWL 2 DL} was standardized as a \emph{DL}-like formalism with high expressivity, yet maintains decidability for main reasoning tasks.
 As a result of its expressive power, \emph{OWL 2 DL} allows a large variety of sophisticated modeling capabilities for many application domains.
 The drawback of its expressive power results as a lack of computational efficiency in performance. 
-
 With regard to the two different types of reasoning
 we divide $\mathcal{R}$ into two not disjoint sets of constraint types: 
 $\mathcal{R}_{QL}$ $\subseteq$ $\mathcal{R}_{DL}$ (\emph{OWL 2 DL} is more expressive than \emph{OWL 2 QL}).
@@ -1532,8 +1528,8 @@ $\mathcal{R}_{QL}$ $\subseteq$ $\mathcal{R}_{DL}$ (\emph{OWL 2 DL} is more expre
 34 of 35 $\mathcal{R}$ constraint types are $\mathcal{R}_{DL}$ constraint types.
 %which are expressible by \emph{OWL 2 DL} and for which validation is run by query answering with \emph{OWL 2 DL} reasoning.
 \end{enumerate}
-We limit $\mathcal{R}$ to the set of constraint types which can be expressed by \emph{OWL 2 DL}
-($\mathcal{R}$ = $\mathcal{R}_{DL}$), as \emph{OWL 2 DL} is still quite expressive.
+%We limit $\mathcal{R}$ to the set of constraint types which can be expressed by \emph{OWL 2 DL}
+%($\mathcal{R}$ = $\mathcal{R}_{DL}$), as \emph{OWL 2 DL} is still quite expressive.
 Some of these constraint types are also representable by classical constraint languages.
 
 %Reasoning and validation are very closely related. 
@@ -2577,7 +2573,7 @@ since reasoning and therefore \emph{OWL 2} have different semantics than RDF val
 whereas RDF validation has its origin in the XML world and is therefore classically based on the \emph{CWA} and the \emph{UNA}.
 For the majority of the constraint types it makes a difference if the \emph{CWA} or the \emph{OWA} and if the \emph{UNA} or the \emph{nUNA} is assumed (Section \ref{CWA-UNA-dependency}).
 
-We investigated for each constraint type if reasoning may be performed prior to validation in order to enhance data quality
+We investigated for each constraint type if reasoning may be performed prior to validation to enhance data quality
 either (1) by resolving violations or (2) by raising valuable violations.
 For 43.2\% of the constraint types, reasoning may be performed before actually validating the data to improve data quality.
 For 56.8\% of the constraint types, however, reasoning does not improve data quality in any obvious sense.
