@@ -536,9 +536,12 @@ provides the foundational basis for constraint types.
 %\emph{DL} can be used to express constraints like (1) \emph{publications} must have at least one \emph{author} which must be a \emph{person} {\small\ms{(Publication $\sqsubseteq$ $\geq$1 author.Person)}} and
 %(2) \emph{books}, \emph{conference proceedings}, and \emph{journal articles} are \emph{publications} {\small\ms{(Book $\sqcup$} \ms{ConferenceArticle $\sqcup$} \ms{JournalArticle $\sqsubseteq$ Publication)}}. 
 
-For each constraint type we examine if validation results depend on different underlying semantics, 
-especially as 35 (43.2\%) of 81 constraint types 
-correspond to \emph{OWL 2} axioms and as reasoning and therefore \emph{OWL 2} have different semantics than RDF validation (Section \ref{CWA-UNA-dependency}).
+RDF validation and reasoning assume different semantics which may lead to different results when particular constraint types are used for validation and for reasoning. 
+Reasoning requires the {\em closed-world assumption} (\emph{OWA}) with the {\em non-unique name assumption} (\emph{nUNA}), 
+whereas RDF validation is classically based on the {\em closed-world assumption} (\emph{CWA}) and the {\em non-unique name assumption} (\emph{UNA}).
+The distinction of constraint types regarding the dependency on the \emph{CWA} and on the \emph{UNA} is an important aspect when combining reasoning with validation
+since validation and reasoning results depend on the underlying semantics.
+This is the reason why we investigate the behavior in terms of validation results depending on the \emph{CWA} and the \emph{UNA} for each constraint type (Section \ref{CWA-UNA-dependency}).
 
 Using these findings, we are able to determine for the five most common constraint languages which constraint types they are able to express, i.e., we evaluate their constraint type specific expressivity (the evaluation is described in detail in the appendix of this paper \cite{BoschNolleAcarEckert2015}).
  %As we identified three constraint-specific complexity classes in the previous section, we are now able to determine the performance (i.e. complexity) of constraint languages.  It can be beneficial not using the most expressive constraint languages when additional rather subjective criteria are evaluated.
