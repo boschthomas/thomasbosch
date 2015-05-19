@@ -536,14 +536,9 @@ provides the foundational basis for constraint types.
 %\emph{DL} can be used to express constraints like (1) \emph{publications} must have at least one \emph{author} which must be a \emph{person} {\small\ms{(Publication $\sqsubseteq$ $\geq$1 author.Person)}} and
 %(2) \emph{books}, \emph{conference proceedings}, and \emph{journal articles} are \emph{publications} {\small\ms{(Book $\sqcup$} \ms{ConferenceArticle $\sqcup$} \ms{JournalArticle $\sqsubseteq$ Publication)}}. 
 
-\textcolor{red}{eher untergeordnete aspekte: semantics}
-
-\textcolor{red}{
 For each constraint type we examine if validation results depend on different underlying semantics, 
 especially as 35 (43.2\%) of 81 constraint types 
-correspond to \emph{OWL 2} axioms and as reasoning and therefore \emph{OWL 2} have different semantics than RDF validation (Section \ref{CWA-UNA-dependency}).}
-
-\textcolor{red}{tabelle sortieren / es muss klarer sein was das für ein \% ist / zu lang / ordering streichen / merge tables / absolute numbers in brackets}
+correspond to \emph{OWL 2} axioms and as reasoning and therefore \emph{OWL 2} have different semantics than RDF validation (Section \ref{CWA-UNA-dependency}).
 
 Using these findings, we are able to determine for the five most common constraint languages which constraint types they are able to express, i.e., we evaluate their constraint type specific expressivity (the evaluation is described in detail in the appendix of this paper \cite{BoschNolleAcarEckert2015}).
  %As we identified three constraint-specific complexity classes in the previous section, we are now able to determine the performance (i.e. complexity) of constraint languages.  It can be beneficial not using the most expressive constraint languages when additional rather subjective criteria are evaluated.
@@ -588,66 +583,67 @@ $\mathcal{R}$ constraint types are also expressible by other languages.
 %seems to include these values in the ranking: why?}
 %\end{center}
 %\tb{this is indeed a misunderstanding. I only took into account that is DSP supports 6 EXPR-C constraints and OWL 2 DL 5, then DSP is more expressive than OWL 2 DL regarding the expressivity class EXPR-C / but this is not right?}
+%\begin{table}[H]
+	%\centering
+	  %%\caption{Constraint Type Specific Expressivity}
+		%\caption{Overview on the Constraint Type Specific Expressivity of Constraint Languages (Absolute Values)}
+	  %\scriptsize
+		%\begin{tabular}{l|c|c|c}
+      %%\textbf{Expressivity Class} & $Expr(\overline{\mathcal{CT}_R})$ (42) & $Expr(\mathcal{CT}_R)$ (32) \\		
+			%\textbf{} & $\mathcal{CT}$ (81) & $\overline{\mathcal{R}}$ (46) & $\mathcal{R}$ (35) \\	
+      %\hline
+			%\emph{DSP} & 14 & 6 & 8 \\
+			%\emph{OWL2-DL} & 51(4) & 17(4) & 34 \\ 
+			%\emph{OWL2-QL} & 16(4) & 5(4) & 11 \\
+			%\emph{ReSh} & 12(9) & 7 & 5(9) \\
+			%\emph{ShEx} & 23(1) & 12 & 11(1) \\
+			%\emph{SPIN} & 80(1) & 45(1)	& 35
+		%\end{tabular}
+	%\label{tab:constraint-type-specific-expressivity-absolute-values}
+%\end{table}
 \begin{table}[H]
 	\centering
 	  %\caption{Constraint Type Specific Expressivity}
-		\caption{Overview on the Constraint Type Specific Expressivity of Constraint Languages (Absolute Values)}
+		\caption{Overview on the Constraint Type Specific Expressivity of Constraint Languages}
 	  \scriptsize
 		\begin{tabular}{l|c|c|c}
       %\textbf{Expressivity Class} & $Expr(\overline{\mathcal{CT}_R})$ (42) & $Expr(\mathcal{CT}_R)$ (32) \\		
 			\textbf{} & $\mathcal{CT}$ (81) & $\overline{\mathcal{R}}$ (46) & $\mathcal{R}$ (35) \\	
       \hline
-			\emph{DSP} & 14 & 6 & 8 \\
-			\emph{OWL2-DL} & 51(4) & 17(4) & 34 \\ 
-			\emph{OWL2-QL} & 16(4) & 5(4) & 11 \\
-			\emph{ReSh} & 12(9) & 7 & 5(9) \\
-			\emph{ShEx} & 23(1) & 12 & 11(1) \\
-			\emph{SPIN} & 80(1) & 45(1)	& 35
+			\emph{SPIN} & \textbf{100.0} (81) & \textbf{100.0} (46) & \textbf{100.0} (35) \\
+			\emph{OWL2-DL} & 67.9 (55) & 45.7 (21) & \textbf{97.1} (34) \\ 
+			\emph{ShEx} & 29.6 (24) & 26.1 (12) & 34.3 (12) \\
+			\emph{ReSh} & 25.9 (21) & 15.2 (7) & 40.0 (14) \\
+			\emph{OWL2-QL} & 24.7 (20) & 19.6 (9) & 31.4 (11) \\
+			\emph{DSP} & 17.3 (14) & 13.0 (6) & 22.9 (8) 
 		\end{tabular}
-	\label{tab:constraint-type-specific-expressivity-absolute-values}
+	\label{tab:constraint-type-specific-expressivity}
 \end{table}
-\begin{table}[H]
-	\centering
-	  %\caption{Constraint Type Specific Expressivity}
-		\caption{Overview on the Constraint Type Specific Expressivity of Constraint Languages (Percentage Values)}
-	  \scriptsize
-		\begin{tabular}{l|c|c|c}
-      %\textbf{Expressivity Class} & $Expr(\overline{\mathcal{CT}_R})$ (42) & $Expr(\mathcal{CT}_R)$ (32) \\		
-			\textbf{} & $\mathcal{CT}$ (81) & $\overline{\mathcal{R}}$ (46) & $\mathcal{R}$ (35) \\	
-      \hline
-			\emph{DSP} & 17.3 & 13.0 & 22.9 \\
-			\emph{OWL2-DL} & 67.9 & 45.7 & 97.1 \\ 
-			\emph{OWL2-QL} & 24.7 & 19.6 & 31.4 \\
-			\emph{ReSh} & 25.9 & 15.2 & 40.0 \\
-			\emph{ShEx} & 29.6 & 26.1 & 34.3 \\
-			\emph{SPIN} & 100.0 & 100.0 & 100.0
-		\end{tabular}
-	\label{tab:constraint-type-specific-expressivity-percentage-values}
-\end{table}
-Tables \ref{tab:constraint-type-specific-expressivity-absolute-values} and \ref{tab:constraint-type-specific-expressivity-percentage-values} 
-give an overview on the constraint type specific expressivity of the five most common constraint languages.
-For \emph{OWL 2}, we differentiate between the sub-languages \emph{OWL 2 DL} and \emph{OWL 2 QL}, as they differ with regard to expressivity and efficiency in performance (see Section \ref{sec:RDF-validation-requirements-and-reasoning}).
-Table \ref{tab:constraint-type-specific-expressivity-absolute-values} contains the absolute numbers of supported constraint types by constraint language, 
-Table \ref{tab:constraint-type-specific-expressivity-percentage-values} includes appropriate percentage values.
+Table \ref{tab:constraint-type-specific-expressivity} 
+gives an overview on the constraint type specific expressivity of the five most common constraint languages.
+For \emph{OWL 2}, we differentiate between the sub-languages \emph{OWL 2 DL} and \emph{OWL 2 QL}, as they differ with regard to expressivity and efficiency in performance.
+The table shows in percentage values (and absolute numbers in brackets) how many $\mathcal{CT}$, $\mathcal{R}$, and $\overline{\mathcal{R}}$ constraint types are supported 
+by listed constraint languages.
 %In total, there are 42 $\overline{\mathcal{CT}_R}$ and 32 $\mathcal{CT}_R$ constraint types (see Table \ref{tab:constraint-type-specific-expressivity}).
 %In Table \ref{tab:constraint-type-specific-expressivity}, the total amount of constraint types per constraint type specific expressivity is shown by numbers in round brackets in the first column.
-Numbers in brackets (except in table headings) indicate the amount of constraint types 
-which are not expressible by current language constructs but 
-which are representable either by limitations, workarounds, or extensions.
-Percentage values include these constraint types, since it only matters that they are representable by a particular language.
+%Numbers in brackets (except in table headings) indicate the amount of constraint types 
+%which are not expressible by current language constructs but 
+%which are representable either by limitations, workarounds, or extensions.
+%Percentage values include these constraint types, since it only matters that they are representable by a particular language.
 %supported by means of limitations, workarounds, or extensions since these constraint types are still expressible.   
 %\er{One possible misunderstanding (maybe not) is the ordering. It is not only based on the size of the number of the constrains that they satisfies right? For instance, if there are 6 constraints (from EXPR-C) that  DSP satisfies and OWL2-DL  can satisfy lets say only 5 of them but 13 other, in such scenario OWL2 DL and DSP would be incomparable (no ordering). It is more expressive only if it contains those 6 and extras.}
-Covering {\em context-specific exclusive or of properties} (\emph{R-11}) constraints by \emph{OWL 2 DL}, e.g., can be seen as a workaround 
-as anonymous classes are built for each of the exclusive properties (see Section \ref{RDF-Validation-Requirements-without-Reasoning}).
-The following order is derived from the constraint type specific expressivity of constraint languages (including limitations, workarounds, and extensions):
-{\tiny
-\begin{eqnarray*}
-%Expr(\mathcal{C}): ... \\
-\mathcal{CT}: DSP \prec OWL2QL \prec ReSh \prec ShEx \prec OWL2DL \prec SPIN \\
-\overline{\mathcal{R}}: DSP \prec OWL2QL \prec ReSh \prec ShEx \prec OWL2DL \prec SPIN \\
-\mathcal{R}: DSP \prec OWL2QL \prec ShEx \prec ReSh \prec OWL2DL \prec SPIN
-\end{eqnarray*}
-}%
+%Covering {\em context-specific exclusive or of properties} (\emph{R-11}) constraints by \emph{OWL 2 DL}, e.g., can be seen as a workaround 
+%as anonymous classes are built for each of the exclusive properties (see Section \ref{RDF-Validation-Requirements-without-Reasoning}).
+%The following order is derived from the constraint type specific expressivity of constraint languages (including limitations, workarounds, and extensions):
+%{\tiny
+%\begin{eqnarray*}
+%%Expr(\mathcal{C}): ... \\
+%\mathcal{CT}: DSP \prec OWL2QL \prec ReSh \prec ShEx \prec OWL2DL \prec SPIN \\
+%\overline{\mathcal{R}}: DSP \prec OWL2QL \prec ReSh \prec ShEx \prec OWL2DL \prec SPIN \\
+%\mathcal{R}: DSP \prec OWL2QL \prec ShEx \prec ReSh \prec OWL2DL \prec SPIN
+%\end{eqnarray*}
+%}%
+
 Having information on the constraint type specific expressivity of constraint languages 
 enables validation environments to recommend the right language to formulate constraints depending on individual use cases.
 These use cases determine which requirements have to be fulfilled and therefore which constraint types have to be expressed to meet these use cases.
@@ -656,7 +652,8 @@ By revealing which constraint types are not covered by exiting languages,
 we give directions for the further development of constraint languages.
 The finding that \emph{SPIN} is the only language which supports all reasoning constraint types 
 underpins the importance to actually implement reasoning capabilities by \emph{SPIN} (or plain \emph{SPARQL}).
-Furthermore, the fact that all $\mathcal{R}$ constraint types and $\overline{\mathcal{R}}$ constraint types are representable by \emph{SPIN} (if we ignore the constraint type \emph{recursive queries} which is partly implemented in \emph{SPIN}) 
+Furthermore, the fact that all $\mathcal{R}$ and $\overline{\mathcal{R}}$ constraint types are representable by \emph{SPIN} 
+%(if we ignore the constraint type \emph{recursive queries} which is partly implemented in \emph{SPIN}) 
 emphasizes the significant role \emph{SPIN} plays for the future developments in this field.
 Another important role may play \emph{OWL 2 DL} as 2/3 of all constraint types, 
 nearly 1/2 of the $\overline{\mathcal{R}}$ constraint types, and
@@ -1192,10 +1189,9 @@ how to overcome the major shortcomings when validating RDF data by performing re
 \section{Reasoning}
 \label{reasoning}
 
-\textcolor{red}{section motivieren}
-
 In this section, we investigate the role that reasoning plays in practical data validation and 
 how to overcome the major shortcomings when validating RDF data by performing reasoning prior to validation.
+For each constraint type, we investigate the effect of reasoning to the validation process.
 
 %\begin{itemize}
 	%\item advantages and disadvantages of OWL in terms of validation
@@ -1253,8 +1249,8 @@ we conclude that \emph{Mark Twain} is a \emph{person}.
 %The statement \ms{Book $\sqsubseteq \forall$ author.Person } says \emph{Books can have only persons as authors}. 
 %Furthermore, we know that {\em Huckleberry-Finn} is a book  (i.e., \ms{Book(Huckleberry-Finn)}) and Mark Twain is the author of this book (\ms{author(Huckleberry-Finn, Mark-Twain)}.  
 As \emph{Mark Twain} is not explicitly defined to be a \emph{person}, however, a violation is raised.
-(1) Reasoning may resolve violations. If we apply reasoning before validating, the violation is resolved since the implicit triple {\small\ms{Person(Mark-Twain)}} is inferred and therefore made explicitly available. 
-(2) Reasoning may cause additional violations needed to enhance data quality.
+Reasoning may resolve violations (1. benefit). If we apply reasoning before validating, the violation is resolved since the implicit triple {\small\ms{Person(Mark-Twain)}} is inferred and therefore made explicitly available. 
+Reasoning may cause additional violations needed to enhance data quality (2. benefit).
 As \emph{books} are \emph{publications} {\small\ms{(Book $\sqsubseteq$ Publication),}} constraints on \emph{publications} are also validated for \emph{books} 
 %(e.g. each \emph{publication} must have a \emph{publisher}) 
 which may result in further valuable violations.
@@ -1262,7 +1258,10 @@ As each \emph{publication} must have a \emph{publisher}, e.g., a \emph{book} is 
 an additional violation occurs.
 This violation would not have been raised without reasoning before actually validating and 
 thus data quality would not be increased in case the violation is tackled.
-\textcolor{red}{(3) The major shortcoming of classical constraint languages is \emph{redundancy} which is solved by \emph{OWL 2} with its open-world semantics (see first paragraph in Section \ref{motivation}). }
+The major shortcoming of classical constraint languages is \emph{redundancy}.
+If the same constraint should hold for multiple classes, it is required to assign the concerned constraint explicitly to each class.
+The redundancy problem is solved (3. benefit) by associating the constraint with the super-class and applying \emph{OWL 2} reasoning (see first paragraph in Section \ref{motivation}).
+
 %\tb{there is no example for solving redundancy problem / can we use the one of the introduction (just referring to this example in 1 sentence)}
 %\tb{we have no example why R causes new valuable constraint violations}
 
