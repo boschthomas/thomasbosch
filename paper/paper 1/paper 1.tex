@@ -1749,8 +1749,8 @@ for which reasoning does not improve data quality in any obvious sense.
 %
 %Data containing the triples \ms{Yoda a Jedi ; laserSwordColor 'blue'} is valid, 
 %whereas data including the triples \ms{DarthMaul a Jedi ; laserSwordColor 'red'} is invalid.
-With the constraint type {\em context-specific exclusive or of properties} (\emph{R-11}) 
-it can be defined that an individual can either have property \emph{A} or property \emph{B}, but not both.
+{\em Context-specific exclusive or of properties} (\emph{R-11}) is a $\overline{\mathcal{R}}$ constraint type 
+with which it can be defined that an individual of a certain class can either have property \emph{A} or property \emph{B}, but not both.
 Identifiers of \emph{publications}, e.g., can either be ISBNs (for books) or ISSNs (for periodical publications), but it should not be possible to assign both identifiers to a given \emph{publication}:
 %\begin{center}
 %\begin{DL}
@@ -1778,7 +1778,7 @@ CC2 rdfs:subClassOf [ a owl:Restriction ;
     owl:onProperty issn ;
     owl:someValuesFrom xsd:string ] .
 \end{ex}
-Exactly the same constraint can be represented by \emph{ShEx} more intuitively and concisely:
+Exactly the same constraint can be expressed by \emph{ShEx} more intuitively and concisely:
 \begin{ex}
 Publication { ( isbn xsd:string | issn xsd:string ) }
 \end{ex}
@@ -1884,6 +1884,7 @@ It is a common requirement to narrow down the value space of properties by an ex
 %\end{DL}
 %\end{center}
 %}%
+Reasoning on this constraint type does not change validation results and therefore does not improve data quality.
 \emph{Books} on the topics \emph{Computer Science} and \emph{Librarianship}, e.g., should only have \emph{subject} relationships to \emph{ComputerScience} and \emph{Librarianship}.
 The corresponding \emph{DL} statement {\small\ms{Book $\equiv$ $\forall$ subject.\{Computer-Science,Librarianship\}}}
 is representable by \emph{DSP} and \emph{OWL 2 DL}:
@@ -1891,7 +1892,6 @@ is representable by \emph{DSP} and \emph{OWL 2 DL}:
 [ a dsp:DescriptionTemplate ;
   dsp:resourceClass Book ; 
   dsp:statementTemplate [ 
-    dsp:minOccur 0 ; dsp:maxOccur "infinity" ; 
     dsp:property subject ; 
     dsp:nonLiteralConstraint [ 
       dsp:valueURI ComputerScience, Librarianship ] ] ] .
