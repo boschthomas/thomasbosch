@@ -535,7 +535,7 @@ For each constraint type we investigate how efficient in terms of runtime valida
 %We examine the effects of reasoning on the performance, i.e., the computational complexity of constraint types.
 Since the combination of \emph{description logics} (\emph{DL}) constructs, needed to express a constraint type, determines its computational complexity, 
 by mapping to \emph{DL} we get an idea of the performance for each constraint type in worst case (Section \ref{reasoning}).
-For this reason, the appendix of this paper also contains mappings to \emph{DL} to logically underpin each requirement and to determine which \emph{DL} constructs are needed to express each constraint type.
+For this reason, the appendix of this paper contains mappings to \emph{DL} to logically underpin each requirement and to determine which \emph{DL} constructs are needed to express each constraint type.
 Thus, the knowledge representation formalism \emph{DL}, with its well-studied theoretical properties, 
 provides the foundational basis for constraint types. 
 %\emph{DL} can be used to express constraints like (1) \emph{publications} must have at least one \emph{author} which must be a \emph{person} {\small\ms{(Publication $\sqsubseteq$ $\geq$1 author.Person)}} and
@@ -543,7 +543,7 @@ provides the foundational basis for constraint types.
 
 RDF validation and reasoning assume different semantics which may lead to different validation results when applied to particular constraint types. %when particular constraint types are used for validation and for reasoning. 
 Reasoning requires the {\em closed-world assumption} (\emph{OWA}) with the {\em non-unique name assumption} (\emph{nUNA}), 
-whereas RDF validation is classically based on the {\em closed-world assumption} (\emph{CWA}) and the {\em non-unique name assumption} (\emph{UNA}).
+whereas RDF validation is classically based on the {\em closed-world assumption} (\emph{CWA}) and the {\em unique name assumption} (\emph{UNA}).
 Therefore, we investigate for each constraint type if validation results differ (1) if the \emph{CWA} or the \emph{OWA} and (2) if the \emph{UNA} or the \emph{nUNA}
 is assumed, i.e., we examine for each constraint type (1) if the constraint type depends on the \emph{CWA} and (2) if the constraint type depends on the \emph{UNA} (Section \ref{CWA-UNA-dependency}).
 
@@ -652,21 +652,21 @@ by listed constraint languages.
 %}%
 
 Having information on the constraint type specific expressivity of constraint languages 
-enables validation environments to recommend the right language to formulate constraints depending on individual use cases.
+enables validation environments to recommend the right language to formulate constraints depending on the users' individual use cases.
 These use cases determine which requirements have to be fulfilled and therefore which constraint types have to be expressed to meet these use cases.
 %We argue that so far no single best solution exists since constraint formulation and RDF data validation is not yet implemented in \emph{SPIN}.
 %By revealing which constraint types are not covered by exiting languages, 
 %we give directions for the further development of constraint languages.
 The finding that \emph{SPIN} is the only language which supports all reasoning constraint types 
-underpins the importance to actually implement reasoning capabilities by \emph{SPIN} (or plain \emph{SPARQL}).
+underpins the importance to implement reasoning capabilities by \emph{SPIN} (or plain \emph{SPARQL}).
 Furthermore, the fact that all $\mathcal{R}$ and $\overline{\mathcal{R}}$ constraint types are representable by \emph{SPIN} 
 %(if we ignore the constraint type \emph{recursive queries} which is partly implemented in \emph{SPIN}) 
 emphasizes the significant role \emph{SPIN} plays for the future development of constraint languages.
 Another important role may play \emph{OWL 2 DL} as 2/3 of all constraint types, 
 nearly 1/2 of the $\overline{\mathcal{R}}$ constraint types, and
 almost all $\mathcal{R}$ constraint types
-are expressible with \emph{OWL 2 DL}.
-Even though, $\mathcal{R}$ constraint types corresponding to \emph{OWL 2 DL} axioms are fully implemented,
+are expressible by \emph{OWL 2 DL}.
+Even though, $\mathcal{R}$ constraint types corresponding to \emph{OWL 2 DL} axioms are fully implemented when they are used with reasoning,
 we cannot use them directly to validate RDF data since \emph{OWL 2} and RDF validation assume different semantics which leads to differences in results. 
 
 %-----
