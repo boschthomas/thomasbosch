@@ -1510,6 +1510,7 @@ For $\mathcal{R}$ constraint types, different types of reasoning may be performe
 which depends on the language used to formulate the constraint type. 
 11 of 35 $\mathcal{R}$ constraint types are representable by the less expressive but better performing \emph{OWL 2 QL}.
 23 $\mathcal{R}$ constraint types, in contrast, are not expressible by \emph{OWL 2 QL} and therefore the more expressive but less performing \emph{OWL 2 DL} is used.
+Some of the $\mathcal{R}$ constraint types, however, are also representable by classical constraint languages (e.g. 40\% are representable by \emph{ReSh}).
 %(in total, 29 0f 32 $\mathcal{R}$ constraint types are representable by \emph{OWL 2 DL}). 
 \emph{OWL 2} profiles are restricted versions of \emph{OWL 2} that offer different trade-offs regarding expressivity vs. efficiency in reasoning. 
 \emph{OWL 2 QL}, based on the \textit{DL-Lite} family of \emph{DL} \cite{Artale2009,Calvanese2007}, is an \emph{OWL 2} profile which focuses on reasoning in the context of query answering with very large size of instance data. 
@@ -1530,7 +1531,6 @@ $\mathcal{R}_{QL}$ $\subseteq$ $\mathcal{R}_{DL}$ (\emph{OWL 2 DL} is more expre
 \end{enumerate}
 %We limit $\mathcal{R}$ to the set of constraint types which can be expressed by \emph{OWL 2 DL}
 %($\mathcal{R}$ = $\mathcal{R}_{DL}$), as \emph{OWL 2 DL} is still quite expressive.
-Some of these constraint types are also representable by classical constraint languages.
 
 %Reasoning and validation are very closely related. 
 %Reasoning is the process of determining what follows from what has been
@@ -1597,7 +1597,7 @@ With reasoning, on the contrary, the class assignment {\small\ms{rdf:type(Alices
 %Without reasoning, the data \ms{Anakin studentOf Obi-Wan} is invalid and causes a constraint violation, as it is not explicitly stated that \ms{Anakin} is assigned to the class \ms{Jedi}. 
 %When inferencing is performed before validating, the class assignment \ms{Anakin a Jedi} is inferred which prevents the constraint violation to be raised.
 
-Reasoning may cause valuable violations which increase data quality in case the violation is taken into account.
+Reasoning may cause valuable violations which increase data quality in case the violations are taken into account.
 The {\em existential quantification} (\emph{R-86})
 {\small\ms{Publication} \ms{$\equiv$} \ms{$\exists$} \ms{publisher.Publisher}} restricts publications to have at least one publisher: 
 %- which can be expressed in \emph{OWL 2 QL}:
@@ -1607,12 +1607,12 @@ The {\em existential quantification} (\emph{R-86})
   owl:someValuesFrom Publisher ;
   rdfs:subClassOf Publication ] .
 \end{ex}
-If reasoning is executed on the triples {\small\ms{publisher(A+Conference-Proceedings, A+Publisher)} and \ms{rdf:type (A+Publisher, Publisher),}} 
+If reasoning is executed on the triples {\small\ms{publisher (A+Conference-Proceedings, A+Publisher)} and \ms{rdf:type (A+Publisher, Publisher),}} 
 it is inferred that {\em A+Conference-Proceedings} is a {\em publication}.
-Now, all constraints associated with {\em publications} are also validated for {\em A+Conference-Proceedings} (e.g. that \emph{publications} must have at least one \emph{author}).
+Now, all constraints associated with {\em publications} are also validated for {\em A+Conference-Proceedings} - e.g. that \emph{publications} must have at least one \emph{author}.
 Without reasoning, in contrast, the fact that \emph{A+Conference-Proceedings} is a \emph{publication} is not explicit in the data
-which is the reason why constraints on {\em publications} are not validated for \emph{A+Conference-Proceedings}
-and therefore additional violations do not occur which may be useful to enhance data quality. 
+which is the reason why constraints on {\em publications} are not validated for \emph{A+Conference-Proceedings}.
+Hence, additional violations, which may be useful to enhance data quality, do not occur. 
 
 RDF validation with reasoning corresponds to performing \emph{SPARQL} queries. 
 As \emph{OWL 2} profiles are based on the \textit{DL-Lite} family,
@@ -2577,7 +2577,9 @@ We investigated for each constraint type if reasoning may be performed prior to 
 either (1) by resolving violations or (2) by raising valuable violations.
 For 43.2\% of the constraint types, reasoning may be performed before actually validating the data to improve data quality.
 For 56.8\% of the constraint types, however, reasoning does not improve data quality in any obvious sense.
-For each constraint type we examined how efficient in terms of runtime validation is performed with and without reasoning in worst case by mapping each constraint type to \emph{DL} (Section \ref{reasoning}).
+For each constraint type we examined how efficient in terms of runtime validation is performed with and without reasoning in worst case by mapping each constraint type to \emph{DL}.
+For reasoning constraint types, different types of reasoning may be performed
+which depends on the language used to formulate the constraint type (Section \ref{reasoning}).
 Using these findings, we determined for the five most common constraint languages which constraint types they are able to express, i.e., we evaluated their constraint type specific expressivity.
 By revealing which constraint types are not covered by exiting languages, 
 we give directions and emphasize the significant role \emph{SPIN} and \emph{OWL 2 DL} play for the future development of constraint languages (Section \ref{motivation}).
