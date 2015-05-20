@@ -305,11 +305,12 @@ how to overcome the major shortcomings when validating RDF data by performing re
 Based on our work in the DCMI RDF Application Profiles Task Group and in cooperation with the W3C Data Shapes Working Group, 
 we identified and published by today 81 types of constraints that are required by various stakeholders for data applications. 
 For each constraint type we examine
-(1) if validation results depend on different underlying semantics,
-(2) if reasoning may improve data quality, and 
-(3) how efficient in terms of runtime validation is performed with and without reasoning.
-Using these findings, we determine for the most common constraint languages which constraint types they are able to express.
-We argue that so far no single best solution exists and give directions for the further development of constraint languages.
+(1) if reasoning may improve data quality,  
+(2) how efficient in terms of runtime validation is performed with and without reasoning, and
+(3) if validation results depend on underlying semantics which differs between reasoning and validation,
+Using these findings, we determine for the most common constraint languages which constraint types they enable to express
+and give directions for the further development of constraint languages.
+%We argue that so far no single best solution exists and give directions for the further development of constraint languages.
 %\begin{abstract}
 %For data practitioners embracing the world of RDF and Linked Data, the openness and flexibility is a mixed blessing. For them, data validation according to predefined constraints is a  much sought-after feature, particularly as this is taken for granted in the XML world. 
 %Several languages exist to meet this requirement, ranging from using \emph{OWL} as a constraint language to \emph{SPIN}, a SPARQL-based way to formulate and check constraints. 
@@ -547,7 +548,7 @@ whereas RDF validation is classically based on the {\em closed-world assumption}
 Therefore, we investigate for each constraint type if validation results differ (1) if the \emph{CWA} or the \emph{OWA} and (2) if the \emph{UNA} or the \emph{nUNA}
 is assumed, i.e., we examine for each constraint type (1) if the constraint type depends on the \emph{CWA} and (2) if the constraint type depends on the \emph{UNA} (Section \ref{CWA-UNA-dependency}).
 
-Using these findings, we are able to determine for the five most common constraint languages which constraint types they are able to express, i.e., we evaluate their constraint type specific expressivity (the evaluation is described in detail in the appendix of this paper \cite{BoschNolleAcarEckert2015}).
+Using these findings, we are able to determine for the five most common constraint languages which constraint types they enable to express, i.e., we evaluate their constraint type specific expressivity (the evaluation is described in detail in the appendix of this paper \cite{BoschNolleAcarEckert2015}).
  %As we identified three constraint-specific complexity classes in the previous section, we are now able to determine the performance (i.e. complexity) of constraint languages.  It can be beneficial not using the most expressive constraint languages when additional rather subjective criteria are evaluated.
 %We introduce the intuitive notion of \emph{expressivity scores} rather than classical \emph{expressivity}
 %as the list of constraint types is a continuously updated list and almost none (except \emph{SPIN}) of the languages contains one another.
@@ -1124,9 +1125,11 @@ how to overcome the major shortcomings when validating RDF data by performing re
     if reasoning may improve data quality, 
     how efficient in terms of runtime validation is performed with and without reasoning, and
 		if validation results depend on the \emph{CWA} and on the \emph{UNA}.
-(4) We determine for the most common constraint languages which constraint types they are able to express
+(4) We determine for the most common constraint languages which constraint types they enable to express
     and give directions for the further development of constraint languages.
-(5) We implemented the validation of constraint types expressible by common constraint languages and reasoning capabilities for all $\mathcal{R}$ constraint types.
+(5) We provide implementations to actually validate constraint types expressible by common constraint languages and 
+to execute reasoning on all $\mathcal{R}$ constraint types.
+%reasoning capabilities for all $\mathcal{R}$ constraint types.
 	
 %The prerequisite to use \emph{OWL 2} constructs in terms of constraint types, we adopt the same semantics for them (\emph{CWA} and \emph{UNA}) as for RDF validation in general.
 %Therefore, we described the intended behavior of each constraint type in terms of validation results depending on \emph{CWA} and \emph{UNA}.
@@ -2353,7 +2356,9 @@ as $\mathcal{R}$ constraint types are already expressible either by \emph{OWL 2 
 %especially as \textcolor{red}{34} of 82 constraint types correspond to \emph{OWL 2} axioms and as \emph{OWL 2} has different semantics than RDF validation in general.
 %Thus, we determine for each constraint type if it depends on the \emph{CWA} and if it depends on the \emph{UNA}.
 
-Validation and reasoning assume different semantics which may lead to different results when particular constraint types are used for validation and for reasoning.
+ %when particular constraint types are used for validation and for reasoning. 
+
+RDF validation and reasoning assume different semantics.
 Reasoning in \emph{OWL 2} is based on the {\em open-world assumption} (\emph{OWA}), i.e., a statement cannot be inferred to be false if it cannot be proved to be true  which fits its primary design purpose to represent knowledge on the \emph{WWW}. 
 %Most of the constraint languages except OWL, have a major shortcoming of redundancy.
 %With its open-world semantics, used as a constraint language, OWL solves the redundancy problem. 
@@ -2368,8 +2373,8 @@ many RDF validation scenarios require the {\em closed-world assumption} (\emph{C
 Classical constraint languages are based on \emph{CWA} where constraints need to be satisfied only by named individuals. 
 \emph{CWA} yields in return to a violation in the example since there is no explicitly defined \emph{title} for the \emph{book} {\em Hamlet}. 
 Furthermore, \emph{OWL 2} is based on the {\em non-unique name assumption} (\emph{nUNA}) whereas RDF validation requires that different names represent different objects ({\em unique name assumption} (\emph{UNA})). 
-If RDF validation would assuming \emph{OWA} and \emph{nUNA}, validation won’t be that restrictive and therefore we won’t get the intended validation results.
-Although, \emph{DLs/OWL 2} do not assume \emph{UNA}, they have the construct \emph{owl:sameAs} to express when two names are the same or not.
+If RDF validation would assume \emph{OWA} and \emph{nUNA}, validation won’t be that restrictive and therefore we won’t get the intended validation results.
+Although, \emph{DLs/OWL 2} do not assume \emph{UNA}, they have the construct \emph{owl:sameAs} to state that two names are the same or not.
 %There is a clash caused by the functional property {\em title} {\small\ms{(funct (title))}} and the \emph{UNA},
 %since the book {\em Huckleberry-Finn} has more than one title
 %{\small\ms{(title(Huckleberry-Finn, The-Adventures-of-Huckleberry-Finn)}}, {\small\ms{title(Huckleberry-Finn, Die-Abenteuer-des-Huckleberry-Finn))}}.
@@ -2377,10 +2382,14 @@ Although, \emph{DLs/OWL 2} do not assume \emph{UNA}, they have the construct \em
 %This is not a problem if we add the \emph{UNA} to the \emph{OWA}, like in the \textit{DL-Lite} family \cite{Calvanese2007,Artale2009}, which is the basis for \emph{OWL 2 QL}. 
 This ambiguity in semantics is one of the main reasons why \emph{OWL 2} has not been adopted as a standard constraint language for RDF validation in the past.
 
-The distinction of constraint types regarding the dependency on the \emph{CWA} and on the \emph{UNA} is an important aspect when combining reasoning with validation
-since validation and reasoning results depend on underlying semantics.
-As 35 of 81 constraint types correspond to \emph{OWL 2} axioms and as \emph{OWL 2} has different semantics than RDF validation, 
-we investigate their behavior in terms of validation results in different semantic settings. 
+RDF validation and reasoning assume different semantics which may lead to different validation results when applied to particular constraint types.
+Hence, we investigate for each constraint type if validation results differ (1) if the \emph{CWA} or the \emph{OWA} and (2) if the \emph{UNA} or the \emph{nUNA}
+is assumed, i.e., we examine for each constraint type (1) if the constraint type depends on the \emph{CWA} and (2) if the constraint type depends on the \emph{UNA}.
+
+%The distinction of constraint types regarding the dependency on the \emph{CWA} and on the \emph{UNA} is an important aspect when combining reasoning with validation
+%since validation and reasoning results depend on underlying semantics.
+%As 35 of 81 constraint types correspond to \emph{OWL 2} axioms and as \emph{OWL 2} has different semantics than RDF validation, 
+%we investigate their behavior in terms of validation results in different semantic settings. 
 %\emph{OWL 2} reasoning requires the \emph{OWA} with the \emph{nUNA} 
 %whereas RDF validation has its origin in the XML world and is therefore classically based on the \emph{CWA} and the \emph{UNA}.
 %We classify constraint types according to the dependency on the CWA with UNA; (1) $\mathcal{C}_{CWA}$ which is  the set of constraint types dependent on the CWA with UNA,  and (2) $\overline{\mathcal{C}_{CWA}}$, its complement (set of constraint types independent on the CWA with UNA).  
@@ -2395,8 +2404,7 @@ we investigate their behavior in terms of validation results in different semant
  %Nothing can be a \emph{book} and a \emph{journal article}  at the same time (\ms{Book $\sqcap$ JournalArticle $\sqsubseteq$ $\perp$}).
 %For this {\em disjoint classes} constraint, it does not make any difference if the CWA/UNA or the OWA/nUNA semantics is taken,
 %as all information needed for validation is explicitly available in both cases. 
-We classify constraint types according to the dependency on the \emph{CWA} and the \emph{UNA} which leads to four sets of constraint types:
-
+We classify constraint types according to the dependency on the \emph{CWA} and on the \emph{UNA} which leads to four sets of constraint types:
 (1) $\mathcal{CWA}$ denotes the set of constraint types which are dependent on the \emph{CWA},
 	i.e., the set of constraint types for which it makes a difference if the \emph{CWA} or the \emph{OWA} is assumed.
 {\em Minimum qualified cardinality restrictions} (\emph{R-75}) is a $\mathcal{CWA}$ constraint type, i.e., depends on the \emph{CWA}.
