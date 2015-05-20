@@ -2611,6 +2611,10 @@ to determine which \emph{DL} constructs are needed to express each constraint ty
 and therefore to provide their foundational basis \cite{BoschNolleAcarEckert2015}.
 
 %Reasoning and validation are closely related.
+In order to realize interoperable solutions for data validation,
+(1) a standard constraint language has to be developed, 
+(2) it is needed to reply on the same underlying semantics, and 
+(3) it must be determined if reasoning should be involved in the validation process.
 We investigated the role that reasoning plays in practical data validation and 
 how to overcome the major shortcomings when validating RDF data by performing reasoning prior to validation.
 Reasoning is beneficial for \emph{RDF} validation as 
@@ -2664,15 +2668,6 @@ The validation environment may also recommend one of these languages which cover
 As reasoning may cause high complexity and thus bad performance, the validator may show which constraint types from the users' selections cause the higher complexity class 
 and may provide solutions how to get to the next lower complexity class. 
 In this regard, it would be charming to have an estimation on which group of constraint types would demand what class of complexity. However, this is not an easy question, since complexity results are language specific and operational semantics is involved as well. Therefore, it is hard to maintain a general complexity result for a constraint type independent of the language chosen. Yet, providing an estimation for particular cases can still be straightforward.
-
------
-
-
-
-Interoperable solutions for data validation can only work if, in addition to the selection of a standard constraint language,
-the underlying semantics are determined and if it is determined if reasoning should be executed. 
-
------
 
 %\textcolor{red}{reviews:}
 %\begin{itemize}
