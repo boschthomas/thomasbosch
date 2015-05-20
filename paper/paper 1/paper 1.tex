@@ -2623,13 +2623,11 @@ For 56.8\% of the constraint types, however, reasoning cannot be done or does no
 For each constraint type we examined how efficient in terms of runtime validation is performed with and without reasoning in worst case by mapping them to \emph{DL}.
 The type of reasoning which may be performed on constraint types
 depends on the language used to formulate constraint types (Section \ref{reasoning}).
-
 %For each constraint type, we investigated if validation results depend on the \emph{CWA} and on the \emph{UNA}
 %since reasoning and therefore \emph{OWL 2} have different semantics than RDF validation.
 %\emph{OWL 2} reasoning requires the \emph{OWA} with the \emph{nUNA} 
 %whereas RDF validation is classically based on the \emph{CWA} and the \emph{UNA}.
 %For the majority of the constraint types it makes a difference if the \emph{CWA} or the \emph{OWA} and if the \emph{UNA} or the \emph{nUNA} is assumed (Section \ref{CWA-UNA-dependency}).
-
 RDF validation and reasoning assume different semantics which may lead to different validation results when applied to particular constraint types. %when particular constraint types are used for validation and for reasoning. 
 \emph{OWL 2} reasoning requires the \emph{OWA} with the \emph{nUNA}, 
 whereas RDF validation is based on the \emph{CWA} and the \emph{UNA}.
@@ -2637,33 +2635,24 @@ Therefore, we investigate for each constraint type
 (1) if the constraint type depends on the \emph{CWA} and (2) if the constraint type depends on the \emph{UNA}.
 For the majority of the constraint types it makes a difference if the \emph{CWA} or the \emph{OWA} and if the \emph{UNA} or the \emph{nUNA} is assumed (Section \ref{CWA-UNA-dependency}).
 
------
-
-SPARQL is generally seen as the method of choice to validate data according to certain constraints, although it is not ideal for their formulation. 
-In contrast, more intuitive and concise constraint languages are comparatively easy to understand, can be placed on top of SPARQL 
-but lack an implementation to validate RDF data.
-
-SPARQL and SPIN are powerful and widely used for constraint formulation and validation \cite{Fuerber2010}, but constraints formulated as SPARQL queries are not as understandable as one wishes them to be.
-
-SPARQL is a very good basis for the implementation of constraint languages
-
 Using these findings, we determined for the five most common constraint languages which constraint types they enable to express.
 By revealing which constraint types are not covered by exiting languages, 
 we give directions and emphasize the significant role \emph{SPIN} and \emph{OWL 2 DL} play for the future development of constraint languages (Section \ref{motivation}).
+\emph{SPARQL} is generally seen as the method of choice to validate data according to certain constraints \cite{Fuerber2010}, 
+although it is not ideal for their formulation. 
+In contrast, constraint languages, which may be placed on top of \emph{SPARQL}, are comparatively easy to understand and constraints can be formulated more concisely. 
 We use \emph{SPIN}, 
 a \emph{SPARQL}-based way to formulate and check constraints, as basis to develop a
 validation environment\footref{rdf-validator} to validate RDF data according to constraints expressed by arbitrary constraint languages by mapping them to \emph{SPIN}\footref{spin-mappings} \cite{BoschEckert2014-2}.
 %The \emph{SPIN} engine checks for each resource if it satisfies all constraints, which are associated with classes assigned to the resource, and generates a result RDF graph containing information about all constraint violations.
-We provide implementations to actually validate constraints of all constraint types expressible by \emph{OWL 2 QL}, \emph{OWL 2 DL}, and \emph{DSP} 
-as well as constraints of major constraint types representable by \emph{ReSh} and \emph{ShEx}\footref{spin-mappings}.
+%We provide implementations to actually validate constraints of all constraint types expressible by \emph{OWL 2 QL}, \emph{OWL 2 DL}, and \emph{DSP} 
+%as well as constraints of major constraint types representable by \emph{ReSh} and \emph{ShEx}\footref{spin-mappings}.
 %Validation environments should enable users
 %(1) to select individual resources for which reasoning should be performed when they are validated against $\mathcal{R}$ constraints,
 %(2) to select individual $\mathcal{R}$ constraint types for which reasoning should be executed, and
 %(3) to globally determine if for all $\mathcal{R}$ constraint types reasoning should be done. 
-In addition, we implemented reasoning capabilities for all constraint types for which \emph{OWL 2 QL} and \emph{OWL 2 DL} reasoning may be performed to improve data quality\footref{spin-mappings}.
-We provide these open source validation and reasoning implementations of constraint types to use them as a basis to drive the further development of constraint languages (Section \ref{implementation}).
-
------
+%In addition, we implemented reasoning capabilities for all constraint types for which \emph{OWL 2 QL} and \emph{OWL 2 DL} reasoning may be performed to improve data quality\footref{spin-mappings}.
+We provide open source validation and reasoning implementations of constraint types to use them as a basis to drive the further development of constraint languages (Section \ref{implementation}).
 
 As part of future work we extend the \emph{RDF Validator} to provide a list of languages for which the expressivity is enough to express selected constraint types
 depending on users' individual needs.
