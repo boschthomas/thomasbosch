@@ -500,8 +500,11 @@ in which we explain each requirement/constraint type in detail and give examples
 
 %\textcolor{red}{je 1 Absatz warum wichtig / askepte von reasoning - semantics - expressivity vs. performance }
 
-\textcolor{red}{Übergang}
-
+Validation and reasoning are closely related.
+Reasoning is beneficial for \emph{RDF} validation as 
+(1) it may resolve constraint violations, 
+(2) it may cause valuable violations, and 
+(3) it solves the \emph{redundancy} problem. 
 A major shortcoming when validating RDF data is \emph{redundancy}.
 %\emph{Reasoning} is a promising solution as pre-validation step to overcome this weakness. Reasoning (logical) is used in order to make the implicit knowledge explicit 
 %(e.g., as books are publications and {\em Foundations of Semantic Web Technologies} is a book, it is also a publication). 
@@ -516,10 +519,6 @@ Reasoning is a promising solution as pre-validation step to overcome this shortc
 When performing reasoning one can infer that \emph{books} must have a \emph{publication date} 
 from the facts that \emph{books} are \emph{publications} and \emph{publications} must have a \emph{publications date}.  
 We remove redundancy by associating the constraint with the super-class \emph{publication}.
-Reasoning is beneficial for \emph{RDF} validation as 
-(1) it may resolve constraint violations, 
-(2) it may cause valuable violations, and 
-(3) it solves the \emph{redundancy} problem. 
 %In this paper, we investigate the role that reasoning plays in practical data validation and 
 %how to overcome the major shortcomings when validating RDF data by performing reasoning prior to validation.
 
