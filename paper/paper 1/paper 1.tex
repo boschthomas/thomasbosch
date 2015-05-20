@@ -1144,9 +1144,10 @@ how to overcome the major shortcomings when validating RDF data by performing re
 		if validation results depend on the \emph{CWA} and on the \emph{UNA}.
 (4) We determine for the most common constraint languages which constraint types they enable to express
     and give directions for the further development of constraint languages.
-(5) We provide implementations to actually validate constraints of constraint types expressible by common constraint languages and 
-to execute reasoning according to all $\mathcal{R}$ constraint types before validating.
+%(5) We provide implementations to actually validate constraints of constraint types expressible by common constraint languages and 
+%to execute reasoning according to all $\mathcal{R}$ constraint types before validating.
 %reasoning capabilities for all $\mathcal{R}$ constraint types.
+(5) We provide open source validation and reasoning implementations of constraint types to use them as a basis to drive the further development of constraint languages (Section \ref{implementation}).
 	
 %The prerequisite to use \emph{OWL 2} constructs in terms of constraint types, we adopt the same semantics for them (\emph{CWA} and \emph{UNA}) as for RDF validation in general.
 %Therefore, we described the intended behavior of each constraint type in terms of validation results depending on \emph{CWA} and \emph{UNA}.
@@ -2607,19 +2608,22 @@ The first solution is applied on local knowledge bases whereas the second is mor
 We published by today 81 requirements to formulate RDF constraints that are required by various stakeholders for data applications.
 Each of these requirements corresponds to a constraint type which is mapped to \emph{DL}
 to determine which \emph{DL} constructs are needed to express each constraint type
-and therefore to provide the foundational basis for constraint types \cite{BoschNolleAcarEckert2015}.
+and therefore to provide their foundational basis \cite{BoschNolleAcarEckert2015}.
 
+%Reasoning and validation are closely related.
 We investigated the role that reasoning plays in practical data validation and 
 how to overcome the major shortcomings when validating RDF data by performing reasoning prior to validation.
 Reasoning is beneficial for \emph{RDF} validation as 
 (1) it may resolve violations, 
 (2) it may cause valuable violations, and 
-(3) it solves the \emph{redundancy} problem.
-Therefore, 
-we investigated for each constraint type if reasoning may be performed prior to validation to enhance data quality
+(3) it solves the redundancy problem.
+Users should be enabled to select which constraint types to consider for completing data by reasoning before data is validated against constraints of these constraint types 
+and which ones should be used to ensure data accuracy and completeness which could be checked over the data once completed using reasoning.
+Therefore, we investigated for each constraint type if reasoning may be performed prior to validation to enhance data quality
 either (1) by resolving violations or (2) by raising valuable violations.
 For 43.2\% of the constraint types, reasoning may be performed before actually validating the data to improve data quality.
 For 56.8\% of the constraint types, however, reasoning cannot be done or does not improve data quality in any obvious sense.
+
 For each constraint type we examined how efficient in terms of runtime validation is performed with and without reasoning in worst case by mapping them to \emph{DL}.
 The type of reasoning which may be performed on constraint types
 depends on the language used to formulate constraint types (Section \ref{reasoning}).
@@ -2663,8 +2667,7 @@ In this regard, it would be charming to have an estimation on which group of con
 
 -----
 
-Reasoning and validation are closely related.
-When constraints are defined one has to determine if reasoning should be executed.
+
 
 Interoperable solutions for data validation can only work if, in addition to the selection of a standard constraint language,
 the underlying semantics are determined and if it is determined if reasoning should be executed. 
