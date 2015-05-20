@@ -504,7 +504,7 @@ Validation and reasoning are closely related.
 Reasoning is beneficial for \emph{RDF} validation as 
 (1) it may resolve constraint violations, 
 (2) it may cause valuable violations, and 
-(3) it solves the \emph{redundancy} problem. 
+(3) it solves the redundancy problem. 
 A major shortcoming when validating RDF data is \emph{redundancy}.
 %\emph{Reasoning} is a promising solution as pre-validation step to overcome this weakness. Reasoning (logical) is used in order to make the implicit knowledge explicit 
 %(e.g., as books are publications and {\em Foundations of Semantic Web Technologies} is a book, it is also a publication). 
@@ -1228,10 +1228,10 @@ In general, \emph{RDF} documents follow the syntactic structure and semantics of
 %\emph{DL} can be used to express constraints like (1) \emph{publications} must have at least one \emph{author} which must be a \emph{person} {\small\ms{(Publication $\sqsubseteq$ $\geq$1 author.Person)}} and
 %(2) \emph{books}, \emph{conference proceedings}, and \emph{journal articles} are \emph{publications} {\small\ms{(Book $\sqcup$} \ms{ConferenceArticle $\sqcup$} \ms{JournalArticle $\sqsubseteq$ Publication)}}. 
 
-Reasoning is beneficial for \emph{RDF} validation as 
+Reasoning is beneficial for RDF validation as 
 (1) it may resolve constraint violations, 
 (2) it may cause useful violations, and 
-(3) it solves the \emph{redundancy} problem. 
+(3) it solves the redundancy problem. 
 Consider the following \emph{DL} knowledge base $\mathcal{K}$ - a \emph{DL} knowledge base is a collection of formal statements  which correspond to \emph{facts} or  \emph{what is known} explicitly:
 {\scriptsize
 \begin{center}
@@ -1275,7 +1275,7 @@ As each \emph{publication} must have a \emph{publisher}, e.g., a \emph{book} is 
 a violation occurs.
 This violation would not have been raised without reasoning before actually validating and 
 thus data quality would not be increased in case the violation is tackled.
-The major shortcoming of classical constraint languages is \emph{redundancy}.
+The major shortcoming of classical constraint languages is redundancy.
 If a particular constraint should hold for multiple classes, it is required to assign the concerned constraint explicitly to each class.
 The redundancy problem is solved (3. benefit) by associating the constraint with the super-class of these classes and applying \emph{OWL 2} reasoning (see second paragraph in Section \ref{motivation}).
 
