@@ -490,7 +490,7 @@ further research and development is needed.
 
 Based on our work in the \emph{DCMI RDF Application Profiles Task Group} and in cooperation with the \emph{W3C Data Shapes Working Group}, 
 we identified and published by today 81 requirements to formulate RDF constraints that are required by various stakeholders for data applications.
-Each of these requirements corresponds to a constraint type from which concrete constraints are instantiated to be checked against RDF data.
+Each of these requirements corresponds to a constraint type from which concrete constraints are instantiated to be checked on RDF data.
 Requirements/constraint types are uniquely identified by alphanumeric technical identifiers.
 \emph{Minimum qualified cardinality restrictions} (\emph{R-75}) is an example of a constraint type which corresponds to the requirement {\small\emph{R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES}}. 
 We recently published a technical report \cite{BoschNolleAcarEckert2015}
@@ -1266,17 +1266,17 @@ we conclude that \emph{Mark Twain} is a \emph{person}.
 %Furthermore, we know that {\em Huckleberry-Finn} is a book  (i.e., \ms{Book(Huckleberry-Finn)}) and Mark Twain is the author of this book (\ms{author(Huckleberry-Finn, Mark-Twain)}.  
 As \emph{Mark Twain} is not explicitly defined to be a \emph{person}, however, a violation is raised.
 Reasoning may resolve violations (1. benefit). If we apply reasoning before validating, the violation is resolved since the implicit triple {\small\ms{Person(Mark-Twain)}} is inferred and therefore made explicitly available. 
-Reasoning may cause additional violations needed to enhance data quality (2. benefit).
+Reasoning may cause additional violations needed to enhance data quality when these violations are resolved (2. benefit).
 As \emph{books} are \emph{publications} {\small\ms{(Book $\sqsubseteq$ Publication),}} constraints on \emph{publications} are also validated for \emph{books} 
 %(e.g. each \emph{publication} must have a \emph{publisher}) 
 which may result in further valuable violations.
 As each \emph{publication} must have a \emph{publisher}, e.g., a \emph{book} is a \emph{publication}, {\em Huckleberry-Finn} is a \emph{book}, and {\em Huckleberry-Finn} does not have a \emph{publisher}, 
-an additional violation occurs.
+a violation occurs.
 This violation would not have been raised without reasoning before actually validating and 
 thus data quality would not be increased in case the violation is tackled.
 The major shortcoming of classical constraint languages is \emph{redundancy}.
-If the same constraint should hold for multiple classes, it is required to assign the concerned constraint explicitly to each class.
-The redundancy problem is solved (3. benefit) by associating the constraint with the super-class and applying \emph{OWL 2} reasoning (see first paragraph in Section \ref{motivation}).
+If a particular constraint should hold for multiple classes, it is required to assign the concerned constraint explicitly to each class.
+The redundancy problem is solved (3. benefit) by associating the constraint with the super-class of these classes and applying \emph{OWL 2} reasoning (see second paragraph in Section \ref{motivation}).
 
 %\tb{there is no example for solving redundancy problem / can we use the one of the introduction (just referring to this example in 1 sentence)}
 %\tb{we have no example why R causes new valuable constraint violations}
