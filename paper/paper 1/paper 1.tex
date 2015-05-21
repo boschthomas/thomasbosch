@@ -2620,9 +2620,9 @@ either (1) by resolving violations or (2) by raising valuable violations.
 For 43.2\% of the constraint types, reasoning may be performed before actually validating to improve data quality.
 For 56.8\% of the constraint types, however, reasoning cannot be done or does not improve data quality in any obvious sense.
 
-For each constraint type we examined how efficient in terms of runtime validation is performed with and without reasoning in worst case by mapping them to \emph{DL}.
-The type of reasoning which may be performed on constraint types
-depends on the language used to formulate constraint types (Section \ref{reasoning}).
+For each constraint type, we examined how efficient in terms of runtime validation is performed with and without reasoning in worst case.
+We mapped constraint types to \emph{DL}
+since the combination of \emph{DL} constructs, needed to express a constraint type, determines its computational complexity (Section \ref{reasoning}).
 %For each constraint type, we investigated if validation results depend on the \emph{CWA} and on the \emph{UNA}
 %since reasoning and therefore \emph{OWL 2} have different semantics than RDF validation.
 %\emph{OWL 2} reasoning requires the \emph{OWA} with the \emph{nUNA} 
