@@ -1663,14 +1663,14 @@ $\mathcal{K}=\{$ \\
 \end{DL}
 \end{center}
 }%
-Representing this constraint by \emph{OWL 2 DL} can be seen as a workaround 
-as anonymous classes are built for each of the exclusive properties:
+This constraint can be represented by \emph{OWL 2 DL} by building an
+anonymous class for each exclusive property:
 \begin{ex}
-Publication owl:disjointUnionOf ( CC1 CC2 ) . 
-CC1 rdfs:subClassOf [ a owl:Restriction ;
+Publication owl:disjointUnionOf ( C1 C2 ) . 
+C1 rdfs:subClassOf [ a owl:Restriction ;
     owl:onProperty isbn ;
     owl:someValuesFrom xsd:string ] .
-CC2 rdfs:subClassOf [ a owl:Restriction ;
+C2 rdfs:subClassOf [ a owl:Restriction ;
     owl:onProperty issn ;
     owl:someValuesFrom xsd:string ] .
 \end{ex}
@@ -1801,7 +1801,12 @@ subject rdfs:range [ owl:equivalentClass [ a owl:Class;
 
 RDF validation without reasoning corresponds to performing \emph{SPARQL} queries.  
 It is known that performing \emph{SPARQL} queries is carried out in \textsc{Pspace}-Complete \cite{Perez2009}. 
-Table \ref{tab:constraint-type-specific-complexity-classes} gives an overview over the complexity of RDF validation with and without reasoning prior to validation.
+Table \ref{tab:constraint-type-specific-complexity-classes} gives an overview over the complexity of validation with and without reasoning.
+The higher the complexity class the worse the performance.
+The order of the complexity classes is the following\cite{Arora:2009:CCM:1540612}:
+\begin{eqnarray*}
+\textsc{LogSpace} \subseteq \textsc{Ptime} \subseteq \textsc{Pspace-}\text{Complete} \subseteq \textsc{N2exptime} 
+\end{eqnarray*}
 %Since reasoning makes difference  for some validation types, we note them with the computational complexity of the language their associated constraint types are expressed in.
 \begin{table}[H]
 \centering
@@ -1819,13 +1824,9 @@ $\mathcal{R}_{DL}$ & \textsc{N2exptime} \\[7pt]
 \end{tabular}
 \label{tab:constraint-type-specific-complexity-classes}
 \end{table}
-The relation between the complexity classes is \cite{Arora:2009:CCM:1540612}:
-\begin{eqnarray*}
-\textsc{LogSpace} \subseteq \textsc{Ptime} \subseteq \textsc{Pspace-}\text{Complete} \subseteq \textsc{N2exptime} 
-\end{eqnarray*}
 We do not consider \emph{OWL 2 Full} 
 due to its high worst case complexity (undecidability) and
-as $\mathcal{R}$ constraint types are already expressible either by \emph{OWL 2 QL} or \emph{OWL 2 DL} (except one constraint type).
+as all (except of one) $\mathcal{R}$ constraint types are already expressible either by \emph{OWL 2 QL} or \emph{OWL 2 DL}.
 
 %name "keyword" ; propertyDefinition keyword ; valueType xsd:string ;
 
