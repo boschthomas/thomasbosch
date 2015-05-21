@@ -1369,7 +1369,7 @@ The second \emph{OWL 2} axiom defines {\em ISBN} as an abbreviation for a dataty
 The datatype {\em ISBN} can be used just like any other datatype such as in
 the universal restriction {\small\ms{Book $\sqsubseteq$ $\forall$ identifier.ISBN}} which ensures that \emph{books} can only have valid \emph{ISBN} identifiers, 
 i.e., strings that match a given regular expression. 
-{\em Literal pattern matching} is an $\overline{\mathcal{R}}$ constraint type since reasoning cannot be done for this constraint type.
+{\em Literal pattern matching} is an $\overline{\mathcal{R}}$ constraint type since reasoning cannot be done.
 %\er{This is no OWL.}\tb{resolved}
 %The restriction of the datatype {\em ISBN} is only expressible in \emph{OWL 2 DL},
 %as a data range expression is restricted to the predefined datatypes and the intersection of data ranges in \emph{OWL 2 QL}. 
@@ -1406,7 +1406,7 @@ For $\mathcal{R}$ constraint types, different types of reasoning may be performe
 which depends on the language used to formulate the constraint type. 
 11 of 35 $\mathcal{R}$ constraint types are representable by the less expressive but better performing \emph{OWL 2 QL}.
 23 $\mathcal{R}$ constraint types, in contrast, are not expressible by \emph{OWL 2 QL} and therefore the more expressive but less performing \emph{OWL 2 DL} is used.
-Some of the $\mathcal{R}$ constraint types, however, are also representable by classical constraint languages (e.g. 40\% are representable by \emph{ReSh}).
+Some of the $\mathcal{R}$ constraint types, however, are also representable by classical constraint languages (e.g., 40\% are representable by \emph{ReSh}).
 %(in total, 29 0f 32 $\mathcal{R}$ constraint types are representable by \emph{OWL 2 DL}). 
 \emph{OWL 2} profiles are restricted versions of \emph{OWL 2} that offer different trade-offs regarding expressivity vs. efficiency in reasoning. 
 \emph{OWL 2 QL}, based on the \textit{DL-Lite} family of \emph{DL} \cite{Artale2009,Calvanese2007}, is an \emph{OWL 2} profile which focuses on reasoning in the context of query answering with very large size of instance data. 
@@ -1505,7 +1505,7 @@ The {\em existential quantification} (\emph{R-86})
 \end{ex}
 If reasoning is executed on the triples {\small\ms{publisher (A+Conference-Proceedings, A+Publisher)} and \ms{rdf:type (A+Publisher, Publisher),}} 
 it is inferred that {\em A+Conference-Proceedings} is a {\em publication}.
-Now, all constraints associated with {\em publications} are also validated for {\em A+Conference-Proceedings} - e.g. that \emph{publications} must have at least one \emph{author}.
+Now, all constraints associated with {\em publications} are also validated for {\em A+Conference-Proceedings} - e.g., that \emph{publications} must have at least one \emph{author}.
 Without reasoning, in contrast, the fact that \emph{A+Conference-Proceedings} is a \emph{publication} is not explicit in the data
 which is the reason why constraints on {\em publications} are not validated for \emph{A+Conference-Proceedings}.
 Hence, additional violations, which may be useful to enhance data quality, do not occur. 
@@ -1514,7 +1514,7 @@ RDF validation with reasoning corresponds to performing \emph{SPARQL} queries.
 As \emph{OWL 2} profiles are based on the \textit{DL-Lite} family,
 \emph{OWL 2 QL} is based on \textit{DL-Lit}$e_R$,
 and query answering in \emph{OWL 2 QL} is performed in \textsc{LogSpace} (or rather in \emph{AC$^0$}) \cite{Calvanese2007}, the same complexity class applies for
-constraint validation by queries with reasoning.
+validation by queries with reasoning.
 As TBox reasoning in \emph{OWL 2 QL} is performed in \textsc{Ptime} \cite{Calvanese2007}, 
 complete query rewriting as well as reasoning and subsequent querying (combined complexity) is carried out in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  
 
