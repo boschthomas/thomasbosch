@@ -2618,7 +2618,7 @@ and which ones should be used to ensure data accuracy and completeness which cou
 Therefore, we investigated for each constraint type if reasoning may be performed prior to validation to enhance data quality
 either (1) by resolving violations or (2) by raising valuable violations.
 For 43.2\% of the constraint types, reasoning may be performed before actually validating to improve data quality.
-For 56.8\% of the constraint types, however, reasoning cannot be done or does not improve data quality in any obvious sense.
+For 56.8\% of the constraint types, however, reasoning cannot be done or does not improve data quality in any obvious sense (Section \ref{reasoning}).
 
 For each constraint type, we examined how efficient in terms of runtime validation is performed with and without reasoning in worst case.
 We mapped constraint types to \emph{DL}
@@ -2639,7 +2639,7 @@ Using these findings, we determined for the five most common constraint language
 By revealing which constraint types are not covered by exiting languages, 
 we give directions and emphasize the significant role \emph{SPIN} and \emph{OWL 2 DL} play for the future development of constraint languages (Section \ref{motivation}).
 \emph{SPARQL} is generally seen as the method of choice to validate data according to certain constraints \cite{Fuerber2010}, 
-although it is not ideal for their formulation. 
+although, it is not ideal for their formulation. 
 In contrast, constraint languages, which may be placed on top of \emph{SPARQL}, are comparatively easy to understand and constraints can be formulated more concisely. 
 We use \emph{SPIN}, 
 a \emph{SPARQL}-based way to formulate and check constraints, as basis to develop a
