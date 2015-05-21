@@ -2605,7 +2605,7 @@ Each of these requirements corresponds to a constraint type \cite{BoschNolleAcar
 %Reasoning and validation are closely related.
 In order to realize interoperable solutions for data validation,
 (1) a standard constraint language has to be developed, 
-(2) it is needed to reply on the same underlying semantics, and 
+(2) it is needed to rely on the same underlying semantics, and 
 (3) it must be determined if reasoning should be involved in the validation process.
 We investigated the role that reasoning plays in practical data validation and 
 how to overcome the major shortcomings when validating RDF data by performing reasoning prior to validation.
@@ -2613,11 +2613,11 @@ Reasoning is beneficial for \emph{RDF} validation as
 (1) it may resolve violations, 
 (2) it may cause valuable violations, and 
 (3) it solves the redundancy problem.
-Users should be enabled to select which constraint types to consider for completing data by reasoning before data is validated against constraints of these constraint types 
+Users should be enabled to select which constraint types to use for completing data by reasoning before data is validated 
 and which ones should be used to ensure data accuracy and completeness which could be checked over the data once completed using reasoning.
 Therefore, we investigated for each constraint type if reasoning may be performed prior to validation to enhance data quality
 either (1) by resolving violations or (2) by raising valuable violations.
-For 43.2\% of the constraint types, reasoning may be performed before actually validating the data to improve data quality.
+For 43.2\% of the constraint types, reasoning may be performed before actually validating to improve data quality.
 For 56.8\% of the constraint types, however, reasoning cannot be done or does not improve data quality in any obvious sense.
 
 For each constraint type we examined how efficient in terms of runtime validation is performed with and without reasoning in worst case by mapping them to \emph{DL}.
