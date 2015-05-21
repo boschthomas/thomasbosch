@@ -2490,8 +2490,8 @@ as in both usage scenarios we assume different semantics which may lead to diffe
 We use \emph{SPIN}, 
 a \emph{SPARQL}-based way to formulate and check constraints, as basis to develop a
 validation environment\footnote{Online demo available at \url{http://purl.org/net/rdfval-demo}, source code available at: \url{https://github.com/boschthomas/rdf-validator}\label{rdf-validator}} to validate RDF data according to constraints expressed by arbitrary constraint languages by mapping them to \emph{SPIN}\footnote{\emph{SPIN} mappings available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/SPIN}\label{spin-mappings}} \cite{BoschEckert2014-2}.
-The \emph{SPIN} engine checks for each resource if it satisfies all constraints, which are associated with classes assigned to the individual resource, and generates a result RDF graph containing information about all constraint violations.
-We provide implementations to actually validate constraints of all constraint types expressible by \emph{OWL 2 QL}, \emph{OWL 2 DL}, and \emph{DSP} 
+The \emph{SPIN} engine checks for each resource if it satisfies all constraints, which are associated with its classes, and generates a result RDF graph containing information about all constraint violations.
+We provide implementations to validate constraints of all constraint types expressible by \emph{OWL 2 QL}, \emph{OWL 2 DL}, and \emph{DSP} 
 as well as constraints of major constraint types representable by \emph{ReSh} and \emph{ShEx}\footref{spin-mappings}.
 By means of a \emph{property ranges} (\emph{R-28, R-35}) constraint it can be restricted that \emph{author} relations can only point to \emph{persons} (\emph{DL}: {\small\ms{$\top$ $\sqsubseteq$ $\forall$ author.Person,}} \emph{OWL 2 DL}: {\small\ms{author rdfs:range Person.).}}
 There is one \emph{SPIN} construct template for each constraint type, so for the constraint type \emph{property ranges}:
@@ -2500,17 +2500,14 @@ There is one \emph{SPIN} construct template for each constraint type, so for the
 owl2spin:PropertyRanges a spin:ConstructTemplate ;
   spin:body [ a sp:Construct ; sp:text """
     CONSTRUCT {
-      _:cv a spin:ConstraintViolation ;
-        spin:violationRoot ?this ;
-        rdfs:label ?violationMessage ;
-        spin:violationPath ?OP ;
-        spin:violationSource "Property Ranges" . }
+      _:cv a spin:ConstraintViolation [...] . }
     WHERE {	  
       ?OP rdfs:range ?C . ?x ?OP ?this . ?this a owl:Thing .
       FILTER NOT EXISTS { ?this a ?C } . } """ ; ] .
 \end{ex}
 
-A \emph{SPIN} construct template contains a \emph{SPARQL CONSTRUCT} query which generates constraint violation triples (\emph{spin:Constraint Violation}) indicating the subject (\emph{spin:violationRoot}) and the properties (\emph{spin:violationPath}) causing violations, and the reason why violations have been raised (\emph{rdfs:label}).
+A \emph{SPIN} construct template contains a \emph{SPARQL CONSTRUCT} query generating constraint violation triples which indicate the subject, the properties, and the constraint causing the violations and the reason why violations have been raised.
+Violation triples, which are associated with a certain level of severity (informational, warning, error), may also give some guidance how to fix them.
 A \emph{SPIN} construct template creates violation triples if all triple patterns within the \emph{SPARQL WHERE clause} match.
 If \emph{Doyle}, the \emph{author} of the book \emph{Sherlock-Holmes} {\small\ms{(author(Sherlock-Holmes, Doyle)),}} e.g., is not explicitly declared to be a \emph{person},
 all triple patterns within the \emph{SPARQL WHERE clause} match
