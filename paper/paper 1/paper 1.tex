@@ -471,11 +471,13 @@ Among the reasons for the success of XML is the possibility to formulate fine-gr
 A typical example is the definition of a library record describing a book. There are clear rules which information has to be available to describe a book properly (required fields, like a title), but also how information like an ISBN number is properly represented. Libraries seek to make their own data reusable for general purposes, but also to enrich and interlink their own data. Checking if third-party data meets own requirements or validating existing data according to new needs for a Linked Data application are among common use cases for RDF validation.
 
 In 2013, the \emph{W3C} invited experts from industry, government, and academia to the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/RDF-val/}}, 
-where first use cases for RDF constraint formulation and RDF data validation have been presented and discussed. 
+where first use cases for RDF constraint formulation and RDF data validation have been discussed. 
 Two working groups that follow up on this workshop are established in 2014 to develop a language to express constraints on RDF data: 
 the \emph{W3C RDF Data Shapes Working Group}\footnote{\url{http://www.w3.org/2014/rds/charter}} and the \emph{DCMI RDF Application Profiles Task Group}\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
-For RDF constraint formulation and RDF data validation, several languages exist or are currently developed like \emph{Shape Expressions (ShEx)}, \emph{Resource Shapes (ReSh)}, or \emph{Description Set Profiles (DSP)}. The \emph{Web Ontology Language} \emph{(OWL)} in its current version \emph{OWL 2} is also used as a constraint language under a \emph{closed-world} and a \emph{unique name assumption}. 
-With its direct support of validation via \emph{SPARQL}, \emph{SPIN} is very popular and certainly plays an important role for future developments in this field. It is particularly interesting as a means to validate arbitrary constraint languages by mapping them to \emph{SPARQL} \cite{BoschEckert2014-2}. 
+To formulate constraints and to validate RDF data, several languages exist or are currently developed like \emph{Shape Expressions (ShEx)}, \emph{Resource Shapes (ReSh)}, and \emph{Description Set Profiles (DSP)}. The \emph{Web Ontology Language} \emph{(OWL)} in its current version \emph{OWL 2} is also used as a constraint language. 
+%under a \emph{closed-world} and a \emph{unique name assumption}. 
+With its direct support of validation via \emph{SPARQL}, the \emph{SPARQL Inferencing Notation (SPIN)} is very popular and certainly plays an important role for future developments of constraint languages. 
+\emph{SPIN} is particularly interesting as a means to validate arbitrary constraint languages by mapping them to \emph{SPARQL} \cite{BoschEckert2014-2}. 
 As there is no clear favorite and none of the languages is able to meet all requirements raised by data practitioners,
 further research and development is needed.
 %The intention of this paper is not to present any concrete normative suggestion or solution on how constraints should be represented
@@ -1215,7 +1217,8 @@ As reasoning is beneficial for validating RDF data, we investigate the effect of
 	%\item advantages and disadvantages of OWL in terms of validation
 %\end{itemize}
 
-The \emph{Web Ontology Language (OWL)} in its current version \emph{OWL 2} is an expressive language 
+%The \emph{Web Ontology Language (OWL)} in its current version 
+\emph{OWL 2} is an expressive language 
 for which \emph{DL} provides the foundational basis and
 which offers knowledge representation and reasoning services. 
 Validation, however, is not the primary purpose of its design which has lead to claims that \emph{OWL 2} cannot be used for validation. 
