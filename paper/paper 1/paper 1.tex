@@ -299,12 +299,12 @@ Erman Acar\\
 \begin{abstract}
 For data practitioners embracing the world of RDF and Linked Data, the openness and flexibility is a mixed blessing. 
 For them, data validation according to predefined constraints is a much sought-after feature, particularly as this is taken for granted in the XML world.
-%
-We investigate the role that reasoning plays in practical data validation,
+Based on our work in the \emph{DCMI RDF Application Profiles Task Group} and in cooperation with the \emph{W3C Data Shapes Working Group}, 
+we published by today 81 types of constraints that are required by various stakeholders for data applications. 
+These constraint types form the basis 
+to investigate the role that reasoning and different semantics play in practical data validation,
 why reasoning is beneficial for RDF validation, and 
 how to overcome the major shortcomings when validating RDF data by performing reasoning prior to validation.
-Based on our work in the \emph{DCMI RDF Application Profiles Task Group} and in cooperation with the \emph{W3C Data Shapes Working Group}, 
-we identified and published by today 81 types of constraints that are required by various stakeholders for data applications. 
 For each constraint type, we examine
 (1) if reasoning may improve data quality,  
 (2) how efficient in terms of runtime validation is performed with and without reasoning, and
@@ -468,7 +468,9 @@ and give directions for the further development of constraint languages.
 Recently, RDF validation as a research field gained speed due to common needs of data practitioners. A typical example is the library domain that co-developed and adopted Linked Data principles very early. For libraries, the common description of resources are key business and they have a long tradition in developing and using interoperable data formats. While they embrace the openness of Linked Data and the data modeling principles provided by RDF, the data is still mostly represented in XML and this is unlikely to change soon. 
 Among the reasons for the success of XML is the possibility to formulate fine-grained constraints to be met by the data and to validate the data according to these constraints using powerful systems like \emph{DTDs}, \emph{XML Schemas}, \emph{RELAX NG}, or \emph{Schematron}.
 %
-A typical example is the definition of a library record describing a book. There are clear rules which information has to be available to describe a book properly (required fields, like a title), but also how information like an ISBN number is properly represented. Libraries seek to make their own data reusable for general purposes, but also to enrich and interlink their own data. Checking if third-party data meets own requirements or validating existing data according to new needs for a Linked Data application are among common use cases for RDF validation.
+A typical example is the definition of a library record describing a book. There are clear rules which information has to be available to describe a book properly, 
+%(required fields like a title), 
+but also how information like an ISBN number is properly represented. Libraries seek to make their own data reusable for general purposes, but also to enrich and interlink their own data. Checking if third-party data meets own requirements or validating existing data according to new needs for a Linked Data application are among common use cases for RDF validation.
 
 In 2013, the \emph{W3C} invited experts from industry, government, and academia to the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/RDF-val/}}, 
 where first use cases for RDF constraint formulation and RDF data validation have been discussed. 
@@ -487,11 +489,12 @@ further research and development is needed.
 \subsection{Motivation and Overview}
 \label{motivation}
 
-Within the \emph{DCMI Task Group}, we initiated a collaboratively curated database of RDF validation requirements which contains the findings of the working groups based on various case studies provided by data institutions \cite{BoschEckert2014}. It is publicly available and open for further contributions\footnote{Online at \url{http://purl.org/net/rdf-validation}\label{rdf-validation-database}}.
-The database connects requirements to use cases, case studies and solutions and forms the basis of this paper.
-In this paper, we highlight the key findings from the analysis of the RDF validation requirements. 
-Based on our work in the \emph{DCMI Task Group} and in cooperation with the \emph{W3C Working Group}, 
-we identified and published by today 81 requirements to validate RDF data and to formulate RDF constraints that are required by various stakeholders for data applications.
+Within the \emph{DCMI} working group, we initiated a collaboratively curated database of RDF validation requirements which contains the findings of the working groups based on various case studies provided by data institutions \cite{BoschEckert2014}. 
+%It is publicly available and open for further contributions\footnote{Online at \url{http://purl.org/net/rdf-validation}\label{rdf-validation-database}}.
+The database, which is publicly available and open for further contributions\footnote{Online at \url{http://purl.org/net/rdf-validation}\label{rdf-validation-database}}, connects requirements to use cases, case studies, and solutions.
+%In this paper, we highlight the key findings from the analysis of the RDF validation requirements. 
+Based on our work in the \emph{DCMI} and in cooperation with the \emph{W3C} working group, 
+we published by today 81 requirements to validate RDF data and to formulate RDF constraints that are required by various stakeholders for data applications.
 Each of these requirements corresponds to a constraint type from which concrete constraints are instantiated to be checked on RDF data.
 Requirements/constraint types are uniquely identified by alphanumeric technical identifiers.
 \emph{Minimum qualified cardinality restrictions} (\emph{R-75}),e.g., is a constraint type which corresponds to the requirement {\small\emph{R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES}}. 
@@ -500,6 +503,7 @@ We recently published a technical report \cite{BoschNolleAcarEckert2015}
 (serving as appendix of this paper) 
 in which we explain each requirement/constraint type in detail and give examples for each represented by different constraint languages.
 %For some of these constraint types, reasoning may be performed to improve data quality.
+These constraint types form the basis to investigate the role that reasoning and different semantics play for RDF validation.
 
 %\textcolor{red}{je 1 Absatz warum wichtig / askepte von reasoning - semantics - expressivity vs. performance }
 
@@ -528,46 +532,68 @@ We remove redundancy by associating the constraint with the super-class \emph{pu
 %Reasoning and validation are very closely related. 
 %It should be possible (1) to perform reasoning prior to validation or (2) to validate without reasoning.
 %Both should be possible: (1) validation with reasoning and (2) validation without reasoning. 
-Validation environments should enable users to select which constraint types to use for completing data by reasoning 
-and which ones should be considered as constraint types about data accuracy and completeness which could be checked over the data once completed using reasoning.
+Users should be enabled to select on which constraint types to perform reasoning before data is validated
+and which constraint types to use to ensure data accuracy and completeness without reasoning.
+%Validation environments should enable users to select which constraint types to use for completing data by reasoning 
+%and which ones should be considered as constraint types about data accuracy and completeness which could be checked over the data once completed using reasoning.
 As reasoning is beneficial when validating RDF data, 
 we investigate the effect of reasoning to the validation process of each constraint type, i.e.,
 we examine for each constraint type if reasoning may be performed prior to validation to enhance data quality
-either (1) by resolving violations or (2) by raising valuable violations (Section \ref{reasoning}).
+either by resolving violations or by raising valuable violations (Section \ref{reasoning}).
 %If reasoning can be performed to enhance data quality depends on the individual constraint type and not on the language. 
 %Although, reasoning is not yet implemented for other languages than \emph{OWL 2}, languages can easily be extended in form of \emph{SPARQL} queries.
 
-For each constraint type we investigate how efficient in terms of runtime validation is performed with and without reasoning.
+For each constraint type, we investigate how efficient in terms of runtime validation is performed with and without reasoning.
 %We examine the effects of reasoning on the performance, i.e., the computational complexity of constraint types.
-Since the combination of \emph{description logics} (\emph{DL}) constructs, needed to express a constraint type, determines its computational complexity, 
-by mapping to \emph{DL} we get an idea of the performance for each constraint type in worst case (Section \ref{reasoning}).
-For this reason, the appendix of this paper contains mappings to \emph{DL} to logically underpin each requirement and to determine which \emph{DL} constructs are needed to express each constraint type.
+By mapping to \emph{description logics} (\emph{DL}) we get an idea of the performance of each constraint type in worst case,
+since the combination of \emph{DL} constructs needed to express a constraint type determines its computational complexity (Section \ref{reasoning}).
+For this reason, the appendix of this paper contains mappings to \emph{DL} to determine which \emph{DL} constructs are needed to express each constraint type.
 Thus, the knowledge representation formalism \emph{DL}, with its well-studied theoretical properties, 
 provides the foundational basis for constraint types. 
 %\emph{DL} can be used to express constraints like (1) \emph{publications} must have at least one \emph{author} which must be a \emph{person} {\small\ms{(Publication $\sqsubseteq$ $\geq$1 author.Person)}} and
 %(2) \emph{books}, \emph{conference proceedings}, and \emph{journal articles} are \emph{publications} {\small\ms{(Book $\sqcup$} \ms{ConferenceArticle $\sqcup$} \ms{JournalArticle $\sqsubseteq$ Publication)}}. 
 
-RDF validation and reasoning assume different semantics which may lead to different validation results when applied to particular constraint types. %when particular constraint types are used for validation and for reasoning. 
-Reasoning requires the {\em closed-world assumption} (\emph{OWA}) with the {\em non-unique name assumption} (\emph{nUNA}), 
-whereas RDF validation is classically based on the {\em closed-world assumption} (\emph{CWA}) and the {\em unique name assumption} (\emph{UNA}).
+Validation and reasoning assume different semantics which may lead to different validation results when applied to particular constraint types. %when particular constraint types are used for validation and for reasoning. 
+Reasoning requires the {\em open-world assumption} (\emph{OWA}) with the {\em non-unique name assumption} (\emph{nUNA}), 
+whereas validation is classically based on the {\em closed-world assumption} (\emph{CWA}) and the {\em unique name assumption} (\emph{UNA}).
 Therefore, we investigate for each constraint type if validation results differ (1) if the \emph{CWA} or the \emph{OWA} and (2) if the \emph{UNA} or the \emph{nUNA}
 is assumed, i.e., we examine for each constraint type (1) if the constraint type depends on the \emph{CWA} and (2) if the constraint type depends on the \emph{UNA} (Section \ref{CWA-UNA-dependency}).
 
-Using these findings, we are able to determine for the five most common constraint languages which constraint types they enable to express, i.e., we evaluate their constraint type specific expressivity (the evaluation is described in detail in the appendix of this paper \cite{BoschNolleAcarEckert2015}).
+Using these findings, we are able to determine for the five most common constraint languages which constraint types they enable to express (see Table \ref{tab:constraint-type-specific-expressivity}) 
+%gives an overview on the constraint type specific expressivity of the five most common constraint languages
+The evaluation is explained in detail in the appendix of this paper \cite{BoschNolleAcarEckert2015}.
+%, i.e., we evaluate their constraint type specific expressivity 
+%(the evaluation is described in detail in the appendix of this paper \cite{BoschNolleAcarEckert2015}).
  %As we identified three constraint-specific complexity classes in the previous section, we are now able to determine the performance (i.e. complexity) of constraint languages.  It can be beneficial not using the most expressive constraint languages when additional rather subjective criteria are evaluated.
 %We introduce the intuitive notion of \emph{expressivity scores} rather than classical \emph{expressivity}
 %as the list of constraint types is a continuously updated list and almost none (except \emph{SPIN}) of the languages contains one another.
 %With the expressivity score of a language, we measure how many constraint types the language is able to express. 
 %For the sake of simplicity, 
+\begin{table}[H]
+	\centering
+	  %\caption{Constraint Type Specific Expressivity}
+		\caption{Expressivity of Constraint Languages}
+	  \scriptsize
+		\begin{tabular}{l|c|c|c}
+      %\textbf{Expressivity Class} & $Expr(\overline{\mathcal{CT}_R})$ (42) & $Expr(\mathcal{CT}_R)$ (32) \\		
+			\textbf{} & $\mathcal{CT}$ (81) & $\overline{\mathcal{R}}$ (46) & $\mathcal{R}$ (35) \\	
+      \hline
+			\emph{SPIN} & \textbf{100.0} (81) & \textbf{100.0} (46) & \textbf{100.0} (35) \\
+			\emph{OWL2-DL} & 67.9 (55) & 45.7 (21) & \textbf{97.1} (34) \\ 
+			\emph{ShEx} & 29.6 (24) & 26.1 (12) & 34.3 (12) \\
+			\emph{ReSh} & 25.9 (21) & 15.2 (7) & 40.0 (14) \\
+			\emph{OWL2-QL} & 24.7 (20) & 19.6 (9) & 31.4 (11) \\
+			\emph{DSP} & 17.3 (14) & 13.0 (6) & 22.9 (8) 
+		\end{tabular}
+	\label{tab:constraint-type-specific-expressivity}
+\end{table}
 We use 
-(1) $\mathcal{CT}$ to refer to the whole set of constraint types,
-(2) $\mathcal{R}$ to abbreviate the 35 constraint types for which reasoning may be performed before actually validating the data and
-(3) $\overline{\mathcal{R}}$ to denote the 46 constraint types for which reasoning does not improve data quality in any obvious sense.
+$\mathcal{CT}$ to refer to the whole set of constraint types,
+$\mathcal{R}$ to abbreviate the 35 constraint types for which reasoning may be performed before actually validating and
+$\overline{\mathcal{R}}$ to denote the 46 constraint types for which reasoning does not improve data quality in any obvious sense.
 %\emph{constraints with reasoning} can be used as axioms to infer new triples out of explicitly stated triples (see section \ref{sec:RDF-validation-requirements-and-reasoning}), but also to express constraints without reasoning. \er{Also to express constraints?}\tb{also to express constraints without reasoning}
 %If in our knowledge base it is stated that \ms{DarthVader} is a \ms{Sith} (e.g., \ms{Sith(DarthVader)}) and  Siths feel the force of the dark side (e.g., \ms{Sith $\sqsubseteq$ FeelingForceDarkSide}), it is either possible to infer that \ms{DarthVader} feels the force of the dark side (\ms{FeelingForceDarkSide(DarthVader)}) 
 %or to check if this class assignment is explicitly stated in the data without reasoning. 
-Although, \emph{OWL 2} is the only language for which reasoning features are already implemented, 
-$\mathcal{R}$ constraint types are also expressible by other languages. 
 %\emph{SPIN} is the only language, we consider as being a constraint language,
 %for which an actual implementation of the validation of constraints types does not yet exist. 
 %\er{This is again the part I don't understand.}\tb{but also by other constraint languages}
@@ -614,29 +640,11 @@ $\mathcal{R}$ constraint types are also expressible by other languages.
 		%\end{tabular}
 	%\label{tab:constraint-type-specific-expressivity-absolute-values}
 %\end{table}
-\begin{table}[H]
-	\centering
-	  %\caption{Constraint Type Specific Expressivity}
-		\caption{Overview on the Constraint Type Specific Expressivity of Constraint Languages}
-	  \scriptsize
-		\begin{tabular}{l|c|c|c}
-      %\textbf{Expressivity Class} & $Expr(\overline{\mathcal{CT}_R})$ (42) & $Expr(\mathcal{CT}_R)$ (32) \\		
-			\textbf{} & $\mathcal{CT}$ (81) & $\overline{\mathcal{R}}$ (46) & $\mathcal{R}$ (35) \\	
-      \hline
-			\emph{SPIN} & \textbf{100.0} (81) & \textbf{100.0} (46) & \textbf{100.0} (35) \\
-			\emph{OWL2-DL} & 67.9 (55) & 45.7 (21) & \textbf{97.1} (34) \\ 
-			\emph{ShEx} & 29.6 (24) & 26.1 (12) & 34.3 (12) \\
-			\emph{ReSh} & 25.9 (21) & 15.2 (7) & 40.0 (14) \\
-			\emph{OWL2-QL} & 24.7 (20) & 19.6 (9) & 31.4 (11) \\
-			\emph{DSP} & 17.3 (14) & 13.0 (6) & 22.9 (8) 
-		\end{tabular}
-	\label{tab:constraint-type-specific-expressivity}
-\end{table}
-Table \ref{tab:constraint-type-specific-expressivity} 
-gives an overview on the constraint type specific expressivity of the five most common constraint languages.
-For \emph{OWL 2}, we differentiate between the sub-languages \emph{OWL 2 QL} and \emph{OWL 2 DL}, as they differ with regard to expressivity and efficiency in performance.
+For \emph{OWL 2}, we differentiate between the sub-languages \emph{OWL 2 QL} and \emph{OWL 2 DL} as they differ with regard to expressivity and efficiency in performance.
 Table \ref{tab:constraint-type-specific-expressivity} shows in percentage values (and absolute numbers in brackets) how many $\mathcal{CT}$, $\mathcal{R}$, and $\overline{\mathcal{R}}$ constraint types are supported 
 by listed constraint languages.
+Although, \emph{OWL 2} is the only language for which reasoning features are already implemented, 
+$\mathcal{R}$ constraint types are also expressible by other languages. 
 %In total, there are 42 $\overline{\mathcal{CT}_R}$ and 32 $\mathcal{CT}_R$ constraint types (see Table \ref{tab:constraint-type-specific-expressivity}).
 %In Table \ref{tab:constraint-type-specific-expressivity}, the total amount of constraint types per constraint type specific expressivity is shown by numbers in round brackets in the first column.
 %Numbers in brackets (except in table headings) indicate the amount of constraint types 
@@ -658,22 +666,21 @@ by listed constraint languages.
 %}%
 
 Having information on the constraint type specific expressivity of constraint languages 
-enables validation environments to recommend the right language to formulate constraints depending on the users' individual use cases.
+enables validation environments to recommend the right language depending on the users' individual use cases.
 These use cases determine which requirements have to be fulfilled and therefore which constraint types have to be expressed to meet these use cases.
 %We argue that so far no single best solution exists since constraint formulation and RDF data validation is not yet implemented in \emph{SPIN}.
 %By revealing which constraint types are not covered by exiting languages, 
 %we give directions for the further development of constraint languages.
 The finding that \emph{SPIN} is the only language which supports all reasoning constraint types 
 underpins the importance to implement reasoning capabilities by \emph{SPIN} (or plain \emph{SPARQL}).
-Furthermore, the fact that all $\mathcal{R}$ and $\overline{\mathcal{R}}$ constraint types are representable by \emph{SPIN} 
+The fact that all $\mathcal{R}$ and $\overline{\mathcal{R}}$ constraint types are representable by \emph{SPIN} 
 %(if we ignore the constraint type \emph{recursive queries} which is partly implemented in \emph{SPIN}) 
 emphasizes the significant role \emph{SPIN} plays for the future development of constraint languages.
-Another important role may play \emph{OWL 2 DL} as 2/3 of all constraint types, 
-nearly 1/2 of the $\overline{\mathcal{R}}$ constraint types, and
-almost all $\mathcal{R}$ constraint types
-are expressible by \emph{OWL 2 DL}.
-Even though, $\mathcal{R}$ constraint types corresponding to \emph{OWL 2 DL} axioms are fully implemented when using them with reasoning,
-we cannot apply them directly to validate RDF data since \emph{OWL 2} reasoning and RDF validation assume different semantics which leads to differences in results. 
+Another important role may play \emph{OWL 2 DL} with which 2/3 of all, 
+nearly 1/2 of the $\overline{\mathcal{R}}$, and
+almost all $\mathcal{R}$ constraint types can be expressed.
+Even though, some $\mathcal{R}$ constraint types correspond to \emph{OWL 2 DL} axioms,
+we cannot use them directly to validate RDF data since \emph{OWL 2} reasoning and validation assume different semantics which may lead to differences in results. 
 %Therefore, we implemented the validation of all $\mathcal{R}$ constraint types expressible by \emph{OWL 2 DL} under the RDF validation assumptions \emph{CWA} and \emph{UNA}.
 
 %-----
@@ -1135,7 +1142,7 @@ how to overcome the major shortcomings when validating RDF data by performing re
 %(5) We provide implementations to actually validate constraints of constraint types expressible by common constraint languages and 
 %to execute reasoning according to all $\mathcal{R}$ constraint types before validating.
 %reasoning capabilities for all $\mathcal{R}$ constraint types.
-(5) We provide open source validation and reasoning implementations of constraint types to use them as a basis to drive the further development of constraint languages (Section \ref{implementation}).
+(5) We provide open source validation and reasoning implementations of constraint types to be used as a basis to drive the further development of constraint languages (Section \ref{implementation}).
 	
 %The prerequisite to use \emph{OWL 2} constructs in terms of constraint types, we adopt the same semantics for them (\emph{CWA} and \emph{UNA}) as for RDF validation in general.
 %Therefore, we described the intended behavior of each constraint type in terms of validation results depending on \emph{CWA} and \emph{UNA}.
@@ -1209,34 +1216,35 @@ how to overcome the major shortcomings when validating RDF data by performing re
 \section{Reasoning}
 \label{reasoning}
 
-In this section, we investigate the role that reasoning plays in practical data validation and 
-how to overcome the major shortcomings when validating RDF data by performing reasoning prior to validation.
-As reasoning is beneficial for validating RDF data, we investigate the effect of reasoning to the validation process for each constraint type.
-
 %\begin{itemize}
 	%\item advantages and disadvantages of OWL in terms of validation
 %\end{itemize}
 
 %The \emph{Web Ontology Language (OWL)} in its current version 
+
 \emph{OWL 2} is an expressive language 
 for which \emph{DL} provides the foundational basis and
 which offers knowledge representation and reasoning services. 
 Validation, however, is not the primary purpose of its design which has lead to claims that \emph{OWL 2} cannot be used for validation. 
 %There have been long and controversial discussions\footnote{\url{http://lists.w3.org/Archives/Public/public-data-shapes-wg/}\\ \url{https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=dc-architecture}} in the W3C and DCMI WGs if \emph{OWL 2} should be used for RDF validation.
 %However, OWL 2 is high-level  expressive  language with a compact human-readable syntax.
-In practice, however, \emph{OWL 2} is well-spread and \emph{RDFS}/\emph{OWL 2} constructs are widely used to tell people and applications about how valid instances should look like.
-In general, \emph{RDF} documents follow the syntactic structure and semantics of \emph{RDFS}/\emph{OWL 2} ontologies which can therefore be reused for validation. 
+In practice, however, \emph{OWL 2} is well-spread and \emph{RDFS/OWL 2} constructs are widely used to tell people and applications about how valid instances should look like.
+In general, \emph{RDF} documents follow the syntactic structure and the semantics of \emph{RDFS}/\emph{OWL 2} ontologies which could therefore not only be used for reasoning but also for validation. 
 %In particular, most of the constraint languages except OWL, have a major shortcoming of redundancy.\tb{the following example is not about solving the redundancy problem, it is about how constraint violations cab be resolved when performing reasoning / we should delete this sentence here, as we starting talking about redundancy problem below}  
 %The knowledge representation formalism {\em Description logics} (\emph{DL}), with its well-studied theoretical properties, 
 %provides the foundational basis for \emph{OWL}. 
 %\emph{DL} can be used to express constraints like (1) \emph{publications} must have at least one \emph{author} which must be a \emph{person} {\small\ms{(Publication $\sqsubseteq$ $\geq$1 author.Person)}} and
 %(2) \emph{books}, \emph{conference proceedings}, and \emph{journal articles} are \emph{publications} {\small\ms{(Book $\sqcup$} \ms{ConferenceArticle $\sqcup$} \ms{JournalArticle $\sqsubseteq$ Publication)}}. 
 
-Reasoning is beneficial for RDF validation as 
+In this section, we investigate the role that reasoning plays in practical data validation and 
+how to overcome the major shortcomings when validating RDF data by performing reasoning prior to validation.
+As reasoning is beneficial for validation, we investigate the effect of reasoning to the validation process for each constraint type.
+Reasoning is beneficial for validation as 
 (1) it may resolve constraint violations, 
 (2) it may cause useful violations, and 
 (3) it solves the redundancy problem. 
 Consider the following \emph{DL} knowledge base $\mathcal{K}$ - a \emph{DL} knowledge base is a collection of formal statements  which correspond to \emph{facts} or  \emph{what is known} explicitly:
+
 {\scriptsize
 \begin{center}
 \begin{DL} 
@@ -1249,7 +1257,7 @@ $\mathcal{K}=\{$ \\
  \ms{ title(Huckleberry-Finn, Die-Abenteuer-des-Huckleberry-Finn)}\}\\ 
 \end{DL}
 \end{center}
-}%
+}
 %\begin{center}
 %\begin{DL} 
 %$\mathcal{K}=\{$ & \ms{Person $\sqsubseteq \exists$ hasAncestor.Person}, \\
@@ -1394,8 +1402,8 @@ i.e., strings that match a given regular expression.
 %If we use sub-properties with reasoning, the triple (which would cause a constraint violation) is inferred and therefore resolves the possible constraint violation.
 
 For each constraint type we investigate how efficient in terms of runtime validation is performed with and without reasoning.
-Since the combination of \emph{DL} constructs, needed to express a constraint type, determines its computational complexity, 
-by mapping to \emph{DL} we get an idea of the performance for each constraint type in worst case.
+By mapping to \emph{DL} we get an idea of the performance of each constraint type in worst case,
+since the combination of \emph{DL} constructs needed to express a constraint type determines its computational complexity
 
 \subsection{Constraint Types with Reasoning}
 \label{sec:RDF-validation-requirements-and-reasoning}
@@ -2593,22 +2601,23 @@ The first solution is applied on local knowledge bases whereas the second is mor
 %Another important finding is that, none of other languages covers the other so far in terms of expressivity.
 
 Based on our work in the \emph{DCMI} and in cooperation with the \emph{W3C} working group, 
-we defined by today 81 RDF constraint types \cite{BoschNolleAcarEckert2015}
+we published by today 81 constraint types \cite{BoschNolleAcarEckert2015}
 which form the basis to investigate the role that reasoning and different semantics play for RDF validation.
 
-The conclusions clearly show 
-that validation results are different depending on 
+The conclusions of this paper clearly show 
+that validation results differ depending on 
 whether validation is based on the \emph{closed-world assumption (CWA)} or on the \emph{open-world assumption (OWA)} and 
 whether the \emph{unique name assumption (UNA)} or the \emph{non-unique name assumption (nUNA)} is underlying.
 Equally, using or not using reasoning has serious impact on which constraints are considered to be violated or fulfilled.
 Obviously, these findings are not new and should be clear to everyone working with RDF and Semantic Web technologies.
-According to our experience, however, the topic data validation is yet far too often reduced to suitable constraint languages
-which may be related to the obvious and yet inaccurate comparison with XML as basis technology to represent data.
-With this paper, we want to make clear that it depends on more than the used constraint language when validating RDF data and when developing appropriate systems.
+According to our experience, however, the topic data validation is yet far too often reduced to the selection of suitable constraint languages
+which may be related to the obvious but yet inaccurate comparison with XML as basis technology to represent data.
+With this paper, we want to make clear that it depends on more than just the constraint language when validating RDF data and when developing appropriate systems.
 Therefore, in order to realize interoperable solutions for data validation, three components are needed:
 (1) An adequate constraint language is required that allows to represent the desired constraints. 
 (2) The underlying semantics have to be specified, be it open or closed world, particularly if constraints are used that depend on the choice of the semantics.
-(3) It must be determined if reasoning should be involved in the validation process. Necessary reasoning steps have to be predefined to allow the correct interpretation of the constraints, for instance, if constraints are defined on super-classes to avoid redundancy.
+(3) It must be determined if reasoning should be involved in the validation process or not. 
+Necessary reasoning steps have to be predefined to allow the correct interpretation of the constraints, for instance, if constraints are defined on super-classes to avoid redundancy.
 
 We investigated the role that reasoning plays in practical data validation and 
 how to overcome the major shortcomings when validating RDF data by performing reasoning prior to validation.
@@ -2616,8 +2625,8 @@ Reasoning is beneficial for \emph{RDF} validation as
 (1) it may resolve violations, 
 (2) it may cause valuable violations, and 
 (3) it solves the redundancy problem.
-Users should be enabled to select which constraint types to use for completing data by reasoning before data is validated 
-and which ones should be used to ensure data accuracy and completeness which could be checked over the data once completed using reasoning.
+Users should be enabled to select on which constraint types reasoning should be performed before data is validated
+and which constraint types to use in order to ensure data accuracy and completeness without reasoning.
 Therefore, we investigated for each constraint type if reasoning may be performed prior to validation to enhance data quality
 either (1) by resolving violations or (2) by raising valuable violations.
 For 43.2\% of the constraint types, reasoning may be performed before actually validating to improve data quality.
@@ -2635,7 +2644,7 @@ Validation and reasoning assume different semantics which may lead to different 
 whereas validation is based on the \emph{CWA} and the \emph{UNA}.
 Therefore, we investigated for each constraint type
 (1) if it depends on the \emph{CWA} and (2) if it depends on the \emph{UNA}.
-For the majority of the constraint types it makes a difference if the \emph{CWA} or the \emph{OWA} and if the \emph{UNA} or the \emph{nUNA} is assumed (Section \ref{CWA-UNA-dependency}).
+For the majority of the constraint types it makes a difference in terms of validation results if the \emph{CWA} or the \emph{OWA} and if the \emph{UNA} or the \emph{nUNA} is assumed (Section \ref{CWA-UNA-dependency}).
 
 Using these findings, we determined for the five most common constraint languages which constraint types they enable to express.
 By revealing which constraint types are not covered by existing languages, 
@@ -2654,12 +2663,12 @@ validation environment\footref{rdf-validator} to validate RDF data according to 
 %(2) to select individual $\mathcal{R}$ constraint types for which reasoning should be executed, and
 %(3) to globally determine if for all $\mathcal{R}$ constraint types reasoning should be done. 
 %In addition, we implemented reasoning capabilities for all constraint types for which \emph{OWL 2 QL} and \emph{OWL 2 DL} reasoning may be performed to improve data quality\footref{spin-mappings}.
-We provide open source validation and reasoning implementations of constraint types to use them as a basis to drive the further development of constraint languages (Section \ref{implementation}).
+We provide open source validation and reasoning implementations of constraint types to be used as a basis to drive the further development of constraint languages (Section \ref{implementation}).
 
-As part of future work we extend the \emph{RDF Validator} to provide a list of languages for which the expressivity is enough to represent constraint types
+As part of future work we extend the \emph{RDF Validator} to provide a list of languages for which the expressivity is sufficient to represent constraint types
 depending on users' individual needs.
 The validation environment may also recommend one of these languages covering the most of the required constraint types 
-with the lowest complexity class which is acceptable for the user.
+with the lowest for the user acceptable complexity class.
 As reasoning may cause high complexity the validator may show which constraint types from the users' selections cause the higher complexity class 
 and may provide solutions how to get to the next lower complexity class. 
 It would be charming to have an estimation which group of constraint types demands which complexity class. 
