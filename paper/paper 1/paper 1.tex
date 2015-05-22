@@ -2514,12 +2514,13 @@ all triple patterns within the \emph{SPARQL WHERE clause} match
 and the \emph{SPIN} construct template generates a violation triple.
 
 \emph{Property ranges} is an $\mathcal{R}$ constraint type, i.e., a constraint type 
-for which reasoning may be performed prior to validation to enhance data quality by resolving violations or by raising valuable violations.
-Therefore, validation environments should enable users to decide if reasoning should be executed before RDF data is validated against constraints of the \emph{property ranges} constraint type. 
-If a user decides to use reasoning for the \emph{property ranges} constraint type, 
+for which reasoning may be performed prior to validation to enhance data quality. 
+%by resolving violations or by raising valuable violations.
+Therefore, validation environments should enable users to decide if reasoning on constraints of the \emph{property ranges} constraint type should be executed before RDF data is validated. 
+If a user decides to use reasoning on the \emph{property ranges} constraint type, 
 the triple {\small\ms{rdf:type(Doyle, Person),}} whose absence caused the violation, is inferred before data is validated which thus resolves the violation. 
 Validation environments should enable users
-(1) to select individual resources for which reasoning should be performed according to $\mathcal{R}$ constraints before they are validated,
+(1) to select individual resources for which reasoning should be performed on $\mathcal{R}$ constraints before they are validated,
 (2) to select $\mathcal{R}$ constraint types for which reasoning should be executed, and
 (3) to globally determine if for all $\mathcal{R}$ constraint types reasoning should be done. 
 All resources, for which reasoning should be performed prior to validation, are automatically assigned to the class \emph{Reasoning} during a pre-reasoning step.
@@ -2535,21 +2536,20 @@ owl2spin:Reasoning spin:rule [ a sp:Construct ; sp:text """
 The \emph{SPIN} rule is executed for each resource of the class \emph{Reasoning}.
 A \emph{SPIN} rule contains a \emph{SPARQL CONSTRUCT} query which generates triples 
 if all triple patterns within the \emph{SPARQL WHERE clause} match.
-In case \emph{Doyle} is not defined to be a \emph{person} all triple patterns within the \emph{SPARQL WHERE clause} match and the \emph{SPARQL CONSTRUCT} query creates
-the triple {\small\ms{rdf:type(Doyle, Person).}} As a consequence, the violation on \emph{Doyle} is not raised. 
-We implemented reasoning capabilities for all $\mathcal{R}$ constraint types for which \emph{OWL 2 QL} and \emph{OWL 2 DL} reasoning may be performed to improve data quality\footref{spin-mappings}.
+In case \emph{Doyle} is not defined to be a \emph{person}, all triple patterns match and the triple {\small\ms{rdf:type(Doyle, Person)}} is created. As a consequence, the violation on \emph{Doyle} is not raised. 
+We implemented reasoning capabilities for all $\mathcal{R}$ constraint types for which \emph{OWL 2 QL} and \emph{OWL 2 DL} reasoning may be performed\footref{spin-mappings}.
 
 \section{Related Work}
 \label{sec:related-Work}
 
 Tao \cite{tao2012integrity} suggested an \emph{OWL 2 DL} extension to support integrity constraints 
-which enables thereby the use of \emph{OWL 2} as a constraint language for validation under the \emph{CWA} by conjunctive query answering. 
+which enables to use \emph{OWL 2} as a constraint language for validation under the \emph{CWA} by conjunctive query answering. 
 Tao also provides a solution to explain and to repair integrity constraint violations.
 Siren and Tao \cite{SirinTao2009} proposed an alternative semantics for \emph{OWL 2} using the \emph{CWA} 
 so that it could be used to validate integrity constraints.
 They examined integrity constraint semantics proposed in the deductive databases literature and adopted them for \emph{OWL 2}
 by reducing the validation of integrity constraints to \emph{SPARQL} query answering by means of reasoners.
-Although, the alternative semantics for \emph{OWL 2} is implemented in the \emph{Stardog} database\footnote{\url{http://stardog.com/}}, it was never submitted to a standards organization such as the \emph{W3C}.
+Although, the alternative semantics for \emph{OWL 2} is implemented in the \emph{Stardog} database\footnote{\url{http://stardog.com/}}, it has never been submitted to a standards organization such as the \emph{W3C}.
 
 In \emph{DL}, reasoning tasks like query answering or detection of inconsistencies require the consideration of knowledge that is not only defined explicitly but also implicitly. To do so there are two different ways called forward- and backward-chaining. 
 The first method implies a materialized knowledge base, where the original knowledge base is extended by all assertions that can be inferred. State-of-the-art \emph{DL} or \emph{OWL} reasoners following this approach are \emph{FaCT++} \cite{tsarkov2006fact++}, \emph{Pellet} \cite{sirin2007pellet},  \emph{RacerPro} \cite{haarslev2001racer}, or \emph{HermiT} \cite{horrocks2012hermit}. 
@@ -2592,19 +2592,24 @@ The first solution is applied on local knowledge bases whereas the second is mor
 
 %Another important finding is that, none of other languages covers the other so far in terms of expressivity.
 
-Within the \emph{DCMI RDF Application Profiles Task Group} and in cooperation with the \emph{W3C RDF Data Shapes Working Group}, 
-we initiated a collaboratively curated database of RDF validation requirements\footref{rdf-validation-database} 
-which contains the findings of the working groups based on various case studies provided by data institutions \cite{BoschEckert2014}. 
-In this paper, we highlight the key findings from the analysis of the RDF validation requirements. 
-Based on our work in these working groups, 
-we published by today 81 requirements to validate RDF data and to formulate RDF constraints that are required by various stakeholders for data applications.
-Each of these requirements corresponds to a constraint type \cite{BoschNolleAcarEckert2015}.
+Based on our work in the \emph{DCMI} and in cooperation with the \emph{W3C} working group, 
+we defined by today 81 RDF constraint types \cite{BoschNolleAcarEckert2015}
+which form the basis to investigate the role that reasoning and different semantics play for RDF validation.
 
-%Reasoning and validation are closely related.
-In order to realize interoperable solutions for data validation,
-(1) a standard constraint language has to be developed, 
-(2) it is needed to rely on the same underlying semantics, and 
-(3) it must be determined if reasoning should be involved in the validation process.
+The conclusions clearly show 
+that validation results are different depending on 
+whether validation is based on the \emph{closed-world assumption (CWA)} or on the \emph{open-world assumption (OWA)} and 
+whether the \emph{unique name assumption (UNA)} or the \emph{non-unique name assumption (nUNA)} is underlying.
+Equally, using or not using reasoning has serious impact on which constraints are considered to be violated or fulfilled.
+Obviously, these findings are not new and should be clear to everyone working with RDF and Semantic Web technologies.
+According to our experience, however, the topic data validation is yet far too often reduced to suitable constraint languages
+which may be related to the obvious and yet inaccurate comparison with XML as basis technology to represent data.
+With this paper, we want to make clear that it depends on more than the used constraint language when validating RDF data and when developing appropriate systems.
+Therefore, in order to realize interoperable solutions for data validation, three components are needed:
+(1) An adequate constraint language is required that allows to represent the desired constraints. 
+(2) The underlying semantics have to be specified, be it open or closed world, particularly if constraints are used that depend on the choice of the semantics.
+(3) It must be determined if reasoning should be involved in the validation process. Necessary reasoning steps have to be predefined to allow the correct interpretation of the constraints, for instance, if constraints are defined on super-classes to avoid redundancy.
+
 We investigated the role that reasoning plays in practical data validation and 
 how to overcome the major shortcomings when validating RDF data by performing reasoning prior to validation.
 Reasoning is beneficial for \emph{RDF} validation as 
@@ -2619,8 +2624,7 @@ For 43.2\% of the constraint types, reasoning may be performed before actually v
 For 56.8\% of the constraint types, however, reasoning cannot be done or does not improve data quality in any obvious sense (Section \ref{reasoning}).
 
 For each constraint type, we examined how efficient in terms of runtime validation is performed with and without reasoning in worst case.
-We mapped constraint types to \emph{DL}
-since the combination of \emph{DL} constructs, needed to express a constraint type, determines its computational complexity (Section \ref{reasoning}).
+By mapping constraint types to \emph{description logics}, we were able to determine their computational complexity (Section \ref{reasoning}).
 %For each constraint type, we investigated if validation results depend on the \emph{CWA} and on the \emph{UNA}
 %since reasoning and therefore \emph{OWL 2} have different semantics than RDF validation.
 %\emph{OWL 2} reasoning requires the \emph{OWA} with the \emph{nUNA} 
@@ -2634,7 +2638,7 @@ Therefore, we investigated for each constraint type
 For the majority of the constraint types it makes a difference if the \emph{CWA} or the \emph{OWA} and if the \emph{UNA} or the \emph{nUNA} is assumed (Section \ref{CWA-UNA-dependency}).
 
 Using these findings, we determined for the five most common constraint languages which constraint types they enable to express.
-By revealing which constraint types are not covered by exiting languages, 
+By revealing which constraint types are not covered by existing languages, 
 we give directions and emphasize the significant role \emph{SPIN} and \emph{OWL 2 DL} play for the future development of constraint languages (Section \ref{motivation}).
 \emph{SPARQL} is generally seen as the method of choice to validate data according to certain constraints \cite{Fuerber2010}, 
 although, it is not ideal for their formulation. 
