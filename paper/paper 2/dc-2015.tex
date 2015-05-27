@@ -195,6 +195,12 @@ emphasizes the significant role \emph{SPIN} and \emph{OWL 2} play for the future
 although, it is not ideal for their formulation. 
 In contrast, high-level constraint languages, which may be placed on top of \emph{SPARQL} and \emph{SPIN}, are comparatively easy to understand and constraints can be formulated more concisely. 
 
+-----
+
+For the formulation of constraints, it is important that the constraint language is concise and intuitive and that the declarative constraint language is translated to an implementation language like SPARQL in order to execute constraint validation automatically.
+
+-----
+
 There exists no single best solution considered as high-level intuitive constraint language which enables to express constraints easily and concisely and which is able to meet all requirements raised by data practitioners.
 %which can be used to express constraints and to validate RDF data, 
 %(e.g. existential and universal quantification, cardinality restrictions, and exclusive or of properties)
@@ -298,63 +304,34 @@ For the \emph{minimum qualified cardinality restriction}, one mapping (\emph{$m_
 \label{sec:validation}
 
 We use \emph{SPIN} as basis to develop a validation environment\footnote{Online demo available at \url{http://purl.org/net/rdfval-demo}, source code available at: \url{https://github.com/boschthomas/rdf-validator}\label{rdf-validator}} to validate RDF data according to constraints of constraint types which are expressible by arbitrary constraint languages by mapping them to \emph{SPIN}\footnote{\emph{SPIN} mappings available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/SPIN}\label{spin-mappings}} \cite{BoschEckert2014-2}.
-The next step, however, is to extend the \emph{RDF Validator} to validate RDF data conforming to constraints of each of the 81 constraint types. 
- 
-Validation on semantically equivalent constraints, expressed by different constraint languages, 
-should lead to identical validation results, 
-i.e., validation should be performed independently from the used language (see Section \ref{sec:validation}).
-
-We are able to offer already implemented validation for constraints of constraint types expressed by arbitrary languages out-of-the-box, 
-(1) if we implement the validation of the corresponding generically represented constraint types once and 
-(2) if we transform semantically equivalent specifically expressed constraints into generically expressed constraints.  
-
------
-
-SPARQL is generally seen as the method of choice to validate RDF data according to certain constraints, although, it is not ideal for their formulation. 
-In contrast, OWL 2, DSP, ReSh, and ShEx constraints are comparatively easy to understand. 
-We use SPIN as basis to define a
-validation environment\footnote{Online demo available at \url{http://purl.org/net/rdfval-demo}, source code available at: \url{https://github.com/boschthomas/rdf-validator}\label{rdf-validator}} in which the validation of any constraint language can be implemented by representing them in SPARQL.
-The only limitation is that constraint languages must be represented in RDF.
 The SPIN engine checks for each resource if it satisfies all constraints, which are associated with its assigned classes, and generates a result RDF graph containing information about all constraint violations \cite{BoschEckert2014-2}.
-This way, we are able to offer RDF data validation according to all \emph{specific constraints} (expressed by any constraint language) by defining mappings from each \emph{specific constraint} to \emph{SPIN}. 
-We already specified mappings to \emph{SPIN} for all \emph{OWL 2} and \emph{DSP}\footnote{SPIN mappings available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/SPIN}} constructs and for some \emph{ReSh} and \emph{ShEx} constructs.
-As constraint languages differ in syntax and semantics it is rather difficult to ensure that semantically equivalent \emph{specific constraints} always lead to identical validation results.
+The next step, however, was to extend the \emph{RDF Validator} to validate RDF data conforming to constraints of any constraint type
+by representing constraints generically using the proposed vocabulary. 
+ 
+When language designers extend newly developed or existing constraint languages 
+in order to allow to formulate constraints of not yet supported constraint types,
+our proposal prevents the necessity to actually implement the validation of data
+according to constraints of these constraint types for each of those languages.  
+We enable to offer validation implementations for any constraint type whose \emph{specific constraints} may be expressed by any language out-of-the-box 
+by providing a \emph{SPIN} mapping
+%generic validation implementations once 
+for each constraint type\footnote{RDF-CV to SPIN online available at: \url{https://github.com/boschthomas/RDF-CV-2-SPIN}}  whose constraints are represented generically (for further details see \cite{BoschEckert2015-2}).
+%(2) by transforming \emph{specific constraints} into the appropriate \emph{generic constraint}.  
+All what language designers have to do is to specify for each constraint type one mapping from the \emph{specific constraint} expressed by a particular language to the corresponding \emph{generic constraint}.
+\textcolor{red}{19} of the overall 81 constraint types are expressible by at least four constraint languages \cite{BoschNolleAcarEckert2015}.
+This means that for these \textcolor{red}{19} constraint types there must be \textcolor{red}{76} implementations (four for each constraint type) to actually validate RDF data according to \textcolor{red}{76} \emph{specific constraints} - instead of only \textcolor{red}{19} implementations (one for each \emph{generic constraint}) which lead for each constraint type to identical validation results independently from the used language.
 
-We do not have to map each \emph{specific constraint} to SPIN and we get identical validation results for semantically equivalent \emph{specific constraints} (expressed by different constraint languages),
-(1) if we map semantically equivalent \emph{specific constraints} to the corresponding \emph{generic constraint} and 
-(2) if we map the \emph{generic constraint} to SPIN.
-As a consequence, we only have to define one SPIN mapping for each constraint type corresponding to an RDF validation requirement.
-\textcolor{red}{19} of the overall 81 identified constraint types can be expressed by at least four constraint languages \cite{BoschNolleAcarEckert2015}.
-This means that there must be 76 (four for each constraint type) implementations to validate RDF data according to 76 \emph{specific constraints} - instead of only 19 implementations (one for each \emph{generic constraint}) leading to identical validation results.
-
-Within the \emph{RDF Validator}, we define one SPIN construct template for each \emph{generic constraint} and therefore constraint type.
-A SPIN construct template contains a SPARQL CONSTRUCT query which generates constraint violation triples (\emph{spin:ConstraintViolation}) indicating the subject (\emph{spin:violationRoot}) and the properties (\emph{spin:violationPath}) causing constraint violations, and the reason why constraint violations have been raised (\emph{rdfs:label}).
-A SPIN construct template creates constraint violation triples if all triple patterns within the SPARQL WHERE clause match.
-
-\begin{DL}
-Publication $\equiv$ $\forall$ author.Person
-\end{DL}
-
-According to the \emph{universal quantification} (\emph{R-91}) above, \emph{authors} of \emph{publications} must be \emph{persons}.
-The SPARQL CONSTRUCT query for the constraint type \emph{universal quantification} is shown below:
-
-\begin{ex}
-CONSTRUCT {
-    [   a spin:ConstraintViolation ; spin:violationRoot ?subject ;
-        rdfs:label ?violationMessage ; spin:violationPath ?lp1 . ] }
-WHERE {	  
-    [   a gclo:PropertyConstraint ;
-        gclo:contextClass ?cc ;
-        gclo:leftProperties ( ?lp1 ) ;
-        gclo:classes ( ?c1 ) ;
-        gclo:constrainingElement "universal quantification" ] .
-    ?subject a ?cc .
-    ?subject ?lp1 ?o .
-    FILTER NOT EXISTS { ?o a ?c1 } . }
-\end{ex}
-
-We provide a mapping from the \emph{RDF-CV} to SPIN\footnote{RDF-CV to SPIN online available at: \url{https://github.com/boschthomas/RDF-CV-2-SPIN}} 
-in order to automatically validate RDF data complying with each type of \emph{generic constraint} (\emph{simple}, \emph{complex}, \emph{property}, and \emph{class constraints}).
+Our proposal makes sure that the validation on semantically equivalent \emph{specific constraints} expressed by different languages
+leads to exactly the same validation results, 
+i.e., that validation is performed independently of the used language.
+This is not the case, however, for existing languages since they are implemented independently form each other.
+Two constraints are identical w.r.t. RDF semantics, 
+if they detect the same set of violations regardless of RDF data, 
+which means whenever the constraints are applied to any RDF data they point out the same violations.
+As we use multiple languages to express constraints of constraint types in the appendix of this paper,
+we thereby document identical semantics of these languages with regard to given constraint types \cite{BoschNolleAcarEckert2015}.
+This is also needed to prove that semantically equivalent \emph{specific constraints} and corresponding \emph{generic constraints}
+behave in the same way with regard to validation results which semantically underpins bidirectional mappings.
 
 %When domain experts use graphical user interfaces to define constraints in a user-friendly way (without the necessity to express constraints on their own), 
 %constraints can be mapped to either a specific or a generic constraint, as for both the validation is provided in the background.    
@@ -461,7 +438,7 @@ As RDF validation has its origin in the XML world
 many RDF validation scenarios require the {\em closed-world assumption} (\emph{CWA}), i.e., a statement is inferred to be false if it cannot be proved to be true.
 Thus, classical constraint languages are based on the \emph{CWA} where constraints need to be satisfied only by named individuals. 
 In the example, the \emph{CWA} yields to a violation since there is no explicitly defined \emph{title} for the \emph{book} {\em Hamlet}. 
-%
+
 Validation requires that different names represent different objects (\emph{unique name assumption (UNA)}), whereas,
 \emph{OWL 2} is based on the {\em non-unique name assumption (nUNA)}.  
 If we define the property \emph{title} to be functional {\small\ms{(funct (title)),}} a \emph{book} can have at most one distinct \emph{title}.
@@ -514,13 +491,6 @@ If validation would assume \emph{OWA} and \emph{nUNA}, validation won’t be tha
 
 Differences in semantics may lead to differences in validation results when applied to particular constraint types.
 For the majority of the constraint types, validation results differ (1) if the \emph{CWA} or the \emph{OWA} and (2) if the \emph{UNA} or the \emph{nUNA} is assumed \cite{BoschNolleAcarEckert2015}.
-If any two constraints are semantically the same (w.r.t. RDF semantics), they should detect the same set of violations regardless of RDF data, 
-which means whenever the constraints are applied to any RDF data they point out the same violations.
-To be able to define mappings between semantically equivalent \emph{specific constraints} (expressed by different languages) and 
-between \emph{specific constraints} and \emph{generic constraints},
-we show for each constraint type that their constraints lead to exactly the same violations which shows that they behave in the same way. 
-We express constraint types by different languages
-to document identical semantics for these languages with regard to appropriate constraint types. 
 
 %We defined the \textbf{formal generic semantics of the vocabulary} to describe constraints of any constraint type in a generic way (see paper appendix):
 %(1) We mapped constraint types to \emph{DL} to logically underpin them and 
@@ -1094,57 +1064,26 @@ as such axioms can be expressed using the basic features of \emph{DL} but can al
 
 \section{Related Work}
 
-\tb{explain how typical constraints are expressed by the most common constraint languages}
+In this section, we present current approaches for constraint formulation and validation which have been the most discussed in the mentioned workshops and WGs.
+These approaches differ in 2 dimensions: (1) the used constraint language and (2) if they offer validation systems.
 
------
+OWL, Resource Shapes (ReSh), Shape Expressions (ShEx), Description Set Profiles (DSPs), SPARQL, and SPIN are the most promising and applied constraint languages.
+Stardog ICV, Pellet ICV, and SPIN use OWL 2 constructs to formulate constraints.
+SPIN\footnote{http://spinrdf.org} provides a vocabulary to represent SPARQL queries as RDF triples
+and uses SPARQL to specify inference rules and logical constraints \cite{Fuerber2010}.
+The Pellet Integrity Constraint Validator (ICV)\footnote{http://clarkparsia.com/pellet/icv/} is a proof-of-concept extension for the OWL reasoner Pellet. 
+Stardog ICV\footnote{http://docs.stardog.com/icv/icv-specification.html} validates RDF data stored in a Stardog RDF database. 
+ReSh\footnote{http://www.w3.org/Submission/shapes/} defines its own RDF vocabulary Open Services for Lifecycle Collaboration (OSLC) to define constraints \cite{Ryman2013}. 
+ShEx\footnote{http://www.w3.org/2013/ShEx/Definition} also specifies a new constraint language whose syntax and semantics are similar to regular expressions.
+DCMI RDF Application Profile (AP)\footnote{http://dublincore.org/documents/singapore-framework/} and Bibframe\footnote{http://bibframe.org/} are approaches to specify profiles for application-specific purposes. 
+DCMI RDF-AP uses DSP\footnote{http://dublincore.org/documents/dc-dsp/} as generic constraint language which is also intuitive for non-experts.
+The Bibframe constraint language has a strong overlap with DSP.
+Kontokostas et al. define 17 data quality integrity constraints represented as SPARQL query templates called Data Quality Test Patterns (DQTP) \cite{Kontokostas2014}. 
+Schemarama\footnote{http://swordfish.rdfweb.org/discovery/2001/01/schemarama/} is based on the Squish RDF language instead of SPARQL. 
+For XML, Schematron\footnote{http://www.schematron.com/} is an ISO standard for validation and quality control of XML documents based on XPath and XSLT. 
+XML Schema\footnote{http://www.w3.org/TR/xmlschema-1/} is the primary technology for specifying and constraining the structure of XML documents.
 
------
-
------
-
------
-
------
-
------
-
------
-
------
-
------
-
------
-
------
-
------
-
------
-
------
-
------
-
------
-
------
-
------
-
------
-
------
-
------
-
------
-
------
-
------
-
------
+In addition to constraint validation languages, SPIN (open source API), Stardog ICV (as part of the Stardog RDF database), DQTP (tests), Pellet ICV (extension of Pellet OWL reasoner) and ShEx offer executable validation systems using SPARQL as implementation language.
 
 \section{Conclusion and Future Work}
 
