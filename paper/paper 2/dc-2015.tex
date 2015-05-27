@@ -211,59 +211,91 @@ by representing constraints of any constraint type in a generic way using a ligh
 We lately published a technical report (serving as second appendix of this paper) in which we describe the vocabulary in detail \cite{BoschEckert2015-2} (Section \ref{sec:vocabulary}).
 The constraint type \emph{minimum qualified cardinality restrictions} (\emph{R-75}) can be instantiated to ensure
 that \emph{publications} must have at least one \emph{author} which must be a \emph{person}.
-This constraint can either be represented generically by \emph{description logics (DL)} {\small\ms{(Publication $\sqsubseteq$ $\geq$1 author.Person)}} or specifically by multiple domain-specific constraint languages:
+This constraint can either be represented generically (\emph{generic constraints}) by \emph{description logics (DL)} {\small\ms{(Publication $\sqsubseteq$ $\geq$1 author.Person)}} or specifically (\emph{specific constraints}) by multiple domain-specific constraint languages:
 
 \begin{ex}[commandchars=\\\{\}]
-\textit{OWL 2:}
-Publication
-    a owl:Restriction ;
-    owl:minQualifiedCardinality 1 ;
-    owl:onProperty author ;
-    owl:onClass Person .
+\textit{OWL 2:} Publication a owl:Restriction ;
+          owl:minQualifiedCardinality 1 ;
+          owl:onProperty author ;
+          owl:onClass Person .
 		
-\textit{ShEx:}
-Publication \{ author @Person\{1, \} \}
+\textit{ShEx:} Publication \{ author @Person\{1, \} \}
 
-\textit{ReSh:}
-Publication a rs:ResourceShape ; rs:property [
-    rs:name "author" ; rs:propertyDefinition author ;
-    rs:valueShape Person ;
-    rs:occurs rs:One-or-many ; ] .
+\textit{ReSh:} Publication a rs:ResourceShape ; rs:property [
+          rs:propertyDefinition author ;
+          rs:valueShape Person ;
+          rs:occurs rs:One-or-many ; ] .
 		
-\textit{DSP:}
-[   a dsp:DescriptionTemplate ; 
-    dsp:resourceClass Publication ; 
-    dsp:statementTemplate [ a dsp:NonLiteralStatementTemplate ;
-        dsp:minOccur 1 ; dsp:maxOccur "infinity" ; 
-        dsp:property author ; 
-        dsp:nonLiteralConstraint [ a dsp:NonLiteralConstraint ;
-            dsp:valueClass Person ] ] ] .
+\textit{DSP:} [ dsp:resourceClass Publication ; dsp:statementTemplate [ 
+          dsp:minOccur 1 ; dsp:maxOccur "infinity" ; 
+          dsp:property author ; 
+          dsp:nonLiteralConstraint [ dsp:valueClass Person ] ] ] .
+					
+\textit{SPIN:} CONSTRUCT \{ [ a spin:ConstraintViolation ... . ] \} WHERE \{ 
+          ?this ?p ?o ; a ?C .
+          BIND ( \textit{qualifiedCardinality}( ?this, ?p, ?C ) AS ?c ) .
+          BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality ) .
+          FILTER ( ?cardinality < ?minimumCardinality ) . \}
+						
+\textit{SPIN function qualifiedCardinality:}										
+SELECT ( COUNT ( ?arg1 ) AS ?c ) WHERE \{ ?arg1 ?arg2 ?o . ?o a ?arg3 . \}
 \end{ex}
 
 The knowledge representation formalism {\em DL}, with its  well-studied theoretical properties, provides the foundational basis to express constraints in a generic way. 
 For this reason, the appendix of this paper contains mappings to \emph{DL} to determine which \emph{DL} constructs are needed to express each constraint type \cite{BoschNolleAcarEckert2015}.
-
 As every \emph{publication} must have at least one \emph{author} which must be a \emph{person} 
-and since the book \emph{The-Lord-Of-The-Rings} is a \emph{publication} {\small\ms{(rdf:type(The-Lord-Of-The-Rings, Publication)),}} 
-the book must have at least one \emph{author} relationship to a \emph{person}.
+and since the book \emph{The-Lord-Of-The-Rings} is a \emph{publication}, 
+%{\small\ms{(rdf:type(The-Lord-Of-The-Rings, Publication)),}} 
+it must have at least one \emph{author} relationship to a \emph{person}.
 The constraint is violated either (1) if
-\emph{The-Lord-Of-The-Rings} does not have any \emph{author} relationship, 
-or (2) if the book has an \emph{author} which is not a \emph{person}
-{\small\ms{(author(The-Lord-Of-The-Rings, Tolkien)},} {\small\ms{rdf:type(Tolkien, Hobbit)),}} 
-or (3) if the book has an \emph{author} whose class is unknown
-{\small\ms{(author(The-Lord-Of-The-Rings, Tolkien)).}}
-In contrast, the book is a valid \emph{publication}, if it is connected to a \emph{person} via the property \emph{author}
-{\small\ms{(author(The-Lord-Of-The-Rings, Tolkien)}, \ms{rdf:type(Tolkien, Person)).}}
+the book does not have any \emph{author} relationship, 
+or (2) if it has an \emph{author} which is not a \emph{person},
+%{\small\ms{(author(The-Lord-Of-The-Rings, Tolkien)},} {\small\ms{rdf:type(Tolkien, Hobbit)),}} 
+or (3) if it has an \emph{author} whose class is unknown.
+%{\small\ms{(author(The-Lord-Of-The-Rings, Tolkien)).}}
+In contrast, the book is a valid \emph{publication}, if it is connected to a \emph{person} via the property \emph{author}.
+%{\small\ms{(author(The-Lord-Of-The-Rings, Tolkien)}, \ms{rdf:type(Tolkien, Person)).}}
 
+The main contributions of this paper are:
+(1) We provide a basic terminology and classification system for RDF constraints (Section \ref{sec:vocabulary}).
+(2) As current high-level constraint languages do not support all constraint types, 
+we developed a vocabulary to describe constraints of any RDF constraint type generically (Section \ref{sec:vocabulary}).
+(3) We show how to enhance the interoperability of constraints expressed by different constraint languages by using the proposed vocabulary as an intermediate generic representation which enables transformations between semantically equivalent constraints of the same constraint type (Section \ref{sec:transformations}).
+(4) We explain how arbitrary constraint languages may reuse validation implementations which are provided once for each constraint type (Section \ref{sec:validation}).
+
+\subsection{How to Improve the Interoperability of RDF Constraints}
+\label{sec:transformations}
+
+RDF data providers have to ensure high data quality and therefore 
+that their data conforms to constraints which may be part of contracts between data providers and consumers.
 As there is no standard way to formulate constraints, 
-semantically equivalent \emph{minimum qualified cardinality restrictions} may be represented by multiple languages - each of them having different syntax and semantics.
-This causes confusion,
-weakens the common understanding between several parties about the meaning of particular constraints, and
-raises the question on how to ensure high data quality. 
-Therefore, when choosing a language, say \ms{$\alpha$}, to express a constraint of an arbitrary constraint type, 
-it should be possible to transform the constraint into a semantically equivalent constraint expressed by another constraint language \ms{$\beta$} (see Section \ref{sec:transformations}). 
-This is important in order to enhance the interoperability of constraint languages and to resolve misunderstandings and ambiguities in the communication of RDF data producers and consumers 
-since automatically performed constraint transformations avoid the necessity to understand several languages.
+semantically equivalent \emph{specific constraints}, so the \emph{minimum qualified cardinality restriction}, may be represented by a variety of languages - each of them having different syntax and semantics.
+This causes confusion and weakens the common understanding between several parties about the meaning of particular constraints.
+We propose transformations between semantically equivalent \emph{specific constraints}
+(1) to avoid the necessity to understand several languages,
+(2) to resolve misunderstandings in the communication of RDF data producers and consumers, and
+(3) to enhance the interoperability of constraint languages.
+
+We suggest to transform a \emph{specific constraint} (\emph{$sc_{\alpha}$}) of any constraint type expressed by language \emph{$\alpha$} into a semantically equivalent \emph{specific constraint} (\emph{$sc_{\beta}$}) of the same constraint type represented by any other language \emph{$\beta$}
+by using the developed vocabulary to intermediately represent constraints in a generic way. 
+%to enable these transformations.
+By defining mappings between equivalent \emph{specific constraints} and the corresponding \emph{generic constraint} (\emph{gc}) we are able to convert them automatically: 
+{\small\ms{$ gc = m_1(sc_{\alpha}) = m_2(sc_{\beta}) $}}.
+Thereby, we do not need to define mappings between each pair of semantically equivalent \emph{specific constraints}.
+Let's assume we are able to express constraints of the \emph{minimum qualified cardinality restrictions} constraint type by 10 languages.
+Without an intermediate generic representation, we would have to define for each constraint type one mapping between each pair of \emph{specific constraints} expressed by \emph{n} languages
+- that are \emph{\( {n \choose 2} \)} mappings (\emph{\( {10 \choose 2} \)} = 45 mappings).
+With an intermediate generic representation, on the other side, we only need to define for each constraint type \emph{n} mappings 
+%(1 mapping for each \emph{specific constraint}) 
+from \emph{n} \emph{specific constraints} to the corresponding \emph{generic constraint} (10 mappings).
+%Let's assume we are able to express a particular constraint type by 5/6/7/8/9/10 constraint languages.
+%Without the intermediate \emph{generic constraint}, we would have to define for each constraint type \emph{1} mapping for each pair of \emph{specific constraints} (expressed by different constraint languages)
+%that are \emph{\( {n \choose 2} \)} mappings (10/15/21/28/36/45 mappings).
+%With an intermediate \emph{generic constraint}, however, we only need to define for each constraint type \emph{n} mappings (1 mapping for each \emph{specific constraint}) from \emph{n} \emph{specific constraints} to the corresponding \emph{generic constraint} (5/6/7/8/9/10 mappings).
+For the \emph{minimum qualified cardinality restriction}, one mapping (\emph{$m_1(sc_{OWL 2})$}, \emph{$m_2(sc_{ShEx})$}, \emph{$m_3(sc_{ReSh})$}, \emph{$m_4(sc_{DSP})$},...) is defined for each \emph{specific constraint} (\emph{$sc_{OWL 2}$}, \emph{$sc_{ShEx}$}, \emph{$sc_{ReSh}$}, \emph{$sc_{DSP}$},...) to the corresponding \emph{generic constraint} (\emph{gc}).
+
+\subsection{How to Provide the Validation of RDF Constraints Out-Of-The-Box}
+\label{sec:validation}
 
 We use \emph{SPIN} as basis to develop a validation environment\footnote{Online demo available at \url{http://purl.org/net/rdfval-demo}, source code available at: \url{https://github.com/boschthomas/rdf-validator}\label{rdf-validator}} to validate RDF data according to constraints of constraint types which are expressible by arbitrary constraint languages by mapping them to \emph{SPIN}\footnote{\emph{SPIN} mappings available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/SPIN}\label{spin-mappings}} \cite{BoschEckert2014-2}.
 The next step, however, is to extend the \emph{RDF Validator} to validate RDF data conforming to constraints of each of the 81 constraint types. 
@@ -275,6 +307,54 @@ i.e., validation should be performed independently from the used language (see S
 We are able to offer already implemented validation for constraints of constraint types expressed by arbitrary languages out-of-the-box, 
 (1) if we implement the validation of the corresponding generically represented constraint types once and 
 (2) if we transform semantically equivalent specifically expressed constraints into generically expressed constraints.  
+
+-----
+
+SPARQL is generally seen as the method of choice to validate RDF data according to certain constraints, although, it is not ideal for their formulation. 
+In contrast, OWL 2, DSP, ReSh, and ShEx constraints are comparatively easy to understand. 
+We use SPIN as basis to define a
+validation environment\footnote{Online demo available at \url{http://purl.org/net/rdfval-demo}, source code available at: \url{https://github.com/boschthomas/rdf-validator}\label{rdf-validator}} in which the validation of any constraint language can be implemented by representing them in SPARQL.
+The only limitation is that constraint languages must be represented in RDF.
+The SPIN engine checks for each resource if it satisfies all constraints, which are associated with its assigned classes, and generates a result RDF graph containing information about all constraint violations \cite{BoschEckert2014-2}.
+This way, we are able to offer RDF data validation according to all \emph{specific constraints} (expressed by any constraint language) by defining mappings from each \emph{specific constraint} to \emph{SPIN}. 
+We already specified mappings to \emph{SPIN} for all \emph{OWL 2} and \emph{DSP}\footnote{SPIN mappings available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/SPIN}} constructs and for some \emph{ReSh} and \emph{ShEx} constructs.
+As constraint languages differ in syntax and semantics it is rather difficult to ensure that semantically equivalent \emph{specific constraints} always lead to identical validation results.
+
+We do not have to map each \emph{specific constraint} to SPIN and we get identical validation results for semantically equivalent \emph{specific constraints} (expressed by different constraint languages),
+(1) if we map semantically equivalent \emph{specific constraints} to the corresponding \emph{generic constraint} and 
+(2) if we map the \emph{generic constraint} to SPIN.
+As a consequence, we only have to define one SPIN mapping for each constraint type corresponding to an RDF validation requirement.
+\textcolor{red}{19} of the overall 81 identified constraint types can be expressed by at least four constraint languages \cite{BoschNolleAcarEckert2015}.
+This means that there must be 76 (four for each constraint type) implementations to validate RDF data according to 76 \emph{specific constraints} - instead of only 19 implementations (one for each \emph{generic constraint}) leading to identical validation results.
+
+Within the \emph{RDF Validator}, we define one SPIN construct template for each \emph{generic constraint} and therefore constraint type.
+A SPIN construct template contains a SPARQL CONSTRUCT query which generates constraint violation triples (\emph{spin:ConstraintViolation}) indicating the subject (\emph{spin:violationRoot}) and the properties (\emph{spin:violationPath}) causing constraint violations, and the reason why constraint violations have been raised (\emph{rdfs:label}).
+A SPIN construct template creates constraint violation triples if all triple patterns within the SPARQL WHERE clause match.
+
+\begin{DL}
+Publication $\equiv$ $\forall$ author.Person
+\end{DL}
+
+According to the \emph{universal quantification} (\emph{R-91}) above, \emph{authors} of \emph{publications} must be \emph{persons}.
+The SPARQL CONSTRUCT query for the constraint type \emph{universal quantification} is shown below:
+
+\begin{ex}
+CONSTRUCT {
+    [   a spin:ConstraintViolation ; spin:violationRoot ?subject ;
+        rdfs:label ?violationMessage ; spin:violationPath ?lp1 . ] }
+WHERE {	  
+    [   a gclo:PropertyConstraint ;
+        gclo:contextClass ?cc ;
+        gclo:leftProperties ( ?lp1 ) ;
+        gclo:classes ( ?c1 ) ;
+        gclo:constrainingElement "universal quantification" ] .
+    ?subject a ?cc .
+    ?subject ?lp1 ?o .
+    FILTER NOT EXISTS { ?o a ?c1 } . }
+\end{ex}
+
+We provide a mapping from the \emph{RDF-CV} to SPIN\footnote{RDF-CV to SPIN online available at: \url{https://github.com/boschthomas/RDF-CV-2-SPIN}} 
+in order to automatically validate RDF data complying with each type of \emph{generic constraint} (\emph{simple}, \emph{complex}, \emph{property}, and \emph{class constraints}).
 
 %When domain experts use graphical user interfaces to define constraints in a user-friendly way (without the necessity to express constraints on their own), 
 %constraints can be mapped to either a specific or a generic constraint, as for both the validation is provided in the background.    
@@ -289,11 +369,7 @@ We are able to offer already implemented validation for constraints of constrain
 %This paper aims to address two main \textbf{audiences}:
 %(1) RDF data providers and consumers seeking how to ensure high data quality and thus for ways to enhance the interoperability and common understanding of constraints expressible by multiple constraint languages and  
 %(2) RDF practitioners thinking of how to provide aligned implementations for the validation of both existing an newly developed constraint languages.
-The main contributions of this paper are:
-(1) We provide a basic terminology and classification system for RDF constraints (Section \ref{sec:vocabulary}).
-(2) We developed a vocabulary to describe constraints of any RDF constraint type generically (Section \ref{sec:vocabulary}).
-(3) We show how to transform constraints, expressed by any constraint language \ms{$\alpha$}, into generically expressed constraints and into constraints represented by any other constraint language \ms{$\beta$} and discuss why these transformations are useful (Section \ref{sec:transformations}).
-(4) We explain how to overcome the necessity to implement the validation of each constraint type for multiple constraint languages (Section \ref{sec:validation}).
+
 %(if the validation is implemented once for the corresponding \emph{generic constraint type} to which the \emph{specific constraint type} is mapped)
 
 %The remainder of the paper is as follows.
@@ -538,7 +614,8 @@ This way, we show that constraints of each constraint type are representable as 
 %and which are instances of 1/4 of the constraint types.
 In case \emph{complex constraints} are expressible in \emph{DL}, 
 \emph{DL} statements representing \emph{complex constraints} contain \emph{DL} statements standing for atomic and/or composed constraints. 
-Nearly 15\% of the \emph{complex constraints}, however, can be formulated as \emph{simple constraints} when using them in terms of syntactic sugar. 
+The constraints of almost 15\% of the constraint types are \emph{complex constraints}
+which can be simplified and therefore formulated as \emph{simple constraints} when using them in terms of syntactic sugar.
 \textbf{\emph{Context}:}
 \emph{Simple constraints} are applied on properties (\emph{property constraints}, 2/3),
 on classes (\emph{class constraints}, 1/5), or
@@ -680,11 +757,13 @@ The validation of each \emph{constraining element}, so for \emph{regex}, has to 
 
 \subsection{\emph{Complex Constraints}}
 
-\emph{Complex constraints} are composed out of \emph{simple constraints} and/or \emph{complex constraints}.
-\emph{Exclusive or} is a logical operation that outputs true whenever both inputs differ (one is true, the other is false).
-The \emph{complex constraint} \emph{context-specific exclusive or of property groups} (\emph{R-13})
-restricts individuals of given classes to have properties of only one of multiple mutually exclusive property groups.
-\emph{Publications} are either identified by an \emph{ISBN} and a \emph{title} (for books) or by an \emph{ISSN} and a \emph{title} (for periodical \emph{publications}), but it should not be possible to assign both identifiers to a given \emph{publication}, which can be expressed in \emph{ShEx} as follows:
+%\emph{Complex constraints} are composed out of \emph{simple constraints} and/or \emph{complex constraints}.
+\emph{Context-specific exclusive or of property groups} (\emph{R-13}) \emph{complex constraints}
+restrict individuals of given classes to have all properties of exactly one of multiple mutually exclusive property groups.
+\emph{Publications}, e.g., are either identified by an \emph{ISBN} and a \emph{title} (for books) or by an \emph{ISSN} and a \emph{title} (for periodical \emph{publications}), but it should not be possible to assign both identifiers to a given \emph{publication}. 
+As the \emph{The-Great-Gatsby} is a \emph{publication} with an \emph{ISBN} and a \emph{title} without an \emph{ISSN}, 
+\emph{The-Great-Gatsby} is considered as a valid \emph{publication}.
+This \emph{complex constraint} is expressible specifically by \emph{ShEx} and generically by \emph{DL} (and can therefore be mapped to the \emph{RDF-CV} \cite{BoschEckert2015-2}):
 
 %Half-Klingons, e.g., either have a klingon mother and a human father or a human mother and a klingon father, which can be expressed by ShEx:
 
@@ -694,10 +773,8 @@ restricts individuals of given classes to have properties of only one of multipl
     %( humanMother Human , klingonFather Klingon ) }
 %\end{ex}
 
-\begin{ex}
-Publication { 
-    ( isbn string , title string ) |
-    ( issn string , title string ) }
+\begin{ex}[commandchars=\\\{\}]
+\textit{ShEx:} Publication { ( isbn string , title string ) | ( issn string , title string ) }
 \end{ex}
 
 %As \ms{B'Elanna Torres} is a \ms{Half-Klingon} with a klingon mother and a human father, the following data is valid:
@@ -707,13 +784,12 @@ Publication {
     %klingonMother Miral ; humanFather JohnTorres .
 %\end{ex}
 
-As the \emph{The-Great-Gatsby} is a \emph{publication} {\small\ms{(rdf:type(The-Great-Gatsby, Publication))}} having an \emph{ISBN} number {\small\ms{(isbn(The-Great-Gatsby, '978-0241965672'))}} and a \emph{title} {\small\ms{(title(The-Great-Gatsby, 'The Great Gatsby'))}} and not an additional \emph{ISSN} identifier, the \emph{The-Great-Gatsby} is a valid \emph{publication}.
 %\begin{DL}
 %rdf:type(BElannaTorres,Half-Klingon) \\
 %klingonMother(BElannaTorres,Miral) \\
 %klingonMother(BElannaTorres,JohnTorres)
 %\end{DL}
-The \emph{complex constraint} is mapped to the \emph{RDF-CV} (see Table \ref{tab:complex-constraints}) and expressed in \emph{DL} as follows:
+%The \emph{complex constraint} is mapped to the \emph{RDF-CV} (see Table \ref{tab:complex-constraints}) and expressed in \emph{DL} as follows:
 
 %\begin{DL}
 %Half-Klingon $\sqsubseteq$ ($\neg$E $\sqcap$ F) $\sqcup$ (E $\sqcap$ $\neg$F) \\ 
@@ -726,13 +802,9 @@ The \emph{complex constraint} is mapped to the \emph{RDF-CV} (see Table \ref{tab
 %\end{DL}
 
 \begin{DL}
-Publication $\sqsubseteq$ ($\neg$E $\sqcap$ F) $\sqcup$ (E $\sqcap$ $\neg$F) \\ 
-E $\equiv$ A $\sqcap$ B \\
-F $\equiv$ C $\sqcap$ D \\
-A $\sqsubseteq$ $\geq$ 1 isbn.string $\sqcap$ $\leq$ 1 isbn.string \\
-B $\sqsubseteq$ $\geq$ 1 title.string $\sqcap$ $\leq$ 1 title.string \\
-C $\sqsubseteq$ $\geq$ 1 issn.string $\sqcap$ $\leq$ 1 issn.string \\
-D $\sqsubseteq$ $\geq$ 1 title.string $\sqcap$ $\leq$ 1 title.string \\
+\textbf{Publication $\sqsubseteq$ ($\neg$E $\sqcap$ F) $\sqcup$ (E $\sqcap$ $\neg$F)} , E $\equiv$ A $\sqcap$ B , F $\equiv$ C $\sqcap$ D \\
+A $\sqsubseteq$ $\geq$ 1 isbn.string $\sqcap$ $\leq$ 1 isbn.string , B $\sqsubseteq$ $\geq$ 1 title.string $\sqcap$ $\leq$ 1 title.string \\
+C $\sqsubseteq$ $\geq$ 1 issn.string $\sqcap$ $\leq$ 1 issn.string , D $\sqsubseteq$ $\geq$ 1 title.string $\sqcap$ $\leq$ 1 title.string \\
 \end{DL}
 
 %\begin{gcotable}
@@ -757,43 +829,44 @@ D $\sqsubseteq$ $\geq$ 1 title.string $\sqcap$ $\leq$ 1 title.string \\
 %property & D2 & klingonFather & - & Klingon & $\leq$ & 1 \\
 %\end{gcotable}
 
-\begin{table}[H]
-  \scriptsize
-  \sffamily
-  \vspace{0cm}
-	\caption{Complex Constraints}
-	\label{tab:complex-constraints}
-	\centering
-		\begin{tabular}{l|l|l|l|l|l|l}
-      \textbf{c. set} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
-      \hline
-class & Publication & - & - & $\neg$E $\sqcap$ F, E $\sqcap$ $\neg$F & $\sqcup$ & - \\
-class & $\neg$E $\sqcap$ F & - & - & $\neg$E, F & $\sqcap$ & - \\
-class & E $\sqcap$ $\neg$F & - & - & E, $\neg$F & $\sqcap$ & - \\
-class & $\neg$E & - & - & E & $\neg$ & - \\
-class & E & - & - & A, B & $\sqcap$ & - \\
-class & $\neg$F & - & - & F & $\neg$ & - \\
-class & F & - & - & C, D & $\sqcap$ & - \\
-class & A & - & - & A1, A2 & $\sqcap$ & - \\
-property & A1 & isbn & - & string & $\geq$ & 1 \\
-property & A2 & isbn & - & string & $\leq$ & 1 \\
-class & B & - & - & B1, B2 & $\sqcap$ & - \\
-property & B1 & title & - & string & $\geq$ & 1 \\
-property & B2 & title & - & string & $\leq$ & 1 \\
-class & C & - & - & C1, C2 & $\sqcap$ & - \\
-property & C1 & issn & - & string & $\geq$ & 1 \\
-property & C2 & issn & - & string & $\leq$ & 1 \\
-class & D & - & - & D1, D2 & $\sqcap$ & - \\
-property & D1 & title & - & string & $\geq$ & 1 \\
-property & D2 & title & - & string & $\leq$ & 1 \\
-		\end{tabular}
-\end{table}
+%\begin{table}[H]
+  %\scriptsize
+  %\sffamily
+  %\vspace{0cm}
+	%\caption{Complex Constraints}
+	%\label{tab:complex-constraints}
+	%\centering
+		%\begin{tabular}{l|l|l|l|l|l|l}
+      %\textbf{c. set} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
+      %\hline
+%class & Publication & - & - & $\neg$E $\sqcap$ F, E $\sqcap$ $\neg$F & $\sqcup$ & - \\
+%class & $\neg$E $\sqcap$ F & - & - & $\neg$E, F & $\sqcap$ & - \\
+%class & E $\sqcap$ $\neg$F & - & - & E, $\neg$F & $\sqcap$ & - \\
+%class & $\neg$E & - & - & E & $\neg$ & - \\
+%class & E & - & - & A, B & $\sqcap$ & - \\
+%class & $\neg$F & - & - & F & $\neg$ & - \\
+%class & F & - & - & C, D & $\sqcap$ & - \\
+%class & A & - & - & A1, A2 & $\sqcap$ & - \\
+%property & A1 & isbn & - & string & $\geq$ & 1 \\
+%property & A2 & isbn & - & string & $\leq$ & 1 \\
+%class & B & - & - & B1, B2 & $\sqcap$ & - \\
+%property & B1 & title & - & string & $\geq$ & 1 \\
+%property & B2 & title & - & string & $\leq$ & 1 \\
+%class & C & - & - & C1, C2 & $\sqcap$ & - \\
+%property & C1 & issn & - & string & $\geq$ & 1 \\
+%property & C2 & issn & - & string & $\leq$ & 1 \\
+%class & D & - & - & D1, D2 & $\sqcap$ & - \\
+%property & D1 & title & - & string & $\geq$ & 1 \\
+%property & D2 & title & - & string & $\leq$ & 1 \\
+		%\end{tabular}
+%\end{table}
 
 %Even though, tools may generate \emph{generic constraints} automatically, this 
-\emph{Complex constraints} are composed of many other \emph{complex} (e.g. \emph{minimum and maximum qualified cardinality restrictions}) and \emph{simple constraints} (e.g. constraints on sets).
+The \emph{DL} statements demonstrate that the \emph{complex constraint} 
+is composed of many other \emph{complex} (e.g. \emph{minimum and maximum qualified cardinality restrictions}) and \emph{simple constraints} (e.g. constraints on sets).
 As \emph{exact (un)qualified cardinality restrictions (=n)} and \emph{exclusive or (XOR)} are frequently used \emph{complex constraints},
-we propose using them as \emph{simple constraints} - in terms of syntactic sugar.
-As a consequence, the \emph{context-specific exclusive or of property groups} constraint above is represented as a \emph{generic constraint} more intuitively and concisely (see Table \ref{tab:simplified-complex-constraints}).
+we propose using them in terms of syntactic sugar as \emph{simple constraints}.
+As a consequence, the \emph{context-specific exclusive or of property groups} \emph{complex constraint} is represented as a \emph{generic constraint} by means of the \emph{RDF-CV} more intuitively and concisely (Table \ref{tab:simplified-complex-constraints}).
 
 %\begin{gcotable}
 %class & Half-Klingon & - & - & E, F & XOR \\
@@ -825,70 +898,68 @@ property & D & title & - & string & = & 1 \\
 		\end{tabular}
 \end{table}
 
-\subsubsection{\emph{Complex Constraints} as \emph{Simple Constraints}}
-
-Almost 15 percent of all constraint types are \emph{complex constraints} which can be simplified and therefore formulated as \emph{simple constraints} when using them in terms of syntactic sugar (see Section \ref{sec:evaluation}).
-
-There are three forms of \emph{OWL RBox axioms}: \emph{role inclusions}, \emph{equivalence} and \emph{disjointness}. 
-\emph{OWL} provides a variety of other axiom types: \emph{role transitivity}, \emph{symmetry}, \emph{asymmetry}, \emph{reflexivity} and \emph{irreflexivity}. 
-These axiom types are sometimes considered as basic axiom types in \emph{DL} - using some suggestive notation such as
-\ms{Trans(ancestorOf)} to express that the role \emph{ancestorOf} is transitive.
-Such axioms, however, are just syntactic sugar - 
-all role characteristics can be expressed using the basic features of \emph{DL}.
-The \emph{irreflexive object properties} constraint type (\emph{R-60}) 
-restricts that no individual is connected by a given object property to itself \cite{Kroetzsch2012}.
-With the following \emph{irreflexive object property} constraint, for instance, one can state that individuals cannot be authors of themselves:
-\begin{DL}
-\ms{$\top$ $\sqsubseteq$ $\neg$ $\exists authorOf.Self$}
-\end{DL}
-When mapped to the \emph{RDF-CV} (see Table \ref{tab:irreflexive-object-properties-as-complex-constraints}), the \emph{complex constraint} aggregates three \emph{simple constraints} (one \emph{property} and two \emph{class constraints}):
-
-%\begin{gcotable}
-%property & $\exists$ marriedTo . Self & marriedTo & - & Self & $\exists$ & - \\
-%class & $\neg$ $\exists$ marriedTo . Self & - & - & $\exists$ marriedTo . Self & $\neg$ & - \\
-%class & $\top$ & - & - & $\top$, $\neg$ $\exists$ marriedTo . Self & $\sqsubseteq$ & - \\
-%\end{gcotable}
-
-\begin{table}[H]
-  \scriptsize
-  \sffamily
-  \vspace{0cm}
-	\caption{Irreflexive Object Properties as Complex Constraints}
-	\label{tab:irreflexive-object-properties-as-complex-constraints}
-	\centering
-		\begin{tabular}{l|l|l|l|l|l|l}
-      \textbf{c. set} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
-      \hline
-property & $\exists$ authorOf.Self & marriedTo & - & Self & $\exists$ & - \\
-class & $\neg$ $\exists$ authorOf.Self & - & - & $\exists$ authorOf.Self & $\neg$ & - \\
-class & $\top$ & - & - & $\top$, $\neg$ $\exists$ authorOf.Self & $\sqsubseteq$ & - \\
-		\end{tabular}
-\end{table}
-
-When using the \emph{OWL RBox axiom} \emph{role irreflexivity} in terms of syntactic sugar, 
-the \emph{complex constraint} can be expressed more concisely in form of a \emph{simple property constraint} with exactly the same semantics (see Table \ref{tab:irreflexive-object-properties-as-simple-constraints}):
-
-%\begin{gcotable}
-%property & $\top$ & marriedTo & - & - & irreflexive & - \\
-%\end{gcotable}
-
-\begin{table}[H]
-  \scriptsize
-  \sffamily
-  \vspace{0cm}
-	\caption{Irreflexive Object Properties as Simple Constraints}
-	\label{tab:irreflexive-object-properties-as-simple-constraints}
-	\centering
-		\begin{tabular}{l|l|l|l|l|l|l}
-      \textbf{c. set} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
-      \hline
-property & $\top$ & authorOf & - & - & irreflexive & - \\
-		\end{tabular}
-\end{table}
-
-The \emph{primary key properties} constraint type (\emph{R-226}) is often useful to declare a given (datatype) property as the "primary key" of a class, so that a system can enforce uniqueness. 
-For instance, \emph{Books} are uniquely identified by their \emph{ISBN} number, that is, the property \emph{isbn} is inverse functional \ms{$(\ms{funct } isbn\sp{\overline{\ }})$}, 
-which can be represented by the \emph{RDF-CV} in form of a \emph{complex constraint} (see Table \ref{tab:primary-key-properties-as-complex-constraints}):
+Constraints of almost 15\% of the constraint types are \emph{complex constraints}
+which can be simplified and therefore formulated as \emph{simple constraints} when using them in terms of syntactic sugar.
+%There are three forms of \emph{OWL RBox axioms}: \emph{role inclusions}, \emph{equivalence} and \emph{disjointness}. 
+%\emph{OWL} provides a variety of other axiom types: \emph{role transitivity}, \emph{symmetry}, \emph{asymmetry}, \emph{reflexivity} and \emph{irreflexivity}. 
+%These axiom types are sometimes considered as basic axiom types in \emph{DL} - using some suggestive notation such as
+%\ms{Trans(ancestorOf)} to express that the role \emph{ancestorOf} is transitive.
+%Such axioms, however, are just syntactic sugar - 
+%all role characteristics can be expressed using the basic features of \emph{DL}.
+%
+%The \emph{irreflexive object properties} constraint type (\emph{R-60}) 
+%restricts that no individual is connected by a given object property to itself \cite{Kroetzsch2012}.
+%With the following \emph{irreflexive object property} constraint, for instance, one can state that individuals cannot be authors of themselves:
+%\begin{DL}
+%\ms{$\top$ $\sqsubseteq$ $\neg$ $\exists authorOf.Self$}
+%\end{DL}
+%When mapped to the \emph{RDF-CV} (see Table \ref{tab:irreflexive-object-properties-as-complex-constraints}), the \emph{complex constraint} aggregates three \emph{simple constraints} (one \emph{property} and two \emph{class constraints}):
+%
+%%\begin{gcotable}
+%%property & $\exists$ marriedTo . Self & marriedTo & - & Self & $\exists$ & - \\
+%%class & $\neg$ $\exists$ marriedTo . Self & - & - & $\exists$ marriedTo . Self & $\neg$ & - \\
+%%class & $\top$ & - & - & $\top$, $\neg$ $\exists$ marriedTo . Self & $\sqsubseteq$ & - \\
+%%\end{gcotable}
+%
+%\begin{table}[H]
+  %\scriptsize
+  %\sffamily
+  %\vspace{0cm}
+	%\caption{Irreflexive Object Properties as Complex Constraints}
+	%\label{tab:irreflexive-object-properties-as-complex-constraints}
+	%\centering
+		%\begin{tabular}{l|l|l|l|l|l|l}
+      %\textbf{c. set} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
+      %\hline
+%property & $\exists$ authorOf.Self & marriedTo & - & Self & $\exists$ & - \\
+%class & $\neg$ $\exists$ authorOf.Self & - & - & $\exists$ authorOf.Self & $\neg$ & - \\
+%class & $\top$ & - & - & $\top$, $\neg$ $\exists$ authorOf.Self & $\sqsubseteq$ & - \\
+		%\end{tabular}
+%\end{table}
+%
+%When using the \emph{OWL RBox axiom} \emph{role irreflexivity} in terms of syntactic sugar, 
+%the \emph{complex constraint} can be expressed more concisely in form of a \emph{simple property constraint} with exactly the same semantics (see Table \ref{tab:irreflexive-object-properties-as-simple-constraints}):
+%
+%%\begin{gcotable}
+%%property & $\top$ & marriedTo & - & - & irreflexive & - \\
+%%\end{gcotable}
+%
+%\begin{table}[H]
+  %\scriptsize
+  %\sffamily
+  %\vspace{0cm}
+	%\caption{Irreflexive Object Properties as Simple Constraints}
+	%\label{tab:irreflexive-object-properties-as-simple-constraints}
+	%\centering
+		%\begin{tabular}{l|l|l|l|l|l|l}
+      %\textbf{c. set} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
+      %\hline
+%property & $\top$ & authorOf & - & - & irreflexive & - \\
+		%\end{tabular}
+%\end{table}
+The \emph{primary key properties} constraint type (\emph{R-226}) is often useful to declare a given (datatype) property as the primary key of a class, so that a system can enforce uniqueness. 
+\emph{Books}, e.g., are uniquely identified by their \emph{ISBN}, i.e., the property \emph{isbn} is inverse functional \ms{$(\ms{funct } isbn\sp{\overline{\ }})$}
+which can be represented using the \emph{RDF-CV} in form of a \emph{complex constraint} consisting of two \emph{simple constraints} (Table \ref{tab:primary-key-properties-as-complex-constraints}):
 
 %\begin{gcotable}
 %property & $\top$ & commandAuthorizationCode$^{-}$ & commandAuthorizationCode$^{-}$ & - & inverse & - \\
@@ -913,27 +984,37 @@ property & Book & isbn$^{-}$ & - & - & functional & - \\
 \emph{Keys}, however, are even more general, i.e., a generalization of \emph{inverse functional properties} \cite{Schneider2009}.
 A key can be a datatype, an object property, or a chain of properties.
 For these generalization purposes, as there are different sorts of keys, and as keys can lead to undecidability, 
-\emph{DL} is extended with \emph{key boxes} and a special construct \emph{keyfor} \cite{Lutz2005}.
-When using the \emph{keyfor} \emph{DL} construct (\ms{isbn keyfor Book}), the \emph{complex constraint} can be expressed by only one \emph{simple property constraint} (see Table \ref{tab:primary-key-properties-as-simple-constraints} for the mapping to the \emph{RDF-CV}).
+\emph{DL} is extended with a special construct \emph{keyfor} \cite{Lutz2005}.
+When using \emph{keyfor} (\ms{isbn keyfor Book}), 
+the \emph{complex constraint} can be simplified as a \emph{simple constraint} which looks like the following in RDF turtle syntax:
 
 %\begin{gcotable}
 %property & StarFleetOfficer & commandAuthorizationCode & - & - & keyfor & - \\
 %\end{gcotable}
 
-\begin{table}[H]
-  \scriptsize
-  \sffamily
-  \vspace{0cm}
-	\caption{Primary Key Properties as Simple Constraints}
-	\label{tab:primary-key-properties-as-simple-constraints}
-	\centering
-		\begin{tabular}{l|l|l|l|l|l|l}
-      \textbf{c. set} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
-      \hline
-property & Book & isbn & - & - & keyfor & - \\
-		\end{tabular}
-\end{table}
+%\begin{table}[H]
+  %\scriptsize
+  %\sffamily
+  %\vspace{0cm}
+	%\caption{Primary Key Properties as Simple Constraints}
+	%\label{tab:primary-key-properties-as-simple-constraints}
+	%\centering
+		%\begin{tabular}{l|l|l|l|l|l|l}
+      %\textbf{c. set} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
+      %\hline
+%property & Book & isbn & - & - & keyfor & - \\
+		%\end{tabular}
+%\end{table}
 
+\begin{ex}[commandchars=\\\{\}]
+[   a \textit{rdfcv:PropertyConstraint} , \textit{rdfcv:SimpleConstraint} ;
+    \textit{rdfcv:contextClass} Book ; \textit{rdfcv:leftProperties} ( isbn ) ; \textit{rdfcv:constrainingElement} "keyfor" ] .
+\end{ex}
+
+\emph{Complex constraints} of frequently used constraint types corresponding to \emph{DL} axioms like 
+\emph{transitivity}, \emph{symmetry}, \emph{asymmetry}, \emph{reflexivity} and \emph{irreflexivity}
+can also be simplified in the same way, 
+as such axioms can be expressed using the basic features of \emph{DL} but can also be abbreviated when using them in form of syntactic sugar \cite{BoschEckert2015-2}
 %Starfleet officers, e.g., are uniquely identified by their command authorization code (e.g. to activate and cancel auto-destruct sequences).
 %It means that the property \emph{commandAuthorizationCode} is inverse functional - mapped to DL and the \emph{RDF-CV} as follows:
 %
@@ -1009,285 +1090,7 @@ property & Book & isbn & - & - & keyfor & - \\
 %\section{Transformations between Specific Constraints (Expressed by Different Constraint Languages)}
 %\section{Transformations between Specific Constraints}
 
-\section{How to Improve the Understandability of Constraints}
-\label{sec:transformations}
-
-RDF data providers have to ensure that their data conforms to constraints which are explicitly defined within contracts between data providers and consumers.
-As there is no standard way to express constraints, they may be represented by a variety of constraint languages\footnote{Candidates for constraint languages are, i.a., SPIN, OWL 2, DSP, ShEx, ReSh, Bibframe, DQTP, Pellet ICV, RDFUnit, SPARQL, and Stardog ICV} - each of them different in syntax and semantics.
-To overcome the necessity to understand diverse constraint languages, 
-we propose to transform any \emph{specific constraint} (\emph{$sc_{\alpha}$}) (expressed by any constraint language \emph{$\alpha$}) into any other \emph{specific constraint} (\emph{$sc_{\beta}$}) (expressed by any other constraint language \emph{$\beta$}) - in case they have the same semantics.
-We use the \emph{RDF-CV} to intermediately represent constraints in a generic way for these transformations.
-By defining mappings between equivalent \emph{specific constraints}, and the corresponding \emph{generic constraint} (\emph{gc}) we are able to convert them automatically:
-
-\begin{DL}
-$ gc = m_1(sc_{\alpha}) = m_2(sc_{\beta}) $
-\end{DL}
-
-We do not need to define mappings between each pair of semantically equivalent \emph{specific constraints}.
-Let's assume we are able to express a particular constraint type by 5 constraint languages.
-Without the intermediate \emph{generic constraint}, we would have to define for each constraint type \emph{1} mapping for each pair of \emph{specific constraints} (expressed by different constraint languages)
-- that are \emph{\( {n \choose 2} \)} mappings which is not very helpful.
-With an intermediate \emph{generic constraint}, however, we only need to define for each constraint type \emph{n} mappings (1 mapping for each \emph{specific constraint}) from \emph{n} \emph{specific constraints} to the corresponding \emph{generic constraint}.
-
-%(n(n+1))/2
-
-%\begin{DL}
-%\(\sum \limits_{i=1}^n i = \frac{n(n+1)}{2}\)
-%\(\sum \limits_{i=1}^n i\)
-%\(\Binom{n}{2} \)
-%\( {n \choose 2} \)
-%\end{DL}
-
-\begin{DL}
-Publication $\equiv$ $\exists$ publisher.Publisher
-\end{DL}
-
-The {\em existential quantification} (\emph{R-86})
-%\ms{Publication $\equiv$ $\exists$ publisher.Publisher} 
-above restricts \emph{publications} to have at least one \emph{publisher} and can be expressed by at least 10 different constraint languages\footnote{OWL 2, SPARQL, ShEx, Bibframe, DSP, ReSh, SPIN, DQTP, Pellet IVC, and Stardog ICV}:
-
-\begin{ex}
-# OWL 2:
-[ a owl:Restriction ;
-  owl:onProperty publisher ;
-  owl:someValuesFrom Publisher ;
-  rdfs:subClassOf Publication ] .
-	
-# SPARQL:
-ASK { ?x a Publication . FILTER NOT EXISTS { ?x publisher [ a Publisher ] } . }
-	
-# ShEx:
-Publication {
-    publisher @Publisher{1,} }
-		
-# DSP:
-descriptionTemplate a dsp:DescriptionTemplate ;
-    dsp:resourceClass Publication ; 
-    dsp:statementTemplate [ a dsp:NonLiteralStatementTemplate ;
-        dsp:minOccur 1 ; dsp:maxOccur "infinity" ; 
-        dsp:property publisher ; 
-        dsp:nonLiteralConstraint [ a dsp:NonLiteralConstraint ;
-            dsp:valueClass Publisher ] ] .
-		
-# ReSh:
-Publication a rs:ResourceShape ; rs:property [
-    rs:propertyDefinition :publisher ;
-    rs:valueShape :Publisher ;
-    se:min 1 ; se:maxundefined true ; ] .
-		
-# SPIN:
-CONSTRUCT {
-    _:cv a spin:ConstraintViolation ; spin:violationRoot ?subject ;
-         rdfs:label ?violationMessage ; spin:violationPath ?property . } WHERE 
-{ ?subject a ?classSubject . FILTER NOT EXISTS { ?subject ?property [ a ?classObject ] } . }
-\end{ex}
-
-%\emph{Allowed Values}\footnote{corresponds to \emph{R-30-ALLOWED-VALUES-FOR-RDF-OBJECTS} and \emph{R-37-ALLOWED-VALUES-FOR-RDF-LITERALS}}
-%is a common requirement (constraint type) to narrow down the value space of a property by an exhaustive enumeration of the valid values (both literals or resources). 
-%The Enterprise, e.g., is only commanded by the captains Archer, Kirk, and Picard.
-%This \emph{complex constraint} is composed of the two \emph{simple constraints} \emph{universal quantification} and \emph{allowed values} which can be represented in DL:
-
-%\begin{DL}
-%StarfleetCaptain $\equiv$ $\forall$ overruledBy . \{Commodore\} $\sqcup$ \{Admiral\}
-%\end{DL}
-
-%\begin{DL}
-%Enterprise $\equiv$ $\forall$ commandedBy . \{Archer\} $\sqcup$ \{Kirk\} $\sqcup$ \{Picard\}
-%\end{DL}
-
-%First, we map these DL statements to two \emph{simple generic constraints} corresponding to the \emph{RDF-CV} (we define the class \ms{EnterpriseCaptains} by simply enumerating its instances):
-
-The \emph{DL} statement {\small\ms{Publication $\equiv$ $\exists$ publisher.Publisher}} is mapped to a \emph{(simple) generic constraint} conforming to the \emph{RDF-CV} (see Table \ref{tab:existential-quantification-as-simple-constraints}).
-Then, one mapping (\emph{$m_1(sc_{OWL 2})$}, \emph{$m_2(sc_{ReSh})$}, \emph{$m_3(sc_{ShEx})$}, ...) is defined for each \emph{specific constraint} (\emph{$sc_{OWL 2}$}, \emph{$sc_{ReSh}$}, \emph{$sc_{ShEx}$}, ...) to the corresponding \emph{generic constraint} (\emph{gc}).
-
-%\begin{gcotable}
-%property & StarfleetCaptain & overruledBy & - & CaptainOverruler & $\forall$ & - \\
-%class & CaptainOverruler & - & - & \{Commodore\},\{Admiral\} & $\sqcup$ & - \\
-%\end{gcotable}
-
-%\begin{gcotable}
-%property & Enterprise & commandedBy & - & EnterpriseCaptains & $\forall$ & - \\
-%class & EnterpriseCaptains & - & - & \{Archer\},\{Kirk\},\{Picard\} & $\sqcup$ & - \\
-%\end{gcotable}
-
-\begin{table}[H]
-  \scriptsize
-  \sffamily
-  \vspace{0cm}
-	\caption{Existential Quantification as Simple Constraints}
-	\label{tab:existential-quantification-as-simple-constraints}
-	\centering
-		\begin{tabular}{l|l|l|l|l|l|l}
-      \textbf{c. set} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
-      \hline
-property & Publication & publisher & - & Publisher & $\exists$ \\
-		\end{tabular}
-\end{table}
-
-%\begin{ex}
-%# OWL 2:
-%Enterprise rdfs:subClassOf [ a owl:Restriction .
-    %owl:onProperty commandedBy .
-    %owl:allValuesFrom [ a owl:Class ;
-        %owl:oneOf ( Archer Kirk Picard ) ] ] .
-%# ReSh:
-%Enterprise a rs:ResourceShape ; rs:property [
-    %rs:name "commandedBy" ; rs:propertyDefinition commandedBy ;
-    %rs:allowedValue Archer , Kirk , Picard ;
-    %rs:occurs rs:Exactly-one ; ] .
-%# ShEx:
-%Enterprise {
-    %commandedBy (Archer Kirk Picard) }
-%\end{ex}
-
-%\begin{ex}
-%# DSP:
-%[ a dsp:DescriptionTemplate ;
-    %dsp:resourceClass StarfleetCaptain ; 
-    %dsp:statementTemplate [ a dsp:NonLiteralStatementTemplate ; 
-        %dsp:property overruledBy ; 
-        %dsp:nonLiteralConstraint [ a dsp:NonLiteralConstraint ;
-            %dsp:valueClass Commodore , Admiral ] ] ] .
-%# OWL 2:
-%StarfleetCaptain rdfs:subClassOf [ a owl:Restriction .
-    %owl:onProperty overruledBy .
-    %owl:allValuesFrom [ a owl:Class ;
-        %owl:oneOf ( Commodore Admiral ) ] ] .
-%# ReSh:
-%%StarfleetCaptain a rs:ResourceShape ;
-    %%rs:property [
-        %%rs:name "overruledBy" ; rs:propertyDefinition overruledBy ;
-        %%rs:valueShape Commodore ; rs:occurs rs:Zero-or-many ; ] ;
-    %%rs:property [
-        %%rs:name "overruledBy" ; rs:propertyDefinition overruledBy ;
-        %%rs:valueShape Admiral ; rs:occurs rs:Zero-or-many ; ] ;
-%# ShEx:
-%:StarfleetCaptain {
-    %:overruledBy @:Commodore* , :overruledBy @:Admiral* }
-%\end{ex}
-
 %\section{Validation of Specific and Generic Constraints}
-\section{How to Provide Constraint Validation Out-Of-The-Box}
-\label{sec:validation}
-
-SPARQL is generally seen as the method of choice to validate RDF data according to certain constraints, although, it is not ideal for their formulation. 
-In contrast, OWL 2, DSP, ReSh, and ShEx constraints are comparatively easy to understand. 
-We use SPIN as basis to define a
-validation environment\footnote{Online demo available at \url{http://purl.org/net/rdfval-demo}, source code available at: \url{https://github.com/boschthomas/rdf-validator}\label{rdf-validator}} in which the validation of any constraint language can be implemented by representing them in SPARQL.
-The only limitation is that constraint languages must be represented in RDF.
-The SPIN engine checks for each resource if it satisfies all constraints, which are associated with its assigned classes, and generates a result RDF graph containing information about all constraint violations \cite{BoschEckert2014-2}.
-This way, we are able to offer RDF data validation according to all \emph{specific constraints} (expressed by any constraint language) by defining mappings from each \emph{specific constraint} to \emph{SPIN}. 
-We already specified mappings to \emph{SPIN} for all \emph{OWL 2} and \emph{DSP}\footnote{SPIN mappings available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/SPIN}} constructs and for some \emph{ReSh} and \emph{ShEx} constructs.
-%We do not have to define a mapping to SPIN for each specific constraint. 
-%when we define a mapping to SPIN for each generic constraint.
-As constraint languages differ in syntax and semantics it is rather difficult to ensure that semantically equivalent \emph{specific constraints} always lead to identical validation results.
-
-We do not have to map each \emph{specific constraint} to SPIN and we get identical validation results for semantically equivalent \emph{specific constraints} (expressed by different constraint languages),
-(1) if we map semantically equivalent \emph{specific constraints} to the corresponding \emph{generic constraint} and 
-(2) if we map the \emph{generic constraint} to SPIN.
-As a consequence, we only have to define one SPIN mapping for each constraint type corresponding to an RDF validation requirement.
-\textcolor{red}{19} of the overall 81 identified constraint types can be expressed by at least four constraint languages \cite{BoschNolleAcarEckert2015}.
-This means that there must be 76 (four for each constraint type) implementations to validate RDF data according to 76 \emph{specific constraints} - instead of only 19 implementations (one for each \emph{generic constraint}) leading to identical validation results.
-
-%The validation implementation of constraint languages is fully declarative,
-%consisting of a mapping from constraint languages to SPIN in form of SPARQL CONSTRUCT queries.
-%SPIN represents both the SPIN mappings and the SPARQL queries in RDF. 
-%Within the validation environment, we fully implemented the validation of all OWL 2 DL and DSP constructs 
-%(for the complete DSP validation see \cite{BoschEckert2014-2}). 
-
-Within the \emph{RDF Validator}, we define one SPIN construct template for each \emph{generic constraint} and therefore constraint type.
-A SPIN construct template contains a SPARQL CONSTRUCT query which generates constraint violation triples (\emph{spin:ConstraintViolation}) indicating the subject (\emph{spin:violationRoot}) and the properties (\emph{spin:violationPath}) causing constraint violations, and the reason why constraint violations have been raised (\emph{rdfs:label}).
-A SPIN construct template creates constraint violation triples if all triple patterns within the SPARQL WHERE clause match.
-
-\begin{DL}
-Publication $\equiv$ $\forall$ author.Person
-\end{DL}
-
-According to the \emph{universal quantification} (\emph{R-91}) above, \emph{authors} of \emph{publications} must be \emph{persons}.
-The SPARQL CONSTRUCT query for the constraint type \emph{universal quantification} is shown below:
-
-\begin{ex}
-CONSTRUCT {
-    [   a spin:ConstraintViolation ; spin:violationRoot ?subject ;
-        rdfs:label ?violationMessage ; spin:violationPath ?lp1 . ] }
-WHERE {	  
-    [   a gclo:PropertyConstraint ;
-        gclo:contextClass ?cc ;
-        gclo:leftProperties ( ?lp1 ) ;
-        gclo:classes ( ?c1 ) ;
-        gclo:constrainingElement "universal quantification" ] .
-    ?subject a ?cc .
-    ?subject ?lp1 ?o .
-    FILTER NOT EXISTS { ?o a ?c1 } . }
-\end{ex}
-
-We provide a mapping from the \emph{RDF-CV} to SPIN\footnote{RDF-CV to SPIN online available at: \url{https://github.com/boschthomas/RDF-CV-2-SPIN}} 
-in order to automatically validate RDF data complying with each type of \emph{generic constraint} (\emph{simple}, \emph{complex}, \emph{property}, and \emph{class constraints}).
-
-%\subsection{Not Allowed Values}
-
-%\section{Evaluation}
-%\label{sec:evaluation}
-
-%\begin{evaluation-generic-overview}
-%\emph{Property Constraints} & 48 & 65 (64.86) \\
-%\emph{Class Constraints} & 17 & 23 (22.96) \\
-%\emph{Property and Class Constraints} & 9 & 12 (12.16) \\
-%\hline
-%\emph{Simple Constraints} & 46 & 62 (62.16) \\
-%\emph{Simple Constraints} (Syntactic Sugar) & 10 & 14 (13.51) \\
-%\emph{Complex Constraints} & 18 & 24 (24.32) \\
-%\hline
-%\emph{DL Expressible} & 51 & 69 (68.92) \\
-%\emph{DL Not Expressible} & 23 & 31 (31.08) \\
-%\hline
-%Total & 74 & 100 \\
-%\end{evaluation-generic-overview}
-
-%\begin{table}[H]
-  %%\scriptsize
-  %%\sffamily
-  %\vspace{0cm}
-	%\caption{Evaluation}
-	%\label{tab:evaluation}
-	%\centering
-		%\begin{tabular}{l|c|c}
-      %\textbf{Classes of Constraint Types} & \textbf{\#} & \textbf{\%} \\
-      %\hline
-%%\textbf{\emph{Context}} & & \\
-%\emph{Property Constraints} & 48 & 64.86 \\
-%\emph{Class Constraints} & 17 & 22.96 \\
-%\emph{Property and Class Constraints} & 9 & 12.16 \\
-%\hline
-%%\textbf{\emph{Complexity}} & & \\
-%\emph{Simple Constraints} & 46 & 62.16 \\
-%\emph{Simple Constraints} (Syntactic Sugar) & 10 & 13.51 \\
-%\emph{Complex Constraints} & 18 & 24.32 \\
-%\hline
-%%\textbf{\emph{DL Expressivity}} & & \\
-%\emph{DL Expressible} & 51 & 68.92 \\
-%\emph{DL Not Expressible} & 23 & 31.08 \\
-%\hline
-%Total & 74 & 100 \\
-		%\end{tabular}
-%\end{table}
-
-%\newenvironment{evaluation-generic-overview}{
-  %%\scriptsize
-  %%\sffamily
-  %\vspace{0cm}
-	%\begin{center}
-  %\begin{tabular}{l|c|c}
-  %\hline
-  %\textbf{Constraint Classes} & \textbf{\#} & \textbf{\%} \\
-  %\hline
-%
-%}{
-  %\hline
-  %\end{tabular}
-  %%\linebreak
-	%\end{center}
-%}
 
 \section{Related Work}
 
@@ -1333,7 +1136,27 @@ in order to automatically validate RDF data complying with each type of \emph{ge
 
 -----
 
+-----
+
+-----
+
+-----
+
+-----
+
+-----
+
 \section{Conclusion and Future Work}
+
+-----
+
+-----
+
+-----
+
+-----
+
+-----
 
 -----
 
