@@ -324,8 +324,8 @@ for each constraint type\footnote{RDF-CV to SPIN online available at: \url{https
 whose constraints are represented generically \cite{BoschEckert2015-2}.
 %(2) by transforming \emph{specific constraints} into the appropriate \emph{generic constraint}.  
 All what language designers need to do is to specify for each constraint type they want to cover one mapping from the \emph{specific constraint} expressed by the language to the corresponding \emph{generic constraint}.
-\textcolor{red}{19} of the overall 81 constraint types are expressible by at least four constraint languages \cite{BoschNolleAcarEckert2015}.
-This means that for these \textcolor{red}{19} constraint types there must be \textcolor{red}{76} implementations (four for each constraint type) to actually validate RDF data according to \textcolor{red}{76} \emph{specific constraints} - instead of only \textcolor{red}{19} implementations (one for each \emph{generic constraint}). 
+19 of the overall 81 constraint types are expressible by at least four constraint languages \cite{BoschNolleAcarEckert2015}.
+This means that for these 19 constraint types there must be 76 implementations (four for each constraint type) to actually validate RDF data according to 76 \emph{specific constraints} - instead of only 19 implementations (one for each \emph{generic constraint}). 
 %which lead for each constraint type to identical validation results independently from the language used to formulate the \emph{specific constraints}.
 Our proposal makes sure that the validation on semantically equivalent \emph{specific constraints} expressed by different languages
 leads to exactly the same validation results, 
@@ -587,21 +587,21 @@ As we express constraints of each constraint type in form of \emph{generic const
 we show that constraints of any constraint type can be described generically.
 \textbf{\emph{DL Expressivity}:}
 The \emph{RDF-CV} allows to describe 
-constraints which are \emph{expressible in DL} (constraints of this set are instantiated from 70\% of the overall 81 constraint types) and which are \emph{not expressible in DL} (30\%). 
+constraints which are \emph{expressible in DL} (constraints of this set are instantiated from 64\% of the overall 81 constraint types) and which are \emph{not expressible in DL} (36\%). 
 %In case a constraint type is \emph{expressible in DL}, we determined which \emph{DL} constructs are needed to express the constraint type.
 \textbf{\emph{Complexity}:}
-\emph{Simple constraints} (2/3 of the constraint types) denotes the set of atomic constraints. 
+\emph{Simple constraints} (60\% of the constraint types) denotes the set of atomic constraints. 
 %which can be instantiated from almost 2/3 of the constraint types.
-\emph{Complex constraints} (1/4) is the set of constraints which are created out of \emph{simple} and/or other \emph{complex constraints}.
+\emph{Complex constraints} (26\%) is the set of constraints which are created out of \emph{simple} and/or other \emph{complex constraints}.
 %and which are instances of 1/4 of the constraint types.
 %In case \emph{complex constraints} are expressible in \emph{DL}, 
 %\emph{DL} statements representing \emph{complex constraints} contain \emph{DL} statements standing for atomic and/or composed constraints. 
-Constraints of almost 15\% of the constraint types are \emph{complex constraints}
+Constraints of almost 14\% of the constraint types are \emph{complex constraints}
 which can be simplified and therefore formulated as \emph{simple constraints} when using them in terms of syntactic sugar.
 \textbf{\emph{Context}:}
-\emph{Simple constraints} are applied on properties (\emph{property constraints}, 2/3),
-on classes (\emph{class constraints}, 1/5), or
-on properties and classes (\emph{property and class constraints}, 1/10).
+\emph{Simple constraints} are applied on properties (\emph{property constraints}, 60\%),
+on classes (\emph{class constraints}, 25\%), or
+on properties and classes (\emph{property and class constraints}, 15\%).
 %2/3 of all constraint types are types of \emph{property constraints}, 
 %1/5 of \emph{class constraints}, and 
 %approx. 10\% of \emph{property and class constraints}.
@@ -1133,18 +1133,26 @@ In addition to the formulation of constraints, \emph{SPIN} (open source API), \e
 
 \section{Conclusion and Future Work}
 
+%Based on our work in the \emph{DCMI} and in cooperation with the \emph{W3C} working group, 
+%we published by today 81 constraint types \cite{BoschNolleAcarEckert2015}
+%which form the basis to
+%lay the ground for discussions on validation
+%by defining a basic terminology and classification system for RDF constraints.
+
 Based on our work in the \emph{DCMI} and in cooperation with the \emph{W3C} working group,
 we published by today 81 requirements to validate RDF data and to formulate constraints; 
 each of them corresponds to a constraint type from which concrete constraints are instantiated to be checked on RDF data.
-
+These constraint types form the basis to
+lay the ground for discussions on validation
+by defining a basic terminology and classification system for RDF constraints.
+%
 There exists no single best solution considered as high-level intuitive constraint language which enables to express constraints in an easy and concise way and which is able to meet all requirements raised by data practitioners.
-Thus, the idea behind this paper is to satisfy all RDF validation requirements
+Thus, the idea behind this paper is to satisfy all requirements
 by representing constraints of any constraint type in a generic way using a lightweight vocabulary which consists of only a few terms.
-Constraints can either be represented generically (\emph{generic constraint}) by \emph{description logics (DL)} or specifically (\emph{specific constraint}) by domain-specific constraint languages.
-Hence, we mapped constraint types to \emph{DL} 
-in order to determine which \emph{DL} constructs are needed to express constraint types \cite{BoschNolleAcarEckert2015}.
-Prerequisites to develop a vocabulary to describe constraints of any constraint type in a generic way are 
-(1) to specify the underlying semantics for validation and thus for the vocabulary and (2) to define a basic terminology and classification system for RDF constraints which lay the ground for discussions on validation \ref{sec:vocabulary}).
+%To show that constraints can either be represented specifically (\emph{specific constraints}) by constraint languages
+%or generically (\emph{generic constraints}) by \emph{description logics (DL)},
+%we mapped constraint types to \emph{DL} 
+%to determine which \emph{DL} constructs are needed to express them \cite{BoschNolleAcarEckert2015} (Section \ref{sec:vocabulary}).
 
 As there is no standard way to formulate constraints, 
 semantically equivalent \emph{specific constraints} may be represented by a variety of languages - each of them having different syntax and semantics.
@@ -1170,7 +1178,9 @@ i.e., that validation is performed independently from the used language (Section
 It is part of future work 
 (1) to extend the \emph{RDF Validator} by generating \emph{generic constraints} according to inputs of domain experts who may not be familiar with the formulation of constraints,
 (2) to offer bidirectional transformations between \emph{specific constraints} expressed by the most common constraint languages and corresponding \emph{generic constraints}, and
-(3) to provide translations between semantically equivalent \emph{specific constraints} expressed by the most common constraint languages by using \emph{generic constraints} as intermediate representation.
+(3) to provide translations between semantically equivalent \emph{specific constraints} expressed by the most common constraint languages by using the developed vocabulary to intermediately represent constraints.
+Identifying RDF validation requirements is an ongoing process,
+so the task to map constraints of new constraint types to the vocabulary.
 
 %\begin{itemize}
 	%\item to provide a GUI which generates generic constraints automatically according to inputs of domain experts who are not familiar with the formulation of constraints.

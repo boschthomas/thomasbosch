@@ -61,7 +61,7 @@
 	\textbf{\vspace{0.4cm}Mapping to RDF-CO:} \\
   \begin{tabular}{l|l|l|l|l|l|l}
 	\hline
-  \textbf{c. type} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
+  \textbf{c. set} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
   \hline
 
 }{
@@ -1605,9 +1605,9 @@ $marriedTo \sqcap marriedTo^{-} \sqsubseteq \bot$ (without special self-concept 
 \end{DL}
 
 \begin{gcotable}
-property & $\exists$ knows . Self & knows & - & Self & $\exists$ \\
-class & $\neg$ $\exists$ knows . Self & - & - & $\exists$ knows . Self & $\neg$ \\
-class & $\top$ & - & - & $\top$, $\neg$ $\exists$ knows . Self & $\sqsubseteq$ \\
+property & $\exists$ marriedTo . Self & knows & - & Self & $\exists$ \\
+class & $\neg$ $\exists$ marriedTo . Self & - & - & $\exists$ marriedTo . Self & $\neg$ \\
+class & $\top$ & - & - & $\top$, $\neg$ $\exists$ marriedTo . Self & $\sqsubseteq$ \\
 \end{gcotable}
 
 syntactic sugar:
@@ -1629,6 +1629,26 @@ A resource cannot be its own child (dbo:child).
 A property is \emph{irreflexive} if it is never locally reflexive \cite{Kroetzsch2012}.
 An object property irreflexivity axiom states that the object property \emph{OP} is irreflexive - that is, no individual is connected by \emph{OP} to itself.
 \emph{Class-Specific Irreflexive Object Properties} are object properties which are irreflexive within a given context, e.g. a class. 
+
+\subsection{Simple Example}
+
+\emph{Persons} cannot be married to themselves.
+
+\begin{DL}
+Person $\sqsubseteq$ $\neg$ $\exists  marriedTo . Self$ 
+\end{DL}
+
+\begin{gcotable}
+property & $\exists$ marriedTo . Self & knows & - & Self & $\exists$ \\
+class & $\neg$ $\exists$ marriedTo . Self & - & - & $\exists$ knows . Self & $\neg$ \\
+class & Person & - & - & Person, $\neg$ $\exists$ marriedTo . Self & $\sqsubseteq$ \\
+\end{gcotable}
+
+syntactic sugar:
+
+\begin{gcotable}
+property & Person & marriedTo & - & - & irreflexive \\
+\end{gcotable}
 
 \section{Context-Specific Property Groups}
 
@@ -3693,21 +3713,68 @@ property & C & p & q & - & count & - \\
 
 \section{Provenance}
 
+Any provenance information must be available for instances of given classes.
+
+\subsection{Simple Example}
+
+For \emph{publications}, any provenance information must be available.
+
+\begin{DL}
+Not expressible in DL!
+\end{DL}
+
+\begin{gcotable}
+class & Publication & - & - & - & provenance & - \\
+\end{gcotable}
+
 \section{Data Model Consistency}
 
 Is the data consistent with the intended semantics of the data model?
 Such validation rules ensure the integrity of the data according to the data model.
 
+\begin{DL}
+Not expressible in DL!
+\end{DL}
+
 \section{Structure}
 
 SKOS is based on RDF, which is a graph-based data model. Therefore we can concentrate on the vocabulary's graph-based structure for assessing the quality of SKOS vocabularies and apply graph- and network-analysis techniques. 
 
+\begin{DL}
+Not expressible in DL!
+\end{DL}
+
 \section{Labeling and Documentation}
 
+\begin{DL}
+Not expressible in DL!
+\end{DL}
+
 \section{Vocabulary}
+
 Vocabularies should not invent any new terms or use deprecated elements. 
 
+\subsection{Simple Example}
+
+\begin{DL}
+Not expressible in DL!
+\end{DL}
+
+\begin{gcotable}
+class & $\top$ & - & - & - & vocabulary & - \\
+\end{gcotable}
+
 \section{HTTP URI Scheme Violation}
+
+\subsection{Simple Example}
+
+\begin{DL}
+Not expressible in DL!
+\end{DL}
+
+\begin{gcotable}
+class & $\top$ & - & - & - & HTTP URI Scheme Violation & - \\
+\end{gcotable}
 
 \section{Evaluation}
 
@@ -3818,18 +3885,18 @@ Therefore, we show that each constraint can be mapped to a generic constraint.
 The following table shows the absolute numbers and the relative percentages for each of the three dimensions to classify constraints:
 
 \begin{evaluation-generic-overview}
-Property Constraints & 48 & 65 (64.86) \\
-Class Constraints & 17 & 23 (22.96) \\
-Property and Class Constraints & 9 & 12 (12.16) \\
+Property Constraints & 49 & 60 (60.49) \\
+Class Constraints & 20 & 25 (24.96) \\
+Property and Class Constraints & 12 & 15 (14.81) \\
 \hline
-Simple Constraints & 46 & 62 (62.16) \\
-Simple Constraints (Syntactic Sugar) & 10 & 14 (13.51) \\
-Complex Constraints & 18 & 24 (24.32) \\
+Simple Constraints & 49 & 60 (60.49) \\
+Simple Constraints (Syntactic Sugar) & 11 & 14 (13.58) \\
+Complex Constraints & 21 & 26 (25.93) \\
 \hline
-DL Expressible & 51 & 69 (68.92) \\
-DL Not Expressible & 23 & 31 (31.08) \\
+DL Expressible & 52 & 64 (64.2) \\
+DL Not Expressible & 29 & 36 (35.80) \\
 \hline
-Total & 74 & 100 \\
+Total & 81 & 100 \\
 \end{evaluation-generic-overview}
 
 legend of the detailed evaluation:
@@ -3917,13 +3984,14 @@ Value is Valid for Datatype & $\checkmark$ & $\checkmark$ & \ding{55} \\
 Use Sub-Super Relations in Validation & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
 *Cardinality Shortcuts & $\checkmark$ & $\checkmark$ & $\checkmark$ \\  
 Aggregations & $\checkmark$ & $\checkmark$ & \ding{55} \\ 
-*Class-Specific Irreflexive Object Properties & & & \\
-Provenance & & & \\
-Data Model Consistency & & & \\
-Structure & & & \\  
-Labeling and Documentation & & & \\
-Vocabulary & & & \\
-HTTP URI Scheme Violation & & & \\
+
+*Class-Specific Irreflexive Object Properties & $\checkmark$ & $\sim$ & $\checkmark$ \\
+Provenance & \ding{55} & $\checkmark$ & \ding{55} \\
+Data Model Consistency & $\sim$ & \ding{55} & \ding{55} \\
+Structure & $\sim$ & \ding{55} & \ding{55} \\ 
+Labeling and Documentation & $\sim$ & \ding{55} & \ding{55} \\
+Vocabulary & \ding{55} & $\checkmark$ & \ding{55} \\
+HTTP URI Scheme Violation & \ding{55} & $\checkmark$ & \ding{55} \\
 \end{evaluation-generic}
 
 Constraints can be classified as \ms{property constraints} and \ms{class constraints}.
