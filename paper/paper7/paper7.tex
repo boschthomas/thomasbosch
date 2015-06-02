@@ -245,6 +245,26 @@
 } 
 \makeatother
 
+\newtheorem{rq}{Research Question}
+
+\makeatletter
+\newcounter{subrq} 
+\let\savedc@hyp\c@hyp
+\newenvironment{subrq}
+ {%
+  \setcounter{subrq}{0}%
+  \stepcounter{rq}%
+  \edef\saved@hyp{\thehyp}% Save the current value of hyp
+  \let\c@hyp\c@subhyp     % Now hyp is subhyp
+  \renewcommand{\thehyp}{\saved@hyp\alph{hyp}}%
+ }
+ {}
+\newcommand{\normhyp}{%
+  \let\c@hyp\savedc@hyp % revert to the old one
+  \renewcommand\thehyp{\arabic{rq}}%
+} 
+\makeatother
+
 \usepackage{multirow}
 
 \begin{document}
