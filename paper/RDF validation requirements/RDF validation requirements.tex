@@ -4308,23 +4308,23 @@ The majority - nearly 70\% - of the overall constraints are expressible in DL.
 *Subsumption & $\sqsubseteq$ & sub-classes \\
 *Class Equivalence & $\equiv$ & equivalent classes \\
 *Sub Properties & $\sqsubseteq$ & sub-properties \\
-*Property Domain & $\exists$, $\sqsubseteq$ & domain \\
-*Property Range & $\sqsubseteq$, $\forall$ & range \\
-*Inverse Object Properties & inverse & \\
+*Property Domain & $\exists$, $\sqsubseteq$ & property domain \\
+*Property Range & $\sqsubseteq$, $\forall$ & property range \\
+*Inverse Object Properties & inverse & inverse properties \\
 %*Symmetric Object Properties & $\equiv$, inverse & symmetric \\
-*Symmetric Object Properties & symmetric &  \\
+*Symmetric Object Properties & symmetric & symmetric properties \\
 %*Asymmetric Object Properties & $\sqsubseteq$, inverse & asymmetric \\
-*Asymmetric Object Properties & asymmetric &  \\
+*Asymmetric Object Properties & asymmetric & asymmetric properties \\
 %*Reflexive Object Properties & $\exists$, $\sqsubseteq$ & \textcolor{green}{reflexive} \\
-*Reflexive Object Properties & reflexive &  \\
+*Reflexive Object Properties & reflexive & reflexive properties \\
 %*Irreflexive Object Properties & $\exists$, $\neg$, $\sqsubseteq$ & irreflexive \\
-*Irreflexive Object Properties & reflexive, $\neg$ & irreflexive \\
+*Irreflexive Object Properties & reflexive, $\neg$ & irreflexive properties \\
 Disjoint Properties & $\sqsubseteq$, $\neg$ & $\ne$ \\
 Disjoint Classes & $\sqcap$, $\sqsubseteq$ & $\ne$ \\
-Context-Sp. Property Groups & $\sqcap$ & property groups \\
-Context-Sp. Inclusive OR of P. & $\sqcup$ & inclusive or \\
-Context-Sp. Inclusive OR of P. Groups & $\sqcup$, $\sqcap$ & inclusive or, \\
-                                                          && property groups \\
+Context-Sp. Property Groups & $\sqcap$ & property group \\
+Context-Sp. Inclusive OR of P. & $\sqcup$ & inclusive or of properties \\
+Context-Sp. Inclusive OR of P. Groups & $\sqcup$, $\sqcap$ & inclusive or of property groups, \\
+                                                          && property group \\
 Recursive Queries & - & recursive \\
 Individual Inequality & $\ne$ & \\
 *Equivalent Properties & $\equiv$ & equivalent properties \\
@@ -4345,18 +4345,19 @@ Negative Literal Pattern Matching & - & regex or xsd:pattern, $\neg$ \\
 *Maximum Qualified Cardinality & $\leq$ & \\
 *Exact Unqualified Cardinality & $\geq$, $\leq$, $\sqcap$ & = \\
 *Exact Qualified Cardinality & $\geq$, $\leq$, $\sqcap$ & = \\
-*Transitive Object Properties & $\sqsubseteq$ & transitive \\
-Context-Sp. Exclusive OR of P. & $\neg$, $\sqcap$, $\sqcup$ & XOR \\
-Context-Sp. Exclusive OR of P. Groups & $\neg$, $\sqcap$, $\sqcup$ & XOR, $\sqcap$ \\
-Allowed Values & $\sqcup$ & allowed \\
-Not Allowed Values & $\sqcup$, $\neg$ & not allowed \\
+*Transitive Object Properties & $\sqsubseteq$ & transitive properties \\
+Context-Sp. Exclusive OR of P. & $\neg$, $\sqcap$, $\sqcup$ & XOR of properties \\
+Context-Sp. Exclusive OR of P. Groups & $\neg$, $\sqcap$, $\sqcup$ & XOR of property groups \\
+                                                                 & & property group \\
+Allowed Values & $\sqcup$ & allowed values \\
+Not Allowed Values & $\sqcup$, $\neg$ & not allowed values \\
 %Literal Ranges & $\geq$, $\leq$, $\sqcap$ &  \\ 
 Literal Ranges & - & xsd:minInclusive \\
                & & xsd:maxInclusive \\
 %Negative Literal Ranges & $\geq$, $\leq$, $\sqcap$, $\neg$ & \\  
 Negative Literal Ranges & - & xsd:minInclusive \\
                         & & xsd:maxInclusive \\
-Required Properties & $\exists$ & required \\	
+Required Properties & $\exists$ & required properties \\	
 	
     \bottomrule
     \end{tabular}
@@ -4373,19 +4374,20 @@ Optional Properties & $\exists$, $\sqsubseteq$ & optional properties \\
 Repeatable Properties & $\geq$ & repeatable properties \\
 Negative Property Constraints & $\neg$, $\exists$ & negative properties \\
 *Individual Equality & = & \\
-*Functional Properties & functional & \\ 
-*Inverse-Functional Properties & inverse, functional & inverse functional \\
+*Functional Properties & functional & functional properties \\ 
+*Inverse-Functional Properties & inverse, functional & inverse functional properties \\
 *Value Restrictions & $\exists$ & value restriction \\
 *Self Restrictions & $\exists$ & self restriction \\
 Primary Key Properties & inverse, functional & keyfor or primary key \\
-*Class-Specific Property Range & $\sqsubseteq$, $\exists$, $\neg$ & range \\
-*Class-Sp. Reflexive Object P. & reflexive & \\
+*Class-Specific Property Range & $\sqsubseteq$, $\exists$, $\neg$ & property range \\
+*Class-Sp. Reflexive Object P. & reflexive & reflexive properties \\
 Membership in Controlled Vocabularies & $\forall$, $\sqcap$, $\sqcup$ & membership in \\
   && controlled vocabularies \\
 IRI Pattern Matching & - & IRI pattern matching \\
 Literal Value Comparison & $>$ or $\geq$ or $<$ or & \\
                          & $\leq$ or = or $\ne$ & \\
-Ordering & - & order \\ 
+Ordering & - & ordered properties, \\
+            && ordered values \\ 
 Validation Levels & - & validation level \\ 
 String Operations & - & SPARQL string operations \\ 
   && examples: STRLEN, \\ 
@@ -4400,18 +4402,18 @@ Language Tag Cardinality & - & language tag minimum cardinality, \\
 													  && language tag exact cardinality \\
 Whitespace Handling & - & whitespace \\
 HTML Handling & - & html \\
-Conditional Properties & $\sqsubseteq$ & conditional \\
-Recommended Properties & - & recommended \\
+Conditional Properties & $\sqsubseteq$ & conditional properties \\
+Recommended Properties & - & recommended properties \\
 Handle RDF Collections & - & actions on RDF collections \\
 Value is Valid for Datatype & - & value is valid for datatype \\
-Use Sub-Super Relations in Validation & - & not redundant \\
-*Cardinality Shortcuts & & optional \& non-repeatable, \\
-                       & & optional \& repeatable \\
-											 & & mandatory \& non-repeatable \\
-											 & & mandatory \& repeatable \\
+Use Sub-Super Relations in Validation & - & not redundant properties \\
+*Cardinality Shortcuts & & optional \& non-repeatable properties, \\
+                       & & optional \& repeatable properties, \\
+											 & & mandatory \& non-repeatable properties, \\
+											 & & mandatory \& repeatable properties \\
 Aggregations & - & aggregations \\
                  && e.g., count \\
-*Class-Specific Irreflexive Object Properties & reflexive, $\neg$ & irreflexive \\
+*Class-Specific Irreflexive Object Properties & reflexive, $\neg$ & irreflexive properties \\
 Provenance & - & provenance \\   
 Data Model Consistency & - & SPARQL \\    
 Structure & - & SPARQL \\  
