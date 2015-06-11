@@ -2325,6 +2325,10 @@ which is not part of the list of allowed controlled vocabularies.
 \end{itemize}
 indicating IRI pattern matching on subjects, properties, and objects.
 
+\begin{DL}
+Not expressible in DL!
+\end{DL}
+
 \section{Literal Pattern Matching}
 
 \ms{Literal Pattern Matching} corresponds to the requirement \\
@@ -2649,9 +2653,9 @@ Not expressible in DL!
 %or:
 
 \begin{gcotable}
-property & $\top$ & position & - & 1-23 & range & - \\
-class & 1-23 & - & - & xsd:nonNegativeInteger & $\geq$ & 1 \\
-class & 1-23 & - & - & xsd:nonNegativeInteger & $\leq$ & 23 \\
+class & NumberPlayersPerWorldCupTeam & - & - & $\geq$1, $\leq$23 & $\sqcap$ & - \\
+class & $\geq$1 & - & - & xsd:nonNegativeInteger & $\geq$ & 1 \\
+class & $\leq$23 & - & - & xsd:nonNegativeInteger & $\leq$ & 23 \\
 \end{gcotable}
 
 %or:
@@ -4285,6 +4289,146 @@ The majority - nearly 70\% - of the overall constraints are expressible in DL.
 %*Cardinality Shortcuts 
 %Aggregations 
 %\end{evaluation-generic}
+
+\subsection{Constraining Elements of Constraint Types}
+
+\begin{itemize}
+  \item Constraints of 64\% of all constraint type can be expressed using logical constructs from description logics.
+	\item We developed a vocabulary and for each constraint type we identified constraining elements to represent constraints of any constraint type. 
+	
+	\item In most cases, it is sufficient to use only 1 logical construct
+	\item Some combinations of logical constructs can be simplified to 1 logical construct which can be used in terms of syntactic sugar
+  \item constraints of the majority of the constraint types can be expressed logically by description logics
+	\item constraints of all constraint types can be expressed by constraining elements
+	\item For 1 constraint types, there can be multiple constraining elements
+	\item the validation of each constraining element has to be implemented
+	\item We use SPARQL as extension mechanism to express constraints of 3 constraint types which cannot be expressed otherwise as they are too complex to represent them using a high-level constraint language
+\end{itemize}
+
+\begin{table}[H]
+    \begin{center}
+    \begin{tabular}{lll}
+           \multicolumn{1}{l}{\textbf{Constraint Type}} & \multicolumn{1}{l}{\textbf{DL}} & \multicolumn{1}{l}{\textbf{Constraining Elements}}			 
+    \\ \midrule
+		
+*Subsumption & $\sqsubseteq$ & sub-classes \\
+*Class Equivalence & $\equiv$ & equivalent classes \\
+*Sub Properties & $\sqsubseteq$ & sub-properties \\
+*Property Domain & $\exists$, $\sqsubseteq$ & domain \\
+*Property Range & $\sqsubseteq$, $\forall$ & range \\
+*Inverse Object Properties & inverse & \\
+%*Symmetric Object Properties & $\equiv$, inverse & symmetric \\
+*Symmetric Object Properties & symmetric &  \\
+%*Asymmetric Object Properties & $\sqsubseteq$, inverse & asymmetric \\
+*Asymmetric Object Properties & asymmetric &  \\
+%*Reflexive Object Properties & $\exists$, $\sqsubseteq$ & \textcolor{green}{reflexive} \\
+*Reflexive Object Properties & reflexive &  \\
+%*Irreflexive Object Properties & $\exists$, $\neg$, $\sqsubseteq$ & irreflexive \\
+*Irreflexive Object Properties & reflexive, $\neg$ & irreflexive \\
+Disjoint Properties & $\sqsubseteq$, $\neg$ & $\ne$ \\
+Disjoint Classes & $\sqcap$, $\sqsubseteq$ & $\ne$ \\
+Context-Sp. Property Groups & $\sqcap$ & property groups \\
+Context-Sp. Inclusive OR of P. & $\sqcup$ & inclusive or \\
+Context-Sp. Inclusive OR of P. Groups & $\sqcup$, $\sqcap$ & inclusive or, \\
+                                                          && property groups \\
+Recursive Queries & - & recursive \\
+Individual Inequality & $\ne$ & \\
+*Equivalent Properties & $\equiv$ & equivalent properties \\
+Property Assertions & = or $\ne$ & \\
+Data Property Facets & - & XSD or SPARQL constraining facets \\
+                        && examples: regex, xsd:pattern, ... \\
+Literal Pattern Matching & - & regex or xsd:pattern \\
+Negative Literal Pattern Matching & - & regex or xsd:pattern, $\neg$ \\ 
+*Object Property Paths & $\sqsubseteq$ & property paths \\
+*Intersection & $\sqcap$ & intersection \\
+*Disjunction & $\sqcup$ & disjunction \\
+*Negation & $\neg$ & negation \\
+*Existential Quantification & $\exists$ & existential quantification \\
+*Universal Quantification & $\forall$ & universal quantification \\
+*Minimum Unqualified Cardinality & $\geq$ & \\
+*Minimum Qualified Cardinality & $\geq$ & \\
+*Maximum Unqualified Cardinality & $\leq$ & \\
+*Maximum Qualified Cardinality & $\leq$ & \\
+*Exact Unqualified Cardinality & $\geq$, $\leq$, $\sqcap$ & = \\
+*Exact Qualified Cardinality & $\geq$, $\leq$, $\sqcap$ & = \\
+*Transitive Object Properties & $\sqsubseteq$ & transitive \\
+Context-Sp. Exclusive OR of P. & $\neg$, $\sqcap$, $\sqcup$ & XOR \\
+Context-Sp. Exclusive OR of P. Groups & $\neg$, $\sqcap$, $\sqcup$ & XOR, $\sqcap$ \\
+Allowed Values & $\sqcup$ & allowed \\
+Not Allowed Values & $\sqcup$, $\neg$ & not allowed \\
+%Literal Ranges & $\geq$, $\leq$, $\sqcap$ &  \\ 
+Literal Ranges & - & xsd:minInclusive \\
+               & & xsd:maxInclusive \\
+%Negative Literal Ranges & $\geq$, $\leq$, $\sqcap$, $\neg$ & \\  
+Negative Literal Ranges & - & xsd:minInclusive \\
+                        & & xsd:maxInclusive \\
+Required Properties & $\exists$ & required \\	
+	
+    \bottomrule
+    \end{tabular}
+    \end{center}
+\end{table}
+
+\begin{table}[H]
+    \begin{center}
+    \begin{tabular}{lll}
+           \multicolumn{1}{l}{\textbf{Constraint Type}} & \multicolumn{1}{l}{\textbf{DL}} & \multicolumn{1}{l}{\textbf{Constraining Elements}}			 
+    \\ \midrule
+		
+Optional Properties & $\exists$, $\sqsubseteq$ & optional \\
+Repeatable Properties & $\geq$ & repeatable \\
+Negative Property Constraints & $\neg$, $\exists$ & negative properties \\
+*Individual Equality & = & \\
+*Functional Properties & functional & \\ 
+*Inverse-Functional Properties & inverse, functional & inverse functional \\
+*Value Restrictions & $\exists$ & value restriction \\
+*Self Restrictions & $\exists$ & self restriction \\
+Primary Key Properties & inverse, functional & keyfor or primary key \\
+*Class-Specific Property Range & $\sqsubseteq$, $\exists$, $\neg$ & range \\
+*Class-Sp. Reflexive Object P. & reflexive & \\
+Membership in Controlled Vocabularies & $\forall$, $\sqcap$, $\sqcup$ & membership in \\
+  && controlled vocabularies \\
+IRI Pattern Matching & - & IRI pattern matching \\
+Literal Value Comparison & $>$ or $\geq$ or $<$ or & \\
+                         & $\leq$ or = or $\ne$ & \\
+Ordering & - & order \\ 
+Validation Levels & - & validation level \\ 
+String Operations & - & SPARQL string operations \\ 
+  && examples: STRLEN, \\ 
+	&& SUBSTR, CONTAINS \\
+Context-Specific Valid Classes & - & context-specific valid classes \\
+Context-Specific Valid Properties & - & context-specific valid properties \\
+Default Values & - & default values \\
+Mathematical Operations & - & example: multiplication \\
+Language Tag Matching & - & language tag matching \\
+Language Tag Cardinality & - & language tag minimum cardinality, \\
+                            && language tag maximum cardinality, \\
+													  && language tag exact cardinality \\
+Whitespace Handling & - & whitespace \\
+HTML Handling & - & html \\
+Conditional Properties & $\sqsubseteq$ & conditional \\
+Recommended Properties & - & recommended \\
+Handle RDF Collections & - & actions on RDF collections \\
+Value is Valid for Datatype & - & value is valid for datatype \\
+Use Sub-Super Relations in Validation & - & not redundant \\
+*Cardinality Shortcuts & & optional \& non-repeatable, \\
+                       & & optional \& repeatable \\
+											 & & mandatory \& non-repeatable \\
+											 & & mandatory \& repeatable \\
+Aggregations & - & aggregations \\
+                 && e.g., count \\
+*Class-Specific Irreflexive Object Properties & reflexive, $\neg$ & irreflexive \\
+Provenance & - & provenance \\   
+Data Model Consistency & - & SPARQL \\    
+Structure & - & SPARQL \\  
+Labeling and Documentation & - & SPARQL \\   
+Vocabulary & - & vocabulary \\  
+HTTP URI Scheme Violation & - & HTTP URI scheme violation \\   
+		
+    \bottomrule
+    \end{tabular}
+    \end{center}
+\end{table}
 
 \section{Conclusion and Future Work}
 There is no standard way to validate RDF data conforming to RDF constraints like XML Schemas serve to validate XML documents.

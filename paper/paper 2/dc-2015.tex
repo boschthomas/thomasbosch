@@ -119,6 +119,35 @@ but there is no clear favorite and none of the languages is able to meet all req
 % Truth be told, we do may two things, blabla on and to blabla, however for the flow of the text we dont need to overkill the text. In abstract and introduction, we just give general idea so at such points we better focus on flow.  
 Based on our work in the \emph{DCMI RDF Application Profiles Task Group} and in cooperation with the \emph{W3C Data Shapes Working Group}, 
 we published by today 81 types of constraints that are required by various stakeholders for data applications.
+
+As there are already five promising constraint languages, 
+our purpose is not to invent yet another constraint language.
+But as non of the current constraint languages does support all constraint types, 
+we developed a lightweight vocabulary to intermediately represent constraints of any constraint type in a generic way.
+Even though, this vocabulary is not considered to be a constraint language,
+constraints represented by the proposed vocabulary are intuitively understandable 
+as their structure is based on RDF terminology. 
+As we developed a vocabulary to represent constraint of any constraint type, 
+we are therefore able to provide a basic terminology and classification system for RDF constraints 
+to lay the ground for discussions on RDF validation.
+
+When using the developed vocabulary to intermediately represent constraints,
+depending on the individual type of constraint particular constraining elements can be applied.
+We base these constraining elements on formal logic.
+As constraints of 2/3 of all constraint types are expressible by logical constructs from description logics,
+we may use logical constructs as constraining elements.
+In order to be able to support all constraint types, however,
+we determined intuitive constraining elements in natural language like \emph{conditional properties}, \emph{allowed values}, and \emph{language tag minimum cardinality}.
+Constraints of the constraint type \emph{required properties}, e.g., can be expressed by the existential quantifier $\exists$ or more intuitively using the constraining element \emph{required properties}.
+
+As SPARQL is generally seen as the method of choice to validate data according to certain constraints and
+as RDF data can be validated on constraints of any constraint type by means of SPARQL,
+we use SPIN, a SPARQL-based way to validate RDF data, as implementation language 
+to actually execute the validation of RDF data.
+Thereby, constraints may either be 
+(1) expressed by domain specific constraint languages like OWL 2 and DSP or
+(2) represented generically by the proposed vocabulary. 
+
 %The majority of these constraint types can be expressed in description logics which provides their logical underpinning.
 %In this paper, we provide a basic terminology and classification system for RDF constraints.\tb{The contributions of this paper are the following. (1)...}
 %We developed a vocabulary to describe constraints of any RDF constraint type generically. 
@@ -126,15 +155,15 @@ we published by today 81 types of constraints that are required by various stake
 %We show how to transform constraints, expressed by any constraint language \ms{$\alpha$}, into generically expressed constraints and into constraints represented by any other constraint language \ms{$\beta$} and discuss why these transformations are useful.
 %We explain how to overcome the necessity to implement the validation of each constraint type for multiple constraint languages by providing mappings to generically expressed constraints.
 
-The main contributions of this paper are:
-(1) We provide a basic terminology and classification system for RDF constraints to lay the ground for discussions on RDF validation.
-(2) As current high-level constraint languages do not support all constraint types, 
-we developed a vocabulary to describe constraints of any constraint type in a generic way and specified its underlying semantics.
-(3) We show how to enhance the interoperability of constraints expressed by different languages by using the proposed vocabulary 
-to intermediately represent constraints 
-%as an intermediate generic representation 
-which enables transformations between semantically equivalent constraints.
-(4) We explain how constraint languages may reuse validation implementations which are provided once for each constraint type.
+%The main contributions of this paper are:
+%(1) We provide a basic terminology and classification system for RDF constraints to lay the ground for discussions on RDF validation.
+%(2) As current high-level constraint languages do not support all constraint types, 
+%we developed a vocabulary to describe constraints of any constraint type in a generic way and specified its underlying semantics.
+%(3) We show how to enhance the interoperability of constraints expressed by different languages by using the proposed vocabulary 
+%to intermediately represent constraints 
+%%as an intermediate generic representation 
+%which enables transformations between semantically equivalent constraints.
+%(4) We explain how constraint languages may reuse validation implementations which are provided once for each constraint type.
 
 \hspace{-1.4em}
 \textbf{Keywords:}
