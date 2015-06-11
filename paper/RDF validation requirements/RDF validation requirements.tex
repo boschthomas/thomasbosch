@@ -4293,15 +4293,9 @@ The majority - nearly 70\% - of the overall constraints are expressible in DL.
 \subsection{Constraining Elements of Constraint Types}
 
 \begin{itemize}
-  \item Constraints of 64\% of all constraint type can be expressed using logical constructs from description logics.
-	\item We developed a vocabulary and for each constraint type we identified constraining elements to represent constraints of any constraint type. 
-	
-	\item In most cases, it is sufficient to use only 1 logical construct
-	\item Some combinations of logical constructs can be simplified to 1 logical construct which can be used in terms of syntactic sugar
-  \item constraints of the majority of the constraint types can be expressed logically by description logics
-	\item constraints of all constraint types can be expressed by constraining elements
-	\item For 1 constraint types, there can be multiple constraining elements
-	\item the validation of each constraining element has to be implemented
+  \item Constraints of 64\% of all constraint type can be expressed using logical constructs from description logics.	
+	\item For a constraint types, there can be multiple constraining elements
+	\item The validation of each constraining element has to be implemented
 	\item We use SPARQL as extension mechanism to express constraints of 3 constraint types which cannot be expressed otherwise as they are too complex to represent them using a high-level constraint language
 \end{itemize}
 
@@ -4375,8 +4369,8 @@ Required Properties & $\exists$ & required \\
            \multicolumn{1}{l}{\textbf{Constraint Type}} & \multicolumn{1}{l}{\textbf{DL}} & \multicolumn{1}{l}{\textbf{Constraining Elements}}			 
     \\ \midrule
 		
-Optional Properties & $\exists$, $\sqsubseteq$ & optional \\
-Repeatable Properties & $\geq$ & repeatable \\
+Optional Properties & $\exists$, $\sqsubseteq$ & optional properties \\
+Repeatable Properties & $\geq$ & repeatable properties \\
 Negative Property Constraints & $\neg$, $\exists$ & negative properties \\
 *Individual Equality & = & \\
 *Functional Properties & functional & \\ 
