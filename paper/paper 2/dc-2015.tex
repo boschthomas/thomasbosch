@@ -18,7 +18,7 @@
 \addtokomafont{title}{\fontsize{14pt}{1em}\selectfont}
 \setkomafont{section}{\fontsize{12pt}{0pt}\selectfont}
 \addtokomafont{subsection}{\fontsize{11pt}{0pt}\selectfont}
-\addtokomafont{author}{\fontsize{12pt}{1em}\selectfont}
+% \addtokomafont{author}{\fontsize{12pt}{1em}\selectfont}
 \usepackage{scrpage2}
 \clearscrheadfoot
 \pagestyle{scrheadings}
@@ -109,45 +109,36 @@
 \maketitle
 \vspace{-3em}
 \section*{Abstract}
-Increasingly, various domains adopt Linked Data principles
-and seek for ways to ensure data quality by validating RDF data according to predefined constraints,
-in particular, as many communities are used to have this functionality in the XML world.
-%XML Schema is the standard language to formulate constraints to validate XML documents.
-%For RDF, however, there are several constraint languages - but not a stand-alone standard one meeting the majority of RDF validation use cases. 
-To validate RDF data and to formulate constraints, several languages exist or are currently developed,
-but there is no clear favorite and none of the languages is able to meet all requirements raised by data practitioners.
+In the context of the DCMI RDF Application Profile task group and the W3C Data Shapes Working Group solutions for the proper formulation and validation of constraints on RDF data are developed. Several approaches and constraint languages exist but there is no clear favorite and none of the languages is able to meet all requirements raised by data practitioners.
 % Truth be told, we do may two things, blabla on and to blabla, however for the flow of the text we dont need to overkill the text. In abstract and introduction, we just give general idea so at such points we better focus on flow.  
-Based on our work in the \emph{DCMI RDF Application Profiles Task Group} and in cooperation with the \emph{W3C Data Shapes Working Group}, 
-we published by today 81 types of constraints that are required by various stakeholders for data applications.
 
-As there are already five promising constraint languages, 
-our purpose is not to invent yet another constraint language.
-But as non of the current constraint languages does support all constraint types, 
-we developed a lightweight vocabulary to intermediately represent constraints of any constraint type.
-Even though, this vocabulary is not considered to be a constraint language,
-constraints represented by the proposed vocabulary are easily understandable 
-as their structure is based on common RDF terminology like classes and properties. 
-As we developed a vocabulary to represent constraint of any constraint type, 
-we are therefore able to provide a basic terminology and classification system for RDF constraints 
-to lay the ground for discussions on RDF validation.
+To support the work, a comprehensive, community-driven database has been created where case studies, use cases, requirements and solutions are collected. Based on this database,
+we published by today 81 types of constraints that are required by various stakeholders for data applications. We generally use this collection of constraint types to gain a better understanding of the expressiveness of existing solutions and gaps that still need to be filled. 
 
-When using the developed vocabulary to intermediately represent constraints,
-depending on the individual type of constraint one or multiple particular constraining elements are applied.
-We base these constraining elements on formal logic.
-As constraints of 2/3 of all constraint types are expressible by logical constructs from description logics,
-we may use logical constructs as constraining elements.
-In order to be able to support all constraint types, however,
-we determined for each constraint type more intuitive constraining elements in natural language like \emph{conditional properties}, \emph{allowed values}, and \emph{language tag minimum cardinality}.
-A title is required for books.
-This constraint of the constraint type \emph{required properties (R-68)} can be either expressed by the existential quantifier $\exists$ from description logics or more intuitively using the constraining element \emph{required properties}.
+Regarding the implementation of constraint languages, we already proposed to use high-level languages to describe the constraints, but map them to SPARQL queries in order to execute the actual validation; we demonstrated this approach for Description Set Profiles.
 
-As SPARQL is generally seen as the method of choice to validate data according to certain constraints and
-as RDF data can be validated on constraints of any constraint type by means of SPARQL,
-we use SPIN, a SPARQL-based way to validate RDF data, as implementation language 
-to actually execute the validation of RDF data.
-Thereby, constraints may either be 
-(1) expressed by domain specific constraint languages like OWL 2 and DSP or
-(2) represented by the proposed vocabulary. 
+In this paper, we generalize from the experience of implementing Description Set Profiles by introducing an abstraction layer that is able to describe any constraint type in a way that is more or less straight-forwardly transformable to SPARQL queries. 
+It provides a basic terminology and classification system for RDF constraints to lay the ground for discussions on RDF validation.
+
+We demonstrate that using another layer on top of SPARQL helps to implement validation consistently accross constraint languages and simplifies the mapping of new languages. 
+
+%When using the developed vocabulary to intermediately represent constraints,
+%depending on the individual type of constraint one or multiple particular constraining elements are applied.
+%We base these constraining elements on formal logic.
+%As constraints of 2/3 of all constraint types are expressible by logical constructs from description logics,
+%we may use logical constructs as constraining elements.
+%In order to be able to support all constraint types, however,
+%we determined for each constraint type more intuitive constraining elements in natural language like \emph{conditional properties}, \emph{allowed values}, and \emph{language tag minimum cardinality}.
+%A title is required for books.
+%This constraint of the constraint type \emph{required properties (R-68)} can be either expressed by the existential quantifier $\exists$ from description logics or more intuitively using the constraining element \emph{required properties}.
+
+%As SPARQL is generally seen as the method of choice to validate data according to certain constraints and
+%as RDF data can be validated on constraints of any constraint type by means of SPARQL,
+%we use SPIN, a SPARQL-based way to validate RDF data, as implementation language 
+%to actually execute the validation of RDF data.
+%Thereby, constraints may either be 
+%(1) expressed by domain specific constraint languages like OWL 2 and DSP or
+%(2) represented by the proposed vocabulary. 
 
 %The majority of these constraint types can be expressed in description logics which provides their logical underpinning.
 %In this paper, we provide a basic terminology and classification system for RDF constraints.\tb{The contributions of this paper are the following. (1)...}
