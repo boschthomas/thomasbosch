@@ -443,26 +443,27 @@ RDF validation and OWL 2 assume different semantics.
 This ambiguity in semantics is one of the main reasons why OWL 2 has not been adopted as a standard constraint language for RDF validation in the past.
 We compare semantics of RDF validation and OWL 2 as OWL 2 is considered as a constraint language 
 in case the semantics for RDF validation is applied.
-%
-OWL 2 is based on the {\em open-world assumption} (OWA), i.e., a statement cannot be inferred to be false if it cannot be proved to be true  which fits its primary design purpose to represent knowledge on the World Wide Web. 
+
+OWL 2 is based on the {\em open-world assumption} \emph{(OWA)}, i.e., a statement cannot be inferred to be false if it cannot be proved to be true  which fits its primary design purpose to represent knowledge on the World Wide Web. 
 As each book must have a title {\small\ms{(Book $\sqsubseteq \exists$ title.$\top$)}} and {\em Hamlet} is a book, %{\small\ms{(Book(Hamlet)),}}
 {\em Hamlet} must have a title as well.
 In an OWA setting, this constraint does not cause a violation, even if there is no explicitly defined title, since there must be a title for this book which we may not know. 
 %($\mathcal{K}$ is consistent).
-As RDF validation has its origin in the XML world
-many RDF validation scenarios require the {\em closed-world assumption} (CWA), i.e., a statement is inferred to be false if it cannot be proved to be true.
+As RDF validation has its origin in the XML world,
+many RDF validation scenarios require the {\em closed-world assumption} \emph{(CWA)}, i.e., a statement is inferred to be false if it cannot be proved to be true.
 Thus, classical constraint languages are based on the CWA where constraints need to be satisfied only by named individuals. 
-The CWA yields to a violation since there is no explicitly defined title for the book {\em Hamlet}. 
-%
-Validation requires that different names represent different objects (\emph{unique name assumption (UNA)}), whereas,
+Since there is no explicitly defined title for the book {\em Hamlet}, the CWA yields to a violation. 
+
+RDF Validation requires that different names represent different objects (\emph{unique name assumption (UNA)}), whereas,
 OWL 2 is based on the {\em non-unique name assumption (nUNA)}.  
-If we define the property title to be functional {\small\ms{(funct (title)),}} a book can have at most one distinct title.
+If we define the property \emph{title} to be functional {\small\ms{(funct (title)),}} a book can have at most one distinct title.
 UNA causes a clash
 if the book {\em Huckleberry-Finn} has more than one title.
 For nUNA, however, reasoning concludes that the title {\em The-Adventures-of-Huckleberry-Finn} must be the same as the title {\em Die-Abenteuer-des-Huckleberry-Finn} 
 which resolves the violation. 
 %Although, OWL 2 does not assume UNA, OWL 2 has the constructs \emph{owl:sameAs} and \emph{owl:differentFrom} to state that two names are the same or different.
-If validation would assume OWA and nUNA, validation won’t be that restrictive and therefore we won’t get the intended validation results.
+
+If RDF validation would assume OWA and nUNA just like OWL 2 does, validation won’t be that restrictive and therefore we won’t get the intended validation results.
 %
 %OWL 2 reasoning is based on the {\em open-world assumption (OWA)}, i.e., a statement cannot be inferred to be false if it cannot be proved to be true. 
 %%which fits its primary design purpose to represent knowledge on the World Wide Web. 
@@ -506,7 +507,7 @@ If validation would assume OWA and nUNA, validation won’t be that restrictive 
 %
 Differences in semantics may lead to differences in validation results when applied to particular constraint types.
 This is important 
-as for 56.8\% of the constraint types validation results differ if the CWA or the OWA 
+as for 56.8\% of the constraint types validation results differ if the CWA or the OWA is assumed 
 and as for 66.6\% of the constraint types validation results are different in case the UNA or the nUNA is assumed \cite{BoschNolleAcarEckert2015}.
 
 Constraints are identical w.r.t. RDF semantics, 
@@ -515,7 +516,7 @@ which means whenever the constraints are applied to any RDF data they point out 
 As we use multiple languages to express constraints of constraint types, 
 %in the first appendix of this paper,
 we thereby document identical semantics of these languages with regard to given constraint types \cite{BoschNolleAcarEckert2015}.
-This is also important to prove that semantically equivalent \emph{specific constraints} and corresponding \emph{generic constraints}
+This is also important in order to prove that semantically equivalent \emph{specific constraints} and corresponding \emph{generic constraints}
 behave in the same way w.r.t. validation results which semantically underpins bidirectional mappings.
 
 %We defined the \textbf{formal generic semantics of the vocabulary} to describe constraints of any constraint type in a generic way (see paper appendix):
