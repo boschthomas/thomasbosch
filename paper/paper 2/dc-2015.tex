@@ -186,7 +186,7 @@ We recently published a technical report (serving as first appendix of this pape
 More than 10 constraint languages with different syntax and semantics exist or are currently developed. 
 We focus on the five most promising ones on being the standard like
 \emph{Shape Expressions (ShEx)}, \emph{Resource Shapes (ReSh)}, and \emph{Description Set Profiles (DSP)}. 
-The \emph{Web Ontology Language} \emph{(OWL)} in its current version \emph{OWL 2} can also be used as a constraint language.
+The \emph{Web Ontology Language} \emph{(OWL)} in its current version OWL 2 can also be used as a constraint language.
 With its direct support of validation via \emph{SPARQL}, the \emph{SPARQL Inferencing Notation (SPIN)} is very popular and certainly plays an important role for the future development in this field. 
 %\emph{SPIN} is particularly interesting as a means to validate arbitrary constraint languages by mapping them to \emph{SPARQL} \cite{BoschEckert2014-2}.
 
@@ -203,15 +203,15 @@ Table \ref{tab:constraint-type-specific-expressivity} shows in percentage values
 	  \scriptsize
 		\begin{tabular}{c|c|c|c|c}
       %\textbf{Expressivity Class} & $Expr(\overline{\mathcal{CT}_R})$ (42) & $Expr(\mathcal{CT}_R)$ (32) \\		
-			\emph{DSP} & \emph{ReSh} & \emph{ShEx} & \emph{OWL 2} & \emph{SPIN} \\	
+			\emph{DSP} & \emph{ReSh} & \emph{ShEx} & OWL 2 & \emph{SPIN} \\	
       \hline
 			17.3 (14) & 25.9 (21) & 29.6 (24) & 67.9 (55) & \textbf{100.0} \textbf{(81)} 
 		\end{tabular}
 	\label{tab:constraint-type-specific-expressivity}
 \end{table}
 
-The fact that \emph{SPIN} supports all and \emph{OWL 2} covers 2/3 of all constraint types
-emphasizes the significant role \emph{SPIN} and \emph{OWL 2} play for the future development of constraint languages.
+The fact that \emph{SPIN} supports all and OWL 2 covers 2/3 of all constraint types
+emphasizes the significant role \emph{SPIN} and OWL 2 play for the future development of constraint languages.
 \emph{SPARQL} and therefore \emph{SPIN}, the \emph{SPARQL}-based way to formulate and check constraints, is generally seen as the method of choice to validate data according to certain constraints \cite{Fuerber2010}, 
 although, it is not ideal for their formulation. 
 In contrast, high-level constraint languages are comparatively easy to understand and constraints can be formulated more concisely.
@@ -439,54 +439,54 @@ Prerequisites to develop a vocabulary to describe RDF constraints of any RDF con
 
 \subsection{Semantics for RDF Validation}
 
-RDF validation and \emph{OWL 2} assume different semantics. 
-This ambiguity in semantics is one of the main reasons why \emph{OWL 2} has not been adopted as a standard constraint language for RDF validation in the past.
-We compare semantics of RDF validation and \emph{OWL 2} as \emph{OWL 2} is considered as a constraint language 
-when validation semantics is applied.
+RDF validation and OWL 2 assume different semantics. 
+This ambiguity in semantics is one of the main reasons why OWL 2 has not been adopted as a standard constraint language for RDF validation in the past.
+We compare semantics of RDF validation and OWL 2 as OWL 2 is considered as a constraint language 
+in case the semantics for RDF validation is applied.
 %
-\emph{OWL 2} is based on the {\em open-world assumption} (\emph{OWA}), i.e., a statement cannot be inferred to be false if it cannot be proved to be true  which fits its primary design purpose to represent knowledge on the \emph{WWW}. 
-As each \emph{book} must have a \emph{title} {\small\ms{(Book $\sqsubseteq \exists$ title.$\top$)}} and {\em Hamlet} is a \emph{book}, %{\small\ms{(Book(Hamlet)),}}
-{\em Hamlet} must have at least one \emph{title}.
-In an \emph{OWA} setting, this constraint does not cause a violation, even if there is no explicitly defined \emph{title}, since there must be a \emph{title} for this \emph{book} which we may not know. 
+OWL 2 is based on the {\em open-world assumption} (OWA), i.e., a statement cannot be inferred to be false if it cannot be proved to be true  which fits its primary design purpose to represent knowledge on the World Wide Web. 
+As each book must have a title {\small\ms{(Book $\sqsubseteq \exists$ title.$\top$)}} and {\em Hamlet} is a book, %{\small\ms{(Book(Hamlet)),}}
+{\em Hamlet} must have a title as well.
+In an OWA setting, this constraint does not cause a violation, even if there is no explicitly defined title, since there must be a title for this book which we may not know. 
 %($\mathcal{K}$ is consistent).
 As RDF validation has its origin in the XML world
-many RDF validation scenarios require the {\em closed-world assumption} (\emph{CWA}), i.e., a statement is inferred to be false if it cannot be proved to be true.
-Thus, classical constraint languages are based on the \emph{CWA} where constraints need to be satisfied only by named individuals. 
-The \emph{CWA} yields to a violation since there is no explicitly defined \emph{title} for the \emph{book} {\em Hamlet}. 
+many RDF validation scenarios require the {\em closed-world assumption} (CWA), i.e., a statement is inferred to be false if it cannot be proved to be true.
+Thus, classical constraint languages are based on the CWA where constraints need to be satisfied only by named individuals. 
+The CWA yields to a violation since there is no explicitly defined title for the book {\em Hamlet}. 
 %
 Validation requires that different names represent different objects (\emph{unique name assumption (UNA)}), whereas,
-\emph{OWL 2} is based on the {\em non-unique name assumption (nUNA)}.  
-If we define the property \emph{title} to be functional {\small\ms{(funct (title)),}} a \emph{book} can have at most one distinct \emph{title}.
-\emph{UNA} causes a clash
-if the \emph{book} {\em Huckleberry-Finn} has more than one \emph{title}.
-For \emph{nUNA}, however, reasoning concludes that the \emph{title} {\em The-Adventures-of-Huckleberry-Finn} must be the same as the \emph{title} {\em Die-Abenteuer-des-Huckleberry-Finn} 
+OWL 2 is based on the {\em non-unique name assumption (nUNA)}.  
+If we define the property title to be functional {\small\ms{(funct (title)),}} a book can have at most one distinct title.
+UNA causes a clash
+if the book {\em Huckleberry-Finn} has more than one title.
+For nUNA, however, reasoning concludes that the title {\em The-Adventures-of-Huckleberry-Finn} must be the same as the title {\em Die-Abenteuer-des-Huckleberry-Finn} 
 which resolves the violation. 
-%Although, \emph{OWL 2} does not assume \emph{UNA}, \emph{OWL 2} has the constructs \emph{owl:sameAs} and \emph{owl:differentFrom} to state that two names are the same or different.
-If validation would assume \emph{OWA} and \emph{nUNA}, validation won’t be that restrictive and therefore we won’t get the intended validation results.
+%Although, OWL 2 does not assume UNA, OWL 2 has the constructs \emph{owl:sameAs} and \emph{owl:differentFrom} to state that two names are the same or different.
+If validation would assume OWA and nUNA, validation won’t be that restrictive and therefore we won’t get the intended validation results.
 %
-%\emph{OWL 2} reasoning is based on the {\em open-world assumption (OWA)}, i.e., a statement cannot be inferred to be false if it cannot be proved to be true. 
+%OWL 2 reasoning is based on the {\em open-world assumption (OWA)}, i.e., a statement cannot be inferred to be false if it cannot be proved to be true. 
 %%which fits its primary design purpose to represent knowledge on the World Wide Web. 
 %%Most of the constraint languages except OWL, have a major shortcoming of redundancy.
 %%With its open-world semantics, used as a constraint language, OWL solves the redundancy problem. 
 %%\tb{the following example does not show the redundancy problem!}
 %%\tb{2. benefit: reasoning solves redundancy problem}
-%As each \emph{book} must have a \emph{title} {\small\ms{(Book $\sqsubseteq \exists$ title.$\top$)}} and {\em Hamlet} is a \emph{book} {\small\ms{(Book(Hamlet)),}}
-%{\em Hamlet} must have at least one \emph{title}.
-%In an \emph{OWA} setting, this axiom does not cause a constraint violation (even if there is no explicitly defined \emph{title}), since there must be a \emph{title} for this \emph{book} which we may not know. 
+%As each book must have a title {\small\ms{(Book $\sqsubseteq \exists$ title.$\top$)}} and {\em Hamlet} is a book {\small\ms{(Book(Hamlet)),}}
+%{\em Hamlet} must have at least one title.
+%In an OWA setting, this axiom does not cause a constraint violation (even if there is no explicitly defined title), since there must be a title for this book which we may not know. 
 %On the other hand, RDF validation scenarios require the \emph{closed-world assumption (CWA)}, i.e., a statement is inferred to be false if it cannot be proved to be true.
-%When assuming the \emph{CWA}, a constraint violation is raised as there is no explicitly defined title. 
-%A constraint that says that a book must have at least one title in \emph{OWA}, 
+%When assuming the CWA, a constraint violation is raised as there is no explicitly defined title. 
+%A constraint that says that a book must have at least one title in OWA, 
 %does not mean that the title has to be unique. 
 %In every model  (an interpretation that makes a set of \emph{DL knowledge base} true), 
 %it can be the case that a book has a single title, however, 
 %this title is not unique. 
 %In some models it is \emph{The-Adventures-of-Huckleberry-Finn}, in others it is \emph{Die-Abenteuer-des-Huckleberry-Finn}. 
 %And since in every model there is only one, \emph{DL} sentences are satisfied. 
-%But this does not correspond to the intended constraint which is usual in \emph{CWA} way.   
-%%Classical constraint languages are based on the \emph{CWA} where constraints need to be satisfied only by named individuals which yields a constraint violation.
-%This ambiguity in semantics is one of the main reasons why \emph{OWL 2} has not been adopted as a standard constraint language for RDF validation in the past. 
-%In case we want to use \emph{OWL 2} as a constraint language, we adopt the same semantics (\emph{CWA} and \emph{UNA}) as for RDF validation in general. 
-%In case we want to use \emph{OWL 2} as a constraint language, we adopt the same semantics (CWA) that is for RDF validation in general. 
+%But this does not correspond to the intended constraint which is usual in CWA way.   
+%%Classical constraint languages are based on the CWA where constraints need to be satisfied only by named individuals which yields a constraint violation.
+%This ambiguity in semantics is one of the main reasons why OWL 2 has not been adopted as a standard constraint language for RDF validation in the past. 
+%In case we want to use OWL 2 as a constraint language, we adopt the same semantics (CWA and UNA) as for RDF validation in general. 
+%In case we want to use OWL 2 as a constraint language, we adopt the same semantics (CWA) that is for RDF validation in general. 
 %\tb{feedback from Erman: the major problem is semantics. OWL basically work in different semantics than others. And their semantics are formal. Closed world vs. Open World is also a part of this. / Thomas: I think your issue is tackled now? No.}
 %
 %comments from Erman:
@@ -506,8 +506,8 @@ If validation would assume \emph{OWA} and \emph{nUNA}, validation won’t be tha
 %
 Differences in semantics may lead to differences in validation results when applied to particular constraint types.
 This is important 
-as for 56.8\% of the constraint types validation results differ if the \emph{CWA} or the \emph{OWA} 
-and as for 66.6\% of the constraint types validation results are different in case the \emph{UNA} or the \emph{nUNA} is assumed \cite{BoschNolleAcarEckert2015}.
+as for 56.8\% of the constraint types validation results differ if the CWA or the OWA 
+and as for 66.6\% of the constraint types validation results are different in case the UNA or the nUNA is assumed \cite{BoschNolleAcarEckert2015}.
 
 Constraints are identical w.r.t. RDF semantics, 
 if they detect the same set of violations regardless of RDF data, 
@@ -520,14 +520,14 @@ behave in the same way w.r.t. validation results which semantically underpins bi
 
 %We defined the \textbf{formal generic semantics of the vocabulary} to describe constraints of any constraint type in a generic way (see paper appendix):
 %(1) We mapped constraint types to \emph{DL} to logically underpin them and 
-%(2) we described the constraint types' intended behavior in terms of validation results depending on \emph{CWA} and \emph{UNA}.
+%(2) we described the constraint types' intended behavior in terms of validation results depending on CWA and UNA.
 %To be able to define mappings between \emph{specific constraints} (expressed by different languages) and \emph{generic constraints},
 %we show for each constraint type that a constraint expressed by a particular language leads to the same answer as the corresponding \emph{DL} query.
 %To be able to specify transformations between \emph{specific constraints} (expressed by different languages),
 %identical semantics of the languages with regard to the particular constraint type has to be ensured.
 %%Constraint languages assume identical semantics, 
 %%if for each constraint the following condition holds:
-%If a constraint is represented by \emph{ShEx} and \emph{OWL 2}, 
+%If a constraint is represented by \emph{ShEx} and OWL 2, 
 %the validation results must be exactly the same, i.e.,
 %whenever the \emph{specific constraint} \emph{$sc_{ShEx}$} is violated, its \emph{$sc_{OWL 2}$} correspondence is also violated which shows that they behave in the same way.
 %We expressed constraint types by different languages
@@ -757,8 +757,8 @@ whose validation has to be implemented once like for any other \emph{constrainin
 %\emph{Complex constraints} are composed out of \emph{simple constraints} and/or \emph{complex constraints}.
 \emph{Complex constraints} of the constraint type \emph{context-specific exclusive or of property groups} (\emph{R-13}) 
 restrict individuals of given classes to have all properties of exactly one of multiple mutually exclusive property groups.
-\emph{Publications}, e.g., are either identified by an \emph{ISBN} and a \emph{title} (for books) or by an \emph{ISSN} and a \emph{title} (for periodical \emph{publications}), but it should not be possible to assign both identifiers to a given \emph{publication}. 
-As \emph{The-Great-Gatsby} is a \emph{publication} with an \emph{ISBN} and a \emph{title} without an \emph{ISSN}, 
+\emph{Publications}, e.g., are either identified by an \emph{ISBN} and a title (for books) or by an \emph{ISSN} and a title (for periodical \emph{publications}), but it should not be possible to assign both identifiers to a given \emph{publication}. 
+As \emph{The-Great-Gatsby} is a \emph{publication} with an \emph{ISBN} and a title without an \emph{ISSN}, 
 \emph{The-Great-Gatsby} is considered as a valid \emph{publication}.
 The \emph{complex constraint} is generically expressible by \emph{DL}:
 %This \emph{complex constraint} is expressible specifically by \emph{ShEx} and generically by \emph{DL} (and can therefore be mapped to the \emph{RDF-CV} \cite{BoschEckert2015-2}).
@@ -1106,7 +1106,7 @@ In this section, we present current languages for constraint formulation and RDF
 %\emph{Schematron}: \url{http://www.schematron.com},
 %\emph{XML Schema}: \url{http://www.w3.org/TR/xmlschema-1},
 }.
-\emph{SPIN}, \emph{SPARQL}, \emph{OWL 2}, \emph{ShEx}, \emph{ReSh}, and \emph{DSP} are the six most promising and applied languages.
+\emph{SPIN}, \emph{SPARQL}, OWL 2, \emph{ShEx}, \emph{ReSh}, and \emph{DSP} are the six most promising and applied languages.
 %
 The query language for RDF \emph{SPARQL} is generally seen as the method of choice to validate data according to certain constraints \cite{Fuerber2010}, 
 although, it is not ideal for their formulation. 
@@ -1116,7 +1116,7 @@ Declarative languages may be placed on top of \emph{SPARQL} and \emph{SPIN} when
 \emph{SPIN} provides a vocabulary to represent \emph{SPARQL} queries as RDF triples
 and uses \emph{SPARQL} to specify logical constraints and inference rules \cite{Fuerber2010}.
 %
-\emph{Stardog ICV} and \emph{Pellet ICV} use \emph{OWL 2} constructs to formulate constraints.
+\emph{Stardog ICV} and \emph{Pellet ICV} use OWL 2 constructs to formulate constraints.
 The \emph{Pellet Integrity Constraint Validator (ICV)} is a proof-of-concept extension for the \emph{OWL 2 DL} reasoner \emph{Pellet}. 
 \emph{Stardog ICV} 
 validates RDF data stored in a Stardog database according to 
