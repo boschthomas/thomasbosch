@@ -568,9 +568,9 @@ behave in the same way w.r.t. validation results which semantically underpins bi
 %\subsection{Basic Terminology for the Formulation of RDF Constraints}
 
 A \emph{constraint language} is a language which is used to formulate constraints.
-The \emph{W3C} working group defines \emph{RDF constraint} as a component of a schema what needs to be satisfied\footnote{\url{https://www.w3.org/2014/data-shapes/wiki/Glossary}}.
+The W3C working group defines \emph{RDF constraint} as a component of a schema what needs to be satisfied\footnote{\url{https://www.w3.org/2014/data-shapes/wiki/Glossary}}.
 As there are already five promising constraint languages, 
-our purpose was not to invent a new language.
+our purpose is not to invent a new language.
 As there is no high-level declarative language which meets all RDF validation requirements,
 we rather developed a very simple lightweight vocabulary,
 consisting of only three classes, three object properties, and three data properties, 
@@ -596,15 +596,18 @@ For each constraint type, we evaluated \cite{BoschNolleAcarEckert2015} in which 
 %(2) \emph{Complexity:} \emph{simple constraints} vs. \emph{complex constraints},
 %(3) \emph{Context:} \emph{property constraints} vs. \emph{class constraints}, and
 %(4) \emph{DL Expressivity:} \emph{constraints expressible in DL} vs. \emph{constraints not expressible in DL}.
+
 \textbf{\emph{Universality}:}
 Constraints are expressible either generically (\emph{generic constraints}) using the \emph{RDF-CV}   
 or specifically (\emph{specific constraints}) by domain-specific constraint languages. 
 As we express constraints of each constraint type in form of \emph{generic constraints} conforming to the \emph{RDF-CV} \cite{BoschNolleAcarEckert2015},
 we show that constraints of any constraint type can be described generically.
+
 \textbf{\emph{DL Expressivity}:}
 The \emph{RDF-CV} allows to describe 
-constraints which are \emph{expressible in DL} (constraints of this set are instantiated from 64\% of the overall 81 constraint types) and which are \emph{not expressible in DL} (36\%). 
+constraints which are either \emph{expressible in DL} (64\%) or which are \emph{not expressible in DL} (36\%). Constraints which are expressible in DL are instantiated from 64\% of the overall 81 constraint types. On the other hand, constraints which are not expressible in DL are assigned to 36\% of all constraint types.
 %In case a constraint type is \emph{expressible in DL}, we determined which \emph{DL} constructs are needed to express the constraint type.
+
 \textbf{\emph{Complexity}:}
 \emph{Simple constraints} (60\% of the constraint types) denotes the set of atomic constraints. 
 %which can be instantiated from almost 2/3 of the constraint types.
@@ -614,6 +617,7 @@ constraints which are \emph{expressible in DL} (constraints of this set are inst
 %\emph{DL} statements representing \emph{complex constraints} contain \emph{DL} statements standing for atomic and/or composed constraints. 
 Constraints of almost 14\% of the constraint types are \emph{complex constraints}
 which can be simplified and therefore formulated as \emph{simple constraints} when using them in terms of syntactic sugar.
+
 \textbf{\emph{Context}:}
 \emph{Simple constraints} are applied on properties (\emph{property constraints}, 60\%),
 on classes (\emph{class constraints}, 25\%), or
@@ -621,11 +625,12 @@ on properties and classes (\emph{property and class constraints}, 15\%).
 %2/3 of all constraint types are types of \emph{property constraints}, 
 %1/5 of \emph{class constraints}, and 
 %approx. 10\% of \emph{property and class constraints}.
-\emph{Simple constraints} must hold for individuals of their \emph{context classes}.
+\emph{Simple constraints} must hold for individuals of their associated \emph{context classes}.
 As \emph{context classes} of \emph{simple constraints} are reused within \emph{complex constraints},
 it does not make sense to have terms standing for \emph{simple} and \emph{complex constraints} within the \emph{RDF-CV}. 
 As a consequence, the distinction of \emph{property} and \emph{class constraints} is sufficient to generically describe constraints of all constraint types.
 %\tb{use RDF-CV / not: expressible in RDF-CV / RDF-CV is a vocabulary, not a language}
+
 Altogether, instances of the most of the constraint types are \emph{simple constraints on properties} which are \emph{expressible in DL}. 
 %Thus, the majority of constraint types are directly and relatively easy formulated in form of \emph{simple constraints} which can be mapped to equivalent \emph{DL} constructs.
 
