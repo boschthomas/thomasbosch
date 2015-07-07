@@ -944,9 +944,9 @@ property & D & title & - & string & = & 1 \\
 %property & $\top$ & authorOf & - & - & irreflexive & - \\
 		%\end{tabular}
 %\end{table}
-The \emph{primary key properties} constraint type (\emph{R-226}) is often useful to declare a given (datatype) property as the primary key of a class, so that a system can enforce uniqueness. 
-\emph{Books}, e.g., are uniquely identified by their \emph{ISBN}, i.e., the property \emph{isbn} is inverse functional \ms{$(\ms{funct } isbn\sp{\overline{\ }})$}
-which can be represented using the \emph{RDF-CV} in form of a \emph{complex constraint} consisting of two \emph{simple constraints} (Table \ref{tab:primary-key-properties-as-complex-constraints}).
+The \emph{primary key properties (R-226)} constraint type is often useful to declare a given (datatype) property as the primary key of a class, so that a system can enforce uniqueness. 
+Books, e.g., are uniquely identified by their \emph{ISBN}, i.e., the property \emph{isbn} is inverse functional \ms{$(\ms{funct } isbn\sp{\overline{\ }})$}
+which can be represented using the RDF-CV in form of a complex constraint consisting of two simple constraints (see Table \ref{tab:primary-key-properties-as-complex-constraints}).
 
 %\begin{gcotable}
 %property & $\top$ & commandAuthorizationCode$^{-}$ & commandAuthorizationCode$^{-}$ & - & inverse & - \\
@@ -968,12 +968,12 @@ property & Book & isbn$^{-}$ & - & - & functional property & - \\
 		\end{tabular}
 \end{table}
 
-\emph{Keys}, however, are even more general, i.e., a generalization of \emph{inverse functional properties} \cite{Schneider2009}.
+Keys, however, are even more general, i.e., a generalization of inverse functional properties \cite{Schneider2009}.
 A key can be a datatype, an object property, or a chain of properties.
 For these generalization purposes, as there are different sorts of keys, and as keys can lead to undecidability, 
 DL is extended with a special construct \emph{keyfor} \cite{Lutz2005}.
-When using \emph{keyfor} (\ms{isbn keyfor Book}), 
-the \emph{complex constraint} can be formulated as a \emph{simple constraint} which looks like the following in concrete RDF turtle syntax:
+When using keyfor (\ms{isbn keyfor Book}), 
+the complex constraint can be formulated as a simple constraint which looks like the following in concrete RDF turtle syntax:
 
 %\begin{gcotable}
 %property & StarFleetOfficer & commandAuthorizationCode & - & - & keyfor & - \\
@@ -998,11 +998,7 @@ the \emph{complex constraint} can be formulated as a \emph{simple constraint} wh
     \textit{rdfcv:contextClass} Book ; \textit{rdfcv:leftProperties} ( isbn ) ; \textit{rdfcv:constrainingElement} "keyfor" ] .
 \end{ex}
 
-\emph{Complex constraints} of frequently used constraint types corresponding to DL axioms like 
-\emph{transitivity}, \emph{symmetry}, \emph{asymmetry}, \emph{reflexivity} and \emph{irreflexivity}
-can also be simplified in the same way, 
-as, although, such axioms can be expressed using basic DL features, 
-DL axioms like \emph{transitivity} can also be used in terms of syntactic sugar \cite{BoschEckert2015-2}.
+Complex constraints of frequently used constraint types which correspond to DL axioms like \emph{transitivity}, \emph{symmetry}, \emph{asymmetry}, \emph{reflexivity} and \emph{irreflexivity} can also be simplified in form of simple constraints. Although, these DL axioms are expressible by basic DL features, they can also be used in terms of syntactic sugar \cite{BoschEckert2015-2}.
 %Starfleet officers, e.g., are uniquely identified by their command authorization code (e.g. to activate and cancel auto-destruct sequences).
 %It means that the property \emph{commandAuthorizationCode} is inverse functional - mapped to DL and the \emph{RDF-CV} as follows:
 %
