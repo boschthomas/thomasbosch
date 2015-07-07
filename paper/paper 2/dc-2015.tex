@@ -740,7 +740,7 @@ Table \ref{tab:simple-constraint-not-expressible-in-dl)} presents (1) in the fir
   \scriptsize
   \sffamily
   \vspace{0cm}
-	\caption{Simple Constraints which are not Expressible in DL)}
+	\caption{Simple Constraints which are not Expressible in DL}
 	\label{tab:simple-constraint-not-expressible-in-dl)}
 	\centering
 		\begin{tabular}{l|l|l|l|l|l|l}
@@ -754,12 +754,7 @@ Table \ref{tab:simple-constraint-not-expressible-in-dl)} presents (1) in the fir
 \subsection{\emph{Complex Constraints}}
 
 %\emph{Complex constraints} are composed out of \emph{simple constraints} and/or \emph{complex constraints}.
-\emph{Complex constraints} of the constraint type \emph{context-specific exclusive or of property groups} (\emph{R-13}) 
-restrict individuals of given classes to have all properties of exactly one of multiple mutually exclusive property groups.
-\emph{Publications}, e.g., are either identified by an \emph{ISBN} and a title (for books) or by an \emph{ISSN} and a title (for periodical \emph{publications}), but it should not be possible to assign both identifiers to a given \emph{publication}. 
-As \emph{The-Great-Gatsby} is a \emph{publication} with an \emph{ISBN} and a title without an \emph{ISSN}, 
-\emph{The-Great-Gatsby} is considered as a valid \emph{publication}.
-The \emph{complex constraint} is generically expressible by DL:
+Complex constraints of the constraint type \emph{context-specific exclusive or of property groups} (\emph{R-13}) restrict individuals of given classes to have all properties of exactly one of multiple mutually exclusive property groups. Publications, e.g., are either identified by an \emph{ISBN} and a title (for books) or by an \emph{ISSN} and a title (for periodical publications), but it should not be possible to assign both identifiers to a given publication. As \emph{The-Great-Gatsby} is a publication with an \emph{ISBN} and a title without an \emph{ISSN}, \emph{The-Great-Gatsby} is considered as a valid publication. This complex constraint is generically expressible in DL:
 %This \emph{complex constraint} is expressible specifically by \emph{ShEx} and generically by DL (and can therefore be mapped to the \emph{RDF-CV} \cite{BoschEckert2015-2}).
 
 %Half-Klingons, e.g., either have a klingon mother and a human father or a human mother and a klingon father, which can be expressed by ShEx:
@@ -859,11 +854,7 @@ C $\sqsubseteq$ $\geq$ 1 issn.string $\sqcap$ $\leq$ 1 issn.string , D $\sqsubse
 %\end{table}
 
 %Even though, tools may generate \emph{generic constraints} automatically, this 
-The DL statements demonstrate that the \emph{complex constraint} 
-is composed of many other \emph{complex} (e.g. \emph{minimum and maximum qualified cardinality restrictions}) and \emph{simple constraints} (e.g. constraints on sets).
-As \emph{exact (un)qualified cardinality restrictions (=n)} and \emph{exclusive or (XOR)} are frequently used \emph{complex constraints},
-we propose to simplify them as \emph{simple constraints} in terms of syntactic sugar.
-As a consequence, the \emph{context-specific exclusive or of property groups} \emph{complex constraint} is represented as a \emph{generic constraint} by means of the \emph{RDF-CV} more intuitively and concisely (Table \ref{tab:simplified-complex-constraints}).
+The DL statements demonstrate that the complex constraint is composed of many other complex constraints (e.g., \emph{minimum and maximum qualified cardinality restrictions}) and simple constraints (e.g., constraints on sets). As \emph{exact (un)qualified cardinality restrictions (=n)} and \emph{exclusive or (XOR)} are frequently used complex constraints, we propose to simplify them as simple constraints in terms of syntactic sugar. As a consequence, the \emph{context-specific exclusive or of property groups} complex constraint is represented as a generic constraint by means of the RDF-CV more intuitively and concisely (see Table \ref{tab:simplified-complex-constraints}).
 
 %\begin{gcotable}
 %class & Half-Klingon & - & - & E, F & XOR \\
@@ -885,9 +876,9 @@ As a consequence, the \emph{context-specific exclusive or of property groups} \e
 		\begin{tabular}{l|l|l|l|l|l|l}
       \textbf{c. set} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
       \hline
-class & Publication & - & - & E, F & XOR \\
-class & E & - & - & A, B & intersection \\
-class & F & - & - & C, D & intersection \\
+class & Publication & - & - & E, F & XOR of property groups & - \\
+class & E & - & - & A, B & intersection & - \\
+class & F & - & - & C, D & intersection & - \\
 property & A & isbn & - & string & = & 1 \\
 property & B & title & - & string & = & 1 \\
 property & C & issn & - & string & = & 1 \\
