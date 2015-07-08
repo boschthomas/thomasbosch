@@ -702,7 +702,7 @@ and the property \emph{authorOfGenre} on its right side. As this property constr
 		\end{tabular}
 \end{table}
 
-There are simple constraints which are not expressible in DL but can still be described using the RDF-CV such as constraints of the type \emph{literal pattern matching} (\emph{R-44}) which restrict literals to match given patterns. The \emph{universal quantification (R-91)} {\small\ms{Book $\sqsubseteq$ $\forall$ identifier.ISBN}} ensures that \emph{books} can only have valid \emph{ISBN} identifiers, i.e., strings that match a given regular expression.
+There are simple constraints which are not expressible in DL but can still be described using the RDF-CV such as constraints of the type \emph{literal pattern matching} (\emph{R-44}) which restrict literals to match given patterns. The \emph{universal quantification (R-91)} {\small\ms{Book $\sqsubseteq$ $\forall$ identifier.ISBN}} ensures that books can only have valid \emph{ISBN} identifiers, i.e., strings that match a given regular expression.
 %Even though, the restriction of the datatype \emph{ISBN} cannot be expressed in DL, \emph{OWL 2 DL} can be used to express the \emph{literal pattern matching} constraint:
 %\begin{ex}
 %ISBN a RDFS:Datatype ; owl:equivalentClass [ a RDFS:Datatype ;
@@ -730,6 +730,19 @@ There are simple constraints which are not expressible in DL but can still be de
 %The \emph{literal pattern matching} constraint validates \emph{ISBN} literals according to the regular expression causing constraint violations for triples which do not not match. 
 %\ms{Janeway commandsEnterprise Voyager} and \ms{Voyager registryNumber "NCC-74656"\textasciicircum{}\textasciicircum{}RegistryNumber}, 
 %but not for the triples \ms{Picard commandsEnterprise Enterprise} and \ms{Enterprise registryNumber "NCC-1701-E"\textasciicircum{}\textasciicircum{}RegistryNumber}.
+
+Even though, constraints of the type \emph{literal pattern matching} cannot be expressed in DL, OWL 2 can be used to formulate the constraint:
+
+\begin{ex}
+ISBN a RDFS:Datatype ; owl:equivalentClass [ a RDFS:Datatype ;
+    owl:onDatatype xsd:string ; 
+    owl:withRestrictions ([ xsd:pattern "^\d{9}[\d|X]$" ])] .
+\end{ex}\$$
+
+The first OWL 2 axiom explicitly declares {\em ISBN} to be a datatype. %\er{Why start from second and then first? Also better we say "owl axiom" when we talk axiom of owl, to prevent ambiguity.}\tb{resolved}
+The second OWL 2 axiom defines {\em ISBN} as an abbreviation for a datatype restriction on \emph{xsd:string}. 
+The datatype {\em ISBN} can be used just like any other datatype like in the universal quantification above.
+
 Table \ref{tab:simple-constraint-not-expressible-in-dl)} presents (1) in the first line how the literal pattern matching simple constraint which is not expressible in DL and (2) in the second line how the universal quantification complex constraint which is expressible in DL are represented using the RDF-CV. Thereby, the context class \emph{ISBN}, whose instances must satisfy the simple constraint, is reused within the list of classes the complex constraint refers to. The literal pattern matching constraint type introduces the constraining element \emph{regex} whose validation has to be implemented once like for any other constraining element.
 %In general, validation has to be implemented once for each \emph{generic constraint type} which is not expressible in DL. 
 %\begin{gcotable}
