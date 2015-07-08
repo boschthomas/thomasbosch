@@ -615,8 +615,7 @@ constraints which are either \emph{expressible in DL} (64\%) or which are \emph{
 %and which are instances of 1/4 of the constraint types.
 %In case \emph{complex constraints} are expressible in DL, 
 %DL statements representing \emph{complex constraints} contain DL statements standing for atomic and/or composed constraints. 
-Constraints of almost 14\% of the constraint types are \emph{complex constraints}
-which can be simplified and therefore formulated as \emph{simple constraints} when using them in terms of syntactic sugar.
+Constraints of almost 14\% of the constraint types are \emph{complex constraints} which can be simplified and therefore formulated as \emph{simple constraints} when using them in terms of syntactic sugar.
 
 \textbf{\emph{Context}:}
 \emph{Simple constraints} are applied on properties (\emph{property constraints}, 60\%),
@@ -767,7 +766,15 @@ Table \ref{tab:simple-constraint-not-expressible-in-dl)} presents (1) in the fir
 \subsection{\emph{Complex Constraints}}
 
 %\emph{Complex constraints} are composed out of \emph{simple constraints} and/or \emph{complex constraints}.
-Complex constraints of the constraint type \emph{context-specific exclusive or of property groups} (\emph{R-13}) restrict individuals of given classes to have all properties of exactly one of multiple mutually exclusive property groups. Publications, e.g., are either identified by an \emph{ISBN} and a title (for books) or by an \emph{ISSN} and a title (for periodical publications), but it should not be possible to assign both identifiers to a given publication. As \emph{The-Great-Gatsby} is a publication with an \emph{ISBN} and a title without an \emph{ISSN}, \emph{The-Great-Gatsby} is considered as a valid publication. This complex constraint is generically expressible in DL:
+Complex constraints of the constraint type \emph{context-specific exclusive or of property groups} (\emph{R-13}) restrict individuals of given classes to have all properties of exactly one of multiple mutually exclusive property groups. Publications, e.g., are either identified by an \emph{ISBN} and a title (for books) or by an \emph{ISSN} and a title (for periodical publications), but it should not be possible to assign both identifiers to a given publication. This complex constraint is expressible in \emph{ShEx}: 
+
+\begin{ex}
+Publication { 
+    ( isbn string , title string ) |
+    ( issn string , title string ) }
+\end{ex}
+
+As \emph{The-Great-Gatsby} is a publication with an \emph{ISBN} and a title without an \emph{ISSN}, \emph{The-Great-Gatsby} is considered as a valid publication. This complex constraint is generically expressible in DL:
 %This \emph{complex constraint} is expressible specifically by \emph{ShEx} and generically by DL (and can therefore be mapped to the \emph{RDF-CV} \cite{BoschEckert2015-2}).
 
 %Half-Klingons, e.g., either have a klingon mother and a human father or a human mother and a klingon father, which can be expressed by ShEx:
@@ -867,7 +874,7 @@ C $\sqsubseteq$ $\geq$ 1 issn.string $\sqcap$ $\leq$ 1 issn.string , D $\sqsubse
 %\end{table}
 
 %Even though, tools may generate \emph{generic constraints} automatically, this 
-The DL statements demonstrate that the complex constraint is composed of many other complex constraints (e.g., \emph{minimum and maximum qualified cardinality restrictions}) and simple constraints (e.g., constraints on sets). As \emph{exact (un)qualified cardinality restrictions (=n)} and \emph{exclusive or (XOR)} are frequently used complex constraints, we propose to simplify them as simple constraints in terms of syntactic sugar. As a consequence, the \emph{context-specific exclusive or of property groups} complex constraint is represented as a generic constraint by means of the RDF-CV more intuitively and concisely (see Table \ref{tab:simplified-complex-constraints}).
+The DL statements demonstrate that the complex constraint is composed of many other complex constraints (\emph{minimum (R-75) and maximum qualified cardinality restrictions (R-76)}) and simple constraints (\emph{intersection (R-15/16)}, \emph{disjunction (R-17/18)}, and \emph{negation (R-19/20)}). Constraints of almost 14\% of the constraint types are complex constraints which can be simplified and therefore formulated as simple constraints when using them in terms of syntactic sugar. As \emph{exact (un)qualified cardinality restrictions (=n)} and \emph{exclusive or (XOR) of property groups} are frequently used complex constraints, we propose to simplify them in form of simple constraints. As a consequence, the \emph{context-specific exclusive or of property groups (R-13)} complex constraint is represented as a generic constraint by means of the RDF-CV more intuitively and concisely (see Table \ref{tab:simplified-complex-constraints}).
 
 %\begin{gcotable}
 %class & Half-Klingon & - & - & E, F & XOR \\
@@ -986,7 +993,7 @@ A key can be a datatype, an object property, or a chain of properties.
 For these generalization purposes, as there are different sorts of keys, and as keys can lead to undecidability, 
 DL is extended with a special construct \emph{keyfor} \cite{Lutz2005}.
 When using keyfor (\ms{isbn keyfor Book}), 
-the complex constraint can be formulated as a simple constraint which looks like the following in concrete RDF turtle syntax:
+the complex constraint can be simplified and thus formulated as a simple constraint which looks like the following in concrete RDF turtle syntax:
 
 %\begin{gcotable}
 %property & StarFleetOfficer & commandAuthorizationCode & - & - & keyfor & - \\
@@ -1012,6 +1019,52 @@ the complex constraint can be formulated as a simple constraint which looks like
 \end{ex}
 
 Complex constraints of frequently used constraint types which correspond to DL axioms like \emph{transitivity}, \emph{symmetry}, \emph{asymmetry}, \emph{reflexivity} and \emph{irreflexivity} can also be simplified in form of simple constraints. Although, these DL axioms are expressible by basic DL features, they can also be used in terms of syntactic sugar \cite{BoschEckert2015-2}.
+
+Constraints of the \emph{irreflexive object properties (R-60)} constraint type ensure that no individual is connected by a given object property to itself \cite{Kroetzsch2012}. With the irreflexive object property constraint {\small\ms{$\top$ $\sqsubseteq$ $\neg$ $\exists authorOf.Self$}}, e.g., one can state that individuals cannot be authors of themselves. When represented using the RDF-CV, the complex constraint aggregates three simple constraints - one property and two class constraints (see Table \ref{tab:irreflexive-object-properties-as-complex-constraints}).
+
+%\begin{gcotable}
+%property & $\exists$ marriedTo . Self & marriedTo & - & Self & $\exists$ & - \\
+%class & $\neg$ $\exists$ marriedTo . Self & - & - & $\exists$ marriedTo . Self & $\neg$ & - \\
+%class & $\top$ & - & - & $\top$, $\neg$ $\exists$ marriedTo . Self & $\sqsubseteq$ & - \\
+%\end{gcotable}
+
+\begin{table}[H]
+  \scriptsize
+  \sffamily
+  \vspace{0cm}
+	\caption{Irreflexive Object Properties as Complex Constraints}
+	\label{tab:irreflexive-object-properties-as-complex-constraints}
+	\centering
+		\begin{tabular}{l|l|l|l|l|l|l}
+      \textbf{c. type} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
+      \hline
+property & $\exists$ authorOf.Self & authorOf & - & Self & existential quantification & - \\
+class & $\neg$ $\exists$ authorOf.Self & - & - & $\exists$ authorOf.Self & negation & - \\
+class & $\top$ & - & - & $\top$, $\neg$ $\exists$ authorOf.Self & sub-class & - \\
+		\end{tabular}
+\end{table}
+
+When using the irreflexive object property constraint in terms of syntactic sugar, 
+the complex constraint can be expressed more concisely in form of a simple property constraint with exactly the same semantics (see Table \ref{tab:irreflexive-object-properties-as-simple-constraints}):
+
+%\begin{gcotable}
+%property & $\top$ & marriedTo & - & - & irreflexive & - \\
+%\end{gcotable}
+
+\begin{table}[H]
+  \scriptsize
+  \sffamily
+  \vspace{0cm}
+	\caption{Irreflexive Object Properties as Simple Constraints}
+	\label{tab:irreflexive-object-properties-as-simple-constraints}
+	\centering
+		\begin{tabular}{l|l|l|l|l|l|l}
+      \textbf{c. type} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
+      \hline
+property & $\top$ & authorOf & - & - & irreflexive property & - \\
+		\end{tabular}
+\end{table}
+
 %Starfleet officers, e.g., are uniquely identified by their command authorization code (e.g. to activate and cancel auto-destruct sequences).
 %It means that the property \emph{commandAuthorizationCode} is inverse functional - mapped to DL and the \emph{RDF-CV} as follows:
 %
