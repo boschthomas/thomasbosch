@@ -1144,7 +1144,7 @@ property & $\top$ & authorOf & - & - & irreflexive property & - \\
 
 \section{Related Work}
 
-In this section, we present current languages for constraint formulation and RDF data validation\footnote{
+In this section, we present current languages for RDF constraint formulation and RDF data validation\footnote{
 \emph{SPARQL}: \url{http://www.w3.org/TR/sparql11-query}, 
 \emph{SPIN}: \url{http://spinrdf.org},
 \emph{Pellet ICV}: \url{http://clarkparsia.com/pellet/icv},
@@ -1158,35 +1158,31 @@ In this section, we present current languages for constraint formulation and RDF
 %\emph{Schematron}: \url{http://www.schematron.com},
 %\emph{XML Schema}: \url{http://www.w3.org/TR/xmlschema-1},
 }.
-\emph{SPIN}, \emph{SPARQL}, OWL 2, \emph{ShEx}, \emph{ReSh}, and \emph{DSP} are the six most promising and applied languages.
-%
-The query language for RDF \emph{SPARQL} is generally seen as the method of choice to validate data according to certain constraints \cite{Fuerber2010}, 
+SPIN, SPARQL, OWL 2, ShEx, ReSh, and DSP are the six most promising and mostly used constraint languages.
+
+The \emph{SPARQL Query Language for RDF} \cite{W3C-SPARQL1.1-Query-Language-2013} is generally seen as the method of choice to validate RDF data according to certain constraints \cite{Fuerber2010}, 
 although, it is not ideal for their formulation. 
 In contrast, high-level constraint languages are comparatively easy to understand and constraints can be formulated more concisely.
-Declarative languages may be placed on top of \emph{SPARQL} and \emph{SPIN} when using them as implementation languages.
+Declarative languages may be placed on top of SPARQL and SPIN when using them as implementation languages.
 %
-\emph{SPIN} provides a vocabulary to represent \emph{SPARQL} queries as RDF triples
-and uses \emph{SPARQL} to specify logical constraints and inference rules \cite{Fuerber2010}.
-%
-\emph{Stardog ICV} and \emph{Pellet ICV} use OWL 2 constructs to formulate constraints.
-The \emph{Pellet Integrity Constraint Validator (ICV)} is a proof-of-concept extension for the \emph{OWL 2 DL} reasoner \emph{Pellet}. 
-\emph{Stardog ICV} 
-validates RDF data stored in a Stardog database according to 
-constraints which may be written in \emph{SPARQL}, \emph{OWL}, or \emph{SWRL}. 
-%
+The \emph{SPARQL Inferencing Notation (SPIN)} \cite{W3C-SPIN-2011} provides a vocabulary to represent SPARQL queries as RDF triples
+and uses SPARQL to specify logical constraints and inference rules \cite{Fuerber2010}.
+
+\emph{Stardog ICV} and \emph{Pellet ICV} use OWL 2 constructs to formulate constraints. The \emph{Pellet Integrity Constraint Validator (ICV)} is a proof-of-concept extension for the \emph{OWL 2 DL} reasoner \emph{Pellet}. \emph{Stardog ICV} validates RDF data stored in a Stardog database according to constraints which may be written in SPARQL, OWL, or SWRL. 
+
 \emph{ShEx} specifies a language whose syntax and semantics are similar to regular expressions.
 \emph{ShEx} associate RDF graphs with labeled patterns called \emph{shapes} 
 which are used to express formal constraints on the content of RDF graphs.
-%
+
 \emph{ReSh} defines its own vocabulary for specifying \emph{shapes} of RDF resources.
 Ryman et al. define \emph{shape} as a description of the set of triples a resource is expected to contain and of the integrity constraints those triples are required to satisfy \cite{Ryman2013}. 
-%
+
 \emph{DCMI RDF Application Profiles (AP)} and \emph{Bibframe} are approaches to specify profiles for application-specific purposes. 
 \emph{DCMI RDF-AP} uses \emph{DSP} as generic constraint language which is also intuitive for non-experts.
 The \emph{Bibliographic Framework Initiative (Bibframe)} defines a vocabulary which has a strong overlap with \emph{DSP}.
-%
+
 Kontokostas et al. define 17 data quality integrity constraints represented as \emph{SPARQL} query templates called \emph{Data Quality Test Patterns (DQTP)} \cite{Kontokostas2014}. 
-%
+
 \emph{RDF Schemarama} 
 is a proof-of-concept demonstrator based on ideas from \emph{Schematron}. 
 It allows to check that RDF data has required properties and
@@ -1195,7 +1191,7 @@ it is based on \emph{Squish}, an SQL-ish query language for RDF, instead of \emp
 %\emph{Schematron} is an ISO standard for the validation and quality control of XML documents based on XPath and XSLT. 
 %
 %\emph{XML Schema} is the primary technology for specifying and constraining the structure of XML documents.
-%
+
 In addition to the formulation of constraints, \emph{SPIN} (open source API), \emph{Stardog ICV} (as part of the \emph{Stardog RDF database}), \emph{DQTP} (tests), \emph{Pellet ICV} (extension of \emph{Pellet OWL 2 DL} reasoner) and \emph{ShEx} offer executable validation systems using \emph{SPARQL} as implementation language.
 
 \section{Conclusion and Future Work}
