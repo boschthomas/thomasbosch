@@ -1168,19 +1168,13 @@ Declarative languages may be placed on top of SPARQL and SPIN when using them as
 The \emph{SPARQL Inferencing Notation (SPIN)} \cite{W3C-SPIN-2011} provides a vocabulary to represent SPARQL queries as RDF triples
 and uses SPARQL to specify logical constraints and inference rules \cite{Fuerber2010}.
 
-\emph{Stardog ICV} and \emph{Pellet ICV} use OWL 2 constructs to formulate constraints. The \emph{Pellet Integrity Constraint Validator (ICV)} is a proof-of-concept extension for the \emph{OWL 2 DL} reasoner \emph{Pellet}. \emph{Stardog ICV} validates RDF data stored in a Stardog database according to constraints which may be written in SPARQL, OWL, or SWRL. 
+\emph{Stardog Integrity Constraint Validation (ICV)} and the \emph{Pellet Integrity Constraint Validator (ICV)} use OWL 2 constructs to formulate constraints. The Pellet ICV is a proof-of-concept extension for the OWL 2 DL reasoner \emph{Pellet} \cite{sirin2007pellet}. Stardog ICV validates RDF data stored in a Stardog database according to constraints which may be written in SPARQL, OWL 2, or SWRL \cite{Horrocks04}. 
 
-\emph{ShEx} specifies a language whose syntax and semantics are similar to regular expressions.
-\emph{ShEx} associate RDF graphs with labeled patterns called \emph{shapes} 
-which are used to express formal constraints on the content of RDF graphs.
-
-\emph{ReSh} defines its own vocabulary for specifying \emph{shapes} of RDF resources.
-Ryman et al. define \emph{shape} as a description of the set of triples a resource is expected to contain and of the integrity constraints those triples are required to satisfy \cite{Ryman2013}. 
+\emph{Shape Expressions (ShEx)} \cite{W3C-ShEx-Primer-2014,W3C-ShEx-Definition-2014,Prud'hommeaux-2014,Boneva-2014} specifies a language whose syntax and semantics are similar to regular expressions. ShEx associate RDF graphs with labeled patterns called \emph{shapes} which are used to express formal constraints on the content of RDF graphs. \emph{Resource Shapes (ReSh)} \cite{W3C-ReSh-2014} defines its own vocabulary for specifying shapes of RDF resources. Ryman, Hors, and Speicher define \emph{shape} as a description of the set of triples a resource is expected to contain and as a description of the integrity constraints those triples are required to satisfy \cite{Ryman2013}. 
 
 \emph{DCMI RDF Application Profiles (AP)} and \emph{Bibframe} are approaches to specify profiles for application-specific purposes. 
 \emph{DCMI RDF-AP} uses \emph{DSP} as generic constraint language which is also intuitive for non-experts.
 The \emph{Bibliographic Framework Initiative (Bibframe)} defines a vocabulary which has a strong overlap with \emph{DSP}.
-
 Kontokostas et al. define 17 data quality integrity constraints represented as \emph{SPARQL} query templates called \emph{Data Quality Test Patterns (DQTP)} \cite{Kontokostas2014}. 
 
 \emph{RDF Schemarama} 
@@ -1193,6 +1187,8 @@ it is based on \emph{Squish}, an SQL-ish query language for RDF, instead of \emp
 %\emph{XML Schema} is the primary technology for specifying and constraining the structure of XML documents.
 
 In addition to the formulation of constraints, \emph{SPIN} (open source API), \emph{Stardog ICV} (as part of the \emph{Stardog RDF database}), \emph{DQTP} (tests), \emph{Pellet ICV} (extension of \emph{Pellet OWL 2 DL} reasoner) and \emph{ShEx} offer executable validation systems using \emph{SPARQL} as implementation language.
+
+\tb{SHACL}
 
 \section{Conclusion and Future Work}
 
