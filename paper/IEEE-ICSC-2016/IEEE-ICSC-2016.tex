@@ -663,7 +663,7 @@ RDF data validation according to predefined constraints is a much sought-after f
 particularly as this is taken for granted in the XML world.
 Based on our work in the DCMI RDF Application Profiles Task Group and in cooperation with the W3C Data Shapes Working Group, we identified and published by today 82 types of constraints that are required by various stakeholders for data applications.
 In this paper, we formulate 213 constraints of 53 different types on three different vocabularies (\emph{Disco}, \emph{QB}, and \emph{SKOS}) and classify them according to the complexity level of their type and their severity level. For 114 of these constraints, we evaluate the data quality of 15,694 data sets (4.26 billion triples) of research data for the social, behavioural, and economic (\emph{SBE}) sciences obtained from 33 SPARQL endpoints.
-Based on the results, we formulate several hypotheses to direct the further development of constraint languages.
+Based on the results, we formulate several hypotheses to direct the further development of constraint languages.\textcolor{red}{81 constraint types instead of 82?}
 \end{abstract}
 % IEEEtran.cls defaults to using nonbold math in the Abstract.
 % This preserves the distinction between vectors and scalars. However,
@@ -711,8 +711,8 @@ In XML, the definition of schemas containing data constraints and the validation
 With the rise of the Web of Data, data professionals and institutions are very interested in having their data be discovered and used by publishing their data directly in RDF or at least publish accurate metadata about their data to facilitate data integration. Therefore, not only established vocabularies like \emph{SKOS} are used; 
 recently, members of the \emph{SBE} and Linked Data community developed with the \emph{DDI-RDF Discovery Vocabulary (Disco)}\footnote{\url{http://rdf-vocabulary.ddialliance.org/discovery.html}} a means to expose \emph{DDI} metadata as Linked Data. 
 
-For constraint formulation and validation of RDF data, several languages exist or are currently developed, like \emph{Shape Expressions}, \emph{Resource Shapes} or \emph{Description Set Profiles}. \emph{OWL 2} is also used as a constraint language under a closed world assumption. With its direct support of validation via \emph{SPARQL}, \emph{SPIN}%\footnote{\url{http://spinRDF.org/}}
-is very popular and certainly plays an important role for future developments in this field. It is particularly interesting as a means to validate arbitrary constraint languages by mapping them to \emph{SPARQL} \cite{BoschEckert2014-2}. Yet, there is no clear favorite and none of the languages is able to meet all requirements raised by data practitioners. Further research and development therefore is needed.
+For constraint formulation and validation of RDF data, several languages exist or are currently developed, like \emph{Shape Expressions}, \emph{Resource Shapes} or \emph{Description Set Profiles}. \emph{OWL 2} is also used as a constraint language under a closed world assumption. With its direct support of validation via SPARQL, \emph{SPIN}%\footnote{\url{http://spinRDF.org/}}
+is very popular and certainly plays an important role for future developments in this field. It is particularly interesting as a means to validate arbitrary constraint languages by mapping them to SPARQL \cite{BoschEckert2014-2}. Yet, there is no clear favorite and none of the languages is able to meet all requirements raised by data practitioners. Further research and development therefore is needed.
 
 In 2013, the W3C organized the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/rdf-val/}}, 
 where experts from industry, government, and academia discussed first use cases for RDF constraint formulation and RDF data validation.
@@ -741,7 +741,7 @@ by evaluating the quality of data represented by more than three vocabularies (S
 %The \textbf{contribution} of this paper is the development of a system 
 %\begin{enumerate}
 	%\item to classify RDF constraints (according to their severity levels) to evaluate the quality of metadata and data which may be represented by any vocabulary and 
-	%\item to classify RDF constraint types (according to their complexity) which in most cases correspond to RDF validation requirements\footnote{For simplicity reasons, we use the terms \emph{constraint types} and \emph{constraints} instead of \emph{RDF constraint types} and \emph{RDF constraints} in the rest of the paper} (sections \ref{classification} - \ref{complex-constraint-types}).
+	%\item to classify RDF constraint types (according to their complexity) which in most cases correspond to RDF validation requirements\footnote{For simplicity reasons, we use the terms \emph{constraint types} and \emph{constraints} instead of \emph{RDF constraint types} and \emph{RDF constraints} in the rest of the paper} (sections \ref{classification} - \ref{SPARQL-based-constraint-types}).
 %\end{enumerate}
 %By defining a huge amount of constraints of the majority of the constraint types,   
 %we apply the developed classification system to several and different vocabularies from the \emph{SBE} domain to represent both metadata and data and therefore prove its generality.
@@ -750,17 +750,17 @@ by evaluating the quality of data represented by more than three vocabularies (S
 %We describe why RDF validation is important for the \emph{SBE} community (section \ref{motivation}), 
 %how data in tabular format and metadata on person-level data sets, aggregated data sets, and thesauri are represented in RDF, 
 %how therefore reused vocabularies are interrelated (section \ref{rdf-representation}),
-%and how \emph{SBE} (meta)data is validated against constraints of different constraint types (sections \ref{classification} - \ref{complex-constraint-types}).
+%and how \emph{SBE} (meta)data is validated against constraints of different constraint types (sections \ref{classification} - \ref{SPARQL-based-constraint-types}).
 %We evaluated the (meta)data quality of large real world data sets (more than 4.2 billion triples and 15 thousand data sets) from the \emph{SBE} domain represented by multiple vocabularies to get an understanding 
 %(1) which sets of constraint types (on different levels of complexity) and 
 %(2) which sets of constraints (associated with particular severity levels) encompass the constraints causing the most/fewest constraint violations (see section \ref{evaluation}).
 
 In this paper, we discuss constraints on RDF data in general. Note that the data represented in RDF can be data in the sense of \emph{SBE} sciences, but also metadata about published or unpublished data. We generally refer to both simply as RDF data and only distinguish between data and metadata in the data set descriptions and in the case that it matters for the purpose of this paper.
-The underlying \emph{semantics} for RDF validation is \emph{UNA}/\emph{CWA}.
+The underlying \emph{semantics} for RDF validation is UNA/CWA.
 RDF validation requires that different names represent different objects ({\em unique name assumption (UNA)}), whereas,
 \emph{OWL 2} is based on the {\em non-unique name assumption (nUNA)}.  
 %A data property is \emph{functional} (\emph{R-65}) if for each individual \emph{x}, there can be at most one distinct literal \emph{y} such that \emph{x} is connected by the data property to \emph{y}. (See \cite{resource} for this terminology.)
-%When assuming \emph{UNA}, the functional property {\em title} (\ms{funct (title)}) causes a clash
+%When assuming UNA, the functional property {\em title} (\ms{funct (title)}) causes a clash
 %in case the book {\em Huckleberry-Finn} has more than one \emph{title}
 %(\ms{title(Huckleberry-Finn, The-Adventures-of-Huckleberry-Finn)}, \ms{title(Huckleberry-Finn, Die-Abenteuer-des-Huckleberry-Finn)}).
 %Assuming nUNA, however, reasoning concludes that the titles {\em The-Adventures-of-Huckleberry-Finn} and {\em Die-Abenteuer-des-Huckleberry-Finn} are the same (\ms{\{The-Adventures-of-Huckleberry-Finn\}} = \ms{\{Die-Abenteuer-des-Huckle} \ms{berry-}\ms{Finn\}}).  
@@ -772,8 +772,8 @@ Reasoning in \emph{OWL 2} is based on the {\em open-world assumption (OWA)}, i.e
 %\tb{2. benefit: reasoning solves redundancy problem}
 %As each \emph{book} must have a \emph{title} (\ms{Book $\sqsubseteq \exists$ title.$\top$}) and {\em Hamlet} is a \emph{book} (\ms{Book(Hamlet)}),
 %{\em Hamlet} must have at least one \emph{title}.
-%In an \emph{OWA} setting, this axiom does not cause a constraint violation (even if there is no explicitly defined \emph{title}), since there must be a \emph{title} for this \emph{book} which we may not know. 
-On the other hand, RDF validation scenarios require the {\em closed-world assumption (CWA)}, i.e., a statement is inferred to be false if it cannot be proved to be true. Classical constraint languages are based on the \emph{CWA} where constraints need to be satisfied only by named individuals.
+%In an OWA setting, this axiom does not cause a constraint violation (even if there is no explicitly defined \emph{title}), since there must be a \emph{title} for this \emph{book} which we may not know. 
+On the other hand, RDF validation scenarios require the {\em closed-world assumption (CWA)}, i.e., a statement is inferred to be false if it cannot be proved to be true. Classical constraint languages are based on the CWA where constraints need to be satisfied only by named individuals.
 This ambiguity in semantics is one of the main reasons why \emph{OWL 2} has not been adopted as a standard constraint language for RDF validation in the past.  
 In case we use \emph{OWL 2} constructs in terms of constraints, we adopt the same semantics (CWA) that is for RDF validation in general.
 
@@ -974,36 +974,33 @@ which serve as typical entry points when searching for data.
 \section{Classification of Constraint Types and Constraints}
 \label{classification}
 
-To gain better insights into the role that certain types of constraints play for the quality of RDF data, we use two simple classifications: on the one hand, we classify RDF constraint types according to their complexity and on the other hand, we classify concrete constraints formulated for a vocabulary according to the perceived severity of a violation. 
+To gain better insights into the role that certain types of constraints play for the quality of RDF data, we use two simple classifications: on the one hand, we classify RDF constraint types whether they are expressible by different types of constraint languages and on the other hand, we classify concrete constraints formulated for a given vocabulary according to the perceived severity of a violation. 
 
-Within the working groups, we identified by today 82 requirements to formulate RDF constraints (e.g. \emph{R-75: minimum qualified cardinality restrictions}); each of them corresponding to an RDF constraint type\footnote{Constraint types and constraints are uniquely identified by alphanumeric technical identifiers like \emph{R-71-CONDITIONAL-PROPERTIES}}. 
-Within a technical report serving as first appendix of this paper we explain each requirement/constraint type in detail and give examples for each expressed by different constraint languages \cite{BoschNolleAcarEckert2015}. We provide mappings to representations in Description Logics (\emph{DL}) to logically underpin each requirement and to determine which \emph{DL} constructs are needed to express each constraint type.
+Within the working groups, we identified by today 82 requirements to formulate RDF constraints (e.g., \emph{R-75: minimum qualified cardinality restrictions}); each of them corresponding to an RDF constraint type\footnote{Constraint types and constraints are uniquely identified by alphanumeric technical identifiers like \emph{R-71-CONDITIONAL-PROPERTIES}}. 
+Within a technical report serving as first appendix of this paper we explain each requirement/constraint type in detail and give examples for each expressed by different constraint languages \cite{BoschNolleAcarEckert2015}. We provide mappings to representations in description logics (DL) \cite{Baader-2003} to logically underpin each requirement and to determine which DL constructs are needed to express each constraint type.
 
 %In total, we distinguish 82 RDF constraint types as we identified 6 RDF constraint types which are only necessary for validating particular vocabularies.
 
 
 %Constraints are instantiated from constraint types in order to validate both metadata and data represented by any vocabulary; thus, the proposed classification system is vocabulary-independent and therefore applicable generically.
 
-The classification of the 213 concrete constraints on three vocabularies according to severity levels is published in a second technical report serving as second appendix of this paper \cite{BoschZapilkoWackerowEckert2015}.
+The classification of the 114 concrete constraints on three vocabularies according to severity levels is published in a second technical report serving as second appendix of this paper \cite{BoschZapilkoWackerowEckert2015}.
 In the following, we summarize the results for the purpose of our evaluation.
 
-\subsection{Complexity of Constraint Types}
+\subsection{Classification of Constraint Types according to the Expressivity of Constraint Languages}
 
-According to the complexity of constraint types, the complete set of \emph{constraint types} encompasses three disjoint \emph{sets of constraint types}:
+According to the expressivity of constraint languages, the complete set of \emph{constraint types} encompasses three disjoint \emph{sets of constraint types}:
 \begin{enumerate}
-	\item \textbf{\emph{Vocabulary Constraint Types}}
-	\item \textbf{\emph{Simple Constraint Types}}
-	\item \textbf{\emph{Complex Constraint Types}}
+	\item \emph{RDFS/OWL Based}
+	\item \emph{Constraint Language Based}
+	\item \emph{SPARQL Based}
 \end{enumerate}
 
-The modeling languages \emph{RDF}, \emph{RDFS}, and \emph{OWL} are typically used to formally specify vocabularies.
-\emph{Vocabulary constraint types}
-denotes the set of constraint types that are commonly found for constraints within formal specifications of vocabularies, i.e., constraints that are formulated using \emph{RDFS} and common constructs of \emph{OWL}. We determined this set based on the evaluation of the six vocabularies. \emph{Vocabulary constraints} generally can be seen as a basic level of constraints ensuring that the data is consistent with the intended syntaxes, semantics, and integrity of vocabularies' data models.
+The modeling languages RDFS, and OWL are typically used to formally specify vocabularies. \emph{RDFS/OWL Based} denotes the set of constraint types which can be formulated with RDFS/OWL constructs using CWA/UNA semantics (without reasoning) and which are therefore commonly found within formal specifications of vocabularies. We determined this set based on the evaluation of the three vocabularies. \emph{RDFS/OWL Based} constraints generally can be seen as a basic level of constraints ensuring that the data is consistent with the formally and explicitly specified intended semantics as well as the integrity of vocabularies' conceptual models about data.
 
 %The {\em existential quantification} (\emph{R-86}) 
-%\ms{Study $\equiv$ $\exists$ product.LogicalDataSet} (\emph{DL}), e.g., restricts studies to contain at least one data set which is expressible in OWL 2:
-\emph{Minimum qualified cardinality restrictions} (\emph{R-74}), e.g., guarantee that individuals of given classes are connected by particular properties to at least n different individuals/literals of certain classes or data ranges.
-In \emph{PHDD}, a \emph{minimum qualified cardinality restriction} can be obtained from the OWL definition of this restriction class, ensuring that a \emph{phdd:TableStructure} has (\emph{phdd:column}) at least one \emph{phdd:Column}:
+%\ms{Study $\equiv$ $\exists$ product.LogicalDataSet} (DL), e.g., restricts studies to contain at least one data set which is expressible in OWL 2:
+Constraints of the constraint type \emph{minimum qualified cardinality restrictions} (\emph{R-74}), e.g., guarantee that individuals of given classes are connected by particular properties to at least n different individuals/literals of certain classes or data ranges. In \emph{PHDD}, a \emph{minimum qualified cardinality restriction} can be obtained from a respective OWL axiom which ensures that a \emph{phdd:TableStructure} has (\emph{phdd:column}) at least one \emph{phdd:Column}:
 \begin{ex}
 [   a owl:Restriction ; rdfs:subClassOf TableStructure ;
     owl:minQualifiedCardinality 1 ;
@@ -1011,22 +1008,26 @@ In \emph{PHDD}, a \emph{minimum qualified cardinality restriction} can be obtain
     owl:onClass Column ] .
 \end{ex}
 
-\emph{Simple} and \emph{complex constraints} are in contrast to \emph{vocabulary constraints} usually not (yet) explicitly defined within formal specifications of vocabularies. Instead, they are often defined in textual descriptions of the vocabularies. Additionally, we let our domain and data experts define constraints when they agreed that violating the constraint would affect the usefulness of the data.
+\emph{Constraint Language Based} and \emph{SPARQL Based} constraints are in contrast to \emph{RDFS/OWL Based} constraints usually not (yet) explicitly defined within formal specifications of vocabularies. Instead, they are often defined in textual descriptions of the vocabularies. Additionally, we let our domain and data experts define constraints when they agreed that violating the constraint would affect the usefulness of the data.
 
-We further distinguished \emph{simple constraint types} as the set of constraint types whose constraints can be easily defined without much effort in addition to the already defined \emph{vocabulary constraints}.
-\emph{Data property facets} (\emph{R-46}) is an example of a \emph{simple constraint type} which enables to declare frequently needed facets for data properties in order to validate input against simple conditions including min/max values, regular expressions, and string length.
-The abstract of series/studies, e.g., should have a minimum length which is easily and concisely expressible by SPARQL: 
-\begin{ex}
-SELECT ?study WHERE {
-    ?study dcterms:abstract ?abstract . 
-    FILTER ( STRLEN ( ?abstract ) = 10 ) . }
-\end{ex}
+We further distinguished \emph{Constraint Language Based} as the set of constraint types that are not \emph{RDF/OWL Based}, but can be expressed by common declarative high-level constraint languages like ShEx, ReSh, and DSP. SPARQL is considered as a low-level implementation language in this context, not a high-level constraint language. 
+
+\textcolor{red}{example}
+
+%We further distinguished \emph{simple constraint types} as the set of constraint types whose constraints can be easily defined without much effort in addition to the already defined \emph{vocabulary constraints}.
+%\emph{Data property facets} (\emph{R-46}) is an example of a \emph{simple constraint type} which enables to declare frequently needed facets for data properties in order to validate input against simple conditions including min/max values, regular expressions, and string length.
+%The abstract of series/studies, e.g., should have a minimum length which is easily and concisely expressible by SPARQL: 
+%\begin{ex}
+%SELECT ?study WHERE {
+    %?study dcterms:abstract ?abstract . 
+    %FILTER ( STRLEN ( ?abstract ) = 10 ) . }
+%\end{ex}
 For these constraints, we expect a straight-forward support in future constraint languages.
 
-\emph{Complex constraint types} encompass constraint types for which the definition of constraints is rather complex and cannot be derived from vocabulary definitions.
-For assessing the quality of thesauri, e.g., we concentrate on the graph-based structure and apply graph- and network-analysis techniques.
+%\emph{Complex constraint types} encompass constraint types for which the definition of constraints is rather complex and cannot be derived from vocabulary definitions.
+\emph{SPARQL Based} encompass constraint types that are not expressible by RDFS/OWL or common constraint languages but by plain SPARQL. For assessing the quality of thesauri, e.g., we concentrate on the graph-based structure and apply graph- and network-analysis techniques.
 An example of such constraints of the constraint type \emph{structure} is that 
-a thesaurus should not contain many orphan concepts, i.e., concepts without any associative or hierarchical relations, lacking context information valuable for search. This \emph{complex constraint} is only expressible by \emph{SPARQL} and not directly understandable:
+a thesaurus should not contain many orphan concepts, i.e., concepts without any associative or hierarchical relations, lacking context information valuable for search. This \emph{complex constraint} is only expressible by SPARQL and not directly understandable:
 \begin{ex}
 SELECT ?concept WHERE {
     ?concept a [rdfs:subClassOf* skos:Concept] .
@@ -1034,18 +1035,16 @@ SELECT ?concept WHERE {
         FILTER ( ?p IN ( skos:related, skos:relatedMatch, 
                          skos:broader, ... ) ) . }
 \end{ex}
-\emph{Complex constraints} are today in most cases only expressible by plain \emph{SPARQL}. Depending on their usefulness, a support in constraint languages should be considered.
+\emph{SPARQL Based} constraint types are today in most cases only expressible by plain SPARQL. Depending on their usefulness, a support in constraint languages should be considered.
 
-\subsection{Severity of Constraints}
+\subsection{Classification of Constraints according to the Severity of Constraint Violations}
 
 A concrete constraint is instantiated from one of the 82 constraint types and is defined for a specific vocabulary.
 It does not make sense to determine the severity of constraint violations of an entire constraint type,
-as the severity of the violation of a given constraint depends on the individual context and vocabulary.
+as the severity of the violation of a constraint depends on the individual context and vocabulary.
 %as the violation of one constraint may be severe,
 %whereas, the violation of another constraint of the same type may be minor.
-\emph{SBE} experts determined the default \textbf{\emph{severity level}}\footnote{The possibility to define severity levels in vocabularies is in itself a requirement (\emph{R-158}) defined by the DCMI task group.} for each of the 213 constraints to indicate how serious the violation of the constraint is.
-%We propose an extensible metric to measure the continuum of severity levels ranging from \emph{informational} to \emph{error}.
-We use the commonly accepted classification of log messages in software development and distinguish \emph{informational}, \emph{warning} and \emph{error}.
+\emph{SBE} experts determined the default \emph{severity level}\footnote{The possibility to define severity levels in vocabularies is in itself a requirement (\emph{R-158}).} for each of the 114 constraints to indicate how serious the violation of the constraint is. We use the classification system of log messages in software development like \emph{Apache Log4j 2} \cite{Apache-2015}, the \emph{Java Logging API}\footnote{\url{http://docs.oracle.com/javase/7/docs/api/java/util/logging/Level.html}}, and the \emph{Apache Commons Logging API}\footnote{\url{http://commons.apache.org/proper/commons-logging/}} as many data practitioners also have experience in software development and software developers intuitively understand these levels. We simplify this commonly accepted classification system and distinguish the three severity levels \emph{informational}, \emph{warning} and \emph{error}.
 %According to the default severity level of constraints, the complete set of constraints encompasses three disjoint \emph{sets of constraints}:\ke{auch dieser satz macht keinen sinn für mich, ebensowenig wie die extrem erhellende auflistung, die gleich folgt... mein vorschlag von eben kann das komplett ersetzen.}
 %\begin{itemize}
 	%\item \textbf{\emph{informational constraints}}: constraints with severity level \emph{informational}
@@ -1055,14 +1054,12 @@ We use the commonly accepted classification of log messages in software developm
 Violations of \emph{informational constraints} point to desirable but not necessary data improvements to achieve RDF representations which are ideal in terms of syntax and semantics of used vocabularies. 
 %They are not seen as serious errors.
 \emph{Warnings} are syntactic or semantic problems which typically should not lead to an abortion of data processing.
-\emph{Errors} are syntactic or semantic errors which should cause the abortion of data processing. 
+\emph{Errors} are syntactic or semantic errors which should cause the abortion of data processing. \textcolor{red}{examples for each in the subsequent section?}
 %Data not conforming to \emph{warning} and \emph{error constraints} is syntactically and/or semantically not correctly represented.
 %Data not conforming to \emph{warning constraints} but to \emph{error constraints} could be processed further.
 %Data not corresponding to \emph{error constraints}, however, cannot be processed further after validation. 
 
-Note that there is a correlation between the severity of a constraint and the complexity of its type: vocabulary constraint are in most cases classified with an \emph{error} level as they typically represent basic and important constraints; there is a reason why they have been included in the vocabulary specification.
-
-% Although, we provide default severity levels for each constraint, validation environments should enable users to adapt the severity levels of constraints according to their individual needs.
+Note that there is a correlation between the severity of a constraint and the classification according to the expressivity of constraint languages of its type: \emph{RDFS/OWL Based} constraints are in most cases classified with an \emph{error} level as they typically represent basic and important constraints; there is a reason why they have been included in the vocabulary specification. Although, we provide default severity levels for each constraint, validation environments should enable users to adapt the severity levels of constraints according to their individual needs.
 % Validation environments should enable users to select which constraints to validate against depending on their individual use cases.
 % For some use cases, 
 % validating \emph{vocabulary constraints} may be more important than validating \emph{simple} or \emph{complex constraints}.
@@ -1102,22 +1099,23 @@ Note that there is a correlation between the severity of a constraint and the co
 %(\emph{R-9: disjoint properties}), i.e., no individual \emph{x} can be connected to an individual/literal \emph{y} by disjoint properties (e.g., \emph{phdd:isStructuredBy} and \emph{phdd:column}).
 %All \emph{PHDD} classes (e.g., \emph{phdd:TableDescription}, \emph{phdd:ColumnDescription}) are pairwise disjoint (\emph{R-7: disjoint classes}),
 %i.e., individuals cannot be instances of multiple disjoint classes.
-\subsubsection*{Vocabulary Constraint Types.}
-It is a common requirement to narrow down the value space of properties by an exhaustive enumeration of valid values (\emph{R-30/37: allowed values}). 
+\subsubsection*{RDFS/OWL Based Constraint Types}
+\textcolor{red}{severity levels assigned for each constraint?}
+It is a common requirement to narrow down the value space of properties by an exhaustive enumeration of valid values (\emph{R-30/37: allowed values}):
 %\emph{Allowed values} (\emph{R-30, R-37}) for properties can be IRIs (matching one or multiple patterns), any literals, allowed literals (e.g. 'red' 'blue' 'green'), and typed literals of one or multiple type(s) (e.g. \emph{xsd:string}). 
-\emph{disco:Category} \emph{Statistics}, e.g., can only have \emph{disco:computationBase} relationships to the values \emph{valid} and \emph{invalid} of the datatype \emph{rdf:langString}.
+\emph{disco:CategoryStatistics}, e.g., can only have \emph{disco:computationBase} relationships to the values \emph{valid} and \emph{invalid} of the datatype \emph{rdf:langString} (default severity level: \emph{error}).
 %Validation should \emph{exploit sub-super relations} in vocabularies (\emph{R-224}).
 %If \emph{dcterms:coverage} and one of its sub properties (\emph{dcterms:spatial}, \emph{dcterms:temporal}) are given,
 %it is checked that \emph{dcterms:coverage} is not redundant with its sub-properties 
 %which may indicate when the data is verbose/redundant or expressed at a too general level.
-Consider the following \emph{DL} knowledge base $\mathcal{K}$\footnote{A knowledge base is a collection of formal statements which corresponds to \emph{facts} or what is known explicitly. For simplicity reasons, we do not state namespace prefixes.}:
+Consider the following \emph{DL knowledge base} $\mathcal{K}$\footnote{A \emph{DL knowledge base} is a collection of formal statements which corresponds to \emph{facts} or what is known explicitly. For simplicity reasons, we do not state namespace prefixes.}:
 \begin{center}
 \begin{DL} 
 $\mathcal{K}=\{$ 
 	%&\ms{isStructuredBy $\sqsubseteq$ $\neg$ column}, \\
 	%&\ms{TableDescription $\sqcap$ ColumnDescription $\sqsubseteq$ $\perp$}, \\
 &{\small\ms{CategoryStatistics $\equiv$ $\forall$ computationBase.}} \\
-	&{\small\ms{    \{valid,invalid\} $\sqcap$ langString,}} \\
+	&{\small\ms{\{valid,invalid\} $\sqcap$ langString,}} \\
   &{\small\ms{Variable $\equiv$ $\exists$ concept.Concept,}} \\
 	&{\small\ms{Catalog $\sqsubseteq$ $\forall$ dataset.Dataset,}} \\
   &{\small\ms{$\exists$ isStructuredBy.$\top$ $\sqsubseteq$ Table,}} \\
@@ -1132,15 +1130,16 @@ Variables, e.g., should have a relation to a theoretical concept (\emph{informat
 %The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
 The variable \emph{Education at pre-school} is associated with the theoretical concept \emph{Child Care}. 
 The default severity level of this constraint is weak, as in most cases research can be continued without having information about the theoretical concept of a variable.
+
 A \emph{universal quantification} (\emph{R-91}) contains all those individuals that are connected by a property only to individuals/literals of particular classes  or data ranges.
 %Only \emph{dcat:Catalogs}, e.g., can have \emph{dcat:dataset} relationships to \emph{dcat:Datasets}:
 %\begin{DL}
 %Catalog $\sqsubseteq$ $\forall$ dataset.Dataset
 %\end{DL}
-Only \emph{dcat:Catalogs}, e.g., can have \emph{dcat:dataset} relationships to \emph{dcat:Datasets}.
-\emph{Property domain} (\emph{R-25, R-26}) and \emph{range} (\emph{R-28, R-35}) constraints restrict domains and ranges of properties:
+Only \emph{dcat:Catalogs}, e.g., can have \emph{dcat:dataset} relationships to \emph{dcat:Datasets} (\emph{error}).
+\emph{Property domains} (\emph{R-25, R-26}) and \emph{property ranges} (\emph{R-28, R-35}) constraints restrict domains and ranges of properties:
 Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships and
-\emph{xkos:belongsTo} relations can only point to \emph{skos:Concepts}.
+\emph{xkos:belongsTo} relations (\emph{error}) can only point to \emph{skos:Concepts} (\emph{error}).
 %\emph{Existential quantifications} (\emph{R-86}) enforce that instances of given classes must have some property relation to individuals/literals of certain types.
 %Variables, e.g., should have a relation to a theoretical concept ($\mathcal{SL}_{0}$).
 %%The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
@@ -1176,7 +1175,7 @@ Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships
 %\section{Basic Constraint Types}
 %\label{vocabulary-constraint-types}
 
-%As \emph{RDFS} and \emph{OWL} are typically used to define vocabularies, \emph{RDFS} and \emph{OWL} reasoning may be performed prior to validation. 
+%As RDFS and OWL are typically used to define vocabularies, RDFS and OWL reasoning may be performed prior to validation. 
 %Reasoning and validation are indeed very closely related. 
 %\emph{Reasoning} is the process of determining what follows from what has been stated.
 %%Both should be possible: (1) validation with reasoning and (2) validation without reasoning. 
@@ -1345,7 +1344,7 @@ Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships
 %it is checked that \emph{dcterms:coverage} is not redundant with its sub-properties 
 %which may indicate when the data is verbose/redundant or expressed at a too general level.
 
-\subsubsection*{Simple Constraint Types.}
+\subsubsection*{Constraint Language Based}
 
 %{Simple constraint types} is the set of constraint types whose constraints can be easily defined without much effort in addition to $\mathcal{CT}_{B}$ constraints.
 For data properties, it may be desirable to restrict that values of predefined languages must be present for determined number of times (\emph{R-48/49: language tag cardinality}):
@@ -1382,14 +1381,14 @@ i.e., for each \emph{rdfs:Resource x}, there can be at most one distinct resourc
 Keys, however, are even more general than \emph{inverse-functional properties} (\emph{R-58}),
 as a key can be a data property, an object property, or a chain of properties \cite{Schneider2009}.
 Thus and as there are different sorts of key, and as keys can lead to undecidability, 
-\emph{DL} is extended with the construct \emph{keyfor} ({\small\ms{identifier \ms{keyfor} Resource}}) \cite{Lutz2005} which is implemented by the \emph{OWL 2} \emph{hasKey} construct.
+DL is extended with the construct \emph{keyfor} ({\small\ms{identifier \ms{keyfor} Resource}}) \cite{Lutz2005} which is implemented by the \emph{OWL 2} \emph{hasKey} construct.
 %\emph{OWL 2} \emph{hasKey} implements \emph{keyfor} ($\mathcal{SL}_{2}$) and thus can be used to identify resources uniquely, to merge resources with identical key property values, and to recognize constraint violations.
 %\begin{DL}
 %identifier \ms{keyfor} Resource
 %\end{DL} 
 
-\subsubsection*{Complex Constraint Types.}
-\label{complex-constraint-types}
+\subsubsection*{SPARQL Based Constraint Types}
+\label{SPARQL-based-constraint-types}
 
 %\textcolor{red}{
 %In this sub-chapter, we assign default severity levels to and describe constraints of diverse $\mathcal{CT}_{C}$ constraint types 
@@ -1661,7 +1660,7 @@ the \emph{Data Without Boundaries Discovery Portal}, the
 In a technical report serving as third appendix of this paper, we describe the evaluation in further detail \cite{BoschZapilkoWackerowEckert2015-2}. Furthermore, we published the evaluation results for each data set in form of one document per SPARQL endpoint\footnote{Available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/evaluation/data-sets/data-cube}}.
 
 We use \emph{SPIN}, 
-a \emph{SPARQL}-based way to formulate and check constraints, as basis to develop a
+a SPARQL-based way to formulate and check constraints, as basis to develop a
 validation environment\footnote{Online demo available at \url{http://purl.org/net/rdfval-demo}, source code at: \url{https://github.com/boschthomas/rdf-validator}} to validate RDF data according to constraints expressed by arbitrary constraint languages\footnote{SPIN mappings available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/SPIN}} \cite{BoschEckert2014-2}.
 
 The \emph{RDF Validator} can directly be used to validate arbitrary RDF data for the three vocabularies. Additionally, own constraints on vocabularies can be defined using several constraint languages.
@@ -1715,7 +1714,7 @@ A \emph{SPIN} construct template creates constraint violation triples if all tri
 %\end{table}
 
 %Table \ref{tab:evaluation-constraint-types} displays the evaluation of the metadata quality on real world data sets regarding constraint types.
-Table \ref{tab:evaluation-constraint-violations} shows the results of the evaluation, more specifically the constraints and the constraint violations, which are caused by these constraints, in percent.
+Tables \ref{tab:evaluation-constraint-violations-1} and \ref{tab:evaluation-constraint-violations-2} show the results of the evaluation, more specifically the constraints and the constraint violations, which are caused by these constraints, in percent.
 The constraints and their raised constraint violations are grouped by vocabulary, complexity level of their type, and their severity level.
 The numbers of evaluated triples and data sets differ between the vocabularies
 as we evaluated 3.8 billion \emph{QB}, 480 million \emph{SKOS}, and 10 million \emph{Disco} triples.
@@ -1764,7 +1763,7 @@ we only use normalized relative values representing the percentage of constraint
 		\scriptsize
     \begin{center}
 		\caption{Constraints and Constraint Violations (1)}
-		\label{tab:evaluation-constraint-violations}
+		\label{tab:evaluation-constraint-violations-1}
     \begin{tabular}{@{}lcccc@{}}
     %       & \multicolumn{2}{c}{\textbf{Vocabularies}}
     %\\  \cmidrule{2-3}
@@ -1794,7 +1793,7 @@ we only use normalized relative values representing the percentage of constraint
 		\scriptsize
     \begin{center}
 		\caption{Constraints and Constraint Violations (2)}
-		\label{tab:evaluation-constraint-violations}
+		\label{tab:evaluation-constraint-violations-2}
     \begin{tabular}{@{}lcccc@{}}
     %       & \multicolumn{2}{c}{\textbf{Vocabularies}}
     %\\  \cmidrule{2-3}
@@ -1873,8 +1872,8 @@ As a consequence, \emph{vocabulary constraints} are satisfied to a greater exten
 A significant amount of 47\% of the violations refer to complex constraints that are not easily, concisely, and intuitively expressible by existing constraint languages which confirms the necessity to provide suitable constraint languages.
 \end{hyp} 
 
-In general, \emph{vocabulary constraints} are expressible by either modeling languages (e.g., \emph{RDF}, \emph{RDFS}, \emph{OWL 2}) or constraint languages. 
-\emph{Simple constraints} and especially \emph{complex constraints}, however, are in most cases only expressible by plain \emph{SPARQL}. 
+In general, \emph{vocabulary constraints} are expressible by either modeling languages (e.g., RDF, RDFS, \emph{OWL 2}) or constraint languages. 
+\emph{Simple constraints} and especially \emph{complex constraints}, however, are in most cases only expressible by plain SPARQL. 
 As almost 1/2 of all violations are caused by \emph{complex constraints}, 
 data quality can be significantly improved when suitable constraint languages are developed which enable to define \emph{complex constraints} in an easy, concise, and intuitive way.
 %Therefore, existing constraint languages have to be extended or new constraint languages have to be developed.
@@ -2019,7 +2018,7 @@ There is significant demand for constraint languages that support the expression
 
 As \emph{vocabulary constraints} are part of formal specifications of vocabularies,
 violations of \emph{vocabulary constraints} are more severe than violations caused by \emph{simple constraints}.
-As \emph{SPARQL} is still used to express \emph{complex constraints} and as 44\% of all \emph{complex constraints} are serious,
+As SPARQL is still used to express \emph{complex constraints} and as 44\% of all \emph{complex constraints} are serious,
 there is an obvious need to develop constraint languages which enable to express \emph{complex constraints}.
 
 \section{Conclusion and Future Work}
@@ -2027,7 +2026,7 @@ there is an obvious need to develop constraint languages which enable to express
 %In this paper, we showed in form of a complete real world running example how to represent metadata on person-level data (\emph{Disco}), metadata on aggregated data (\emph{QB}), and data on both aggregation levels in a rectangular format (\emph{PHDD}) in RDF and how therefore used vocabularies are interrelated (\textbf{contribution 1}, section \ref{rdf-representation}).
 %We explained why RDF validation is important in this context and how metadata on person-level data, aggregated data, thesauri, and statistical classifications as well as data on both aggregation levels is validated against constraints to ensure high (meta)data quality\footnote{The first appendix of this paper describing each constraint in detail is available at: \url{http://arxiv.org/abs/1504.04479} \cite{BoschZapilkoWackerowEckert2015}} (\textbf{contribution 2}, section \ref{rdf-validation}). 
 %We distinguish two validation types:
-%(1) \emph{Content-Driven Validation} $\mathcal{C}_{C}$ contains the set of constraints ensuring that the data is consistent with the intended syntax, semantics, and integrity of data models (section \ref{complex-constraint-types}).
+%(1) \emph{Content-Driven Validation} $\mathcal{C}_{C}$ contains the set of constraints ensuring that the data is consistent with the intended syntax, semantics, and integrity of data models (section \ref{SPARQL-based-constraint-types}).
 %(2) \emph{Technology-Driven Validation} $\mathcal{C}_{T}$ includes the set of constraints which can be generated automatically out of data models, such as cardinality restrictions, universal and existential quantifications, domains, and ranges (section \ref{vocabulary-constraint-types}).
 %We determined the default \emph{severity level} for each constraint to indicate how serious the violation of the constraint is
 %and propose an extensible metric to measure the continuum of severity levels.
@@ -2049,11 +2048,10 @@ The main hypotheses are:
   \item The further development of constraint languages should concentrate on how to express \emph{complex constraints} as 44\% of all \emph{complex constraints} are also serious ones.
   \item 47\% of the violations refer to complex constraints that are in most cases not expressible by existing constraint languages which confirms the necessity to provide suitable constraint languages.
   \item As 54\% of the constraints are either \emph{simple} or \emph{complex constraints},
-the further development of constraint languages should concentrate on expressing \emph{simple} and especially \emph{complex constraints} which up to now in most cases can only be expressed by plain \emph{SPARQL}. 
+the further development of constraint languages should concentrate on expressing \emph{simple} and especially \emph{complex constraints} which up to now in most cases can only be expressed by plain SPARQL. 
 \end{enumerate}
 
 We have been really impressed by the high quality of the \emph{QB} and \emph{SKOS} data. This is in contrast to the sometimes heard rumour that Linked Open Data lacks quality. We are actively involved in the further development and implementation of constraint languages and will use the results presented in the paper to set priorities on features where we expect the highest impact on the data quality of real-life data in the SBE domain.
-
 
 % An example of a floating figure using the graphicx package.
 % Note that \label must occur AFTER (or within) \caption.
