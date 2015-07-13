@@ -1018,7 +1018,8 @@ We further distinguished \emph{simple constraint types} as the set of constraint
 The abstract of series/studies, e.g., should have a minimum length which is easily and concisely expressible by SPARQL: 
 \begin{ex}
 SELECT ?study WHERE {
-    ?study dcterms:abstract ?abstract . FILTER ( STRLEN ( ?abstract ) = 10 ) . }
+    ?study dcterms:abstract ?abstract . 
+    FILTER ( STRLEN ( ?abstract ) = 10 ) . }
 \end{ex}
 For these constraints, we expect a straight-forward support in future constraint languages.
 
@@ -1030,7 +1031,8 @@ a thesaurus should not contain many orphan concepts, i.e., concepts without any 
 SELECT ?concept WHERE {
     ?concept a [rdfs:subClassOf* skos:Concept] .
     FILTER NOT EXISTS { ?concept ?p ?o . 
-        FILTER ( ?p IN ( skos:related, skos:relatedMatch, skos:broader, ... ) ) . }
+        FILTER ( ?p IN ( skos:related, skos:relatedMatch, 
+                         skos:broader, ... ) ) . }
 \end{ex}
 \emph{Complex constraints} are today in most cases only expressible by plain \emph{SPARQL}. Depending on their usefulness, a support in constraint languages should be considered.
 
@@ -1114,9 +1116,12 @@ Consider the following \emph{DL} knowledge base $\mathcal{K}$\footnote{A knowled
 $\mathcal{K}=\{$ 
 	%&\ms{isStructuredBy $\sqsubseteq$ $\neg$ column}, \\
 	%&\ms{TableDescription $\sqcap$ ColumnDescription $\sqsubseteq$ $\perp$}, \\
-	&\ms{CategoryStatistics $\equiv$ $\forall$ computationBase.\{valid,invalid\} $\sqcap$ langString}, \\
-  &\ms{Variable $\equiv$ $\exists$ concept.Concept, Catalog $\sqsubseteq$ $\forall$ dataset.Dataset}, \\
-  &\ms{$\exists$ isStructuredBy.$\top$ $\sqsubseteq$ Table, $\top$ $\sqsubseteq$ $\forall$ belongsTo.Concept}
+&{\small\ms{CategoryStatistics $\equiv$ $\forall$ computationBase.}} \\
+	&{\small\ms{    \{valid,invalid\} $\sqcap$ langString,}} \\
+  &{\small\ms{Variable $\equiv$ $\exists$ concept.Concept,}} \\
+	&{\small\ms{Catalog $\sqsubseteq$ $\forall$ dataset.Dataset,}} \\
+  &{\small\ms{$\exists$ isStructuredBy.$\top$ $\sqsubseteq$ Table,}} \\
+	&{\small\ms{$\top$ $\sqsubseteq$ $\forall$ belongsTo.Concept}}
 \}\\ 
 \end{DL}
 \end{center}
@@ -1369,7 +1374,7 @@ which is checked for \emph{disco:percentage} standing for the number of cases of
 
 It is often useful to declare a given (data) property as the \emph{primary key} (\emph{R-226}) of a class, so that a system can enforce uniqueness and build URIs from user inputs and imported data. 
 In \emph{Disco}, resources are uniquely identified by the property \emph{adms:identifier},
-which is therefore inverse-functional $(\ms{funct identifier}\sp{\overline{\ }})$,
+which is therefore inverse-functional $({\small\ms{funct identifier}\sp{\overline{\ }}})$,
 i.e., for each \emph{rdfs:Resource x}, there can be at most one distinct resource \emph{y} such that \emph{y} is connected by \emph{adms:identifier$\sp{\overline{\ }}$} to \emph{x} (\emph{error}).
 %\begin{DL}
 %$(\ms{funct identifier}\sp{\overline{\ }})$
@@ -1377,7 +1382,7 @@ i.e., for each \emph{rdfs:Resource x}, there can be at most one distinct resourc
 Keys, however, are even more general than \emph{inverse-functional properties} (\emph{R-58}),
 as a key can be a data property, an object property, or a chain of properties \cite{Schneider2009}.
 Thus and as there are different sorts of key, and as keys can lead to undecidability, 
-\emph{DL} is extended with the construct \emph{keyfor} (\ms{identifier \ms{keyfor} Resource}) \cite{Lutz2005} which is implemented by the \emph{OWL 2} \emph{hasKey} construct.
+\emph{DL} is extended with the construct \emph{keyfor} ({\small\ms{identifier \ms{keyfor} Resource}}) \cite{Lutz2005} which is implemented by the \emph{OWL 2} \emph{hasKey} construct.
 %\emph{OWL 2} \emph{hasKey} implements \emph{keyfor} ($\mathcal{SL}_{2}$) and thus can be used to identify resources uniquely, to merge resources with identical key property values, and to recognize constraint violations.
 %\begin{DL}
 %identifier \ms{keyfor} Resource
@@ -1597,7 +1602,7 @@ restrict individuals of given classes to have properties defined within exactly 
 \section{Evaluation}
 \label{evaluation}
 
-In this section, we describe our findings based on an automatic constraint checking of a large dataset. Despite the large volume of the dataset in general, we have to keep in mind that this study only uses data for three vocabularies. As described in Section~\ref{rdf-representation}, for other vocabularies there is often not (yet) enough data openly available to draw general conclusions. The three vocabularies, however, are representative, cover different aspects of SBE data and are also a mixture of established vocabularies (\emph{QB}, \emph{SKOS}) and a vocabulary under development (\emph{Disco}). Due to this limitation, we will present several hypotheses together with a rationale based on the results for the three vocabularies. If the hypotheses hold generally is still to be determined, nevertheless they should provide valuable insights for future developments of constraint languages.
+In this section, we describe our findings based on an automatic constraint checking of a large data set. Despite the large volume of the data set in general, we have to keep in mind that this study only uses data for three vocabularies. As described in Section~\ref{rdf-representation}, for other vocabularies there is often not (yet) enough data openly available to draw general conclusions. The three vocabularies, however, are representative, cover different aspects of SBE data and are also a mixture of established vocabularies (\emph{QB}, \emph{SKOS}) and a vocabulary under development (\emph{Disco}). Due to this limitation, we will present several hypotheses together with a rationale based on the results for the three vocabularies. If the hypotheses hold generally is still to be determined, nevertheless they should provide valuable insights for future developments of constraint languages.
 
 \subsection{Experimental Setup}
 \label{implementation}
@@ -1615,7 +1620,7 @@ On the three vocabularies (\emph{Disco}, \emph{QB}, \emph{SKOS}), we identified 
 %\ke{ergebnisse, dann hypothesen, dann kritische auseinandersetzung}
 
 
-Table~\ref{tab:datasets} lists the number of datasets and the overall sizes in terms of triples for each of the vocabularies. We validated, i.a., 
+Table~\ref{tab:datasets} lists the number of data sets and the overall sizes in terms of triples for each of the vocabularies. We validated, i.a., 
 (1) \emph{QB} data sets published by the \emph{Australian Bureau of Statistics},
 the \emph{European Central Bank}, and the
 \emph{Organisation for Economic Co-operation and Development},
@@ -1631,11 +1636,13 @@ the \emph{Data Without Boundaries Discovery Portal}, the
 \begin{table}[H]
 		\scriptsize
     \begin{center}
+		\caption{Evaluated Data Sets for each Vocabulary}
+		\label{tab:datasets}
     \begin{tabular}{lrr}
 %           & \multicolumn{6}{c}{\textbf{Vocabularies}}
 %    \\  \cmidrule{2-7}
            \textbf{Vocabulary}
-           & \textbf{Datasets}
+           & \textbf{Data Sets}
            & \textbf{Triples}
 					 
     \\ \midrule
@@ -1648,11 +1655,8 @@ the \emph{Data Without Boundaries Discovery Portal}, the
     \bottomrule
     \end{tabular}
     %\\ \emph{C (constraints), CT (constraint types)}
-    \caption{Evaluated datasets for each vocabulary}
-		\label{tab:datasets}
     \end{center}
 \end{table}
-
 
 In a technical report serving as third appendix of this paper, we describe the evaluation in further detail \cite{BoschZapilkoWackerowEckert2015-2}. Furthermore, we published the evaluation results for each data set in form of one document per SPARQL endpoint\footnote{Available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/evaluation/data-sets/data-cube}}.
 
@@ -1721,38 +1725,98 @@ we only use normalized relative values representing the percentage of constraint
 %by building the arithmetic mean over the individual vocabularies' percentage values. 
 %\tb{More than 80\% of the overall approx. 55 million constraint violations are caused by \emph{QB} constraints.}
 
+%\begin{table}[H]
+		%\scriptsize
+    %\begin{center}
+		%\caption{Constraints and Constraint Violations}
+		%\label{tab:evaluation-constraint-violations}
+    %\begin{tabular}{@{}lcccccccc@{}}
+    %%       & \multicolumn{2}{c}{\textbf{Vocabularies}}
+    %%\\  \cmidrule{2-3}
+		%\hline
+    %\multirow{2}{*}{} &
+      %\multicolumn{2}{c}{\textbf{\emph{Disco}}} &
+      %\multicolumn{2}{c}{\textbf{\emph{QB}}} &
+      %\multicolumn{2}{c}{\textbf{\emph{SKOS}}} &
+      %\multicolumn{2}{c}{\textbf{\emph{Total}}} \\
+    %\textbf{} & C & CV & C & CV & C & CV & C & CV \\
+    %\hline
+    %%\\ \midrule
+		 %& 143 & 3,575,002 & 35 & 45,635,861 & 35 & 5,540,988 & 213 & 54,751,851 \\
+		%\hline
+		%\textbf{\emph{complex}} & 25.9\% & 18.3\% & 37.1\% & \textbf{100.0\%} & \textbf{37.1\%} & 21.4\% & 33.4\% & \textbf{46.6\%} \\
+		%\textbf{\emph{simple}} & 19.6\% & 15.7\% & 8.6\% & 0.0\% & \textbf{34.3\%} & \textbf{78.6\%} & 20.8\% & 31.4\% \\
+		%\textbf{\emph{vocabulary}} & \textbf{54.6\%} & \textbf{66.1\%} & \textbf{54.3\%} & 0.0\% & \textbf{28.6\%} & 0.0\% & \textbf{45.8\%} & 22.0\% \\
+		%%\hline
+		%%\emph{CV (}$\mathcal{C}_B ^{\mathcal{R}}$\emph{)} & 2,333,365 (65.3\%) & 1,777 (0\%) & 0 (0\%) & 2,335,142 (4.3\%) \\
+		%%\emph{CV (}$\overline{\mathcal{C}_B ^{\mathcal{R}}}$\emph{)} & 28,000 (0.8\%) & 0 (0\%) & 0 (0\%) & 28,000 (0.1\%) \\
+		%\hline
+		%\textbf{\emph{info}} & \textbf{52.5\%} & \textbf{52.6\%} & 11.4\% & 0.0\% & \textbf{60.0\%} & 41.2\% & \textbf{41.3\%} & 31.3\% \\
+		%\textbf{\emph{warning}} & 7.0\% & 29.4\% & 8.6\% & \textbf{99.8\%} & 14.3\% & \textbf{58.8\%} & 10.0\% & \textbf{62.7\%} \\
+		%\textbf{\emph{error}} & 40.6\% & 18.0\% & \textbf{80.0\%} & 0.3\% & 25.7\% & 0.0\% & \textbf{48.8\%} & 6.1\%\\
+    %\bottomrule
+    %\end{tabular}
+    %\\ \emph{C (constraints), CV (constraint violations)}
+    %\end{center}
+%\end{table}
+
 \begin{table}[H]
 		\scriptsize
     \begin{center}
-    \begin{tabular}{@{}lcccccccc@{}}
+		\caption{Constraints and Constraint Violations (1)}
+		\label{tab:evaluation-constraint-violations}
+    \begin{tabular}{@{}lcccc@{}}
     %       & \multicolumn{2}{c}{\textbf{Vocabularies}}
     %\\  \cmidrule{2-3}
 		\hline
     \multirow{2}{*}{} &
       \multicolumn{2}{c}{\textbf{\emph{Disco}}} &
-      \multicolumn{2}{c}{\textbf{\emph{QB}}} &
-      \multicolumn{2}{c}{\textbf{\emph{SKOS}}} &
-      \multicolumn{2}{c}{\textbf{\emph{Total}}} \\
-    \textbf{} & C & CV & C & CV & C & CV & C & CV \\
+      \multicolumn{2}{c}{\textbf{\emph{QB}}} \\
+    \textbf{} & C & CV & C & CV \\
     \hline
     %\\ \midrule
-		 & 143 & 3,575,002 & 35 & 45,635,861 & 35 & 5,540,988 & 213 & 54,751,851 \\
+		 & 143 & 3,575,002 & 35 & 45,635,861 \\
 		\hline
-		\textbf{\emph{complex}} & 25.9\% & 18.3\% & 37.1\% & \textbf{100.0\%} & \textbf{37.1\%} & 21.4\% & 33.4\% & \textbf{46.6\%} \\
-		\textbf{\emph{simple}} & 19.6\% & 15.7\% & 8.6\% & 0.0\% & \textbf{34.3\%} & \textbf{78.6\%} & 20.8\% & 31.4\% \\
-		\textbf{\emph{vocabulary}} & \textbf{54.6\%} & \textbf{66.1\%} & \textbf{54.3\%} & 0.0\% & \textbf{28.6\%} & 0.0\% & \textbf{45.8\%} & 22.0\% \\
-		%\hline
-		%\emph{CV (}$\mathcal{C}_B ^{\mathcal{R}}$\emph{)} & 2,333,365 (65.3\%) & 1,777 (0\%) & 0 (0\%) & 2,335,142 (4.3\%) \\
-		%\emph{CV (}$\overline{\mathcal{C}_B ^{\mathcal{R}}}$\emph{)} & 28,000 (0.8\%) & 0 (0\%) & 0 (0\%) & 28,000 (0.1\%) \\
+		\textbf{\emph{complex}} & 25.9\% & 18.3\% & 37.1\% & \textbf{100.0\%} \\
+		\textbf{\emph{simple}} & 19.6\% & 15.7\% & 8.6\% & 0.0\% \\
+		\textbf{\emph{vocabulary}} & \textbf{54.6\%} & \textbf{66.1\%} & \textbf{54.3\%} & 0.0\% \\
 		\hline
-		\textbf{\emph{info}} & \textbf{52.5\%} & \textbf{52.6\%} & 11.4\% & 0.0\% & \textbf{60.0\%} & 41.2\% & \textbf{41.3\%} & 31.3\% \\
-		\textbf{\emph{warning}} & 7.0\% & 29.4\% & 8.6\% & \textbf{99.8\%} & 14.3\% & \textbf{58.8\%} & 10.0\% & \textbf{62.7\%} \\
-		\textbf{\emph{error}} & 40.6\% & 18.0\% & \textbf{80.0\%} & 0.3\% & 25.7\% & 0.0\% & \textbf{48.8\%} & 6.1\%\\
+		\textbf{\emph{info}} & \textbf{52.5\%} & \textbf{52.6\%} & 11.4\% & 0.0\% \\
+		\textbf{\emph{warning}} & 7.0\% & 29.4\% & 8.6\% & \textbf{99.8\%} \\
+		\textbf{\emph{error}} & 40.6\% & 18.0\% & \textbf{80.0\%} & 0.3\% \\
     \bottomrule
     \end{tabular}
     \\ \emph{C (constraints), CV (constraint violations)}
-    \caption{Constraints and constraint violations}
+    \end{center}
+\end{table}
+
+\begin{table}[H]
+		\scriptsize
+    \begin{center}
+		\caption{Constraints and Constraint Violations (2)}
 		\label{tab:evaluation-constraint-violations}
+    \begin{tabular}{@{}lcccc@{}}
+    %       & \multicolumn{2}{c}{\textbf{Vocabularies}}
+    %\\  \cmidrule{2-3}
+		\hline
+    \multirow{2}{*}{} &
+      \multicolumn{2}{c}{\textbf{\emph{SKOS}}} &
+      \multicolumn{2}{c}{\textbf{\emph{Total}}} \\
+    \textbf{} & C & CV & C & CV \\
+    \hline
+    %\\ \midrule
+		 & 35 & 5,540,988 & 213 & 54,751,851 \\
+		\hline
+		\textbf{\emph{complex}} & \textbf{37.1\%} & 21.4\% & 33.4\% & \textbf{46.6\%} \\
+		\textbf{\emph{simple}} & \textbf{34.3\%} & \textbf{78.6\%} & 20.8\% & 31.4\% \\
+		\textbf{\emph{vocabulary}} & \textbf{28.6\%} & 0.0\% & \textbf{45.8\%} & 22.0\% \\
+		\hline
+		\textbf{\emph{info}} & \textbf{60.0\%} & 41.2\% & \textbf{41.3\%} & 31.3\% \\
+		\textbf{\emph{warning}} & 14.3\% & \textbf{58.8\%} & 10.0\% & \textbf{62.7\%} \\
+		\textbf{\emph{error}} & 25.7\% & 0.0\% & \textbf{48.8\%} & 6.1\%\\
+    \bottomrule
+    \end{tabular}
+    \\ \emph{C (constraints), CV (constraint violations)}
     \end{center}
 \end{table}
 
@@ -1927,6 +1991,8 @@ more than 3/4 of the \emph{simple constraints} are \emph{informational constrain
 \begin{table}[H]
 		\scriptsize
     \begin{center}
+		\caption{Relation between Complexity and Severity Level of Constraints}
+		\label{tab:evaluation-complexity-severity}
     \begin{tabular}{@{}lcccc@{}}
 %           & \multicolumn{6}{c}{\textbf{Vocabularies}}
 %    \\  \cmidrule{2-7}
@@ -1944,8 +2010,6 @@ more than 3/4 of the \emph{simple constraints} are \emph{informational constrain
     \bottomrule
     \end{tabular}
     %\\ \emph{C (constraints), CT (constraint types)}
-    \caption{Relation between complexity and severity level of constraints}
-		\label{tab:evaluation-complexity-severity}
     \end{center}
 \end{table}
 
