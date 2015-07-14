@@ -989,14 +989,14 @@ In the following, we summarize the results for the purpose of our evaluation.
 
 \subsection{Classification of Constraint Types according to the Expressivity of Constraint Languages}
 
-According to the expressivity of constraint languages, the complete set of \emph{constraint types} encompasses three disjoint \emph{sets of constraint types}:
+According to the expressivity of constraint languages, the complete set of \emph{constraint types} encompasses three not disjoint \emph{sets of constraint types}:
 \begin{enumerate}
 	\item \emph{RDFS/OWL Based}
 	\item \emph{Constraint Language Based}
 	\item \emph{SPARQL Based}
 \end{enumerate}
 
-The modeling languages RDFS, and OWL are typically used to formally specify vocabularies. \emph{RDFS/OWL Based} denotes the set of constraint types which can be formulated with RDFS/OWL constructs using CWA/UNA semantics (without reasoning) and which are therefore commonly found within formal specifications of vocabularies. We determined this set based on the evaluation of the three vocabularies. \emph{RDFS/OWL Based} constraints generally can be seen as a basic level of constraints ensuring that the data is consistent with the formally and explicitly specified intended semantics as well as the integrity of vocabularies' conceptual models about data.
+The modeling languages RDFS and OWL are typically used to formally specify vocabularies. \emph{RDFS/OWL Based} denotes the set of constraint types which can be formulated with RDFS/OWL constructs using CWA/UNA semantics (without reasoning) and which are therefore commonly found within formal specifications of vocabularies. We determined this set based on the evaluation of the three vocabularies. \emph{RDFS/OWL Based} constraints generally can be seen as a basic level of constraints ensuring that the data is consistent with the formally and explicitly specified intended semantics as well as the integrity of vocabularies' conceptual models about data.
 
 %The {\em existential quantification} (\emph{R-86}) 
 %\ms{Study $\equiv$ $\exists$ product.LogicalDataSet} (DL), e.g., restricts studies to contain at least one data set which is expressible in OWL 2:
@@ -1010,7 +1010,9 @@ Constraints of the constraint type \emph{minimum qualified cardinality restricti
 
 \emph{Constraint Language Based} and \emph{SPARQL Based} constraints are in contrast to \emph{RDFS/OWL Based} constraints usually not (yet) explicitly defined within formal specifications of vocabularies. Instead, they are often defined in textual descriptions of the vocabularies. Additionally, we let our domain and data experts define constraints when they agreed that violating the constraint would affect the usefulness of the data.
 
-We further distinguished \emph{Constraint Language Based} as the set of constraint types that are not \emph{RDF/OWL Based}, but can be expressed by common declarative high-level constraint languages like ShEx, ReSh, and DSP. SPARQL is considered as a low-level implementation language in this context, not a high-level constraint language. 
+We further distinguish \emph{Constraint Language Based} as the set of constraint types that can be expressed by common classical declarative high-level constraint languages like ShEx, ReSh, and DSP. 
+%RDFS, and OWL as we consider RDFS and OWL as constraint languages when assuming CWA/UNA semantics without reasoning. 
+There is a strong overlap between \emph{RDFS/OWL Based} and \emph{Constraint Language Based} constraint types as in many cases constraint types are expressible by classical constraint languages and OWL. SPARQL, however, is considered as a low-level implementation language in this context, not as a high-level constraint language. 
 
 \textcolor{red}{example}
 
@@ -1099,7 +1101,7 @@ Note that there is a correlation between the severity of a constraint and the cl
 %(\emph{R-9: disjoint properties}), i.e., no individual \emph{x} can be connected to an individual/literal \emph{y} by disjoint properties (e.g., \emph{phdd:isStructuredBy} and \emph{phdd:column}).
 %All \emph{PHDD} classes (e.g., \emph{phdd:TableDescription}, \emph{phdd:ColumnDescription}) are pairwise disjoint (\emph{R-7: disjoint classes}),
 %i.e., individuals cannot be instances of multiple disjoint classes.
-\subsubsection*{RDFS/OWL Based Constraint Types}
+\textbf{\emph{RDFS/OWL Based} constraint types.}
 \textcolor{red}{severity levels assigned for each constraint?}
 It is a common requirement to narrow down the value space of properties by an exhaustive enumeration of valid values (\emph{R-30/37: allowed values}):
 %\emph{Allowed values} (\emph{R-30, R-37}) for properties can be IRIs (matching one or multiple patterns), any literals, allowed literals (e.g. 'red' 'blue' 'green'), and typed literals of one or multiple type(s) (e.g. \emph{xsd:string}). 
@@ -1344,8 +1346,7 @@ Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships
 %it is checked that \emph{dcterms:coverage} is not redundant with its sub-properties 
 %which may indicate when the data is verbose/redundant or expressed at a too general level.
 
-\subsubsection*{Constraint Language Based}
-
+\textbf{\emph{Constraint Language Based} constraint types.}
 %{Simple constraint types} is the set of constraint types whose constraints can be easily defined without much effort in addition to $\mathcal{CT}_{B}$ constraints.
 For data properties, it may be desirable to restrict that values of predefined languages must be present for determined number of times (\emph{R-48/49: language tag cardinality}):
 (1) It is checked if literal language tags are set. Some controlled vocabularies, e.g., contain literals in natural language, but without information what language has actually been used (\emph{warning}). 
@@ -1355,11 +1356,21 @@ It may be desirable to have each concept labeled in each of the languages that a
 as language coverage incompleteness for some concepts may indicate shortcomings of thesauri (\emph{informational})
 \cite{MaderHaslhoferIsaac2012}.
 %\textbf{Validation and Reasoning.}
-%\emph{Default values} (\emph{R-31, R-38}) for objects/literals of given properties are inferred automatically when properties are not present in the data.
-%The value \emph{true} for the property {\em disco:isPublic} indicates that a {\em disco:LogicalDataSet} can be accessed by anyone.
-%Per default, however, access to data sets should be restricted (\emph{false}) ($\mathcal{SL}_{0}$).
-%Many properties are not necessarily required but \emph{recommended} within a particular context (\emph{R-72}).
-%The property {\em skos:notation}, e.g., is not mandatory for {\em disco:Variable}s, but recommended to represent variable names ($\mathcal{SL}_{0}$).
+
+\textcolor{red}{\emph{Context-specific exclusive or of property groups}} (\emph{R-11}) constraints
+restrict individuals of given classes to have properties defined within exactly one of multiple property groups.
+\emph{skos:Concept}s can have either \emph{skos:definition} (when interpreted as theoretical concepts) or \emph{skos:notation} and \emph{skos:prefLabel} properties (when interpreted as codes), but not both (\emph{error}).
+
+\textcolor{red}{\emph{Default values}} (\emph{R-31, R-38}) for objects/literals of given properties are inferred automatically when properties are not present in the data.
+The value \emph{true} for the property {\em disco:isPublic} indicates that a {\em disco:LogicalDataSet} can be accessed by anyone.
+Per default, however, access to data sets should be restricted (\emph{false}) ($\mathcal{SL}_{0}$).
+Many properties are not necessarily required but \emph{recommended} within a particular context (\emph{R-72}).
+The property {\em skos:notation}, e.g., is not mandatory for {\em disco:Variable}s, but recommended to represent variable names ($\mathcal{SL}_{0}$).
+
+Depending on property datatypes, two different literal values have
+a specific ordering with respect to operators like \textless  (\textcolor{red}{\emph{R-43: literal value comparison}}).
+Start dates (\emph{disco:startDate}), e.g., must be before (\emph{\textless}) end dates (\emph{disco:endDate}).
+
 Percentage values are only valid when they are within the literal range of 0 and 100 (\emph{R-45: literal ranges}; \emph{error})
 which is checked for \emph{disco:percentage} standing for the number of cases of a given code in relation to the total number of cases for a particular variable.
 
@@ -1387,9 +1398,7 @@ DL is extended with the construct \emph{keyfor} ({\small\ms{identifier \ms{keyfo
 %identifier \ms{keyfor} Resource
 %\end{DL} 
 
-\subsubsection*{SPARQL Based Constraint Types}
-\label{SPARQL-based-constraint-types}
-
+\textbf{\emph{SPARQL Based} constraint types.}
 %\textcolor{red}{
 %In this sub-chapter, we assign default severity levels to and describe constraints of diverse $\mathcal{CT}_{C}$ constraint types 
 %to ensure that the data is consistent with the intended syntax, semantics, and integrity of vocabularies' data models.
@@ -1398,7 +1407,7 @@ DL is extended with the construct \emph{keyfor} ({\small\ms{identifier \ms{keyfo
 %- for each dimension there should be a description and code lists.
 %- for each code list there should be a description.
 %- there should be a relationship to the underlying person-level data.
-
+%
 %$\mathcal{CT}_{C}$ denotes the set of constraint types for which the definition of constraints is rather complex and cannot be derived from vocabulary definitions.
 \emph{Data model consistency} constraints ensure the integrity of
 the data according to the intended semantics of vocabularies.
@@ -1460,9 +1469,6 @@ In case a variable is represented in form of a code list, codes may be associate
 The variable \emph{Education at pre-school}, e.g., is represented as ordered code list without any categories.
 %If a {\em skos:Concept} represents a code (having {\em skos:notation} and {\em skos:prefLabel} properties), 
 %then the property {\em disco:isValid} has to be stated indicating if the code stands for valid (\emph{true}) or missing (\emph{false}) cases ($\mathcal{SL}_{2}$).
-\emph{Context-specific exclusive or of property groups} (\emph{R-11}) constraints
-restrict individuals of given classes to have properties defined within exactly one of multiple property groups.
-\emph{skos:Concept}s can have either \emph{skos:definition} (when interpreted as theoretical concepts) or \emph{skos:notation} and \emph{skos:prefLabel} properties (when interpreted as codes), but not both (\emph{error}).
 
 %\textbf{Constraints on Literals.}
 
@@ -1719,7 +1725,7 @@ The constraints and their raised constraint violations are grouped by vocabulary
 The numbers of evaluated triples and data sets differ between the vocabularies
 as we evaluated 3.8 billion \emph{QB}, 480 million \emph{SKOS}, and 10 million \emph{Disco} triples.
 To be able to formulate hypotheses which apply for all vocabularies, 
-we only use normalized relative values representing the percentage of constraints and constraint violations belonging to the respective class
+we only use normalized relative values representing the percentage of constraints and constraint violations belonging to the respective class. There is a strong overlap between \emph{RDFS/OWL Based} and \emph{Constraint Language Based} constraint types as in many cases constraint types are expressible by classical constraint languages and OWL. This is the reason why the percentage values of constraints and violations grouped by the classification according to the expressivity of constraint languages do not accumulate to 100\%. 
 
 %by building the arithmetic mean over the individual vocabularies' percentage values. 
 %\tb{More than 80\% of the overall approx. 55 million constraint violations are caused by \emph{QB} constraints.}
@@ -1762,7 +1768,7 @@ we only use normalized relative values representing the percentage of constraint
 \begin{table}[H]
 		\scriptsize
     \begin{center}
-		\caption{Constraints and Constraint Violations (1)}
+		\caption{OLD}
 		\label{tab:evaluation-constraint-violations-1}
     \begin{tabular}{@{}lcccc@{}}
     %       & \multicolumn{2}{c}{\textbf{Vocabularies}}
@@ -1792,7 +1798,7 @@ we only use normalized relative values representing the percentage of constraint
 \begin{table}[H]
 		\scriptsize
     \begin{center}
-		\caption{Constraints and Constraint Violations (2)}
+		\caption{OLD}
 		\label{tab:evaluation-constraint-violations-2}
     \begin{tabular}{@{}lcccc@{}}
     %       & \multicolumn{2}{c}{\textbf{Vocabularies}}
@@ -1809,6 +1815,66 @@ we only use normalized relative values representing the percentage of constraint
 		\textbf{\emph{complex}} & \textbf{37.1\%} & 21.4\% & 33.4\% & \textbf{46.6\%} \\
 		\textbf{\emph{simple}} & \textbf{34.3\%} & \textbf{78.6\%} & 20.8\% & 31.4\% \\
 		\textbf{\emph{vocabulary}} & \textbf{28.6\%} & 0.0\% & \textbf{45.8\%} & 22.0\% \\
+		\hline
+		\textbf{\emph{info}} & \textbf{60.0\%} & 41.2\% & \textbf{41.3\%} & 31.3\% \\
+		\textbf{\emph{warning}} & 14.3\% & \textbf{58.8\%} & 10.0\% & \textbf{62.7\%} \\
+		\textbf{\emph{error}} & 25.7\% & 0.0\% & \textbf{48.8\%} & 6.1\%\\
+    \bottomrule
+    \end{tabular}
+    \\ \emph{C (constraints), CV (constraint violations)}
+    \end{center}
+\end{table}
+
+\begin{table}[H]
+		\scriptsize
+    \begin{center}
+		\caption{Constraints and Constraint Violations (1)}
+		\label{tab:evaluation-constraint-violations-1}
+    \begin{tabular}{@{}lcccc@{}}
+    %       & \multicolumn{2}{c}{\textbf{Vocabularies}}
+    %\\  \cmidrule{2-3}
+		\hline
+    \multirow{2}{*}{} &
+      \multicolumn{2}{c}{\textbf{\emph{Disco}}} &
+      \multicolumn{2}{c}{\textbf{\emph{QB}}} \\
+    \textbf{} & C & CV & C & CV \\
+    \hline
+    %\\ \midrule
+		 & 143 & 3,575,002 & 35 & 45,635,861 \\
+		\hline
+		\textbf{\emph{SPARQL}} & 44.8\% & 34.7\% & \textbf{54.3\%} & \textbf{100.0\%} \\
+		\textbf{\emph{CL}} & 42.0\% & \textbf{65.3\%} & 28.6\% & 0.0\% \\
+		\textbf{\emph{RDFS/OWL}} & \textbf{51.8\%} & \textbf{65.3\%} & 42.9\% & 0.0\% \\
+		\hline
+		\textbf{\emph{info}} & \textbf{52.5\%} & \textbf{52.6\%} & 11.4\% & 0.0\% \\
+		\textbf{\emph{warning}} & 7.0\% & 29.4\% & 8.6\% & \textbf{99.8\%} \\
+		\textbf{\emph{error}} & 40.6\% & 18.0\% & \textbf{80.0\%} & 0.3\% \\
+    \bottomrule
+    \end{tabular}
+    \\ \emph{C (constraints), CV (constraint violations)}
+    \end{center}
+\end{table}
+
+\begin{table}[H]
+		\scriptsize
+    \begin{center}
+		\caption{Constraints and Constraint Violations (2)}
+		\label{tab:evaluation-constraint-violations-2}
+    \begin{tabular}{@{}lcccc@{}}
+    %       & \multicolumn{2}{c}{\textbf{Vocabularies}}
+    %\\  \cmidrule{2-3}
+		\hline
+    \multirow{2}{*}{} &
+      \multicolumn{2}{c}{\textbf{\emph{SKOS}}} &
+      \multicolumn{2}{c}{\textbf{\emph{Total}}} \\
+    \textbf{} & C & CV & C & CV \\
+    \hline
+    %\\ \midrule
+		 & 35 & 5,540,988 & 213 & 54,751,851 \\
+		\hline
+		\textbf{\emph{SPARQL}} & \textbf{80.0\%} & \textbf{100.0\%} & 59.7\% & 78.2\% \\
+		\textbf{\emph{CL}} & 0.0\% & 0.0\% & 23.5\% & 21.8\% \\
+		\textbf{\emph{RDFS/OWL}} & 20.0\% & 0.0\% & 38.2\% & 21.8\% \\
 		\hline
 		\textbf{\emph{info}} & \textbf{60.0\%} & 41.2\% & \textbf{41.3\%} & 31.3\% \\
 		\textbf{\emph{warning}} & 14.3\% & \textbf{58.8\%} & 10.0\% & \textbf{62.7\%} \\
