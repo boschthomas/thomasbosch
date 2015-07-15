@@ -164,9 +164,8 @@ RDF validation; RDF constraints; RDF constraint types, RDF validation requiremen
 %This ambiguity in semantics is one of the main reasons why OWL 2 has not been adopted as a standard constraint language for RDF validation.  
 %For this reason, we cannot use OWL 2 ontologies for RDF validation as we use XML Schemas, DTDs, RELAX NG, or Schematron to validate XML documents.
 
-Recently, RDF validation as a research field gained speed due to common needs of data practitioners. A typical example is the library domain that co-developed and adopted Linked Data principles very early. For libraries, the common description of resources are key business and they have a long tradition in developing and using interoperable data formats. While they embrace the openness of Linked Data and the data modeling principles provided by RDF, the data is still mostly represented in XML and this is unlikely to change any time soon. 
+The proper validation of RDF data according to constraints is a common requirement of data practitioners. 
 Among the reasons for the success of XML is the possibility to formulate fine-grained constraints to be met by the data and to validate the data according to these constraints using powerful systems like \emph{DTD}, \emph{XML Schema}, \emph{RELAX NG}, or \emph{Schematron}.
-A typical example is the definition of a library record describing a book. There are clear rules which information has to be available to describe a book properly, but also how information like an ISBN number is properly represented. Libraries seek to make their own data reusable for general purposes, but also to enrich and interlink their own data. Checking if third-party data meets own requirements or validating existing data according to new needs for a Linked Data application are among common use cases for RDF validation.
 
 In 2013, the \emph{W3C} organized the \emph{RDF Validation Workshop}\footnote{\url{http://www.w3.org/2012/12/rdf-val/}}
 where experts from industry, government, and academia discussed first RDF validation use cases. 
@@ -176,27 +175,19 @@ the \emph{W3C RDF Data Shapes Working Group}\footnote{\url{http://www.w3.org/201
 We collected the findings of these working groups and initiated a database of RDF validation requirements\footnote{Online available at \url{http://purl.org/net/rdf-validation}}
 with the intention to collaboratively collect case studies, use cases, requirements, and solutions in a comprehensive and structured way \cite{BoschEckert2014}. 
 Based on our work in the \emph{DCMI} and in cooperation with the \emph{W3C} working group,
-we published by today 81 requirements to validate RDF data and to formulate constraints; 
-%each of them corresponding to a constraint type which in most cases can be expressed by multiple constraint languages. 
-each of them corresponds to a constraint type from which concrete constraints are instantiated to be checked on RDF data. 
-%and which in most cases can be expressed by multiple constraint languages.
-%Requirements/constraint types are uniquely identified by alphanumeric technical identifiers.
-%\emph{Minimum qualified cardinality restrictions} which corresponds to the requirement \emph{R-75}, e.g., is a constraint type which corresponds to the requirement {\small\emph{R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES}}.
-We recently published a technical report (serving as first appendix of this paper) in which we explain each constraint type in detail and give examples for each represented by different constraint languages \cite{BoschNolleAcarEckert2015}.
-More than 10 constraint languages with different syntax and semantics exist or are currently developed. 
-We focus on the five most promising ones on being the standard like
-\emph{Shape Expressions (ShEx)}, \emph{Resource Shapes (ReSh)}, and \emph{Description Set Profiles (DSP)}. 
-The \emph{Web Ontology Language} \emph{(OWL)} in its current version OWL 2 can also be used as a constraint language.
-With its direct support of validation via \emph{SPARQL}, the \emph{SPARQL Inferencing Notation (SPIN)} is very popular and certainly plays an important role for the future development in this field. 
-%\emph{SPIN} is particularly interesting as a means to validate arbitrary constraint languages by mapping them to \emph{SPARQL} \cite{BoschEckert2014-2}.
+we identified by today 81 constraint types, where each type corresponds to a specific requirement in the database. In a technical report, we explain each constraint type in detail and give examples for each represented by different constraint languages \cite{BoschNolleAcarEckert2015}.
 
-\subsection{Motivation and Overview}
+Various constraint languages exist or are being developed that support more or less of these constraint types. For our work, we focus on the following four as the ones that are most popular among data practitioners, often mentioned on mailing lists and/or being candidates or prototypes for the upcoming W3C recommendation:
+\emph{Description Set Profiles (DSP)}, \emph{Resource Shapes (ReSh)}, \emph{Shape Expressions (ShEx)}, and the \emph{Web Ontology Language} \emph{(OWL)}. Despite the fact that OWL is arguably not a constraint language, it is widely used in practice as such under the closed-world and unique naming assumptions.
 
-We evaluated which constraint types the five most common constraint languages enable to express \cite{BoschNolleAcarEckert2015}.
+With its direct support of validation via \emph{SPARQL}, the \emph{SPARQL Inferencing Notation (SPIN)} is also very popular to formulate and check constraints \cite{Fuerber2010}. We consider SPIN a low-level language in contrast to the other constraint languages where specific language constructs exist to define constraints in a declarative and in comparison more intuitive way -- although SPARQL aficionados might object particularly to the latter point.
+
+The power of SPIN is shown in 
 %The evaluation is explained in detail in the appendix of this paper \cite{BoschNolleAcarEckert2015}.
-Table \ref{tab:constraint-type-specific-expressivity} shows in percentage values (and absolute numbers in brackets) how many constraint types each language supports.
+Table \ref{tab:constraint-type-specific-expressivity}, where we list the fraction (and absolute numbers in brackets) of how many constraint types each of these languages supports \cite{BoschNolleAcarEckert2015}. 
+We further see that OWL 2 is currently the most expressive high-level constraint language, at least according to the pure number of contraint types supported. This does not preclude that other constraint languages are better suited for certain applications, either because they support some types that are not supported by OWL or because the constraint representation is mroe appealing to the data practitioners -- producers as well as consumers who again might have different needs and preferences.
 
-\begin{table}[H]
+\begin{table}
 	\centering
 	  %\caption{Constraint Type Specific Expressivity}
 		\caption{Constraint Type Specific Expressivity of Constraint Languages}
@@ -210,42 +201,14 @@ Table \ref{tab:constraint-type-specific-expressivity} shows in percentage values
 	\label{tab:constraint-type-specific-expressivity}
 \end{table}
 
-The fact that \emph{SPIN} supports all and OWL 2 covers 2/3 of all constraint types
-emphasizes the significant role \emph{SPIN} and OWL 2 play for the future development of constraint languages.
-\emph{SPARQL} and therefore \emph{SPIN}, the \emph{SPARQL}-based way to formulate and check constraints, is generally seen as the method of choice to validate data according to certain constraints \cite{Fuerber2010}, 
-although, it is not ideal for their formulation. 
-In contrast, high-level constraint languages are comparatively easy to understand and constraints can be formulated more concisely.
-Declarative languages may be placed on top of \emph{SPARQL} and \emph{SPIN} when using them as implementation languages.
+We formerly demonstrated that a high-level constraint language, Description Set Profiles, can be implemented by mapping the language to SPIN using SPARQL CONSTRUCT queries \cite{BoschEckert2014-2}. We provide a validation environment where own mappings from arbitrary constraint languages can be provided and tested.\footnote{Available at \url{http://purl.org/net/rdfval-demo}, source code available at: \url{https://github.com/boschthomas/rdf-validator}.}
 
-There exists no single best solution considered as high-level intuitive constraint language which enables to express constraints in an easy and concise way and which is able to meet all requirements raised by data practitioners.
-%which can be used to express constraints and to validate RDF data, 
-%(e.g. existential and universal quantification, cardinality restrictions, and exclusive or of properties)
-%\section{Ideas}
-%constraint design patterns:
-% - ontology design pattern.org
-% - DSP uses other design pattern
-% - constraint elements are the same / 
-% - constraint / constraint elements / constraint design patterns / constraint language
-%dependency between requirements / when this requirements is fulfilled then this is also fulfilled (e.g. min card and requ. car)
-%min car more powerful than req. propery
-Thus, the idea behind this paper is to satisfy all RDF validation requirements
-by representing constraints of any constraint type in a generic way using a lightweight vocabulary which consists of only a few terms.
-We lately published a technical report (serving as second appendix of this paper) in which we describe the vocabulary in detail \cite{BoschEckert2015-2} (Section \ref{sec:vocabulary}).
-The constraint type \emph{minimum qualified cardinality restrictions} which corresponds to the requirement \emph{R-75} can be instantiated to ensure
+The creation of such mappings is in many cases not straight-forward and requires profound knowledge of SPARQL, as the following example demonstrates:
+
+The constraint type \emph{minimum qualified cardinality restrictions} which corresponds to the requirement \emph{R-75}\footnote{Requirements are identified in the database by an R and a number, additionally an alphanumeric identifier is provided, in this case R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES. Online at: \url{http://lelystad.informatik.uni-mannheim.de/rdf-validation/?q=node/82}} can be used to formulate the constraint
 that \emph{publications} must have at least one \emph{author} which must be a \emph{person}.
-%As every \emph{publication} must have at least one \emph{author} which must be a \emph{person} 
-As the book \emph{The-Lord-Of-The-Rings} is a \emph{publication}, 
-%{\small\ms{(rdf:type(The-Lord-Of-The-Rings, Publication)),}} 
-it must have at least one \emph{author} relationship to a \emph{person}.
-The constraint is violated either (1) if
-the book does not have any \emph{author} relationship, 
-or (2) if it has an \emph{author} which is not a \emph{person},
-%{\small\ms{(author(The-Lord-Of-The-Rings, Tolkien)},} {\small\ms{rdf:type(Tolkien, Hobbit)),}} 
-or (3) if it has an \emph{author} whose class is unknown.
-%{\small\ms{(author(The-Lord-Of-The-Rings, Tolkien)).}}
-%In contrast, the book is a valid \emph{publication}, if it is connected to a \emph{person} via the property \emph{author}.
-%{\small\ms{(author(The-Lord-Of-The-Rings, Tolkien)}, \ms{rdf:type(Tolkien, Person)).}}
-This constraint can either be represented generically (\emph{generic constraint}) by \emph{description logics (DL)}: {\small\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}} or specifically (\emph{specific constraint}) by multiple domain-specific constraint languages:
+
+This constraint can be expressed as follows using different constraint languages:
 
 \begin{ex}[commandchars=\\\{\}]
 \textit{OWL 2:} Publication a owl:Restriction ;
@@ -275,162 +238,57 @@ This constraint can either be represented generically (\emph{generic constraint}
 SELECT ( COUNT ( ?arg1 ) AS ?c ) WHERE \{ ?arg1 ?arg2 ?o . ?o a ?arg3 . \}
 \end{ex}
 
-The knowledge representation formalism {\em DL}, with its  well-studied theoretical properties, provides the foundational basis to express constraints in a generic way. 
-For this reason, we mapped constraint types to DL 
-in order to determine which DL constructs are needed to express constraint types \cite{BoschNolleAcarEckert2015}.
+Note that the SPIN representation is NOT a mapping, but a direct expression of the constraint using a SPARQL CONSTRUCT query that creates a spin:ConstraintViolation if the constraint is violated. The mapping for DSP is much more complicated and can be found in the mappings provided by us.\footnote{Online: \url{https://github.com/boschthomas/rdf-validation/blob/b6a275fb5d71a92ae33d3b6aadd5f447351214b7/SPIN/DSP_SPIN-Mapping.ttl#L4665}}
 
-The main contributions of this paper are:
-(1) We provide a basic terminology and classification system for RDF constraints to lay the ground for discussions on RDF validation (Section \ref{sec:vocabulary}).
-(2) As current high-level constraint languages do not support all constraint types, 
-we developed a vocabulary to describe constraints of any constraint type in a generic way and specified its underlying semantics (Section \ref{sec:vocabulary}).
-(3) We show how to enhance the interoperability of constraints expressed by different languages by using the proposed vocabulary 
-to intermediately represent constraints 
-%as an intermediate generic representation 
-which enables transformations between semantically equivalent constraints (Section \ref{sec:transformations}).
-(4) We explain how constraint languages may reuse validation implementations which are provided once for each constraint type (Section \ref{sec:validation}).
+On the other hand, it can be seen that the higher-level constraint languages are comparatively similar, there seems to be a pattern, a common way to express this type of constraint. Therefore, a mapping from a high-level language to another high-level language would be considerably easier. Unfortunately, there is not (yet) a high-level language that supports all constraint types. 
 
-\subsection{How to Improve the Interoperability of RDF Constraints}
-\label{sec:transformations}
+In this paper, we build on the experience gained from mapping several constraint languages to SPIN and from the analysis of the identified constraint types to create an intermediate layer, a framework that is able to describe the mechanics of all constraint types and that can be used to map high-level languages more easily.
 
-RDF data providers have to ensure high data quality and therefore 
-that their data conforms to constraints which may be part of contracts between data providers and consumers.
-As there is no standard way to formulate constraints, 
-semantically equivalent \emph{specific constraints}, so the \emph{minimum qualified cardinality restriction}, may be represented by a variety of languages - each of them having different syntax and semantics.
-This causes confusion and weakens the common understanding between several parties about the meaning of particular constraints.
-We propose transformations between semantically equivalent \emph{specific constraints}
-(1) to avoid the necessity to understand several languages,
-(2) to resolve misunderstandings about the meaning of particular constraints within the communication of RDF data producers and consumers, and
-(3) to enhance the interoperability of constraint languages.
+%%% DL introduction, not needed here...
+% -This constraint can either be represented generically (\emph{generic constraint}) by \emph{description logics (DL)}: {\small\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}} or
+%The knowledge representation formalism {\em DL}, with its  well-studied theoretical properties, provides the foundational basis to express constraints in a generic way. 
+%For this reason, we mapped constraint types to DL 
+%in order to determine which DL constructs are needed to express constraint types \cite{BoschNolleAcarEckert2015}.
 
-We suggest to transform a \emph{specific constraint} (\emph{$sc_{\alpha}$}) of any constraint type expressed by language \emph{$\alpha$} into a semantically equivalent \emph{specific constraint} (\emph{$sc_{\beta}$}) of the same constraint type represented by any other language \emph{$\beta$}
-by using the developed vocabulary to intermediately represent constraints in a generic way. 
-%to enable these transformations.
-By defining mappings between equivalent \emph{specific constraints} and the corresponding \emph{generic constraint} (\emph{gc}) we are able to convert them automatically: 
-{\small\ms{$ gc = m_1(sc_{\alpha}) = m_2(sc_{\beta}) $}}.
-Thereby, we do not need to define mappings between each pair of semantically equivalent \emph{specific constraints}.
-Let's assume we are able to express constraints of the \emph{minimum qualified cardinality restrictions} constraint type by 10 languages.
-Without an intermediate generic representation of constraints, we would have to define for each constraint type one mapping between each pair of \emph{specific constraints} expressed by \emph{n} languages
-- that are \emph{\( {n \choose 2} \)} mappings (\emph{\( {10 \choose 2} \)} = 45 mappings).
-With an intermediate generic representation of constraints, on the other side, we only need to define for each constraint type \emph{n} mappings 
-%(1 mapping for each \emph{specific constraint}) 
-from \emph{n} \emph{specific constraints} to the corresponding \emph{generic constraint} (10 mappings).
-%Let's assume we are able to express a particular constraint type by 5/6/7/8/9/10 constraint languages.
-%Without the intermediate \emph{generic constraint}, we would have to define for each constraint type \emph{1} mapping for each pair of \emph{specific constraints} (expressed by different constraint languages)
-%that are \emph{\( {n \choose 2} \)} mappings (10/15/21/28/36/45 mappings).
-%With an intermediate \emph{generic constraint}, however, we only need to define for each constraint type \emph{n} mappings (1 mapping for each \emph{specific constraint}) from \emph{n} \emph{specific constraints} to the corresponding \emph{generic constraint} (5/6/7/8/9/10 mappings).
-For the \emph{minimum qualified cardinality restriction}, one mapping (\emph{$m_1(sc_{OWL 2})$}, \emph{$m_2(sc_{ShEx})$}, \emph{$m_3(sc_{ReSh})$}, \emph{$m_4(sc_{DSP})$},...) is defined for each \emph{specific constraint} (\emph{$sc_{OWL 2}$}, \emph{$sc_{ShEx}$}, \emph{$sc_{ReSh}$}, \emph{$sc_{DSP}$},...) to the corresponding \emph{generic constraint} (\emph{gc}).
+% The main contributions are:
+% \begin{enumerate}
+%  \item We develop a framework to describe constraints of any constraint type in a generic way (Section \ref{sec:vocabulary}).
+%  \item We demonstrate the application of this framework by mapping different constraint language to a unified intermediate representation that is not only mapped to SPIN, but also enables transformations to semantically equivalent constraints in other high-level constraint languages (Section \ref{sec:transformations}).
+%  \item We separate the implementation of the constraint type in SPIN from its expression in a high-level constraint language which makes the implementation reusable and allows a consistent validation across constraint languages (Section \ref{sec:validation}).
+% \end{enumerate}
+% 
 
-\subsection{How to Provide the Validation of RDF Constraints Out-Of-The-Box}
-\label{sec:validation}
+\section{Motivation}
 
-We use \emph{SPIN} as basis to develop a validation environment\footnote{Online demo available at \url{http://purl.org/net/rdfval-demo}, source code available at: \url{https://github.com/boschthomas/rdf-validator}\label{rdf-validator}} to validate RDF data according to constraints of constraint types which are expressible by arbitrary constraint languages by mapping them to \emph{SPIN}\footnote{\emph{SPIN} mappings available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/SPIN}\label{spin-mappings}} \cite{BoschEckert2014-2}.
-The SPIN engine checks for each resource if it satisfies all constraints, which are associated with its assigned classes, and generates a result RDF graph containing information about all constraint violations \cite{BoschEckert2014-2}.
-The next step, however, was to extend the \emph{RDF Validator} to validate RDF data conforming to constraints of any constraint type
-by representing constraints generically using the proposed vocabulary. 
- 
-When language designers extend constraint languages 
-to be able to formulate constraints of not yet supported constraint types,
-our proposal prevents the necessity to actually implement the validation of data
-according to constraints of these constraint types for each of those languages.  
-For any constraint language, we enable to offer a validation implementation of any constraint type out-of-the-box
-%validation implementations out-of-the-box for any constraint type whose \emph{specific constraints} may be expressed by any language  
-by providing a \emph{SPIN} mapping
+Even with an upcoming W3C recommendation, it can be expected that several constraint languages will be used in practice in future -- consider the situation in the XML world, where a standardized schema language was available from the beginning and yet additional ways to formulate and check constraints have been created. Therefore, 
+semantically equivalent \emph{specific constraints} represented in different languages will exist.
+This raises two questions: 
+\begin{enumerate}
+ \item How can we ensure that two semantically equivalent constraints are actually validated consistently?
+ \item How can we support the transformation of semantically equivalent constraints from one contraint language to another?
+\end{enumerate}
+
+
+% \section{How to Provide the Validation of RDF Constraints Out-Of-The-Box}
+
+\paragraph{Consistent implementation.}
+Even though SPIN provides a convenient way to represent constraints and to validate data according to these constraints, the implementation of a high-level constraint language still requires a tedious mapping to SPIN with a certain degree of freedom as to how a constraint violation is actually represented and how exactly the violation of the contraint is checked.
+Our framework therefore proides a common ground that is solely based on the abstract definitions of the constraint types, as identified in our database. By providing a \emph{SPIN} mapping
 %generic validation implementations once 
-for each constraint type\footnote{RDF-CV to SPIN online available at: \url{https://github.com/boschthomas/RDF-CV-2-SPIN}\label{RDF-CV-2-SPIN}}  
-whose constraints are represented generically \cite{BoschEckert2015-2}.
-%(2) by transforming \emph{specific constraints} into the appropriate \emph{generic constraint}.  
-All what language designers need to do is to specify for each constraint type they want to cover one mapping from the \emph{specific constraint} expressed by the language to the corresponding \emph{generic constraint}.
-19 of the overall 81 constraint types are expressible by at least four constraint languages \cite{BoschNolleAcarEckert2015}.
-This means that for these 19 constraint types there must be 76 implementations (four for each constraint type) to actually validate RDF data according to 76 \emph{specific constraints} - instead of only 19 implementations (one for each \emph{generic constraint}). 
-%which lead for each constraint type to identical validation results independently from the language used to formulate the \emph{specific constraints}.
-Our proposal makes sure that the validation on semantically equivalent \emph{specific constraints} expressed by different languages
-leads to exactly the same validation results, 
-i.e., that validation is performed independently from the used language.
-This is not the case, however, for existing languages due to differences in semantics and since they are implemented independently form each other.
+for each constraint type\footnote{RDF-CV to SPIN online available at: \url{https://github.com/boschthomas/RDF-CV-2-SPIN}\label{RDF-CV-2-SPIN}}, it is ensured that the details of the SPIN implementation are consistent irrespective of the constraint language and that the validation leads always to exactly the same results.  
 
-%When domain experts use graphical user interfaces to define constraints in a user-friendly way (without the necessity to express constraints on their own), 
-%constraints can be mapped to either a specific or a generic constraint, as for both the validation is provided in the background.    
-%So, the user does not have to know how to express specific constraints using any constraint language.
 
-%Existing constraint languages can be extended and new constraint languages can be developed, if existing constraint languages are not sufficient to represent needed constraint types.
+\paragraph{Constraint transformations.} Consistent implementations of constraint languages provide some advantage, but it could be argued that they are not important enough to justify the additional layer. The situation, however, is different when transformations from one constraint language to another are desired, i.e., to transform a \emph{specific constraint} (\emph{$sc_{\alpha}$}) of any constraint type expressed by language \emph{$\alpha$} into a semantically equivalent \emph{specific constraint} (\emph{$sc_{\beta}$}) of the same constraint type represented by any other language \emph{$\beta$}.
+By defining mappings between equivalent \emph{specific constraints} and the corresponding \emph{generic constraint} (\emph{gc}) we are able to convert them automatically: 
+\begin{align*}
+  gc &=  m_1(sc_{\alpha}) \\
+  sc_{\beta} &= m_2'(gc) 
+\end{align*}
 
-%If (1) a new constraint type is expressed generically, (2) the \emph{generic constraint type} is mapped to \emph{specific constraint types} (expressed by constraint languages), and (3) the validation is implemented for this particular \emph{generic constraint type},
-%the validation of \emph{specific constraint types} is provided out of the box.
-%As a consequence, constraint language designers do not have to implement the validation of their constraint languages and each semantically equivalent \emph{specific constraint type} is validated the same way (i.e. leading to identical validation results).
+Thereby, we do not need to define mappings for each constraint type and each possible combination of constraint languages. Assuming that we are able to express a single constraint type like \emph{minimum qualified cardinality restrictions} within 10 languages, $n \cdot n-1 = 90$ mappings would be needed -- as mapping generally are not invertible. 
+With an intermediate generic representation of constraints, on the other side, we only need to define for each constraint type $2n = 20$ mappings -- where $10$ mappings should already exist if we have an implementation in our framework. 
+To summarize, if language developers are willing to provide two mappings -- forward and backward -- to our framework for each supported constraint type, we not only would get the consistent implementation of all languages, it would also be possible to transform semantically equivalent constraints into all constraint languages.
 
-%This paper aims to address two main \textbf{audiences}:
-%(1) RDF data providers and consumers seeking how to ensure high data quality and thus for ways to enhance the interoperability and common understanding of constraints expressible by multiple constraint languages and  
-%(2) RDF practitioners thinking of how to provide aligned implementations for the validation of both existing an newly developed constraint languages.
-
-%(if the validation is implemented once for the corresponding \emph{generic constraint type} to which the \emph{specific constraint type} is mapped)
-
-%The remainder of the paper is as follows.
-
-%\begin{itemize}
-	%\item Any specific constraint (expressed by any constraint language) can be transformed into a generic constraint (expressed by the generic constraint language)
-	%\item Any specific constraint (expressed by any constraint language A) can be transformed into any specific constraint (expressed by any constraint language B)
-	%\item Any specific constraint (expressed by any constraint language) can be validated automatically (if an automatic validation is defined only once for corresponding generic constraint)
-	%\item We define a basic terminology and classification system for RDF constraints
-	%\item We developed an ontology describing any RDF constraint generically (whether expressible in DL or not)%which can also be expressed by any constraint language
-	%\item We present that any RDF constraint can be described by the developed ontology - whether the constraint can be expressed in DL or not 
-	%\item We show how to transform specific constraints (expressed by any constraint language \ms{$\alpha$}) into generic constraints and into specific constraints (expressed by any other constraint language \ms{$\beta$})
-  %\item We explain that any specific constraint can be validated automatically (if the validation is implemented only once for the corresponding generic constraint)
-%\end{itemize}
-
-%The \textbf{benefits} of our framework are:
-%\begin{itemize}
-	%\item Any specific constraint (expressed by any constraint language) can be transformed into a generic constraint (expressed by the generic constraint language)
-	%\item Any specific constraint (expressed by any constraint language A) can be transformed into any specific constraint (expressed by any constraint language B)
-	%\item Any specific constraint (expressed by any constraint language) can be validated automatically (if an automatic validation is defined only once for corresponding generic constraint)
-%\end{itemize}
-
-%\section{Running Example}
-%
-%Table \ref{tab:cardinality-restriction-mapped-to-vocabulary} shows the mapping between the \emph{cardinality restriction} represented in DL 
-%and the \emph{cardinality restriction} expressed by our developed vocabulary to describe any RDF constraint generically (see section~\ref{sec:ontology}):
-%
-%\begin{table}
-  %\scriptsize
-  %\sffamily
-  %\vspace{0cm}
-	%\centering
-		%\begin{tabular}{l|l|l|l|l|l|l}
-      %\textbf{c. type} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
-      %\hline
-      %property & Publication & author & - & Person & $\geq$ & 1 \\
-		%\end{tabular}
-	%\caption{Cardinality Restriction Expressed Generically}
-	%\label{tab:cardinality-restriction-mapped-to-vocabulary}
-%\end{table}
-
-%According to this vocabulary, each constraint is either a constraint on classes or a constraint on properties.
-%The generically expressed cardinality restriction is represented in RDF as follows:
-%
-%\begin{ex}
-%[   a PropertyConstraint ;
-    %contextClass Publication ;
-    %leftProperties ( author ) ;
-    %classes ( Person ) ;
-    %constrainingElement ">=" ;
-    %constrainingValue 1 ] .
-%\end{ex}
-
-%Bosch and Eckert\cite{BoschEckert2014-2} use SPIN as basis to define a
-%validation environment in which the validation of any constraint language\footnote{The only limitation is that constraint languages must be represented in RDF} can be implemented by representing them in SPARQL. 
-%The SPIN engine checks for each resource if it satisfies all constraints (associated with its assigned classes) and generates a result RDF graph containing information about all constraint violations.
-%The generically expressed \emph{cardinality restriction} above is validated within the validation environment (see section \ref{sec:validation}) by means of a SPARQL CONSTRUCT query.
-
-%\begin{ex}
-%[   a PropertyConstraint ;
-    %contextClass ?cc ;
-    %leftProperties ( ?p1 ) ;
-    %classes ( ?c1 ) ;
-    %constrainingElement ">=" ;
-    %constrainingValue ?cv ] .
-%?subject rdf:type ?cc .
-%BIND ( qualifiedCardinality( ?subject, ?p1, ?c1 ) AS ?c ) .
-%FILTER ( ?c < ?cv ) .		  
-%\end{ex}
 
 \section{A Vocabulary to Describe RDF Constraints of any RDF Constraint Type} 
 \label{sec:vocabulary}
