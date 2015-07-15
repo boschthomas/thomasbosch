@@ -662,7 +662,7 @@ For research institutes, data libraries, and data archives,
 RDF data validation according to predefined constraints is a much sought-after feature, 
 particularly as this is taken for granted in the XML world.
 Based on our work in the DCMI RDF Application Profiles Task Group and in cooperation with the W3C Data Shapes Working Group, we identified and published by today 82 types of constraints that are required by various stakeholders for data applications.
-In this paper, we formulate 213 constraints of 53 different types on three different vocabularies (DDI-RDF, QB, and SKOS) and classify them according to the complexity level of their type and their severity level. For 114 of these constraints, we evaluate the data quality of 15,694 data sets (4.26 billion triples) of research data for the social, behavioural, and economic (\emph{SBE}) sciences obtained from 33 SPARQL endpoints.
+In this paper, we formulate 213 constraints of 53 different types on three different vocabularies (DDI-RDF, QB, and SKOS) and classify them according to the complexity level of their type and their severity level. For 115 of these constraints, we evaluate the data quality of 15,694 data sets (4.26 billion triples) of research data for the social, behavioural, and economic (\emph{SBE}) sciences obtained from 33 SPARQL endpoints.
 Based on the results, we formulate several hypotheses to direct the further development of constraint languages.\textcolor{red}{81 constraint types instead of 82?}
 \end{abstract}
 % IEEEtran.cls defaults to using nonbold math in the Abstract.
@@ -710,8 +710,8 @@ and reuse data collected and archived for research \cite{Vardigan2008}.
 %the International Household Survey Network community (made up of more than 90 statistical agencies),
 %and ICPSR - the largest SBE data archive in the US.
 In XML, the definition of schemas containing data constraints and the validation of data according to these constraints is commonly used to ensure a certain level of data quality.
-With the rise of the Web of Data, data professionals and institutions are very interested in having their data be discovered and used by publishing their data directly in RDF or at least publish accurate metadata about their data to facilitate data integration. Therefore, not only established vocabularies like SKOS are used; 
-recently, members of the \emph{SBE} and Linked Data community developed with the \emph{DDI-RDF Discovery Vocabulary (Disco)}\footnote{\url{http://rdf-vocabulary.ddialliance.org/discovery.html}} a means to expose \emph{DDI} metadata as Linked Data. 
+With the rise of the Web of Data, data professionals and institutions are very interested in having their data be DDI-RDFvered and used by publishing their data directly in RDF or at least publish accurate metadata about their data to facilitate data integration. Therefore, not only established vocabularies like SKOS are used; 
+recently, members of the \emph{SBE} and Linked Data community developed with the \emph{DDI-RDF DDI-RDFvery Vocabulary (DDI-RDF)}\footnote{\url{http://rdf-vocabulary.ddialliance.org/DDI-RDFvery.html}} a means to expose \emph{DDI} metadata as Linked Data. 
 
 For constraint formulation and validation of RDF data, several languages exist or are currently developed, like \emph{Shape Expressions}, \emph{Resource Shapes} or \emph{Description Set Profiles}. \emph{OWL 2} is also used as a constraint language under a closed world assumption. With its direct support of validation via SPARQL, SPIN%\footnote{\url{http://spinRDF.org/}}
 is very popular and certainly plays an important role for future developments in this field. It is particularly interesting as a means to validate arbitrary constraint languages by mapping them to SPARQL \cite{BoschEckert2014-2}. Yet, there is no clear favorite and none of the languages is able to meet all requirements raised by data practitioners. Further research and development therefore is needed.
@@ -733,7 +733,7 @@ over types that are simply stated using common constraint languages (e.g., langu
 (e.g., constraints on graph-based structures) (Section \ref{classification}).
 
 As we do not want to base our conclusions on the evaluations of vocabularies and constraint definitions alone, we conducted a large-scale experiment.
-For 114 constraints, we evaluated the data quality of 15,694 data sets (4.26 billion triples) of \emph{SBE} research data on three common vocabularies in \emph{SBE} sciences (DDI-RDF, QB, SKOS) obtained from 33 SPARQL endpoints.
+For 115 constraints, we evaluated the data quality of 15,694 data sets (4.26 billion triples) of \emph{SBE} research data on three common vocabularies in \emph{SBE} sciences (DDI-RDF, QB, SKOS) obtained from 33 SPARQL endpoints.
 %evaluated the data quality of 15,694 data sets (4.26 billion triples) of research data for the social, behavioural, and economic (\emph{SBE}) sciences obtained from 33 SPARQL endpoints.
 Based on the evaluation results,
 we formulated several hypotheses to direct the further development of constraint languages.
@@ -843,7 +843,7 @@ covering the first three constraints may be sufficient,
 i.e., the violation of the first three constraints is more serious than the violation of the last constraint.
 If the intention of the researcher is to perform more sophisticated comparisons (use case 2), however, the user may raise the severity level of the last constraint.
  
-%\ke{Wieso werden constraints nur gechecked wenn variablen auf vergleichbarkeit geprüft werden? das habt ihr doch gar nicht gemacht sondern ganz allgemein constraints für vokabulare aufgestellt. Ist QB und Disco nicht sowieso unabhängig von konkreten Variablen?}\tb{das soll nur ein beipsiel sein, wann eine komplexere validierung im kontext von sbe sinn macht (1) + (2) sind vocabulary constraints und (3) + (4) sind complex constraints}
+%\ke{Wieso werden constraints nur gechecked wenn variablen auf vergleichbarkeit geprüft werden? das habt ihr doch gar nicht gemacht sondern ganz allgemein constraints für vokabulare aufgestellt. Ist QB und DDI-RDF nicht sowieso unabhängig von konkreten Variablen?}\tb{das soll nur ein beipsiel sein, wann eine komplexere validierung im kontext von sbe sinn macht (1) + (2) sind vocabulary constraints und (3) + (4) sind complex constraints}
  
 %After validating the metadata according to these constraints, portals offer added values to their customers, e.g., by searching over and comparing metadata of multiple providers. 
 
@@ -924,7 +924,7 @@ where each cycle produces one or more data sets.
 %\emph{Missy} is an online service platform that provides systematically structured metadata for official statistics on European person-level data sets. 
 %This includes data documentation at the study and variable level as well as documentation materials, tools and further information. 
 %\ke{Wieso jetzt wieder qb?}\tb{ich möchte zeigen wie aggregierte daten und personenbezogene daten in RDF verbunden sind. Weglassen?}
-%Aggregated (qb:DataSet) and underlying person-level data sets (\emph{disco:LogicalDataSet}) are connected by \emph{prov:wasDerivedFrom}. 
+%Aggregated (qb:DataSet) and underlying person-level data sets (\emph{DDI-RDF:LogicalDataSet}) are connected by \emph{prov:wasDerivedFrom}. 
 The aggregated variable \emph{formal childcare} is calculated on the basis of six person-level variables 
 (e.g., \emph{Education at pre-school})
 %\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC/2011/Cross-sectional/original#2011-Cross-sectional-RL010}})
@@ -937,11 +937,11 @@ for which detailed metadata is given
 %(definitions, descriptions, theoretical concepts, questions variables are based on, code lists, frequencies, descriptive statistics, countries, year of data collection, and classifications) 
 (e.g., code lists)
 enabling researchers to replicate the results shown in aggregated data tables.
-The \emph{DDI-RDF Discovery Vocabulary (Disco)} is a vocabulary to represent metadata on person-level data in RDF.
-The series (\emph{disco:StudyGroup}) \emph{EU-SILC} contains one study (\emph{disco:Study}) for each year (\emph{dcterms:temporal}) of data collection.   
+The \emph{DDI-RDF DDI-RDFvery Vocabulary (DDI-RDF)} is a vocabulary to represent metadata on person-level data in RDF.
+The series (\emph{DDI-RDF:StudyGroup}) \emph{EU-SILC} contains one study (\emph{DDI-RDF:Study}) for each year (\emph{dcterms:temporal}) of data collection.   
 \emph{dcterms:spatial} points to the countries for which the data has been collected.
-The study \emph{EU-SILC 2011} contains eight person-level data sets (\emph{disco:LogicalDataSet})
-including person-level variables (\emph{disco:Variable}) like the six ones needed to calculate the aggregated variable \emph{formal childcare}.
+The study \emph{EU-SILC 2011} contains eight person-level data sets (\emph{DDI-RDF:LogicalDataSet})
+including person-level variables (\emph{DDI-RDF:Variable}) like the six ones needed to calculate the aggregated variable \emph{formal childcare}.
 %Metadata on person-level data enables researchers to investigate further research questions based on promising findings of other researchers in form of aggregated data.
 %One common research question is ,e.g., the comparison of variables like 
 %\emph{formal childcare} between countries, for which the variable is collected within the context of an individual study, and other European or non European countries (e.g. OSCE).
@@ -956,7 +956,7 @@ A variable may be associated with a theoretical concept (\emph{skos:Concept}).
 \emph{skos:narrower} builds the hierarchy of theoretical concepts within a \emph{skos:Concept} \emph{Scheme} of a series.
 The variable \emph{Education at pre-school} is assigned to the theoretical concept \emph{Child Care} which is the narrower concept of \emph{Education} - one of the top concepts of the series \emph{EU-SILC}.
 Controlled vocabularies (\emph{skos:ConceptScheme}), serving as extension and reuse mechanism,
-organize types (\emph{skos:Concept}) of descriptive statistics (\emph{disco:SummaryStatistics}) like minimum, maximum, and arithmetic mean.
+organize types (\emph{skos:Concept}) of descriptive statistics (\emph{DDI-RDF:SummaryStatistics}) like minimum, maximum, and arithmetic mean.
 \emph{XKOS}\footnote{\url{https://github.com/linked-statistics/xkos}} is a SKOS extension to describe formal statistical classifications like the International Standard Classification of Occupations (\emph{ISCO}). 
 and the Statistical Classification of Economic Activities in the European Community \emph{NACE}.
 \emph{DCAT} enables to represent data sets inside of data collections like portals, repositories, catalogs, and archives
@@ -986,7 +986,7 @@ Within a technical report serving as first appendix of this paper we explain eac
 
 %Constraints are instantiated from constraint types in order to validate both metadata and data represented by any vocabulary; thus, the proposed classification system is vocabulary-independent and therefore applicable generically.
 
-The classification of the 114 concrete constraints on three vocabularies according to severity levels is published in a second technical report serving as second appendix of this paper \cite{BoschZapilkoWackerowEckert2015}.
+The classification of the 115 concrete constraints on three vocabularies according to severity levels is published in a second technical report serving as second appendix of this paper \cite{BoschZapilkoWackerowEckert2015}.
 In the following, we summarize the results for the purpose of our evaluation.
 
 \subsection{Classification of Constraint Types according to the Expressivity of Constraint Languages}
@@ -1048,7 +1048,7 @@ It does not make sense to determine the severity of constraint violations of an 
 as the severity of the violation of a constraint depends on the individual context and vocabulary.
 %as the violation of one constraint may be severe,
 %whereas, the violation of another constraint of the same type may be minor.
-\emph{SBE} experts determined the default \emph{severity level}\footnote{The possibility to define severity levels in vocabularies is in itself a requirement (\emph{R-158}).} for each of the 114 constraints to indicate how serious the violation of the constraint is. We use the classification system of log messages in software development like \emph{Apache Log4j 2} \cite{Apache-2015}, the \emph{Java Logging API}\footnote{\url{http://docs.oracle.com/javase/7/docs/api/java/util/logging/Level.html}}, and the \emph{Apache Commons Logging API}\footnote{\url{http://commons.apache.org/proper/commons-logging/}} as many data practitioners also have experience in software development and software developers intuitively understand these levels. We simplify this commonly accepted classification system and distinguish the three severity levels \emph{informational}, \emph{warning} and \emph{error}.
+\emph{SBE} experts determined the default \emph{severity level}\footnote{The possibility to define severity levels in vocabularies is in itself a requirement (\emph{R-158}).} for each of the 115 constraints to indicate how serious the violation of the constraint is. We use the classification system of log messages in software development like \emph{Apache Log4j 2} \cite{Apache-2015}, the \emph{Java Logging API}\footnote{\url{http://docs.oracle.com/javase/7/docs/api/java/util/logging/Level.html}}, and the \emph{Apache Commons Logging API}\footnote{\url{http://commons.apache.org/proper/commons-logging/}} as many data practitioners also have experience in software development and software developers intuitively understand these levels. We simplify this commonly accepted classification system and distinguish the three severity levels \emph{informational}, \emph{warning} and \emph{error}.
 %According to the default severity level of constraints, the complete set of constraints encompasses three disjoint \emph{sets of constraints}:\ke{auch dieser satz macht keinen sinn für mich, ebensowenig wie die extrem erhellende auflistung, die gleich folgt... mein vorschlag von eben kann das komplett ersetzen.}
 %\begin{itemize}
 	%\item \textbf{\emph{informational constraints}}: constraints with severity level \emph{informational}
@@ -1094,10 +1094,10 @@ Note that there is a correlation between the severity of a constraint and the cl
 %Out-dated classes and properties of previous vocabulary versions can be marked as deprecated.
 %The constraint types \emph{context-specific valid classes and properties} (\emph{R-209; R-210}) can be used to specify which classes and properties are valid in which context - here a given vocabulary version.
 %\emph{Value is valid for datatype} (\emph{R-223}) constraints serve to make sure that all literal values are valid with regard to their datatypes - as stated in the vocabularies.
-%Thus, it is checked that all date values (e.g., {{\em dcterms:date}) are actually of the datatype \emph{xsd:date} and that \emph{xsd:nonNegativeInteger} values (e.g. \emph{disco:frequency}) are not negative\footnote{For simplicity reasons, we only assign severity levels to \emph{vocabulary constraints} if they differ from \emph{error}.}.
+%Thus, it is checked that all date values (e.g., {{\em dcterms:date}) are actually of the datatype \emph{xsd:date} and that \emph{xsd:nonNegativeInteger} values (e.g. \emph{DDI-RDF:frequency}) are not negative\footnote{For simplicity reasons, we only assign severity levels to \emph{vocabulary constraints} if they differ from \emph{error}.}.
 %Depending on property datatypes, two different literal values have
 %a specific ordering with respect to operators like \textless  (\emph{R-43: literal value comparison}).
-%Start dates (\emph{disco:startDate}), e.g., must be before (\emph{\textless}) end dates (\emph{disco:endDate}).
+%Start dates (\emph{DDI-RDF:startDate}), e.g., must be before (\emph{\textless}) end dates (\emph{DDI-RDF:endDate}).
 
 %All properties, not having the same domain and range types, are defined to be pairwise disjoint
 %(\emph{R-9: disjoint properties}), i.e., no individual \emph{x} can be connected to an individual/literal \emph{y} by disjoint properties (e.g., \emph{phdd:isStructuredBy} and \emph{phdd:column}).
@@ -1107,7 +1107,7 @@ Note that there is a correlation between the severity of a constraint and the cl
 \textcolor{red}{severity levels assigned for each constraint?}
 It is a common requirement to narrow down the value space of properties by an exhaustive enumeration of valid values (\emph{R-30/37: allowed values}):
 %\emph{Allowed values} (\emph{R-30, R-37}) for properties can be IRIs (matching one or multiple patterns), any literals, allowed literals (e.g. 'red' 'blue' 'green'), and typed literals of one or multiple type(s) (e.g. \emph{xsd:string}). 
-\emph{disco:CategoryStatistics}, e.g., can only have \emph{disco:computationBase} relationships to the values \emph{valid} and \emph{invalid} of the datatype \emph{rdf:langString} (default severity level: \emph{error}).
+\emph{DDI-RDF:CategoryStatistics}, e.g., can only have \emph{DDI-RDF:computationBase} relationships to the values \emph{valid} and \emph{invalid} of the datatype \emph{rdf:langString} (default severity level: \emph{error}).
 %Validation should \emph{exploit sub-super relations} in vocabularies (\emph{R-224}).
 %If \emph{dcterms:coverage} and one of its sub properties (\emph{dcterms:spatial}, \emph{dcterms:temporal}) are given,
 %it is checked that \emph{dcterms:coverage} is not redundant with its sub-properties 
@@ -1159,7 +1159,7 @@ Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships
 %Every \emph{qb:SliceKey}, e.g., must be associated with (\emph{qb:sliceKey}) a \emph{qb:DataStructureDefinition} (\ms{SliceKey $\sqsubseteq$ $\exists$ sliceKey$^{-}$.DataStructureDefinition}).
 %\emph{Minimum/maximum/exact qualified cardinality restrictions} (\emph{R-74, R-75, R-76}) contain all those individuals that are connected by a property to at least/at most/exactly n different individuals/literals of particular classes or data ranges.
 %A \emph{phdd:TableStructure} has (\emph{phdd:column}) at least one \emph{phdd:Column},
-%a \emph{disco:Variable} has at most one \emph{disco:concept} relationship to a theoretical concept (\emph{skos:Concept}), and a \emph{qb:DataSet} is structured by (\emph{qb:structure}) exactly one \emph{qb:DataStructureDefinition}.
+%a \emph{DDI-RDF:Variable} has at most one \emph{DDI-RDF:concept} relationship to a theoretical concept (\emph{skos:Concept}), and a \emph{qb:DataSet} is structured by (\emph{qb:structure}) exactly one \emph{qb:DataStructureDefinition}.
 %\begin{DL}
 %TableStructure $\sqsubseteq$ $\geq$1 column.Column \\
 %Variable $\sqsubseteq$ $\leq$1 concept.Concept \\
@@ -1170,7 +1170,7 @@ Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships
 %%\textbf{Validation and Reasoning.}
 %Some constraint types enable performing reasoning prior to validation which may resolve or cause constraint violations.
 %With \emph{subsumption} (\emph{R-100}), one can state that \emph{xkos:ClassificationLevel} is a sub-class of \emph{skos:Collection}, i.e., each \emph{xkos:ClassificationLevel} must also be part of the \emph{skos:Collection} class extension.
-%With \emph{sub properties} (\emph{R-54, R-64}), one can state that \emph{disco:fundedBy} is a sub-property of \emph{dcterms:contributor} - i.e., if a study is funded by an organization, then this organization contributed to this study.
+%With \emph{sub properties} (\emph{R-54, R-64}), one can state that \emph{DDI-RDF:fundedBy} is a sub-property of \emph{dcterms:contributor} - i.e., if a study is funded by an organization, then this organization contributed to this study.
 %\begin{DL}
 %ClassificationLevel $\sqsubseteq$ Collection \\
 %fundedBy $\sqsubseteq$ contributor
@@ -1214,15 +1214,15 @@ Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships
 %\end{DL}
 %\end{center}
 %
-%As we know that only person-level data sets (\emph{disco:LogicalDataSet}) can derive (\emph{disco:aggregation}) aggregated data sets (\emph{qb:DataSet}), 
-%{\em logical-data-set} is a \emph{disco:LogicalDataSet}, 
+%As we know that only person-level data sets (\emph{DDI-RDF:LogicalDataSet}) can derive (\emph{DDI-RDF:aggregation}) aggregated data sets (\emph{qb:DataSet}), 
+%{\em logical-data-set} is a \emph{DDI-RDF:LogicalDataSet}, 
 %and \emph{aggregated-data-set} is derived from \emph{logical-data-set},
 %we conclude that \emph{aggregated-data-set} must be a \emph{qb:DataSet}.
 %As \emph{aggregated-data-set} is not explicitly defined to be a \emph{qb:DataSet}, however, a constraint violation is raised.
 %If we perform reasoning prior to validation, the constraint violation is resolved, as the implicit triple \ms{qb:DataSet(aggregated-data-set)} is inferred. 
 %
 %Reasoning may also cause constraint violations which are needed to enhance data quality.
-%With \emph{subsumption} (\emph{R-100}), one can state that \emph{disco:LogicalDataSet} is a sub-class of \emph{dcat:DataSet}, 
+%With \emph{subsumption} (\emph{R-100}), one can state that \emph{DDI-RDF:LogicalDataSet} is a sub-class of \emph{dcat:DataSet}, 
 %i.e., each person-level data set is also a catalog data set.
 %Thus, constraints on catalog data sets are also validated for person-level data sets;
 %e.g., the \emph{existential quantification} below restricting that person-level data sets must have a distribution: 
@@ -1254,9 +1254,9 @@ Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships
 %\end{DL}
 %\end{center}
 %
-%By stating that \emph{disco:fundedBy} is a sub property of \emph{dcterms:contributor},
+%By stating that \emph{DDI-RDF:fundedBy} is a sub property of \emph{dcterms:contributor},
 %the {\em sub property} (\emph{R-54, R-64}) above assures that if a series is funded by an organization, then the organization must also contribute to the series.
-%In case the \emph{sub-property} is applied without reasoning and $\mathcal{K}$ contains the triple \ms{disco:fundedBy} \ms{(EU-SILC,} \ms{organization)},
+%In case the \emph{sub-property} is applied without reasoning and $\mathcal{K}$ contains the triple \ms{DDI-RDF:fundedBy} \ms{(EU-SILC,} \ms{organization)},
 %a constraint violation is thrown if $\mathcal{K}$ does not explicitly include the triple \ms{dcterms:contributor} \ms{(EU-SILC,} \ms{organization)}.
 %If the \emph{sub property} is applied with reasoning, on the other side, the latter triple is derived which resolves the constraint violation.
 
@@ -1266,8 +1266,8 @@ Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships
 
 %\emph{Asymmetric object properties} (\emph{R-62}) restrict that if individual \emph{x} is connected by the object property \emph{OP} to individual \emph{y}, then \emph{y} cannot be connected by \emph{OP} to \emph{x}. 
 %Such constraints are defined for each object property for which a semantically equivalent object property pointing from the other direction would also be possible but is not defined within the vocabulary.
-%A \emph{disco:Variable}, e.g., may be based on (\emph{disco:basedOn}) a \emph{disco:RepresentedVariable}.
-%A \emph{disco:RepresentedVariable}, however, cannot be based on a \emph{disco:Variable} (\ms{$disco:basedOn \sqcap disco:basedOn^{-} \sqsubseteq \bot$}).
+%A \emph{DDI-RDF:Variable}, e.g., may be based on (\emph{DDI-RDF:basedOn}) a \emph{DDI-RDF:RepresentedVariable}.
+%A \emph{DDI-RDF:RepresentedVariable}, however, cannot be based on a \emph{DDI-RDF:Variable} (\ms{$DDI-RDF:basedOn \sqcap DDI-RDF:basedOn^{-} \sqsubseteq \bot$}).
 
 %\emph{Property domain} (\emph{R-25, R-26}) and \emph{range} (\emph{R-28, R-35}) constraints restrict domains and ranges of properties.
 %Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships and
@@ -1293,7 +1293,7 @@ Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships
 %Every \emph{qb:SliceKey}, e.g., must be associated with (\emph{qb:sliceKey}) a \emph{qb:DataStructureDefinition} (\ms{SliceKey $\sqsubseteq$ $\exists$ sliceKey$^{-}$.DataStructureDefinition}).
 %\emph{Minimum/maximum/exact qualified cardinality restrictions} (\emph{R-74, R-75, R-76}) contain all those individuals that are connected by a property to at least/at most/exactly n different individuals/literals of particular classes or data ranges.
 %A \emph{phdd:TableStructure} has (\emph{phdd:column}) at least one \emph{phdd:Column},
-%a \emph{disco:Variable} has at most one \emph{disco:concept} relationship to a theoretical concept (\emph{skos:Concept}), and a \emph{qb:DataSet} is structured by (\emph{qb:structure}) exactly one \emph{qb:DataStructureDefinition}.
+%a \emph{DDI-RDF:Variable} has at most one \emph{DDI-RDF:concept} relationship to a theoretical concept (\emph{skos:Concept}), and a \emph{qb:DataSet} is structured by (\emph{qb:structure}) exactly one \emph{qb:DataStructureDefinition}.
 %DATA-CUBE-C-MINIMUM-QUALIFIED-CARDINALITY-RESTRICTIONS-
 %02: Unique data set (IC-1 [3]) - Every qb:Observation has (qb:dataSet) ex-
 %actly one associated qb:DataSet (Observation  ¥1 dataSet.DataSet [
@@ -1320,10 +1320,10 @@ Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships
 %%Out-dated classes and properties of previous vocabulary versions can be marked as deprecated.
 %%The constraint types \emph{context-specific valid classes and properties} (\emph{R-209; R-210}) can be used to specify which classes and properties are valid in which context - here a given vocabulary version.
 %\emph{Value is valid for datatype} (\emph{R-223}) constraints serve to make sure that all literal values are valid with regard to their datatypes - as stated in the vocabularies.
-%Thus, it is checked that all date values (e.g., {{\em dcterms:date}, \em disco:startDate}, {\em disco:endDate}) are actually of the datatype \emph{xsd:date} and that \emph{xsd:nonNegativeInteger} values (e.g. \emph{disco:frequency}) are not negative.
+%Thus, it is checked that all date values (e.g., {{\em dcterms:date}, \em DDI-RDF:startDate}, {\em DDI-RDF:endDate}) are actually of the datatype \emph{xsd:date} and that \emph{xsd:nonNegativeInteger} values (e.g. \emph{DDI-RDF:frequency}) are not negative.
 %Depending on property datatypes, two different literal values have
 %a specific ordering with respect to operators like \textless  (\emph{R-43: literal value comparison}).
-%Start dates (\emph{disco:startDate}), e.g., must be before (\emph{\textless}) end dates (\emph{disco:endDate}).
+%Start dates (\emph{DDI-RDF:startDate}), e.g., must be before (\emph{\textless}) end dates (\emph{DDI-RDF:endDate}).
 %
 %\begin{center}
 %\begin{DL} 
@@ -1342,7 +1342,7 @@ Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships
 %i.e., individuals cannot be instances of multiple disjoint classes.
 %It is a common requirement to narrow down the value space of properties by an exhaustive enumeration of valid values (\emph{R-30/37: allowed values}). 
 %%\emph{Allowed values} (\emph{R-30, R-37}) for properties can be IRIs (matching one or multiple patterns), any literals, allowed literals (e.g. 'red' 'blue' 'green'), and typed literals of one or multiple type(s) (e.g. \emph{xsd:string}). 
-%\emph{disco:CategoryStatistics}, e.g., can only have \emph{disco:computationBase} relationships to the values \emph{valid} and \emph{invalid} of the datatype \emph{rdf:langString}.
+%\emph{DDI-RDF:CategoryStatistics}, e.g., can only have \emph{DDI-RDF:computationBase} relationships to the values \emph{valid} and \emph{invalid} of the datatype \emph{rdf:langString}.
 %Validation should \emph{exploit sub-super relations} in vocabularies (\emph{R-224}).
 %If \emph{dcterms:coverage} and one of its sub-properties (\emph{dcterms:spatial}, \emph{dcterms:temporal}) are given,
 %it is checked that \emph{dcterms:coverage} is not redundant with its sub-properties 
@@ -1364,17 +1364,17 @@ restrict individuals of given classes to have properties defined within exactly 
 \emph{skos:Concept}s can have either \emph{skos:definition} (when interpreted as theoretical concepts) or \emph{skos:notation} and \emph{skos:prefLabel} properties (when interpreted as codes), but not both (\emph{error}).
 
 \textcolor{red}{\emph{Default values}} (\emph{R-31, R-38}) for objects/literals of given properties are inferred automatically when properties are not present in the data.
-The value \emph{true} for the property {\em disco:isPublic} indicates that a {\em disco:LogicalDataSet} can be accessed by anyone.
+The value \emph{true} for the property {\em DDI-RDF:isPublic} indicates that a {\em DDI-RDF:LogicalDataSet} can be accessed by anyone.
 Per default, however, access to data sets should be restricted (\emph{false}) ($\mathcal{SL}_{0}$).
 Many properties are not necessarily required but \emph{recommended} within a particular context (\emph{R-72}).
-The property {\em skos:notation}, e.g., is not mandatory for {\em disco:Variable}s, but recommended to represent variable names ($\mathcal{SL}_{0}$).
+The property {\em skos:notation}, e.g., is not mandatory for {\em DDI-RDF:Variable}s, but recommended to represent variable names ($\mathcal{SL}_{0}$).
 
 Depending on property datatypes, two different literal values have
 a specific ordering with respect to operators like \textless  (\textcolor{red}{\emph{R-43: literal value comparison}}).
-Start dates (\emph{disco:startDate}), e.g., must be before (\emph{\textless}) end dates (\emph{disco:endDate}).
+Start dates (\emph{DDI-RDF:startDate}), e.g., must be before (\emph{\textless}) end dates (\emph{DDI-RDF:endDate}).
 
 Percentage values are only valid when they are within the literal range of 0 and 100 (\emph{R-45: literal ranges}; \emph{error})
-which is checked for \emph{disco:percentage} standing for the number of cases of a given code in relation to the total number of cases for a particular variable.
+which is checked for \emph{DDI-RDF:percentage} standing for the number of cases of a given code in relation to the total number of cases for a particular variable.
 
 %\begin{center}
 %\begin{DL} 
@@ -1419,8 +1419,8 @@ and no two \emph{qb:Observations} in the same \emph{qb:DataSet}
 can have the same value for all dimensions (\emph{warning}).
 If a \emph{qb:DataSet} \emph{D} has a \emph{qb:Slice} \emph{S}, and \emph{S} has an
 \emph{qb:Observation} \emph{O}, then the \emph{qb:DataSet} corresponding to \emph{O} must be \emph{D} (\emph{warning}).
-%Relative frequencies of variable codes are calculated correctly, if the cumulative percentage (\emph{disco:cumulativePercentage}) of a given code exactly matches the cumulative percentage of the previous code
-%plus the percentage value (\emph{disco:percentage}) of the current code ($\mathcal{SL}_{2}$).
+%Relative frequencies of variable codes are calculated correctly, if the cumulative percentage (\emph{DDI-RDF:cumulativePercentage}) of a given code exactly matches the cumulative percentage of the previous code
+%plus the percentage value (\emph{DDI-RDF:percentage}) of the current code ($\mathcal{SL}_{2}$).
 %{\em Mathematical Operations} (\emph{R-41, R-42}; e.g. date calculations and statistical computations like average, mean, and sum) are performed to ensure the integrity of data models.
 %The sum of percentage values of all variable codes, e.g., must exactly be 100 ($\mathcal{SL}_{2}$)
 %and the minimum absolute frequency of all variable codes do not have to be greater than the maximum ($\mathcal{SL}_{2}$).
@@ -1457,7 +1457,7 @@ In many cases, resources must be \emph{members of controlled vocabularies} (\emp
 If a dimension property, e.g., has a \emph{qb:codeList},
 then the value of the dimension property on every \emph{qb:Observation} must be in the code list (\emph{error}).
 %Summary statistics types like minimum, maximum, and arithmetic mean are maintained within a controlled vocabulary.  
-%Thus, summary statistics can only have \emph{disco:summaryStatisticType} relationships to \emph{skos:Concept}s which must be members of the controlled vocabulary \emph{ddicv:SummaryStatisticType}, a \emph{skos:ConceptScheme} ($\mathcal{SL}_{2}$).
+%Thus, summary statistics can only have \emph{DDI-RDF:summaryStatisticType} relationships to \emph{skos:Concept}s which must be members of the controlled vocabulary \emph{ddicv:SummaryStatisticType}, a \emph{skos:ConceptScheme} ($\mathcal{SL}_{2}$).
 Objects/literals can be declared to be ordered for given properties (\emph{R-121/217: ordering}).
 Variables, questions, and codes, e.g., are typically organized in a particular order. 
 If codes (\emph{skos:Concept}) should be ordered, they must be members (\emph{skos:memberList}) in an ordered collection (\emph{skos:OrderedCollection}), the variable's code list (\emph{informational}).
@@ -1470,7 +1470,7 @@ a title or an alternative title should be given (\emph{warning}).
 In case a variable is represented in form of a code list, codes may be associated with categories, i.e., human-readable labels (\emph{informational}).
 The variable \emph{Education at pre-school}, e.g., is represented as ordered code list without any categories.
 %If a {\em skos:Concept} represents a code (having {\em skos:notation} and {\em skos:prefLabel} properties), 
-%then the property {\em disco:isValid} has to be stated indicating if the code stands for valid (\emph{true}) or missing (\emph{false}) cases ($\mathcal{SL}_{2}$).
+%then the property {\em DDI-RDF:isValid} has to be stated indicating if the code stands for valid (\emph{true}) or missing (\emph{false}) cases ($\mathcal{SL}_{2}$).
 
 %\textbf{Constraints on Literals.}
 
@@ -1508,7 +1508,7 @@ The variable \emph{Education at pre-school}, e.g., is represented as ordered cod
 %In case of a code list, associated categories (human-readable labels) may be stated (\emph{R-71}; $\mathcal{SL}_{0}$).
 %The variable \emph{Education at pre-school}, e.g., is represented as ordered code list without any categories.
 %If a {\em skos:Concept} represents a code (having {\em skos:notation} and {\em skos:prefLabel} properties), 
-%then the property {\em disco:isValid} has to be stated indicating if the code stands for valid (\emph{true}) or missing (\emph{false}) cases (\emph{R-71}; $\mathcal{SL}_{2}$).
+%then the property {\em DDI-RDF:isValid} has to be stated indicating if the code stands for valid (\emph{true}) or missing (\emph{false}) cases (\emph{R-71}; $\mathcal{SL}_{2}$).
 %Variables may have at least one relationship to a theoretical concept ({\emph{R-86}; $\mathcal{SL}_{0}$).
 %%The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
 %The variable \emph{Education at pre-school},.e.g, is associated with the theoretical concept \emph{Child Care}. 
@@ -1525,14 +1525,14 @@ The variable \emph{Education at pre-school}, e.g., is represented as ordered cod
 %If the intention of the researcher is to perform more detailed comparisons (use case 2), however, the violation of the remaining two constraints is getting more serious.
 %
 %\textbf{Descriptive Statistics.}
-%The property \emph{disco:percentage} stands for the number of cases of a given code in relation to the total number of cases for a particular variable within a data set.
+%The property \emph{DDI-RDF:percentage} stands for the number of cases of a given code in relation to the total number of cases for a particular variable within a data set.
 %Percentage values are only valid when they are within the \emph{literal range} of 0 and 100 (\emph{R-45}; $\mathcal{SL}_{2}$).
 %{\em Mathematical Operations} (\emph{R-41, R-42}; e.g. date calculations and statistical computations like average, mean, and sum) are performed to ensure the integrity of data models.
 %The sum of percentage values of all codes of a variable code list, e.g., must exactly be 100 ($\mathcal{SL}_{2}$)
 %and the minimum of all variable codes do not have to be greater than the maximum ($\mathcal{SL}_{2}$).
 %Codes (\emph{skos:Concept}) are ordered and therefore have fixed positions in an ordered collection (\emph{skos:OrderedCollection}) within variable representations.
-%In order to check the correctness of relative frequencies' calculations, the cumulative percentage (\emph{disco:cumulativePercentage}) of the current code must exactly be the cumulative percentage of the previous code
-%plus the percentage value (\emph{disco:percentage}) of the current code (\emph{data model consistency}; $\mathcal{SL}_{2}$).
+%In order to check the correctness of relative frequencies' calculations, the cumulative percentage (\emph{DDI-RDF:cumulativePercentage}) of the current code must exactly be the cumulative percentage of the previous code
+%plus the percentage value (\emph{DDI-RDF:percentage}) of the current code (\emph{data model consistency}; $\mathcal{SL}_{2}$).
 %
 %\textbf{Unique Identification.}
 %It is often useful to declare a given (data) property as the \emph{primary key} (\emph{R-226}) of a class, so that a system can enforce uniqueness and also automatically build URIs from user inputs and imported data. 
@@ -1570,7 +1570,7 @@ The variable \emph{Education at pre-school}, e.g., is represented as ordered cod
 %If a dimension property, e.g., has a \emph{qb:codeList},
 %then the value of the dimension property on every \emph{qb:Observation} must be in the code list ($\mathcal{SL}_{2}$).
 %Summary statistics types like minimum, maximum, and arithmetic mean are maintained within a controlled vocabulary.  
-%Summary statistics can only have \emph{disco:summaryStatisticType} relationships to \emph{skos:Concept}s which must be members of the controlled vocabulary \emph{ddicv:SummaryStatisticType}, a \emph{skos:ConceptScheme} ($\mathcal{SL}_{2}$).
+%Summary statistics can only have \emph{DDI-RDF:summaryStatisticType} relationships to \emph{skos:Concept}s which must be members of the controlled vocabulary \emph{ddicv:SummaryStatisticType}, a \emph{skos:ConceptScheme} ($\mathcal{SL}_{2}$).
 %
 %%\begin{center}
 %%\begin{DL}
@@ -1586,7 +1586,7 @@ The variable \emph{Education at pre-school}, e.g., is represented as ordered cod
 %Depending on property datatypes,
 %two different literal values have
 %a specific ordering with respect to an operator like \textless (\emph{R-43: literal value comparison}).
-%Start dates (\emph{disco:startDate}), e.g., must be before (\emph{\textless}) end dates (\emph{disco:endDate}) ($\mathcal{SL}_{2}$).
+%Start dates (\emph{DDI-RDF:startDate}), e.g., must be before (\emph{\textless}) end dates (\emph{DDI-RDF:endDate}) ($\mathcal{SL}_{2}$).
 %
 %%\textbf{Organizations, Hierarchies, Classifications, and Ordering.}
 %\textbf{Hierarchies and Ordering.}
@@ -1597,7 +1597,7 @@ The variable \emph{Education at pre-school}, e.g., is represented as ordered cod
 %(concepts without any associative or hierarchical relations) lacking valuable context information. A controlled vocabulary that contains many orphan concepts is less usable for search and retrieval use cases.
 %%, as, e.g., no hierarchical query expansion can be performed on search terms to find documents with more general content.) \cite{MaderHaslhoferIsaac2012}. 
 %Objects and literals can be \emph{ordered} (\emph{R-121, R-217}) for given properties.
-%\emph{Disco }variables, questions, and codes/categories are typically organized in a particular order. 
+%\emph{DDI-RDF }variables, questions, and codes/categories are typically organized in a particular order. 
 %If a variable code list should be ordered, the variable representation should be of the type \emph{skos:OrderedCollection} containing multiple codes/categories (each represented as \emph{skos:Concept}) in a \emph{skos:memberList}. 
 %
 %\textbf{Reusability.}
@@ -1614,11 +1614,11 @@ In this section, we describe our findings based on an automatic constraint check
 \subsection{Experimental Setup}
 \label{implementation}
 
-%\ke{Überarbeiten und mit nächstem teil mergen. Nur das erzählen, was für die Auswertung auf den Datensets relevant ist. 114 constraints, 3 vokabulare, wie wurden die datasets daraufhin validiert.}
+%\ke{Überarbeiten und mit nächstem teil mergen. Nur das erzählen, was für die Auswertung auf den Datensets relevant ist. 115 constraints, 3 vokabulare, wie wurden die datasets daraufhin validiert.}
 
 	%\item First, we assigned each constraint type to exactly one of the disjoint sets of constraint types 
 %in order to get an overview how many constraint types in relation to the total amount of constraint types are extractable from vocabularies ($\mathcal{CT}_{B}$), are easily definable ($\mathcal{CT}_{S}$), and are rather difficult to specify ($\mathcal{CT}_{C}$). 
-On the three vocabularies (DDI-RDF, QB, SKOS), we identified and classified 114 constraints\footnote{\url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}} which we implemented for the data validation. We ensured that the implementation of the constraints is equally distributed over the classes and vocabularies we have. We then evaluated the data quality of 15,694 data sets (4.26 billion triples) of \emph{SBE} research data using these 114 constraints, obtained from 33 SPARQL endpoints.
+On the three vocabularies (DDI-RDF, QB, SKOS), we identified and classified 115 constraints\footnote{\url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}} which we implemented for the data validation. We ensured that the implementation of the constraints is equally distributed over the classes and vocabularies we have. We then evaluated the data quality of 15,694 data sets (4.26 billion triples) of \emph{SBE} research data using these 115 constraints, obtained from 33 SPARQL endpoints.
 
 QB and SKOS are well-established vocabularies which are widely adopted and accepted. DDI-RDF is a newly developed vocabulary which will be published in 2015.
 
@@ -1635,7 +1635,7 @@ the \emph{European Central Bank}, and the
 the \emph{STW Thesaurus for Economics}, and the
 \emph{Thesaurus for the Social Sciences}, and
 (3) DDI-RDF data sets provided by the \emph{Microdata Information System}, 
-the \emph{Data Without Boundaries Discovery Portal}, the
+the \emph{Data Without Boundaries DDI-RDFvery Portal}, the
 \emph{Danish Data Archive}, and the
 \emph{Swedish National Data Service}.
 
@@ -1721,8 +1721,7 @@ A SPIN construct template creates constraint violation triples if all triple pat
 %\end{table}
 
 %Table \ref{tab:evaluation-constraint-types} displays the evaluation of the metadata quality on real world data sets regarding constraint types.
-Tables \ref{tab:evaluation-constraint-violations-1} and \ref{tab:evaluation-constraint-violations-2} show the results of the evaluation, more specifically the constraints and the constraint violations, which are caused by these constraints, in percent.
-The constraints and their raised constraint violations are grouped by vocabulary, the classification of their type according to the expressivity of constraint languages, and their severity level.
+Tables \ref{tab:evaluation-constraint-violations-1} and \ref{tab:evaluation-constraint-violations-2} show the results of the evaluation, more specifically the constraints and the constraint violations, which are caused by these constraints, in percent. The first numbers indicate the absolute amount of constraints and violations. The constraints and their raised constraint violations are grouped by vocabulary, the classification of their type according to the expressivity of constraint languages, and their severity level.
 The numbers of evaluated triples and data sets differ between the vocabularies
 as we evaluated 3.8 billion QB, 480 million SKOS, and 10 million DDI-RDF triples.
 To be able to formulate hypotheses which apply for all vocabularies, 
@@ -1766,65 +1765,125 @@ we only use normalized relative values representing the percentage of constraint
     %\end{center}
 %\end{table}
 
-\begin{table}[H]
-		\scriptsize
-    \begin{center}
-		\caption{OLD}
-		\label{tab:evaluation-constraint-violations-1}
-    \begin{tabular}{@{}lcccc@{}}
-    %       & \multicolumn{2}{c}{\textbf{Vocabularies}}
-    %\\  \cmidrule{2-3}
-		\hline
-    \multirow{2}{*}{} &
-      \multicolumn{2}{c}{\textbf{DDI-RDF}} &
-      \multicolumn{2}{c}{\textbf{QB}} \\
-    \textbf{} & C & CV & C & CV \\
-    \hline
-    %\\ \midrule
-		 & 143 & 3,575,002 & 35 & 45,635,861 \\
-		\hline
-		\textbf{\emph{complex}} & 25.9\% & 18.3\% & 37.1\% & \textbf{100.0\%} \\
-		\textbf{\emph{simple}} & 19.6\% & 15.7\% & 8.6\% & 0.0\% \\
-		\textbf{\emph{vocabulary}} & \textbf{54.6\%} & \textbf{66.1\%} & \textbf{54.3\%} & 0.0\% \\
-		\hline
-		\textbf{\emph{info}} & \textbf{52.5\%} & \textbf{52.6\%} & 11.4\% & 0.0\% \\
-		\textbf{\emph{warning}} & 7.0\% & 29.4\% & 8.6\% & \textbf{99.8\%} \\
-		\textbf{\emph{error}} & 40.6\% & 18.0\% & \textbf{80.0\%} & 0.3\% \\
-    \bottomrule
-    \end{tabular}
-    \\ \emph{C (constraints), CV (constraint violations)}
-    \end{center}
-\end{table}
+%\begin{table}[H]
+		%\scriptsize
+    %\begin{center}
+		%\caption{OLD}
+		%\label{tab:evaluation-constraint-violations-1}
+    %\begin{tabular}{@{}lcccc@{}}
+    %%       & \multicolumn{2}{c}{\textbf{Vocabularies}}
+    %%\\  \cmidrule{2-3}
+		%\hline
+    %\multirow{2}{*}{} &
+      %\multicolumn{2}{c}{\textbf{DDI-RDF}} &
+      %\multicolumn{2}{c}{\textbf{QB}} \\
+    %\textbf{} & C & CV & C & CV \\
+    %\hline
+    %%\\ \midrule
+		 %& 143 & 3,575,002 & 35 & 45,635,861 \\
+		%\hline
+		%\textbf{\emph{complex}} & 25.9\% & 18.3\% & 37.1\% & \textbf{100.0\%} \\
+		%\textbf{\emph{simple}} & 19.6\% & 15.7\% & 8.6\% & 0.0\% \\
+		%\textbf{\emph{vocabulary}} & \textbf{54.6\%} & \textbf{66.1\%} & \textbf{54.3\%} & 0.0\% \\
+		%\hline
+		%\textbf{\emph{info}} & \textbf{52.5\%} & \textbf{52.6\%} & 11.4\% & 0.0\% \\
+		%\textbf{\emph{warning}} & 7.0\% & 29.4\% & 8.6\% & \textbf{99.8\%} \\
+		%\textbf{\emph{error}} & 40.6\% & 18.0\% & \textbf{80.0\%} & 0.3\% \\
+    %\bottomrule
+    %\end{tabular}
+    %\\ \emph{C (constraints), CV (constraint violations)}
+    %\end{center}
+%\end{table}
+%
+%\begin{table}[H]
+		%\scriptsize
+    %\begin{center}
+		%\caption{OLD}
+		%\label{tab:evaluation-constraint-violations-2}
+    %\begin{tabular}{@{}lcccc@{}}
+    %%       & \multicolumn{2}{c}{\textbf{Vocabularies}}
+    %%\\  \cmidrule{2-3}
+		%\hline
+    %\multirow{2}{*}{} &
+      %\multicolumn{2}{c}{\textbf{SKOS}} &
+      %\multicolumn{2}{c}{\textbf{\emph{Total}}} \\
+    %\textbf{} & C & CV & C & CV \\
+    %\hline
+    %%\\ \midrule
+		 %& 35 & 5,540,988 & 213 & 54,751,851 \\
+		%\hline
+		%\textbf{\emph{complex}} & \textbf{37.1\%} & 21.4\% & 33.4\% & \textbf{46.6\%} \\
+		%\textbf{\emph{simple}} & \textbf{34.3\%} & \textbf{78.6\%} & 20.8\% & 31.4\% \\
+		%\textbf{\emph{vocabulary}} & \textbf{28.6\%} & 0.0\% & \textbf{45.8\%} & 22.0\% \\
+		%\hline
+		%\textbf{\emph{info}} & \textbf{60.0\%} & 41.2\% & \textbf{41.3\%} & 31.3\% \\
+		%\textbf{\emph{warning}} & 14.3\% & \textbf{58.8\%} & 10.0\% & \textbf{62.7\%} \\
+		%\textbf{\emph{error}} & 25.7\% & 0.0\% & \textbf{48.8\%} & 6.1\%\\
+    %\bottomrule
+    %\end{tabular}
+    %\\ \emph{C (constraints), CV (constraint violations)}
+    %\end{center}
+%\end{table}
 
-\begin{table}[H]
-		\scriptsize
-    \begin{center}
-		\caption{OLD}
-		\label{tab:evaluation-constraint-violations-2}
-    \begin{tabular}{@{}lcccc@{}}
-    %       & \multicolumn{2}{c}{\textbf{Vocabularies}}
-    %\\  \cmidrule{2-3}
-		\hline
-    \multirow{2}{*}{} &
-      \multicolumn{2}{c}{\textbf{SKOS}} &
-      \multicolumn{2}{c}{\textbf{\emph{Total}}} \\
-    \textbf{} & C & CV & C & CV \\
-    \hline
-    %\\ \midrule
-		 & 35 & 5,540,988 & 213 & 54,751,851 \\
-		\hline
-		\textbf{\emph{complex}} & \textbf{37.1\%} & 21.4\% & 33.4\% & \textbf{46.6\%} \\
-		\textbf{\emph{simple}} & \textbf{34.3\%} & \textbf{78.6\%} & 20.8\% & 31.4\% \\
-		\textbf{\emph{vocabulary}} & \textbf{28.6\%} & 0.0\% & \textbf{45.8\%} & 22.0\% \\
-		\hline
-		\textbf{\emph{info}} & \textbf{60.0\%} & 41.2\% & \textbf{41.3\%} & 31.3\% \\
-		\textbf{\emph{warning}} & 14.3\% & \textbf{58.8\%} & 10.0\% & \textbf{62.7\%} \\
-		\textbf{\emph{error}} & 25.7\% & 0.0\% & \textbf{48.8\%} & 6.1\%\\
-    \bottomrule
-    \end{tabular}
-    \\ \emph{C (constraints), CV (constraint violations)}
-    \end{center}
-\end{table}
+%\begin{table}[H]
+		%\scriptsize
+    %\begin{center}
+		%\caption{Constraints and Constraint Violations (1)}
+		%\label{tab:evaluation-constraint-violations-1}
+    %\begin{tabular}{@{}lcccc@{}}
+    %%       & \multicolumn{2}{c}{\textbf{Vocabularies}}
+    %%\\  \cmidrule{2-3}
+		%\hline
+    %\multirow{2}{*}{} &
+      %\multicolumn{2}{c}{\textbf{DDI-RDF}} &
+      %\multicolumn{2}{c}{\textbf{QB}} \\
+    %\textbf{} & C & CV & C & CV \\
+    %\hline
+    %%\\ \midrule
+		 %& 143 & 3,575,002 & 35 & 45,635,861 \\
+		%\hline
+		%\textbf{\emph{SPARQL}} & 44.8\% & 34.7\% & \textbf{54.3\%} & \textbf{100.0\%} \\
+		%\textbf{\emph{CL}} & 42.0\% & \textbf{65.3\%} & 28.6\% & 0.0\% \\
+		%\textbf{\emph{RDFS/OWL}} & \textbf{51.8\%} & \textbf{65.3\%} & 42.9\% & 0.0\% \\
+		%\hline
+		%\textbf{\emph{info}} & \textbf{52.5\%} & \textbf{52.6\%} & 11.4\% & 0.0\% \\
+		%\textbf{\emph{warning}} & 7.0\% & 29.4\% & 8.6\% & \textbf{99.8\%} \\
+		%\textbf{\emph{error}} & 40.6\% & 18.0\% & \textbf{80.0\%} & 0.3\% \\
+    %\bottomrule
+    %\end{tabular}
+    %\\ \emph{C (constraints), CV (constraint violations)}
+    %\end{center}
+%\end{table}
+%
+%\begin{table}[H]
+		%\scriptsize
+    %\begin{center}
+		%\caption{Constraints and Constraint Violations (2)}
+		%\label{tab:evaluation-constraint-violations-2}
+    %\begin{tabular}{@{}lcccc@{}}
+    %%       & \multicolumn{2}{c}{\textbf{Vocabularies}}
+    %%\\  \cmidrule{2-3}
+		%\hline
+    %\multirow{2}{*}{} &
+      %\multicolumn{2}{c}{\textbf{SKOS}} &
+      %\multicolumn{2}{c}{\textbf{\emph{Total}}} \\
+    %\textbf{} & C & CV & C & CV \\
+    %\hline
+    %%\\ \midrule
+		 %& 35 & 5,540,988 & 213 & 54,751,851 \\
+		%\hline
+		%\textbf{\emph{SPARQL}} & \textbf{80.0\%} & \textbf{100.0\%} & \textbf{59.7\%} & \textbf{78.2\%} \\
+		%\textbf{\emph{CL}} & 0.0\% & 0.0\% & 23.5\% & 21.8\% \\
+		%\textbf{\emph{RDFS/OWL}} & 20.0\% & 0.0\% & 38.2\% & 21.8\% \\
+		%\hline
+		%\textbf{\emph{info}} & \textbf{60.0\%} & 41.2\% & \textbf{41.3\%} & 31.3\% \\
+		%\textbf{\emph{warning}} & 14.3\% & \textbf{58.8\%} & 10.0\% & \textbf{62.7\%} \\
+		%\textbf{\emph{error}} & 25.7\% & 0.0\% & \textbf{48.8\%} & 6.1\%\\
+    %\bottomrule
+    %\end{tabular}
+    %\\ \emph{C (constraints), CV (constraint violations)}
+    %\end{center}
+%\end{table}
 
 \begin{table}[H]
 		\scriptsize
@@ -1841,15 +1900,15 @@ we only use normalized relative values representing the percentage of constraint
     \textbf{} & C & CV & C & CV \\
     \hline
     %\\ \midrule
-		 & 143 & 3,575,002 & 35 & 45,635,861 \\
+		 & 78 & 3,575,002 & 20 & 45,635,861 \\
 		\hline
-		\textbf{\emph{SPARQL}} & 44.8\% & 34.7\% & \textbf{54.3\%} & \textbf{100.0\%} \\
-		\textbf{\emph{CL}} & 42.0\% & \textbf{65.3\%} & 28.6\% & 0.0\% \\
-		\textbf{\emph{RDFS/OWL}} & \textbf{51.8\%} & \textbf{65.3\%} & 42.9\% & 0.0\% \\
+		\textbf{\emph{SPARQL}} & 29.5 & 34.7 & \textbf{60.0} & \textbf{100.0} \\
+		\textbf{\emph{CL}} & \textbf{64.1} & \textbf{65.3} & 40.0 & 0.0 \\
+		\textbf{\emph{RDFS/OWL}} & \textbf{66.7} & \textbf{65.3} & 40.0 & 0.0 \\
 		\hline
-		\textbf{\emph{info}} & \textbf{52.5\%} & \textbf{52.6\%} & 11.4\% & 0.0\% \\
-		\textbf{\emph{warning}} & 7.0\% & 29.4\% & 8.6\% & \textbf{99.8\%} \\
-		\textbf{\emph{error}} & 40.6\% & 18.0\% & \textbf{80.0\%} & 0.3\% \\
+		\textbf{\emph{info}} & \textbf{52.5} & \textbf{52.6} & 11.4 & 0.0 \\
+		\textbf{\emph{warning}} & 7.0 & 29.4 & 8.6 & \textbf{99.8} \\
+		\textbf{\emph{error}} & 40.6 & 18.0 & \textbf{80.0} & 0.3 \\
     \bottomrule
     \end{tabular}
     \\ \emph{C (constraints), CV (constraint violations)}
@@ -1871,15 +1930,15 @@ we only use normalized relative values representing the percentage of constraint
     \textbf{} & C & CV & C & CV \\
     \hline
     %\\ \midrule
-		 & 35 & 5,540,988 & 213 & 54,751,851 \\
+		 & 17 & 5,540,988 & 115 & 54,751,851 \\
 		\hline
-		\textbf{\emph{SPARQL}} & \textbf{80.0\%} & \textbf{100.0\%} & \textbf{59.7\%} & \textbf{78.2\%} \\
-		\textbf{\emph{CL}} & 0.0\% & 0.0\% & 23.5\% & 21.8\% \\
-		\textbf{\emph{RDFS/OWL}} & 20.0\% & 0.0\% & 38.2\% & 21.8\% \\
+		\textbf{\emph{SPARQL}} & \textbf{100.0} & \textbf{100.0} & \textbf{59.7} & \textbf{78.2} \\
+		\textbf{\emph{CL}} & 0.0 & 0.0 & 23.5 & 21.8 \\
+		\textbf{\emph{RDFS/OWL}} & 0.0 & 0.0 & 38.2 & 21.8 \\
 		\hline
-		\textbf{\emph{info}} & \textbf{60.0\%} & 41.2\% & \textbf{41.3\%} & 31.3\% \\
-		\textbf{\emph{warning}} & 14.3\% & \textbf{58.8\%} & 10.0\% & \textbf{62.7\%} \\
-		\textbf{\emph{error}} & 25.7\% & 0.0\% & \textbf{48.8\%} & 6.1\%\\
+		\textbf{\emph{info}} & \textbf{60.0} & 41.2 & \textbf{41.3} & 31.3 \\
+		\textbf{\emph{warning}} & 14.3 & \textbf{58.8} & 10.0 & \textbf{62.7} \\
+		\textbf{\emph{error}} & 25.7 & 0.0 & \textbf{48.8} & 6.1\\
     \bottomrule
     \end{tabular}
     \\ \emph{C (constraints), CV (constraint violations)}
@@ -1957,90 +2016,88 @@ A significant amount of narrowly 80\% of the violations refer to SPARQL Based co
 \emph{RDFS/OWL Based} constraints are expressible by the modeling languages RDFS and OWL 2. \emph{SPARQL Based} constraints, however, are only expressible by plain SPARQL. As almost 80\% of all violations are caused by \emph{SPARQL Based} constraints, data quality can be significantly improved when suitable constraint languages are developed which enable to define \emph{SPARQL Based} constraints in an easy, concise, and intuitive way.
 %Therefore, existing constraint languages have to be extended or new constraint languages have to be developed.
 
-\begin{table}[H]
-		\scriptsize
-    \begin{center}
-		\caption{Constraints and Constraint Violations (1)}
-		\label{tab:evaluation-constraint-violations-1}
-    \begin{tabular}{@{}lcccc@{}}
-    %       & \multicolumn{2}{c}{\textbf{Vocabularies}}
-    %\\  \cmidrule{2-3}
-		\hline
-    \multirow{2}{*}{} &
-      \multicolumn{2}{c}{\textbf{DDI-RDF}} &
-      \multicolumn{2}{c}{\textbf{QB}} \\
-    \textbf{} & C & CV & C & CV \\
-    \hline
-    %\\ \midrule
-		 & 143 & 3,575,002 & 35 & 45,635,861 \\
-		\hline
-		\textbf{\emph{SPARQL}} & 44.8\% & 34.7\% & \textbf{54.3\%} & \textbf{100.0\%} \\
-		\textbf{\emph{CL}} & 42.0\% & \textbf{65.3\%} & 28.6\% & 0.0\% \\
-		\textbf{\emph{RDFS/OWL}} & \textbf{51.8\%} & \textbf{65.3\%} & 42.9\% & 0.0\% \\
-		\hline
-		\textbf{\emph{info}} & \textbf{52.5\%} & \textbf{52.6\%} & 11.4\% & 0.0\% \\
-		\textbf{\emph{warning}} & 7.0\% & 29.4\% & 8.6\% & \textbf{99.8\%} \\
-		\textbf{\emph{error}} & 40.6\% & 18.0\% & \textbf{80.0\%} & 0.3\% \\
-    \bottomrule
-    \end{tabular}
-    \\ \emph{C (constraints), CV (constraint violations)}
-    \end{center}
-\end{table}
+%\begin{table}[H]
+		%\scriptsize
+    %\begin{center}
+		%\caption{Constraints and Constraint Violations (1)}
+		%\label{tab:evaluation-constraint-violations-1}
+    %\begin{tabular}{@{}lcccc@{}}
+    %%       & \multicolumn{2}{c}{\textbf{Vocabularies}}
+    %%\\  \cmidrule{2-3}
+		%\hline
+    %\multirow{2}{*}{} &
+      %\multicolumn{2}{c}{\textbf{DDI-RDF}} &
+      %\multicolumn{2}{c}{\textbf{QB}} \\
+    %\textbf{} & C & CV & C & CV \\
+    %\hline
+    %%\\ \midrule
+		 %& 143 & 3,575,002 & 35 & 45,635,861 \\
+		%\hline
+		%\textbf{\emph{SPARQL}} & 44.8\% & 34.7\% & \textbf{54.3\%} & \textbf{100.0\%} \\
+		%\textbf{\emph{CL}} & 42.0\% & \textbf{65.3\%} & 28.6\% & 0.0\% \\
+		%\textbf{\emph{RDFS/OWL}} & \textbf{51.8\%} & \textbf{65.3\%} & 42.9\% & 0.0\% \\
+		%\hline
+		%\textbf{\emph{info}} & \textbf{52.5\%} & \textbf{52.6\%} & 11.4\% & 0.0\% \\
+		%\textbf{\emph{warning}} & 7.0\% & 29.4\% & 8.6\% & \textbf{99.8\%} \\
+		%\textbf{\emph{error}} & 40.6\% & 18.0\% & \textbf{80.0\%} & 0.3\% \\
+    %\bottomrule
+    %\end{tabular}
+    %\\ \emph{C (constraints), CV (constraint violations)}
+    %\end{center}
+%\end{table}
+%
+%\begin{table}[H]
+		%\scriptsize
+    %\begin{center}
+		%\caption{Constraints and Constraint Violations (2)}
+		%\label{tab:evaluation-constraint-violations-2}
+    %\begin{tabular}{@{}lcccc@{}}
+    %%       & \multicolumn{2}{c}{\textbf{Vocabularies}}
+    %%\\  \cmidrule{2-3}
+		%\hline
+    %\multirow{2}{*}{} &
+      %\multicolumn{2}{c}{\textbf{SKOS}} &
+      %\multicolumn{2}{c}{\textbf{\emph{Total}}} \\
+    %\textbf{} & C & CV & C & CV \\
+    %\hline
+    %%\\ \midrule
+		 %& 35 & 5,540,988 & 213 & 54,751,851 \\
+		%\hline
+		%\textbf{\emph{SPARQL}} & \textbf{80.0\%} & \textbf{100.0\%} & \textbf{59.7\%} & \textbf{78.2\%} \\
+		%\textbf{\emph{CL}} & 0.0\% & 0.0\% & 23.5\% & 21.8\% \\
+		%\textbf{\emph{RDFS/OWL}} & 20.0\% & 0.0\% & 38.2\% & 21.8\% \\
+		%\hline
+		%\textbf{\emph{info}} & \textbf{60.0\%} & 41.2\% & \textbf{41.3\%} & 31.3\% \\
+		%\textbf{\emph{warning}} & 14.3\% & \textbf{58.8\%} & 10.0\% & \textbf{62.7\%} \\
+		%\textbf{\emph{error}} & 25.7\% & 0.0\% & \textbf{48.8\%} & 6.1\%\\
+    %\bottomrule
+    %\end{tabular}
+    %\\ \emph{C (constraints), CV (constraint violations)}
+    %\end{center}
+%\end{table}
 
-\begin{table}[H]
-		\scriptsize
-    \begin{center}
-		\caption{Constraints and Constraint Violations (2)}
-		\label{tab:evaluation-constraint-violations-2}
-    \begin{tabular}{@{}lcccc@{}}
-    %       & \multicolumn{2}{c}{\textbf{Vocabularies}}
-    %\\  \cmidrule{2-3}
-		\hline
-    \multirow{2}{*}{} &
-      \multicolumn{2}{c}{\textbf{SKOS}} &
-      \multicolumn{2}{c}{\textbf{\emph{Total}}} \\
-    \textbf{} & C & CV & C & CV \\
-    \hline
-    %\\ \midrule
-		 & 35 & 5,540,988 & 213 & 54,751,851 \\
-		\hline
-		\textbf{\emph{SPARQL}} & \textbf{80.0\%} & \textbf{100.0\%} & \textbf{59.7\%} & \textbf{78.2\%} \\
-		\textbf{\emph{CL}} & 0.0\% & 0.0\% & 23.5\% & 21.8\% \\
-		\textbf{\emph{RDFS/OWL}} & 20.0\% & 0.0\% & 38.2\% & 21.8\% \\
-		\hline
-		\textbf{\emph{info}} & \textbf{60.0\%} & 41.2\% & \textbf{41.3\%} & 31.3\% \\
-		\textbf{\emph{warning}} & 14.3\% & \textbf{58.8\%} & 10.0\% & \textbf{62.7\%} \\
-		\textbf{\emph{error}} & 25.7\% & 0.0\% & \textbf{48.8\%} & 6.1\%\\
-    \bottomrule
-    \end{tabular}
-    \\ \emph{C (constraints), CV (constraint violations)}
-    \end{center}
-\end{table}
-
-Almost 1/2 of all constraints are \emph{error}, 40\% are \emph{informational}, and 10\% are \emph{warning} constraints.
+50\% of all constraints are \emph{error}, 40\% are \emph{informational}, and 10\% are \emph{warning} constraints.
 \emph{Informational} constraints caused 1/3 and
 \emph{warning} constraints 2/3 of all violations.
 As the percentage of severe violations is very low for all vocabularies (6.1\%),
 data quality is high with regard to the severity level of constraints.
 
 \begin{hyp}
-The percentage of severe violations is very low, compared to about 2/3 of warning violations and 1/3 of informational violations, which implies that proper constraint languages can significantly improve the data quality beyond fundamental requirements.
+The percentage of severe violations is very low, compared to about 2/3 of warning and 1/3 of informational violations. This implies that proper constraint languages can significantly improve the data quality beyond fundamental requirements.
 \end{hyp} 
 
 80\% of the QB constraints are \emph{error} constraints.
 More than 50\% of the DDI-RDF and SKOS constraints, however, are \emph{informational} constraints.
-1/6 of the Disco violations are caused by \emph{error} constraints and
+1/6 of the DDI-RDF violations are caused by \emph{error} constraints and
 almost all QB violations and 59\% of the SKOS violations are caused by \emph{warning} constraints.  
-For well-established vocabularies, data quality is high
-as serious violations rarely appear.
-For newly developed vocabularies, data quality is worse
-as serious violations occur partially.
 %Constraints are serious when they violate the integrity of vocabularies.
 %For well-established vocabularies, it is well documented and the experience is high how to guarantee this integrity
 %which is not the case or newly-developed vocabularies.
 \begin{hyp}
-Especially for newly developed vocabularies, constraint languages should be used to a larger extend to meet reduce severe violations.   
+For well-established vocabularies, data quality is high as serious violations rarely appear. For newly developed vocabularies, data quality is worse as serious violations occur partially.   
 \end{hyp} 
+
+Especially for newly developed vocabularies, constraint languages should be used to a larger extend to reduce severe violations.
 
 %For the vocabularies DDI-RDF, QB, and SKOS, we defined 213 constraints of 53 constraint types .
 
@@ -2119,35 +2176,112 @@ Especially for newly developed vocabularies, constraint languages should be used
     %\end{center}
 %\end{table}
 
-%The constraints responsible for the largest amounts of constraint violations are \emph{DISCO-C-LABELING-AND-DOCUMENTATION-06} and \emph{DISCO-C-COMPARISON-VARIABLES-02} (both 547,916; DDI-RDF), \emph{DATA-CUBE-C-DATA-MODEL-CONSISTENCY-05} (45,514,102; QB), and \emph{SKOS-C-LANGUAGE-TAG-CARDINALITY-01} (2,508,903; SKOS).
+%The constraints responsible for the largest amounts of constraint violations are \emph{DDI-RDF-C-LABELING-AND-DOCUMENTATION-06} and \emph{DDI-RDF-C-COMPARISON-VARIABLES-02} (both 547,916; DDI-RDF), \emph{DATA-CUBE-C-DATA-MODEL-CONSISTENCY-05} (45,514,102; QB), and \emph{SKOS-C-LANGUAGE-TAG-CARDINALITY-01} (2,508,903; SKOS).
 
-Table \ref{tab:evaluation-complexity-severity} shows the relation between the complexity and the severity level of all 213 constraints.
+%Table \ref{tab:evaluation-expressivity-severity} shows the relations between the severity level of the violations caused by all 115 constraints and the classification according to the expressivity of constraint languages of the constraint types of the violations in percent. 
+80\% of the violations which are raised by either \emph{RDFS/OWL} or \emph{Constraint Language Based} constraints are caused by constraints with the severity level \emph{informational} (see Table \ref{tab:evaluation-expressivity-severity}) and almost all (94\%) of the violations which are caused by \emph{SPARQL Based} constraints are raised by \emph{warning} constraints. 
+
+%Table \ref{tab:evaluation-constraints-expressivity-severity} shows the relations between the severity level of all 115 constraints and the classification of their types according to the expressivity of constraint languages in percent.
 More than 1/2 of the \emph{vocabulary constraints} are \emph{error} constraints,
 more than 3/4 of the \emph{simple constraints} are \emph{informational} constraints, and
 \emph{complex constraints} are to the same extend \emph{informational} or \emph{error} constraints. 
 
+%\begin{table}[H]
+		%\scriptsize
+    %\begin{center}
+		%\caption{OLD}
+		%\label{tab:evaluation-complexity-severity}
+    %\begin{tabular}{@{}lcccc@{}}
+%%           & \multicolumn{6}{c}{\textbf{Vocabularies}}
+%%    \\  \cmidrule{2-7}
+    %\\       \textbf{}
+           %& \textbf{\emph{RDFS/OWL}}
+           %& \textbf{\emph{Constraint Language}}
+					 %& \textbf{\emph{SPARQL}}
+    %\\ \midrule
+		%%\emph{Triples} & 9,673,055 & 3,775,983,610 & 477,737,281 & 4,263,393,946 \\
+		%%\emph{Data Sets} & 1,526 & 9,990 & 4,178 & 15,694 \\
+		%%\hline
+		%\textbf{\emph{info}} & 38.7 \% & \textbf{76.2 \%} & \textbf{42.3 \%} \\
+		%\textbf{\emph{warning}} & 6.7 \% & 7.1 \% & 13.5 \% \\
+		%\textbf{\emph{error}} & \textbf{54.6 \%} & 16.7 \% & \textbf{44.2 \%} \\
+    %\bottomrule
+    %\end{tabular}
+    %%\\ \emph{C (constraints), CT (constraint types)}
+    %\end{center}
+%\end{table}
+
+%\begin{table}[H]
+		%\scriptsize
+    %\begin{center}
+		%\caption{Constraint Language Expressivity and Severity Level of Violations}
+		%\label{tab:evaluation-violations-expressivity-severity}
+    %\begin{tabular}{@{}lcccc@{}}
+%%           & \multicolumn{6}{c}{\textbf{Vocabularies}}
+%%    \\  \cmidrule{2-7}
+    %\\       \textbf{}
+           %& \textbf{\emph{RDFS/OWL}}
+           %& \textbf{\emph{Constraint Language}}
+					 %& \textbf{\emph{SPARQL}}
+    %\\ \midrule
+		%%\emph{Triples} & 9,673,055 & 3,775,983,610 & 477,737,281 & 4,263,393,946 \\
+		%%\emph{Data Sets} & 1,526 & 9,990 & 4,178 & 15,694 \\
+		%%\hline
+		%\textbf{\emph{info}} & \textbf{79.64} & \textbf{79.60} & 4.39 \\
+		%\textbf{\emph{warning}} & 20.28 & 20.27 & \textbf{94.17} \\
+		%\textbf{\emph{error}} & 0.08 & 0.13 & 1.43 \\
+    %\bottomrule
+    %\end{tabular}
+    %%\\ \emph{C (constraints), CT (constraint types)}
+    %\end{center}
+%\end{table}
+
+%\begin{table}[H]
+		%\scriptsize
+    %\begin{center}
+		%\caption{Constraint Language Expressivity and Severity Level of Constraints}
+		%\label{tab:evaluation-constraints-expressivity-severity}
+    %\begin{tabular}{@{}lcccc@{}}
+%%           & \multicolumn{6}{c}{\textbf{Vocabularies}}
+%%    \\  \cmidrule{2-7}
+    %\\       \textbf{}
+           %& \textbf{\emph{RDFS/OWL}}
+           %& \textbf{\emph{Constraint Language}}
+					 %& \textbf{\emph{SPARQL}}
+    %\\ \midrule
+		%%\emph{Triples} & 9,673,055 & 3,775,983,610 & 477,737,281 & 4,263,393,946 \\
+		%%\emph{Data Sets} & 1,526 & 9,990 & 4,178 & 15,694 \\
+		%%\hline
+		%\textbf{\emph{info}} & \textbf{79.64} & \textbf{79.60} & 4.39 \\
+		%\textbf{\emph{warning}} & 20.28 & 20.27 & \textbf{94.17} \\
+		%\textbf{\emph{error}} & 0.08 & 0.13 & 1.43 \\
+    %\bottomrule
+    %\end{tabular}
+    %%\\ \emph{C (constraints), CT (constraint types)}
+    %\end{center}
+%\end{table}
+
 \begin{table}[H]
 		\scriptsize
     \begin{center}
-		\caption{Relation between Complexity and Severity Level of Constraints}
-		\label{tab:evaluation-complexity-severity}
-    \begin{tabular}{@{}lcccc@{}}
-%           & \multicolumn{6}{c}{\textbf{Vocabularies}}
-%    \\  \cmidrule{2-7}
-    \\       \textbf{}
-           & \textbf{\emph{vocabulary}}
-           & \textbf{\emph{simple}}
-					 & \textbf{\emph{complex}}
-    \\ \midrule
-		%\emph{Triples} & 9,673,055 & 3,775,983,610 & 477,737,281 & 4,263,393,946 \\
-		%\emph{Data Sets} & 1,526 & 9,990 & 4,178 & 15,694 \\
-		%\hline
-		\textbf{\emph{info}} & 38.7 \% & \textbf{76.2 \%} & \textbf{42.3 \%} \\
-		\textbf{\emph{warning}} & 6.7 \% & 7.1 \% & 13.5 \% \\
-		\textbf{\emph{error}} & \textbf{54.6 \%} & 16.7 \% & \textbf{44.2 \%} \\
+		\caption{Language Expressivity and Severity Level}
+		\label{tab:evaluation-expressivity-severity}
+    \begin{tabular}{@{}lcccccc@{}}
+    %       & \multicolumn{2}{c}{\textbf{Vocabularies}}
+    %\\  \cmidrule{2-3}
+		\hline
+    \multirow{3}{*}{} &
+      \multicolumn{2}{c}{\textbf{RDFS/OWL}} &
+      \multicolumn{2}{c}{\textbf{\emph{CL}}} &
+      \multicolumn{2}{c}{\textbf{\emph{SPARQL}}} \\
+    \textbf{} & C & CV & C & CV & C & CV \\
+    \hline
+		\textbf{\emph{info}} & \textbf{52.5} & \textbf{79.64} & \textbf{55.2} & \textbf{79.60} & \textbf{45.1} & 4.39 \\
+		\textbf{\emph{warning}} & 18.0 & 20.28 & 15.5 & 20.27 & 19.6 & \textbf{94.17} \\
+		\textbf{\emph{error}} & 29.5 & 0.08 & 29.3 & 0.13 & 35.3 & 1.43 \\
     \bottomrule
     \end{tabular}
-    %\\ \emph{C (constraints), CT (constraint types)}
+		\\ \emph{C (constraints), CV (constraint violations)}
     \end{center}
 \end{table}
 
@@ -2176,7 +2310,7 @@ there is an obvious need to develop constraint languages which enable to express
 We identified and published by today 82 types of constraints  that are required by various stakeholders for data applications.
 In close collaboration with several \emph{SBE} domain experts, we formulated 213 constraints of 53 different types on three different vocabularies (DDI-RDF, QB, and SKOS) and classified them according to the complexity level of their type and their severity level. 
 
-For 114 of these constraints, we evaluated  the data quality of 15,694 data sets (4.26 billion triples) of research data for the \emph{SBE} sciences obtained from 33 SPARQL endpoints.
+For 115 of these constraints, we evaluated  the data quality of 15,694 data sets (4.26 billion triples) of research data for the \emph{SBE} sciences obtained from 33 SPARQL endpoints.
 
 Based on the evaluation results,
 we formulated several hypotheses to direct the further development of constraint languages. We regard to the results as hypotheses, as their general applicability beyond the examined vocabularies and for other domains is still to be confirmed.
