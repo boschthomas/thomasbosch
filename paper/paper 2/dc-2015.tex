@@ -165,28 +165,28 @@ RDF validation; RDF constraints; RDF constraint types, RDF validation requiremen
 %For this reason, we cannot use OWL 2 ontologies for RDF validation as we use XML Schemas, DTDs, RELAX NG, or Schematron to validate XML documents.
 
 The proper validation of RDF data according to constraints is a common requirement of data practitioners. 
-Among the reasons for the success of XML is the possibility to formulate fine-grained constraints to be met by the data and to validate the data according to these constraints using powerful systems like \emph{DTD}, \emph{XML Schema}, \emph{RELAX NG}, or \emph{Schematron}.
+Among the reasons for the success of XML is the possibility to formulate fine-grained constraints to be met by the data and to validate the data according to these constraints using powerful systems like DTD, XML Schema, RELAX NG, or Schematron.
 
-In 2013, the \emph{W3C} organized the \emph{RDF Validation Workshop}\footnote{\url{http://www.w3.org/2012/12/rdf-val/}}
+In 2013, the W3C organized the \emph{RDF Validation Workshop}\footnote{\url{http://www.w3.org/2012/12/rdf-val/}}
 where experts from industry, government, and academia discussed first RDF validation use cases. 
 %for RDF data validation and constraint formulation.
 In 2014, two working groups on RDF validation have been established: 
 the \emph{W3C RDF Data Shapes Working Group}\footnote{\url{http://www.w3.org/2014/rds/charter}} and the \emph{DCMI RDF Application Profiles Task Group}\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
-We collected the findings of these working groups and initiated a database of RDF validation requirements\footnote{Online available at \url{http://purl.org/net/rdf-validation}}
+We collected the findings of these working groups and initiated a database of RDF validation requirements\footnote{Online available at: \url{http://purl.org/net/rdf-validation}}
 with the intention to collaboratively collect case studies, use cases, requirements, and solutions in a comprehensive and structured way \cite{BoschEckert2014}. 
-Based on our work in the \emph{DCMI} and in cooperation with the \emph{W3C} working group,
+Based on our work in the DCMI and in cooperation with the W3C working group,
 we identified by today 81 constraint types, where each type corresponds to a specific requirement in the database. In a technical report, we explain each constraint type in detail and give examples for each represented by different constraint languages \cite{BoschNolleAcarEckert2015}.
 
 Various constraint languages exist or are being developed that support more or less of these constraint types. For our work, we focus on the following four as the ones that are most popular among data practitioners, often mentioned on mailing lists and/or being candidates or prototypes for the upcoming W3C recommendation:
-\emph{Description Set Profiles (DSP)}, \emph{Resource Shapes (ReSh)}, \emph{Shape Expressions (ShEx)}, and the \emph{Web Ontology Language} \emph{(OWL)}. Despite the fact that OWL is arguably not a constraint language, it is widely used in practice as such under the closed-world and unique name assumptions.
+\emph{Description Set Profiles (DSP)}, \emph{Resource Shapes (ReSh)}, \emph{Shape Expressions (ShEx)}\footnote{\url{http://www.w3.org/Submission/2014/SUBM-shex-primer-20140602/}}, and the \emph{Web Ontology Language} \emph{(OWL)}. Despite the fact that OWL is arguably not a constraint language, it is widely used in practice as such under the closed-world and unique name assumptions.
 
-With its direct support of validation via \emph{SPARQL}, the \emph{SPARQL Inferencing Notation (SPIN)} is also very popular to formulate and check constraints \cite{Fuerber2010}. We consider SPIN as a low-level language in contrast to the other constraint languages where specific language constructs exist to define constraints in a declarative and in comparison more intuitive way -- although SPARQL aficionados might object particularly to the latter point.
+With its direct support of validation via SPARQL, the \emph{SPARQL Inferencing Notation (SPIN)}\footnote{\url{http://spinrdf.org/}} is also very popular to formulate and check constraints \cite{Fuerber2010}. We consider SPIN as a low-level language in contrast to the other constraint languages where specific language constructs exist to define constraints in a declarative and in comparison more intuitive way -- although SPARQL aficionados might object particularly to the latter point.
 
 The power of SPIN is shown in 
 Table \ref{tab:constraint-type-specific-expressivity}, where we list the fraction (and absolute numbers in brackets) of how many constraint types each of these languages supports \cite{BoschNolleAcarEckert2015}. 
 We further see that OWL 2 is currently the most expressive high-level constraint language, at least according to the pure number of constraint types supported. This does not preclude that other constraint languages are better suited for certain applications, either because they support some types that are not supported by OWL or because the constraint representation is more appealing to the data practitioners -- producers as well as consumers who again might have different needs and preferences.
 
-\begin{table}
+\begin{table}[H]
 	\centering
 	  %\caption{Constraint Type Specific Expressivity}
 		\caption{Constraint Type Specific Expressivity of Constraint Languages}
@@ -254,14 +254,14 @@ semantically equivalent \emph{specific constraints} represented in different lan
 This raises two questions: 
 \begin{enumerate}
  \item How can we ensure that two semantically equivalent constraints are actually validated consistently?
- \item How can we support the transformation of semantically equivalent constraints from one contraint language to another?
+ \item How can we support the transformation of semantically equivalent constraints from one constraint language to another?
 \end{enumerate}
 
 
 
 \paragraph{Consistent implementation.}
-Even though SPIN provides a convenient way to represent constraints and to validate data according to these constraints, the implementation of a high-level constraint language still requires a tedious mapping to SPIN with a certain degree of freedom as to how a constraint violation is actually represented and how exactly the violation of the contraint is checked.
-Our framework therefore proides a common ground that is solely based on the abstract definitions of the constraint types, as identified in our database. By providing a \emph{SPIN} mapping
+Even though SPIN provides a convenient way to represent constraints and to validate data according to these constraints, the implementation of a high-level constraint language still requires a tedious mapping to SPIN with a certain degree of freedom as to how a constraint violation is actually represented and how exactly the violation of the constraint is checked.
+Our framework therefore provides a common ground that is solely based on the abstract definitions of the constraint types, as identified in our database. By providing a SPIN mapping
 for each constraint type\footnote{RDF-CV to SPIN online available at: \url{https://github.com/boschthomas/RDF-CV-2-SPIN}\label{RDF-CV-2-SPIN}}, it is ensured that the details of the SPIN implementation are consistent irrespective of the constraint language and that the validation leads always to exactly the same results.  
 
 
@@ -333,11 +333,11 @@ At the core, we use a very simple conceptual model for constraints, using a smal
 \emph{complex constraints}, i.e., the set of constraints which are created out of \emph{simple} and/or other \emph{complex constraints}. This structure therefore allows to build complex constraints out of other (simple or complex) constraints. Regarding our database of constraint types, 60\% of the constraint types are simple constraints and 26\% are complex constraints. 
 Constraints of additional 14\% of the constraint types are \emph{complex constraints} as well which can be simplified and therefore formulated as \emph{simple constraints} if additional constraining elements are introduced to cover them.
 
-The properties describing a simple constrained are very structural. The central property is the \emph{constraining element} which refers to one of 103 contraining elements described in our technical report \cite{BoschNolleAcarEckert2015}. Constraining elements are for example taken from Description Logics, another concrete example would be 'REGEX' where a regular expression is checked against some property value. In most cases, constraining elements directly correspond to a constraint type, sometimes (as for REGEX) they are shared by several constraint types. Complex constraints again need several constraing elements to be expressed.
+The properties describing a simple constrained are very structural. The central property is the \emph{constraining element} which refers to one of 103 constraining elements described in our technical report \cite{BoschNolleAcarEckert2015}. Constraining elements are for example taken from Description Logics, another concrete example would be 'REGEX' where a regular expression is checked against some property value. In most cases, constraining elements directly correspond to a constraint type, sometimes (as for REGEX) they are shared by several constraint types. Complex constraints again need several constraining elements to be expressed.
 
-Irrespective of and additonal to the constraining element, there are properties to describe the actual constraint, they can also be seen as parameters for the constraining element. The \emph{context class} limits the constraint to individuals of a specific class. Depending on the constraining elements, a list of \emph{classes} can be provided, for example to determine the valid classes for a value or to define a class intersection to be used in a constraint. \emph{leftProperties} and \emph{rightProperties} are lists usually containing properties the constraint is applied to. A typical example for a constraint with a right hand side list of properties would be R43, literal value comparision, where constraints like birthDate $<$ deathDate can be expressed.
+Irrespective of and additional to the constraining element, there are properties to describe the actual constraint, they can also be seen as parameters for the constraining element. The \emph{context class} limits the constraint to individuals of a specific class. Depending on the constraining elements, a list of \emph{classes} can be provided, for example to determine the valid classes for a value or to define a class intersection to be used in a constraint. \emph{leftProperties} and \emph{rightProperties} are lists usually containing properties the constraint is applied to. A typical example for a constraint with a right hand side list of properties would be R43, literal value comparison, where constraints like birthDate $<$ deathDate can be expressed.
 
-Finally, the \emph{constrainig value} contains a literal value to be checked against; for instance in the case of the 'REGEX' element, it contains the regular expression to be evaluated.
+Finally, the \emph{constraining value} contains a literal value to be checked against; for instance in the case of the 'REGEX' element, it contains the regular expression to be evaluated.
 
 This simple structure plus the constraining elements form the building blocks of our proposed framework. In the technical report \cite{BoschNolleAcarEckert2015}, we list for every constraint type its representation in our framework which not only shows that constraints of any constraint type can indeed be described generically in this way, but which also forms the starting point for any mappings using this framework.
 
@@ -345,7 +345,7 @@ This simple structure plus the constraining elements form the building blocks of
 
 A cornerstone of the framework is the generic representation of a constraint, which can often be done using \emph{Description Logics (DL)}, as for the \emph{minimum qualified cardinality restrictions}: {\small\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}}
 
-It turned out that 64\% of the 81 constraint types are actually expressible in DL. Only for the remaining 36\%, other means, i.e., other constraining elements, had to be identified. This is not surprising if we consider that OWL is based on Description Logics. When we talk about using Description Logics to represent constraints, we have to establish once more that the semantics of OWL and Description Logics differ from the semantics of constraint languages regarding the open world assumption (OWA) and the non-unique naming assumption (nUNA). Both are usually assumed when dealing with OWL or DL, whereas validation usually assumes a closed world (CWA) and unique naming (UNA), i.e., if a desired property is missing, this leads to a violation and if two resources are named differently, they are assumed to be different resources. 
+It turned out that 64\% of the 81 constraint types are actually expressible in DL. Only for the remaining 36\%, other means, i.e., other constraining elements, had to be identified. This is not surprising if we consider that OWL is based on Description Logics. When we talk about using Description Logics to represent constraints, we have to establish once more that the semantics of OWL and Description Logics differ from the semantics of constraint languages regarding the open world assumption (OWA) and the non-unique name assumption (nUNA). Both are usually assumed when dealing with OWL or DL, whereas validation usually assumes a closed world (CWA) and unique naming (UNA), i.e., if a desired property is missing, this leads to a violation and if two resources are named differently, they are assumed to be different resources. 
 
 We won't get into details about these assumptions here, but it has to be noted that the applied semantics have to be defined if validation is performed, as the results would differ under different semantics. Precisely, we found that for 56.8\% of the constraint types validation results differ if the CWA or the OWA is assumed 
 and for 66.6\% of the constraint types validation results are different in case the UNA or the nUNA is assumed \cite{BoschNolleAcarEckert2015}.
@@ -730,7 +730,7 @@ the complex constraint can be simplified and thus formulated as a simple constra
     \textit{rdfcv:constrainingElement} "primary key" ] .
 \end{ex}
 
-Complex constraints of frequently used constraint types which correspond to DL axioms like \emph{transitivity}, \emph{symmetry}, \emph{asymmetry}, \emph{reflexivity} and \emph{irreflexivity} can also be simplified in form of simple constraints. Although, these DL axioms are expressible by basic DL features, they can also be used in terms of syntactic sugar \cite{BoschEckert2015-2}.
+Complex constraints of frequently used constraint types which correspond to DL axioms like \emph{transitivity}, \emph{symmetry}, \emph{asymmetry}, \emph{reflexivity} and \emph{irreflexivity} can also be simplified in form of simple constraints. Although, these DL axioms are expressible by basic DL features, they can also be used in terms of syntactic sugar.
 
 Constraints of the \emph{irreflexive object properties (R-60)} constraint type ensure that no individual is connected by a given object property to itself \cite{Kroetzsch2012}. With the irreflexive object property constraint {\small\ms{$\top$ $\sqsubseteq$ $\neg$ $\exists authorOf.Self$}}, e.g., one can state that individuals cannot be authors of themselves. When represented using the RDF-CV, the complex constraint aggregates three simple constraints (see Table \ref{tab:irreflexive-object-properties-as-complex-constraints}).
 
@@ -953,7 +953,7 @@ and uses SPARQL to specify logical constraints and inference rules \cite{Fuerber
 
 \emph{Stardog Integrity Constraint Validation (ICV)} and the \emph{Pellet Integrity Constraint Validator (ICV)} use OWL 2 constructs to formulate constraints. The Pellet ICV\footnote{\url{http://clarkparsia.com/pellet/icv}} is a proof-of-concept extension for the OWL 2 DL reasoner \emph{Pellet} \cite{sirin2007pellet}. Stardog ICV\footnote{\url{http://docs.stardog.com/#_validating_constraints}} validates RDF data stored in a Stardog database according to constraints which may be written in SPARQL, OWL 2, or SWRL \cite{Horrocks04}. 
 
-\emph{Shape Expressions (ShEx)} \cite{W3C-ShEx-Primer-2014,W3C-ShEx-Definition-2014,Prud'hommeaux-2014,Boneva-2014} specifies a language whose syntax and semantics are similar to regular expressions. ShEx associate RDF graphs with labeled patterns called \emph{shapes} which are used to express formal constraints on the content of RDF graphs. \emph{Resource Shapes (ReSh)} \cite{W3C-ReSh-2014} defines its own vocabulary for specifying shapes of RDF resources. Ryman, Hors, and Speicher define \emph{shape} as a description of the set of triples a resource is expected to contain and as a description of the integrity constraints those triples are required to satisfy \cite{Ryman2013}. 
+\emph{Shape Expressions (ShEx)}\footnote{\url{http://www.w3.org/Submission/2014/SUBM-shex-primer-20140602/}} \cite{W3C-ShEx-Primer-2014,W3C-ShEx-Definition-2014,Prud'hommeaux-2014,Boneva-2014} specifies a language whose syntax and semantics are similar to regular expressions. ShEx associate RDF graphs with labeled patterns called \emph{shapes} which are used to express formal constraints on the content of RDF graphs. \emph{Resource Shapes (ReSh)} \cite{W3C-ReSh-2014} defines its own vocabulary for specifying shapes of RDF resources. Ryman, Hors, and Speicher define \emph{shape} as a description of the set of triples a resource is expected to contain and as a description of the integrity constraints those triples are required to satisfy \cite{Ryman2013}. 
 
 The \emph{Dublin Core Application Profile (DCAP)} and \emph{Bibframe Profiles} are approaches to specify \emph{profiles} for application-specific purposes. The term \emph{profile} is widely used to refer to a document that describes how standards or specifications are deployed to support the requirements of a particular application, function, community, or context. In the metadata community, the term \emph{application profile} has been applied to describe the tailoring of standards for specific applications. A \emph{Dublin Core Application Profile (DCAP)} \cite{DCMI-DCAP-2009} defines metadata records which meet specific application needs while providing semantic interoperability with other applications on the basis of globally defined vocabularies and models. The \emph{Singapore Framework for Dublin Core Application Profiles} \cite{DCMI-Singapore-2008} is a framework for designing metadata and for defining DCAPs. The framework comprises descriptive components that are necessary or useful for documenting DCAPs.
 
