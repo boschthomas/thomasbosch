@@ -360,9 +360,10 @@ which means whenever the constraints are applied to any RDF data they point out 
 
 The \emph{minimum qualified cardinality restriction (R-75)} {\small\ms{Publication $\sqsubseteq$ $\geq$1 author.Person,}}
 which restricts publications to have at least one author which must be a person,
-is an example of a property constraint on \emph{author}
+is an example of a simple constraint on \emph{author}
 which holds for all individuals of the class \emph{Publication}.
-Table \ref{tab:property-constraint-cardinality-restriction} displays how the property constraint is generically represented using the RDF-CV.
+Table \ref{tab:property-constraint-cardinality-restriction} displays how the simple constraint is generically represented using the RDF-CV. Note that instead of the description logics construct $\geq$, the constraining element \emph{minimum qualified cardinality restriction} may be used.
+
 \begin{table}[H]
   \scriptsize
   \sffamily
@@ -370,10 +371,10 @@ Table \ref{tab:property-constraint-cardinality-restriction} displays how the pro
 	\caption{Minimum Qualified Cardinality Restriction as Property Constraint}
 	\label{tab:property-constraint-cardinality-restriction}
 	\centering
-		\begin{tabular}{c|c|c|c|c|c|c}
-      \textbf{constraint set} & \textbf{context class} & \textbf{left property list} & \textbf{right p. list} & \textbf{classes} & \textbf{constraining element} & \textbf{c. value} \\
+		\begin{tabular}{c|c|c|c|c|c}
+      \textbf{context class} & \textbf{left property list} & \textbf{right p. list} & \textbf{classes} & \textbf{constraining element} & \textbf{c. value} \\
       \hline
-      property & Publication & author & - & Person & $\geq$ & 1 \\
+      Publication & author & - & Person & $\geq$ & 1 \\
 		\end{tabular}
 \end{table}
 
@@ -406,10 +407,10 @@ and the property \emph{authorOfGenre} on its right side. As this property constr
 	\caption{Object Property Paths as Property Constraint}
 	\label{tab:property-constraint-object-property-paths}
 	\centering
-		\begin{tabular}{l|l|l|l|l|l|l}
-      \textbf{c. set} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
+		\begin{tabular}{c|c|c|c|c|c}
+      \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
       \hline
-      property & $\top$ & authorOf, genre & authorOfGenre & $\top$ & property paths & - \\
+      $\top$ & authorOf, genre & authorOfGenre & $\top$ & property path & - \\
 		\end{tabular}
 \end{table}
 
@@ -467,11 +468,11 @@ Table \ref{tab:simple-constraint-not-expressible-in-dl)} presents (1) in the fir
 	\caption{Simple Constraints which are not Expressible in DL}
 	\label{tab:simple-constraint-not-expressible-in-dl)}
 	\centering
-		\begin{tabular}{l|l|l|l|l|l|l}
-      \textbf{c. set} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
+		\begin{tabular}{c|c|c|c|c|c}
+      \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
       \hline
-      class & ISBN & - & - & xsd:string & regex & '\string^\text{$\backslash$d$\{9\}$[$\backslash$d$\mid$X]}\$' \\
-      property & Book & identifier & - & ISBN & universal quantification & - \\
+      ISBN & - & - & xsd:string & REGEX & '\string^\text{$\backslash$d$\{9\}$[$\backslash$d$\mid$X]}\$' \\
+      Book & identifier & - & ISBN & universal quantification & - \\
 		\end{tabular}
 \end{table} %\tb{Erman, can you please format the regular expression in the table above correctly?}
 
@@ -605,16 +606,16 @@ The DL statements demonstrate that the complex constraint is composed of many ot
 	\caption{Simplified Complex Constraints}
 	\label{tab:simplified-complex-constraints}
 	\centering
-		\begin{tabular}{l|l|l|l|l|l|l}
-      \textbf{c. set} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
+		\begin{tabular}{c|c|c|c|c|c}
+      \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
       \hline
-class & Publication & - & - & E, F & XOR of property groups & - \\
-class & E & - & - & A, B & intersection & - \\
-class & F & - & - & C, D & intersection & - \\
-property & A & isbn & - & string & = & 1 \\
-property & B & title & - & string & = & 1 \\
-property & C & issn & - & string & = & 1 \\
-property & D & title & - & string & = & 1 \\
+Publication & - & - & E, F & exclusive or & - \\
+E & - & - & A, B & intersection & - \\
+F & - & - & C, D & intersection & - \\
+A & isbn & - & string & = & 1 \\
+B & title & - & string & = & 1 \\
+C & issn & - & string & = & 1 \\
+D & title & - & string & = & 1 \\
 		\end{tabular}
 \end{table}
 
@@ -692,11 +693,11 @@ which can be represented using the RDF-CV in form of a complex constraint consis
 	\caption{Primary Key Properties as Complex Constraints}
 	\label{tab:primary-key-properties-as-complex-constraints}
 	\centering
-		\begin{tabular}{l|l|l|l|l|l|l}
-      \textbf{c. set} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
+		\begin{tabular}{c|c|c|c|c|c}
+      \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
       \hline
-property & $\top$ & isbn$^{-}$ & isbn$^{-}$ & - & inverse property & - \\
-property & Book & isbn$^{-}$ & - & - & functional property & - \\
+$\top$ & isbn$^{-}$ & isbn$^{-}$ & - & inverse property & - \\
+Book & isbn$^{-}$ & - & - & functional property & - \\
 		\end{tabular}
 \end{table}
 
@@ -726,8 +727,10 @@ the complex constraint can be simplified and thus formulated as a simple constra
 %\end{table}
 
 \begin{ex}[commandchars=\\\{\}]
-[   a \textit{rdfcv:PropertyConstraint} , \textit{rdfcv:SimpleConstraint} ;
-    \textit{rdfcv:contextClass} Book ; \textit{rdfcv:leftProperties} ( isbn ) ; \textit{rdfcv:constrainingElement} "keyfor" ] .
+[   a \textit{rdfcv:SimpleConstraint} ;
+    \textit{rdfcv:contextClass} Book ; 
+    \textit{rdfcv:leftProperties} ( isbn ) ; 
+    \textit{rdfcv:constrainingElement} "primary key" ] .
 \end{ex}
 
 Complex constraints of frequently used constraint types which correspond to DL axioms like \emph{transitivity}, \emph{symmetry}, \emph{asymmetry}, \emph{reflexivity} and \emph{irreflexivity} can also be simplified in form of simple constraints. Although, these DL axioms are expressible by basic DL features, they can also be used in terms of syntactic sugar \cite{BoschEckert2015-2}.
@@ -747,12 +750,12 @@ Constraints of the \emph{irreflexive object properties (R-60)} constraint type e
 	\caption{Irreflexive Object Properties as Complex Constraints}
 	\label{tab:irreflexive-object-properties-as-complex-constraints}
 	\centering
-		\begin{tabular}{l|l|l|l|l|l|l}
-      \textbf{c. type} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
+		\begin{tabular}{c|c|c|c|c|c}
+      \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
       \hline
-property & $\exists$ authorOf.Self & authorOf & - & Self & existential quantification & - \\
-class & $\neg$ $\exists$ authorOf.Self & - & - & $\exists$ authorOf.Self & negation & - \\
-class & $\top$ & - & - & $\top$, $\neg$ $\exists$ authorOf.Self & sub-class & - \\
+$\exists$ authorOf.Self & authorOf & - & Self & existential quantification & - \\
+$\neg$ $\exists$ authorOf.Self & - & - & $\exists$ authorOf.Self & negation & - \\
+$\top$ & - & - & $\top$, $\neg$ $\exists$ authorOf.Self & sub-class & - \\
 		\end{tabular}
 \end{table}
 
@@ -770,10 +773,10 @@ the complex constraint can be expressed more concisely in form of a simple prope
 	\caption{Irreflexive Object Properties as Simple Constraints}
 	\label{tab:irreflexive-object-properties-as-simple-constraints}
 	\centering
-		\begin{tabular}{l|l|l|l|l|l|l}
-      \textbf{c. type} & \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
+		\begin{tabular}{c|c|c|c|c|c}
+      \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
       \hline
-property & $\top$ & authorOf & - & - & irreflexive property & - \\
+$\top$ & authorOf & - & - & irreflexive property & - \\
 		\end{tabular}
 \end{table}
 
