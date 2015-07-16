@@ -356,11 +356,11 @@ which means whenever the constraints are applied to any RDF data they point out 
 
 
 \subsection{\emph{Simple Constraints}}
-
+In this and the following section, we provide examples for the representation of constraint types within the framework.
 
 The \emph{minimum qualified cardinality restriction (R-75)} {\small\ms{Publication $\sqsubseteq$ $\geq$1 author.Person,}}
 which restricts publications to have at least one author which must be a person,
-is an example of a property constraint on \emph{author}
+is an example of a simple property constraint on \emph{author}
 which holds for all individuals of the class \emph{Publication}.
 Table \ref{tab:property-constraint-cardinality-restriction} displays how the property constraint is generically represented using the RDF-CV.
 \begin{table}[H]
@@ -854,7 +854,7 @@ property & $\top$ & authorOf & - & - & irreflexive property & - \\
 
 %\section{Validation of Specific and Generic Constraints}
 
-\subsection{Bidirectional Constraint Transformations}
+\subsection{Mapping implementation}
 
 Constraint of the type \emph{minimum qualified cardinality restriction (R-75)} expressed in OWL 2:
 
