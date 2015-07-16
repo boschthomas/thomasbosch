@@ -859,11 +859,11 @@ $\top$ & authorOf & - & - & irreflexive property & - \\
 If a language developer would like to use the framework for the implementation of a constraint language, the process is straight-forward. For a language construct, the corresponding constraint type has to be identified. Again we use the \emph{minimum qualified cardinality restriction (R-75)} type which is supported in OWL 2:
 
 \begin{ex}[commandchars=\\\{\}]
-Publication 
+:Publication 
     a owl:Restriction ;
     owl:minQualifiedCardinality 1 ;
-    owl:onProperty author ;
-    owl:onClass Person .
+    owl:onProperty :author ;
+    owl:onClass :Person .
 \end{ex}
 
 From Table~\ref{tab:property-constraint-cardinality-restriction}, we know the representation in our framework, which corresponds to the following 
@@ -905,13 +905,13 @@ owl:Thing
                 owl:onClass ?c1 . } """ ; ] .
 \end{ex}
 
-SPIN is used to execute the mapping, the property \emph{spin:rule} links an rdfs:Class with SPARQL CONSTRUCT queries. Each query defines an inference rule that is applied to all instances of the associated class and its subclasses. The inference rule defines how additional triples can be inferred from what is stated in the WHERE clause. For each binding of the pattern in the WHERE clause of the rule, the triple templates from the CONSTRUCT clause are instantiated and added as inferred triples to the underlying model. At query execution time, the SPARQL variable ?this is bound to the current instance of the class. As each resource per default is assigned to the class owl:Thing, this inference rule is evaluated for each subject of the input RDF graph.
+SPIN is used to execute the mapping, the property \emph{spin:rule} links an rdfs:Class with SPARQL CONSTRUCT queries. Each query defines an inference rule that is applied to all instances of the associated class and its subclasses. The inference rule defines how additional triples can be inferred from what is stated in the WHERE clause. For each binding of the pattern in the WHERE clause of the rule, the triple templates from the CONSTRUCT clause are instantiated and added as inferred triples to the underlying model. At query execution time, the SPARQL variable \emph{?this} is bound to the current instance of the class. As each resource per default is assigned to the class \emph{owl:Thing}, this inference rule is evaluated for each subject of the input RDF graph.
 
 The framework is implemented in exactly the same way by providing another mapping to create the actual SPIN/SPARQL query that validates the constraints and produces constraint violation messages if a constraint is violated, as described in our previous paper about the DSP implementation \cite{BoschEckert2014-2}.\footnote{At the time of this writing, not all mappings for the constraint types are implemented, but of course the implementations can be complemented and adapted to own requirements, as needed. The most recent implementation can be found here: \url{https://github.com/boschthomas/rdf-validation/blob/master/SPIN/RDF-CV-2-SPIN.ttl}.}
 
 \subsection{Constraint transformation}
 
-As stated in Section~\ref{sec:motivation}, we see a huge potential in the possibility to transform semantically equivalent constraints from one high level constraint language to another via the RDF-CV representation, to avoid that every possible combination of constraint languages has to be mapped separately. The following SPIN inference rule exemplifies this approach and provides a mapping from RDF-CV back to an OWL2 constraint:
+As stated in Section~\ref{sec:motivation}, we see a huge potential in the possibility to transform semantically equivalent constraints from one high-level constraint language to another via the RDF-CV representation, to avoid that every possible combination of constraint languages has to be mapped separately. The following SPIN inference rule exemplifies this approach and provides a mapping from RDF-CV back to an OWL2 constraint:
 
 
 \begin{ex}
