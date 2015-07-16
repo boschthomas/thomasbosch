@@ -972,60 +972,19 @@ The W3C Data Shapes Working Group currently develops \emph{SHACL} \cite{W3C-SHAC
 
 \section{Conclusion and Future Work}
 
-%Based on our work in the \emph{DCMI} and in cooperation with the \emph{W3C} working group, 
-%we published by today 81 constraint types \cite{BoschNolleAcarEckert2015}
-%which form the basis to
-%lay the ground for discussions on validation
-%by defining a basic terminology and classification system for RDF constraints.
+In this paper, we outlined our idea of a general framework to support the mapping of high-level constraint languages to a generic representation, which subsequently can be used to generate validating SPIN/SPARQL queries to actually validate data against constraints provided in the high-level language. The framework consists of a very simple conceptual model using the RDF Constraints Vocabulary (RDF-CV) which has been introduced in this paper. The core of the framework is the definition of 103 constraining elements that are used to define all 81 types of constraints that to date have been identified within the \emph{DCMI RDF Application Profiles Task Group} and in cooperation with the \emph{W3C Data Shapes Working Group}.
+The full definition of all constraint types and the representation of the types in RDF-CV is provided in an accompanying technical report \cite{BoschNolleAcarEckert2015}.
 
-Based on our work in the \emph{DCMI} and in cooperation with the \emph{W3C} working group,
-we published by today 81 requirements to validate RDF data and to formulate constraints; 
-each of them corresponds to a constraint type from which concrete constraints are instantiated to be checked on RDF data.
-These constraint types form the basis to
-lay the ground for discussions on validation
-by defining a basic terminology and classification system for RDF constraints.
-%
-There exists no single best solution considered as high-level intuitive constraint language which enables to express constraints in an easy and concise way and which is able to meet all requirements raised by data practitioners.
-Thus, the idea behind this paper is to satisfy all requirements
-by representing constraints of any constraint type in a generic way using a lightweight vocabulary which consists of only a few terms.
-%To show that constraints can either be represented specifically (\emph{specific constraints}) by constraint languages
-%or generically (\emph{generic constraints}) by \emph{description logics (DL)},
-%we mapped constraint types to DL 
-%to determine which DL constructs are needed to express them \cite{BoschNolleAcarEckert2015} (Section \ref{sec:vocabulary}).
+We have demonstrated how the framework can be used to map a constraint language to RDF-CV and also how to map back from RDF-CV to the constraint language. The latter enables the transformation of sematically equivalent constraints from one constraint language to another via the RDF-CV intermediate representation.
 
-As there is no standard way to formulate constraints, 
-semantically equivalent \emph{specific constraints} may be represented by a variety of languages - each of them having different syntax and semantics.
-We propose transformations between semantically equivalent \emph{specific constraints}
-by using the proposed vocabulary to intermediately represent constraints in a generic way
-(1) to avoid the necessity to understand several languages,
-(2) to resolve misunderstandings about the meaning of particular constraints, and
-(3) to enhance the interoperability of constraint languages (Section \ref{sec:transformations}).
+We think that this approach is suitable
+\begin{enumerate}
+  \item to implement the validation of constraints consistently across constraint languages,
+  \item to support the extension of constraint languages by means of a simple mapping, and
+  \item to enhance or rather establish the interoperability of different constraint languages.
+\end{enumerate}
 
-We use \emph{SPIN} as basis to develop a validation environment\footref{rdf-validator} to validate RDF data according to constraints of constraint types which are expressible by arbitrary constraint languages by mapping them to \emph{SPIN}\footref{spin-mappings} \cite{BoschEckert2014-2}.
-When language designers extend constraint languages 
-to be able to formulate constraints of not yet supported constraint types,
-our proposal enables to reuse the validation implementation of these constraint types 
-by mapping \emph{specific constraints} expressed by the language to the corresponding \emph{generic constraint}.
-For any constraint language, we enable to offer a validation implementation of any constraint type out-of-the-box
-by providing a \emph{SPIN} mapping
-for each constraint type\footref{RDF-CV-2-SPIN}  
-whose constraints are represented generically. 
-Furthermore, our proposal makes sure that the validation on semantically equivalent \emph{specific constraints} expressed by different languages
-leads to exactly the same validation results, 
-i.e., that validation is performed independently from the used language (Section \ref{sec:validation}).
-
-It is part of future work 
-(1) to extend the \emph{RDF Validator} by generating \emph{generic constraints} according to inputs of domain experts who may not be familiar with the formulation of constraints,
-(2) to offer bidirectional transformations between \emph{specific constraints} expressed by the most common constraint languages and corresponding \emph{generic constraints}, and
-(3) to provide translations between semantically equivalent \emph{specific constraints} expressed by the most common constraint languages by using the developed vocabulary to intermediately represent constraints.
-Identifying RDF validation requirements is an ongoing process,
-so the task to map constraints of new constraint types to the vocabulary.
-
-%\begin{itemize}
-	%\item to provide a GUI which generates generic constraints automatically according to inputs of domain experts who are not familiar with the formulation of constraints.
-	%\item to offer bidirectional transformations between specific constraints (expressed by multiple constraint languages) and generic constraints. 
-	%\item to provide translations between specific constraints (expressed by any specific constraint language) by using generic constraints as an intermediate transformation step.
-%\end{itemize}
+It is part of future work to finalize the implementation of all 81 constraint types in our \emph{RDF Validator}, to fully map constraint languages to RDF-CV (first and foremost DSP and OWL) and of course keep the framework in sync with the ongoing work in the working groups.
 
 \bibliography{../../literature/literature}{}
 \bibliographystyle{apacite}
