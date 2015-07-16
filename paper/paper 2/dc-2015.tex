@@ -877,38 +877,36 @@ The same constraint expressed generically using the RDF-CV:
     rdfcv:constrainingValue 1 ] .
 \end{ex}
 
-SPIN inference rule to infer the generic constraint:
+SPIN inference rule to infer the generic constraint out of the constraint expressed by OWL 2:
 
 \begin{ex}
-rdfcv2spin:ToInfer 
-	spin:rule [
-		a sp:Construct ;
-        	sp:text """
-            	CONSTRUCT {            
-                    :minimum-qualified-cardinality-restrictions
-                        a rdfcv:SimpleConstraint ;
-  				        rdfcv:contextClass ?this ;
-  				        rdfcv:leftProperties :leftProperties ;
-				        rdfcv:classes :classes ;
-				        rdfcv:constrainingElement "minimum qualified cardinality restriction" ;
-				        rdfcv:constrainingValue ?cv .  
-				    :leftProperties 
-				        rdf:first ?lp1 ;
-                        rdf:rest rdf:nil .    
-                    :classes 
-				        rdf:first ?c1 ;
-                        rdf:rest rdf:nil .  
-            	}
-            	WHERE {
-				    ?this
-				        a owl:Restriction ;
-				        owl:minQualifiedCardinality ?cv ;
-				        owl:onProperty ?lp1 ;
-				        owl:onClass ?c1 .         
-        		} """ ; ] .
+owl:Thing 
+    spin:rule [ a sp:Construct ; sp:text """
+        CONSTRUCT {            
+            :minimum-qualified-cardinality-restrictions
+                a rdfcv:SimpleConstraint ;
+                rdfcv:contextClass ?this ;
+                rdfcv:leftProperties :leftProperties ;
+                rdfcv:classes :classes ;
+                rdfcv:constrainingElement "minimum qualified cardinality restriction" ;
+                rdfcv:constrainingValue ?cv .  
+            :leftProperties 
+                rdf:first ?lp1 ;
+                rdf:rest rdf:nil .    
+            :classes 
+                rdf:first ?c1 ;
+                rdf:rest rdf:nil . }
+        WHERE {
+            ?this
+                a owl:Restriction ;
+                owl:minQualifiedCardinality ?cv ;
+                owl:onProperty ?lp1 ;
+                owl:onClass ?c1 . } """ ; ] .
 \end{ex}
 
-The property \emph{spin:rule} can be used to link an rdfs:Class with SPARQL CONSTRUCT queries. Each query defines an inference rule that is applied to all instances of the associated class and its subclasses. The inference rule defines how additional triples can be inferred from what is stated in the WHERE clause. For each binding of the pattern in the WHERE clause of the rule, the triple templates from the CONSTRUCT clause are instantiated and added as inferred triples to the underlying model. At query execution time, the SPARQL variable ?this is bound to the current instance of the class.
+The property \emph{spin:rule} can be used to link an rdfs:Class with SPARQL CONSTRUCT queries. Each query defines an inference rule that is applied to all instances of the associated class and its subclasses. The inference rule defines how additional triples can be inferred from what is stated in the WHERE clause. For each binding of the pattern in the WHERE clause of the rule, the triple templates from the CONSTRUCT clause are instantiated and added as inferred triples to the underlying model. At query execution time, the SPARQL variable ?this is bound to the current instance of the class. As each resource per default is assigned to the class owl:Thing, this inference rule is evaluated for each subject of the input RDF graph.
+
+SPIN inference rule to infer the OWL 2 constraint out of the generically expressed constraint:
 
 \section{Related Work}
 
