@@ -183,7 +183,6 @@ Various constraint languages exist or are being developed that support more or l
 With its direct support of validation via \emph{SPARQL}, the \emph{SPARQL Inferencing Notation (SPIN)} is also very popular to formulate and check constraints \cite{Fuerber2010}. We consider SPIN a low-level language in contrast to the other constraint languages where specific language constructs exist to define constraints in a declarative and in comparison more intuitive way -- although SPARQL aficionados might object particularly to the latter point.
 
 The power of SPIN is shown in 
-%The evaluation is explained in detail in the appendix of this paper \cite{BoschNolleAcarEckert2015}.
 Table \ref{tab:constraint-type-specific-expressivity}, where we list the fraction (and absolute numbers in brackets) of how many constraint types each of these languages supports \cite{BoschNolleAcarEckert2015}. 
 We further see that OWL 2 is currently the most expressive high-level constraint language, at least according to the pure number of contraint types supported. This does not preclude that other constraint languages are better suited for certain applications, either because they support some types that are not supported by OWL or because the constraint representation is mroe appealing to the data practitioners -- producers as well as consumers who again might have different needs and preferences.
 
@@ -232,7 +231,9 @@ This constraint can be expressed as follows using different constraint languages
           ?this ?p ?o ; a ?C .
           BIND ( \textit{qualifiedCardinality}( ?this, ?p, ?C ) AS ?c ) .
           BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality ) .
-          FILTER ( ?cardinality < ?minimumCardinality ) . \}
+          FILTER ( ?cardinality < 1 ) . 
+          FILTER ( ?C = Person ) .
+          FILTER ( ?p = author ) . \}
 						
 \textit{SPIN function qualifiedCardinality:}										
 SELECT ( COUNT ( ?arg1 ) AS ?c ) WHERE \{ ?arg1 ?arg2 ?o . ?o a ?arg3 . \}
@@ -242,21 +243,9 @@ Note that the SPIN representation is NOT a mapping, but a direct expression of t
 
 On the other hand, it can be seen that the higher-level constraint languages are comparatively similar, there seems to be a pattern, a common way to express this type of constraint. Therefore, a mapping from a high-level language to another high-level language would be considerably easier. Unfortunately, there is not (yet) a high-level language that supports all constraint types. 
 
-In this paper, we build on the experience gained from mapping several constraint languages to SPIN and from the analysis of the identified constraint types to create an intermediate layer, a framework that is able to describe the mechanics of all constraint types and that can be used to map high-level languages more easily.
+In this paper, we build on the experience gained from mapping several constraint languages to SPIN and from the analysis of the identified constraint types to create an intermediate layer, a framework that is able to describe the mechanics of all constraint types and that can be used to map high-level languages more easily. 
 
-%%% DL introduction, not needed here...
-% -This constraint can either be represented generically (\emph{generic constraint}) by \emph{description logics (DL)}: {\small\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}} or
-%The knowledge representation formalism {\em DL}, with its  well-studied theoretical properties, provides the foundational basis to express constraints in a generic way. 
-%For this reason, we mapped constraint types to DL 
-%in order to determine which DL constructs are needed to express constraint types \cite{BoschNolleAcarEckert2015}.
 
-% The main contributions are:
-% \begin{enumerate}
-%  \item We develop a framework to describe constraints of any constraint type in a generic way (Section \ref{sec:vocabulary}).
-%  \item We demonstrate the application of this framework by mapping different constraint language to a unified intermediate representation that is not only mapped to SPIN, but also enables transformations to semantically equivalent constraints in other high-level constraint languages (Section \ref{sec:transformations}).
-%  \item We separate the implementation of the constraint type in SPIN from its expression in a high-level constraint language which makes the implementation reusable and allows a consistent validation across constraint languages (Section \ref{sec:validation}).
-% \end{enumerate}
-% 
 
 \section{Motivation}
 
@@ -269,16 +258,14 @@ This raises two questions:
 \end{enumerate}
 
 
-% \section{How to Provide the Validation of RDF Constraints Out-Of-The-Box}
 
 \paragraph{Consistent implementation.}
 Even though SPIN provides a convenient way to represent constraints and to validate data according to these constraints, the implementation of a high-level constraint language still requires a tedious mapping to SPIN with a certain degree of freedom as to how a constraint violation is actually represented and how exactly the violation of the contraint is checked.
 Our framework therefore proides a common ground that is solely based on the abstract definitions of the constraint types, as identified in our database. By providing a \emph{SPIN} mapping
-%generic validation implementations once 
 for each constraint type\footnote{RDF-CV to SPIN online available at: \url{https://github.com/boschthomas/RDF-CV-2-SPIN}\label{RDF-CV-2-SPIN}}, it is ensured that the details of the SPIN implementation are consistent irrespective of the constraint language and that the validation leads always to exactly the same results.  
 
 
-\paragraph{Constraint transformations.} Consistent implementations of constraint languages provide some advantage, but it could be argued that they are not important enough to justify the additional layer. The situation, however, is different when transformations from one constraint language to another are desired, i.e., to transform a \emph{specific constraint} (\emph{$sc_{\alpha}$}) of any constraint type expressed by language \emph{$\alpha$} into a semantically equivalent \emph{specific constraint} (\emph{$sc_{\beta}$}) of the same constraint type represented by any other language \emph{$\beta$}.
+\paragraph{Constraint transformation.} Consistent implementations of constraint languages provide some advantage, but it could be argued that they are not important enough to justify the additional layer. The situation, however, is different when transformations from one constraint language to another are desired, i.e., to transform a \emph{specific constraint} (\emph{$sc_{\alpha}$}) of any constraint type expressed by language \emph{$\alpha$} into a semantically equivalent \emph{specific constraint} (\emph{$sc_{\beta}$}) of the same constraint type represented by any other language \emph{$\beta$}.
 By defining mappings between equivalent \emph{specific constraints} and the corresponding \emph{generic constraint} (\emph{gc}) we are able to convert them automatically: 
 \begin{align*}
   gc &=  m_1(sc_{\alpha}) \\
@@ -290,12 +277,53 @@ With an intermediate generic representation of constraints, on the other side, w
 To summarize, if language developers are willing to provide two mappings -- forward and backward -- to our framework for each supported constraint type, we not only would get the consistent implementation of all languages, it would also be possible to transform semantically equivalent constraints into all constraint languages.
 
 
-\section{A Vocabulary to Describe RDF Constraints of any RDF Constraint Type} 
+\section{Towards a framework} 
 \label{sec:vocabulary}
+
+When we implemented DSP and other constraint languages using SPARQL as intermediate language \cite{BoschEckert2014-2}, we found that many mappings actually resemble each other; particularly the mappings of the same constraint type in different languages, but also the mappings of different constraint types, though the latter only on a very superficial, structural level. The basic idea of our framework is very simple: we aim at reducing the representation of constraint types to the absolute minimum that has to be provided in a mapping to generate the appropriate SPIN implementation. Consider again our example from above for the SPIN implementation of \emph{minimum qualified cardinality restrictions}:
+
+\begin{ex}[commandchars=\\\{\}]
+\textit{SPIN:} CONSTRUCT \{ [ a spin:ConstraintViolation ... . ] \} WHERE \{ 
+          ?this ?p ?o ; a ?C .
+          BIND ( \textit{qualifiedCardinality}( ?this, ?p, ?C ) AS ?c ) .
+          BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality ) .
+          FILTER ( ?cardinality < 1 ) . 
+          FILTER ( ?C = Person ) .
+          FILTER ( ?p = author ) . \}
+						
+\textit{SPIN function qualifiedCardinality:}										
+SELECT ( COUNT ( ?arg1 ) AS ?c ) WHERE \{ ?arg1 ?arg2 ?o . ?o a ?arg3 . \}
+\end{ex}
+
+However this SPIN code looks like, all we have to provide to make it work is the desired minimum cardinality (?cardinality), the property to be constrained (?p) and the class for which this property should be constrained (?C). All other variables are bound internally. So we could reduce the effort of the mapping by simply providing these three values, which are readily available in all representations of this constraint type:
+
+\begin{ex}[commandchars=\\\{\}]
+\textit{OWL 2:} Publication a owl:Restriction ;
+          owl:minQualifiedCardinality 1 ;
+          owl:onProperty author ;
+          owl:onClass Person .
+		
+\textit{ShEx:} Publication \{ author @Person\{1, \} \}
+
+\textit{ReSh:} Publication a rs:ResourceShape ; rs:property [
+          rs:propertyDefinition author ;
+          rs:valueShape Person ;
+          rs:occurs rs:One-or-many ; ] .
+		
+\textit{DSP:} [ dsp:resourceClass Publication ; dsp:statementTemplate [ 
+          dsp:minOccur 1 ; dsp:maxOccur "infinity" ; 
+          dsp:property author ; 
+          dsp:nonLiteralConstraint [ dsp:valueClass Person ] ] ] .
+\end{ex}
+
+% -This constraint can either be represented generically (\emph{generic constraint}) by \emph{description logics (DL)}: {\small\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}} or
+%The knowledge representation formalism {\em DL}, with its  well-studied theoretical properties, provides the foundational basis to express constraints in a generic way. 
+%For this reason, we mapped constraint types to DL 
+%in order to determine which DL constructs are needed to express constraint types \cite{BoschNolleAcarEckert2015}.
+
 
 Prerequisites to develop a vocabulary to describe RDF constraints of any RDF constraint type are (1) to specify the underlying semantics for RDF validation and thus for the vocabulary and (2) to define a basic terminology and classification system for RDF constraints which lay the ground for discussions on RDF validation.
 
-\subsection{Semantics for RDF Validation}
 
 RDF validation and OWL 2 assume different semantics. 
 This ambiguity in semantics is one of the main reasons why OWL 2 has not been adopted as a standard constraint language for RDF validation in the past.
@@ -322,47 +350,7 @@ which resolves the violation.
 %Although, OWL 2 does not assume UNA, OWL 2 has the constructs \emph{owl:sameAs} and \emph{owl:differentFrom} to state that two names are the same or different.
 
 If RDF validation would assume OWA and nUNA just like OWL 2 does, validation won’t be that restrictive and therefore we won’t get the intended validation results.
-%
-%OWL 2 reasoning is based on the {\em open-world assumption (OWA)}, i.e., a statement cannot be inferred to be false if it cannot be proved to be true. 
-%%which fits its primary design purpose to represent knowledge on the World Wide Web. 
-%%Most of the constraint languages except OWL, have a major shortcoming of redundancy.
-%%With its open-world semantics, used as a constraint language, OWL solves the redundancy problem. 
-%%\tb{the following example does not show the redundancy problem!}
-%%\tb{2. benefit: reasoning solves redundancy problem}
-%As each book must have a title {\small\ms{(Book $\sqsubseteq \exists$ title.$\top$)}} and {\em Hamlet} is a book {\small\ms{(Book(Hamlet)),}}
-%{\em Hamlet} must have at least one title.
-%In an OWA setting, this axiom does not cause a constraint violation (even if there is no explicitly defined title), since there must be a title for this book which we may not know. 
-%On the other hand, RDF validation scenarios require the \emph{closed-world assumption (CWA)}, i.e., a statement is inferred to be false if it cannot be proved to be true.
-%When assuming the CWA, a constraint violation is raised as there is no explicitly defined title. 
-%A constraint that says that a book must have at least one title in OWA, 
-%does not mean that the title has to be unique. 
-%In every model  (an interpretation that makes a set of \emph{DL knowledge base} true), 
-%it can be the case that a book has a single title, however, 
-%this title is not unique. 
-%In some models it is \emph{The-Adventures-of-Huckleberry-Finn}, in others it is \emph{Die-Abenteuer-des-Huckleberry-Finn}. 
-%And since in every model there is only one, DL sentences are satisfied. 
-%But this does not correspond to the intended constraint which is usual in CWA way.   
-%%Classical constraint languages are based on the CWA where constraints need to be satisfied only by named individuals which yields a constraint violation.
-%This ambiguity in semantics is one of the main reasons why OWL 2 has not been adopted as a standard constraint language for RDF validation in the past. 
-%In case we want to use OWL 2 as a constraint language, we adopt the same semantics (CWA and UNA) as for RDF validation in general. 
-%In case we want to use OWL 2 as a constraint language, we adopt the same semantics (CWA) that is for RDF validation in general. 
-%\tb{feedback from Erman: the major problem is semantics. OWL basically work in different semantics than others. And their semantics are formal. Closed world vs. Open World is also a part of this. / Thomas: I think your issue is tackled now? No.}
-%
-%comments from Erman:
-%
-%\begin{itemize}
-%\item If a constraint is represented (recognized) by two different languages, that means, whenever it is violated in one language it is violated in other. We have to provide formal generic semantics for it; formally prove those statements.}
-%
-%\item This is simple. You write that:
-%In case we want to use OWL 2 as a constraint language, we adopt the same semantics (CWA) that is for RDF validation in general.
-%The question is how to adopt CWA for OWL2, because it wont behave CWA way, just because we want it. So I say, in order to show that it behaves exactly we want it to, we should show that for the cases that we express a constraint (that we speak) in a classical constraint language, say, Scheme (therefore CWA) and  also OWL,  whenever the constraint in Scheme is violated, it's OWL correspondence is also violated. That shows that they behave in the same way, as they should. 
-%
-%\item So if you read again my comment again, without knowing which semantics those constraint languages have, one actually does is to show, given an RDF-data it is violated in one language iff it is violated in other. And this actually corresponds to the very idea of transformation and generic semantics. 
-%
-%\item Now, what is a generic semantics? 
-%It is, the semantics we had in our mind, when typing this long document, that we tried to underpin by the DL language. However, regarding CWA and OWA, it is possible that we made some mistakes. In order to ensure that, say, if its DL, one needs to show that, a constraint/query written a particular language should have the same answer with its correspondent DL query.
-%\end{itemize}
-%
+
 Differences in semantics may lead to differences in validation results when applied to particular constraint types.
 This is important 
 as for 56.8\% of the constraint types validation results differ if the CWA or the OWA is assumed 
@@ -377,53 +365,7 @@ we thereby document identical semantics of these languages with regard to given 
 This is also important in order to prove that semantically equivalent \emph{specific constraints} and corresponding \emph{generic constraints}
 behave in the same way w.r.t. validation results which semantically underpins bidirectional mappings.
 
-%We defined the \textbf{formal generic semantics of the vocabulary} to describe constraints of any constraint type in a generic way (see paper appendix):
-%(1) We mapped constraint types to DL to logically underpin them and 
-%(2) we described the constraint types' intended behavior in terms of validation results depending on CWA and UNA.
-%To be able to define mappings between \emph{specific constraints} (expressed by different languages) and \emph{generic constraints},
-%we show for each constraint type that a constraint expressed by a particular language leads to the same answer as the corresponding DL query.
-%To be able to specify transformations between \emph{specific constraints} (expressed by different languages),
-%identical semantics of the languages with regard to the particular constraint type has to be ensured.
-%%Constraint languages assume identical semantics, 
-%%if for each constraint the following condition holds:
-%If a constraint is represented by \emph{ShEx} and OWL 2, 
-%the validation results must be exactly the same, i.e.,
-%whenever the \emph{specific constraint} \emph{$sc_{ShEx}$} is violated, its \emph{$sc_{OWL 2}$} correspondence is also violated which shows that they behave in the same way.
-%We expressed constraint types by different languages
-%to document identical semantics for these languages with regard to appropriate constraint types. 
-
-%\textcolor{red}{feedback from Erman:}
-
-%\textcolor{red}{
-%-About the paragraph; it says we defined a formal generic semantics. Did we? (if you think so please defend) but i think its not true. A formal semantics, is where you talk about an interpretation e.g., like in DL, there the semantics/interpretation is a mathematical object (therefore formally defined). What i believe is that paper propose  rather a schema for transforming constraint languages to one another (in particular to assess them in the first paper), that a person who doesn't know one language can have operation power etc.. .
-%}
-%
-%\textcolor{red}{
-%-so I think we should get rid of this paragraph either totally or partially and you talk about the formulation instead briefly one-two sentence. I know that you wrote this paragraph to make my points and thanks a lot for that, but they were general remarks, so we cannot point out something that we do not do at that point, if its not at the "future work" or smth. Also this underpininng and  so on, these things were in the other paper (arxiv).  If it has a point, then better referencing it.
-%}
-
-%\textcolor{red}{
-%-please be careful with the narration:
-%To be able to define mappings between specific constraints (expressed by different languages) and generic constraints, we show for each constraint type that a constraint expressed by a particular language leads to the same answer as the corresponding DL query. 
-%When you read it and next sentence, it does not flow.  I know that it is not easy to write it nicely. But it also has technical problems, like
-%}
-%
-%\textcolor{red}{
-%A constraint  that is expected to give the same answer with a query. Those things are not of the same type. When I have written this query/constraint analogy, it was rather to provide an intuition. If we gonna talk about constraints; a constraint written in different languages always have the same restriction on any possible rdf-data. This means, if any two constraints are semantically the same (w.r.t. RDF data semantics), they should detect the same set of violations regardless of RDF data (which means whenever you apply them to any rdf data they point out the same violations or they have the same effect). Using a query language for validation, is a related but another thing. You actually know what it is better than I do.
-%}
-
-%Erman:
-%Section 3.1, explains a possible application only in an example specific to UNA and nUNA case, and I also have the 
-%feeling that it is so spread out to the whole work (paper1  especially), and in the core of technical parts. That is, whenever we mean CWA vs. OWA, we turn our head to UNA vs. nUNA.
-%
-%The thing I wanted to point out is that, the difference in CWA and OWA and its consequence/incompatibility is more general (as you also may probably noticed)  than the use of "UNA vs. nUNA".   The example I gave  is independent from the assumption of UNA  or nUNA. 
-%
-%You don't need to change something asap, but I think we can improve the exposition of any paper, by giving a classical constraint, how it is done classical in CWA, and how it is done in OWA, and then introducing the extra benefit, redundancy for instance.
-%
-%A constraint that says book should have a single author in OWA, does not mean that it has a unique author. In every model  (an interpretation that makes a set of DL knowledge base true), it can be the case that a book has a single author, however, bringing all those together, this author is not unique. In some models it is Ali, in others its Veli. And since in every model there is only one, DL sentences are satisfied. But this does not correspond to the intended constraint which is usual in CWA way.
-
-\subsection{Basic Terminology and Classification System for RDF Constraints}
-%\subsection{Basic Terminology for the Formulation of RDF Constraints}
+\subsection{Constraining Elements}
 
 A \emph{constraint language} is a language which is used to formulate constraints.
 The W3C working group defines \emph{RDF constraint} as a component of a schema what needs to be satisfied\footnote{\url{https://www.w3.org/2014/data-shapes/wiki/Glossary}}.
