@@ -476,7 +476,7 @@ Table \ref{tab:simple-constraint-not-expressible-in-dl)} presents (1) how the no
 \subsection{\emph{Complex Constraints}}
 
 %\emph{Complex constraints} are composed out of \emph{simple constraints} and/or \emph{complex constraints}.
-Complex constraints of the constraint type \emph{context-specific exclusive or of property groups} (\emph{R-13}) restrict individuals of given classes to have all properties of exactly one of multiple mutually exclusive property groups. Publications, e.g., are either identified by an \emph{ISBN} and a title (for books) or by an \emph{ISSN} and a title (for periodical publications), but it should not be possible to assign both identifiers to a given publication. This complex constraint is expressible in \emph{ShEx}: 
+Complex constraints of the constraint type \emph{context-specific exclusive or of property groups (R-13)} restrict individuals of given classes to have all properties of exactly one of multiple mutually exclusive property groups. Publications, e.g., are either identified by an ISBN and a title (for books) or by an ISSN and a title (for periodical publications), but it should not be possible to assign both identifiers to a given publication. This complex constraint is expressible in ShEx: 
 
 \begin{ex}
 Publication { 
@@ -484,7 +484,7 @@ Publication {
     ( issn string , title string ) }
 \end{ex}
 
-As \emph{The-Great-Gatsby} is a publication with an \emph{ISBN} and a title without an \emph{ISSN}, \emph{The-Great-Gatsby} is considered as a valid publication. This complex constraint is generically expressible in DL:
+If \emph{The-Great-Gatsby} is a publication with an ISBN and a title without an ISSN, \emph{The-Great-Gatsby} is considered as a valid publication. This complex constraint is generically expressible in DL:
 %This \emph{complex constraint} is expressible specifically by \emph{ShEx} and generically by DL (and can therefore be mapped to the \emph{RDF-CV} \cite{BoschEckert2015-2}).
 
 %Half-Klingons, e.g., either have a klingon mother and a human father or a human mother and a klingon father, which can be expressed by ShEx:
@@ -584,7 +584,7 @@ C $\sqsubseteq$ $\geq$ 1 issn.string $\sqcap$ $\leq$ 1 issn.string , D $\sqsubse
 %\end{table}
 
 %Even though, tools may generate \emph{generic constraints} automatically, this 
-The DL statements demonstrate that the complex constraint is composed of many other complex constraints (\emph{minimum (R-75) and maximum qualified cardinality restrictions (R-76)}) and simple constraints (\emph{intersection (R-15/16)}, \emph{disjunction (R-17/18)}, and \emph{negation (R-19/20)}). Constraints of almost 14\% of the constraint types are complex constraints which can be simplified and therefore formulated as simple constraints when using them in terms of syntactic sugar. As \emph{exact (un)qualified cardinality restrictions (=n)} and \emph{exclusive or (XOR) of property groups} are frequently used complex constraints, we propose to simplify them in form of simple constraints. As a consequence, the \emph{context-specific exclusive or of property groups (R-13)} complex constraint is represented as a generic constraint by means of the RDF-CV more intuitively and concisely (see Table \ref{tab:simplified-complex-constraints}).
+The DL statements demonstrate that the complex constraint is composed of many other complex constraints (\emph{minimum (R-75) and maximum qualified cardinality restrictions (R-76)}) and simple constraints (\emph{intersection (R-15/16)}, \emph{disjunction (R-17/18)}, and \emph{negation (R-19/20)}). Constraints of almost 14\% of the constraint types are complex constraints which can be simplified and therefore formulated as simple constraints when using them in terms of syntactic sugar. As \emph{exact (un)qualified cardinality restrictions (R-74/80) (=n)} and \emph{exclusive or of property groups (R-13)} are constraint types of frequently used complex constraints, we propose to simplify them in form of simple constraints. As a consequence, the \emph{context-specific exclusive or of property groups} complex constraint is represented as a generic constraint by means of the RDF-CV more intuitively and concisely (see Table \ref{tab:simplified-complex-constraints}).
 
 %\begin{gcotable}
 %class & Half-Klingon & - & - & E, F & XOR \\
