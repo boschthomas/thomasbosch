@@ -675,7 +675,7 @@ D & title & - & string & = & 1 \\
 		%\end{tabular}
 %\end{table}
 The \emph{primary key properties (R-226)} constraint type is often useful to declare a given (datatype) property as the primary key of a class, so that a system can enforce uniqueness. 
-Books, e.g., are uniquely identified by their \emph{ISBN}, i.e., the property \emph{isbn} is inverse functional \ms{$(\ms{funct } isbn\sp{\overline{\ }})$}
+Books, e.g., are uniquely identified by their ISBN, i.e., the property \emph{isbn} is inverse functional \ms{$(\ms{funct } isbn\sp{\overline{\ }})$}
 which can be represented using the RDF-CV in form of a complex constraint consisting of two simple constraints (see Table \ref{tab:primary-key-properties-as-complex-constraints}).
 
 %\begin{gcotable}
@@ -732,7 +732,7 @@ the complex constraint can be simplified and thus formulated as a simple constra
 
 Complex constraints of frequently used constraint types which correspond to DL axioms like \emph{transitivity}, \emph{symmetry}, \emph{asymmetry}, \emph{reflexivity} and \emph{irreflexivity} can also be simplified in form of simple constraints. Although, these DL axioms are expressible by basic DL features, they can also be used in terms of syntactic sugar \cite{BoschEckert2015-2}.
 
-Constraints of the \emph{irreflexive object properties (R-60)} constraint type ensure that no individual is connected by a given object property to itself \cite{Kroetzsch2012}. With the irreflexive object property constraint {\small\ms{$\top$ $\sqsubseteq$ $\neg$ $\exists authorOf.Self$}}, e.g., one can state that individuals cannot be authors of themselves. When represented using the RDF-CV, the complex constraint aggregates three simple constraints - one property and two class constraints (see Table \ref{tab:irreflexive-object-properties-as-complex-constraints}).
+Constraints of the \emph{irreflexive object properties (R-60)} constraint type ensure that no individual is connected by a given object property to itself \cite{Kroetzsch2012}. With the irreflexive object property constraint {\small\ms{$\top$ $\sqsubseteq$ $\neg$ $\exists authorOf.Self$}}, e.g., one can state that individuals cannot be authors of themselves. When represented using the RDF-CV, the complex constraint aggregates three simple constraints (see Table \ref{tab:irreflexive-object-properties-as-complex-constraints}).
 
 %\begin{gcotable}
 %property & $\exists$ marriedTo . Self & marriedTo & - & Self & $\exists$ & - \\
@@ -756,7 +756,7 @@ $\top$ & - & - & $\top$, $\neg$ $\exists$ authorOf.Self & sub-class & - \\
 		\end{tabular}
 \end{table}
 
-When using the irreflexive object property constraint in terms of syntactic sugar, 
+When using the \emph{irreflexive object property} constraint in terms of syntactic sugar, 
 the complex constraint can be expressed more concisely in form of a simple property constraint with exactly the same semantics (see Table \ref{tab:irreflexive-object-properties-as-simple-constraints}):
 
 %\begin{gcotable}
