@@ -854,6 +854,62 @@ property & $\top$ & authorOf & - & - & irreflexive property & - \\
 
 %\section{Validation of Specific and Generic Constraints}
 
+\subsection{Constraint Transformation}
+
+Constraint of the type \emph{minimum qualified cardinality restriction (R-75)} expressed in OWL 2:
+
+\begin{ex}[commandchars=\\\{\}]
+Publication 
+    a owl:Restriction ;
+    owl:minQualifiedCardinality 1 ;
+    owl:onProperty author ;
+    owl:onClass Person .
+\end{ex}
+
+The same constraint expressed generically using the RDF-CV:
+
+\begin{ex}[commandchars=\\\{\}]
+[   a rdfcv:SimpleConstraint ;
+    rdfcv:contextClass :Publication ;
+    rdfcv:leftProperties ( :author ) ;
+    rdfcv:classes ( :Person ) ;
+    rdfcv:constrainingElement "minimum qualified cardinality restriction" ;
+    rdfcv:constrainingValue 1 ] .
+\end{ex}
+
+SPIN inference rule to infer the generic constraint:
+
+\begin{ex}
+rdfcv2spin:ToInfer 
+	spin:rule [
+		a sp:Construct ;
+        	sp:text """
+            	CONSTRUCT {            
+                    :minimum-qualified-cardinality-restrictions
+                        a rdfcv:SimpleConstraint ;
+  				        rdfcv:contextClass ?this ;
+  				        rdfcv:leftProperties :leftProperties ;
+				        rdfcv:classes :classes ;
+				        rdfcv:constrainingElement "minimum qualified cardinality restriction" ;
+				        rdfcv:constrainingValue ?cv .  
+				    :leftProperties 
+				        rdf:first ?lp1 ;
+                        rdf:rest rdf:nil .    
+                    :classes 
+				        rdf:first ?c1 ;
+                        rdf:rest rdf:nil .  
+            	}
+            	WHERE {
+				    ?this
+				        a owl:Restriction ;
+				        owl:minQualifiedCardinality ?cv ;
+				        owl:onProperty ?lp1 ;
+				        owl:onClass ?c1 .         
+        		} """ ; ] .
+\end{ex}
+
+The property \emph{spin:rule} can be used to link an rdfs:Class with SPARQL CONSTRUCT queries. Each query defines an inference rule that is applied to all instances of the associated class and its subclasses. The inference rule defines how additional triples can be inferred from what is stated in the WHERE clause. For each binding of the pattern in the WHERE clause of the rule, the triple templates from the CONSTRUCT clause are instantiated and added as inferred triples to the underlying model. At query execution time, the SPARQL variable ?this is bound to the current instance of the class.
+
 \section{Related Work}
 
 In this section, we present current languages for RDF constraint formulation and RDF data validation. SPIN, SPARQL, OWL 2, ShEx, ReSh, and DSP are the six most promising and mostly used constraint languages. In addition, the W3C Data Shapes Working Group currently develops SHACL, an RDF vocabulary for describing RDF graph structures.
