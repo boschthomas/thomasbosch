@@ -908,6 +908,33 @@ The property \emph{spin:rule} can be used to link an rdfs:Class with SPARQL CONS
 
 SPIN inference rule to infer the OWL 2 constraint out of the generically expressed constraint:
 
+\subsection{XXX}
+
+\begin{ex}
+owl:Thing 
+    spin:rule [ a sp:Construct ; sp:text """
+        CONSTRUCT {            
+            ?cc
+                a owl:Restriction ;
+                owl:minQualifiedCardinality ?cv ;
+                owl:onProperty ?lp1 ;
+                owl:onClass ?c1 . }
+        WHERE { 
+            ?this
+                a rdfcv:SimpleConstraint ;
+                rdfcv:contextClass ?cc ;
+                rdfcv:leftProperties ?leftProperties ;
+                rdfcv:classes ?classes ;
+                rdfcv:constrainingElement "minimum qualified cardinality restriction" ;
+                rdfcv:constrainingValue ?cv .  
+            ?leftProperties 
+                rdf:first ?lp1 ;
+                rdf:rest rdf:nil .    
+            ?classes 
+                rdf:first ?c1 ;
+                rdf:rest rdf:nil . } """ ; ] .
+\end{ex}
+
 \section{Related Work}
 
 In this section, we present current languages for RDF constraint formulation and RDF data validation. SPIN, SPARQL, OWL 2, ShEx, ReSh, and DSP are the six most promising and mostly used constraint languages. In addition, the W3C Data Shapes Working Group currently develops SHACL, an RDF vocabulary for describing RDF graph structures.
