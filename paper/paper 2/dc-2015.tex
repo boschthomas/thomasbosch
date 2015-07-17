@@ -270,7 +270,7 @@ To summarize, if language developers are willing to provide two mappings -- forw
 \section{Towards a framework} 
 \label{sec:vocabulary}
 
-When we fully implemented OWL 2 and DSP and to some extend other constraint languages using SPARQL as intermediate language \cite{BoschEckert2014-2}, we found that many mappings actually resemble each other; particularly the mappings of the same constraint type in different languages, but also the mappings of different constraint types, though the latter only on a very superficial, structural level. The basic idea of our framework is very simple: we aim at reducing the representation of constraints to the absolute minimum that has to be provided in a mapping to SPIN to implement the validation of constraints.
+When we fully implemented OWL 2 and DSP and to some extend other constraint languages using SPARQL as intermediate language \cite{BoschEckert2014-2}, we found that many mappings actually resemble each other; particularly the mappings of the same constraint type in different languages, but also the mappings of different constraint types, though the latter only on a very superficial, structural level. The basic idea of our framework is very simple: we aim at reducing the representation of constraints to the absolute minimum that has to be provided in a mapping to SPIN to implement the validation for constraint types.
 % to generate the appropriate SPIN implementation. 
 Consider again our example from above for the SPIN representation of a constraint of the type \emph{minimum qualified cardinality restrictions}:
 
@@ -290,7 +290,7 @@ Consider again our example from above for the SPIN representation of a constrain
 SELECT ( COUNT ( ?arg1 ) AS ?c ) WHERE \{ ?arg1 ?arg2 ?o . ?o a ?arg3 . \}
 \end{ex}
 
-However this SPIN code looks like, all we have to provide to make it work is the desired minimum cardinality (?cardinality), the property to be constrained (?p), the class whose individuals must hold for the constraint (?C1), and the class for which this property should be constrained (?C2). All other variables are bound internally. So we could reduce the effort of the mapping by simply providing these four values, which are readily available in all representations of this constraint type:
+However this SPIN code looks like, all we have to provide to make it work is the desired minimum cardinality (?cardinality), the property to be constrained (?p), the class whose individuals must hold for the constraint (?C1), and the class for which the property should be constrained (?C2). All other variables are bound internally. So we could reduce the effort of the mapping by simply providing these four values, which are readily available in all representations of this constraint type:
 
 \begin{ex}[commandchars=\\\{\}]
 \textit{OWL 2:} Publication a owl:Restriction ;
