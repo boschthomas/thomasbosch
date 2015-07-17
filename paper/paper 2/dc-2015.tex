@@ -147,7 +147,7 @@ we identified by today 81 constraint types, where each type corresponds to a spe
 Various constraint languages exist or are being developed that support more or less of these constraint types. For our work, we focus on the following four as the ones that are most popular among data practitioners, often mentioned on mailing lists and/or being candidates or prototypes for the upcoming W3C recommendation:
 \emph{Description Set Profiles (DSP)}\footnote{\url{ http://dublincore.org/documents/2008/03/31/dc-dsp/}}, \emph{Resource Shapes (ReSh)}\footnote{\url{http://www.w3.org/Submission/2014/SUBM-shapes-20140211/}}, \emph{Shape Expressions (ShEx)}\footnote{\url{http://www.w3.org/Submission/2014/SUBM-shex-primer-20140602/}}, and the \emph{Web Ontology Language} \emph{(OWL)}\footnote{\url{http://www.w3.org/TR/owl2-syntax/}}. Despite the fact that OWL is arguably not a constraint language, it is widely used in practice as such under the closed-world and unique name assumptions.
 
-With its direct support of validation via SPARQL, the \emph{SPARQL Inferencing Notation (SPIN)}\footnote{\url{http://spinrdf.org/}} is also very popular to formulate and check constraints \cite{Fuerber2010}. We consider SPIN as a low-level language in contrast to the other constraint languages where specific language constructs exist to define constraints in a declarative and in comparison more intuitive way -- although SPARQL aficionados might object particularly to the latter point.
+With its direct support of validation via SPARQL, the \emph{SPARQL Inferencing Notation (SPIN)}\footnote{\url{http://spinrdf.org/}} is also very popular to formulate and check constraints \cite{Fuerber2010}. We consider SPIN as a low-level language in contrast to the other constraint languages where specific language constructs exist to define constraints in a declarative and in comparison more intuitive way -- although, SPARQL aficionados might object particularly to the latter point.
 
 The power of SPIN is shown in 
 Table \ref{tab:constraint-type-specific-expressivity}, where we list the fraction (and absolute numbers in brackets) of how many constraint types each of these languages supports \cite{BoschNolleAcarEckert2015}. 
@@ -167,14 +167,11 @@ We further see that OWL 2 is currently the most expressive high-level constraint
 	\label{tab:constraint-type-specific-expressivity}
 \end{table}
 
-We formerly demonstrated that a high-level constraint language, Description Set Profiles, can be implemented by mapping the language to SPIN using SPARQL CONSTRUCT queries \cite{BoschEckert2014-2}. We provide a validation environment where own mappings from arbitrary constraint languages can be provided and tested.\footnote{Available at \url{http://purl.org/net/rdfval-demo}, source code available at: \url{https://github.com/boschthomas/rdf-validator}.}
+We formerly demonstrated that a high-level constraint language like OWL 2 and DSP can be implemented by mapping the language to SPIN using SPARQL CONSTRUCT queries \cite{BoschEckert2014-2}. We provide a validation environment where own mappings from arbitrary constraint languages can be provided and tested\footnote{Online available at: \url{http://purl.org/net/rdfval-demo}, source code online available at: \url{https://github.com/boschthomas/rdf-validator}.}. The only limitations are that the constraints have to
+be expressed in RDF and that the constraint language is expressable in SPARQL.
 
-The creation of such mappings is in many cases not straight-forward and requires profound knowledge of SPARQL, as the following example demonstrates:
-
-The constraint type \emph{minimum qualified cardinality restrictions} which corresponds to the requirement \emph{R-75}\footnote{Requirements are identified in the database by an R and a number, additionally an alphanumeric identifier is provided, in this case R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES. Online at: \url{http://lelystad.informatik.uni-mannheim.de/rdf-validation/?q=node/82}} can be used to formulate the constraint
-that \emph{publications} must have at least one \emph{author} which must be a \emph{person}.
-
-This constraint can be expressed as follows using different constraint languages:
+The creation of such mappings is in many cases not straight-forward and requires profound knowledge of SPARQL, as the following example demonstrates. 
+The constraint type \emph{minimum qualified cardinality restrictions} which corresponds to the requirement \emph{R-75}\footnote{Requirements are identified in the database by an R and a number, additionally an alphanumeric identifier is provided, in this case R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES. Online at: \url{http://lelystad.informatik.uni-mannheim.de/rdf-validation/?q=node/82}} can be used to formulate the constraint that publications must have at least one author which must be a person. This constraint can be expressed as follows using different constraint languages:
 
 \begin{ex}[commandchars=\\\{\}]
 \textit{OWL 2:} Publication a owl:Restriction ;
@@ -206,7 +203,7 @@ This constraint can be expressed as follows using different constraint languages
 SELECT ( COUNT ( ?arg1 ) AS ?c ) WHERE \{ ?arg1 ?arg2 ?o . ?o a ?arg3 . \}
 \end{ex}
 
-Note that the SPIN representation is NOT a mapping, but a direct expression of the constraint using a SPARQL CONSTRUCT query that creates a spin:ConstraintViolation if the constraint is violated. The mapping for DSP is much more complicated and can be found in the mappings provided by us.\footnote{Online: \url{https://github.com/boschthomas/rdf-validation/blob/b6a275fb5d71a92ae33d3b6aadd5f447351214b7/SPIN/DSP_SPIN-Mapping.ttl#L4665}}
+Note that the SPIN representation is NOT a mapping, but a direct expression of the constraint using a SPARQL CONSTRUCT query that creates a spin:ConstraintViolation if the constraint is violated. The mapping for DSP is much more complicated and can be found in the mappings provided by us\footnote{Online available at: \url{https://github.com/boschthomas/rdf-validation/blob/b6a275fb5d71a92ae33d3b6aadd5f447351214b7/SPIN/DSP_SPIN-Mapping.ttl#L4665}}.
 
 On the other hand, it can be seen that the higher-level constraint languages are comparatively similar, there seems to be a pattern, a common way to express this type of constraint. Therefore, a mapping from a high-level language to another high-level language would be considerably easier. Unfortunately, there is not (yet) a high-level language that supports all constraint types. 
 
