@@ -191,11 +191,14 @@ The constraint type \emph{minimum qualified cardinality restrictions} which corr
           dsp:nonLiteralConstraint [ dsp:valueClass Person ] ] ] .
 					
 \textit{SPIN:} CONSTRUCT \{ [ a spin:ConstraintViolation ... . ] \} WHERE \{ 
-          ?this ?p ?o ; a ?C .
-          BIND ( \textit{qualifiedCardinality}( ?this, ?p, ?C ) AS ?c ) .
+          ?this 
+              a ?C1 ;
+              ?p ?o .
+          BIND ( \textit{qualifiedCardinality}( ?this, ?p, ?C2 ) AS ?c ) .
           BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality ) .
           FILTER ( ?cardinality < 1 ) . 
-          FILTER ( ?C = Person ) .
+          FILTER ( ?C1 = Publication ) .
+          FILTER ( ?C2 = Person ) .
           FILTER ( ?p = author ) . \}
 						
 \textit{SPIN function qualifiedCardinality:}										
@@ -235,7 +238,7 @@ In this paper, we build on the experience gained from mapping several constraint
 \section{Motivation}
 \label{sec:motivation}
 Even with an upcoming W3C recommendation, it can be expected that several constraint languages will be used in practice in future -- consider the situation in the XML world, where a standardized schema language was available from the beginning and yet additional ways to formulate and check constraints have been created. Therefore, 
-semantically equivalent \emph{specific constraints} represented in different languages will exist.
+semantically equivalent constraints represented in different languages will exist.
 This raises two questions: 
 \begin{enumerate}
  \item How can we ensure that two semantically equivalent constraints are actually validated consistently?
@@ -257,7 +260,7 @@ By defining mappings between equivalent \emph{specific constraints} and the corr
   sc_{\beta} &= m_2'(gc) 
 \end{align*}
 
-Thereby, we do not need to define mappings for each constraint type and each possible combination of constraint languages. Assuming that we are able to express a single constraint type like \emph{minimum qualified cardinality restrictions} within 10 languages, $n \cdot n-1 = 90$ mappings would be needed -- as mapping generally are not invertible. 
+Thereby, we do not need to define mappings for each constraint type and each possible combination of constraint languages. Assuming that we are able to express a single constraint type like \emph{minimum qualified cardinality restrictions} within 10 languages, $n \cdot n-1 = 90$ mappings would be needed -- as mappings generally are not invertible. 
 With an intermediate generic representation of constraints, on the other side, we only need to define for each constraint type $2n = 20$ mappings -- where $10$ mappings should already exist if we have an implementation in our framework. 
 To summarize, if language developers are willing to provide two mappings -- forward and backward -- to our framework for each supported constraint type, we not only would get the consistent implementation of all languages, it would also be possible to transform semantically equivalent constraints into all constraint languages.
 
@@ -265,22 +268,27 @@ To summarize, if language developers are willing to provide two mappings -- forw
 \section{Towards a framework} 
 \label{sec:vocabulary}
 
-When we implemented DSP and other constraint languages using SPARQL as intermediate language \cite{BoschEckert2014-2}, we found that many mappings actually resemble each other; particularly the mappings of the same constraint type in different languages, but also the mappings of different constraint types, though the latter only on a very superficial, structural level. The basic idea of our framework is very simple: we aim at reducing the representation of constraint types to the absolute minimum that has to be provided in a mapping to generate the appropriate SPIN implementation. Consider again our example from above for the SPIN implementation of \emph{minimum qualified cardinality restrictions}:
+When we fully implemented OWL 2 and DSP and to some extend other constraint languages using SPARQL as intermediate language \cite{BoschEckert2014-2}, we found that many mappings actually resemble each other; particularly the mappings of the same constraint type in different languages, but also the mappings of different constraint types, though the latter only on a very superficial, structural level. The basic idea of our framework is very simple: we aim at reducing the representation of constraints to the absolute minimum that has to be provided in a mapping to SPIN to implement the validation of constraints.
+% to generate the appropriate SPIN implementation. 
+Consider again our example from above for the SPIN representation of a constraint of the type \emph{minimum qualified cardinality restrictions}:
 
 \begin{ex}[commandchars=\\\{\}]
 \textit{SPIN:} CONSTRUCT \{ [ a spin:ConstraintViolation ... . ] \} WHERE \{ 
-          ?this ?p ?o ; a ?C .
-          BIND ( \textit{qualifiedCardinality}( ?this, ?p, ?C ) AS ?c ) .
+          ?this 
+              a ?C1 ;
+              ?p ?o .
+          BIND ( \textit{qualifiedCardinality}( ?this, ?p, ?C2 ) AS ?c ) .
           BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality ) .
           FILTER ( ?cardinality < 1 ) . 
-          FILTER ( ?C = Person ) .
+          FILTER ( ?C1 = Publication ) .
+          FILTER ( ?C2 = Person ) .
           FILTER ( ?p = author ) . \}
 						
 \textit{SPIN function qualifiedCardinality:}										
 SELECT ( COUNT ( ?arg1 ) AS ?c ) WHERE \{ ?arg1 ?arg2 ?o . ?o a ?arg3 . \}
 \end{ex}
 
-However this SPIN code looks like, all we have to provide to make it work is the desired minimum cardinality (?cardinality), the property to be constrained (?p) and the class for which this property should be constrained (?C). All other variables are bound internally. So we could reduce the effort of the mapping by simply providing these three values, which are readily available in all representations of this constraint type:
+However this SPIN code looks like, all we have to provide to make it work is the desired minimum cardinality (?cardinality), the property to be constrained (?p), the class whose individuals must hold for the constraint (?C1), and the class for which this property should be constrained (?C2). All other variables are bound internally. So we could reduce the effort of the mapping by simply providing these four values, which are readily available in all representations of this constraint type:
 
 \begin{ex}[commandchars=\\\{\}]
 \textit{OWL 2:} Publication a owl:Restriction ;
@@ -935,6 +943,10 @@ although, it is not ideal for their formulation.
 In contrast, high-level constraint languages are comparatively easy to understand and constraints can be formulated more concisely.
 Declarative languages may be placed on top of SPARQL and SPIN when using them as implementation languages. The \emph{SPARQL Inferencing Notation (SPIN)}\footnote{\url{http://spinrdf.org}} \cite{W3C-SPIN-2011} provides a vocabulary to represent SPARQL queries as RDF triples
 and uses SPARQL to specify logical constraints and inference rules \cite{Fuerber2010}. Kontokostas et al. define 17 data quality integrity constraints represented as SPARQL query templates called \emph{Data Quality Test Patterns (DQTP)} \cite{Kontokostas2014}. 
+
+The \emph{Web Ontology Language (OWL)} \cite{W3C-OWL2-Primer-2012} formally specifies the intended semantics of conceptual models about data and therefore enables software to understand data. OWL has become a popular standard for data representation, data exchange, and data integration of heterogeneous data sources. Besides that, the retrieval of data benefits from semantic knowledge specified using OWL. In combination with the OWL-based \emph{Semantic Web Rule Language (SWRL)} \cite{Horrocks04}, OWL provides facilities for developing very powerful reasoning services. Reasoning on RDF data enables to derive implicit data out of explicitly stated data. OWL is based on formal logic and on the subject-predicate-object triples from RDF. OWL is actually a description logic with underlying formal semantics which allows one to assign truth values to syntactic expressions. OWL specifies semantic information about specific domains, describes relations between domain classes, and thus allows the sharing of conceptualizations. 
+
+OWL is an expressive language for which description logics provides the foundational basis and which offers knowledge representation and reasoning services. Validation, however, is not the primary purpose of its design which has lead to claims that OWL cannot be used for validation. In practice, however, OWL is well-spread and RDFS/OWL constructs are widely used to tell people and applications about how valid instances should look like. In general, RDF documents follow the syntactic structure and the semantics of RDFS/OWL ontologies which could therefore not only be used for reasoning but also for validation.
 
 \emph{Stardog Integrity Constraint Validation (ICV)} and the \emph{Pellet Integrity Constraint Validator (ICV)} use OWL 2 constructs to formulate constraints. The Pellet ICV\footnote{\url{http://clarkparsia.com/pellet/icv}} is a proof-of-concept extension for the OWL 2 DL reasoner \emph{Pellet} \cite{sirin2007pellet}. Stardog ICV\footnote{\url{http://docs.stardog.com/#_validating_constraints}} validates RDF data stored in a Stardog database according to constraints which may be written in SPARQL, OWL 2, or SWRL \cite{Horrocks04}. 
 
