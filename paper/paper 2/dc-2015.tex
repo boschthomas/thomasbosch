@@ -112,8 +112,8 @@
 In the context of the DCMI RDF Application Profile task group and the W3C Data Shapes Working Group solutions for the proper formulation of constraints and validation of RDF data on these constraints are developed. Several approaches and constraint languages exist but there is no clear favorite and none of the languages is able to meet all requirements raised by data practitioners.
 To support the work, a comprehensive, community-driven database has been created where case studies, use cases, requirements and solutions are collected. Based on this database,
 we published by today 81 types of constraints that are required by various stakeholders for data applications. We generally use this collection of constraint types to gain a better understanding of the expressiveness of existing solutions and gaps that still need to be filled. 
-Regarding the implementation of constraint languages, we already proposed to use high-level languages to describe the constraints, but map them to SPARQL queries in order to execute the actual validation; we demonstrated this approach for \textcolor{red}{the Web Ontology Language in its current version 2 and }Description Set Profiles.
-In this paper, we generalize from the experience of implementing \textcolor{red}{OWL 2 and} DSP by introducing an abstraction layer that is able to describe \textcolor{red}{constraints of} any constraint type in a way that mappings from high-level constraint languages to this intermediate representation can be created more or less straight-forwardly. 
+Regarding the implementation of constraint languages, we already proposed to use high-level languages to describe the constraints, but map them to SPARQL queries in order to execute the actual validation; we demonstrated this approach for the Web Ontology Language in its current version 2 and Description Set Profiles.
+In this paper, we generalize from the experience of implementing OWL 2 and DSP by introducing an abstraction layer that is able to describe constraints of any constraint type in a way that mappings from high-level constraint languages to this intermediate representation can be created more or less straight-forwardly. 
 We demonstrate that using another layer on top of SPARQL helps to implement validation consistently accross constraint languages, simplifies the actual implementation of new languages, and supports the transformation of semantically equivalent constraints across constraint languages.
 
 %%%%% ORIGINAL, AS SUBMITTED
@@ -145,7 +145,7 @@ Based on our work in the DCMI and in cooperation with the W3C working group,
 we identified by today 81 constraint types, where each type corresponds to a specific requirement in the database. In a technical report, we explain each constraint type in detail and give examples for each represented by different constraint languages \cite{BoschNolleAcarEckert2015}.
 
 Various constraint languages exist or are being developed that support more or less of these constraint types. For our work, we focus on the following four as the ones that are most popular among data practitioners, often mentioned on mailing lists and/or being candidates or prototypes for the upcoming W3C recommendation:
-\emph{Description Set Profiles (DSP)}\footnote{\url{ http://dublincore.org/documents/2008/03/31/dc-dsp/}}, \emph{Resource Shapes (ReSh)}\footnote{\url{http://www.w3.org/Submission/2014/SUBM-shapes-20140211/}}, \emph{Shape Expressions (ShEx)}\footnote{\url{http://www.w3.org/Submission/2014/SUBM-shex-primer-20140602/}}, and the \emph{Web Ontology Language} \emph{(OWL)}\footnote{\url{http://www.w3.org/TR/owl2-syntax/}}. Despite the fact that OWL is arguably not a constraint language, it is widely used in practice as such under the closed-world and unique name assumptions.
+\emph{Description Set Profiles (DSP)}\footnote{\url{http://dublincore.org/documents/2008/03/31/dc-dsp/}}, \emph{Resource Shapes (ReSh)}\footnote{\url{http://www.w3.org/Submission/2014/SUBM-shapes-20140211/}}, \emph{Shape Expressions (ShEx)}\footnote{\url{http://www.w3.org/Submission/2014/SUBM-shex-primer-20140602/}}, and the \emph{Web Ontology Language} \emph{(OWL)}\footnote{\url{http://www.w3.org/TR/owl2-syntax/}}. Despite the fact that OWL is arguably not a constraint language, it is widely used in practice as such under the closed-world and unique name assumptions.
 
 With its direct support of validation via SPARQL, the \emph{SPARQL Inferencing Notation (SPIN)}\footnote{\url{http://spinrdf.org/}} is also very popular to formulate and check constraints \cite{Fuerber2010}. We consider SPIN as a low-level language in contrast to the other constraint languages where specific language constructs exist to define constraints in a declarative and in comparison more intuitive way -- although, SPARQL aficionados might object particularly to the latter point.
 
@@ -170,7 +170,6 @@ We further see that OWL 2 is currently the most expressive high-level constraint
 We formerly demonstrated that a high-level constraint language like OWL 2 and DSP can be implemented by mapping the language to SPIN using SPARQL CONSTRUCT queries \cite{BoschEckert2014-2}. We provide a validation environment where own mappings from arbitrary constraint languages can be provided and tested\footnote{Online available at: \url{http://purl.org/net/rdfval-demo}, source code online available at: \url{https://github.com/boschthomas/rdf-validator}.}. The only limitations are that the constraints have to
 be expressed in RDF and that the constraint language is expressable in SPARQL.
 
-The creation of such mappings is in many cases not straight-forward and requires profound knowledge of SPARQL, as the following example demonstrates. \tb{diese beipsiel zeigt nur wie constraints desslben typs mit unterschiedlichen CL ausgedrückt wird! sollen wir hier noch ein codebeipsiel eines konkreten mappings dieses CT für DSP zeigen?}
 The constraint type \emph{minimum qualified cardinality restrictions} which corresponds to the requirement \emph{R-75}\footnote{Requirements are identified in the database by an R and a number, additionally an alphanumeric identifier is provided, in this case R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES. Online at: \url{http://lelystad.informatik.uni-mannheim.de/rdf-validation/?q=node/82}} can be used to formulate the constraint that publications must have at least one author which must be a person. This constraint can be expressed as follows using different constraint languages:
 
 \begin{ex}[commandchars=\\\{\}]
@@ -187,7 +186,7 @@ The constraint type \emph{minimum qualified cardinality restrictions} which corr
           rs:occurs rs:One-or-many ; ] .
 		
 \textit{DSP:} [ dsp:resourceClass Publication ; dsp:statementTemplate [ 
-          dsp:minOccur 1 ; dsp:maxOccur "infinity" ; 
+          dsp:minOccur 1 ; 
           dsp:property author ; 
           dsp:nonLiteralConstraint [ dsp:valueClass Person ] ] ] .
 					
@@ -207,9 +206,31 @@ Note that the SPIN representation is NOT a mapping, but a direct expression of t
 
 On the other hand, it can be seen that the higher-level constraint languages are comparatively similar, there seems to be a pattern, a common way to express this type of constraint. Therefore, a mapping from a high-level language to another high-level language would be considerably easier. Unfortunately, there is not (yet) a high-level language that supports all constraint types. 
 
-In this paper, we build on the experience gained from mapping several constraint languages to SPIN and from the analysis of the identified constraint types \tb{was haben wir analysiert? meinst du die constraint type specific expressivity of constraint languages?}to create an intermediate layer, a framework that is able to describe the mechanics of all constraint types and that can be used to map high-level languages more easily. \tb{sollten wir hier nicht alle contributions nennen? ich denke im abstact stehen sie alle}
+The creation of mappings of constraint languages to SPIN is in many cases not straight-forward and requires profound knowledge of SPARQL, as the following example demonstrates. In this example, the validation of the \emph{minimum qualified cardinality restrictions} constraint type is implemented for DSP:
 
+\begin{ex}[commandchars=\\\{\}]
+CONSTRUCT \{
+    _:constraintViolation 
+        a spin:ConstraintViolation ;
+        rdfs:label ?violationMessage ;
+        spin:violationRoot ?this ;
+        spin:violationPath ?property ;
+        spin:violationSource ?violationSource . \}
+WHERE \{	
+    ?this a ?resourceClass .
+    ?descriptionTemplate 
+        dsp:resourceClass ?resourceClass ;
+        dsp:statementTemplate ?statementTemplate .
+    ?statementTemplate 
+        dsp:minOccur ?minimum ;
+        dsp:property ?property ;
+        dsp:nonLiteralConstraint ?nonLiteralConstraint .
+    ?nonLiteralConstraint dsp:valueClass ?valueClass .	
+    BIND ( \textit{qualifiedCardinality}( ?this, ?property, ?valueClass ) AS ?cardinality ) .
+    FILTER ( ?cardinality < ?minimum ) . \}
+\end{ex}
 
+In this paper, we build on the experience gained from mapping several constraint languages to SPIN and from the analysis of the identified constraint types to create an intermediate layer, a framework that is able to describe the mechanics of all constraint types and that can be used to map high-level languages more easily. 
 
 \section{Motivation}
 \label{sec:motivation}
@@ -275,7 +296,7 @@ However this SPIN code looks like, all we have to provide to make it work is the
           rs:occurs rs:One-or-many ; ] .
 		
 \textit{DSP:} [ dsp:resourceClass Publication ; dsp:statementTemplate [ 
-          dsp:minOccur 1 ; dsp:maxOccur "infinity" ; 
+          dsp:minOccur 1 ; 
           dsp:property author ; 
           dsp:nonLiteralConstraint [ dsp:valueClass Person ] ] ] .
 \end{ex}
@@ -288,7 +309,7 @@ In further investigation of all kind of constraints and particularly the list of
 At the core, we use a very simple conceptual model for constraints, using a small vocabulary called \emph{RDF Constraints Vocabulary (RDF-CV)}\footnote{Online available at: \url{https://github.com/boschthomas/RDF-Constraints-Vocabulary}}. The conceptual model is shown in Figure \ref{fig:RDF-CV-conceptual-model}.
 \begin{figure}[H]
 	\centering
-		\includegraphics[width=0.60\textwidth]{images/RDF-CV.png}
+		\includegraphics[width=0.80\textwidth]{images/RDF-CV.png}
 	\caption{\emph{RDF Constraints Vocabulary (RDF-CV)} Conceptual Model}
 	\label{fig:RDF-CV-conceptual-model}
 \end{figure}
@@ -301,7 +322,7 @@ The properties describing a simple constrained are very structural. The central 
 
 Irrespective of and additional to the constraining element, there are properties to describe the actual constraint, they can also be seen as parameters for the constraining element. The \emph{context class} limits the constraint to individuals of a specific class. Depending on the constraining elements, a list of \emph{classes} can be provided, for example to determine the valid classes for a value or to define a class intersection to be used in a constraint. \emph{leftProperties} and \emph{rightProperties} are lists usually containing properties the constraint is applied to. A typical example for a constraint with a right hand side list of properties would be R43, literal value comparison, where constraints like birthDate $<$ deathDate can be expressed.
 
-Finally, the \emph{constraining value} contains a literal value to be checked against; for instance in the case of the 'REGEX' element, it contains the regular expression to be evaluated.
+Finally, the \emph{constraining value} contains a literal value to be checked against; for instance in the case of the REGEX element, it contains the regular expression to be evaluated.
 
 This simple structure plus the constraining elements form the building blocks of our proposed framework. In the technical report \cite{BoschNolleAcarEckert2015}, we list for every constraint type its representation in our framework which not only shows that constraints of any constraint type can indeed be described generically in this way, but which also forms the starting point for any mappings using this framework.
 
@@ -842,7 +863,7 @@ RDF representation using RDF-CV:
     rdfcv:constrainingValue 1 ] .
 \end{ex}
 
-The mapping simply constructs this representation out of the OWL2 representation using a SPARQL CONSTRUCT query: 
+The mapping simply constructs this representation out of the OWL 2 representation using a SPARQL CONSTRUCT query: 
 
 \begin{ex}
 owl:Thing 
@@ -875,7 +896,7 @@ The framework is implemented in exactly the same way by providing another mappin
 
 \subsection{Constraint transformation}
 
-As stated in Section~\ref{sec:motivation}, we see a huge potential in the possibility to transform semantically equivalent constraints from one high-level constraint language to another via the RDF-CV representation, to avoid that every possible combination of constraint languages has to be mapped separately. The following SPIN inference rule exemplifies this approach and provides a mapping from RDF-CV back to an OWL2 constraint:
+As stated in Section~\ref{sec:motivation}, we see a huge potential in the possibility to transform semantically equivalent constraints from one high-level constraint language to another via the RDF-CV representation, to avoid that every possible combination of constraint languages has to be mapped separately. The following SPIN inference rule exemplifies this approach and provides a mapping from RDF-CV back to an OWL 2 constraint:
 
 
 \begin{ex}
@@ -915,7 +936,6 @@ In contrast, high-level constraint languages are comparatively easy to understan
 Declarative languages may be placed on top of SPARQL and SPIN when using them as implementation languages. The \emph{SPARQL Inferencing Notation (SPIN)}\footnote{\url{http://spinrdf.org}} \cite{W3C-SPIN-2011} provides a vocabulary to represent SPARQL queries as RDF triples
 and uses SPARQL to specify logical constraints and inference rules \cite{Fuerber2010}. Kontokostas et al. define 17 data quality integrity constraints represented as SPARQL query templates called \emph{Data Quality Test Patterns (DQTP)} \cite{Kontokostas2014}. 
 
-\tb{ToDo Thomas: OWL 2}
 \emph{Stardog Integrity Constraint Validation (ICV)} and the \emph{Pellet Integrity Constraint Validator (ICV)} use OWL 2 constructs to formulate constraints. The Pellet ICV\footnote{\url{http://clarkparsia.com/pellet/icv}} is a proof-of-concept extension for the OWL 2 DL reasoner \emph{Pellet} \cite{sirin2007pellet}. Stardog ICV\footnote{\url{http://docs.stardog.com/#_validating_constraints}} validates RDF data stored in a Stardog database according to constraints which may be written in SPARQL, OWL 2, or SWRL \cite{Horrocks04}. 
 
 \emph{Shape Expressions (ShEx)} \cite{W3C-ShEx-Primer-2014,W3C-ShEx-Definition-2014,Prud'hommeaux-2014,Boneva-2014} specifies a language whose syntax and semantics are similar to regular expressions. ShEx associate RDF graphs with labeled patterns called \emph{shapes} which are used to express formal constraints on the content of RDF graphs. \emph{Resource Shapes (ReSh)} \cite{W3C-ReSh-2014} defines its own vocabulary for specifying shapes of RDF resources. Ryman, Hors, and Speicher define \emph{shape} as a description of the set of triples a resource is expected to contain and as a description of the integrity constraints those triples are required to satisfy \cite{Ryman2013}. 
