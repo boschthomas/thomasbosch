@@ -168,7 +168,7 @@ We further see that OWL 2 is currently the most expressive high-level constraint
 \end{table}
 
 We formerly demonstrated that a high-level constraint language like OWL 2 and DSP can be implemented by mapping the language to SPIN using SPARQL CONSTRUCT queries \cite{BoschEckert2014-2}. We provide a validation environment where own mappings from arbitrary constraint languages can be provided and tested\footnote{Online available at: \url{http://purl.org/net/rdfval-demo}, source code online available at: \url{https://github.com/boschthomas/rdf-validator}.}. The only limitations are that the constraints have to
-be expressed in RDF and that the constraint language is expressable in SPARQL.
+be expressed in RDF and that the constraint language is expressible in SPARQL.
 
 The constraint type \emph{minimum qualified cardinality restrictions} which corresponds to the requirement \emph{R-75}\footnote{Requirements are identified in the database by an R and a number, additionally an alphanumeric identifier is provided, in this case R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES. Online at: \url{http://lelystad.informatik.uni-mannheim.de/rdf-validation/?q=node/82}} can be instantiated to formulate the constraint that publications must have at least one author which must be a person. This constraint can be expressed as follows using different constraint languages:
 
