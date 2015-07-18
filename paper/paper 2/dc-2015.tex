@@ -267,7 +267,7 @@ With an intermediate generic representation of constraints, on the other side, w
 To summarize, if language developers are willing to provide two mappings -- forward and backward -- to our framework for each supported constraint type, we not only would get the consistent implementation of all languages, it would also be possible to transform semantically equivalent constraints into all constraint languages.
 
 
-\section{Towards a framework} 
+\section{Towards a Framework} 
 \label{sec:vocabulary}
 
 When we fully implemented OWL 2 and DSP and to some extend other constraint languages using SPARQL as intermediate language \cite{BoschEckert2014-2}, we found that many mappings actually resemble each other; particularly the mappings of the same constraint type in different languages, but also the mappings of different constraint types, though the latter only on a very superficial, structural level. The basic idea of our framework is very simple: we aim at reducing the representation of constraints to the absolute minimum that has to be provided in a mapping to SPIN to implement the validation for constraint types.
@@ -313,10 +313,9 @@ However this SPIN code looks like, all we have to provide to make it work is the
 
 In further investigation of all kind of constraints and particularly the list of constraint types, we aimed at identifying the building blocks of such constraints to come up with a concise representation of every constraint type. 
 
+\subsection{Building Blocks}
 
-\subsection{Building blocks}
-
-At the core, we use a very simple conceptual model for constraints, using a small vocabulary called \emph{RDF Constraints Vocabulary (RDF-CV)}\footnote{Online available at: \url{https://github.com/boschthomas/RDF-Constraints-Vocabulary}}. The conceptual model is shown in Figure \ref{fig:RDF-CV-conceptual-model}.
+At the core, we use a very simple conceptual model for constraints (see Figure \ref{fig:RDF-CV-conceptual-model}), using a small lightweight vocabulary called \emph{RDF Constraints Vocabulary (RDF-CV)}\footnote{Online available at: \url{https://github.com/boschthomas/RDF-Constraints-Vocabulary}}.\tb{ToDo: actualize vocabulary}
 \begin{figure}[H]
 	\centering
 		\includegraphics[width=0.80\textwidth]{images/RDF-CV.png}
@@ -324,11 +323,10 @@ At the core, we use a very simple conceptual model for constraints, using a smal
 	\label{fig:RDF-CV-conceptual-model}
 \end{figure}
 
-\emph{Simple constraints} denotes the set of atomic constraints with respect to a single constraining element -- we will come to the notion of a constraining element in a second. In contrast, there are  
-\emph{complex constraints}, i.e., the set of constraints which are created out of \emph{simple} and/or other \emph{complex constraints}. This structure therefore allows to build complex constraints out of other (simple or complex) constraints. Regarding our database of constraint types, 60\% of the constraint types are simple constraints and 26\% are complex constraints. 
-Constraints of additional 14\% of the constraint types are \emph{complex constraints} as well which can be simplified and therefore formulated as \emph{simple constraints} if additional constraining elements are introduced to cover them.
+\emph{RDF constraints} are either simple constraints or complex constraints. \emph{Simple constraints} denotes the set of atomic constraints with respect to a single constraining element -- we will come to the notion of a constraining element in a second. In contrast, there are \emph{complex constraints}, i.e., the set of constraints which are created out of simple and/or other complex constraints. This structure therefore allows to build complex constraints out of other (simple or complex) constraints. Regarding our database of constraint types, 60\% of the constraint types are used to instantiate simple constraints and 26\% complex constraints. 
+Constraints of additional 14\% of the constraint types are complex constraints as well which can be simplified and therefore formulated as simple constraints if additional constraining elements are introduced to cover them.
 
-The properties describing a simple constrained are very structural. The central property is the \emph{constraining element} which refers to one of 103 constraining elements described in our technical report \cite{BoschNolleAcarEckert2015}. Constraining elements are for example taken from Description Logics, another concrete example would be 'REGEX' where a regular expression is checked against some property value. In most cases, constraining elements directly correspond to a constraint type, sometimes (as for REGEX) they are shared by several constraint types. Complex constraints again need several constraining elements to be expressed.
+The properties describing a simple constrained are very structural. The central property is the \emph{constraining element} which refers to one of 103 constraining elements described in our technical report \cite{BoschNolleAcarEckert2015}. Constraining elements are for example taken from Description Logics, another concrete example would be REGEX where a regular expression is checked against some property value. In most cases, constraining elements directly correspond to a constraint type, sometimes (as for REGEX) they are shared by several constraint types. Complex constraints again need several constraining elements to be expressed.
 
 Irrespective of and additional to the constraining element, there are properties to describe the actual constraint, they can also be seen as parameters for the constraining element. The \emph{context class} limits the constraint to individuals of a specific class. Depending on the constraining elements, a list of \emph{classes} can be provided, for example to determine the valid classes for a value or to define a class intersection to be used in a constraint. \emph{leftProperties} and \emph{rightProperties} are lists usually containing properties the constraint is applied to. A typical example for a constraint with a right hand side list of properties would be R43, literal value comparison, where constraints like birthDate $<$ deathDate can be expressed.
 
@@ -338,9 +336,9 @@ This simple structure plus the constraining elements form the building blocks of
 
 \paragraph{Formal approach and semantics.}
 
-A cornerstone of the framework is the generic representation of a constraint, which can often be done using \emph{Description Logics (DL)}, as for the \emph{minimum qualified cardinality restrictions}: {\small\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}}
+A cornerstone of the framework is the generic representation of a constraint, which can often be done using \emph{Description Logics (DL)} \cite{Kroetzsch2012,Baader-2003,Baader-Nutt-2003}, as for the \emph{minimum qualified cardinality restrictions}: {\small\ms{Publication $\sqsubseteq$ $\geq$1 author.Person.}}  This way, the knowledge representation formalism DL with its well-studied theoretical properties provides the foundational basis for the framework.
 
-It turned out that 64\% of the 81 constraint types are actually expressible in DL. Only for the remaining 36\%, other means, i.e., other constraining elements, had to be identified. This is not surprising if we consider that OWL is based on Description Logics. When we talk about using Description Logics to represent constraints, we have to establish once more that the semantics of OWL and Description Logics differ from the semantics of constraint languages regarding the open world assumption (OWA) and the non-unique name assumption (nUNA). Both are usually assumed when dealing with OWL or DL, whereas validation usually assumes a closed world (CWA) and unique naming (UNA), i.e., if a desired property is missing, this leads to a violation and if two resources are named differently, they are assumed to be different resources. 
+It turned out that 64\% of the 81 constraint types are actually expressible in DL. Only for the remaining 36\%, other means, i.e., other constraining elements, had to be identified. This is not surprising if we consider that OWL is based on DL. When we talk about using DL to represent constraints, we have to establish once more that the semantics of OWL and DL differ from the semantics of constraint languages regarding the open world assumption (OWA) and the non-unique name assumption (nUNA). Both are usually assumed when dealing with OWL or DL, whereas validation usually assumes a closed world (CWA) and unique naming (UNA), i.e., if a desired property is missing, this leads to a violation and if two resources are named differently, they are assumed to be different resources. 
 
 We won't get into details about these assumptions here, but it has to be noted that the applied semantics have to be defined if validation is performed, as the results would differ under different semantics. Precisely, we found that for 56.8\% of the constraint types validation results differ if the CWA or the OWA is assumed 
 and for 66.6\% of the constraint types validation results are different in case the UNA or the nUNA is assumed \cite{BoschNolleAcarEckert2015}.
@@ -357,7 +355,7 @@ The \emph{minimum qualified cardinality restriction (R-75)} {\small\ms{Publicati
 which restricts publications to have at least one author which must be a person,
 is an example of a simple constraint on \emph{author}
 which holds for all individuals of the class \emph{Publication}.
-Table \ref{tab:property-constraint-cardinality-restriction} displays how the simple constraint is generically represented using the RDF-CV. Note that instead of the description logics construct $\geq$, the constraining element \emph{minimum qualified cardinality restriction} may be used.
+Table \ref{tab:property-constraint-cardinality-restriction} displays how the simple constraint is generically represented using the RDF-CV. Note that instead of the DL construct $\geq$, the constraining element \emph{minimum qualified cardinality restriction} may be used.
 
 \begin{table}[H]
   \scriptsize
@@ -849,7 +847,7 @@ $\top$ & authorOf & - & - & irreflexive property & - \\
 
 %\section{Validation of Specific and Generic Constraints}
 
-\subsection{Mapping implementation}
+\subsection{Mapping Implementation}
 
 If a language developer would like to use the framework for the implementation of a constraint language, the process is straight-forward. For a language construct, the corresponding constraint type has to be identified. Again we use the \emph{minimum qualified cardinality restriction (R-75)} type which is supported in OWL 2:
 
@@ -904,7 +902,7 @@ SPIN is used to execute the mapping, the property \emph{spin:rule} links an rdfs
 
 The framework is implemented in exactly the same way by providing another mapping to create the actual SPIN/SPARQL query that validates the constraints and produces constraint violation messages if a constraint is violated, as described in our previous paper about the DSP implementation \cite{BoschEckert2014-2}.\footnote{At the time of this writing, not all mappings for the constraint types are implemented, but of course the implementations can be complemented and adapted to own requirements, as needed. The most recent implementation can be found here: \url{https://github.com/boschthomas/rdf-validation/blob/master/SPIN/RDF-CV-2-SPIN.ttl}.}
 
-\subsection{Constraint transformation}
+\subsection{Constraint Transformation}
 
 As stated in Section~\ref{sec:motivation}, we see a huge potential in the possibility to transform semantically equivalent constraints from one high-level constraint language to another via the RDF-CV representation, to avoid that every possible combination of constraint languages has to be mapped separately. The following SPIN inference rule exemplifies this approach and provides a mapping from RDF-CV back to an OWL 2 constraint:
 
@@ -948,7 +946,7 @@ and uses SPARQL to specify logical constraints and inference rules \cite{Fuerber
 
 The \emph{Web Ontology Language (OWL)} \cite{W3C-OWL2-Primer-2012} formally specifies the intended semantics of conceptual models about data and therefore enables software to understand data. OWL has become a popular standard for data representation, data exchange, and data integration of heterogeneous data sources. Besides that, the retrieval of data benefits from semantic knowledge specified using OWL. In combination with the OWL-based \emph{Semantic Web Rule Language (SWRL)} \cite{Horrocks04}, OWL provides facilities for developing very powerful reasoning services. Reasoning on RDF data enables to derive implicit data out of explicitly stated data. OWL is based on formal logic and on the subject-predicate-object triples from RDF. OWL is actually a description logic with underlying formal semantics which allows one to assign truth values to syntactic expressions. OWL specifies semantic information about specific domains, describes relations between domain classes, and thus allows the sharing of conceptualizations. 
 
-OWL is an expressive language for which description logics provides the foundational basis and which offers knowledge representation and reasoning services. Validation, however, is not the primary purpose of its design which has lead to claims that OWL cannot be used for validation. In practice, however, OWL is well-spread and RDFS/OWL constructs are widely used to tell people and applications about how valid instances should look like. In general, RDF documents follow the syntactic structure and the semantics of RDFS/OWL ontologies which could therefore not only be used for reasoning but also for validation.
+OWL is an expressive language for which DL provides the foundational basis and which offers knowledge representation and reasoning services. Validation, however, is not the primary purpose of its design which has lead to claims that OWL cannot be used for validation. In practice, however, OWL is well-spread and RDFS/OWL constructs are widely used to tell people and applications about how valid instances should look like. In general, RDF documents follow the syntactic structure and the semantics of RDFS/OWL ontologies which could therefore not only be used for reasoning but also for validation.
 
 \emph{Stardog Integrity Constraint Validation (ICV)} and the \emph{Pellet Integrity Constraint Validator (ICV)} use OWL 2 constructs to formulate constraints. The Pellet ICV\footnote{\url{http://clarkparsia.com/pellet/icv}} is a proof-of-concept extension for the OWL 2 DL reasoner \emph{Pellet} \cite{sirin2007pellet}. Stardog ICV\footnote{\url{http://docs.stardog.com/#_validating_constraints}} validates RDF data stored in a Stardog database according to constraints which may be written in SPARQL, OWL 2, or SWRL \cite{Horrocks04}. 
 
