@@ -341,10 +341,7 @@ It turned out that 64\% of the 81 constraint types are actually expressible in D
 We won't get into details about these assumptions here, but it has to be noted that the applied semantics have to be defined if validation is performed, as the results would differ under different semantics. Precisely, we found that for 56.8\% of the constraint types validation results differ if the CWA or the OWA is assumed 
 and for 66.6\% of the constraint types validation results are different in case the UNA or the nUNA is assumed \cite{BoschNolleAcarEckert2015}.
 
-For the purpose of a consistent implementation and transformation of constraints, constraints are semantically equivalent  
-if they detect the same set of violations regardless of RDF data, 
-which means whenever the constraints are applied to any RDF data they point out the same violations.
-
+For the purpose of a consistent implementation and transformation of constraints, constraints are \emph{semantically equivalent} if they detect the same set of violations regardless of RDF data, which means whenever the constraints are applied to any RDF data they point out the same violations.
 
 \subsection{\emph{Simple Constraints}}
 In this and the following section, we provide examples for the representation of constraint types within the framework.
@@ -387,7 +384,7 @@ whose genre is \emph{Popular-Science},
 the object property path {\small\ms{authorOf $\circ$ genre $\sqsubseteq$ authorOfGenre}} infers that \emph{Stephen-Hawking} is an author of the genre \emph{Popular-Science}. 
 %{\small\ms{(authorOfGenre(Stephen-Hawking, Popular-Science))}.}
 Thus, when representing the constraint using the RDF-CV (see Table \ref{tab:property-constraint-object-property-paths}), the properties \emph{authorOf} and \emph{genre} are placed on the left side of the constraining element \emph{property path}
-and the property \emph{authorOfGenre} on its right side. The \emph{context class} limits the constraint to individuals of a specific class. As the \emph{property path} constraint holds for all individuals within the data, the context class is set to the \emph{DL top concept} $\top$ which stands for the super-class of all possible classes.
+and the property \emph{authorOfGenre} on its right side. The \emph{context class} limits the constraint to individuals of a specific class. \tb{ToDo: A context class may be an RDFS class, an OWL class, or an RDFS datatype as...} As the \emph{property path} constraint holds for all individuals within the data, the context class is set to the \emph{DL top concept} $\top$ which stands for the super-class of all possible classes.
 \begin{table}[H]
   \scriptsize
   \sffamily
@@ -847,7 +844,7 @@ $\top$ & authorOf & - & - & irreflexive property & - \\
 
 \subsection{Mapping Implementation}
 
-If a language developer would like to use the framework for the implementation of a constraint language, the process is straight-forward. For a language construct, the corresponding constraint type has to be identified. Again we use the \emph{minimum qualified cardinality restriction (R-75)} type which is supported in OWL 2:
+If a language developer would like to use the framework for the implementation of a constraint language or individual language constructs, the process is straight-forward. For a language construct, the corresponding constraint type has to be identified. Again we use the constraint {\small\ms{Publication $\sqsubseteq$ $\geq$1 author.Person}} of the type \emph{minimum qualified cardinality restrictions (R-75)} which is supported in OWL 2:
 
 \begin{ex}[commandchars=\\\{\}]
 :Publication 
@@ -857,8 +854,7 @@ If a language developer would like to use the framework for the implementation o
     owl:onClass :Person .
 \end{ex}
 
-From Table~\ref{tab:property-constraint-cardinality-restriction}, we know the representation in our framework, which corresponds to the following 
-RDF representation using RDF-CV:
+From Table~\ref{tab:property-constraint-cardinality-restriction}, we know the representation in our framework, which corresponds to the following RDF representation using the RDF-CV:
 
 \begin{ex}[commandchars=\\\{\}]
 [   a rdfcv:SimpleConstraint ;
@@ -869,7 +865,7 @@ RDF representation using RDF-CV:
     rdfcv:constrainingValue 1 ] .
 \end{ex}
 
-The mapping simply constructs this representation out of the OWL 2 representation using a SPARQL CONSTRUCT query: 
+The mapping simply constructs this generic representation out of the specific OWL 2 representation using a SPARQL CONSTRUCT query: 
 
 \begin{ex}
 owl:Thing 
@@ -896,9 +892,9 @@ owl:Thing
                 owl:onClass ?c1 . } """ ; ] .
 \end{ex}
 
-SPIN is used to execute the mapping, the property \emph{spin:rule} links an rdfs:Class with SPARQL CONSTRUCT queries. Each query defines an inference rule that is applied to all instances of the associated class and its subclasses. The inference rule defines how additional triples can be inferred from what is stated in the WHERE clause. For each binding of the pattern in the WHERE clause of the rule, the triple templates from the CONSTRUCT clause are instantiated and added as inferred triples to the underlying model. At query execution time, the SPARQL variable \emph{?this} is bound to the current instance of the class. As each resource per default is assigned to the class \emph{owl:Thing}, this inference rule is evaluated for each subject of the input RDF graph.
+The SPIN engine is used to execute the mapping, the property \emph{spin:rule} links an rdfs:Class with SPARQL CONSTRUCT queries. Each query defines an inference rule that is applied to all instances of the associated class and its subclasses. The inference rule defines how additional triples can be inferred from what is stated in the WHERE clause. For each binding of the pattern in the WHERE clause of the rule, the triple templates from the CONSTRUCT clause are instantiated and added as inferred triples to the underlying model. At query execution time, the SPARQL variable \emph{?this} is bound to the current instance of the class. As each resource per default is assigned to the class \emph{owl:Thing}, this inference rule is evaluated for each subject of the input RDF graph.
 
-The framework is implemented in exactly the same way by providing another mapping to create the actual SPIN/SPARQL query that validates the constraints and produces constraint violation messages if a constraint is violated, as described in our previous paper about the DSP implementation \cite{BoschEckert2014-2}.\footnote{At the time of this writing, not all mappings for the constraint types are implemented, but of course the implementations can be complemented and adapted to own requirements, as needed. The most recent implementation can be found here: \url{https://github.com/boschthomas/rdf-validation/blob/master/SPIN/RDF-CV-2-SPIN.ttl}.}
+The framework and therefore the constraint types are implemented in exactly the same way by providing other SPIN mappings which encompass the SPIN/SPARQL queries that validate constraints and produce constraint violation messages if a constraint is violated, as described in our previous paper about the DSP implementation \cite{BoschEckert2014-2}\footnote{At the time of this writing, not all mappings for the constraint types are implemented, but of course the implementations can be complemented and adapted to own requirements, as needed. The most recent implementation can be found here: \url{https://github.com/boschthomas/rdf-validation/blob/master/SPIN/RDF-CV-2-SPIN.ttl}}.
 
 \subsection{Constraint Transformation}
 
