@@ -102,7 +102,7 @@
 
 \begin{document}
 
-\title{\vspace{-1em}Guidance, please! Towards a framework for RDF-based constraint languages.}
+\title{\vspace{-1em}Guidance, Please! Towards a Framework for RDF-based Constraint Languages.}
 
 \author{Thomas Bosch\\GESIS – Leibniz Institute \\for the Social Sciences, Germany\\thomas.bosch@gesis.org \and Kai Eckert\\Stuttgart Media University, Germany\\eckert@hdm-stuttgart.de}
 
@@ -315,7 +315,7 @@ In further investigation of all kind of constraints and particularly the list of
 
 \subsection{Building Blocks}
 
-At the core, we use a very simple conceptual model for constraints (see Figure \ref{fig:RDF-CV-conceptual-model}), using a small lightweight vocabulary called \emph{RDF Constraints Vocabulary (RDF-CV)}\footnote{Online available at: \url{https://github.com/boschthomas/RDF-Constraints-Vocabulary}}.\tb{ToDo for Thomas: actualize vocabulary}
+At the core, we use a very simple conceptual model for constraints (see Figure \ref{fig:RDF-CV-conceptual-model}), using a small lightweight vocabulary called \emph{RDF Constraints Vocabulary (RDF-CV)}\footnote{Formal specification and HTML documentation online available at: \url{https://github.com/boschthomas/RDF-Constraints-Vocabulary}}}.
 \begin{figure}[H]
 	\centering
 		\includegraphics[width=0.80\textwidth]{images/RDF-CV.png}
@@ -384,7 +384,7 @@ whose genre is \emph{Popular-Science},
 the object property path {\small\ms{authorOf $\circ$ genre $\sqsubseteq$ authorOfGenre}} infers that \emph{Stephen-Hawking} is an author of the genre \emph{Popular-Science}. 
 %{\small\ms{(authorOfGenre(Stephen-Hawking, Popular-Science))}.}
 Thus, when representing the constraint using the RDF-CV (see Table \ref{tab:property-constraint-object-property-paths}), the properties \emph{authorOf} and \emph{genre} are placed on the left side of the constraining element \emph{property path}
-and the property \emph{authorOfGenre} on its right side. The \emph{context class} limits the constraint to individuals of a specific class. \tb{ToDo: A context class may be an RDFS class, an OWL class, or an RDFS datatype as...} As the \emph{property path} constraint holds for all individuals within the data, the context class is set to the \emph{DL top concept} $\top$ which stands for the super-class of all possible classes.
+and the property \emph{authorOfGenre} on its right side. The \emph{context class} limits the constraint to individuals of a specific class. A context class may be an rdfs:Class, an owl:Class (as sub-class of rdfs:Class), or an rdfs:Datatype which is both an instance of and a sub-class of rdfs:Class. As the \emph{property path} constraint holds for all individuals within the data, the context class is set to the \emph{DL top concept} $\top$ which stands for the super-class of all possible classes.
 \begin{table}[H]
   \scriptsize
   \sffamily
@@ -963,7 +963,7 @@ The W3C Data Shapes Working Group currently develops \emph{SHACL} \cite{W3C-SHAC
 
 \section{Conclusion and Future Work}
 
-In this paper, we outlined our idea of a general framework to support the mapping of high-level constraint languages to a generic representation, which subsequently can be used to generate validating SPIN/SPARQL queries to actually validate data against constraints provided in the high-level language.\tb{I do not understand this!} The framework consists of a very simple conceptual model using the \emph{RDF Constraints Vocabulary (RDF-CV)} which has been introduced in this paper. The core of the framework is the definition of 103 constraining elements that are used to define constraints of all 81 constraint types that to date have been identified within the DCMI RDF Application Profiles Task Group and in cooperation with the W3C Data Shapes Working Group.
+In this paper, we outlined our idea of a general framework to support the mapping of high-level constraint languages to a generic representation, which subsequently can be used to generate validating SPIN/SPARQL queries to actually validate data against constraints provided in the high-level language.\tb{Aus der generischen Repräsentierung können die SPIN mappings zur Validierung generiert werden? das verstehe ich nicht} The framework consists of a very simple conceptual model using the \emph{RDF Constraints Vocabulary (RDF-CV)} which has been introduced in this paper. The core of the framework is the definition of 103 constraining elements that are used to define constraints of all 81 constraint types that to date have been identified within the DCMI RDF Application Profiles Task Group and in cooperation with the W3C Data Shapes Working Group.
 The full definition of all constraint types and the generic representation of the types in RDF-CV is provided in an accompanying technical report \cite{BoschNolleAcarEckert2015}.
 
 We have demonstrated how the framework can be used to map a constraint language to RDF-CV and also how to map back from RDF-CV to the constraint language. The latter enables the transformation of semantically equivalent constraints from one constraint language to another via the RDF-CV intermediate representation.
