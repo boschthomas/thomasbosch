@@ -1114,15 +1114,14 @@ Note that there is a correlation between the severity of a constraint and the cl
 %All \emph{PHDD} classes (e.g., \emph{phdd:TableDescription}, \emph{phdd:ColumnDescription}) are pairwise disjoint (\emph{R-7: disjoint classes}),
 %i.e., individuals cannot be instances of multiple disjoint classes.
 \textbf{\emph{RDFS/OWL Based} constraint types.}
-\textcolor{red}{severity levels assigned for each constraint?}
 It is a common requirement to narrow down the value space of properties by an exhaustive enumeration of valid values (\emph{R-30/37: allowed values}):
 %\emph{Allowed values} (\emph{R-30, R-37}) for properties can be IRIs (matching one or multiple patterns), any literals, allowed literals (e.g. 'red' 'blue' 'green'), and typed literals of one or multiple type(s) (e.g. \emph{xsd:string}). 
-\emph{DDI-RDF:CategoryStatistics}, e.g., can only have \emph{DDI-RDF:computationBase} relationships to the values \emph{valid} and \emph{invalid} of the datatype \emph{rdf:langString} (default severity level: \emph{error}).
+\emph{disco:CategoryStatistics}, e.g., can only have \emph{disco:computationBase} relationships to the values \emph{valid} and \emph{invalid} of the datatype \emph{rdf:langString} (default severity level: \emph{error}).
 %Validation should \emph{exploit sub-super relations} in vocabularies (\emph{R-224}).
 %If \emph{dcterms:coverage} and one of its sub properties (\emph{dcterms:spatial}, \emph{dcterms:temporal}) are given,
 %it is checked that \emph{dcterms:coverage} is not redundant with its sub-properties 
 %which may indicate when the data is verbose/redundant or expressed at a too general level.
-Consider the following \emph{DL knowledge base} $\mathcal{K}$\footnote{A \emph{DL knowledge base} is a collection of formal statements which corresponds to \emph{facts} or what is known explicitly. For simplicity reasons, we do not state namespace prefixes.}:
+Consider the following \emph{DL knowledge base} $\mathcal{K}$\footnote{A \emph{DL knowledge base} is a collection of formal statements which correspond to \emph{facts} or what is known explicitly. For simplicity reasons, we do not state namespace prefixes.}:
 \begin{center}
 \begin{DL} 
 $\mathcal{K}=\{$ 
@@ -1150,10 +1149,22 @@ A \emph{universal quantification} (\emph{R-91}) contains all those individuals t
 %\begin{DL}
 %Catalog $\sqsubseteq$ $\forall$ dataset.Dataset
 %\end{DL}
-Only \emph{dcat:Catalogs}, e.g., can have \emph{dcat:dataset} relationships to \emph{dcat:Datasets} (\emph{error}).
+Only \emph{\textcolor{red}{dcat}:Catalogs}, e.g., can have \emph{dcat:dataset} relationships to \emph{dcat:Datasets} (\emph{error}).
 \emph{Property domains} (\emph{R-25, R-26}) and \emph{property ranges} (\emph{R-28, R-35}) constraints restrict domains and ranges of properties:
-Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships and
-\emph{xkos:belongsTo} relations (\emph{error}) can only point to \emph{skos:Concepts} (\emph{error}).
+Only \emph{phdd:Tables}, e.g., can have \emph{\textcolor{red}{phdd}:isStructuredBy} relationships (\emph{error}) and \emph{\textcolor{red}{xkos}:belongsTo} relations can only point to \emph{skos:Concepts} (\emph{error}).
+
+It is often useful to declare a given (data) property as the \emph{primary key} (\emph{R-226}) of a class, so that a system can enforce uniqueness and build URIs from user inputs and imported data. 
+In DDI-RDF, resources are uniquely identified by the property \emph{adms:identifier},
+which is therefore inverse-functional $({\small\ms{funct identifier}\sp{\overline{\ }}})$,
+i.e., for each \emph{rdfs:Resource x}, there can be at most one distinct resource \emph{y} such that \emph{y} is connected by \emph{adms:identifier$\sp{\overline{\ }}$} to \emph{x} (\emph{error}).
+%\begin{DL}
+%$(\ms{funct identifier}\sp{\overline{\ }})$
+%\end{DL} 
+Keys, however, are even more general than \emph{inverse-functional properties} (\emph{R-58}),
+as a key can be a data property, an object property, or a chain of properties \cite{Schneider2009}.
+Thus and as there are different sorts of key, and as keys can lead to undecidability, 
+DL is extended with the construct \emph{keyfor} ({\small\ms{identifier \ms{keyfor} Resource}}) \cite{Lutz2005} which is implemented by the \emph{OWL 2} \emph{hasKey} construct.
+
 %\emph{Existential quantifications} (\emph{R-86}) enforce that instances of given classes must have some property relation to individuals/literals of certain types.
 %Variables, e.g., should have a relation to a theoretical concept ($\mathcal{SL}_{0}$).
 %%The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
@@ -1360,27 +1371,25 @@ Only \emph{phdd:Tables}, e.g., can have \emph{phdd:isStructuredBy} relationships
 
 \textbf{\emph{Constraint Language Based} constraint types.}
 %{Simple constraint types} is the set of constraint types whose constraints can be easily defined without much effort in addition to $\mathcal{CT}_{B}$ constraints.
-For data properties, it may be desirable to restrict that values of predefined languages must be present for determined number of times (\emph{R-48/49: language tag cardinality}):
-(1) It is checked if literal language tags are set. Some controlled vocabularies, e.g., contain literals in natural language, but without information what language has actually been used (\emph{warning}). 
-(2) Language tags must conform to language standards (\emph{error}). 
-(3) Some thesaurus concepts are labeled in only one, others in multiple languages. 
-It may be desirable to have each concept labeled in each of the languages that are also used on the other concepts,
-as language coverage incompleteness for some concepts may indicate shortcomings of thesauri (\emph{informational})
-\cite{MaderHaslhoferIsaac2012}.
 %\textbf{Validation and Reasoning.}
 
-\textcolor{red}{\emph{Default values}} (\emph{R-31, R-38}) for objects/literals of given properties are inferred automatically when properties are not present in the data.
-The value \emph{true} for the property {\em DDI-RDF:isPublic} indicates that a {\em DDI-RDF:LogicalDataSet} can be accessed by anyone.
-Per default, however, access to data sets should be restricted (\emph{false}) (\emph{informational}).
-Many properties are not necessarily required but \emph{recommended} within a particular context (\emph{R-72}).
-The property {\em skos:notation}, e.g., is not mandatory for {\em DDI-RDF:Variable}s, but recommended to represent variable names (\emph{informational}).
-
 Depending on property datatypes, two different literal values have
-a specific ordering with respect to operators like \textless  (\textcolor{red}{\emph{R-43: literal value comparison}}).
-Start dates (\emph{DDI-RDF:startDate}), e.g., must be before (\emph{\textless}) end dates (\emph{DDI-RDF:endDate}).
+a specific ordering with respect to operators like \textless  (\emph{R-43: literal value comparison}).
+Start dates (\emph{disco:startDate}), e.g., must be before (\emph{\textless}) end dates (\emph{disco:endDate}).
 
-Percentage values are only valid when they are within the literal range of 0 and 100 (\emph{R-45: literal ranges}; \emph{error})
-which is checked for \emph{DDI-RDF:percentage} standing for the number of cases of a given code in relation to the total number of cases for a particular variable.
+%Percentage values are only valid when they are within the literal range of 0 and 100 (\emph{R-45: literal ranges}; \emph{error})
+%which is checked for \emph{DDI-RDF:percentage} standing for the number of cases of a given code in relation to the total number of cases for a particular variable.
+
+In many cases, resources must be \emph{members of controlled vocabularies} (\emph{R-32}).
+If a QB dimension property, e.g., has a \emph{qb:codeList},
+then the value of the dimension property on every \emph{qb:Observation} must be in the code list (\emph{error}).
+
+\emph{Default values} (\emph{R-31, R-38}) for objects/literals of given properties are inferred automatically when properties are not present in the data.
+The value \emph{true} for the property {\em disco:isPublic} indicates that a {\em disco:LogicalDataSet} can be accessed by anyone.
+Per default, however, access to data sets should be restricted (\emph{false}) (\emph{informational}).
+
+%Many properties are not necessarily required but \emph{recommended} within a particular context (\emph{R-72}).
+%The property {\em skos:notation}, e.g., is not mandatory for {\em disco:Variable}s, but recommended to represent variable names (\emph{informational}).
 
 %\begin{center}
 %\begin{DL} 
@@ -1390,17 +1399,6 @@ which is checked for \emph{DDI-RDF:percentage} standing for the number of cases 
 %\end{DL}
 %\end{center}
 
-It is often useful to declare a given (data) property as the \emph{primary key} (\emph{R-226}) of a class, so that a system can enforce uniqueness and build URIs from user inputs and imported data. 
-In DDI-RDF, resources are uniquely identified by the property \emph{adms:identifier},
-which is therefore inverse-functional $({\small\ms{funct identifier}\sp{\overline{\ }}})$,
-i.e., for each \emph{rdfs:Resource x}, there can be at most one distinct resource \emph{y} such that \emph{y} is connected by \emph{adms:identifier$\sp{\overline{\ }}$} to \emph{x} (\emph{error}).
-%\begin{DL}
-%$(\ms{funct identifier}\sp{\overline{\ }})$
-%\end{DL} 
-Keys, however, are even more general than \emph{inverse-functional properties} (\emph{R-58}),
-as a key can be a data property, an object property, or a chain of properties \cite{Schneider2009}.
-Thus and as there are different sorts of key, and as keys can lead to undecidability, 
-DL is extended with the construct \emph{keyfor} ({\small\ms{identifier \ms{keyfor} Resource}}) \cite{Lutz2005} which is implemented by the \emph{OWL 2} \emph{hasKey} construct.
 %\emph{OWL 2} \emph{hasKey} implements \emph{keyfor} ($\mathcal{SL}_{2}$) and thus can be used to identify resources uniquely, to merge resources with identical key property values, and to recognize constraint violations.
 %\begin{DL}
 %identifier \ms{keyfor} Resource
@@ -1459,9 +1457,7 @@ If a \emph{qb:DataSet} \emph{D} has a \emph{qb:Slice} \emph{S}, and \emph{S} has
 %Thus, the severity level of the first three constraints is stronger ($\mathcal{SL}_{2}$) than for the last two constraints ($\mathcal{SL}_{1}$ and $\mathcal{SL}_{0}$).
 %If the intention of the researcher is to perform more detailed comparisons (use case 2), however, the violation of the remaining two constraints is getting more serious.
 %\textbf{Membership in Controlled Vocabularies.}
-In many cases, resources must be \emph{members of controlled vocabularies} (\emph{R-32}).
-If a dimension property, e.g., has a \emph{qb:codeList},
-then the value of the dimension property on every \emph{qb:Observation} must be in the code list (\emph{error}).
+
 %Summary statistics types like minimum, maximum, and arithmetic mean are maintained within a controlled vocabulary.  
 %Thus, summary statistics can only have \emph{DDI-RDF:summaryStatisticType} relationships to \emph{skos:Concept}s which must be members of the controlled vocabulary \emph{ddicv:SummaryStatisticType}, a \emph{skos:ConceptScheme} ($\mathcal{SL}_{2}$).
 Objects/literals can be declared to be ordered for given properties (\emph{R-121/217: ordering}).
@@ -1475,6 +1471,15 @@ If an abstract and an external description are absent, however,
 a title or an alternative title should be given (\emph{warning}).
 In case a variable is represented in form of a code list, codes may be associated with categories, i.e., human-readable labels (\emph{informational}).
 The variable \emph{Education at pre-school}, e.g., is represented as ordered code list without any categories.
+
+For data properties, it may be desirable to restrict that values of predefined languages must be present for determined number of times (\emph{R-48/49: language tag cardinality}):
+(1) It is checked if literal language tags are set. Some controlled vocabularies, e.g., contain literals in natural language, but without information what language has actually been used (\emph{warning}). 
+(2) Language tags must conform to language standards (\emph{error}). 
+(3) Some thesaurus concepts are labeled in only one, others in multiple languages. 
+It may be desirable to have each concept labeled in each of the languages that are also used on the other concepts,
+as language coverage incompleteness for some concepts may indicate shortcomings of thesauri (\emph{informational})
+\cite{MaderHaslhoferIsaac2012}.
+
 %If a {\em skos:Concept} represents a code (having {\em skos:notation} and {\em skos:prefLabel} properties), 
 %then the property {\em DDI-RDF:isValid} has to be stated indicating if the code stands for valid (\emph{true}) or missing (\emph{false}) cases ($\mathcal{SL}_{2}$).
 
