@@ -662,7 +662,7 @@ For research institutes, data libraries, and data archives,
 RDF data validation according to predefined constraints is a much sought-after feature, 
 particularly as this is taken for granted in the XML world.
 Based on our work in the DCMI RDF Application Profiles Task Group and in cooperation with the W3C Data Shapes Working Group, we identified and published by today 81 types of constraints that are required by various stakeholders for data applications.
-In this paper, we formulate 115 constraints on three different vocabularies (DDI-RDF, QB, and SKOS) and classify them according to (1) the severity of an occurring violation and (2) which types of constraint languages are able to express their type of constraint. We evaluate the data quality of 15,694 data sets (4.26 billion triples) of research data for the social, behavioural, and economic sciences obtained from 33 SPARQL endpoints.
+In this paper, in collaboration with several domain experts we formulate 115 constraints on three different vocabularies (DDI-RDF, QB, and SKOS) and classify them according to (1) the severity of an occurring violation and (2) which types of constraint languages are able to express their type of constraint. We evaluate the data quality of 15,694 data sets (4.26 billion triples) of research data for the social, behavioural, and economic sciences obtained from 33 SPARQL endpoints.
 Based on the results, we formulate several hypotheses to direct the further development of constraint languages.
 \end{abstract}
 % IEEEtran.cls defaults to using nonbold math in the Abstract.
@@ -700,19 +700,19 @@ Based on the results, we formulate several hypotheses to direct the further deve
 %%% Findings aus dem Abstract
 %%% (1) for well-established vocabularies, the explicitly defined constraints are almost completely satisfied which demonstrates that constraint formulation in general works. (2) A significant amount of 47\% of the violations refer to complex constraints that are not easily expressible in existing languages which confirms the necessity to provide suitable constraint languages.  (3) The percentage of severe constraint violations is very low, compared to about 2/3 of warning violations and 1/3 of informational violations, which implies that proper constraint languages can significantly improve the data quality beyond fundamental requirements.
 
-For constraint formulation and RDF data validation, several languages exist or are currently developed: \emph{Shape Expressions (ShEx)}, \emph{Resource Shapes (ReSh)}, \emph{Description Set Profiles (DSP)}, \emph{OWL 2}, the \emph{SPARQL Inferencing Notation (SPIN)}, and \emph{SPARQL} are the six most promising and widely used constraint languages. OWL 2 is used as a constraint language under the closed-world and unique name assumptions. The W3C currently develops \emph{SHACL}, an RDF vocabulary for describing RDF graph structures. With its direct support of validation via SPARQL, SPIN is very popular and certainly plays an important role for future developments in this field. It is particularly interesting as a means to validate arbitrary constraint languages by mapping them to SPARQL \cite{BoschEckert2014-2}. Yet, there is no clear favorite and none of the languages is able to meet all requirements raised by data practitioners. Further research and development therefore is needed.
+For constraint formulation and RDF data validation, several languages exist or are currently developed. \emph{Shape Expressions (ShEx)}, \emph{Resource Shapes (ReSh)}, \emph{Description Set Profiles (DSP)}, \emph{OWL 2}, the \emph{SPARQL Inferencing Notation (SPIN)}, and \emph{SPARQL} are the six most promising and widely used constraint languages. OWL 2 is used as a constraint language under the closed-world and unique name assumptions. The W3C currently develops \emph{SHACL}, an RDF vocabulary for describing RDF graph structures. With its direct support of validation via SPARQL, SPIN is very popular and certainly plays an important role for future developments in this field. It is particularly interesting as a means to validate arbitrary constraint languages by mapping them to SPARQL \cite{BoschEckert2014-2}. Yet, there is no clear favorite and none of the languages is able to meet all requirements raised by data practitioners. Further research and development therefore is needed.
 
 In 2013, the W3C organized the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/rdf-val/}}, 
 where experts from industry, government, and academia discussed first use cases for constraint formulation and RDF data validation.
 In 2014, two working groups on RDF validation have been established to develop a language to express constraints on RDF data: 
 the \emph{W3C RDF Data Shapes Working Group}\footnote{\url{http://www.w3.org/2014/rds/charter}} (33 participants of 19 organizations) and the \emph{DCMI RDF Application Profiles Task Group}\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}} (29 people of 22 organizations) which among others bundles the requirements of data institutions of the cultural heritage sector and the social, behavioural, and economic (\emph{SBE}) sciences and represents them in the W3C group. 
 
-Within the DCMI task group, a collaboratively curated database of RDF validation requirements has been created which contains the findings of the working groups based on various case studies provided by data institutions \cite{BoschEckert2014}. It is publicly available and open for further contributions\footnote{Online available at \url{http://purl.org/net/rdf-validation}}.
+Within the DCMI task group, a collaboratively curated database of RDF validation requirements\footnote{Online available at: \url{http://purl.org/net/rdf-validation}} has been created which contains the findings of the working groups based on various case studies provided by data institutions \cite{BoschEckert2014}. It is publicly available and open for further contributions.
 The database connects requirements to use cases, case studies, and implementations and forms the basis of this paper. 
 We distinguish 81 requirements to formulate constraints on RDF data; 
 each of them corresponding to a constraint type.
 
-To gain a better understanding about the role of certain requirements for data quality and in order to direct the further development of constraint languages, we collected constraints for commonly used vocabularies in the \emph{SBE} domain, either from the vocabularies themselves or from domain and data experts. All in all, this lead to 115 constraints on three vocabularies. 
+To gain a better understanding about the role of certain requirements for data quality and in order to direct the further development of constraint languages, we collected constraints for commonly used vocabularies in the \emph{SBE} domain (see Section \ref{sbe-vocabularies}), either from the vocabularies themselves or from domain and data experts. All in all, this lead to 115 constraints on three vocabularies. 
 We let the experts classify the constraints according to the severity of their violation. Furthermore, we classified the type of each constraint based on whether it is expressible by RDFS/OWL, common high-level constraint languages, or only by plain SPARQL (see Chapter \ref{classification}).
 
 As we do not want to base our conclusions on the evaluation of vocabularies and constraint definitions alone, we conducted a large-scale experiment.
@@ -747,62 +747,10 @@ In this paper, we discuss constraints on RDF data in general. Note that the data
 %Constraints are instantiated from constraint types in order to validate both metadata and data represented by any vocabulary. 
 %As constraint types are used to define constraints on (meta)data expressed by any vocabulary, the proposed constraint classification can be applied generically, i.e. vocabulary-independent. 
 
-\section{Related Work}
-\label{related-work}
-
-%\textbf{XML vs. RDF Validation.}
-For data archives, research institutes, and data libraries,
-RDF validation according to predefined constraints is a much sought-after feature, 
-particularly as this is taken for granted in the XML world.
-DDI-XML documents, e.g., are validated against diverse XSDs\footnote{\url{http://www.ddialliance.org/Specification/}}.
-As certain constraints cannot be formulated and validated by XSDs, 
-so-called secondary-level validation tools like \emph{Schematron}\footnote{\url{https://msdn.microsoft.com/en-us/library/aa468554.aspx}} 
-have been introduced to overcome the limitations of XML validation.
-\emph{Schematron} generates validation rules and validates XML documents according to them.
-With RDF validation, one can overcome drawbacks when validating XML documents\footnote{\url{http://www.xmlmind.com/xmleditor/_distrib/doc/xmltool/xsd_structure_limitations.html}}.
-It cannot be validated, e.g., if each code of a variable's code list is associated with a category (\emph{R-86}) and if an element has a specific value, then certain child elements must be present (\emph{R-71}).  
-A comprehensive comparison of XML and RDF validation, however, is not within the scope of this paper.
-
-%validation or relational databases: types, relations
-
-%\textbf{RDF Data Cube Vocabulary.}
-A well-formed \emph{RDF Data Cube} is an a RDF graph describing one or more instances of \emph{qb:DataSet} for which each of the 22 integrity constraints\footnote{http://www.w3.org/TR/vocab-data-cube/\#wf}, defined within the QB specification, passes.
-Each integrity constraint is expressed as narrative prose and, where possible, a SPARQL ASK query or query template. 
-If the ASK query is applied to an RDF graph then it will return true if that graph contains one or more QB instances which violate the corresponding constraint \cite{CyganiakReynolds2014}.
-
-Mader, Haslhofer, and Isaac \cite{MaderHaslhoferIsaac2012} investigated how to support
-taxonomists in improving SKOS vocabularies by pointing out quality
-issues that go beyond the integrity constraints defined in the SKOS specification.
- 
-\emph{Stardog ICV} and \emph{Pellet ICV} use OWL 2 constructs to formulate constraints. \emph{OWL} in its current version 2 is an expressive language which is based on formal logic and on the subject-predicate-object triples from RDF. OWL offers knowledge representation and reasoning services in combination with \emph{SWRL}. Validation, however, is not the primary purpose of its design which has lead to claims that OWL cannot be used for validation. \cite{Motik-2007} and \cite{Motik-2009}, e.g., discuss the differences between constraints and RDFS/OWL axioms. In practice, however, OWL is well-spread and RDFS/OWL constructs are widely used to tell people and applications about how valid instances should look like. In general, RDF documents follow the semantics of RDFS/OWL ontologies which could therefore not only be used for reasoning but also for validation. 
-
-The underlying semantics for RDF validation is CWA/UNA.
-RDF validation requires that different names represent different objects ({\em unique name assumption (UNA)}), whereas,
-OWL is based on the {\em non-unique name assumption (nUNA)}.  
-%A data property is \emph{functional} (\emph{R-65}) if for each individual \emph{x}, there can be at most one distinct literal \emph{y} such that \emph{x} is connected by the data property to \emph{y}. (See \cite{resource} for this terminology.)
-%When assuming UNA, the functional property {\em title} (\ms{funct (title)}) causes a clash
-%in case the book {\em Huckleberry-Finn} has more than one \emph{title}
-%(\ms{title(Huckleberry-Finn, The-Adventures-of-Huckleberry-Finn)}, \ms{title(Huckleberry-Finn, Die-Abenteuer-des-Huckleberry-Finn)}).
-%Assuming nUNA, however, reasoning concludes that the titles {\em The-Adventures-of-Huckleberry-Finn} and {\em Die-Abenteuer-des-Huckleberry-Finn} are the same (\ms{\{The-Adventures-of-Huckleberry-Finn\}} = \ms{\{Die-Abenteuer-des-Huckle} \ms{berry-}\ms{Finn\}}).  
-Reasoning in OWL is based on the {\em open-world assumption (OWA)}, i.e., a statement cannot be inferred to be false if it cannot be proved to be true. 
-%which fits its primary design purpose to represent knowledge on the World Wide Web. 
-%Most of the constraint languages except OWL, have a major shortcoming of redundancy.
-%With its open-world semantics, used as a constraint language, OWL solves the redundancy problem. 
-%\tb{the following example does not show the redundancy problem!}
-%\tb{2. benefit: reasoning solves redundancy problem}
-%As each \emph{book} must have a \emph{title} (\ms{Book $\sqsubseteq \exists$ title.$\top$}) and {\em Hamlet} is a \emph{book} (\ms{Book(Hamlet)}),
-%{\em Hamlet} must have at least one \emph{title}.
-%In an OWA setting, this axiom does not cause a constraint violation (even if there is no explicitly defined \emph{title}), since there must be a \emph{title} for this \emph{book} which we may not know. 
-On the other hand, RDF validation scenarios require the {\em closed-world assumption (CWA)}, i.e., a statement is inferred to be false if it cannot be proved to be true. 
-This ambiguity in semantics is one of the main reasons why OWL has not been adopted as a standard constraint language for RDF validation in the past.  
-\cite{Tao-2010} propose an alternative semantics for OWL using CWA/UNA so that it could be used to validate integrity constraints.
-\cite{Patel-Schneider-2015} claims that DL and therefore OWL axioms can be interpreted in a closed-world setting and used for constraint checking.
-When using OWL axioms in terms of constraints, we adopt the same semantics that is used for RDF validation.
-
 %\section{Running Example}
 %\label{running-example}
 \section{Common Vocabularies in SBE Sciences}
-\label{rdf-representation}
+\label{sbe-vocabularies}
 
 We took all well-established and newly developed \emph{SBE} vocabularies into account and defined constraints for three vocabularies commonly used in the \emph{SBE} sciences which are briefly introduced in the following. We analyzed actual data according to constraint violations, as for these vocabularies large data sets are already published.
 
@@ -824,7 +772,7 @@ The \emph{RDF Data Cube Vocabulary (QB)}\footnote{http://www.w3.org/TR/vocab-dat
 %QB represents metadata on multi-dimensional aggregate data in two files: a \emph{qb:DataSet} and a \emph{qb:DataStructureDefinition}.
 A \emph{qb:DataStructureDefinition} contains metadata of the data collection.
 The variable \emph{formal childcare} is modeled as \emph{qb:measure}, since it stands for what has been measured in the data collection.
-\emph{year}, \emph{duration}, \emph{age}, and \emph{country} are \emph{qb:dimensions}.
+\emph{Year}, \emph{duration}, \emph{age}, and \emph{country} are \emph{qb:dimensions}.
 Data values, i.e., the availability of childcare services in percent over the population, are collected in a \emph{qb:DataSet}. 
 Each data value is represented inside a \emph{qb:Observation} which contains values for each dimension. 
 %(e.g., the year in which \emph{formal childcare} has been determined).
@@ -834,9 +782,9 @@ For more detailed analyses we refer to the underlying record-unit data. The aggr
 \emph{DDI-RDF} is used to represent metadata on record-unit data in RDF.
 %The series (\emph{DDI-RDF:StudyGroup}) \emph{EU-SILC} contains one study (\emph{DDI-RDF:Study}) for each year (\emph{dcterms:temporal}) of data collection.   
 %\emph{dcterms:spatial} points to the countries for which the data has been collected.
-The study for which the record-unit data has been collected 
+The study (\emph{disco:Study}) for which the record-unit data has been collected 
 %\emph{EU-SILC 2011} 
-contains eight record-unit data sets (\emph{disco:LogicalDataSet})
+contains eight data sets (\emph{disco:LogicalDataSet})
 including variables (\emph{disco:Variable}) like the six ones needed to calculate the variable \emph{formal childcare}.
 %Metadata on record-unit data enables researchers to investigate further research questions based on promising findings of other researchers in form of aggregated data.
 %One common research question is ,e.g., the comparison of variables like 
@@ -954,6 +902,55 @@ organize types (\emph{skos:Concept}) of descriptive statistics (\emph{disco:Summ
 
 % Backup of 'Common Vocabularies in SBE Sciences'
 % -----
+
+\section{Related Work}
+\label{related-work}
+
+%\textbf{XML vs. RDF Validation.}
+For data archives, research institutes, and data libraries,
+RDF validation according to predefined constraints is a much sought-after feature, 
+particularly as this is taken for granted in the XML world.
+DDI-XML documents, e.g., are validated against diverse XML Schemas.
+%\footnote{\url{http://www.ddialliance.org/Specification/}}.
+As certain constraints cannot be formulated and validated by XML Schemas, 
+so-called secondary-level validation tools like \emph{Schematron}\footnote{\url{https://msdn.microsoft.com/en-us/library/aa468554.aspx}} 
+have been introduced to overcome the limitations of XML validation.
+Schematron generates validation rules and validates XML documents according to them.
+With RDF validation, one can overcome the drawbacks when validating XML documents\footnote{\url{http://www.xmlmind.com/xmleditor/_distrib/doc/xmltool/xsd_structure_limitations.html}}.
+It cannot be validated, e.g., if each code of a variable's code list is associated with a category and that if an element has a specific value then certain child elements must be present.  
+
+A well-formed \emph{RDF Data Cube} is an a RDF graph describing one or more instances of \emph{qb:DataSet} for which each of the 22 integrity constraints\footnote{http://www.w3.org/TR/vocab-data-cube/\#wf}, defined within the QB specification, passes.
+Each integrity constraint is expressed as narrative prose and, where possible, as a SPARQL ASK query or query template. 
+If the ASK query is applied to an RDF graph then it will return true if that graph contains one or more QB instances which violate the corresponding constraint.
+
+\cite{MaderHaslhoferIsaac2012} investigated how to support
+taxonomists in improving SKOS vocabularies by pointing out quality
+issues that go beyond the integrity constraints defined in the SKOS specification.
+ 
+\emph{Stardog ICV} and \emph{Pellet ICV} use OWL 2 constructs to formulate constraints. \emph{OWL} in its current version 2 is an expressive language which is based on formal logic and on the subject-predicate-object triples from RDF. OWL offers knowledge representation and reasoning services in combination with \emph{SWRL}. Validation, however, is not the primary purpose of its design which has lead to claims that OWL cannot be used for validation. \cite{Motik-2007} and \cite{Motik-2009}, e.g., discuss the differences between constraints and RDFS/OWL axioms. In practice, however, OWL is well-spread and RDFS/OWL constructs are widely used to tell people and applications about how valid instances should look like. In general, RDF documents follow the semantics of RDFS/OWL ontologies which could therefore not only be used for reasoning but also for validation. 
+
+The semantics which is applied for RDF validation is CWA/UNA.
+RDF validation requires that different names represent different objects ({\em unique name assumption (UNA)}), whereas
+OWL is based on the {\em non-unique name assumption (nUNA)}.  
+%A data property is \emph{functional} (\emph{R-65}) if for each individual \emph{x}, there can be at most one distinct literal \emph{y} such that \emph{x} is connected by the data property to \emph{y}. (See \cite{resource} for this terminology.)
+%When assuming UNA, the functional property {\em title} (\ms{funct (title)}) causes a clash
+%in case the book {\em Huckleberry-Finn} has more than one \emph{title}
+%(\ms{title(Huckleberry-Finn, The-Adventures-of-Huckleberry-Finn)}, \ms{title(Huckleberry-Finn, Die-Abenteuer-des-Huckleberry-Finn)}).
+%Assuming nUNA, however, reasoning concludes that the titles {\em The-Adventures-of-Huckleberry-Finn} and {\em Die-Abenteuer-des-Huckleberry-Finn} are the same (\ms{\{The-Adventures-of-Huckleberry-Finn\}} = \ms{\{Die-Abenteuer-des-Huckle} \ms{berry-}\ms{Finn\}}).  
+Reasoning in OWL is based on the {\em open-world assumption (OWA)}, i.e., a statement cannot be inferred to be false if it cannot be proved to be true. 
+%which fits its primary design purpose to represent knowledge on the World Wide Web. 
+%Most of the constraint languages except OWL, have a major shortcoming of redundancy.
+%With its open-world semantics, used as a constraint language, OWL solves the redundancy problem. 
+%\tb{the following example does not show the redundancy problem!}
+%\tb{2. benefit: reasoning solves redundancy problem}
+%As each \emph{book} must have a \emph{title} (\ms{Book $\sqsubseteq \exists$ title.$\top$}) and {\em Hamlet} is a \emph{book} (\ms{Book(Hamlet)}),
+%{\em Hamlet} must have at least one \emph{title}.
+%In an OWA setting, this axiom does not cause a constraint violation (even if there is no explicitly defined \emph{title}), since there must be a \emph{title} for this \emph{book} which we may not know. 
+On the other hand, RDF validation scenarios require the {\em closed-world assumption (CWA)}, i.e., a statement is inferred to be false if it cannot be proved to be true. 
+This ambiguity in semantics is one of the main reasons why OWL has not been adopted as a standard constraint language for RDF validation in the past.  
+\cite{Tao-2010} propose an alternative semantics for OWL using CWA/UNA so that it could be used to validate integrity constraints.
+\cite{Patel-Schneider-2015} claims that DL and therefore OWL axioms can be interpreted in a closed-world setting and used for constraint checking.
+When using OWL axioms in terms of constraints, we adopt the same semantics that is used for RDF validation.
 
 \section{Classification of Constraint Types and Constraints}
 \label{classification}
@@ -1602,7 +1599,7 @@ as language coverage incompleteness for some concepts may indicate shortcomings 
 \section{Evaluation}
 \label{evaluation}
 
-In this section, we describe our findings based on an automatic constraint checking of a large data set. Despite the large volume of the data set in general, we have to keep in mind that this study only uses data for three vocabularies. As described in Section~\ref{rdf-representation}, for other vocabularies there is often not (yet) enough data openly available to draw general conclusions. The three vocabularies, however, are representative, cover different aspects of \emph{SBE} data and are also a mixture of established vocabularies (QB, SKOS) and a vocabulary under development (DDI-RDF). Due to this limitation, we will present several hypotheses together with a rationale based on the results for the three vocabularies. If the hypotheses hold generally is still to be determined, nevertheless they should provide valuable insights for future developments of constraint languages.
+In this section, we describe our findings based on an automatic constraint checking of a large data set. Despite the large volume of the data set in general, we have to keep in mind that this study only uses data for three vocabularies. As described in Section~\ref{sbe-vocabularies}, for other vocabularies there is often not (yet) enough data openly available to draw general conclusions. The three vocabularies, however, are representative, cover different aspects of \emph{SBE} data and are also a mixture of established vocabularies (QB, SKOS) and a vocabulary under development (DDI-RDF). Due to this limitation, we will present several hypotheses together with a rationale based on the results for the three vocabularies. If the hypotheses hold generally is still to be determined, nevertheless they should provide valuable insights for future developments of constraint languages.
 
 \subsection{Experimental Setup}
 \label{implementation}
@@ -1611,7 +1608,7 @@ In this section, we describe our findings based on an automatic constraint check
 
 	%\item First, we assigned each constraint type to exactly one of the disjoint sets of constraint types 
 %in order to get an overview how many constraint types in relation to the total amount of constraint types are extractable from vocabularies ($\mathcal{CT}_{B}$), are easily definable ($\mathcal{CT}_{S}$), and are rather difficult to specify ($\mathcal{CT}_{C}$). 
-On the three vocabularies (DDI-RDF, QB, SKOS), we identified and classified 115 constraints\footnote{\url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}} which we implemented for the data validation. We ensured that the implementation of the constraints is equally distributed over the classes and vocabularies we have. We then evaluated the data quality of 15,694 data sets (4.26 billion triples) of \emph{SBE} research data using these 115 constraints, obtained from 33 SPARQL endpoints.
+On the three vocabularies (DDI-RDF, QB, SKOS), we identified and classified 115 constraints\footnote{All 115 implemented constraints online available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}} which we implemented for the data validation. We ensured that the implementation of the constraints is equally distributed over the classes and vocabularies we have. We then evaluated the data quality of 15,694 data sets (4.26 billion triples) of \emph{SBE} research data using these 115 constraints, obtained from 33 SPARQL endpoints.
 
 QB and SKOS are well-established vocabularies which are widely adopted and accepted. DDI-RDF is a newly developed vocabulary which will be published in 2015.
 
@@ -1658,14 +1655,11 @@ the \emph{Data Without Boundaries DDI-RDFvery Portal}, the
     \end{center}
 \end{table}
 
-In a technical report, we describe the evaluation in further detail \cite{BoschZapilkoWackerowEckert2015-2}. Furthermore, we published the evaluation results for each data set in form of one document per SPARQL endpoint\footnote{Available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/evaluation/data-sets/data-cube}}.
-\tb{why SPIN?}
-We use \emph{SPIN}, a SPARQL-based way to formulate and check constraints, as basis to develop a
-validation environment\footnote{Online demo available at: \url{http://purl.org/net/rdfval-demo}, source code at: \url{https://github.com/boschthomas/rdf-validator}} to validate RDF data according to constraints expressed by arbitrary constraint languages\footnote{SPIN mappings available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/SPIN}} \cite{BoschEckert2014-2}.
+In a technical report, we describe the evaluation in further detail \cite{BoschZapilkoWackerowEckert2015-2}. Furthermore, we published the evaluation results for each data set in form of one document per SPARQL endpoint\footnote{Online available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/evaluation/data-sets/data-cube}}.
 
-The \emph{RDF Validator} can directly be used to validate arbitrary RDF data for the three vocabularies. Additionally, own constraints on vocabularies can be defined using several constraint languages.
-
-%Although accessible within our validation tool, we provide all implemented constraints\footnote{\url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}} in form of SPARQL CONSTRUCT queries.
+Since the validation of each of the 81 constraint types can be implemented using SPARQL, we use \emph{SPIN}, a SPARQL-based way to formulate and check constraints, as basis to develop a
+validation environment to validate RDF data according to constraints expressed by arbitrary constraint languages\footnote{Constraint language implementations online available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/SPIN}} \cite{BoschEckert2014-2}.
+The \emph{RDF Validator}\footnote{Online demo available at: \url{http://purl.org/net/rdfval-demo}, source code at: \url{https://github.com/boschthomas/rdf-validator}} can directly be used to validate arbitrary RDF data for the three vocabularies. Additionally, own constraints on vocabularies can be defined using several constraint languages.
 The SPIN engine checks for each resource if it satisfies all constraints, which are associated with its assigned classes, and generates a result RDF graph containing information about all constraint violations.
 There is one SPIN construct template for each constraint type.
 A SPIN construct template contains a SPARQL CONSTRUCT query which generates constraint violation triples indicating the subject and the properties causing constraint violations and the reason why constraint violations have been raised.
