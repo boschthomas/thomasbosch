@@ -599,8 +599,8 @@
 %
 % paper title
 % can use linebreaks \\ within to get better formatting as desired
-\title{Aspects of RDF Data Constraints in the Social, Behavioural, and Economic Sciences}
-
+%\title{Aspects of RDF Data Constraints in the Social, Behavioural, and Economic Sciences}
+\title{Validating RDF Data Quality using Constraints to Direct the Development of Constraint Languages}
 
 % author names and affiliations
 % use a multiple column layout for up to three different
@@ -843,13 +843,12 @@ including variables (\emph{disco:Variable}) like the six ones needed to calculat
 %\emph{formal childcare} between countries, for which the variable is collected within the context of an individual study, and other European or non European countries (e.g. OSCE).
 
 The \emph{Simple Knowledge Organization System (SKOS)} is reused multiple times to build \emph{SBE} vocabularies.
-The codes of the variable \emph{Education at pre-school} (number of education hours per week) are modeled as \emph{skos:Concepts} and 
-a \emph{skos:OrderedCollection} organizes them in a particular order within a \emph{skos:member} \emph{List}.
-A variable may be associated with a theoretical concept (\emph{skos:Concept}). 
-\emph{skos:narrower} builds the hierarchy of theoretical concepts within a \emph{skos:Concept} \emph{Scheme} of a series.
-The variable \emph{Education at pre-school} is assigned to the theoretical concept \emph{Child Care} which is the narrower concept of \emph{Education} - one of the top concepts of the series \emph{EU-SILC}.
+The codes of the variable \emph{Education at pre-school} are modeled as \emph{skos:Concepts} and 
+a \emph{skos:OrderedCollection} organizes them in a particular order within a \emph{skos:memberList}.
+A variable may be associated with a theoretical concept (\emph{skos:Concept}) and \emph{skos:narrower} builds the hierarchy of theoretical concepts within a \emph{skos:ConceptScheme} of a study.
+The variable \emph{Education at pre-school} is assigned to the theoretical concept \emph{Child Care} which is a narrower concept of the top concept \emph{Education}.
 Controlled vocabularies (\emph{skos:ConceptScheme}), serving as extension and reuse mechanism,
-organize types (\emph{skos:Concept}) of descriptive statistics (\emph{DDI-RDF:SummaryStatistics}) like minimum, maximum, and arithmetic mean.
+organize types (\emph{skos:Concept}) of descriptive statistics (\emph{disco:SummaryStatistics}) like minimum, maximum, and arithmetic mean.
 
 
 
@@ -1449,7 +1448,7 @@ If codes (\emph{skos:Concept}) should be ordered, they must be members (\emph{sk
 
 %\textbf{Constraints on Properties.}
 It is useful to declare properties to be \emph{conditional} (\emph{R-71}), i.e., if particular properties exist (or do not exist), then other properties must also be present (or absent).
-To get an overview over a series/study either an abstract, a title, an alternative title, or links to external descriptions should be provided. 
+To get an overview over a study either an abstract, a title, an alternative title, or links to external descriptions should be provided. 
 If an abstract and an external description are absent, however,  
 a title or an alternative title should be given (\emph{warning}).
 In case a variable is represented in form of a code list, codes may be associated with categories, i.e., human-readable labels (\emph{informational}).
