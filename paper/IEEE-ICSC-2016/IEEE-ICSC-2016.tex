@@ -700,43 +700,26 @@ Based on the results, we formulate several hypotheses to direct the further deve
 %%% Findings aus dem Abstract
 %%% (1) for well-established vocabularies, the explicitly defined constraints are almost completely satisfied which demonstrates that constraint formulation in general works. (2) A significant amount of 47\% of the violations refer to complex constraints that are not easily expressible in existing languages which confirms the necessity to provide suitable constraint languages.  (3) The percentage of severe constraint violations is very low, compared to about 2/3 of warning violations and 1/3 of informational violations, which implies that proper constraint languages can significantly improve the data quality beyond fundamental requirements.
 
-\textcolor{red}{references to constraint languages}
-
-The social, behavioural, and economic sciences (\emph{SBE}) require high-quality data for their empirical research. For more than a decade, members of the \emph{SBE} community have been developing and using a
-metadata standard, composed of almost twelve hundred metadata fields, known as the \emph{Data Documentation Initiative (DDI)},
-an XML format to disseminate, manage,
-and reuse data collected and archived for research \cite{Vardigan2008}. 
-%DDI is heavily used by the CESSDA community of European national data archives, 
-%the International Household Survey Network community (made up of more than 90 statistical agencies),
-%and ICPSR - the largest SBE data archive in the US.
-In XML, the definition of schemas containing data constraints and the validation of data according to these constraints is commonly used to ensure a certain level of data quality.
-With the rise of the Web of Data, data professionals and institutions are very interested in having their data be DDI-RDFvered and used by publishing their data directly in RDF or at least publish accurate metadata about their data to facilitate data integration. Therefore, not only established vocabularies like SKOS are used; 
-recently, members of the \emph{SBE} and Linked Data community developed with the \emph{DDI-RDF DDI-RDFvery Vocabulary (DDI-RDF)}\footnote{\url{http://rdf-vocabulary.ddialliance.org/DDI-RDFvery.html}} a means to expose \emph{DDI} metadata as Linked Data. 
-
-For constraint formulation and validation of RDF data, several languages exist or are currently developed, like \emph{Shape Expressions}, \emph{Resource Shapes} or \emph{Description Set Profiles}. \emph{OWL 2} is also used as a constraint language under a closed world assumption. With its direct support of validation via SPARQL, SPIN%\footnote{\url{http://spinRDF.org/}}
-is very popular and certainly plays an important role for future developments in this field. It is particularly interesting as a means to validate arbitrary constraint languages by mapping them to SPARQL \cite{BoschEckert2014-2}. Yet, there is no clear favorite and none of the languages is able to meet all requirements raised by data practitioners. Further research and development therefore is needed.
+For constraint formulation and RDF data validation, several languages exist or are currently developed: \emph{Shape Expressions (ShEx)}, \emph{Resource Shapes (ReSh)}, \emph{Description Set Profiles (DSP)}, \emph{OWL 2}, the \emph{SPARQL Inferencing Notation (SPIN)}, and \emph{SPARQL} are the six most promising and widely used constraint languages. OWL 2 is used as a constraint language under the closed-world and unique name assumptions. The W3C currently develops \emph{SHACL}, an RDF vocabulary for describing RDF graph structures. With its direct support of validation via SPARQL, SPIN is very popular and certainly plays an important role for future developments in this field. It is particularly interesting as a means to validate arbitrary constraint languages by mapping them to SPARQL \cite{BoschEckert2014-2}. Yet, there is no clear favorite and none of the languages is able to meet all requirements raised by data practitioners. Further research and development therefore is needed.
 
 In 2013, the W3C organized the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/rdf-val/}}, 
-where experts from industry, government, and academia discussed first use cases for RDF constraint formulation and RDF data validation.
+where experts from industry, government, and academia discussed first use cases for constraint formulation and RDF data validation.
 In 2014, two working groups on RDF validation have been established to develop a language to express constraints on RDF data: 
-the W3C RDF Data Shapes working group\footnote{\url{http://www.w3.org/2014/rds/charter}} and the DCMI RDF Application Profiles task group\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}} which among others bundles the requirements of data institutions of the cultural heritage and \emph{SBE} sector and represents them in the W3C group. 
+the \emph{W3C RDF Data Shapes Working Group}\footnote{\url{http://www.w3.org/2014/rds/charter}} (33 participants of 19 organizations) and the \emph{DCMI RDF Application Profiles Task Group}\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}} (29 people of 22 organizations) which among others bundles the requirements of data institutions of the cultural heritage sector and the social, behavioural, and economic (\emph{SBE}) sciences and represents them in the W3C group. 
 
-Within the DCMI task group, a collaboratively curated database of RDF validation requirements has been created which contains the findings of the working groups based on various case studies provided by data institutions \cite{BoschEckert2014} \tb{bibliography error}. It is publicly available and open for further contributions\footnote{Online at \url{http://purl.org/net/rdf-validation}}.
-The database connects requirements to use cases, case studies and implementations and forms the basis of this paper. 
-We distinguish 81 requirements to formulate RDF constraints; 
-each of them corresponding to an RDF constraint type.
+Within the DCMI task group, a collaboratively curated database of RDF validation requirements has been created which contains the findings of the working groups based on various case studies provided by data institutions \cite{BoschEckert2014}. It is publicly available and open for further contributions\footnote{Online available at \url{http://purl.org/net/rdf-validation}}.
+The database connects requirements to use cases, case studies, and implementations and forms the basis of this paper. 
+We distinguish 81 requirements to formulate constraints on RDF data; 
+each of them corresponding to a constraint type.
 
-To gain a better understanding about the role of certain requirements for data quality and in order to direct the further development of constraint languages, we collected constraints for commonly used vocabularies in the \emph{SBE} domain, either from the vocabularies themselves or from domain and data experts. All in all, this lead to 213 constraints of 53 different types on three vocabularies. 
-We let the experts classify the constraints according to the severity if they are violated. Furthermore, we classified the type of each constraint (corresponding to a requirement) based on its complexity ranging from types commonly found in vocabulary specifications (e.g., domain, range, and cardinality restrictions), 
-over types that are simply stated using common constraint languages (e.g., language tag cardinality restrictions) to complex types that involve complex data structures or need more sophisticated languages to be easily expressible 
-%(e.g., constraints on network topologies)
-(e.g., constraints on graph-based structures) (Section \ref{classification}).
+To gain a better understanding about the role of certain requirements for data quality and in order to direct the further development of constraint languages, we collected constraints for commonly used vocabularies in the \emph{SBE} domain, either from the vocabularies themselves or from domain and data experts. All in all, this lead to 115 constraints on three vocabularies. 
+We let the experts classify the constraints according to the severity of their violation. Furthermore, we classified the type of each constraint based on whether it is expressible by RDFS/OWL, common high-level constraint languages, or only by plain SPARQL (see Chapter \ref{classification}).
 
-As we do not want to base our conclusions on the evaluations of vocabularies and constraint definitions alone, we conducted a large-scale experiment.
-For 115 constraints, we evaluated the data quality of 15,694 data sets (4.26 billion triples) of \emph{SBE} research data on three common vocabularies in \emph{SBE} sciences (DDI-RDF, QB, SKOS) obtained from 33 SPARQL endpoints.
+As we do not want to base our conclusions on the evaluation of vocabularies and constraint definitions alone, we conducted a large-scale experiment.
+For all these 115 constraints, we evaluated the data quality of 15,694 data sets (4.26 billion triples) of \emph{SBE} research data on three common vocabularies in \emph{SBE} sciences (DDI-RDF, QB, SKOS) obtained from 33 SPARQL endpoints.
 %evaluated the data quality of 15,694 data sets (4.26 billion triples) of research data for the social, behavioural, and economic (\emph{SBE}) sciences obtained from 33 SPARQL endpoints.
 Based on the evaluation results,
-we formulated several hypotheses to direct the further development of constraint languages.
+we formulate several hypotheses to direct the further development of constraint languages.
 To make valid general statements for all vocabularies, however,
 the hypotheses still have to be verified or falsified
 by evaluating the quality of data represented by more than three vocabularies (Section \ref{evaluation}).
@@ -750,110 +733,19 @@ by evaluating the quality of data represented by more than three vocabularies (S
 %A complex and complete real world running example from the \emph{SBE} domain serves to prove the claim that the developed classification system perfectly applies for diverse vocabularies.
 %%, i.e., that it does not matter which vocabularies are used to represent (meta)data and for which domains constraints are defined.
 %We describe why RDF validation is important for the \emph{SBE} community (section \ref{motivation}), 
-%how data in tabular format and metadata on person-level data sets, aggregated data sets, and thesauri are represented in RDF, 
+%how data in tabular format and metadata on record-unit data sets, aggregated data sets, and thesauri are represented in RDF, 
 %how therefore reused vocabularies are interrelated (section \ref{rdf-representation}),
 %and how \emph{SBE} (meta)data is validated against constraints of different constraint types (sections \ref{classification} - \ref{SPARQL-based-constraint-types}).
 %We evaluated the (meta)data quality of large real world data sets (more than 4.2 billion triples and 15 thousand data sets) from the \emph{SBE} domain represented by multiple vocabularies to get an understanding 
 %(1) which sets of constraint types (on different levels of complexity) and 
 %(2) which sets of constraints (associated with particular severity levels) encompass the constraints causing the most/fewest constraint violations (see section \ref{evaluation}).
 
-In this paper, we discuss constraints on RDF data in general. Note that the data represented in RDF can be data in the sense of \emph{SBE} sciences, but also metadata about published or unpublished data. We generally refer to both simply as RDF data and only distinguish between data and metadata in the data set descriptions and in the case that it matters for the purpose of this paper.
-The underlying \emph{semantics} for RDF validation is UNA/CWA.
-RDF validation requires that different names represent different objects ({\em unique name assumption (UNA)}), whereas,
-\emph{OWL 2} is based on the {\em non-unique name assumption (nUNA)}.  
-%A data property is \emph{functional} (\emph{R-65}) if for each individual \emph{x}, there can be at most one distinct literal \emph{y} such that \emph{x} is connected by the data property to \emph{y}. (See \cite{resource} for this terminology.)
-%When assuming UNA, the functional property {\em title} (\ms{funct (title)}) causes a clash
-%in case the book {\em Huckleberry-Finn} has more than one \emph{title}
-%(\ms{title(Huckleberry-Finn, The-Adventures-of-Huckleberry-Finn)}, \ms{title(Huckleberry-Finn, Die-Abenteuer-des-Huckleberry-Finn)}).
-%Assuming nUNA, however, reasoning concludes that the titles {\em The-Adventures-of-Huckleberry-Finn} and {\em Die-Abenteuer-des-Huckleberry-Finn} are the same (\ms{\{The-Adventures-of-Huckleberry-Finn\}} = \ms{\{Die-Abenteuer-des-Huckle} \ms{berry-}\ms{Finn\}}).  
-Reasoning in \emph{OWL 2} is based on the {\em open-world assumption (OWA)}, i.e., a statement cannot be inferred to be false if it cannot be proved to be true. 
-%which fits its primary design purpose to represent knowledge on the World Wide Web. 
-%Most of the constraint languages except OWL, have a major shortcoming of redundancy.
-%With its open-world semantics, used as a constraint language, OWL solves the redundancy problem. 
-%\tb{the following example does not show the redundancy problem!}
-%\tb{2. benefit: reasoning solves redundancy problem}
-%As each \emph{book} must have a \emph{title} (\ms{Book $\sqsubseteq \exists$ title.$\top$}) and {\em Hamlet} is a \emph{book} (\ms{Book(Hamlet)}),
-%{\em Hamlet} must have at least one \emph{title}.
-%In an OWA setting, this axiom does not cause a constraint violation (even if there is no explicitly defined \emph{title}), since there must be a \emph{title} for this \emph{book} which we may not know. 
-On the other hand, RDF validation scenarios require the {\em closed-world assumption (CWA)}, i.e., a statement is inferred to be false if it cannot be proved to be true. Classical constraint languages are based on the CWA where constraints need to be satisfied only by named individuals.
-This ambiguity in semantics is one of the main reasons why \emph{OWL 2} has not been adopted as a standard constraint language for RDF validation in the past.  
-In case we use \emph{OWL 2} constructs in terms of constraints, we adopt the same semantics (CWA) that is for RDF validation in general.
+In this paper, we discuss constraints on RDF data in general. Note that the data represented in RDF can be data in the sense of \emph{SBE} sciences, but also metadata about published or unpublished data. We generally refer to both simply as RDF data and only distinguish between data and metadata in the data set descriptions. 
+%and in the case that it matters for the purpose of this paper.
 
 %We propose an extensible metric to measure the continuum of severity levels to indicate how serious the violation of given constraints is.
 %Constraints are instantiated from constraint types in order to validate both metadata and data represented by any vocabulary. 
 %As constraint types are used to define constraints on (meta)data expressed by any vocabulary, the proposed constraint classification can be applied generically, i.e. vocabulary-independent. 
-
-The data most often used in research within \emph{SBE} sciences is \emph{person-level data} (or more generally \emph{record-unit data}, i.e., data collected about individuals, businesses, and households) in form of responses to studies or taken from administrative registers
-(such as hospital records, registers of births and deaths). 
-The range of person-level data is very broad - 
-including census, education, health data and business, social, and labor force surveys.  
-This type of research data is
-held within data archives or data libraries after it has been collected, so that it may be
-reused by future researchers. 
-
-By its nature, person-level data is highly confidential and access is often only permitted for qualified researchers who must apply for access. 
-Researchers typically represent their results as aggregated data in form of multi-dimensional tables with only a few columns; so-called \emph{variables} such as \emph{sex} or \emph{age}.
-%In performing their research, the detailed person-level
-%data is aggregated into multi-dimensional tables which answer particular research questions.
-Aggregated data, which answers particular research questions, is derived from person-level data by statistics on groups or aggregates such as frequencies and arithmetic means.
-%The SDMX metadata standard – used as the basis for QB – and DDI have traditionally made efforts to align their content. 
-%Similarly, some of the developers of DDI-RDF were also involved in the development of QB, 
-%allowing the RDF versions of these standards to retain that alignment.
-%While DDI-RDF and QB provide terms for the description of data sets, 
-%both on a different level of aggregation, 
-%the \emph{Data Catalog Vocabulary (DCAT)}\footnote{\url{http://www.w3.org/TR/vocab-dcat/}} enables the representation of these data sets inside of data collections like repositories, catalogs, or archives. 
-%The relationship between data collections and their contained data sets is useful, since such collections are a typical entry point when searching for data.
-%Although, in most cases aggregated data is still published in form of PDFs, 
-%it is more and more common to publish aggregated data as CSV files,
-The purpose of publicly available aggregated data is to get a first overview and to gain an interest in further analyses on the underlying person-level data.
-Aggregated data is published in form of CSV files,
-allowing to perform calculations on the data.
-%For these calculations, definitions of the columns are needed (e.g. is a given variable interpreted numerically or as a string).
-%\emph{Physical Data Description (PHDD)}\footnote{\url{https://github.com/linked-statistics/physical-data-description}} is a vocabulary to represent data in tabular format in RDF.\tb{tabular data} 
-%The data could be either represented in records with character-separated values (CSV) or in records with fixed length. 
-%Portals harvest metadata (as well as publicly available data) from multiple RDF data providers.
-%\tb{To ensure high quality, data must satisfy certain criteria - specified in terms of RDF constraints.}
-
-For more detailed analyses, researchers refer to person-level data including additional variables needed to answer subsequent research questions
-%Although not that common, the other direction is also possible, 
-%i.e. researchers may use metadata on person-level data to search for aggregated data.
-like the comparison of studies between countries.
-A \emph{study} represents the process by which a data set was generated or collected.
-Eurostat\footnote{\url{http://ec.europa.eu/eurostat}}, the statistical office of the European Union, provides research findings in form of aggregated data (downloadable as CSV files) and its metadata at European level that enable comparisons between countries.
-%This way, researchers get promising findings (in form of published tables with a few columns).
-%We use the availability of childcare services in European Union member states by year, duration, and child age leading to subsequent research questions as running example of this paper.
-%The first step is to determine in which countries the unemployment rate is collected and which other variables of each country-specific study are theoretically comparable and can therefore be used to answer the underlying research question.
-The variable \emph{formal childcare}\footnote{Aggregated data and its metadata is available at: \url{http://ec.europa.eu/eurostat/web/products-datasets/-/ilc_caindformal}} %(in contrast to childcare at home)
-captures the measured availability of childcare services in percent over the population in European Union member states by 
-the variables \emph{year}, \emph{duration} (in hours per week), \emph{age} of the child, and \emph{country}.
-Variables are constructed out of values (of one or multiple datatypes) and/or code lists.
-The variable \emph{age}, e.g., may be represented by values of the datatype \emph{xsd:nonNegativeInteger} or by a code list of age clusters (e.g., '0 to 10' and '11 to 20'). 
-
-A very important and representative RDF validation case study within \emph{SBE} sciences is the comparison of variables between data collections of different countries.
-Several vocabulary-specific constraints on RDF data are checked for each data collection
-to determine if variables measuring \emph{age} 
-- collected for different countries (\emph{$age_{DE}$}, \emph{$age_{UK}$}) - 
-are comparable:
-(1) variable definitions must be available, 
-(2) for each code a human-readable label has to be specified,
-(3) code lists must be structured properly, and
-(4) code lists must either be identical or at least similar.
-If a researcher only wants to get a first overview over the comparability of variables (use case 1), 
-covering the first three constraints may be sufficient,
-i.e., the violation of the first three constraints is more serious than the violation of the last constraint.
-If the intention of the researcher is to perform more sophisticated comparisons (use case 2), however, the user may raise the severity level of the last constraint.
- 
-%\ke{Wieso werden constraints nur gechecked wenn variablen auf vergleichbarkeit geprüft werden? das habt ihr doch gar nicht gemacht sondern ganz allgemein constraints für vokabulare aufgestellt. Ist QB und DDI-RDF nicht sowieso unabhängig von konkreten Variablen?}\tb{das soll nur ein beipsiel sein, wann eine komplexere validierung im kontext von sbe sinn macht (1) + (2) sind vocabulary constraints und (3) + (4) sind complex constraints}
- 
-%After validating the metadata according to these constraints, portals offer added values to their customers, e.g., by searching over and comparing metadata of multiple providers. 
-
-%\textbf{Data validation.}
-%Data providers and harvesters do not only offer metadata but also publicly available data on different level of aggregation.
-%To ensure high data quality, they have to check provenance information and to analyze and therefore validate the data according to predefined constraints (e.g. 'are fundamental data fragments available?', and 'how does valid data look like?'). 
-%They validate, e.g., if fundamental data parts are available and define how valid data should look like (using syntactic rules).
-%Provenance (where does the data come from?) is an important aspect in evaluating data quality.
-%As data searchers know exactly which data sources they trust and which are reasonable to meet their individual use cases, 
-%RDF data validation can only be performed semi-automatically, i.e., an automatic approach serves as basis for intellectual decisions. 
 
 \section{Related Work}
 \label{related-work}
@@ -864,11 +756,11 @@ RDF validation according to predefined constraints is a much sought-after featur
 particularly as this is taken for granted in the XML world.
 DDI-XML documents, e.g., are validated against diverse XSDs\footnote{\url{http://www.ddialliance.org/Specification/}}.
 As certain constraints cannot be formulated and validated by XSDs, 
-so-called secondary-level validation tools like \emph{Schematron}\footnote{\url{https://msdn.microsoft.com/en-us/library/aa468554.aspx}} have been introduced to overcome the limitations of XML validation.
+so-called secondary-level validation tools like \emph{Schematron}\footnote{\url{https://msdn.microsoft.com/en-us/library/aa468554.aspx}} 
+have been introduced to overcome the limitations of XML validation.
 \emph{Schematron} generates validation rules and validates XML documents according to them.
 With RDF validation, one can overcome drawbacks when validating XML documents\footnote{\url{http://www.xmlmind.com/xmleditor/_distrib/doc/xmltool/xsd_structure_limitations.html}}.
-It cannot be validated, e.g., if each code of a variable's code list is associated with a category (\emph{R-86}).
-Additionally, it cannot be validated that if an element has a specific value, then certain child elements must be present (\emph{R-71}).  
+It cannot be validated, e.g., if each code of a variable's code list is associated with a category (\emph{R-86}) and if an element has a specific value, then certain child elements must be present (\emph{R-71}).  
 A comprehensive comparison of XML and RDF validation, however, is not within the scope of this paper.
 
 %validation or relational databases: types, relations
@@ -877,19 +769,81 @@ A comprehensive comparison of XML and RDF validation, however, is not within the
 A well-formed \emph{RDF Data Cube} is an a RDF graph describing one or more instances of \emph{qb:DataSet} for which each of the 22 integrity constraints\footnote{http://www.w3.org/TR/vocab-data-cube/\#wf}, defined within the QB specification, passes.
 Each integrity constraint is expressed as narrative prose and, where possible, a SPARQL ASK query or query template. 
 If the ASK query is applied to an RDF graph then it will return true if that graph contains one or more QB instances which violate the corresponding constraint \cite{CyganiakReynolds2014}.
-Mader, Haslhofer, and Isaac investigated how to support
+
+Mader, Haslhofer, and Isaac \cite{MaderHaslhoferIsaac2012} investigated how to support
 taxonomists in improving SKOS vocabularies by pointing out quality
-issues that go beyond the integrity constraints defined in the SKOS specification \cite{MaderHaslhoferIsaac2012}.
+issues that go beyond the integrity constraints defined in the SKOS specification.
  
+\emph{Stardog ICV} and \emph{Pellet ICV} use OWL 2 constructs to formulate constraints. \emph{OWL} in its current version 2 is an expressive language which is based on formal logic and on the subject-predicate-object triples from RDF. OWL offers knowledge representation and reasoning services in combination with \emph{SWRL}. Validation, however, is not the primary purpose of its design which has lead to claims that OWL cannot be used for validation. \cite{Motik-2007} and \cite{Motik-2009}, e.g., discuss the differences between constraints and RDFS/OWL axioms. In practice, however, OWL is well-spread and RDFS/OWL constructs are widely used to tell people and applications about how valid instances should look like. In general, RDF documents follow the semantics of RDFS/OWL ontologies which could therefore not only be used for reasoning but also for validation. 
+
+The underlying semantics for RDF validation is CWA/UNA.
+RDF validation requires that different names represent different objects ({\em unique name assumption (UNA)}), whereas,
+OWL is based on the {\em non-unique name assumption (nUNA)}.  
+%A data property is \emph{functional} (\emph{R-65}) if for each individual \emph{x}, there can be at most one distinct literal \emph{y} such that \emph{x} is connected by the data property to \emph{y}. (See \cite{resource} for this terminology.)
+%When assuming UNA, the functional property {\em title} (\ms{funct (title)}) causes a clash
+%in case the book {\em Huckleberry-Finn} has more than one \emph{title}
+%(\ms{title(Huckleberry-Finn, The-Adventures-of-Huckleberry-Finn)}, \ms{title(Huckleberry-Finn, Die-Abenteuer-des-Huckleberry-Finn)}).
+%Assuming nUNA, however, reasoning concludes that the titles {\em The-Adventures-of-Huckleberry-Finn} and {\em Die-Abenteuer-des-Huckleberry-Finn} are the same (\ms{\{The-Adventures-of-Huckleberry-Finn\}} = \ms{\{Die-Abenteuer-des-Huckle} \ms{berry-}\ms{Finn\}}).  
+Reasoning in OWL is based on the {\em open-world assumption (OWA)}, i.e., a statement cannot be inferred to be false if it cannot be proved to be true. 
+%which fits its primary design purpose to represent knowledge on the World Wide Web. 
+%Most of the constraint languages except OWL, have a major shortcoming of redundancy.
+%With its open-world semantics, used as a constraint language, OWL solves the redundancy problem. 
+%\tb{the following example does not show the redundancy problem!}
+%\tb{2. benefit: reasoning solves redundancy problem}
+%As each \emph{book} must have a \emph{title} (\ms{Book $\sqsubseteq \exists$ title.$\top$}) and {\em Hamlet} is a \emph{book} (\ms{Book(Hamlet)}),
+%{\em Hamlet} must have at least one \emph{title}.
+%In an OWA setting, this axiom does not cause a constraint violation (even if there is no explicitly defined \emph{title}), since there must be a \emph{title} for this \emph{book} which we may not know. 
+On the other hand, RDF validation scenarios require the {\em closed-world assumption (CWA)}, i.e., a statement is inferred to be false if it cannot be proved to be true. 
+This ambiguity in semantics is one of the main reasons why OWL has not been adopted as a standard constraint language for RDF validation in the past.  
+\cite{Tao-2010} propose an alternative semantics for OWL using CWA/UNA so that it could be used to validate integrity constraints.
+\cite{Patel-Schneider-2015} claims that DL and therefore OWL axioms can be interpreted in a closed-world setting and used for constraint checking.
+When using OWL axioms in terms of constraints, we adopt the same semantics that is used for RDF validation.
+
 %\section{Running Example}
 %\label{running-example}
 \section{Common Vocabularies in SBE Sciences}
 \label{rdf-representation}
 
-%In this section, we describe how data in rectangular format (\emph{PHDD}) and metadata on person-level data sets (DDI-RDF), aggregated data sets (QB), thesauri (SKOS), and statistical classifications (\emph{XKOS}) are represented in RDF\footnote{The complete running example in RDF is available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/data/running-example}} and how therefore reused vocabularies are interrelated.
+We took all well-established and newly developed \emph{SBE} vocabularies into account and defined constraints for three vocabularies commonly used in the \emph{SBE} sciences which are briefly introduced in the following. We analyzed actual data according to constraint violations, as for these vocabularies large data sets are already published.
 
-We took all well-established and newly developed \emph{SBE} vocabularies into account and defined constraints for six vocabularies commonly used in or developed for the \emph{SBE} sciences which are briefly introduced in the following.
-For three of them, we analyzed actual data according to constraint violations, as for these vocabularies large data sets are already published.
+\emph{SBE} sciences require high-quality data for their empirical research. For more than a decade, members of the \emph{SBE} community have been developing and using a
+metadata standard, composed of almost twelve hundred metadata fields, known as the \emph{Data Documentation Initiative (DDI)},
+an XML format to disseminate, manage,
+and reuse data collected and archived for research \cite{Vardigan2008}. 
+%DDI is heavily used by the CESSDA community of European national data archives, 
+%the International Household Survey Network community (made up of more than 90 statistical agencies),
+%and ICPSR - the largest SBE data archive in the US.
+In XML, the definition of schemas containing data constraints and the validation of data according to these constraints is commonly used to ensure a certain level of data quality.
+With the rise of the Web of Data, data professionals and institutions are very interested in having their data be discovered and used by publishing their data directly in RDF or at least publish accurate metadata about their data to facilitate data integration. Therefore, not only established vocabularies like SKOS are used; 
+recently, members of the \emph{SBE} and Linked Data community developed with the \emph{DDI-RDF Discovery Vocabulary (DDI-RDF)}\footnote{\url{http://rdf-vocabulary.ddialliance.org/discovery.html}} a means to expose \emph{DDI} metadata as Linked Data. 
+
+%In this section, we describe how data in rectangular format (\emph{PHDD}) and metadata on record-unit data sets (DDI-RDF), aggregated data sets (QB), thesauri (SKOS), and statistical classifications (\emph{XKOS}) are represented in RDF\footnote{The complete running example in RDF is available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/data/running-example}} and how therefore reused vocabularies are interrelated.
+
+-----
+
+The data most often used in research within \emph{SBE} sciences is \emph{record-unit data}, i.e., data collected about individuals, businesses, and households, in form of responses to studies or taken from administrative registers
+such as hospital records, registers of births and deaths. 
+The range of record-unit data is very broad - 
+including census, education, health data and business, social, and labor force surveys.  
+This type of research data is
+held within data archives or data libraries after it has been collected, so that it may be
+reused by future researchers. 
+
+By its nature, record-unit data is highly confidential and access is often only permitted for qualified researchers who must apply for access. 
+Researchers typically represent their results as aggregated data in form of multi-dimensional tables with only a few columns; so-called \emph{variables} such as \emph{sex} or \emph{age}.
+Aggregated data, which answers particular research questions, is derived from record-unit data by statistics on groups or aggregates such as frequencies and arithmetic means.
+The purpose of publicly available aggregated data is to get a first overview and to gain an interest in further analyses on the underlying record-unit data.
+Aggregated data is published in form of CSV files,
+allowing to perform calculations on the data.
+
+For more detailed analyses, researchers refer to record-unit data including additional variables needed to answer subsequent research questions like the comparison of studies between countries. A \emph{study} represents the process by which a data set was generated or collected.
+
+
+
+
+-----
+
+
 %e evaluated the data quality of large data sets on three of them, as for these vocabularies large data sets are published. 
 
 %For our evaluation, we examined six different vocabularies commonly used in or developed for the \emph{SBE} sciences which are briefly introduced in the following. For three of them, we analyzed actual data according to constraint violations. For \emph{PHDD} and \emph{XKOS}, there is not yet enough data available so we limit our examination to the vocabularies themselves.
@@ -905,27 +859,15 @@ Each data value is represented inside a \emph{qb:Observation} which contains val
 %(e.g., the year in which \emph{formal childcare} has been determined).
 %\ke{Wieso springt das von einer sehr knappen Einführung direkt zu konkreten (beliebigen?) Variablen? Ich möchte wissen, wofür QB benutzt wird und gerne ein konkretes %Beispiel sehen, um mir einen Data Cube vorstellen zu können.}\tb{hmm, ich halte das beispiel für ein knappes und verständliches beipsiel wie eine tabelle in qb dargestellt wird / es ist auch der link enthalten zu der tabelle von eurostat}
 
-%\textbf{Rectangular Data.}
-\emph{Physical Data Description (PHDD)}\footnote{\url{https://github.com/linked-statistics/physical-data-description}} is a vocabulary to represent data in tabular format in RDF enabling further aggregations and calculations. 
-The data could be either represented in records with character-separated values (CSV) or fixed length. 
-\emph{Eurostat} provides a CSV file, a two-dimensional table (\emph{phdd:Table}) about \emph{formal childcare} 
-which is structured by a table structure (\emph{phdd:TableStructure}, \emph{phdd:Delimited})
-including information about the character set (\emph{ASCII}), the variable delimiter (\emph{,}), the new line marker (\emph{CRLF}), and the first line where the data starts (\emph{2}).
-The table structure is related to table columns (\emph{phdd:Column}) which are described by column descriptions (\emph{phdd:DelimitedColumnDescription}).
-For the column containing the actual cell values in percent, the column position (\emph{5}), the recommended data type (\emph{xsd:non} \emph{NegativeInteger}), and the storage format (\emph{TINYINT}) is stated. 
-%The RDFication enables further aggregations and calculations, e.g., in order to compare \emph{formal childcare} between Northern and Southern Europe or between otherwise grouped countries.
-% macht mehr sinn wenn Tabelle in mehreren Dimensionen vorhanden ist ode wenn Klassifikationen wie ISCO verwendet werden 
-
-%\textbf{Metadata on Person-Level Data.}
-For more detailed analyses we refer to the person-level data collected for the series \emph{EU-SILC (European Union Statistics on Income and Living Conditions)}\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC}}. 
+For more detailed analyses we refer to the record-unit data collected for the series \emph{EU-SILC (European Union Statistics on Income and Living Conditions)}\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC}}. 
 %published by the \emph{Microdata Information System (MISSY)}\footnote{\url{http://www.gesis.org/missy/eu/missy-home}}.
 Where data collection is cyclic, data sets may be released as \emph{series}, 
 where each cycle produces one or more data sets. 
-%\emph{Missy} is an online service platform that provides systematically structured metadata for official statistics on European person-level data sets. 
+%\emph{Missy} is an online service platform that provides systematically structured metadata for official statistics on European record-unit data sets. 
 %This includes data documentation at the study and variable level as well as documentation materials, tools and further information. 
 %\ke{Wieso jetzt wieder qb?}\tb{ich möchte zeigen wie aggregierte daten und personenbezogene daten in RDF verbunden sind. Weglassen?}
-%Aggregated (qb:DataSet) and underlying person-level data sets (\emph{DDI-RDF:LogicalDataSet}) are connected by \emph{prov:wasDerivedFrom}. 
-The aggregated variable \emph{formal childcare} is calculated on the basis of six person-level variables 
+%Aggregated (qb:DataSet) and underlying record-unit data sets (\emph{DDI-RDF:LogicalDataSet}) are connected by \emph{prov:wasDerivedFrom}. 
+The aggregated variable \emph{formal childcare} is calculated on the basis of six record-unit variables 
 (e.g., \emph{Education at pre-school})
 %\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC/2011/Cross-sectional/original#2011-Cross-sectional-RL010}})
 %(2) Education at compulsory school,
@@ -937,19 +879,16 @@ for which detailed metadata is given
 %(definitions, descriptions, theoretical concepts, questions variables are based on, code lists, frequencies, descriptive statistics, countries, year of data collection, and classifications) 
 (e.g., code lists)
 enabling researchers to replicate the results shown in aggregated data tables.
-The \emph{DDI-RDF Discovery Vocabulary (DDI-RDF)} is a vocabulary to represent metadata on person-level data in RDF.
+The \emph{DDI-RDF Discovery Vocabulary (DDI-RDF)} is a vocabulary to represent metadata on record-unit data in RDF.
 The series (\emph{DDI-RDF:StudyGroup}) \emph{EU-SILC} contains one study (\emph{DDI-RDF:Study}) for each year (\emph{dcterms:temporal}) of data collection.   
 \emph{dcterms:spatial} points to the countries for which the data has been collected.
-The study \emph{EU-SILC 2011} contains eight person-level data sets (\emph{DDI-RDF:LogicalDataSet})
-including person-level variables (\emph{DDI-RDF:Variable}) like the six ones needed to calculate the aggregated variable \emph{formal childcare}.
-%Metadata on person-level data enables researchers to investigate further research questions based on promising findings of other researchers in form of aggregated data.
+The study \emph{EU-SILC 2011} contains eight record-unit data sets (\emph{DDI-RDF:LogicalDataSet})
+including record-unit variables (\emph{DDI-RDF:Variable}) like the six ones needed to calculate the aggregated variable \emph{formal childcare}.
+%Metadata on record-unit data enables researchers to investigate further research questions based on promising findings of other researchers in form of aggregated data.
 %One common research question is ,e.g., the comparison of variables like 
 %\emph{formal childcare} between countries, for which the variable is collected within the context of an individual study, and other European or non European countries (e.g. OSCE).
 
-%\textbf{Organizations, Hierarchies, and Classifications.}
-%\textbf{Reusing SKOS.}
 The \emph{Simple Knowledge Organization System (SKOS)} is reused multiple times to build \emph{SBE} vocabularies.
-%Variables are constructed out of values and/or (un)ordered code lists.
 The codes of the variable \emph{Education at pre-school} (number of education hours per week) are modeled as \emph{skos:Concepts} and 
 a \emph{skos:OrderedCollection} organizes them in a particular order within a \emph{skos:member} \emph{List}.
 A variable may be associated with a theoretical concept (\emph{skos:Concept}). 
@@ -957,21 +896,111 @@ A variable may be associated with a theoretical concept (\emph{skos:Concept}).
 The variable \emph{Education at pre-school} is assigned to the theoretical concept \emph{Child Care} which is the narrower concept of \emph{Education} - one of the top concepts of the series \emph{EU-SILC}.
 Controlled vocabularies (\emph{skos:ConceptScheme}), serving as extension and reuse mechanism,
 organize types (\emph{skos:Concept}) of descriptive statistics (\emph{DDI-RDF:SummaryStatistics}) like minimum, maximum, and arithmetic mean.
-\emph{XKOS}\footnote{\url{https://github.com/linked-statistics/xkos}} is a SKOS extension to describe formal statistical classifications like the International Standard Classification of Occupations (\emph{ISCO}). 
-and the Statistical Classification of Economic Activities in the European Community \emph{NACE}.
-\emph{DCAT} enables to represent data sets inside of data collections like portals, repositories, catalogs, and archives
-which serve as typical entry points when searching for data.
 
-%\textbf{Searching for (Meta)data.}
+
+
+
+
+%% ---------------
+%% Backup of 'Common Vocabularies in SBE Sciences'
+%
+%
+%\section{Common Vocabularies in SBE Sciences}
+%\label{rdf-representation}
+%
+%\emph{SBE} sciences require high-quality data for their empirical research. For more than a decade, members of the \emph{SBE} community have been developing and using a
+%metadata standard, composed of almost twelve hundred metadata fields, known as the \emph{Data Documentation Initiative (DDI)},
+%an XML format to disseminate, manage,
+%and reuse data collected and archived for research \cite{Vardigan2008}. 
+%In XML, the definition of schemas containing data constraints and the validation of data according to these constraints is commonly used to ensure a certain level of data quality.
+%With the rise of the Web of Data, data professionals and institutions are very interested in having their data be discovered and used by publishing their data directly in RDF or at least publish accurate metadata about their data to facilitate data integration. Therefore, not only established vocabularies like SKOS are used; 
+%recently, members of the \emph{SBE} and Linked Data community developed with the \emph{DDI-RDF Discovery Vocabulary (DDI-RDF)}\footnote{\url{http://rdf-vocabulary.ddialliance.org/discovery.html}} a means to expose \emph{DDI} metadata as Linked Data. 
+%
+%The data most often used in research within \emph{SBE} sciences is \emph{record-unit data}, i.e., data collected about individuals, businesses, and households, in form of responses to studies or taken from administrative registers
+%such as hospital records, registers of births and deaths. 
+%The range of record-unit data is very broad - 
+%including census, education, health data and business, social, and labor force surveys.  
+%This type of research data is
+%held within data archives or data libraries after it has been collected, so that it may be
+%reused by future researchers. 
+%
+%By its nature, record-unit data is highly confidential and access is often only permitted for qualified researchers who must apply for access. 
+%Researchers typically represent their results as aggregated data in form of multi-dimensional tables with only a few columns; so-called \emph{variables} such as \emph{sex} or \emph{age}.
+%Aggregated data, which answers particular research questions, is derived from record-unit data by statistics on groups or aggregates such as frequencies and arithmetic means.
+%The purpose of publicly available aggregated data is to get a first overview and to gain an interest in further analyses on the underlying record-unit data.
+%Aggregated data is published in form of CSV files,
+%allowing to perform calculations on the data.
+%
+%For more detailed analyses, researchers refer to record-unit data including additional variables needed to answer subsequent research questions
+%like the comparison of studies between countries.
+%A \emph{study} represents the process by which a data set was generated or collected.
+%Eurostat\footnote{\url{http://ec.europa.eu/eurostat}}, the statistical office of the European Union, provides research findings in form of aggregated data (downloadable as CSV files) and its metadata at European level that enable comparisons between countries.
+%The variable \emph{formal childcare}\footnote{Aggregated data and its metadata is available at: \url{http://ec.europa.eu/eurostat/web/products-datasets/-/ilc_caindformal}} %(in contrast to childcare at home)
+%captures the measured availability of childcare services in percent over the population in European Union member states by 
+%the variables \emph{year}, \emph{duration} (in hours per week), \emph{age} of the child, and \emph{country}.
+%Variables are constructed out of values (of one or multiple datatypes) and/or code lists.
+%The variable \emph{age}, e.g., may be represented by values of the datatype \emph{xsd:nonNegativeInteger} or by a code list of age clusters (e.g., '0 to 10' and '11 to 20'). 
+%
+%A very important and representative RDF validation case study within \emph{SBE} sciences is the comparison of variables between data collections of different countries.
+%Several vocabulary-specific constraints on RDF data are checked for each data collection
+%to determine if variables measuring \emph{age} 
+%- collected for different countries (\emph{$age_{DE}$}, \emph{$age_{UK}$}) - 
+%are comparable:
+%(1) variable definitions must be available, 
+%(2) for each code a human-readable label has to be specified,
+%(3) code lists must be structured properly, and
+%(4) code lists must either be identical or at least similar.
+%If a researcher only wants to get a first overview over the comparability of variables (use case 1), 
+%covering the first three constraints may be sufficient,
+%i.e., the violation of the first three constraints is more serious than the violation of the last constraint.
+%If the intention of the researcher is to perform more sophisticated comparisons (use case 2), however, the user may raise the severity level of the last constraint.
+%
+%We took all well-established and newly developed \emph{SBE} vocabularies into account and defined constraints for six vocabularies commonly used in or developed for the \emph{SBE} sciences which are briefly introduced in the following.
+%For three of them, we analyzed actual data according to constraint violations, as for these vocabularies large data sets are already published.
+%
+%The \emph{RDF Data Cube Vocabulary (QB)}\footnote{http://www.w3.org/TR/vocab-data-cube/} is a W3C recommendation for representing \emph{data cubes}, i.e. multi-dimensional aggregated data, in RDF \cite{Cyganiak2010}. 
+%A \emph{qb:DataStructureDefinition} contains metadata of the data collection.
+%The variable \emph{formal childcare}, e.g., is modeled as \emph{qb:measure}, since it stands for what has been measured in the data collection.
+%The variables \emph{year}, \emph{duration}, \emph{age}, and \emph{country} are \emph{qb:dimensions}.
+%Data values, i.e., the availability of childcare services in percent over the population, are collected in a \emph{qb:DataSet}. 
+%Each data value is represented inside a \emph{qb:Observation} which contains values for each dimension\footnote{The complete running example in RDF is available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/data/running-example}}. 
+%
+%\emph{Physical Data Description (PHDD)}\footnote{\url{https://github.com/linked-statistics/physical-data-description}} is a vocabulary to represent data in tabular format in RDF enabling further aggregations and calculations. 
+%The data could be either represented in records with character-separated values (CSV) or fixed length. 
+%
+%For more detailed analyses we refer to the record-unit data collected for the series \emph{EU-SILC (European Union Statistics on Income and Living Conditions)}\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC}}. 
+%Where data collection is cyclic, data sets may be released as \emph{series}, 
+%where each cycle produces one or more data sets. 
+%The aggregated variable \emph{formal childcare} is calculated on the basis of six record-unit variables 
+%(e.g., \emph{Education at pre-school})
+%for which detailed metadata is given 
+%(e.g., code lists)
+%enabling researchers to replicate the results shown in aggregated data tables.
+%The \emph{DDI-RDF Discovery Vocabulary (DDI-RDF)} is a vocabulary to represent metadata on record-unit data in RDF.
+%The series (\emph{DDI-RDF:StudyGroup}) \emph{EU-SILC} contains one study (\emph{DDI-RDF:Study}) for each year (\emph{dcterms:temporal}) of data collection.   
+%\emph{dcterms:spatial} points to the countries for which the data has been collected.
+%The study \emph{EU-SILC 2011} contains eight record-unit data sets (\emph{DDI-RDF:LogicalDataSet})
+%including record-unit variables (\emph{DDI-RDF:Variable}) like the six ones needed to calculate the aggregated variable \emph{formal childcare}.
+%
+%The \emph{Simple Knowledge Organization System (SKOS)} is reused multiple times to build \emph{SBE} vocabularies.
+%The codes of the variable \emph{Education at pre-school} (number of education hours per week) are modeled as \emph{skos:Concepts} and 
+%a \emph{skos:OrderedCollection} organizes them in a particular order within a \emph{skos:member} \emph{List}.
+%A variable may be associated with a theoretical concept (\emph{skos:Concept}). 
+%\emph{skos:narrower} builds the hierarchy of theoretical concepts within a \emph{skos:Concept} \emph{Scheme} of a series.
+%The variable \emph{Education at pre-school} is assigned to the theoretical concept \emph{Child Care} which is the narrower concept of \emph{Education} - one of the top concepts of the series \emph{EU-SILC}.
+%Controlled vocabularies (\emph{skos:ConceptScheme}), serving as extension and reuse mechanism,
+%organize types (\emph{skos:Concept}) of descriptive statistics (\emph{DDI-RDF:SummaryStatistics}) like minimum, maximum, and arithmetic mean.
+%\emph{XKOS}\footnote{\url{https://github.com/linked-statistics/xkos}} is a SKOS extension to describe formal statistical classifications like the International Standard Classification of Occupations (\emph{ISCO}). 
+%and the Statistical Classification of Economic Activities in the European Community \emph{NACE}.
 %\emph{DCAT} enables to represent data sets inside of data collections like portals, repositories, catalogs, and archives
 %which serve as typical entry points when searching for data.
-%Users search for aggregated and person-level data records (\emph{dcat:CatalogRecord}) inside data catalogs (\emph{dcat:Catalog}). 
-%As search differs depending on the users’ information need,
-%users may only search for records' metadata (e.g., \emph{dcterms:title}, \emph{dcterms:description}), 
-%or may formulate more sophisticated queries on aggregated and person-level data sets (\emph{dcat:Dataset}) or their
-%distributions (\emph{dcat:Distribution}) which are part of the records. 
-%Often, users search for data sets covering particular topics (\emph{dcat:keyword}, \emph{dcat:theme}), time periods (\emph{dcterms:temporal}),  or  locations (\emph{dcterms:spatial}), 
-%or for certain formats in which the data distribution is available (\emph{dcterms:format}). 
+
+
+
+
+
+% Backup of 'Common Vocabularies in SBE Sciences'
+% -----
 
 \section{Classification of Constraint Types and Constraints}
 \label{classification}
@@ -982,7 +1011,7 @@ Within the working groups, we identified by today 81 requirements to formulate R
 Within a technical report, we explain each requirement/constraint type in detail and give examples for each expressed by different constraint languages \cite{BoschNolleAcarEckert2015}. We provide mappings to representations in Description Logics (DL) \cite{Baader-2003} to logically underpin each requirement and to determine which DL constructs are needed to express each constraint type.
 %In total, we distinguish 81 RDF constraint types as we identified 6 RDF constraint types which are only necessary for validating particular vocabularies.
 %Constraints are instantiated from constraint types in order to validate both metadata and data represented by any vocabulary; thus, the proposed classification system is vocabulary-independent and therefore applicable generically.
-The classification of the 115 concrete constraints on three vocabularies according to severity levels is published in a technical report \cite{BoschZapilkoWackerowEckert2015}.
+For the three vocabularies, several \emph{SBE} domain experts determined the default severity level of the 115 concrete constraints, which we published in a technical report \cite{BoschZapilkoWackerowEckert2015}.
 In the following, we summarize the results for the purpose of our evaluation.
 
 \subsection{Classification of Constraint Types according to the Expressivity of Constraint Languages}
@@ -994,7 +1023,7 @@ According to the expressivity of constraint languages, the complete set of const
 	\item \emph{SPARQL Based}
 \end{enumerate}
 
-The modeling languages RDFS and OWL are typically used to formally specify vocabularies. \emph{RDFS/OWL Based} denotes the set of constraint types which can be formulated with RDFS/OWL constructs using CWA/UNA semantics without reasoning and which are therefore commonly found within formal specifications of vocabularies. We determined this set based on the evaluation of the three vocabularies. \emph{RDFS/OWL Based} constraints generally can be seen as a basic level of constraints ensuring that the data is consistent with the formally and explicitly specified intended semantics as well as the integrity of vocabularies' conceptual models about data.
+The modeling languages RDFS and OWL are typically used to formally specify vocabularies. \emph{RDFS/OWL Based} denotes the set of constraint types which can be formulated with RDFS/OWL axioms which we use in terms of constraints with CWA/UNA semantics and without reasoning\footnote{The entailment regime is to be decided by the implementors. It is our point that reasoning affects validation and that a proper definition of the reasoning to be applied is needed.}. RDFS/OWL axioms are commonly found within formal specifications of vocabularies. We determined this set based on the evaluation of the three vocabularies we performed without reasoning. \emph{RDFS/OWL Based} constraints generally can be seen as a basic level of constraints ensuring that the data is consistent with the formally and explicitly specified intended semantics as well as the integrity of vocabularies' conceptual models about data.
 
 %The {\em existential quantification} (\emph{R-86}) 
 %\ms{Study $\equiv$ $\exists$ product.LogicalDataSet} (DL), e.g., restricts studies to contain at least one data set which is expressible in OWL 2:
@@ -1068,7 +1097,7 @@ as the severity of the violation of a constraint depends on the individual conte
 Violations of \emph{informational constraints} point to desirable but not necessary data improvements to achieve RDF representations which are ideal in terms of syntax and semantics of used vocabularies. 
 %They are not seen as serious errors.
 \emph{Warnings} are syntactic or semantic problems which typically should not lead to an abortion of data processing.
-\emph{Errors} are syntactic or semantic errors which should cause the abortion of data processing. \textcolor{red}{examples for each in the subsequent section?}
+\emph{Errors} are syntactic or semantic errors which should cause the abortion of data processing. 
 %Data not conforming to \emph{warning} and \emph{error constraints} is syntactically and/or semantically not correctly represented.
 %Data not conforming to \emph{warning constraints} but to \emph{error constraints} could be processed further.
 %Data not corresponding to \emph{error constraints}, however, cannot be processed further after validation. 
@@ -1163,7 +1192,7 @@ i.e., for each \emph{rdfs:Resource x}, there can be at most one distinct resourc
 Keys, however, are even more general than \emph{inverse-functional properties} (\emph{R-58}),
 as a key can be a data property, an object property, or a chain of properties \cite{Schneider2009}.
 Thus and as there are different sorts of key, and as keys can lead to undecidability, 
-DL is extended with the construct \emph{keyfor} ({\small\ms{identifier \ms{keyfor} Resource}}) \cite{Lutz2005} which is implemented by the \emph{OWL 2} \emph{hasKey} construct.
+DL is extended with the construct \emph{keyfor} ({\small\ms{identifier \ms{keyfor} Resource}}) \cite{Lutz2005} which is implemented by the OWL 2 \emph{hasKey} construct.
 
 %\emph{Existential quantifications} (\emph{R-86}) enforce that instances of given classes must have some property relation to individuals/literals of certain types.
 %Variables, e.g., should have a relation to a theoretical concept ($\mathcal{SL}_{0}$).
@@ -1235,7 +1264,7 @@ DL is extended with the construct \emph{keyfor} ({\small\ms{identifier \ms{keyfo
 %\end{DL}
 %\end{center}
 %
-%As we know that only person-level data sets (\emph{DDI-RDF:LogicalDataSet}) can derive (\emph{DDI-RDF:aggregation}) aggregated data sets (\emph{qb:DataSet}), 
+%As we know that only record-unit data sets (\emph{DDI-RDF:LogicalDataSet}) can derive (\emph{DDI-RDF:aggregation}) aggregated data sets (\emph{qb:DataSet}), 
 %{\em logical-data-set} is a \emph{DDI-RDF:LogicalDataSet}, 
 %and \emph{aggregated-data-set} is derived from \emph{logical-data-set},
 %we conclude that \emph{aggregated-data-set} must be a \emph{qb:DataSet}.
@@ -1244,9 +1273,9 @@ DL is extended with the construct \emph{keyfor} ({\small\ms{identifier \ms{keyfo
 %
 %Reasoning may also cause constraint violations which are needed to enhance data quality.
 %With \emph{subsumption} (\emph{R-100}), one can state that \emph{DDI-RDF:LogicalDataSet} is a sub-class of \emph{dcat:DataSet}, 
-%i.e., each person-level data set is also a catalog data set.
-%Thus, constraints on catalog data sets are also validated for person-level data sets;
-%e.g., the \emph{existential quantification} below restricting that person-level data sets must have a distribution: 
+%i.e., each record-unit data set is also a catalog data set.
+%Thus, constraints on catalog data sets are also validated for record-unit data sets;
+%e.g., the \emph{existential quantification} below restricting that record-unit data sets must have a distribution: 
 
 %\begin{center}
 %\begin{DL} 
@@ -1412,7 +1441,7 @@ Per default, however, access to data sets should be restricted (\emph{false}) (\
 %\textbf{Observations of Aggregated Data Sets.}
 %- for each dimension there should be a description and code lists.
 %- for each code list there should be a description.
-%- there should be a relationship to the underlying person-level data.
+%- there should be a relationship to the underlying record-unit data.
 %
 %$\mathcal{CT}_{C}$ denotes the set of constraint types for which the definition of constraints is rather complex and cannot be derived from vocabulary definitions.
 \emph{Data model consistency} constraints ensure the integrity of
@@ -1677,7 +1706,7 @@ the \emph{Data Without Boundaries DDI-RDFvery Portal}, the
 \end{table}
 
 In a technical report, we describe the evaluation in further detail \cite{BoschZapilkoWackerowEckert2015-2}. Furthermore, we published the evaluation results for each data set in form of one document per SPARQL endpoint\footnote{Available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/evaluation/data-sets/data-cube}}.
-
+\tb{why SPIN?}
 We use \emph{SPIN}, a SPARQL-based way to formulate and check constraints, as basis to develop a
 validation environment\footnote{Online demo available at: \url{http://purl.org/net/rdfval-demo}, source code at: \url{https://github.com/boschthomas/rdf-validator}} to validate RDF data according to constraints expressed by arbitrary constraint languages\footnote{SPIN mappings available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/SPIN}} \cite{BoschEckert2014-2}.
 
@@ -1688,7 +1717,7 @@ The SPIN engine checks for each resource if it satisfies all constraints, which 
 There is one SPIN construct template for each constraint type.
 A SPIN construct template contains a SPARQL CONSTRUCT query which generates constraint violation triples indicating the subject and the properties causing constraint violations and the reason why constraint violations have been raised.
 A SPIN construct template creates constraint violation triples if all triple patterns within the SPARQL WHERE clause match.
-%\emph{Missy}\footnote{\url{http://www.gesis.org/missy/eu/missy-home}} provides comprehensive Linked Data services like diverse RDF exports of person-level metadata conforming to the DDI-RDF vocabulary in form of multiple concrete syntaxes. 
+%\emph{Missy}\footnote{\url{http://www.gesis.org/missy/eu/missy-home}} provides comprehensive Linked Data services like diverse RDF exports of record-unit metadata conforming to the DDI-RDF vocabulary in form of multiple concrete syntaxes. 
 
 \subsection{Evaluation Results and Formulation of Hypotheses}
 
@@ -2299,8 +2328,8 @@ SPARQL seems to be used to formulate constraints whose violation is of higher se
 
 \section{Conclusion and Future Work}
 
-%In this paper, we showed in form of a complete real world running example how to represent metadata on person-level data (DDI-RDF), metadata on aggregated data (QB), and data on both aggregation levels in a rectangular format (\emph{PHDD}) in RDF and how therefore used vocabularies are interrelated (\textbf{contribution 1}, section \ref{rdf-representation}).
-%We explained why RDF validation is important in this context and how metadata on person-level data, aggregated data, thesauri, and statistical classifications as well as data on both aggregation levels is validated against constraints to ensure high (meta)data quality\footnote{The first appendix of this paper describing each constraint in detail is available at: \url{http://arxiv.org/abs/1504.04479} \cite{BoschZapilkoWackerowEckert2015}} (\textbf{contribution 2}, section \ref{rdf-validation}). 
+%In this paper, we showed in form of a complete real world running example how to represent metadata on record-unit data (DDI-RDF), metadata on aggregated data (QB), and data on both aggregation levels in a rectangular format (\emph{PHDD}) in RDF and how therefore used vocabularies are interrelated (\textbf{contribution 1}, section \ref{rdf-representation}).
+%We explained why RDF validation is important in this context and how metadata on record-unit data, aggregated data, thesauri, and statistical classifications as well as data on both aggregation levels is validated against constraints to ensure high (meta)data quality\footnote{The first appendix of this paper describing each constraint in detail is available at: \url{http://arxiv.org/abs/1504.04479} \cite{BoschZapilkoWackerowEckert2015}} (\textbf{contribution 2}, section \ref{rdf-validation}). 
 %We distinguish two validation types:
 %(1) \emph{Content-Driven Validation} $\mathcal{C}_{C}$ contains the set of constraints ensuring that the data is consistent with the intended syntax, semantics, and integrity of data models (section \ref{SPARQL-based-constraint-types}).
 %(2) \emph{Technology-Driven Validation} $\mathcal{C}_{T}$ includes the set of constraints which can be generated automatically out of data models, such as cardinality restrictions, universal and existential quantifications, domains, and ranges (section \ref{vocabulary-constraint-types}).
@@ -2308,7 +2337,7 @@ SPARQL seems to be used to formulate constraints whose violation is of higher se
 %and propose an extensible metric to measure the continuum of severity levels.
 
 %We implemented a validation environment (available at \url{http://purl.org/net/rdfval-demo}) to validate RDF data according to constraints expressed my arbitrary constraint languages and to ensure correct syntax and semantics of diverse vocabularies such as DDI-RDF, QB, SKOS, and \emph{PHDD} (section \ref{implementation}).
-%We exhaustively evaluated the metadata quality of large real world aggregated (QB), person-level (DDI-RDF), and thesauri (SKOS) data sets (more than 4.2 billion triples and 15 thousand data sets) by means of 213  constraints of the majority of the constraint types\footnote{The second appendix of this paper describing the evaluation in detail is available at: \url{http://arxiv.org/abs/1504.04478} \cite{BoschZapilkoWackerowEckert2015-2}.} (section \ref{evaluation}).
+%We exhaustively evaluated the metadata quality of large real world aggregated (QB), record-unit (DDI-RDF), and thesauri (SKOS) data sets (more than 4.2 billion triples and 15 thousand data sets) by means of 213  constraints of the majority of the constraint types\footnote{The second appendix of this paper describing the evaluation in detail is available at: \url{http://arxiv.org/abs/1504.04478} \cite{BoschZapilkoWackerowEckert2015-2}.} (section \ref{evaluation}).
 
 We identified and published by today 81 types of constraints  that are required by various stakeholders for data applications.
 In close collaboration with several domain experts for the social, behavioural, and economic sciences (\emph{SBE}), we formulated 115 constraints on three different vocabularies (DDI-RDF, QB, and SKOS) and classified them according to their severity level and  whether their type is expressible by different types of constraint languages - RDFS/OWL, high-level constraint languages, and SPARQL. 
