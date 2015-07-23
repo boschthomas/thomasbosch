@@ -1600,7 +1600,7 @@ as language coverage incompleteness for some concepts may indicate shortcomings 
 \section{Evaluation}
 \label{evaluation}
 
-In this section, we describe our findings based on an automatic constraint checking of a large data set. Despite the large volume of the data set in general, we have to keep in mind that this study only uses data for three vocabularies. As described in Section~\ref{sbe-vocabularies}, for other vocabularies there is often not (yet) enough data openly available to draw general conclusions. The three vocabularies, however, are representative, cover different aspects of \emph{SBE} data and are also a mixture of established vocabularies (QB, SKOS) and a vocabulary under development (DDI-RDF). Due to this limitation, we will present several hypotheses together with a rationale based on the results for the three vocabularies. If the hypotheses hold generally is still to be determined, nevertheless they should provide valuable insights for future developments of constraint languages.
+In this section, we describe our findings based on an automatic constraint checking of a large data set. Despite the large volume of the data set in general, we have to keep in mind that this study only uses data for three vocabularies. As described in Section~\ref{sbe-vocabularies}, for other vocabularies there is often not (yet) enough data openly available to draw general conclusions. The three vocabularies, however, are representative, cover different aspects of \emph{SBE} data and are also a mixture of widely adopted and accepted well-established vocabularies (QB, SKOS) and a vocabulary under development (DDI-RDF\footnote{Expected publication at the end of the year 2015}). Due to this limitation, we will present several hypotheses together with a rationale based on the results for the three vocabularies. If the hypotheses hold generally is still to be determined, nevertheless they should provide valuable insights for future developments of constraint languages.
 
 \subsection{Experimental Setup}
 \label{implementation}
@@ -1609,9 +1609,9 @@ In this section, we describe our findings based on an automatic constraint check
 
 	%\item First, we assigned each constraint type to exactly one of the disjoint sets of constraint types 
 %in order to get an overview how many constraint types in relation to the total amount of constraint types are extractable from vocabularies ($\mathcal{CT}_{B}$), are easily definable ($\mathcal{CT}_{S}$), and are rather difficult to specify ($\mathcal{CT}_{C}$). 
-On the three vocabularies (DDI-RDF, QB, SKOS), we identified and classified 115 constraints\footnote{All 115 implemented constraints online available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}} which we implemented for the data validation. We ensured that the implementation of the constraints is equally distributed over the classes and vocabularies we have. We then evaluated the data quality of 15,694 data sets (4.26 billion triples) of \emph{SBE} research data using these 115 constraints, obtained from 33 SPARQL endpoints.
+On the three vocabularies (DDI-RDF, QB, SKOS), we identified and classified 115 constraints\footnote{All 115 implemented constraints online available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}} which we implemented for data validation. We ensured that the implementation of the constraints is equally distributed over the classes and vocabularies we have. We then evaluated the data quality of 15,694 data sets (4.26 billion triples) of \emph{SBE} research data using these 115 constraints, obtained from 33 SPARQL endpoints.
 
-QB and SKOS are well-established vocabularies which are widely adopted and accepted. DDI-RDF is a newly developed vocabulary which will be published in 2015.
+%QB and SKOS are well-established vocabularies which are widely adopted and accepted. DDI-RDF is a newly developed vocabulary which will be published in 2015.
 
 %It is likely that such a vocabulary is still subject of constant change, that published data may not be consistent with its current version,
 %and that early adopters did not properly understand its formal specification.
@@ -1626,10 +1626,10 @@ the \emph{European Central Bank}, and the
 the \emph{STW Thesaurus for Economics}, and the
 \emph{Thesaurus for the Social Sciences}, and
 (3) DDI-RDF data sets provided by the \emph{Microdata Information System}, 
-the \emph{Data Without Boundaries DDI-RDFvery Portal}, the
+the \emph{Data Without Boundaries Discovery Portal}, the
 \emph{Danish Data Archive}, and the
 \emph{Swedish National Data Service}.
-
+In a technical report, we describe the evaluation in further detail \cite{BoschZapilkoWackerowEckert2015-2}. Furthermore, we published the evaluation results for each QB data set in form of one document per SPARQL endpoint\footnote{Online available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/evaluation/data-sets/data-cube}}.
 
 \begin{table}[H]
 		\scriptsize
@@ -1655,8 +1655,6 @@ the \emph{Data Without Boundaries DDI-RDFvery Portal}, the
     %\\ \emph{C (constraints), CT (constraint types)}
     \end{center}
 \end{table}
-
-In a technical report, we describe the evaluation in further detail \cite{BoschZapilkoWackerowEckert2015-2}. Furthermore, we published the evaluation results for each data set in form of one document per SPARQL endpoint\footnote{Online available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/evaluation/data-sets/data-cube}}.
 
 Since the validation of each of the 81 constraint types can be implemented using SPARQL, we use \emph{SPIN}, a SPARQL-based way to formulate and check constraints, as basis to develop a
 validation environment to validate RDF data according to constraints expressed by arbitrary constraint languages\footnote{Constraint language implementations online available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/SPIN}} \cite{BoschEckert2014-2}.
@@ -1709,7 +1707,7 @@ A SPIN construct template creates constraint violation triples if all triple pat
 %\end{table}
 
 %Table \ref{tab:evaluation-constraint-types} displays the evaluation of the metadata quality on real world data sets regarding constraint types.
-Tables \ref{tab:evaluation-constraint-violations-1} and \ref{tab:evaluation-constraint-violations-2} show the results of the evaluation, more specifically the constraints and the constraint violations, which are caused by these constraints, in percent. The first numbers indicate the absolute amount of constraints and violations. The constraints and their raised violations are grouped by vocabulary, which type of language the constraints are expressed with, and their severity level.
+Tables \ref{tab:evaluation-constraint-violations-1} and \ref{tab:evaluation-constraint-violations-2} show the results of the evaluation, more specifically the constraints and the constraint violations, which are caused by these constraints, in percent; whereas the first numbers indicate the absolute amount of constraints and violations. The constraints and their raised violations are grouped by vocabulary, which type of language the constraint types are formulated with, and their severity level.
 The numbers of evaluated triples and data sets differ between the vocabularies
 as we evaluated 3.8 billion QB, 480 million SKOS, and 10 million DDI-RDF triples.
 To be able to formulate hypotheses which apply for all vocabularies, 
@@ -1887,10 +1885,10 @@ by evaluating the quality of data represented by further well-established and ne
     \begin{center}
 		\caption{Constraints and Constraint Violations (1)}
 		\label{tab:evaluation-constraint-violations-1}
-    \begin{tabular}{@{}lcccc@{}}
+    \begin{tabular}{@{}lcc|cc@{}}
     %       & \multicolumn{2}{c}{\textbf{Vocabularies}}
     %\\  \cmidrule{2-3}
-		\hline
+		%\hline
     \multirow{2}{*}{} &
       \multicolumn{2}{c}{\textbf{DDI-RDF}} &
       \multicolumn{2}{c}{\textbf{QB}} \\
@@ -1917,10 +1915,10 @@ by evaluating the quality of data represented by further well-established and ne
     \begin{center}
 		\caption{Constraints and Constraint Violations (2)}
 		\label{tab:evaluation-constraint-violations-2}
-    \begin{tabular}{@{}lcccc@{}}
+    \begin{tabular}{@{}lcc|cc@{}}
     %       & \multicolumn{2}{c}{\textbf{Vocabularies}}
     %\\  \cmidrule{2-3}
-		\hline
+		%\hline
     \multirow{2}{*}{} &
       \multicolumn{2}{c}{\textbf{SKOS}} &
       \multicolumn{2}{c}{\textbf{\emph{Total}}} \\
@@ -2243,10 +2241,10 @@ Especially for newly developed vocabularies, constraint languages should be used
     \begin{center}
 		\caption{Language Expressivity and Severity Level}
 		\label{tab:evaluation-expressivity-severity}
-    \begin{tabular}{@{}lcccccc@{}}
+    \begin{tabular}{@{}lcc|cc|cc@{}}
     %       & \multicolumn{2}{c}{\textbf{Vocabularies}}
     %\\  \cmidrule{2-3}
-		\hline
+		%\hline
     \multirow{3}{*}{} &
       \multicolumn{2}{c}{\textbf{RDFS/OWL}} &
       \multicolumn{2}{c}{\textbf{\emph{CL}}} &
@@ -2292,7 +2290,7 @@ In close collaboration with several domain experts for the social, behavioural, 
 We evaluated  the data quality of 15,694 data sets (4.26 billion triples) of research data for the \emph{SBE} sciences obtained from 33 SPARQL endpoints.
 
 Based on the evaluation results,
-we formulated several hypotheses to direct the further development of constraint languages. We regard to the results as hypotheses, as their general applicability beyond the examined vocabularies and for other domains is still to be confirmed.
+we formulated several hypotheses to direct the further development of constraint languages. We regard the results as hypotheses, as their general applicability beyond the examined vocabularies and for other domains is still to be confirmed.
 The main hypotheses are: 
 
 \begin{enumerate}
