@@ -109,10 +109,10 @@
 \maketitle
 \vspace{-3em}
 \section*{Abstract}
-In the context of the DCMI RDF Application Profile task group and the W3C Data Shapes Working Group solutions for the proper formulation of constraints and validation of RDF data on these constraints are developed. Several approaches and constraint languages exist but there is no clear favorite and none of the languages is able to meet all requirements raised by data practitioners.
+In the context of the DCMI RDF Application Profile task group and the W3C Data Shapes Working Group solutions for the proper formulation of constraints and validation of RDF data on these constraints are being developed. Several approaches and constraint languages exist but there is no clear favorite and none of the languages is able to meet all requirements raised by data practitioners.
 To support the work, a comprehensive, community-driven database has been created where case studies, use cases, requirements and solutions are collected. Based on this database,
-we published by today 81 types of constraints that are required by various stakeholders for data applications. We generally use this collection of constraint types to gain a better understanding of the expressiveness of existing solutions and gaps that still need to be filled. 
-Regarding the implementation of constraint languages, we already proposed to use high-level languages to describe the constraints, but map them to SPARQL queries in order to execute the actual validation; we demonstrated this approach for the Web Ontology Language in its current version 2 and Description Set Profiles.
+we have hitherto published 81 types of constraints that are required by various stakeholders for data applications. We are using this collection of constraint types to gain a better understanding of the expressiveness of existing solutions and gaps that still need to be filled. 
+Regarding the implementation of constraint languages, we have already proposed to use high-level languages to describe the constraints, but map them to SPARQL queries in order to execute the actual validation; we have demonstrated this approach for the Web Ontology Language in its current version 2 and Description Set Profiles.
 In this paper, we generalize from the experience of implementing OWL 2 and DSP by introducing an abstraction layer that is able to describe constraints of any constraint type in a way that mappings from high-level constraint languages to this intermediate representation can be created more or less straight-forwardly. 
 We demonstrate that using another layer on top of SPARQL helps to implement validation consistently accross constraint languages, simplifies the actual implementation of new languages, and supports the transformation of semantically equivalent constraints across constraint languages.
 
@@ -137,7 +137,7 @@ Among the reasons for the success of XML is the possibility to formulate fine-gr
 In 2013, the W3C organized the \emph{RDF Validation Workshop}\footnote{\url{http://www.w3.org/2012/12/rdf-val/}}
 where experts from industry, government, and academia discussed first RDF validation use cases. 
 %for RDF data validation and constraint formulation.
-In 2014, two working groups on RDF validation have been established: 
+In 2014, two working groups on RDF validation were established: 
 the \emph{W3C RDF Data Shapes Working Group}\footnote{\url{http://www.w3.org/2014/rds/charter}} and the \emph{DCMI RDF Application Profiles Task Group}\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
 We collected the findings of these working groups and initiated a database of RDF validation requirements\footnote{Online available at: \url{http://purl.org/net/rdf-validation}}
 with the intention to collaboratively collect case studies, use cases, requirements, and solutions in a comprehensive and structured way \cite{BoschEckert2014}. 
