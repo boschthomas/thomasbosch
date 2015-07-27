@@ -3454,6 +3454,13 @@ property & $\top$ & hasFather$^{-}$ & hasFather & - & inverse & - \\
 property & $\top$ & hasFather$^{-}$ & - & - & functional & - \\
 \end{gcotable}
 
+or alternatively:
+
+\begin{gcotable}
+property & $\top$ & hasFather$^{-}$ & hasFather & - & inverse & - \\
+property & $\top$ & hasFather$^{-}$ & - & - & $\leq$ & 1 \\
+\end{gcotable}
+
 \section{Value Restrictions}
 
 Individual Value Restrictions: A has-value class expression ObjectHasValue( OPE a ) consists of an object property expression OPE and an individual a, and it contains all those individuals that are connected by OPE to a. Each such class expression can be seen as a syntactic shortcut for the class expression ObjectSomeValuesFrom( OPE ObjectOneOf( a ) ). 

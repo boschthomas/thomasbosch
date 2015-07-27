@@ -299,7 +299,7 @@ Erman Acar\\
 \begin{abstract}
 For data practitioners embracing the world of RDF and Linked Data, the openness and flexibility is a mixed blessing. 
 For them, data validation according to predefined constraints is a much sought-after feature, particularly as this is taken for granted in the XML world.
-Based on our work in the \emph{DCMI RDF Application Profiles Task Group} and in cooperation with the \emph{W3C Data Shapes Working Group}, 
+Based on our work in the DCMI RDF Application Profiles Task Group and in cooperation with the W3C Data Shapes Working Group, 
 we published by today 81 types of constraints that are required by various stakeholders for data applications. 
 These constraint types form the basis 
 to investigate the role that reasoning and different semantics play in practical data validation,
@@ -466,21 +466,21 @@ and give directions for the further development of constraint languages.
 \label{introduction}
 
 Recently, RDF validation as a research field gained speed due to common needs of data practitioners. A typical example is the library domain that co-developed and adopted Linked Data principles very early. For libraries, the common description of resources are key business and they have a long tradition in developing and using interoperable data formats. While they embrace the openness of Linked Data and the data modeling principles provided by RDF, the data is still mostly represented in XML and this is unlikely to change soon. 
-Among the reasons for the success of XML is the possibility to formulate fine-grained constraints to be met by the data and to validate the data according to these constraints using powerful systems like \emph{DTDs}, \emph{XML Schemas}, \emph{RELAX NG}, or \emph{Schematron}.
+Among the reasons for the success of XML is the possibility to formulate fine-grained constraints to be met by the data and to validate the data according to these constraints using powerful systems like DTDs, XML Schemas, RELAX NG, or Schematron.
 %
 A typical example is the definition of a library record describing a book. There are clear rules which information has to be available to describe a book properly, 
 %(required fields like a title), 
 but also how information like an ISBN number is properly represented. Libraries seek to make their own data reusable for general purposes, but also to enrich and interlink their own data. Checking if third-party data meets own requirements or validating existing data according to new needs for a Linked Data application are among common use cases for RDF validation.
 
-In 2013, the \emph{W3C} invited experts from industry, government, and academia to the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/RDF-val/}}, 
-where first use cases for RDF constraint formulation and data validation have been discussed. 
-Two working groups that follow up on this workshop are established in 2014 to develop a language to express constraints on RDF data: 
+In 2013, the W3C invited experts from industry, government, and academia to the \emph{RDF Validation Workshop}\footnote{\url{http://www.w3.org/2012/12/RDF-val/}}, 
+where first use cases for constraint formulation and RDF data validation have been discussed. 
+Two working groups that follow up on this workshop have been established in 2014 to develop a language to express constraints on RDF data: 
 the \emph{W3C RDF Data Shapes Working Group}\footnote{\url{http://www.w3.org/2014/rds/charter}} and the \emph{DCMI RDF Application Profiles Task Group}\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}}. 
 To formulate constraints and to validate RDF data, several languages exist or are currently developed like \emph{Shape Expressions (ShEx)}, \emph{Resource Shapes (ReSh)}, and \emph{Description Set Profiles (DSP)}. 
-The \emph{Web Ontology Language} \emph{(OWL)} in its current version \emph{OWL 2} is also used as a constraint language. 
+The \emph{Web Ontology Language} \emph{(OWL)} in its current version 2 is also used as a constraint language. 
 %under a \emph{closed-world} and a \emph{unique name assumption}. 
-With its direct support of validation via \emph{SPARQL}, the \emph{SPARQL Inferencing Notation (SPIN)} is very popular and certainly plays an important role for future developments of constraint languages. 
-\emph{SPIN} is particularly interesting as a means to validate arbitrary constraint languages by mapping them to \emph{SPARQL} \cite{BoschEckert2014-2}. 
+With its direct support of validation via SPARQL, the \emph{SPARQL Inferencing Notation (SPIN)} is very popular and certainly plays an important role for future developments of constraint languages. 
+SPIN is particularly interesting as a means to validate arbitrary constraint languages by mapping them to SPARQL \cite{BoschEckert2014-2}. 
 As there is no clear favorite and none of the languages is able to meet all requirements raised by data practitioners,
 further research and development is needed.
 %The intention of this paper is not to present any concrete normative suggestion or solution on how constraints should be represented
@@ -490,15 +490,16 @@ further research and development is needed.
 \subsection{Motivation and Overview}
 \label{motivation}
 
-Within the \emph{DCMI} working group, we initiated a collaboratively curated database of RDF validation requirements which contains the findings of the working groups based on various case studies provided by data institutions \cite{BoschEckert2014}. 
+Within the DCMI working group, we initiated a collaboratively curated database of RDF validation requirements which contains the findings of the working groups based on various case studies provided by data institutions \cite{BoschEckert2014}. 
 %It is publicly available and open for further contributions\footnote{Online at \url{http://purl.org/net/rdf-validation}\label{rdf-validation-database}}.
-The database, which is publicly available and open for further contributions\footnote{Online available at \url{http://purl.org/net/rdf-validation}\label{rdf-validation-database}}, connects requirements to use cases, case studies, and solutions.
+The database, which is publicly available and open for further contributions\footnote{Online available at: \url{http://purl.org/net/rdf-validation}\label{rdf-validation-database}}, connects requirements to use cases, case studies, and solutions.
 %In this paper, we highlight the key findings from the analysis of the RDF validation requirements. 
-Based on our work in the \emph{DCMI} and in cooperation with the \emph{W3C} working group, 
+Based on our work in the DCMI and in cooperation with the W3C working group, 
 we published by today 81 requirements to validate RDF data and to formulate RDF constraints that are required by various stakeholders for data applications.
 Each of these requirements corresponds to a constraint type from which concrete constraints are instantiated to be checked on RDF data.
-Requirements/constraint types are uniquely identified by alphanumeric technical identifiers.
-\emph{Minimum qualified cardinality restrictions} (\emph{R-75}), e.g., is a constraint type which corresponds to the requirement {\small\emph{R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES}}. 
+%Requirements/constraint types are uniquely identified by alphanumeric technical identifiers.
+Requirements are uniquely identified in the database by an R and a number.
+\emph{Minimum qualified cardinality restrictions}, e.g., is a constraint type which corresponds to the requirement \emph{R-75}. 
 We recently published a technical report \cite{BoschNolleAcarEckert2015}
 %\footnote{Available at: \url{http://arxiv.org/abs/1501.03933}} 
 (serving as appendix of this paper) 
@@ -518,14 +519,14 @@ A major shortcoming when validating RDF data is \emph{redundancy}.
 %(e.g., as books are publications and {\em Foundations of Semantic Web Technologies} is a book, it is also a publication). 
 %Reasoning can be used to recognize impossibilities 
 %(e.g., conference proceedings are publications, the {\em ESWC 2014 proceedings} are conference proceedings but not a publication, therefore leading to a contradiction).
-Consider that a \emph{publication} must have a \emph{publication date} which is a typical constraint.
+Consider that a publication must have a publication date which is a typical constraint.
 When defining \emph{books}, \emph{conference proceedings}, and \emph{journal articles} as sub-classes of \emph{publication}, 
 one would require to assign the concerned constraint explicitly to each sub-class, 
-since each of them should have a \emph{publication date}.
+since each of them should have a publication date.
 Reasoning is a promising solution as pre-validation step to overcome this shortcoming. 
 \emph{Reasoning} in Semantic Web refers to logical reasoning that  makes implicitly available knowledge explicitly available.
-When performing reasoning one can infer that \emph{books} must have a \emph{publication date} 
-from the facts that \emph{books} are \emph{publications} and \emph{publications} must have a \emph{publications date}.  
+When performing reasoning one can infer that books must have a publication date 
+from the facts that books are publications and publications must have a publications date.  
 We remove redundancy by associating the constraint with the super-class \emph{publication}.
 %In this paper, we investigate the role that reasoning plays in practical data validation and 
 %how to overcome the major shortcomings when validating RDF data by performing reasoning prior to validation.
@@ -546,10 +547,10 @@ either by resolving violations or by raising valuable violations (Section \ref{r
 
 For each constraint type, we investigate how efficient in terms of runtime validation is performed with and without reasoning.
 %We examine the effects of reasoning on the performance, i.e., the computational complexity of constraint types.
-By mapping to \emph{description logics} (\emph{DL}) we get an idea of the performance of each constraint type in worst case,
-since the combination of \emph{DL} constructs needed to express a constraint type determines its computational complexity (Section \ref{reasoning}).
-For this reason, the appendix of this paper contains mappings to \emph{DL} to determine which \emph{DL} constructs are needed to express each constraint type.
-Thus, the knowledge representation formalism \emph{DL}, with its well-studied theoretical properties, 
+By mapping to \emph{Description Logics} (\emph{DL}) we get an idea of the performance of each constraint type in worst case,
+since the combination of DL constructs needed to express a constraint type determines its computational complexity (Section \ref{reasoning}).
+For this reason, the appendix of this paper contains mappings to DL to determine which DL constructs are needed to express each constraint type.
+Thus, the knowledge representation formalism DL, with its well-studied theoretical properties, 
 provides the foundational basis for constraint types. 
 %\emph{DL} can be used to express constraints like (1) \emph{publications} must have at least one \emph{author} which must be a \emph{person} {\small\ms{(Publication $\sqsubseteq$ $\geq$1 author.Person)}} and
 %(2) \emph{books}, \emph{conference proceedings}, and \emph{journal articles} are \emph{publications} {\small\ms{(Book $\sqcup$} \ms{ConferenceArticle $\sqcup$} \ms{JournalArticle $\sqsubseteq$ Publication)}}. 
@@ -557,10 +558,10 @@ provides the foundational basis for constraint types.
 Validation and reasoning assume different semantics which may lead to different validation results when applied to particular constraint types. %when particular constraint types are used for validation and for reasoning. 
 Reasoning requires the {\em open-world assumption} (\emph{OWA}) with the {\em non-unique name assumption} (\emph{nUNA}), 
 whereas validation is classically based on the {\em closed-world assumption} (\emph{CWA}) and the {\em unique name assumption} (\emph{UNA}).
-Therefore, we investigate for each constraint type if validation results differ (1) if the \emph{CWA} or the \emph{OWA} and (2) if the \emph{UNA} or the \emph{nUNA}
-is assumed, i.e., we examine for each constraint type (1) if the constraint type depends on the \emph{CWA} and (2) if the constraint type depends on the \emph{UNA} (Section \ref{CWA-UNA-dependency}).
+Therefore, we investigate for each constraint type if validation results differ (1) if the CWA or the OWA and (2) if the UNA or the nUNA
+is assumed, i.e., we examine for each constraint type (1) if the constraint type depends on the CWA and (2) if the constraint type depends on the UNA (Section \ref{CWA-UNA-dependency}).
 
-Using these findings, we are able to determine for the five most common constraint languages which constraint types they enable to express (see Table \ref{tab:constraint-type-specific-expressivity}) 
+Using these findings, we are able to determine which constraint types the five most common constraint languages enable to express (see Table \ref{tab:constraint-type-specific-expressivity}) 
 %gives an overview on the constraint type specific expressivity of the five most common constraint languages
 The evaluation is explained in detail in the appendix of this paper \cite{BoschNolleAcarEckert2015}.
 %, i.e., we evaluate their constraint type specific expressivity 
@@ -579,12 +580,12 @@ The evaluation is explained in detail in the appendix of this paper \cite{BoschN
       %\textbf{Expressivity Class} & $Expr(\overline{\mathcal{CT}_R})$ (42) & $Expr(\mathcal{CT}_R)$ (32) \\		
 			\textbf{} & $\mathcal{CT}$ (81) & $\overline{\mathcal{R}}$ (46) & $\mathcal{R}$ (35) \\	
       \hline
-			\emph{SPIN} & \textbf{100.0} (81) & \textbf{100.0} (46) & \textbf{100.0} (35) \\
-			\emph{OWL2-DL} & 67.9 (55) & 45.7 (21) & \textbf{97.1} (34) \\ 
-			\emph{ShEx} & 29.6 (24) & 26.1 (12) & 34.3 (12) \\
-			\emph{ReSh} & 25.9 (21) & 15.2 (7) & 40.0 (14) \\
-			\emph{OWL2-QL} & 24.7 (20) & 19.6 (9) & 31.4 (11) \\
-			\emph{DSP} & 17.3 (14) & 13.0 (6) & 22.9 (8) 
+			SPIN & \textbf{100.0} (81) & \textbf{100.0} (46) & \textbf{100.0} (35) \\
+			OWL 2 DL & 67.9 (55) & 45.7 (21) & \textbf{97.1} (34) \\ 
+			ShEx & 29.6 (24) & 26.1 (12) & 34.3 (12) \\
+			ReSh & 25.9 (21) & 15.2 (7) & 40.0 (14) \\
+			OWL 2 QL & 24.7 (20) & 19.6 (9) & 31.4 (11) \\
+			DSP & 17.3 (14) & 13.0 (6) & 22.9 (8) 
 		\end{tabular}
 	\label{tab:constraint-type-specific-expressivity}
 \end{table}
@@ -641,10 +642,10 @@ $\overline{\mathcal{R}}$ to denote the 46 constraint types for which reasoning d
 		%\end{tabular}
 	%\label{tab:constraint-type-specific-expressivity-absolute-values}
 %\end{table}
-For \emph{OWL 2}, we differentiate between the sub-languages \emph{OWL 2 QL} and \emph{OWL 2 DL} as they differ with regard to expressivity and efficiency in performance.
+For OWL 2, we differentiate between the sub-languages OWL 2 QL and OWL 2 DL as they differ with regard to expressivity and efficiency in performance.
 Table \ref{tab:constraint-type-specific-expressivity} shows in percentage values (and absolute numbers in brackets) how many $\mathcal{CT}$, $\mathcal{R}$, and $\overline{\mathcal{R}}$ constraint types are supported 
 by listed constraint languages.
-Although, \emph{OWL 2} is the only language for which reasoning features are already implemented, 
+Although OWL 2 is the only language for which reasoning features are already implemented, 
 $\mathcal{R}$ constraint types are also expressible by other languages. 
 %In total, there are 42 $\overline{\mathcal{CT}_R}$ and 32 $\mathcal{CT}_R$ constraint types (see Table \ref{tab:constraint-type-specific-expressivity}).
 %In Table \ref{tab:constraint-type-specific-expressivity}, the total amount of constraint types per constraint type specific expressivity is shown by numbers in round brackets in the first column.
@@ -672,16 +673,16 @@ These use cases determine which requirements have to be fulfilled and therefore 
 %We argue that so far no single best solution exists since constraint formulation and RDF data validation is not yet implemented in \emph{SPIN}.
 %By revealing which constraint types are not covered by exiting languages, 
 %we give directions for the further development of constraint languages.
-The finding that \emph{SPIN} is the only language which supports all reasoning constraint types 
-underpins the importance to implement reasoning capabilities by \emph{SPIN} (or plain \emph{SPARQL}).
-The fact that all $\mathcal{R}$ and $\overline{\mathcal{R}}$ constraint types are representable by \emph{SPIN} 
+The finding that SPIN is the only language which supports all reasoning constraint types 
+underpins the importance to implement reasoning capabilities by SPIN (or plain SPARQL).
+The fact that all $\mathcal{R}$ and $\overline{\mathcal{R}}$ constraint types are representable by SPIN 
 %(if we ignore the constraint type \emph{recursive queries} which is partly implemented in \emph{SPIN}) 
-emphasizes the significant role \emph{SPIN} plays for the future development of constraint languages.
-Another important role may play \emph{OWL 2 DL} with which 2/3 of all, 
+emphasizes the significant role SPIN plays for the future development of constraint languages.
+Another important role may play OWL 2 DL with which 2/3 of all, 
 nearly 1/2 of the $\overline{\mathcal{R}}$, and
 almost all $\mathcal{R}$ constraint types can be expressed.
-Even though, some $\mathcal{R}$ constraint types correspond to \emph{OWL 2 DL} axioms,
-we cannot use them directly to validate RDF data since \emph{OWL 2} reasoning and validation assume different semantics which may lead to differences in results. 
+Even though some $\mathcal{R}$ constraint types correspond to OWL 2 DL axioms,
+we cannot use them directly to validate RDF data since OWL 2 reasoning and validation assume different semantics which may lead to differences in results. 
 %Therefore, we implemented the validation of all $\mathcal{R}$ constraint types expressible by \emph{OWL 2 DL} under the RDF validation assumptions \emph{CWA} and \emph{UNA}.
 
 %-----
@@ -1137,8 +1138,8 @@ how to overcome the major shortcomings when validating RDF data by performing re
 (3) For each constraint type, we examine
     if reasoning may improve data quality, 
     how efficient in terms of runtime validation is performed with and without reasoning, and
-		if validation results depend on the \emph{CWA} and on the \emph{UNA}.
-(4) We determine for the most common constraint languages which constraint types they enable to express
+		if validation results depend on the CWA and on the UNA.
+(4) We determine which constraint types the most common constraint languages enable to express
     and give directions for the further development of constraint languages.
 %(5) We provide implementations to actually validate constraints of constraint types expressible by common constraint languages and 
 %to execute reasoning according to all $\mathcal{R}$ constraint types before validating.
@@ -1224,13 +1225,13 @@ how to overcome the major shortcomings when validating RDF data by performing re
 %The \emph{Web Ontology Language (OWL)} in its current version 
 
 \emph{OWL 2} is an expressive language 
-for which \emph{DL} provides the foundational basis and
+for which DL provides the foundational basis and
 which offers knowledge representation and reasoning services. 
-Validation, however, is not the primary purpose of its design which has lead to claims that \emph{OWL 2} cannot be used for validation. 
+Validation, however, is not the primary purpose of its design which has lead to claims that OWL 2 cannot be used for validation. 
 %There have been long and controversial discussions\footnote{\url{http://lists.w3.org/Archives/Public/public-data-shapes-wg/}\\ \url{https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=dc-architecture}} in the W3C and DCMI WGs if \emph{OWL 2} should be used for RDF validation.
 %However, OWL 2 is high-level  expressive  language with a compact human-readable syntax.
-In practice, however, \emph{OWL 2} is well-spread and \emph{RDFS/OWL 2} constructs are widely used to tell people and applications about how valid instances should look like.
-In general, RDF documents follow the syntactic structure and the semantics of \emph{RDFS}/\emph{OWL 2} ontologies which could therefore not only be used for reasoning but also for validation. 
+In practice, however, OWL 2 is well-spread and RDFS/OWL 2 constructs are widely used to tell people and applications about how valid instances should look like.
+In general, RDF documents follow the syntactic structure and the semantics of RDFS/OWL 2 ontologies which could therefore not only be used for reasoning but also for validation. 
 %In particular, most of the constraint languages except OWL, have a major shortcoming of redundancy.\tb{the following example is not about solving the redundancy problem, it is about how constraint violations cab be resolved when performing reasoning / we should delete this sentence here, as we starting talking about redundancy problem below}  
 %The knowledge representation formalism {\em Description logics} (\emph{DL}), with its well-studied theoretical properties, 
 %provides the foundational basis for \emph{OWL}. 
@@ -1244,7 +1245,7 @@ Reasoning is beneficial for validation as
 (1) it may resolve constraint violations, 
 (2) it may cause useful violations, and 
 (3) it solves the redundancy problem. 
-Consider the following \emph{DL} knowledge base $\mathcal{K}$ - a \emph{DL} knowledge base is a collection of formal statements  which correspond to \emph{facts} or  \emph{what is known} explicitly:
+Consider the following DL knowledge base $\mathcal{K}$ - a DL knowledge base is a collection of formal statements  which correspond to \emph{facts} or  \emph{what is known} explicitly:
 
 {\scriptsize
 \begin{center}
@@ -1290,7 +1291,7 @@ This violation would not have been raised without reasoning before actually vali
 thus data quality would not be increased in case the violation is tackled.
 The major shortcoming of classical constraint languages is redundancy.
 If a particular constraint should hold for multiple classes, it is required to assign the concerned constraint explicitly to each class.
-The redundancy problem is solved (3. benefit) by associating the constraint with the super-class of these classes and applying \emph{OWL 2} reasoning (see second paragraph in Section \ref{motivation}).
+The redundancy problem is solved (3. benefit) by associating the constraint with the super-class of these classes and applying OWL 2 reasoning (see second paragraph in Section \ref{motivation}).
 
 %\tb{there is no example for solving redundancy problem / can we use the one of the introduction (just referring to this example in 1 sentence)}
 %\tb{we have no example why R causes new valuable constraint violations}
@@ -1373,8 +1374,8 @@ ISBN a RDFS:Datatype ; owl:equivalentClass [ a RDFS:Datatype ;
     owl:withRestrictions ([ xsd:pattern "^\d{9}[\d|X]\$" ])] .
 \end{ex}
 
-The first \emph{OWL 2} axiom explicitly declares {\em ISBN} to be a datatype. %\er{Why start from second and then first? Also better we say "owl axiom" when we talk axiom of owl, to prevent ambiguity.}\tb{resolved}
-The second \emph{OWL 2} axiom defines {\em ISBN} as an abbreviation for a datatype restriction on {\em xsd:string}. 
+The first OWL 2 axiom explicitly declares {\em ISBN} to be a datatype. %\er{Why start from second and then first? Also better we say "owl axiom" when we talk axiom of owl, to prevent ambiguity.}\tb{resolved}
+The second OWL 2 axiom defines {\em ISBN} as an abbreviation for a datatype restriction on {\em xsd:string}. 
 The datatype {\em ISBN} can be used just like any other datatype such as in
 the universal restriction {\small\ms{Book $\sqsubseteq$ $\forall$ identifier.ISBN}} which ensures that \emph{books} can only have valid \emph{ISBN} identifiers, 
 i.e., strings that match a given regular expression. 
@@ -1403,8 +1404,8 @@ i.e., strings that match a given regular expression.
 %If we use sub-properties with reasoning, the triple (which would cause a constraint violation) is inferred and therefore resolves the possible constraint violation.
 
 For each constraint type we investigate how efficient in terms of runtime validation is performed with and without reasoning.
-By mapping to \emph{DL} we get an idea of the performance of each constraint type in worst case,
-since the combination of \emph{DL} constructs needed to express a constraint type determines its computational complexity
+By mapping to DL we get an idea of the performance of each constraint type in worst case,
+since the combination of DL constructs needed to express a constraint type determines its computational complexity
 
 \subsection{Constraint Types with Reasoning}
 \label{sec:RDF-validation-requirements-and-reasoning}
@@ -1413,24 +1414,24 @@ $\mathcal{R}$ is the set of constraint types for which reasoning may be performe
 to enhance data quality either by resolving violations or by causing useful violations.
 For $\mathcal{R}$ constraint types, different types of reasoning may be performed
 which depends on the language used to formulate the constraint type. 
-11 of 35 $\mathcal{R}$ constraint types are representable by the less expressive but better performing \emph{OWL 2 QL}.
-23 $\mathcal{R}$ constraint types, in contrast, are not expressible by \emph{OWL 2 QL} and therefore the more expressive but less performing \emph{OWL 2 DL} is used.
-Some of the $\mathcal{R}$ constraint types, however, are also representable by classical constraint languages (e.g., 40\% are representable by \emph{ReSh}).
+11 of 35 $\mathcal{R}$ constraint types are representable by the less expressive but better performing OWL 2 QL.
+23 $\mathcal{R}$ constraint types, in contrast, are not expressible by OWL 2 QL and therefore the more expressive but less performing OWL 2 DL is used.
+Some of the $\mathcal{R}$ constraint types, however, are also representable by classical constraint languages (e.g., 40\% are representable by ReSh).
 %(in total, 29 0f 32 $\mathcal{R}$ constraint types are representable by \emph{OWL 2 DL}). 
-\emph{OWL 2} profiles are restricted versions of \emph{OWL 2} that offer different trade-offs regarding expressivity vs. efficiency in reasoning. 
-\emph{OWL 2 QL}, based on the \textit{DL-Lite} family of \emph{DL} \cite{Artale2009,Calvanese2007}, is an \emph{OWL 2} profile which focuses on reasoning in the context of query answering with very large size of instance data. 
-\emph{OWL 2 DL} was standardized as a \emph{DL}-like formalism with high expressivity, yet maintains decidability for main reasoning tasks.
-As a result of its expressive power, \emph{OWL 2 DL} allows a large variety of sophisticated modeling capabilities for many application domains.
+OWL 2 profiles are restricted versions of OWL 2 that offer different trade-offs regarding expressivity vs. efficiency in reasoning. 
+\emph{OWL 2 QL}, based on the \textit{DL-Lite} family of DL \cite{Artale2009,Calvanese2007}, is an OWL 2 profile which focuses on reasoning in the context of query answering with very large size of instance data. 
+OWL 2 DL was standardized as a DL-like formalism with high expressivity, yet maintains decidability for main reasoning tasks.
+As a result of its expressive power, OWL 2 DL allows a large variety of sophisticated modeling capabilities for many application domains.
 The drawback of its expressive power results as a lack of computational efficiency in performance. 
 With regard to the two different types of reasoning
 we divide $\mathcal{R}$ into two not disjoint sets of constraint types: 
-$\mathcal{R}_{QL}$ $\subseteq$ $\mathcal{R}_{DL}$ (\emph{OWL 2 DL} is more expressive than \emph{OWL 2 QL}).
+$\mathcal{R}_{QL}$ $\subseteq$ $\mathcal{R}_{DL}$ (OWL 2 DL is more expressive than OWL 2 QL).
 \begin{enumerate}
-\item $\mathcal{R}_{QL}$ is the set of $\mathcal{R}$ constraint types for which \emph{OWL 2 QL reasoning} may be performed as they are expressible by \emph{OWL 2 QL}.
+\item $\mathcal{R}_{QL}$ is the set of $\mathcal{R}$ constraint types for which \emph{OWL 2 QL reasoning} may be performed as they are expressible by OWL 2 QL.
 11 of 35 $\mathcal{R}$ constraint types are $\mathcal{R}_{QL}$ constraint types.
 %which are expressible by \emph{OWL 2 QL} and thus
 %for which validation is executed by query answering with \emph{OWL 2 QL} reasoning.
-\item $\mathcal{R}_{DL}$ stands for the set of $\mathcal{R}$ constraint types for which \emph{OWL 2 DL reasoning} may be executed as \emph{OWL 2 QL} is not expressive enough to represent them \cite{owl2profiles2008}.
+\item $\mathcal{R}_{DL}$ stands for the set of $\mathcal{R}$ constraint types for which \emph{OWL 2 DL reasoning} may be executed as OWL 2 QL is not expressive enough to represent them \cite{owl2profiles2008}.
 34 of 35 $\mathcal{R}$ constraint types are $\mathcal{R}_{DL}$ constraint types.
 %which are expressible by \emph{OWL 2 DL} and for which validation is run by query answering with \emph{OWL 2 DL} reasoning.
 \end{enumerate}
@@ -1485,7 +1486,7 @@ Reasoning may resolve violations which improves data quality.
 The {\em Property Domain} (\emph{R-25}) constraint
 {\small\ms{$\exists$ author.$\top$ $\sqsubseteq$ Publication}} 
 ensures that only \emph{publications} can have {\em author} relationships %to \emph{persons}
-(in \emph{OWL 2 QL}: {\small\ms{author rdfs:domain Publication).}}
+(in OWL 2 QL: {\small\ms{author rdfs:domain Publication).}}
 Without reasoning, the triple {\small\ms{author(Alices-Adventures-In-Wonderland,} \ms{Lewis-Carroll)}} leads to a violation
 if it is not explicitly stated that \emph{Alices-Adventures-In-Wonderland} is a \emph{publication}. 
 With reasoning, on the contrary, the class assignment {\small\ms{rdf:type(Alices-Adventures-In-Wonderland, Publication)}} is inferred which prevents the violation to be raised.
@@ -1507,10 +1508,10 @@ The {\em existential quantification} (\emph{R-86})
 {\small\ms{Publication} \ms{$\equiv$} \ms{$\exists$} \ms{publisher.Publisher}} restricts publications to have at least one publisher: 
 %- which can be expressed in \emph{OWL 2 QL}:
 \begin{ex}
-[ a owl:Restriction ;
-  owl:onProperty publisher ;
-  owl:someValuesFrom Publisher ;
-  rdfs:subClassOf Publication ] .
+Publication rdfs:subClassOf
+  [ a owl:Restriction ;
+    owl:onProperty publisher ;
+    owl:someValuesFrom Publisher ] .
 \end{ex}
 If reasoning is executed on the triples {\small\ms{publisher (A+Conference-Proceedings, A+Publisher)} and \ms{rdf:type (A+Publisher, Publisher),}} 
 it is inferred that {\em A+Conference-Proceedings} is a {\em publication}.
@@ -1519,12 +1520,12 @@ Without reasoning, in contrast, the fact that \emph{A+Conference-Proceedings} is
 which is the reason why constraints on {\em publications} are not validated for \emph{A+Conference-Proceedings}.
 Hence, additional violations, which may be useful to enhance data quality, do not occur. 
 
-RDF validation with reasoning corresponds to performing \emph{SPARQL} queries. 
-As \emph{OWL 2} profiles are based on the \textit{DL-Lite} family,
-\emph{OWL 2 QL} is based on \textit{DL-Lit}$e_R$,
-and query answering in \emph{OWL 2 QL} is performed in \textsc{LogSpace} (or rather in \emph{AC$^0$}) \cite{Calvanese2007}, the same complexity class applies for
+RDF validation with reasoning corresponds to performing SPARQL queries. 
+As OWL 2 profiles are based on the \textit{DL-Lite} family,
+OWL 2 QL is based on \textit{DL-Lit}$e_R$,
+and query answering in OWL 2 QL is performed in \textsc{LogSpace} (or rather in \emph{AC$^0$}) \cite{Calvanese2007}, the same complexity class applies for
 validation by queries with reasoning.
-As TBox reasoning in \emph{OWL 2 QL} is performed in \textsc{Ptime} \cite{Calvanese2007}, 
+As TBox reasoning in OWL 2 QL is performed in \textsc{Ptime} \cite{Calvanese2007}, 
 complete query rewriting as well as reasoning and subsequent querying (combined complexity) is carried out in \textsc{Ptime} \cite{Artale2009,Calvanese2007}.  
 
 %The {\em Existential Quantification}\footnote{Corresponds to {\em R-86-EXISTENTIAL-QUANTIFICATION-ON-PROPERTIES}}
@@ -1548,10 +1549,10 @@ are used to build anonymous classes containing all individuals that are connecte
 \emph{Publications}, e.g., can only have \emph{persons} as \emph{authors} {\small\ms{(Publication $\sqsubseteq$ $\forall$ author.Person):}}
 %which cannot be expressed by \emph{OWL 2 QL}, but by \emph{OWL 2 DL} :
 \begin{ex}
-[ a owl:Restriction ;
-  owl:onProperty author ;
-  owl:allValuesFrom Person ;
-  rdfs:subClassOf Publication ] .
+Publication rdfs:subClassOf
+  [ a owl:Restriction ;
+    owl:onProperty author ;
+    owl:allValuesFrom Person ] .
 \end{ex}
 When performing reasoning, the triples {\small\ms{author(The-Lord-Of-The-Rings,} \ms{Tolkien)}} and {\small\ms{rdf:type(The-Lord-Of-The-Rings, Publication)}} 
 let a reasoner infer that \emph{Tolkien} is a \emph{person} which satisfies the {\em universal quantification}.
@@ -1560,10 +1561,10 @@ since it is not explicitly stated that \emph{Tolkien} is a \emph{person}.
 As a consequence, constraints on \emph{persons} are not checked for \emph{Tolkien} which prevents further validation. 
 %and each \emph{publication} can only have \emph{author} relationships to \emph{persons}.
 
-With \emph{OWL 2 DL}, the more expressive profile than \emph{OWL 2 QL}, reasoning is executed in \textsc{N2exptime} \cite{owl2profiles2008} 
-which is a class of considerably higher complexity than \textsc{Ptime}, the complexity class for \emph{OWL 2 QL} reasoning.
+With OWL 2 DL, the more expressive profile than OWL 2 QL, reasoning is executed in \textsc{N2exptime} \cite{owl2profiles2008} 
+which is a class of considerably higher complexity than \textsc{Ptime}, the complexity class for OWL 2 QL reasoning.
 As we consider ontological reasoning, complexity classes are assigned to sets of constraint types 
-according to well-established complexity results in literature on reasoning of \emph{DL} languages.
+according to well-established complexity results in literature on reasoning of DL languages.
 Therefore, the classification also includes complex logical interferences between TBox axioms.
 
 %\begin{itemize}
@@ -1672,7 +1673,7 @@ $\mathcal{K}=\{$ \\
 \end{DL}
 \end{center}
 }%
-This constraint can be represented by \emph{OWL 2 DL} by building an
+This constraint can be represented by OWL 2 DL by building an
 anonymous class for each exclusive property:
 \begin{ex}
 Publication owl:disjointUnionOf ( C1 C2 ) . 
@@ -1683,7 +1684,7 @@ C2 rdfs:subClassOf [ a owl:Restriction ;
     owl:onProperty issn ;
     owl:someValuesFrom xsd:string ] .
 \end{ex}
-Exactly the same constraint can be expressed by \emph{ShEx} more intuitively and concisely:
+Exactly the same constraint can be expressed by ShEx more intuitively and concisely:
 \begin{ex}
 Publication { ( isbn xsd:string | issn xsd:string ) }
 \end{ex}
@@ -1791,8 +1792,8 @@ It is a common requirement to narrow down the value space of properties by an ex
 %}%
 Reasoning on this constraint type does not change validation results and therefore does not improve data quality.
 \emph{Books} on the topics \emph{Computer Science} and \emph{Librarianship}, e.g., should only have \emph{ComputerScience} and \emph{Librarianship} as \emph{subjects}.
-The corresponding \emph{DL} statement {\small\ms{Book $\equiv$ $\forall$ subject.\{Computer-Science,Librarian ship\}}}
-is representable by \emph{DSP} and \emph{OWL 2 DL}:
+The corresponding DL statement {\small\ms{Book $\equiv$ $\forall$ subject.\{Computer-Science,Librarian ship\}}}
+is representable by DSP and OWL 2 DL:
 \begin{ex}
 [ a dsp:DescriptionTemplate ;
   dsp:resourceClass Book ; 
@@ -1808,8 +1809,8 @@ subject rdfs:range [ owl:equivalentClass [ a owl:Class;
 %Exactly the same constraint is expressible by \emph{OWL 2 DL}:
 %\begin{ex}
 
-RDF validation without reasoning corresponds to performing \emph{SPARQL} queries.  
-It is known that performing \emph{SPARQL} queries is carried out in \textsc{Pspace}-Complete \cite{Perez2009}. 
+RDF validation without reasoning corresponds to performing SPARQL queries.  
+It is known that performing SPARQL queries is carried out in \textsc{Pspace}-Complete \cite{Perez2009}. 
 Table \ref{tab:constraint-type-specific-complexity-classes} gives an overview over the complexity of validation with and without reasoning.
 The higher the complexity class the worse the performance.
 The order of the complexity classes is the following\cite{Arora:2009:CCM:1540612}:
@@ -1835,7 +1836,7 @@ $\mathcal{R}_{DL}$ & \textsc{N2exptime} \\[7pt]
 \end{table}
 We do not consider \emph{OWL 2 Full} 
 due to its high worst case complexity (undecidability) and
-as all (except of one) $\mathcal{R}$ constraint types are already expressible either by \emph{OWL 2 QL} or \emph{OWL 2 DL}.
+as all (except of one) $\mathcal{R}$ constraint types are already expressible either by OWL 2 QL or OWL 2 DL.
 
 %name "keyword" ; propertyDefinition keyword ; valueType xsd:string ;
 
@@ -2377,32 +2378,32 @@ as all (except of one) $\mathcal{R}$ constraint types are already expressible ei
  %when particular constraint types are used for validation and for reasoning. 
 
 RDF validation and reasoning assume different semantics.
-Reasoning in \emph{OWL 2} is based on the {\em open-world assumption} (\emph{OWA}), i.e., a statement cannot be inferred to be false if it cannot be proved to be true  which fits its primary design purpose to represent knowledge on the \emph{WWW}. 
+Reasoning in OWL 2 is based on the {\em open-world assumption} (\emph{OWA}), i.e., a statement cannot be inferred to be false if it cannot be proved to be true  which fits its primary design purpose to represent knowledge on the \emph{WWW}. 
 %Most of the constraint languages except OWL, have a major shortcoming of redundancy.
 %With its open-world semantics, used as a constraint language, OWL solves the redundancy problem. 
 %\tb{the following example does not show the redundancy problem!}
 %\tb{2. benefit: reasoning solves redundancy problem}
 As each \emph{book} must have a \emph{title} {\small\ms{(Book $\sqsubseteq \exists$ title.$\top$)}} and {\em Hamlet} is a \emph{book} {\small\ms{(Book(Hamlet)),}}
 {\em Hamlet} must have at least one \emph{title} as well.
-In an \emph{OWA} setting, this constraint does not cause a violation, even if there is no explicitly defined \emph{title}, since there must be a \emph{title} for this \emph{book} which we may not know ($\mathcal{K}$ is consistent).
+In an OWA setting, this constraint does not cause a violation, even if there is no explicitly defined \emph{title}, since there must be a \emph{title} for this \emph{book} which we may not know ($\mathcal{K}$ is consistent).
 %As \emph{OWA} would be a shortcoming for RDF validation and
 As RDF validation has its origin in the XML world
 many RDF validation scenarios require the {\em closed-world assumption} (\emph{CWA}), i.e., a statement is inferred to be false if it cannot be proved to be true.
-Thus, classical constraint languages are based on the \emph{CWA} where constraints need to be satisfied only by named individuals. 
-In the example, the \emph{CWA} yields to a violation since there is no explicitly defined \emph{title} for the \emph{book} {\em Hamlet}. 
-\emph{OWL 2} is based on the {\em non-unique name assumption} (\emph{nUNA}) whereas RDF validation requires that different names represent different objects ({\em unique name assumption} (\emph{UNA})). 
-Although, \emph{DLs/OWL 2} do not assume \emph{UNA}, they have the constructs \emph{owl:sameAs} and \emph{owl:differentFrom} to state that two names are the same or different.
-If validation would assume \emph{OWA} and \emph{nUNA}, validation won’t be that restrictive and therefore we won’t get the intended validation results.
+Thus, classical constraint languages are based on the CWA where constraints need to be satisfied only by named individuals. 
+In the example, the CWA yields to a violation since there is no explicitly defined \emph{title} for the \emph{book} {\em Hamlet}. 
+OWL 2 is based on the {\em non-unique name assumption} (\emph{nUNA}) whereas RDF validation requires that different names represent different objects ({\em unique name assumption} (\emph{UNA})). 
+Although, \emph{DLs/OWL 2} do not assume UNA, they have the constructs \emph{owl:sameAs} and \emph{owl:differentFrom} to state that two names are the same or different.
+If validation would assume OWA and nUNA, validation won’t be that restrictive and therefore we won’t get the intended validation results.
 %There is a clash caused by the functional property {\em title} {\small\ms{(funct (title))}} and the \emph{UNA},
 %since the book {\em Huckleberry-Finn} has more than one title
 %{\small\ms{(title(Huckleberry-Finn, The-Adventures-of-Huckleberry-Finn)}}, {\small\ms{title(Huckleberry-Finn, Die-Abenteuer-des-Huckleberry-Finn))}}.
 %In \emph{OWA}, however, there is no \emph{UNA} by default, therefore reasoning will conclude that {\em The-Adventures-of-Huckleberry-Finn} is the same as {\em Die-Abenteuer-des-Huckleberry-Finn} {\small\ms{(\{The-Adventures-of-Huckleberry-Finn\}} = \ms{\{Die-Abenteuer-des-Huckleberry-Finn\})}}. 
 %This is not a problem if we add the \emph{UNA} to the \emph{OWA}, like in the \textit{DL-Lite} family \cite{Calvanese2007,Artale2009}, which is the basis for \emph{OWL 2 QL}. 
-This ambiguity in semantics is one of the main reasons why \emph{OWL 2} has not been adopted as a standard constraint language for RDF validation in the past.
+This ambiguity in semantics is one of the main reasons why OWL 2 has not been adopted as a standard constraint language for RDF validation in the past.
 
 RDF validation and reasoning assume different semantics which may lead to different validation results when applied to particular constraint types.
-Hence, we investigate for each constraint type if validation results differ (1) if the \emph{CWA} or the \emph{OWA} and (2) if the \emph{UNA} or the \emph{nUNA}
-is assumed, i.e., we examine for each constraint type (1) if the constraint type depends on the \emph{CWA} and (2) if the constraint type depends on the \emph{UNA}.
+Hence, we investigate for each constraint type if validation results differ (1) if the CWA or the OWA and (2) if the UNA or the nUNA
+is assumed, i.e., we examine for each constraint type (1) if the constraint type depends on the CWA and (2) if the constraint type depends on the UNA.
 
 %The distinction of constraint types regarding the dependency on the \emph{CWA} and on the \emph{UNA} is an important aspect when combining reasoning with validation
 %since validation and reasoning results depend on underlying semantics.
@@ -2422,18 +2423,18 @@ is assumed, i.e., we examine for each constraint type (1) if the constraint type
  %Nothing can be a \emph{book} and a \emph{journal article}  at the same time (\ms{Book $\sqcap$ JournalArticle $\sqsubseteq$ $\perp$}).
 %For this {\em disjoint classes} constraint, it does not make any difference if the CWA/UNA or the OWA/nUNA semantics is taken,
 %as all information needed for validation is explicitly available in both cases. 
-We classify constraint types according to the dependency on the \emph{CWA} and on the \emph{UNA} which leads to four sets of constraint types:
-(1) $\mathcal{CWA}$ denotes the set of constraint types which are dependent on the \emph{CWA},
-	i.e., the set of constraint types for which it makes a difference in terms of validation results if the \emph{CWA} or the \emph{OWA} is assumed.
-{\em Minimum qualified cardinality restrictions} (\emph{R-75}) is a $\mathcal{CWA}$ constraint type, i.e., depends on the \emph{CWA}.
+We classify constraint types according to the dependency on the CWA and on the UNA which leads to four sets of constraint types:
+(1) $\mathcal{CWA}$ denotes the set of constraint types which are dependent on the CWA,
+	i.e., the set of constraint types for which it makes a difference in terms of validation results if the CWA or the OWA is assumed.
+{\em Minimum qualified cardinality restrictions} (\emph{R-75}) is a $\mathcal{CWA}$ constraint type, i.e., depends on the CWA.
 \emph{Publications}, e.g., must have at least one \emph{author} {\small\ms{(Publication $\sqsubseteq$ $\geq$1 author.Person).}}
-In a \emph{CWA} setting, a \emph{publication} without an explicitly stated author violates the constraint, 
-whereas, with \emph{OWA} semantics, 
+In a CWA setting, a \emph{publication} without an explicitly stated author violates the constraint, 
+whereas, with OWA semantics, 
 a \emph{publication} without an explicitly stated \emph{author} does not raise a violation 
 as the constraint entails that there must be an \emph{author} which we may not know.
-(2) $\overline{\mathcal{CWA}}$ is the complement of $\mathcal{CWA}$ and thus includes constraint types which are independent on the \emph{CWA}.
+(2) $\overline{\mathcal{CWA}}$ is the complement of $\mathcal{CWA}$ and thus includes constraint types which are independent on the CWA.
 Nothing can be a \emph{book} and a \emph{journal article}  at the same time {\small\ms{(Book $\sqcap$ JournalArticle $\sqsubseteq$ $\perp$).}}
-For the constraint type {\em disjoint classes} (\emph{R-7}), it does not make any difference regarding validation results if the \emph{CWA} or the \emph{OWA} is taken,
+For the constraint type {\em disjoint classes} (\emph{R-7}), it does not make any difference regarding validation results if the CWA or the OWA is taken,
 as if there is a \emph{publication} which is a \emph{book} and a \emph{journal article} a violation is raised in both settings,
 i.e., additional information does not change validation results.
 %as all information needed for validation is explicitly available in both cases. 
@@ -2446,16 +2447,16 @@ i.e., additional information does not change validation results.
 	%\item $\mathcal{CT}_{nUNA}$ (complement of $\mathcal{C}_{UNA}$) denotes the set of constraint types which are dependent on the \emph{nUNA}
 %\end{itemize}
 
-(3) $\mathcal{UNA}$ denotes the set of constraint types which are dependent on the \emph{UNA}.
-For \emph{Functional properties} (\emph{R-57/65}), it makes a difference with regard to validation results if \emph{UNA} or \emph{nUNA} is assumed.
+(3) $\mathcal{UNA}$ denotes the set of constraint types which are dependent on the UNA.
+For \emph{Functional properties} (\emph{R-57/65}), it makes a difference with regard to validation results if UNA or nUNA is assumed.
 As the property \emph{title} is functional {\small\ms{(funct (title)),}} a \emph{book} can have at most one distinct \emph{title}.
-\emph{UNA} causes a clash
+UNA causes a clash
 if the \emph{book} {\em Huckleberry-Finn} has more than one \emph{title}.
 %(\ms{title(Huckleberry-Finn, The-Adventures-of-Huckleberry-Finn)}, \ms{title(Huckleberry-Finn, Die-Abenteuer-des-Huckleberry-Finn)}).
-For \emph{nUNA}, however, reasoning concludes that the \emph{title} {\em The-Adventures-of-Huckleberry-Finn} must be the same as the \emph{title} {\em Die-Abenteuer-des-Huckleberry-Finn} 
+For nUNA, however, reasoning concludes that the \emph{title} {\em The-Adventures-of-Huckleberry-Finn} must be the same as the \emph{title} {\em Die-Abenteuer-des-Huckleberry-Finn} 
 %(\ms{\{The-Adventures-of-Huckleberry-Finn\}} = \ms{\{Die-Abenteuer-des-Huckle} \ms{berry-}\ms{Finn\}}) 
 which resolves the violation. 
-(4) $\overline{\mathcal{UNA}}$, the complement of $\mathcal{UNA}$, denotes the set of constraint types which are independent on the \emph{UNA}.
+(4) $\overline{\mathcal{UNA}}$, the complement of $\mathcal{UNA}$, denotes the set of constraint types which are independent on the UNA.
 %The {\em existential quantification} (\emph{R-86}) {\small\ms{Publication $\equiv$ $\exists$ publisher.Publisher,}} e.g., restricts \emph{publications} to have at least one \emph{publisher}.
 %If \emph{A+Conference-Proceedings} are published by \emph{A+Publisher} and \emph{A-Plus-Publisher},
 %it does not matter if \emph{A+Publisher} and \emph{A-Plus-Publisher} refer to one identical \emph{publisher} or to two distinct \emph{publishers}
@@ -2470,15 +2471,15 @@ It has to be guaranteed, e.g. that \emph{birth dates} are before (\emph{\textles
 If the \emph{birth date} and the \emph{death date} of \emph{Albert-Einstein} is interchanged
 {\small\ms{(birthDate(Albert-Einstein, "1955-04-18"), deathDate(Albert-Einstein, "1879-03-14")),}}
 a violation is thrown.
-The \emph{literal value comparison} constraint type is independent from the \emph{UNA}
+The \emph{literal value comparison} constraint type is independent from the UNA
 as the violation is not resolved 
 in case there are further resources (e.g. \emph{AlbertEinstein}, \emph{Albert\_Einstein}) which point to correct \emph{birth} and \emph{death dates}
-and which may be the same as the violating resource when \emph{nUNA} is assumed.
+and which may be the same as the violating resource when nUNA is assumed.
 
 We evaluated for each constraint type 
-if it is dependent on the \emph{CWA} and on the \emph{UNA} (for a detailed analysis we refer to the appendix of this paper \cite{BoschNolleAcarEckert2015}). 
+if it is dependent on the CWA and on the UNA (for a detailed analysis we refer to the appendix of this paper \cite{BoschNolleAcarEckert2015}). 
 The result is that we distinguish between 46 (56.8\%) $\mathcal{CWA}$ and 35 (43.2\%) $\overline{\mathcal{CWA}}$ and between 54 (66.6\%) $\mathcal{UNA}$ and 27 (33.3\%) $\overline{\mathcal{UNA}}$ constraint types.
-Hence, for the majority of the constraint types it makes a difference in terms of validation results if the \emph{CWA} or the \emph{OWA} and if the \emph{UNA} or the \emph{nUNA} is assumed.
+Hence, for the majority of the constraint types it makes a difference in terms of validation results if the CWA or the OWA and if the UNA or the nUNA is assumed.
 For the $\mathcal{CWA}$ and the $\mathcal{UNA}$ constraint types, we have to be careful in case we want to use them for reasoning and for validation
 as in both usage scenarios we assume different semantics which may lead to different results.
 %\textcolor{red}{
@@ -2497,13 +2498,13 @@ as in both usage scenarios we assume different semantics which may lead to diffe
 \label{implementation}
 
 We use \emph{SPIN}, 
-a \emph{SPARQL}-based way to formulate and check constraints, as basis to develop a
-validation environment\footnote{Online demo available at \url{http://purl.org/net/rdfval-demo}, source code available at: \url{https://github.com/boschthomas/rdf-validator}\label{rdf-validator}} to validate RDF data according to constraints expressed by arbitrary constraint languages by mapping them to \emph{SPIN}\footnote{\emph{SPIN} mappings available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/SPIN}\label{spin-mappings}} \cite{BoschEckert2014-2}.
-The \emph{SPIN} engine checks for each resource if it satisfies all constraints, which are associated with its classes, and generates a result RDF graph containing information about all constraint violations.
-We provide implementations to validate constraints of all constraint types expressible by \emph{OWL 2 QL}, \emph{OWL 2 DL}, and \emph{DSP} 
-as well as constraints of major constraint types representable by \emph{ReSh} and \emph{ShEx}\footref{spin-mappings}.
-By means of a \emph{property ranges} (\emph{R-28, R-35}) constraint it can be restricted that \emph{author} relations can only point to \emph{persons} (\emph{DL}: {\small\ms{$\top$ $\sqsubseteq$ $\forall$ author.Person,}} \emph{OWL 2 DL}: {\small\ms{author rdfs:range Person.).}}
-There is one \emph{SPIN} construct template for each constraint type, so for the constraint type \emph{property ranges}:
+a SPARQL-based way to formulate and check constraints, as basis to develop a
+validation environment\footnote{Online demo available at: \url{http://purl.org/net/rdfval-demo}, source code available at: \url{https://github.com/boschthomas/rdf-validator}\label{rdf-validator}} to validate RDF data according to constraints expressed by arbitrary constraint languages by mapping them to SPIN\footnote{SPIN mappings available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/SPIN}\label{spin-mappings}} \cite{BoschEckert2014-2}.
+The SPIN engine checks for each resource if it satisfies all constraints, which are associated with its classes, and generates a result RDF graph containing information about all constraint violations.
+We provide implementations to validate constraints of all constraint types expressible by OWL 2 QL, OWL 2 DL, and DSP 
+as well as constraints of major constraint types representable by ReSh and ShEx\footref{spin-mappings}.
+By means of a \emph{property ranges} (\emph{R-28, R-35}) constraint it can be restricted that \emph{author} relations can only point to \emph{persons} (DL: {\small\ms{$\top$ $\sqsubseteq$ $\forall$ author.Person,}} OWL 2 DL: {\small\ms{author rdfs:range Person.).}}
+There is one SPIN construct template for each constraint type, so for the constraint type \emph{property ranges}:
 
 \begin{ex}
 owl2spin:PropertyRanges a spin:ConstructTemplate ;
@@ -2515,12 +2516,12 @@ owl2spin:PropertyRanges a spin:ConstructTemplate ;
       FILTER NOT EXISTS { ?this a ?C } . } """ ; ] .
 \end{ex}
 
-A \emph{SPIN} construct template contains a \emph{SPARQL CONSTRUCT} query generating constraint violation triples which indicate the subject, the properties, and the constraint causing the violations and the reason why violations have been raised.
+A SPIN construct template contains a \emph{SPARQL CONSTRUCT} query generating constraint violation triples which indicate the subject, the properties, and the constraint causing the violations and the reason why violations have been raised.
 Violation triples, which are associated with a certain level of severity (informational, warning, error), may also give some guidance how to fix them.
-A \emph{SPIN} construct template creates violation triples if all triple patterns within the \emph{SPARQL WHERE clause} match.
+A SPIN construct template creates violation triples if all triple patterns within the \emph{SPARQL WHERE clause} match.
 If \emph{Doyle}, the \emph{author} of the book \emph{Sherlock-Holmes} {\small\ms{(author(Sherlock-Holmes, Doyle)),}} e.g., is not explicitly declared to be a \emph{person},
 all triple patterns within the \emph{SPARQL WHERE clause} match
-and the \emph{SPIN} construct template generates a violation triple.
+and the SPIN construct template generates a violation triple.
 
 \emph{Property ranges} is an $\mathcal{R}$ constraint type, i.e., a constraint type 
 for which reasoning may be performed prior to validation to enhance data quality. 
@@ -2533,7 +2534,7 @@ Validation environments should enable users
 (2) to select $\mathcal{R}$ constraint types for which reasoning should be executed, and
 (3) to globally determine if for all $\mathcal{R}$ constraint types reasoning should be done. 
 All resources, for which reasoning should be performed prior to validation, are automatically assigned to the class \emph{Reasoning} during a pre-reasoning step.
-There is one \emph{SPIN} rule for each $\mathcal{R}$ constraint type, so for the $\mathcal{R}$ constraint type \emph{property ranges}:
+There is one SPIN rule for each $\mathcal{R}$ constraint type, so for the $\mathcal{R}$ constraint type \emph{property ranges}:
 
 \begin{ex}
 owl2spin:Reasoning spin:rule [ a sp:Construct ; sp:text """
@@ -2542,26 +2543,26 @@ owl2spin:Reasoning spin:rule [ a sp:Construct ; sp:text """
     FILTER NOT EXISTS { ?this a ?C } . } """ ; ] .	
 \end{ex}
 
-The \emph{SPIN} rule is executed for each resource of the class \emph{Reasoning}.
-A \emph{SPIN} rule contains a \emph{SPARQL CONSTRUCT} query which generates triples 
+The SPIN rule is executed for each resource of the class \emph{Reasoning}.
+A SPIN rule contains a \emph{SPARQL CONSTRUCT} query which generates triples 
 if all triple patterns within the \emph{SPARQL WHERE clause} match.
 In case \emph{Doyle} is not defined to be a \emph{person}, all triple patterns match and the triple {\small\ms{rdf:type(Doyle, Person)}} is created. As a consequence, the violation on \emph{Doyle} is not raised. 
-We implemented reasoning capabilities for all $\mathcal{R}$ constraint types for which \emph{OWL 2 QL} and \emph{OWL 2 DL} reasoning may be performed\footref{spin-mappings}.
+We implemented reasoning capabilities for all $\mathcal{R}$ constraint types for which OWL 2 QL and OWL 2 DL reasoning may be performed\footref{spin-mappings}.
 
 \section{Related Work}
 \label{sec:related-Work}
 
-Tao \cite{tao2012integrity} suggested an \emph{OWL 2 DL} extension to support integrity constraints 
-which enables to use \emph{OWL 2} as a constraint language for validation under the \emph{CWA} by conjunctive query answering. 
+Tao \cite{tao2012integrity} suggested an OWL 2 DL extension to support integrity constraints 
+which enables to use OWL 2 as a constraint language for validation under the CWA by conjunctive query answering. 
 Tao also provides a solution to explain and to repair integrity constraint violations.
-Siren and Tao \cite{SirinTao2009} proposed an alternative semantics for \emph{OWL 2} using the \emph{CWA} 
+Siren and Tao \cite{SirinTao2009} proposed an alternative semantics for OWL 2 using the CWA 
 so that it could be used to validate integrity constraints.
-They examined integrity constraint semantics proposed in the deductive databases literature and adopted them for \emph{OWL 2}
-by reducing the validation of integrity constraints to \emph{SPARQL} query answering by means of reasoners.
-Although, the alternative semantics for \emph{OWL 2} is implemented in the \emph{Stardog} database\footnote{\url{http://stardog.com/}}, it has never been submitted to a standards organization such as the \emph{W3C}.
+They examined integrity constraint semantics proposed in the deductive databases literature and adopted them for OWL 2
+by reducing the validation of integrity constraints to SPARQL query answering by means of reasoners.
+Although, the alternative semantics for OWL 2 is implemented in the \emph{Stardog} database\footnote{\url{http://stardog.com/}}, it has never been submitted to a standards organization such as the \emph{W3C}.
 
-In \emph{DL}, reasoning tasks like query answering or detection of inconsistencies require the consideration of knowledge that is not only defined explicitly but also implicitly. To do so there are two different ways called forward- and backward-chaining. 
-The first method implies a materialized knowledge base, where the original knowledge base is extended by all assertions that can be inferred. State-of-the-art \emph{DL} or \emph{OWL} reasoners following this approach are \emph{FaCT++} \cite{tsarkov2006fact++}, \emph{Pellet} \cite{sirin2007pellet},  \emph{RacerPro} \cite{haarslev2001racer}, or \emph{HermiT} \cite{horrocks2012hermit}. 
+In DL, reasoning tasks like query answering or detection of inconsistencies require the consideration of knowledge that is not only defined explicitly but also implicitly. To do so there are two different ways called forward- and backward-chaining. 
+The first method implies a materialized knowledge base, where the original knowledge base is extended by all assertions that can be inferred. State-of-the-art DL or \emph{OWL} reasoners following this approach are \emph{FaCT++} \cite{tsarkov2006fact++}, \emph{Pellet} \cite{sirin2007pellet},  \emph{RacerPro} \cite{haarslev2001racer}, or \emph{HermiT} \cite{horrocks2012hermit}. 
 
 On the second approach, the original knowledge base is kept in its original state.
 Before queries are evaluated against the knowledge base, queries are rewritten such that the rewritings also consider the implicit knowledge in the result set. 
@@ -2641,21 +2642,21 @@ By mapping constraint types to \emph{description logics}, we were able to determ
 %whereas RDF validation is classically based on the \emph{CWA} and the \emph{UNA}.
 %For the majority of the constraint types it makes a difference if the \emph{CWA} or the \emph{OWA} and if the \emph{UNA} or the \emph{nUNA} is assumed (Section \ref{CWA-UNA-dependency}).
 Validation and reasoning assume different semantics which may lead to different validation results when applied to particular constraint types. %when particular constraint types are used for validation and for reasoning. 
-\emph{OWL 2} reasoning requires the \emph{OWA} with the \emph{nUNA}, 
-whereas validation is based on the \emph{CWA} and the \emph{UNA}.
+OWL 2 reasoning requires the OWA with the nUNA, 
+whereas validation is based on the CWA and the UNA.
 Therefore, we investigated for each constraint type
-(1) if it depends on the \emph{CWA} and (2) if it depends on the \emph{UNA}.
-For the majority of the constraint types, it makes a difference in terms of validation results if the \emph{CWA} or the \emph{OWA} and if the \emph{UNA} or the \emph{nUNA} is assumed (Section \ref{CWA-UNA-dependency}).
+(1) if it depends on the CWA and (2) if it depends on the UNA.
+For the majority of the constraint types, it makes a difference in terms of validation results if the CWA or the OWA and if the UNA or the nUNA is assumed (Section \ref{CWA-UNA-dependency}).
 
-Using these findings, we determined for the five most common constraint languages which constraint types they enable to express.
+Using these findings, we determined for the five most common constraint languages which constraint types they enable to express \cite{BoschNolleAcarEckert2015}.
 By revealing which constraint types are not covered by existing languages, 
-we give directions and emphasize the significant role \emph{SPIN} and \emph{OWL 2 DL} play for the future development of constraint languages (Section \ref{motivation}).
-\emph{SPARQL} is generally seen as the method of choice to validate data according to certain constraints \cite{Fuerber2010}, 
+we give directions and emphasize the significant role SPIN and OWL 2 DL play for the future development of constraint languages (Section \ref{motivation}).
+SPARQL is generally seen as the method of choice to validate data according to certain constraints \cite{Fuerber2010}, 
 although, it is not ideal for their formulation. 
-In contrast, constraint languages, which may be placed on top of \emph{SPARQL}, are comparatively easy to understand and constraints can be formulated more concisely. 
+In contrast, constraint languages, which may be placed on top of SPARQL, are comparatively easy to understand and constraints can be formulated more concisely. 
 We use \emph{SPIN}, 
-a \emph{SPARQL}-based way to formulate and check constraints, as basis to develop a
-validation environment\footref{rdf-validator} to validate RDF data according to constraints expressed by arbitrary constraint languages by mapping them to \emph{SPIN}\footref{spin-mappings} \cite{BoschEckert2014-2}.
+a SPARQL-based way to formulate and check constraints, as basis to develop a
+validation environment\footref{rdf-validator} to validate RDF data according to constraints expressed by arbitrary constraint languages by mapping them to SPIN\footref{spin-mappings} \cite{BoschEckert2014-2}.
 %The \emph{SPIN} engine checks for each resource if it satisfies all constraints, which are associated with classes assigned to the resource, and generates a result RDF graph containing information about all constraint violations.
 %We provide implementations to actually validate constraints of all constraint types expressible by \emph{OWL 2 QL}, \emph{OWL 2 DL}, and \emph{DSP} 
 %as well as constraints of major constraint types representable by \emph{ReSh} and \emph{ShEx}\footref{spin-mappings}.

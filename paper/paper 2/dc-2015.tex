@@ -369,7 +369,7 @@ Table \ref{tab:property-constraint-cardinality-restriction} displays how the sim
 
 %The \emph{constraining element} indicates the actual type of constraint like DL concept and role constructors ($\sqsubseteq$, $\equiv$, $\sqcap$, $\sqcup$, $\neg$, $\exists$, $\forall$, $\geq$, $\leq$), (in)equality (=, $\ne$), and further keywords for constraint types whose constraints cannot be expressed in DL (e.g., regular expressions and constraining facets). 
 
-The \emph{constraining element} is an intuitive term which indicates the actual type of constraint. For the majority of the constraint types, there is exactly one constraining element, for instance \emph{property domain (R-25, R-26)} restricts domains of properties and there is only one constraining element with exactly the same identifier \emph{property domain}. Complex constraints, however, need several constraining elements to be expressed, for instance \emph{language tag cardinality (R-48, R-49)}\ke{ich hab das etwas umgestellt, bin mir aber nicht sicher, ob r-48/49 complex sind. Ggf. bitte anpassen, eventuell den satz oder absatz auch rausziehen vor "simple constraints", wenn da erst mal geklärt wird, was das ist.} is used to restrict data properties to have a minimum, maximum, or exact number of relationships to literals with selected language tags. Thus, three constraining elements are needed to express each possible constraint of that constraint type. This example also illustrates that the granularity of the constraint types varies and certainly often is debatable. Keep in mind that they correspond to requirements as identified by the working groups. The constraining elements, as in this example, are closer to atomic elements of constraints.
+The \emph{constraining element} is an intuitive term which indicates the actual type of constraint. For the majority of the constraint types, there is exactly one constraining element, for instance \emph{property domain (R-25, R-26)} restricts domains of properties and there is only one constraining element with exactly the same identifier \emph{property domain}. Some constraint types, however, need several constraining elements to be expressed, for instance \emph{language tag cardinality (R-48, R-49)} is used to restrict data properties to have a minimum, maximum, or exact number of relationships to literals with selected language tags. Thus, three constraining elements are needed to express each possible constraint of that constraint type. This example also illustrates that the granularity of the constraint types varies and certainly often is debatable. Keep in mind that they correspond to requirements as identified by the working groups. The constraining elements, as in this example, are closer to atomic elements of constraints.
 
 If constraint types are expressible in DL, associated constraining elements are formally based on DL constructs like concept and role constructors ($\sqsubseteq$, $\equiv$, $\sqcap$, $\sqcup$, $\neg$, $\exists$, $\forall$, $\geq$, $\leq$), equality (=), and inequality ($\ne$). In case constraint types cannot be expressed in DL such as \emph{data property facets (R-46)} or \emph{literal pattern matching (R-44)}, we reuse widely known terms from SPARQL (e.g., REGEX) or XML Schema constraining facets (e.g., \emph{xsd:minInclusive}) as constraining elements. 
 % For some constraint types like \emph{minimum qualified cardinality restrictions (R-75)}, it is more intuitive and concise to directly apply DL constructs like the \emph{at-least restriction} ($\geq$) as constraining elements. 
@@ -667,13 +667,28 @@ D & title & - & string & = & 1 \\
 		%\end{tabular}
 %\end{table}
 The \emph{primary key properties (R-226)} constraint type is often useful to declare a given (datatype) property as the primary key of a class, so that a system can enforce uniqueness. 
-Books, e.g., are uniquely identified by their ISBN, i.e., the property \emph{isbn} is inverse functional \ms{$(\ms{funct } isbn\sp{\overline{\ }})$}
-which can be represented using the RDF-CV in form of a complex constraint consisting of two simple constraints (see Table \ref{tab:primary-key-properties-as-complex-constraints}).
+Books, e.g., are uniquely identified by their ISBN, i.e., the property \emph{isbn} is inverse functional {\small\ms{$(\ms{funct } isbn\sp{\overline{\ }})$}}
+which can be represented using the RDF-CV in form of a complex constraint consisting of two simple constraints (see Table \ref{tab:primary-key-properties-as-complex-constraints}). The meaning of these simple constraints is that ISBN identifiers can only have {\small\ms{$isbn\sp{\overline{\ }}$}} relations to at most one distinct book.
 
 %\begin{gcotable}
 %property & $\top$ & commandAuthorizationCode$^{-}$ & commandAuthorizationCode$^{-}$ & - & inverse & - \\
 %property & $\top$ & commandAuthorizationCode$^{-}$ & - & - & functional & - \\
 %\end{gcotable}
+
+%\begin{table}[H]
+  %\scriptsize
+  %\sffamily
+  %\vspace{0cm}
+	%\caption{Primary Key Properties as Complex Constraints}
+	%\label{tab:primary-key-properties-as-complex-constraints}
+	%\centering
+		%\begin{tabular}{c|c|c|c|c|c}
+      %\textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
+      %\hline
+%$\top$ & isbn$^{-}$ & isbn & - & inverse property & - \\
+%Book & isbn$^{-}$ & - & - & functional property & - \\
+		%\end{tabular}
+%\end{table}
 
 \begin{table}[H]
   \scriptsize
@@ -685,11 +700,10 @@ which can be represented using the RDF-CV in form of a complex constraint consis
 		\begin{tabular}{c|c|c|c|c|c}
       \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
       \hline
-$\top$ & isbn$^{-}$ & isbn$^{-}$ & - & inverse property & - \\
-Book & isbn$^{-}$ & - & - & functional property & - \\
+$\top$ & isbn$^{-}$ & isbn & - & inverse property & - \\
+Book & isbn$^{-}$ & - & - & $\leq$ & 1 \\
 		\end{tabular}
 \end{table}
-\ke{eins der isbn- in der tabelle ist doch falsch, oder? inverse von isbn- ist doch isbn...}
 
 Keys, however, are even more general, i.e., a generalization of inverse functional properties \cite{Schneider2009}.
 A key can be a datatype, an object property, or a chain of properties.
