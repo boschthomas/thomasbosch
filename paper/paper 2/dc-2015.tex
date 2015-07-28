@@ -160,7 +160,7 @@ We further see that OWL 2 is currently the most expressive high-level constraint
 	  \scriptsize
 		\begin{tabular}{c|c|c|c|c}
       %\textbf{Expressivity Class} & $Expr(\overline{\mathcal{CT}_R})$ (42) & $Expr(\mathcal{CT}_R)$ (32) \\		
-			\emph{DSP} & \emph{ReSh} & \emph{ShEx} & OWL 2 & \emph{SPIN} \\	
+			DSP & ReSh & ShEx & OWL 2 & SPIN \\	
       \hline
 			17.3 (14) & 25.9 (21) & 29.6 (24) & 67.9 (55) & \textbf{100.0} \textbf{(81)} 
 		\end{tabular}
@@ -170,7 +170,7 @@ We further see that OWL 2 is currently the most expressive high-level constraint
 We formerly demonstrated that a high-level constraint language like OWL 2 and DSP can be implemented by mapping the language to SPIN using SPARQL CONSTRUCT queries \cite{BoschEckert2014-2}. We provide a validation environment where own mappings from arbitrary constraint languages can be provided and tested.\footnote{Online available at: \url{http://purl.org/net/rdfval-demo}, source code online available at: \url{https://github.com/boschthomas/rdf-validator}.} The only limitations are that the constraints have to
 be expressed in RDF and that the constraint language is expressible in SPARQL.
 
-The constraint type \emph{minimum qualified cardinality restrictions} which corresponds to the requirement \emph{R-75}\footnote{Requirements are identified in the database by an R and a number, additionally an alphanumeric identifier is provided, in this case R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES. Online at: \url{http://lelystad.informatik.uni-mannheim.de/rdf-validation/?q=node/82}} can be instantiated to formulate the constraint that publications must have at least one author which must be a person. This constraint can be expressed as follows using different constraint languages:
+The constraint type \emph{minimum qualified cardinality restrictions} which corresponds to the requirement \emph{R-75}\footnote{Requirements are identified in the database by an R and a number, additionally an alphanumeric identifier is provided, in this case \emph{R-75-MINIMUM-QUALIFIED-CARDINALITY-ON-PROPERTIES}. Online at: \url{http://lelystad.informatik.uni-mannheim.de/rdf-validation/?q=node/82}} can be instantiated to formulate the constraint that publications must have at least one author which must be a person. This constraint can be expressed as follows using different constraint languages:
 
 \begin{ex}[commandchars=\\\{\}]
 \textit{OWL 2:} Publication a owl:Restriction ;
@@ -252,7 +252,7 @@ This raises two questions:
 \paragraph{Consistent implementation.}
 Even though SPIN provides a convenient way to represent constraints and to validate data according to these constraints, the implementation of a high-level constraint language still requires a tedious mapping to SPIN with a certain degree of freedom as to how a constraint violation is actually represented and how exactly the violation of the constraint is checked.
 Our framework therefore provides a common ground that is solely based on the abstract definitions of the constraint types, as identified in our database. By providing a SPIN mapping
-for each constraint type\footnote{RDF-CV to SPIN online available at: \url{https://github.com/boschthomas/RDF-CV-2-SPIN}\label{RDF-CV-2-SPIN}}, it is ensured that the details of the SPIN implementation are consistent irrespective of the constraint language and that the validation leads always to exactly the same results.  
+for each constraint type,\footnote{RDF-CV to SPIN online available at: \url{https://github.com/boschthomas/RDF-CV-2-SPIN}\label{RDF-CV-2-SPIN}} it is ensured that the details of the SPIN implementation are consistent irrespective of the constraint language and that the validation leads always to exactly the same results.  
 
 
 \paragraph{Constraint transformation.} Consistent implementations of constraint languages provide some advantage, but it could be argued that they are not important enough to justify the additional layer. The situation, however, is different when transformations from one constraint language to another are desired, i.e., to transform a \emph{specific constraint} \emph{$sc_{\alpha}$} of any constraint type expressed by language \emph{$\alpha$} into a semantically equivalent \emph{specific constraint} \emph{$sc_{\beta}$} of the same constraint type represented by any other language \emph{$\beta$}.
@@ -739,7 +739,7 @@ the complex constraint can be simplified and thus formulated as a simple constra
 
 Complex constraints of frequently used constraint types which correspond to DL axioms like \emph{transitivity}, \emph{symmetry}, \emph{asymmetry}, \emph{reflexivity} and \emph{irreflexivity} can also be simplified in form of simple constraints. Although these DL axioms are expressible by basic DL features, they can also be used in terms of syntactic sugar.
 
-Constraints of the \emph{irreflexive object properties (R-60)} constraint type ensure that no individual is connected by a given object property to itself \cite{Kroetzsch2012}. With the irreflexive object property constraint {\small\ms{$\top$ $\sqsubseteq$ $\neg$ $\exists authorOf.Self$}}, e.g., one can state that individuals cannot be authors of themselves. When represented using the RDF-CV, the complex constraint aggregates three simple constraints (see Table \ref{tab:irreflexive-object-properties-as-complex-constraints}).
+Constraints of the \emph{irreflexive object properties (R-60)} constraint type ensure that no individual is connected by a given object property to itself \cite{Kroetzsch2012}. With the irreflexive object property constraint {\small\ms{$\top$ $\sqsubseteq$ $\neg$$\exists authorOf.Self$}}, e.g., one can state that individuals cannot be authors of themselves. When represented using the RDF-CV, the complex constraint aggregates three simple constraints (see Table \ref{tab:irreflexive-object-properties-as-complex-constraints}).
 
 %\begin{gcotable}
 %property & $\exists$ marriedTo . Self & marriedTo & - & Self & $\exists$ & - \\
@@ -758,8 +758,8 @@ Constraints of the \emph{irreflexive object properties (R-60)} constraint type e
       \textbf{context class} & \textbf{left p. list} & \textbf{right p. list} & \textbf{classes} & \textbf{c. element} & \textbf{c. value} \\
       \hline
 $\exists$ authorOf.Self & authorOf & - & Self & existential quantification & - \\
-$\neg$ $\exists$ authorOf.Self & - & - & $\exists$ authorOf.Self & negation & - \\
-$\top$ & - & - & $\top$, $\neg$ $\exists$ authorOf.Self & sub-class & - \\
+$\neg$$\exists$ authorOf.Self & - & - & $\exists$ authorOf.Self & negation & - \\
+$\top$ & - & - & $\top$, $\neg$$\exists$ authorOf.Self & sub-class & - \\
 		\end{tabular}
 \end{table}
 
@@ -965,7 +965,7 @@ Because of the design of OWL for reasoning, there are claims that OWL cannot be 
 
 \emph{Shape Expressions (ShEx)} \cite{W3C-ShEx-Primer-2014,W3C-ShEx-Definition-2014,Prud'hommeaux-2014,Boneva-2014} specifies a language whose syntax and semantics are similar to regular expressions. ShEx associate RDF graphs with labeled patterns called \emph{shapes} which are used to express formal constraints on the content of RDF graphs. \emph{Resource Shapes (ReSh)} \cite{W3C-ReSh-2014} defines its own vocabulary for specifying shapes of RDF resources. Ryman, Hors, and Speicher define \emph{shape} as a description of the set of triples a resource is expected to contain and as a description of the integrity constraints those triples are required to satisfy \cite{Ryman2013}. 
 
-The \emph{Dublin Core Application Profile (DCAP)} and \emph{Bibframe Profiles} are approaches to specify \emph{profiles} for application-specific purposes. The term \emph{profile} is widely used to refer to a document that describes how standards or specifications are deployed to support the requirements of a particular application, function, community, or context. In the metadata community, the term \emph{application profile} has been applied to describe the tailoring of standards for specific applications. A \emph{Dublin Core Application Profile (DCAP)} \cite{DCMI-DCAP-2009} defines metadata records which meet specific application needs while providing semantic interoperability with other applications on the basis of globally defined vocabularies and models. The \emph{Singapore Framework for Dublin Core Application Profiles} \cite{DCMI-Singapore-2008} is a framework for designing metadata and for defining DCAPs. The framework comprises descriptive components that are necessary or useful for documenting DCAPs.
+The \emph{Dublin Core Application Profile (DCAP)} and \emph{Bibframe Profiles} are approaches to specify profiles for application-specific purposes. The term \emph{profile} is widely used to refer to a document that describes how standards or specifications are deployed to support the requirements of a particular application, function, community, or context. In the metadata community, the term \emph{application profile} has been applied to describe the tailoring of standards for specific applications. A \emph{Dublin Core Application Profile (DCAP)} \cite{DCMI-DCAP-2009} defines metadata records which meet specific application needs while providing semantic interoperability with other applications on the basis of globally defined vocabularies and models. The \emph{Singapore Framework for Dublin Core Application Profiles} \cite{DCMI-Singapore-2008} is a framework for designing metadata and for defining DCAPs. The framework comprises descriptive components that are necessary or useful for documenting DCAPs.
 
 The \emph{DCMI Abstract Model} \cite{DCMI-Abstract-Model-2007} is required for formalizing a notion of machine-processable application profiles. It specifies an abstract model for Dublin Core metadata which is independent of any particular encoding syntax. Its primary purpose is to specify the components used in Dublin Core metadata. Nilsson et al. \cite{DCMI-DC-RDF-2008} depict how the constructs of the DCMI Abstract Model are represented using the abstract syntax of the RDF model. A \emph{Description Set Profile (DSP)} \cite{DCMI-DSP-2008} is a generic constraint language which is used to formally specify structural constraints on sets of resource descriptions within an application profile. DSP constrains resources that may be described by descriptions in a description set, the properties that may be used, and the values properties may point to. \emph{BIBFRAME}\footnote{\url{http://bibframe.org}} \cite{Kroeger-2013,Godby-2015,Miller-2012} is the result of the \emph{Bibliographic Framework Initiative} and defines a vocabulary \cite{DCMI-Bibframe-Authorities-2014,DCMI-Bibframe-Relationships-2014} which has a strong overlap with DSP. \emph{BIBFRAME Profiles} \cite{DCMI-Bibframe-Profiles-2014} are essentially identical to DCAPs.
 
