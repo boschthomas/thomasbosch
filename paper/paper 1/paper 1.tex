@@ -1370,8 +1370,8 @@ since reasoning may be performed prior to validation to improve data quality by 
 \begin{ex}
 ISBN a RDFS:Datatype ; owl:equivalentClass [ a RDFS:Datatype ;
     owl:onDatatype xsd:string ; 
-    owl:withRestrictions ([ xsd:pattern "^\d{9}[\d|X]\$" ])] .
-\end{ex}
+    owl:withRestrictions ([ xsd:pattern "^\d{9}[\d|X]$" ])] .
+\end{ex}\$$
 
 The first OWL 2 axiom explicitly declares {\em ISBN} to be a datatype. %\er{Why start from second and then first? Also better we say "owl axiom" when we talk axiom of owl, to prevent ambiguity.}\tb{resolved}
 The second OWL 2 axiom defines {\em ISBN} as an abbreviation for a datatype restriction on {\em xsd:string}. 

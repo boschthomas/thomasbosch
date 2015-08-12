@@ -733,7 +733,7 @@ by evaluating the quality of data represented by more than three vocabularies (S
 %A complex and complete real world running example from the \emph{SBE} domain serves to prove the claim that the developed classification system perfectly applies for diverse vocabularies.
 %%, i.e., that it does not matter which vocabularies are used to represent (meta)data and for which domains constraints are defined.
 %We describe why RDF validation is important for the \emph{SBE} community (section \ref{motivation}), 
-%how data in tabular format and metadata on record-unit data sets, aggregated data sets, and thesauri are represented in RDF, 
+%how data in tabular format and metadata on unit-record data sets, aggregated data sets, and thesauri are represented in RDF, 
 %how therefore reused vocabularies are interrelated (section \ref{rdf-representation}),
 %and how \emph{SBE} (meta)data is validated against constraints of different constraint types (sections \ref{classification} - \ref{SPARQL-based-constraint-types}).
 %We evaluated the (meta)data quality of large real world data sets (more than 4.2 billion triples and 15 thousand data sets) from the \emph{SBE} domain represented by multiple vocabularies to get an understanding 
@@ -762,7 +762,7 @@ In XML, the definition of schemas containing data constraints and the validation
 With the rise of the Web of Data, data professionals and institutions are very interested in having their data be discovered and used by publishing their data directly in RDF or at least publish accurate metadata about their data to facilitate data integration. Therefore, not only established vocabularies like SKOS are used; 
 recently, members of the \emph{SBE} and Linked Data community developed with the \emph{DDI-RDF Discovery Vocabulary (DDI-RDF)}\footnote{\url{http://rdf-vocabulary.ddialliance.org/discovery.html}} a means to expose \emph{DDI} metadata as Linked Data. 
 
-The data most often used in research within \emph{SBE} sciences is \emph{record-unit data}, i.e., data collected about individuals, businesses, and households, in form of responses to studies or taken from administrative registers such as hospital records, registers of births and deaths. A \emph{study} represents the process by which a data set was generated or collected. The range of record-unit data is very broad - including census, education, health data and business, social, and labor force surveys. This type of research data is held within data archives or data libraries after it has been collected, so that it may be reused by future researchers. By its nature, record-unit data is highly confidential and access is often only permitted for qualified researchers who must apply for access. Researchers typically represent their results as aggregated data in form of multi-dimensional tables with only a few columns: so-called \emph{variables} such as \emph{sex} or \emph{age}. Aggregated data, which answers particular research questions, is derived from record-unit data by statistics on groups or aggregates such as frequencies and arithmetic means. The purpose of publicly available aggregated data is to get a first overview and to gain an interest in further analyses on the underlying record-unit data. For more detailed analyses, researchers refer to record-unit data including additional variables needed to answer subsequent research questions. 
+The data most often used in research within \emph{SBE} sciences is \emph{unit-record data}, i.e., data collected about individuals, businesses, and households, in form of responses to studies or taken from administrative registers such as hospital records, registers of births and deaths. A \emph{study} represents the process by which a data set was generated or collected. The range of unit-record data is very broad - including census, education, health data and business, social, and labor force surveys. This type of research data is held within data archives or data libraries after it has been collected, so that it may be reused by future researchers. By its nature, unit-record data is highly confidential and access is often only permitted for qualified researchers who must apply for access. Researchers typically represent their results as aggregated data in form of multi-dimensional tables with only a few columns: so-called \emph{variables} such as \emph{sex} or \emph{age}. Aggregated data, which answers particular research questions, is derived from unit-record data by statistics on groups or aggregates such as frequencies and arithmetic means. The purpose of publicly available aggregated data is to get a first overview and to gain an interest in further analyses on the underlying unit-record data. For more detailed analyses, researchers refer to unit-record data including additional variables needed to answer subsequent research questions. 
 
 \emph{Formal childcare} is an example of an aggregated variable which captures the measured availability of childcare services in percent over the population in European Union member states by 
 the dimensions \emph{year}, \emph{duration}, \emph{age} of the child, and \emph{country}.
@@ -778,15 +778,15 @@ Each data value is represented inside a \emph{qb:Observation} which contains val
 %(e.g., the year in which \emph{formal childcare} has been determined).
 %\ke{Wieso springt das von einer sehr knappen Einführung direkt zu konkreten (beliebigen?) Variablen? Ich möchte wissen, wofür QB benutzt wird und gerne ein konkretes %Beispiel sehen, um mir einen Data Cube vorstellen zu können.}\tb{hmm, ich halte das beispiel für ein knappes und verständliches beipsiel wie eine tabelle in qb dargestellt wird / es ist auch der link enthalten zu der tabelle von eurostat}
 
-For more detailed analyses we refer to the underlying record-unit data. The aggregated variable \emph{formal childcare} is calculated on the basis of six record-unit variables (i.a., \emph{Education at pre-school}) for which detailed metadata is given (i.a., code lists) enabling researchers to replicate the results shown in aggregated data tables.
-\emph{DDI-RDF} is used to represent metadata on record-unit data in RDF.
+For more detailed analyses we refer to the underlying unit-record data. The aggregated variable \emph{formal childcare} is calculated on the basis of six record-unit variables (i.a., \emph{Education at pre-school}) for which detailed metadata is given (i.a., code lists) enabling researchers to replicate the results shown in aggregated data tables.
+\emph{DDI-RDF} is used to represent metadata on unit-record data in RDF.
 %The series (\emph{DDI-RDF:StudyGroup}) \emph{EU-SILC} contains one study (\emph{DDI-RDF:Study}) for each year (\emph{dcterms:temporal}) of data collection.   
 %\emph{dcterms:spatial} points to the countries for which the data has been collected.
-The study (\emph{disco:Study}) for which the record-unit data has been collected 
+The study (\emph{disco:Study}) for which the unit-record data has been collected 
 %\emph{EU-SILC 2011} 
 contains eight data sets (\emph{disco:LogicalDataSet})
 including variables (\emph{disco:Variable}) like the six ones needed to calculate the variable \emph{formal childcare}.
-%Metadata on record-unit data enables researchers to investigate further research questions based on promising findings of other researchers in form of aggregated data.
+%Metadata on unit-record data enables researchers to investigate further research questions based on promising findings of other researchers in form of aggregated data.
 %One common research question is ,e.g., the comparison of variables like 
 %\emph{formal childcare} between countries, for which the variable is collected within the context of an individual study, and other European or non European countries (e.g. OSCE).
 
@@ -817,22 +817,22 @@ organize types (\emph{skos:Concept}) of descriptive statistics (\emph{disco:Summ
 %With the rise of the Web of Data, data professionals and institutions are very interested in having their data be discovered and used by publishing their data directly in RDF or at least publish accurate metadata about their data to facilitate data integration. Therefore, not only established vocabularies like SKOS are used; 
 %recently, members of the \emph{SBE} and Linked Data community developed with the \emph{DDI-RDF Discovery Vocabulary (DDI-RDF)}\footnote{\url{http://rdf-vocabulary.ddialliance.org/discovery.html}} a means to expose \emph{DDI} metadata as Linked Data. 
 %
-%The data most often used in research within \emph{SBE} sciences is \emph{record-unit data}, i.e., data collected about individuals, businesses, and households, in form of responses to studies or taken from administrative registers
+%The data most often used in research within \emph{SBE} sciences is \emph{unit-record data}, i.e., data collected about individuals, businesses, and households, in form of responses to studies or taken from administrative registers
 %such as hospital records, registers of births and deaths. 
-%The range of record-unit data is very broad - 
+%The range of unit-record data is very broad - 
 %including census, education, health data and business, social, and labor force surveys.  
 %This type of research data is
 %held within data archives or data libraries after it has been collected, so that it may be
 %reused by future researchers. 
 %
-%By its nature, record-unit data is highly confidential and access is often only permitted for qualified researchers who must apply for access. 
+%By its nature, unit-record data is highly confidential and access is often only permitted for qualified researchers who must apply for access. 
 %Researchers typically represent their results as aggregated data in form of multi-dimensional tables with only a few columns; so-called \emph{variables} such as \emph{sex} or \emph{age}.
-%Aggregated data, which answers particular research questions, is derived from record-unit data by statistics on groups or aggregates such as frequencies and arithmetic means.
-%The purpose of publicly available aggregated data is to get a first overview and to gain an interest in further analyses on the underlying record-unit data.
+%Aggregated data, which answers particular research questions, is derived from unit-record data by statistics on groups or aggregates such as frequencies and arithmetic means.
+%The purpose of publicly available aggregated data is to get a first overview and to gain an interest in further analyses on the underlying unit-record data.
 %Aggregated data is published in form of CSV files,
 %allowing to perform calculations on the data.
 %
-%For more detailed analyses, researchers refer to record-unit data including additional variables needed to answer subsequent research questions
+%For more detailed analyses, researchers refer to unit-record data including additional variables needed to answer subsequent research questions
 %like the comparison of studies between countries.
 %A \emph{study} represents the process by which a data set was generated or collected.
 %Eurostat\footnote{\url{http://ec.europa.eu/eurostat}}, the statistical office of the European Union, provides research findings in form of aggregated data (downloadable as CSV files) and its metadata at European level that enable comparisons between countries.
@@ -869,7 +869,7 @@ organize types (\emph{skos:Concept}) of descriptive statistics (\emph{disco:Summ
 %\emph{Physical Data Description (PHDD)}\footnote{\url{https://github.com/linked-statistics/physical-data-description}} is a vocabulary to represent data in tabular format in RDF enabling further aggregations and calculations. 
 %The data could be either represented in records with character-separated values (CSV) or fixed length. 
 %
-%For more detailed analyses we refer to the record-unit data collected for the series \emph{EU-SILC (European Union Statistics on Income and Living Conditions)}\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC}}. 
+%For more detailed analyses we refer to the unit-record data collected for the series \emph{EU-SILC (European Union Statistics on Income and Living Conditions)}\footnote{\url{http://www.gesis.org/missy/eu/metadata/EU-SILC}}. 
 %Where data collection is cyclic, data sets may be released as \emph{series}, 
 %where each cycle produces one or more data sets. 
 %The aggregated variable \emph{formal childcare} is calculated on the basis of six record-unit variables 
@@ -877,10 +877,10 @@ organize types (\emph{skos:Concept}) of descriptive statistics (\emph{disco:Summ
 %for which detailed metadata is given 
 %(e.g., code lists)
 %enabling researchers to replicate the results shown in aggregated data tables.
-%The \emph{DDI-RDF Discovery Vocabulary (DDI-RDF)} is a vocabulary to represent metadata on record-unit data in RDF.
+%The \emph{DDI-RDF Discovery Vocabulary (DDI-RDF)} is a vocabulary to represent metadata on unit-record data in RDF.
 %The series (\emph{DDI-RDF:StudyGroup}) \emph{EU-SILC} contains one study (\emph{DDI-RDF:Study}) for each year (\emph{dcterms:temporal}) of data collection.   
 %\emph{dcterms:spatial} points to the countries for which the data has been collected.
-%The study \emph{EU-SILC 2011} contains eight record-unit data sets (\emph{DDI-RDF:LogicalDataSet})
+%The study \emph{EU-SILC 2011} contains eight unit-record data sets (\emph{DDI-RDF:LogicalDataSet})
 %including record-unit variables (\emph{DDI-RDF:Variable}) like the six ones needed to calculate the aggregated variable \emph{formal childcare}.
 %
 %The \emph{Simple Knowledge Organization System (SKOS)} is reused multiple times to build \emph{SBE} vocabularies.
@@ -1216,7 +1216,7 @@ DL is extended with the construct \emph{keyfor} ({\small\ms{identifier \ms{keyfo
 %\end{DL}
 %\end{center}
 %
-%As we know that only record-unit data sets (\emph{DDI-RDF:LogicalDataSet}) can derive (\emph{DDI-RDF:aggregation}) aggregated data sets (\emph{qb:DataSet}), 
+%As we know that only unit-record data sets (\emph{DDI-RDF:LogicalDataSet}) can derive (\emph{DDI-RDF:aggregation}) aggregated data sets (\emph{qb:DataSet}), 
 %{\em logical-data-set} is a \emph{DDI-RDF:LogicalDataSet}, 
 %and \emph{aggregated-data-set} is derived from \emph{logical-data-set},
 %we conclude that \emph{aggregated-data-set} must be a \emph{qb:DataSet}.
@@ -1225,9 +1225,9 @@ DL is extended with the construct \emph{keyfor} ({\small\ms{identifier \ms{keyfo
 %
 %Reasoning may also cause constraint violations which are needed to enhance data quality.
 %With \emph{subsumption} (\emph{R-100}), one can state that \emph{DDI-RDF:LogicalDataSet} is a sub-class of \emph{dcat:DataSet}, 
-%i.e., each record-unit data set is also a catalog data set.
-%Thus, constraints on catalog data sets are also validated for record-unit data sets;
-%e.g., the \emph{existential quantification} below restricting that record-unit data sets must have a distribution: 
+%i.e., each unit-record data set is also a catalog data set.
+%Thus, constraints on catalog data sets are also validated for unit-record data sets;
+%e.g., the \emph{existential quantification} below restricting that unit-record data sets must have a distribution: 
 
 %\begin{center}
 %\begin{DL} 
@@ -1392,7 +1392,7 @@ Per default, however, access to data sets should be restricted (\emph{false}) (\
 %\textbf{Observations of Aggregated Data Sets.}
 %- for each dimension there should be a description and code lists.
 %- for each code list there should be a description.
-%- there should be a relationship to the underlying record-unit data.
+%- there should be a relationship to the underlying unit-record data.
 %
 %$\mathcal{CT}_{C}$ denotes the set of constraint types for which the definition of constraints is rather complex and cannot be derived from vocabulary definitions.
 The purpose of \emph{data model consistency} constraints is to ensure the integrity of
@@ -2274,8 +2274,8 @@ SPARQL seems to be used to formulate constraints whose violation is of higher se
 
 \section{Conclusion and Future Work}
 
-%In this paper, we showed in form of a complete real world running example how to represent metadata on record-unit data (DDI-RDF), metadata on aggregated data (QB), and data on both aggregation levels in a rectangular format (\emph{PHDD}) in RDF and how therefore used vocabularies are interrelated (\textbf{contribution 1}, section \ref{rdf-representation}).
-%We explained why RDF validation is important in this context and how metadata on record-unit data, aggregated data, thesauri, and statistical classifications as well as data on both aggregation levels is validated against constraints to ensure high (meta)data quality\footnote{The first appendix of this paper describing each constraint in detail is available at: \url{http://arxiv.org/abs/1504.04479} \cite{BoschZapilkoWackerowEckert2015}} (\textbf{contribution 2}, section \ref{rdf-validation}). 
+%In this paper, we showed in form of a complete real world running example how to represent metadata on unit-record data (DDI-RDF), metadata on aggregated data (QB), and data on both aggregation levels in a rectangular format (\emph{PHDD}) in RDF and how therefore used vocabularies are interrelated (\textbf{contribution 1}, section \ref{rdf-representation}).
+%We explained why RDF validation is important in this context and how metadata on unit-record data, aggregated data, thesauri, and statistical classifications as well as data on both aggregation levels is validated against constraints to ensure high (meta)data quality\footnote{The first appendix of this paper describing each constraint in detail is available at: \url{http://arxiv.org/abs/1504.04479} \cite{BoschZapilkoWackerowEckert2015}} (\textbf{contribution 2}, section \ref{rdf-validation}). 
 %We distinguish two validation types:
 %(1) \emph{Content-Driven Validation} $\mathcal{C}_{C}$ contains the set of constraints ensuring that the data is consistent with the intended syntax, semantics, and integrity of data models (section \ref{SPARQL-based-constraint-types}).
 %(2) \emph{Technology-Driven Validation} $\mathcal{C}_{T}$ includes the set of constraints which can be generated automatically out of data models, such as cardinality restrictions, universal and existential quantifications, domains, and ranges (section \ref{vocabulary-constraint-types}).
