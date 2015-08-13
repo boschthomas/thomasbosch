@@ -1,32 +1,51 @@
-% THIS IS SIGPROC-SP.TEX - VERSION 3.1
-% WORKS WITH V3.2SP OF ACM_PROC_ARTICLE-SP.CLS
-% APRIL 2009
+% This is "sig-alternate.tex" V2.1 April 2013
+% This file should be compiled with V2.5 of "sig-alternate.cls" May 2012
 %
-% It is an example file showing how to use the 'acm_proc_article-sp.cls' V3.2SP
-% LaTeX2e document class file for Conference Proceedings submissions.
+% This example file demonstrates the use of the 'sig-alternate.cls'
+% V2.5 LaTeX2e document class file. It is for those submitting
+% articles to ACM Conference Proceedings WHO DO NOT WISH TO
+% STRICTLY ADHERE TO THE SIGS (PUBS-BOARD-ENDORSED) STYLE.
+% The 'sig-alternate.cls' file will produce a similar-looking,
+% albeit, 'tighter' paper resulting in, invariably, fewer pages.
+%
 % ----------------------------------------------------------------------------------------------------------------
-% This .tex file (and associated .cls V3.2SP) *DOES NOT* produce:
+% This .tex file (and associated .cls V2.5) produces:
 %       1) The Permission Statement
 %       2) The Conference (location) Info information
 %       3) The Copyright Line with ACM data
-%       4) Page numbering
+%       4) NO page numbers
+%
+% as against the acm_proc_article-sp.cls file which
+% DOES NOT produce 1) thru' 3) above.
+%
+% Using 'sig-alternate.cls' you have control, however, from within
+% the source .tex file, over both the CopyrightYear
+% (defaulted to 200X) and the ACM Copyright Data
+% (defaulted to X-XXXXX-XX-X/XX/XX).
+% e.g.
+% \CopyrightYear{2007} will cause 2007 to appear in the copyright line.
+% \crdata{0-12345-67-8/90/12} will cause 0-12345-67-8/90/12 to appear in the copyright line.
+%
 % ---------------------------------------------------------------------------------------------------------------
-% It is an example which *does* use the .bib file (from which the .bbl file
-% is produced).
+% This .tex source is an example which *does* use
+% the .bib file (from which the .bbl file % is produced).
 % REMEMBER HOWEVER: After having produced the .bbl file,
-% and prior to final submission,
-% you need to 'insert'  your .bbl file into your source .tex file so as to provide
+% and prior to final submission, you *NEED* to 'insert'
+% your .bbl file into your source .tex file so as to provide
 % ONE 'self-contained' source file.
 %
-% Questions regarding SIGS should be sent to
-% Adrienne Griscti ---> griscti@acm.org
+% ================= IF YOU HAVE QUESTIONS =======================
+% Questions regarding the SIGS styles, SIGS policies and
+% procedures, Conferences etc. should be sent to
+% Adrienne Griscti (griscti@acm.org)
 %
-% Questions/suggestions regarding the guidelines, .tex and .cls files, etc. to
-% Gerald Murray ---> murray@hq.acm.org
+% Technical questions _only_ to
+% Gerald Murray (murray@hq.acm.org)
+% ===============================================================
 %
-% For tracking purposes - this is V3.1SP - APRIL 2009
+% For tracking purposes - this is V2.0 - May 2012
 
-\documentclass{acm_proc_article-sp}
+\documentclass{sig-alternate-05-2015}
 
 % allows for temporary adjustment of side margins
 \usepackage{chngpage}
@@ -205,16 +224,49 @@
 
 \begin{document}
 
-%\title{The Role of Constraint Languages and Reasoning for RDF Validation}
+\setcopyright{acmlicensed}
+\conferenceinfo{SEMANTiCS '15,}{September 15 - 17, 2015, Vienna, Austria}
+\isbn{978-1-4503-3462-4/15/09}\acmPrice{\$15.00}
+\doi{http://dx.doi.org/10.1145/2814864.2814867}
+
+% Copyright
+%\setcopyright{acmcopyright}
+%\setcopyright{acmlicensed}
+%\setcopyright{rightsretained}
+%\setcopyright{usgov}
+%\setcopyright{usgovmixed}
+%\setcopyright{cagov}
+%\setcopyright{cagovmixed}
+
+
+% DOI
+%\doi{10.475/123_4}
+
+% ISBN
+%\isbn{123-4567-24-567/08/06}
+
+%Conference
+%\conferenceinfo{PLDI '13}{June 16--19, 2013, Seattle, WA, USA}
+
+%\acmPrice{\$15.00}
+
+%
+% --- Author Metadata here ---
+%\conferenceinfo{WOODSTOCK}{'97 El Paso, Texas USA}
+%\CopyrightYear{2007} % Allows default copyright year (20XX) to be over-ridden - IF NEED BE.
+%\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
+% --- End of Author Metadata ---
+
 \title{The Role of Reasoning for RDF Validation}
-% On Constraint Languages for RDF Validation with an account to Reasoning
-%On Constraint Languages for RDF Validation and Reasoning
-%RDF Validation - Classification of Constraints and Constraint Languages According to Reasoning, Expressivity, and Complexity
-%RDF Validation: An Analysis of Constraint Languages
-%Analysing Constraint Languages for RDF Validation
-%Classifying Constraint Languages for RDF Validation
-%RDF Validation and Reasoning.
-%Classifying Constraint Languages for RDF validation Concerning Reasoning
+%\title{Alternate {\ttlit ACM} SIG Proceedings Paper in LaTeX
+%Format\titlenote{(Produces the permission block, and
+%copyright information). For use with
+%SIG-ALTERNATE.CLS. Supported by ACM.}}
+%\subtitle{[Extended Abstract]
+%\titlenote{A full version of this paper is available as
+%\textit{Author's Guide to Preparing ACM SIG Proceedings Using
+%\LaTeX$2_\epsilon$\ and BibTeX} at
+%\texttt{www.acm.org/eaddress.htm}}}
 %
 % You need the command \numberofauthors to handle the 'placement
 % and alignment' of the authors beneath the title.
@@ -256,6 +308,58 @@
 % e-mail address with \email.
 %
 % 1st. author
+%\alignauthor
+%Ben Trovato\titlenote{Dr.~Trovato insisted his name be first.}\\
+       %\affaddr{Institute for Clarity in Documentation}\\
+       %\affaddr{1932 Wallamaloo Lane}\\
+       %\affaddr{Wallamaloo, New Zealand}\\
+       %\email{trovato@corporation.com}
+%% 2nd. author
+%\alignauthor
+%G.K.M. Tobin\titlenote{The secretary disavows
+%any knowledge of this author's actions.}\\
+       %\affaddr{Institute for Clarity in Documentation}\\
+       %\affaddr{P.O. Box 1212}\\
+       %\affaddr{Dublin, Ohio 43017-6221}\\
+       %\email{webmaster@marysville-ohio.com}
+%% 3rd. author
+%\alignauthor Lars Th{\o}rv{\"a}ld\titlenote{This author is the
+%one who did all the really hard work.}\\
+       %\affaddr{The Th{\o}rv{\"a}ld Group}\\
+       %\affaddr{1 Th{\o}rv{\"a}ld Circle}\\
+       %\affaddr{Hekla, Iceland}\\
+       %\email{larst@affiliation.org}
+%\and  % use '\and' if you need 'another row' of author names
+%% 4th. author
+%\alignauthor Lawrence P. Leipuner\\
+       %\affaddr{Brookhaven Laboratories}\\
+       %\affaddr{Brookhaven National Lab}\\
+       %\affaddr{P.O. Box 5000}\\
+       %\email{lleipuner@researchlabs.org}
+%% 5th. author
+%\alignauthor Sean Fogarty\\
+       %\affaddr{NASA Ames Research Center}\\
+       %\affaddr{Moffett Field}\\
+       %\affaddr{California 94035}\\
+       %\email{fogartys@amesres.org}
+%% 6th. author
+%\alignauthor Charles Palmer\\
+       %\affaddr{Palmer Research Laboratories}\\
+       %\affaddr{8600 Datapoint Drive}\\
+       %\affaddr{San Antonio, Texas 78229}\\
+       %\email{cpalmer@prl.com}
+%}
+%% There's nothing stopping you putting the seventh, eighth, etc.
+%% author on the opening page (as the 'third row') but we ask,
+%% for aesthetic reasons that you place these 'additional authors'
+%% in the \additional authors block, viz.
+%\additionalauthors{Additional authors: John Smith (The Th{\o}rv{\"a}ld Group,
+%email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
+%(The Kumquat Consortium, email: {\texttt{jpkumquat@consortium.net}}).}
+%\date{30 July 1999}
+% Just remember to make sure that the TOTAL number of authors
+% is the number that will appear on the first page PLUS the
+% number that will appear in the \additionalauthors section.
 \alignauthor
 Thomas Bosch\\
        \affaddr{GESIS - Leibniz Institute for the Social Sciences, Germany}\\
@@ -283,17 +387,6 @@ Erman Acar\\
        %\affaddr{P.O. Box 5000}\\
        \email{eckert@hdm-stuttgart.de}
 }
-% There's nothing stopping you putting the seventh, eighth, etc.
-% author on the opening page (as the 'third row') but we ask,
-% for aesthetic reasons that you place these 'additional authors'
-% in the \additional authors block, viz.
-%\additionalauthors{Additional authors: John Smith (The Th{\o}rv{\"a}ld Group,
-%email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
-%(The Kumquat Consortium, email: {\texttt{jpkumquat@consortium.net}}).}
-%\date{30 July 1999}
-% Just remember to make sure that the TOTAL number of authors
-% is the number that will appear on the first page PLUS the
-% number that will appear in the \additionalauthors section.
 
 \maketitle
 \begin{abstract}
@@ -346,6 +439,42 @@ and give directions for the further development of constraint languages.
 %%If validators propose multiple constraint languages for a particular validation use case, additional rather subjective criteria regarding user-friendliness may be evaluated.
 \end{abstract}
 
+
+%
+% The code below should be generated by the tool at
+% http://dl.acm.org/ccs.cfm
+% Please copy and paste the code instead of the example below. 
+%
+%\begin{CCSXML}
+%<ccs2012>
+ %<concept>
+  %<concept_id>10010520.10010553.10010562</concept_id>
+  %<concept_desc>Computer systems organization~Embedded systems</concept_desc>
+  %<concept_significance>500</concept_significance>
+ %</concept>
+ %<concept>
+  %<concept_id>10010520.10010575.10010755</concept_id>
+  %<concept_desc>Computer systems organization~Redundancy</concept_desc>
+  %<concept_significance>300</concept_significance>
+ %</concept>
+ %<concept>
+  %<concept_id>10010520.10010553.10010554</concept_id>
+  %<concept_desc>Computer systems organization~Robotics</concept_desc>
+  %<concept_significance>100</concept_significance>
+ %</concept>
+ %<concept>
+  %<concept_id>10003033.10003083.10003095</concept_id>
+  %<concept_desc>Networks~Network reliability</concept_desc>
+  %<concept_significance>100</concept_significance>
+ %</concept>
+%</ccs2012>  
+%\end{CCSXML}
+
+%\ccsdesc[500]{Computer systems organization~Embedded systems}
+%\ccsdesc[300]{Computer systems organization~Redundancy}
+%\ccsdesc{Computer systems organization~Robotics}
+%\ccsdesc[100]{Networks~Network reliability}
+
 % A category with the (minimum) three required fields
 \category{F.4.3}{Mathematical Logic and Formal Languages}[formal languages]
 \category{I.2.4}{Artificial Intelligence}{Knowledge Representation Formalisms and Methods}
@@ -357,6 +486,20 @@ and give directions for the further development of constraint languages.
 \terms{Languages}
 
 \keywords{RDF Validation, RDF Constraint Types, Data Quality, Reasoning, OWL, Linked Data, Semantic Web} % NOT required for Proceedings
+
+%
+% End generated code
+%
+
+%
+%  Use this command to print the description
+%
+%\printccsdesc
+
+% We no longer use \terms command
+%\terms{Theory}
+
+%\keywords{ACM proceedings; \LaTeX; text tagging}
 
 %\section{Possible Titles}
 %
@@ -461,6 +604,9 @@ and give directions for the further development of constraint languages.
   
 %Capitalization in the bibliography is awry ('dl-lite', 'rdf', 'Rdf',
 %etc.).
+
+% spacing
+\par\bigskip
 
 \section{Introduction}
 \label{introduction}
@@ -1259,6 +1405,10 @@ $\mathcal{K}=\{$ \\
 \end{DL}
 \end{center}
 }
+
+% spacing
+\par\smallskip
+
 %\begin{center}
 %\begin{DL} 
 %$\mathcal{K}=\{$ & \ms{Person $\sqsubseteq \exists$ hasAncestor.Person}, \\
@@ -1796,7 +1946,7 @@ It is a common requirement to narrow down the value space of properties by an ex
 %}%
 Reasoning on this constraint type does not change validation results and therefore does not improve data quality.
 Books on the topics \emph{Computer Science} and \emph{Librarianship}, e.g., should only have \emph{ComputerScience} and \emph{Librarianship} as subjects.
-The corresponding DL statement {\small\ms{Book $\equiv$ $\forall$ subject.\{Computer-Science,Librarian ship\}}}
+The corresponding DL statement {\small\ms{Book $\equiv$ $\forall$ subject.\{Computer-Science, Librarianship\}}}
 is representable by DSP and OWL 2 DL:
 \begin{ex}
 [ a dsp:DescriptionTemplate ;
@@ -2823,68 +2973,9 @@ This is not an easy question, however, since complexity results are language spe
 %
 %Best regards, Christian.
 
-
-
-%
-% The following two commands are all you need in the
-% initial runs of your .tex file to
-% produce the bibliography for the citations in your paper.
 \bibliographystyle{abbrv}
-\bibliography{literature}  % sigproc.bib is the name of the Bibliography in this case
-% You must have a proper ".bib" file
-%  and remember to run:
-% latex bibtex latex latex
-% to resolve all references
-%
-% ACM needs 'a single self-contained file'!
-%
-%APPENDICES are optional
-%\balancecolumns
-%\appendix
-%Appendix A
-%\section{Headings in Appendices}
-%The rules about hierarchical headings discussed above for
-%the body of the article are different in the appendices.
-%In the \textbf{appendix} environment, the command
-%\textbf{section} is used to
-%indicate the start of each Appendix, with alphabetic order
-%designation (i.e. the first is A, the second B, etc.) and
-%a title (if you include one).  So, if you need
-%hierarchical structure
-%\textit{within} an Appendix, start with \textbf{subsection} as the
-%highest level. Here is an outline of the body of this
-%document in Appendix-appropriate form:
-%\subsection{Introduction}
-%\subsection{The Body of the Paper}
-%\subsubsection{Type Changes and  Special Characters}
-%\subsubsection{Math Equations}
-%\paragraph{Inline (In-text) Equations}
-%\paragraph{Display Equations}
-%\subsubsection{Citations}
-%\subsubsection{Tables}
-%\subsubsection{Figures}
-%\subsubsection{Theorem-like Constructs}
-%\subsubsection*{A Caveat for the \TeX\ Expert}
-%\subsection{Conclusions}
-%\subsection{Acknowledgments}
-%\subsection{Additional Authors}
-%This section is inserted by \LaTeX; you do not insert it.
-%You just add the names and information in the
-%\texttt{{\char'134}additionalauthors} command at the start
-%of the document.
-%\subsection{References}
-%Generated by bibtex from your ~.bib file.  Run latex,
-%then bibtex, then latex twice (to resolve references)
-%to create the ~.bbl file.  Insert that ~.bbl file into
-%the .tex source file and comment out
-%the command \texttt{{\char'134}thebibliography}.
-%% This next section command marks the start of
-%% Appendix B, and does not continue the present hierarchy
-%\section{More Help for the Hardy}
-%The acm\_proc\_article-sp document class file itself is chock-full of succinct
-%and helpful comments.  If you consider yourself a moderately
-%experienced to expert user of \LaTeX, you may find reading
-%it useful but please remember not to change it.
-\balancecolumns
+\bibliography{literature}
+
+\balancecolumns % GM June 2007
 % That's all folks!
 \end{document}
