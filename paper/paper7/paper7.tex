@@ -245,7 +245,7 @@
 } 
 \makeatother
 
-\newtheorem{rq}{Research Question}
+\renewtheorem{rq}{Research Question}
 
 \makeatletter
 \newcounter{subrq} 
@@ -259,7 +259,7 @@
   \renewcommand{\thehyp}{\saved@hyp\alph{hyp}}%
  }
  {}
-\newcommand{\normhyp}{%
+\renewcommand{\normhyp}{%
   \let\c@hyp\savedc@hyp % revert to the old one
   \renewcommand\thehyp{\arabic{rq}}%
 } 
