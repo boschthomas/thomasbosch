@@ -573,7 +573,7 @@
 \usepackage{float}
 
 \usepackage{ntheorem}
-\newtheorem{hyp}{Hypothesis}
+\newtheorem{hyp}{Finding}
 
 \makeatletter
 \newcounter{subhyp} 
@@ -702,26 +702,26 @@ Based on the results, we formulate several hypotheses to direct the further deve
 
 For constraint formulation and RDF data validation, several languages exist or are currently developed. \emph{Shape Expressions (ShEx)}, \emph{Resource Shapes (ReSh)}, \emph{Description Set Profiles (DSP)}, \emph{OWL 2}, the \emph{SPARQL Inferencing Notation (SPIN)}, and \emph{SPARQL} are the six most promising and widely used constraint languages. OWL 2 is used as a constraint language under the closed-world and unique name assumptions. The W3C currently develops \emph{SHACL}, an RDF vocabulary for describing RDF graph structures. With its direct support of validation via SPARQL, SPIN is very popular and certainly plays an important role for future developments in this field. It is particularly interesting as a means to validate arbitrary constraint languages by mapping them to SPARQL \cite{BoschEckert2014-2}. Yet, there is no clear favorite and none of the languages is able to meet all requirements raised by data practitioners. Further research and development therefore is needed.
 
-In 2013, the W3C organized the RDF Validation Workshop\footnote{\url{http://www.w3.org/2012/12/rdf-val/}}, 
+In 2013, the W3C organized the RDF Validation Workshop,\footnote{\url{http://www.w3.org/2012/12/rdf-val/}} 
 where experts from industry, government, and academia discussed first use cases for constraint formulation and RDF data validation.
 In 2014, two working groups on RDF validation have been established to develop a language to express constraints on RDF data: 
-the \emph{W3C RDF Data Shapes Working Group}\footnote{\url{http://www.w3.org/2014/rds/charter}} (33 participants of 19 organizations) and the \emph{DCMI RDF Application Profiles Task Group}\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}} (29 people of 22 organizations) which among others bundles the requirements of data institutions of the cultural heritage sector and the social, behavioural, and economic (\emph{SBE}) sciences and represents them in the W3C group. 
+the \emph{W3C RDF Data Shapes Working Group}\footnote{\url{http://www.w3.org/2014/rds/charter}} (33 participants of 19 organizations) and the \emph{DCMI RDF Application Profiles Task Group}\footnote{\url{http://wiki.dublincore.org/index.php/RDF-Application-Profiles}} (29 people of 22 organizations) which among others bundles the requirements of data institutions of the cultural heritage sector and the \emph{social, behavioural, and economic (SBE)} sciences and represents them in the W3C group. 
 
 Within the DCMI task group, a collaboratively curated database of RDF validation requirements\footnote{Online available at: \url{http://purl.org/net/rdf-validation}} has been created which contains the findings of the working groups based on various case studies provided by data institutions \cite{BoschEckert2014}. It is publicly available and open for further contributions.
 The database connects requirements to use cases, case studies, and implementations and forms the basis of this paper. 
 We distinguish 81 requirements to formulate constraints on RDF data; 
 each of them corresponding to a constraint type.
 
-To gain a better understanding about the role of certain requirements for data quality and in order to direct the further development of constraint languages, we collected constraints for commonly used vocabularies in the \emph{SBE} domain (see Section \ref{sbe-vocabularies}), either from the vocabularies themselves or from domain and data experts. All in all, this lead to 115 constraints on three vocabularies. 
+In this paper, we collected constraints for commonly used vocabularies in the SBE domain (see Section \ref{sbe-vocabularies}), either from the vocabularies themselves or from domain and data experts, in order to gain a better understanding about the role of certain requirements for data quality and to direct the further development of constraint languages. All in all, this lead to 115 constraints on three vocabularies
 We let the experts classify the constraints according to the severity of their violation. Furthermore, we classified each constraint type based on whether it is expressible by RDFS/OWL, common high-level constraint languages, or only by plain SPARQL (see Chapter \ref{classification}).
 
 As we do not want to base our conclusions on the evaluation of vocabularies and constraint definitions alone, we conducted a large-scale experiment.
-For all these 115 constraints, we evaluated the data quality of 15,694 data sets (4.26 billion triples) of \emph{SBE} research data on three common vocabularies in \emph{SBE} sciences (DDI-RDF, QB, SKOS) obtained from 33 SPARQL endpoints.
-%evaluated the data quality of 15,694 data sets (4.26 billion triples) of research data for the social, behavioural, and economic (\emph{SBE}) sciences obtained from 33 SPARQL endpoints.
+For all these 115 constraints, we evaluated the data quality of 15,694 data sets (4.26 billion triples) of SBE research data on three common vocabularies in SBE sciences (DDI-RDF, QB, SKOS) obtained from 33 SPARQL endpoints.
+%evaluated the data quality of 15,694 data sets (4.26 billion triples) of research data for the social, behavioural, and economic (SBE) sciences obtained from 33 SPARQL endpoints.
 Based on the evaluation results,
-we formulate several hypotheses to direct the further development of constraint languages.
+we formulate several findings to direct the further development of constraint languages.
 To make valid general statements for all vocabularies, however,
-the hypotheses still have to be verified or falsified
+these findings still have to be verified or falsified
 by evaluating the quality of data represented by more than three vocabularies (Section \ref{evaluation}).
 %The \textbf{contribution} of this paper is the development of a system 
 %\begin{enumerate}
@@ -729,18 +729,18 @@ by evaluating the quality of data represented by more than three vocabularies (S
 	%\item to classify RDF constraint types (according to their complexity) which in most cases correspond to RDF validation requirements\footnote{For simplicity reasons, we use the terms \emph{constraint types} and \emph{constraints} instead of \emph{RDF constraint types} and \emph{RDF constraints} in the rest of the paper} (sections \ref{classification} - \ref{SPARQL-based-constraint-types}).
 %\end{enumerate}
 %By defining a huge amount of constraints of the majority of the constraint types,   
-%we apply the developed classification system to several and different vocabularies from the \emph{SBE} domain to represent both metadata and data and therefore prove its generality.
-%A complex and complete real world running example from the \emph{SBE} domain serves to prove the claim that the developed classification system perfectly applies for diverse vocabularies.
+%we apply the developed classification system to several and different vocabularies from the SBE domain to represent both metadata and data and therefore prove its generality.
+%A complex and complete real world running example from the SBE domain serves to prove the claim that the developed classification system perfectly applies for diverse vocabularies.
 %%, i.e., that it does not matter which vocabularies are used to represent (meta)data and for which domains constraints are defined.
-%We describe why RDF validation is important for the \emph{SBE} community (section \ref{motivation}), 
+%We describe why RDF validation is important for the SBE community (section \ref{motivation}), 
 %how data in tabular format and metadata on unit-record data sets, aggregated data sets, and thesauri are represented in RDF, 
 %how therefore reused vocabularies are interrelated (section \ref{rdf-representation}),
-%and how \emph{SBE} (meta)data is validated against constraints of different constraint types (sections \ref{classification} - \ref{SPARQL-based-constraint-types}).
-%We evaluated the (meta)data quality of large real world data sets (more than 4.2 billion triples and 15 thousand data sets) from the \emph{SBE} domain represented by multiple vocabularies to get an understanding 
+%and how SBE (meta)data is validated against constraints of different constraint types (sections \ref{classification} - \ref{SPARQL-based-constraint-types}).
+%We evaluated the (meta)data quality of large real world data sets (more than 4.2 billion triples and 15 thousand data sets) from the SBE domain represented by multiple vocabularies to get an understanding 
 %(1) which sets of constraint types (on different levels of complexity) and 
 %(2) which sets of constraints (associated with particular severity levels) encompass the constraints causing the most/fewest constraint violations (see section \ref{evaluation}).
 
-In this paper, we discuss constraints on RDF data in general. Note that the data represented in RDF can be data in the sense of \emph{SBE} sciences, but also metadata about published or unpublished data. We generally refer to both simply as RDF data and only distinguish between data and metadata in the data set descriptions. 
+In this paper, we discuss constraints on RDF data in general. Note that the data represented in RDF can be data in the sense of SBE sciences, but also metadata about published or unpublished data. We generally refer to both simply as RDF data and only distinguish between data and metadata in the data set descriptions. 
 %and in the case that it matters for the purpose of this paper.
 
 %We propose an extensible metric to measure the continuum of severity levels to indicate how serious the violation of given constraints is.
@@ -752,17 +752,17 @@ In this paper, we discuss constraints on RDF data in general. Note that the data
 \section{Common Vocabularies in SBE Sciences}
 \label{sbe-vocabularies}
 
-We took all well-established and newly developed \emph{SBE} vocabularies into account and defined constraints for three vocabularies commonly used in the \emph{SBE} sciences which are briefly introduced in the following. We analyzed actual data according to constraint violations, as for these vocabularies large data sets are already published.
+We took all well-established and newly developed SBE vocabularies into account and defined constraints for three vocabularies commonly used in the SBE sciences which are briefly introduced in the following. We analyzed actual data according to constraint violations, as for these vocabularies large data sets are already published.
 
-\emph{SBE} sciences require high-quality data for their empirical research. For more than a decade, members of the \emph{SBE} community have been developing and using a
+SBE sciences require high-quality data for their empirical research. For more than a decade, members of the SBE community have been developing and using a
 metadata standard, composed of almost twelve hundred metadata fields, known as the \emph{Data Documentation Initiative (DDI)},
 an XML format to disseminate, manage,
 and reuse data collected and archived for research \cite{Vardigan2008}. 
 In XML, the definition of schemas containing data constraints and the validation of data according to these constraints is commonly used to ensure a certain level of data quality.
 With the rise of the Web of Data, data professionals and institutions are very interested in having their data be discovered and used by publishing their data directly in RDF or at least publish accurate metadata about their data to facilitate data integration. Therefore, not only established vocabularies like SKOS are used; 
-recently, members of the \emph{SBE} and Linked Data community developed with the \emph{DDI-RDF Discovery Vocabulary (DDI-RDF)}\footnote{\url{http://rdf-vocabulary.ddialliance.org/discovery.html}} a means to expose \emph{DDI} metadata as Linked Data. 
+recently, members of the SBE and Linked Data community developed with the \emph{DDI-RDF Discovery Vocabulary (DDI-RDF)}\footnote{\url{http://rdf-vocabulary.ddialliance.org/discovery.html}} a means to expose \emph{DDI} metadata as Linked Data. 
 
-The data most often used in research within \emph{SBE} sciences is \emph{unit-record data}, i.e., data collected about individuals, businesses, and households, in form of responses to studies or taken from administrative registers such as hospital records, registers of births and deaths. A \emph{study} represents the process by which a data set was generated or collected. The range of unit-record data is very broad - including census, education, health data and business, social, and labor force surveys. This type of research data is held within data archives or data libraries after it has been collected, so that it may be reused by future researchers. By its nature, unit-record data is highly confidential and access is often only permitted for qualified researchers who must apply for access. Researchers typically represent their results as aggregated data in form of multi-dimensional tables with only a few columns: so-called \emph{variables} such as \emph{sex} or \emph{age}. Aggregated data, which answers particular research questions, is derived from unit-record data by statistics on groups or aggregates such as frequencies and arithmetic means. The purpose of publicly available aggregated data is to get a first overview and to gain an interest in further analyses on the underlying unit-record data. For more detailed analyses, researchers refer to unit-record data including additional variables needed to answer subsequent research questions. 
+The data most often used in research within SBE sciences is \emph{unit-record data}, i.e., data collected about individuals, businesses, and households, in form of responses to studies or taken from administrative registers such as hospital records, registers of births and deaths. A \emph{study} represents the process by which a data set was generated or collected. The range of unit-record data is very broad - including census, education, health data and business, social, and labor force surveys. This type of research data is held within data archives or data libraries after it has been collected, so that it may be reused by future researchers. By its nature, unit-record data is highly confidential and access is often only permitted for qualified researchers who must apply for access. Researchers typically represent their results as aggregated data in form of multi-dimensional tables with only a few columns: so-called \emph{variables} such as \emph{sex} or \emph{age}. Aggregated data, which answers particular research questions, is derived from unit-record data by statistics on groups or aggregates such as frequencies and arithmetic means. The purpose of publicly available aggregated data is to get a first overview and to gain an interest in further analyses on the underlying unit-record data. For more detailed analyses, researchers refer to unit-record data including additional variables needed to answer subsequent research questions. 
 
 \emph{Formal childcare} is an example of an aggregated variable which captures the measured availability of childcare services in percent over the population in European Union member states by 
 the dimensions \emph{year}, \emph{duration}, \emph{age} of the child, and \emph{country}.
@@ -790,7 +790,7 @@ including variables (\emph{disco:Variable}) like the six ones needed to calculat
 %One common research question is ,e.g., the comparison of variables like 
 %\emph{formal childcare} between countries, for which the variable is collected within the context of an individual study, and other European or non European countries (e.g. OSCE).
 
-The \emph{Simple Knowledge Organization System (SKOS)} is reused multiple times to build \emph{SBE} vocabularies.
+The \emph{Simple Knowledge Organization System (SKOS)} is reused multiple times to build SBE vocabularies.
 The codes of the variable \emph{Education at pre-school} are modeled as \emph{skos:Concepts} and 
 a \emph{skos:OrderedCollection} organizes them in a particular order within a \emph{skos:memberList}.
 A variable may be associated with a theoretical concept (\emph{skos:Concept}) and \emph{skos:narrower} builds the hierarchy of theoretical concepts within a \emph{skos:ConceptScheme} of a study.
@@ -809,15 +809,15 @@ organize types (\emph{skos:Concept}) of descriptive statistics (\emph{disco:Summ
 %\section{Common Vocabularies in SBE Sciences}
 %\label{rdf-representation}
 %
-%\emph{SBE} sciences require high-quality data for their empirical research. For more than a decade, members of the \emph{SBE} community have been developing and using a
+%SBE sciences require high-quality data for their empirical research. For more than a decade, members of the SBE community have been developing and using a
 %metadata standard, composed of almost twelve hundred metadata fields, known as the \emph{Data Documentation Initiative (DDI)},
 %an XML format to disseminate, manage,
 %and reuse data collected and archived for research \cite{Vardigan2008}. 
 %In XML, the definition of schemas containing data constraints and the validation of data according to these constraints is commonly used to ensure a certain level of data quality.
 %With the rise of the Web of Data, data professionals and institutions are very interested in having their data be discovered and used by publishing their data directly in RDF or at least publish accurate metadata about their data to facilitate data integration. Therefore, not only established vocabularies like SKOS are used; 
-%recently, members of the \emph{SBE} and Linked Data community developed with the \emph{DDI-RDF Discovery Vocabulary (DDI-RDF)}\footnote{\url{http://rdf-vocabulary.ddialliance.org/discovery.html}} a means to expose \emph{DDI} metadata as Linked Data. 
+%recently, members of the SBE and Linked Data community developed with the \emph{DDI-RDF Discovery Vocabulary (DDI-RDF)}\footnote{\url{http://rdf-vocabulary.ddialliance.org/discovery.html}} a means to expose \emph{DDI} metadata as Linked Data. 
 %
-%The data most often used in research within \emph{SBE} sciences is \emph{unit-record data}, i.e., data collected about individuals, businesses, and households, in form of responses to studies or taken from administrative registers
+%The data most often used in research within SBE sciences is \emph{unit-record data}, i.e., data collected about individuals, businesses, and households, in form of responses to studies or taken from administrative registers
 %such as hospital records, registers of births and deaths. 
 %The range of unit-record data is very broad - 
 %including census, education, health data and business, social, and labor force surveys.  
@@ -842,7 +842,7 @@ organize types (\emph{skos:Concept}) of descriptive statistics (\emph{disco:Summ
 %Variables are constructed out of values (of one or multiple datatypes) and/or code lists.
 %The variable \emph{age}, e.g., may be represented by values of the datatype \emph{xsd:nonNegativeInteger} or by a code list of age clusters (e.g., '0 to 10' and '11 to 20'). 
 %
-%A very important and representative RDF validation case study within \emph{SBE} sciences is the comparison of variables between data collections of different countries.
+%A very important and representative RDF validation case study within SBE sciences is the comparison of variables between data collections of different countries.
 %Several vocabulary-specific constraints on RDF data are checked for each data collection
 %to determine if variables measuring \emph{age} 
 %- collected for different countries (\emph{$age_{DE}$}, \emph{$age_{UK}$}) - 
@@ -856,7 +856,7 @@ organize types (\emph{skos:Concept}) of descriptive statistics (\emph{disco:Summ
 %i.e., the violation of the first three constraints is more serious than the violation of the last constraint.
 %If the intention of the researcher is to perform more sophisticated comparisons (use case 2), however, the user may raise the severity level of the last constraint.
 %
-%We took all well-established and newly developed \emph{SBE} vocabularies into account and defined constraints for six vocabularies commonly used in or developed for the \emph{SBE} sciences which are briefly introduced in the following.
+%We took all well-established and newly developed SBE vocabularies into account and defined constraints for six vocabularies commonly used in or developed for the SBE sciences which are briefly introduced in the following.
 %For three of them, we analyzed actual data according to constraint violations, as for these vocabularies large data sets are already published.
 %
 %The \emph{RDF Data Cube Vocabulary (QB)}\footnote{http://www.w3.org/TR/vocab-data-cube/} is a W3C recommendation for representing \emph{data cubes}, i.e. multi-dimensional aggregated data, in RDF \cite{Cyganiak2010}. 
@@ -883,7 +883,7 @@ organize types (\emph{skos:Concept}) of descriptive statistics (\emph{disco:Summ
 %The study \emph{EU-SILC 2011} contains eight unit-record data sets (\emph{DDI-RDF:LogicalDataSet})
 %including record-unit variables (\emph{DDI-RDF:Variable}) like the six ones needed to calculate the aggregated variable \emph{formal childcare}.
 %
-%The \emph{Simple Knowledge Organization System (SKOS)} is reused multiple times to build \emph{SBE} vocabularies.
+%The \emph{Simple Knowledge Organization System (SKOS)} is reused multiple times to build SBE vocabularies.
 %The codes of the variable \emph{Education at pre-school} (number of education hours per week) are modeled as \emph{skos:Concepts} and 
 %a \emph{skos:OrderedCollection} organizes them in a particular order within a \emph{skos:member} \emph{List}.
 %A variable may be associated with a theoretical concept (\emph{skos:Concept}). 
@@ -961,7 +961,7 @@ Within the working groups, we identified by today 81 requirements to formulate R
 Within a technical report, we explain each requirement/constraint type in detail and give examples for each expressed by different constraint languages \cite{BoschNolleAcarEckert2015}. We provide mappings to representations in Description Logics (DL) \cite{Baader-2003} to logically underpin each requirement and to determine which DL constructs are needed to express each constraint type.
 %In total, we distinguish 81 RDF constraint types as we identified 6 RDF constraint types which are only necessary for validating particular vocabularies.
 %Constraints are instantiated from constraint types in order to validate both metadata and data represented by any vocabulary; thus, the proposed classification system is vocabulary-independent and therefore applicable generically.
-For the three vocabularies, several \emph{SBE} domain experts determined the default severity level of the 115 concrete constraints, which we published in a technical report \cite{BoschZapilkoWackerowEckert2015}.
+For the three vocabularies, several SBE domain experts determined the default severity level of the 115 concrete constraints, which we published in a technical report \cite{BoschZapilkoWackerowEckert2015}.
 In the following, we summarize the results for the purpose of our evaluation.
 
 \subsection{Classification of Constraint Types according to the Expressivity of Constraint Languages}
@@ -1037,7 +1037,7 @@ It does not make sense to determine the severity of constraint violations of an 
 as the severity of the violation of a constraint depends on the individual context and vocabulary.
 %as the violation of one constraint may be severe,
 %whereas, the violation of another constraint of the same type may be minor.
-\emph{SBE} experts determined the default \emph{severity level}\footnote{The possibility to define severity levels in vocabularies is in itself a requirement (\emph{R-158}).} for each of the 115 constraints to indicate how serious the violation of the constraint is. We use the classification system of log messages in software development like \emph{Apache Log4j 2} \cite{Apache-2015}, the \emph{Java Logging API}\footnote{\url{http://docs.oracle.com/javase/7/docs/api/java/util/logging/Level.html}}, and the \emph{Apache Commons Logging API}\footnote{\url{http://commons.apache.org/proper/commons-logging/}} as many data practitioners also have experience in software development and software developers intuitively understand these levels. We simplify this commonly accepted classification system and distinguish the three severity levels (1) \emph{informational}, (2) \emph{warning} and (3) \emph{error}.
+SBE experts determined the default \emph{severity level}\footnote{The possibility to define severity levels in vocabularies is in itself a requirement (\emph{R-158}).} for each of the 115 constraints to indicate how serious the violation of the constraint is. We use the classification system of log messages in software development like \emph{Apache Log4j 2} \cite{Apache-2015}, the \emph{Java Logging API}\footnote{\url{http://docs.oracle.com/javase/7/docs/api/java/util/logging/Level.html}}, and the \emph{Apache Commons Logging API}\footnote{\url{http://commons.apache.org/proper/commons-logging/}} as many data practitioners also have experience in software development and software developers intuitively understand these levels. We simplify this commonly accepted classification system and distinguish the three severity levels (1) \emph{informational}, (2) \emph{warning} and (3) \emph{error}.
 %According to the default severity level of constraints, the complete set of constraints encompasses three disjoint \emph{sets of constraints}:\ke{auch dieser satz macht keinen sinn für mich, ebensowenig wie die extrem erhellende auflistung, die gleich folgt... mein vorschlag von eben kann das komplett ersetzen.}
 %\begin{itemize}
 	%\item \textbf{\emph{informational constraints}}: constraints with severity level \emph{informational}
@@ -1600,7 +1600,7 @@ as language coverage incompleteness for some concepts may indicate shortcomings 
 \section{Evaluation}
 \label{evaluation}
 
-In this section, we describe our findings based on an automatic constraint checking of a large data set. Despite the large volume of the data set in general, we have to keep in mind that this study only uses data for three vocabularies. As described in Section~\ref{sbe-vocabularies}, for other vocabularies there is often not (yet) enough data openly available to draw general conclusions. The three vocabularies, however, are representative, cover different aspects of \emph{SBE} data, and are also a mixture of widely adopted and accepted well-established vocabularies (QB, SKOS) and a vocabulary under development (DDI-RDF\footnote{Expected publication at the end of the year 2015}). Due to this limitation, we will present several hypotheses together with a rationale based on the results for the three vocabularies. If the hypotheses hold generally is still to be determined, nevertheless they should provide valuable insights for future developments of constraint languages.
+In this section, we describe our findings based on an automatic constraint checking of a large data set. Despite the large volume of the data set in general, we have to keep in mind that this study only uses data for three vocabularies. As described in Section~\ref{sbe-vocabularies}, for other vocabularies there is often not (yet) enough data openly available to draw general conclusions. The three vocabularies, however, are representative, cover different aspects of SBE data, and are also a mixture of widely adopted and accepted well-established vocabularies (QB, SKOS) and a vocabulary under development (DDI-RDF\footnote{Expected publication at the end of the year 2015}). Due to this limitation, we present several findings together with a rationale based on the results for the three vocabularies. If these findings hold generally is still to be determined, nevertheless they should provide valuable insights for future developments of constraint languages.
 
 \subsection{Experimental Setup}
 \label{implementation}
@@ -1609,7 +1609,7 @@ In this section, we describe our findings based on an automatic constraint check
 
 	%\item First, we assigned each constraint type to exactly one of the disjoint sets of constraint types 
 %in order to get an overview how many constraint types in relation to the total amount of constraint types are extractable from vocabularies ($\mathcal{CT}_{B}$), are easily definable ($\mathcal{CT}_{S}$), and are rather difficult to specify ($\mathcal{CT}_{C}$). 
-On the three vocabularies (DDI-RDF, QB, SKOS), we identified and classified 115 constraints\footnote{All 115 implemented constraints online available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}} which we implemented for data validation. We ensured that the implementation of the constraints is equally distributed over the classes and vocabularies we have. We then evaluated the data quality of 15,694 data sets (4.26 billion triples) of \emph{SBE} research data using these 115 constraints, obtained from 33 SPARQL endpoints.
+On the three vocabularies (DDI-RDF, QB, SKOS), we identified and classified 115 constraints\footnote{All 115 implemented constraints are online available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}} which we implemented for data validation. We ensured that the implementation of the constraints is equally distributed over the classes and vocabularies we have. We then evaluated the data quality of 15,694 data sets (4.26 billion triples) of SBE research data using these 115 constraints, obtained from 33 SPARQL endpoints.
 
 %QB and SKOS are well-established vocabularies which are widely adopted and accepted. DDI-RDF is a newly developed vocabulary which will be published in 2015.
 
@@ -1618,7 +1618,7 @@ On the three vocabularies (DDI-RDF, QB, SKOS), we identified and classified 115 
 %\ke{ergebnisse, dann hypothesen, dann kritische auseinandersetzung}
 
 
-Table~\ref{tab:datasets} lists the number of data sets and the overall sizes in terms of triples for each of the vocabularies. We validated, i.a., 
+Table~\ref{tab:datasets} lists the number of validated data sets and the overall sizes in terms of triples for each of the vocabularies. We validated, i.a., 
 (1) QB data sets published by the \emph{Australian Bureau of Statistics},
 the \emph{European Central Bank}, and the
 \emph{Organisation for Economic Co-operation and Development},
@@ -1629,12 +1629,12 @@ the \emph{STW Thesaurus for Economics}, and the
 the \emph{Data Without Boundaries Discovery Portal}, the
 \emph{Danish Data Archive}, and the
 \emph{Swedish National Data Service}.
-In a technical report, we describe the evaluation in further detail \cite{BoschZapilkoWackerowEckert2015-2}. Furthermore, we published the evaluation results for each QB data set in form of one document per SPARQL endpoint\footnote{Online available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/evaluation/data-sets/data-cube}}.
+In a technical report, we describe the evaluation in further detail \cite{BoschZapilkoWackerowEckert2015-2}. Furthermore, we published the evaluation results for each QB data set in form of one document per SPARQL endpoint.\footnote{Online available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/evaluation/data-sets/data-cube}}
 
 \begin{table}[H]
 		\scriptsize
     \begin{center}
-		\caption{Evaluated Data Sets for each Vocabulary}
+		\caption{Validated Data Sets for each Vocabulary}
 		\label{tab:datasets}
     \begin{tabular}{lrr}
 %           & \multicolumn{6}{c}{\textbf{Vocabularies}}
@@ -1658,14 +1658,14 @@ In a technical report, we describe the evaluation in further detail \cite{BoschZ
 
 Since the validation of each of the 81 constraint types can be implemented using SPARQL, we use \emph{SPIN}, a SPARQL-based way to formulate and check constraints, as basis to develop a
 validation environment to validate RDF data according to constraints expressed by arbitrary constraint languages\footnote{Constraint language implementations online available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/SPIN}} \cite{BoschEckert2014-2}.
-The \emph{RDF Validator}\footnote{Online demo available at: \url{http://purl.org/net/rdfval-demo}, source code at: \url{https://github.com/boschthomas/rdf-validator}} can directly be used to validate arbitrary RDF data for the three vocabularies. Additionally, own constraints on vocabularies can be defined using several constraint languages.
+The \emph{RDF Validator}\footnote{Online demo available at: \url{http://purl.org/net/rdfval-demo}, source code online available at: \url{https://github.com/boschthomas/rdf-validator}} can directly be used to validate arbitrary RDF data for the three vocabularies. Additionally, own constraints on any vocabulary can be defined using several constraint languages.
 The SPIN engine checks for each resource if it satisfies all constraints, which are associated with its assigned classes, and generates a result RDF graph containing information about all constraint violations.
 There is one SPIN construct template for each constraint type.
 A SPIN construct template contains a SPARQL CONSTRUCT query which generates constraint violation triples indicating the subject and the properties causing constraint violations and the reason why constraint violations have been raised.
 A SPIN construct template creates constraint violation triples if all triple patterns within the SPARQL WHERE clause match.
 %\emph{Missy}\footnote{\url{http://www.gesis.org/missy/eu/missy-home}} provides comprehensive Linked Data services like diverse RDF exports of record-unit metadata conforming to the DDI-RDF vocabulary in form of multiple concrete syntaxes. 
 
-\subsection{Evaluation Results and Formulation of Hypotheses}
+\subsection{Evaluation Results and Formulation of Findings}
 
 %DCAT: 11 constraints defined
 %PHDD: 12
@@ -1707,18 +1707,18 @@ A SPIN construct template creates constraint violation triples if all triple pat
 %\end{table}
 
 %Table \ref{tab:evaluation-constraint-types} displays the evaluation of the metadata quality on real world data sets regarding constraint types.
-Tables \ref{tab:evaluation-constraint-violations-1} and \ref{tab:evaluation-constraint-violations-2} show the results of the evaluation, more specifically the constraints and the constraint violations, which are caused by these constraints, in percent; whereas the first numbers indicate the absolute amount of constraints and violations. The constraints and their raised violations are grouped by vocabulary, which type of language the constraint types are formulated with, and their severity level.
-The numbers of evaluated triples and data sets differ between the vocabularies
-as we evaluated 3.8 billion QB, 480 million SKOS, and 10 million DDI-RDF triples.
-To be able to formulate hypotheses which apply for all vocabularies, 
-we only use normalized relative values representing the percentage of constraints and violations belonging to the respective set of constraint types. 
+Tables \ref{tab:evaluation-constraint-violations-1} and \ref{tab:evaluation-constraint-violations-2} show the results of the evaluation, more specifically the constraints and the constraint violations, which are caused by these constraints, in percent; whereas the numbers in the first line indicate the absolute amount of constraints and violations. The constraints and their raised violations are grouped by vocabulary, which type of language the constraint types are formulated with, and their severity level.
+The numbers of validated triples and data sets differ between the vocabularies
+as we validated 3.8 billion QB, 480 million SKOS, and 10 million DDI-RDF triples.
+To be able to formulate findings which apply for all vocabularies, 
+we only use normalized relative values representing the percentage of constraints and violations belonging to the respective sets. 
 
-There is a strong overlap between \emph{RDFS/OWL} and \emph{Constraint Language Based} constraint types as in many cases constraint types are expressible by classical constraint languages and OWL. This is the reason why the percentage values of constraints and violations grouped by the classification of constraint types according to the expressivity of constraint languages do not accumulate to 100\%. 
+There is a strong overlap between \emph{RDFS/OWL} and \emph{Constraint Language Based} constraint types as in many cases constraint types are expressible by RDFS/OWL and classical constraint languages. This is the reason why the percentage values of constraints and violations grouped by the classification of constraint types according to the expressivity of constraint languages do not accumulate to 100\%. 
 
 As the evaluation is based on three vocabularies, 
 we cannot make valid general statements for all vocabularies,
-but we can formulate several hypotheses to direct the further development of constraint languages.
-As these hypotheses cannot be proved yet, 
+but we can formulate several findings to direct the further development of constraint languages.
+As these findings cannot be proved yet, 
 they still have to be verified or falsified
 by evaluating the quality of data represented by further well-established and newly developed vocabularies.
 
@@ -1946,7 +1946,9 @@ by evaluating the quality of data represented by further well-established and ne
 %\emph{Existential quantifications} (\emph{R-86}, 32.4\%, DDI-RDF), \emph{data model consistency} (31.4\%, QB), and \emph{structure} (28.6\%, SKOS) are the constraint types the most constraints are instantiated from.
 %\tb{1. Fakten (diese Fakten bewirken eine Erhöhung der Datenqualität) 2. Hypothese (unsere Interpretation der Ergebnisse, unsere Behauptung)}
 
-Almost 2/3 of all constraints, nearly 1/3 of the DDI-RDF, 60\% of the QB, and all SKOS constraints are \emph{SPARQL Based}. For well-established vocabularies, the most formulated constraints are \emph{SPARQL Based} (80\%). For newly developed vocabularies, however, the most expressed constraints are \emph{RDFS/OWL Based} (2/3). Nearly 80\% of all violations are caused by \emph{SPARQL}, 1/5 by \emph{Constraint Language}, and 1/5 by \emph{RDFS/OWL Based} constraints.
+Almost 2/3 of all constraints, nearly 1/3 of the DDI-RDF, 60\% of the QB, and all SKOS constraints are \emph{SPARQL Based}. For well-established vocabularies, the most formulated constraints are \emph{SPARQL Based} (80\%). For newly developed vocabularies, however, the most expressed constraints are \emph{RDFS/OWL Based} (2/3). 
+%
+Nearly 80\% of all violations are caused by \emph{SPARQL}, 1/5 by \emph{Constraint Language}, and 1/5 by \emph{RDFS/OWL Based} constraints.
 %Hence, a significant amount of 46 \% of the constraints are directly extractable from formal specifications of well-established and newly defined vocabularies. 
 %\begin{hyp}
 %As a significant amount of 46 \% of the constraints are vocabulary constraints which can be expressed by modeling languages like RDF, RDFS, and OWL 2,
@@ -1979,10 +1981,10 @@ While 2/3 of the DDI-RDF violations result from \emph{RDFS/OWL Based} constraint
 QB and SKOS violations are only raised by \emph{SPARQL Based} constraints.
 
 \begin{hyp}
-For well-established vocabularies, RDFS/OWL Based constraints are almost completely satisfied which indicates generally a very impressive data quality, at least in the SBE domain and for the basic requirements. For newly developed vocabularies, however, data quality is poor as RDFS/OWL Based constraints are not fulfilled. 
+For well-established vocabularies, RDFS/OWL Based constraints are almost completely satisfied which generally indicates very impressive data quality, at least in the SBE domain and for the basic requirements. For newly developed vocabularies, however, data quality is poor as RDFS/OWL Based constraints are not fulfilled. 
 \end{hyp}
 
-For DDI-RDF, data providers still have to understand the vocabulary and of course, data can not have high quality if the specification is not yet stable.
+For DDI-RDF, data providers still have to understand the vocabulary and of course data cannot have high quality if the specification is not yet stable.
 It is likely that a newly developed vocabulary is still subject of constant change
 and that early adopters did not properly understand its formal specification.
 Thus, published data may not be consistent with the current draft of its conforming vocabulary.
@@ -1991,7 +1993,7 @@ data providers are experienced in publishing their data in conformance with thes
 and formal specifications are more elaborated. 
 As a consequence, \emph{RDFS/OWL Based} constraints are satisfied to a greater extend which leads to better data quality.  
 %
-The reason why we only defined \emph{SPARQL Based} constraints for assessing the quality of thesauri is that literature and practice especially concentrate on graph-based structures of thesauri by applying graph- and network-analysis techniques which can only be implemented by SPARQL.
+The reason why we only defined \emph{SPARQL Based} constraints for assessing the quality of thesauri is that literature and practice especially concentrate on evaluating graph-based structures of thesauri by applying graph- and network-analysis techniques which can only be implemented by SPARQL.
 
 %Therefore, existing constraint languages have to be extended or new constraint languages have to be developed.
 
@@ -2267,7 +2269,7 @@ Violations caused by constraints expressed by RDFS/OWL or high-level constraint 
 There is a significant demand for languages that support the expression of SPARQL Based constraints as 94\% of all violations are caused by these constraints whose severity level is warning.
 \end{hyp}
 
-SPARQL seems to be used to formulate constraints whose violation is of higher severity than the violation of constraints expressed by either RDFS/OWL or high-level constraint languages. This is a surprising finding as the violation of \emph{RDFS/OWL Based} constraints should be of higher severity than \emph{informational} since these constraints are expected to be basic constraints as they are in many cases part of vocabularies' formal specifications. 
+SPARQL seems to be used to formulate constraints whose violation is of higher severity than the violation of constraints expressed by either RDFS/OWL or high-level constraint languages. This is a surprising finding as the violation of \emph{RDFS/OWL Based} constraints should be of higher severity than \emph{informational} constraints since \emph{RDFS/OWL Based} constraints are expected to be basic constraints as they are in many cases part of vocabularies' formal specifications. 
 %and (2)
 %the purpose of high-level constraint languages should be to enable to define constraints of higher severity than \emph{informational}.
 
@@ -2286,12 +2288,11 @@ SPARQL seems to be used to formulate constraints whose violation is of higher se
 %We exhaustively evaluated the metadata quality of large real world aggregated (QB), record-unit (DDI-RDF), and thesauri (SKOS) data sets (more than 4.2 billion triples and 15 thousand data sets) by means of 213  constraints of the majority of the constraint types\footnote{The second appendix of this paper describing the evaluation in detail is available at: \url{http://arxiv.org/abs/1504.04478} \cite{BoschZapilkoWackerowEckert2015-2}.} (section \ref{evaluation}).
 
 We identified and published by today 81 types of constraints  that are required by various stakeholders for data applications.
-In close collaboration with several domain experts for the social, behavioural, and economic sciences (\emph{SBE}), we formulated 115 constraints on three different vocabularies (DDI-RDF, QB, and SKOS) and classified them according to their severity level and  whether their type is expressible by different types of constraint languages - RDFS/OWL, high-level constraint languages, and SPARQL. 
-We evaluated  the data quality of 15,694 data sets (4.26 billion triples) of research data for the \emph{SBE} sciences obtained from 33 SPARQL endpoints.
+In close collaboration with several domain experts for the social, behavioural, and economic sciences (SBE), we formulated 115 constraints on three different vocabularies (DDI-RDF, QB, and SKOS) and classified them according to their severity level and  whether their type is expressible by different types of constraint languages - RDFS/OWL, high-level constraint languages, and SPARQL. 
+Using these constraints, we evaluated  the data quality of 15,694 data sets (4.26 billion triples) of research data for the SBE sciences obtained from 33 SPARQL endpoints.
 
-Based on the evaluation results,
-we formulated several hypotheses to direct the further development of constraint languages. We regard the results as hypotheses, as their general applicability beyond the examined vocabularies and for other domains is still to be confirmed.
-The main hypotheses are: 
+Based on the evaluation results, we formulated several findings to direct the further development of constraint languages. The general applicability of these findings, however, is still to be confirmed beyond the examined vocabularies and for other domains.
+The main findings are: 
 
 \begin{enumerate}
 \item
@@ -2315,7 +2316,7 @@ There is a significant demand for languages that support the expression of SPARQ
 %the further development of constraint languages should concentrate on expressing \emph{simple} and especially \emph{complex constraints} which up to now in most cases can only be expressed by plain SPARQL. 
 %\end{enumerate}
 
-We have been really impressed by the high quality of the QB and SKOS data. This is in contrast to the sometimes heard rumour that Linked Open Data lacks quality. We are actively involved in the further development and implementation of constraint languages and will use the results presented in the paper to set priorities on features where we expect the highest impact on the data quality of real-life data in the \emph{SBE} domain.
+We have been really impressed by the high quality of the QB and SKOS data. This is in contrast to the sometimes heard rumour that Linked Open Data lacks quality. We are actively involved in the further development and implementation of constraint languages and will use the results presented in the paper to set priorities on features where we expect the highest impact on the data quality of real-life data in the SBE domain.
 
 % An example of a floating figure using the graphicx package.
 % Note that \label must occur AFTER (or within) \caption.
