@@ -1037,10 +1037,10 @@ SELECT ?concept WHERE {
 
 A concrete constraint is instantiated from one of the 81 constraint types and is defined for a specific vocabulary.
 It does not make sense to determine the severity of constraint violations of an entire constraint type,
-as the severity of the violation of a constraint depends on the individual context and vocabulary.
+as the severity depends on the individual context and vocabulary.
 %as the violation of one constraint may be severe,
 %whereas, the violation of another constraint of the same type may be minor.
-SBE experts determined the default \emph{severity level}\footnote{The possibility to define severity levels in vocabularies is in itself a requirement (\emph{R-158}).} for each of the 115 constraints to indicate how serious the violation of the constraint is. We use the classification system of log messages in software development like \emph{Apache Log4j 2} \cite{Apache-2015}, the \emph{Java Logging API}\footnote{\url{http://docs.oracle.com/javase/7/docs/api/java/util/logging/Level.html}}, and the \emph{Apache Commons Logging API}\footnote{\url{http://commons.apache.org/proper/commons-logging/}} as many data practitioners also have experience in software development and software developers intuitively understand these levels. We simplify this commonly accepted classification system and distinguish the three severity levels (1) \emph{informational}, (2) \emph{warning} and (3) \emph{error}.
+SBE experts determined the default \emph{severity level}\footnote{The possibility to define severity levels in vocabularies is in itself a requirement (\emph{R-158}).} for each of the 115 constraints to indicate how serious the violation of the constraint is. We use the classification system of log messages in software development like \emph{Apache Log4j 2} \cite{Apache-2015}, the \emph{Java Logging API},\footnote{\url{http://docs.oracle.com/javase/7/docs/api/java/util/logging/Level.html}} and the \emph{Apache Commons Logging API}\footnote{\url{http://commons.apache.org/proper/commons-logging/}} as many data practitioners also have experience in software development and software developers intuitively understand these levels. We simplify this commonly accepted classification system and distinguish the three severity levels (1) \emph{informational}, (2) \emph{warning}, and (3) \emph{error}.
 %According to the default severity level of constraints, the complete set of constraints encompasses three disjoint \emph{sets of constraints}:\ke{auch dieser satz macht keinen sinn für mich, ebensowenig wie die extrem erhellende auflistung, die gleich folgt... mein vorschlag von eben kann das komplett ersetzen.}
 %\begin{itemize}
 	%\item \textbf{\emph{informational constraints}}: constraints with severity level \emph{informational}
@@ -1050,7 +1050,7 @@ SBE experts determined the default \emph{severity level}\footnote{The possibilit
 Violations of \emph{informational} constraints point to desirable but not necessary data improvements to achieve RDF representations which are ideal in terms of syntax and semantics of used vocabularies. 
 %They are not seen as serious errors.
 \emph{Warnings} are syntactic or semantic problems which typically should not lead to an abortion of data processing.
-\emph{Errors} are syntactic or semantic errors which should cause the abortion of data processing. 
+\emph{Errors}, in contrast, are syntactic or semantic errors which should cause the abortion of data processing. 
 %Data not conforming to \emph{warning} and \emph{error constraints} is syntactically and/or semantically not correctly represented.
 %Data not conforming to \emph{warning constraints} but to \emph{error constraints} could be processed further.
 %Data not corresponding to \emph{error constraints}, however, cannot be processed further after validation. 
@@ -1103,7 +1103,7 @@ It is a common requirement to narrow down the value space of properties by an ex
 %If \emph{dcterms:coverage} and one of its sub properties (\emph{dcterms:spatial}, \emph{dcterms:temporal}) are given,
 %it is checked that \emph{dcterms:coverage} is not redundant with its sub-properties 
 %which may indicate when the data is verbose/redundant or expressed at a too general level.
-Consider the following \emph{DL knowledge base} $\mathcal{K}$\footnote{A \emph{DL knowledge base} is a collection of formal statements which correspond to \emph{facts} or what is known explicitly. }:
+Consider the following \emph{DL knowledge base} $\mathcal{K}$:\footnote{A \emph{DL knowledge base} is a collection of formal statements which correspond to \emph{facts} or what is known explicitly. }
 \begin{center}
 \begin{DL} 
 $\mathcal{K}=\{$ 
@@ -1125,7 +1125,7 @@ Variables, e.g., should have a relation to a theoretical concept (\emph{informat
 %The variables \emph{number of school years} and \emph{highest educational degree}, e.g., are associated with the theoretical concept \emph{education}. 
 The variable \emph{Education at pre-school} is associated with the theoretical concept \emph{Child Care}. 
 The default severity level of this constraint is weak, as in most cases research can be continued without having information about the theoretical concept of a variable.
-
+%
 A \emph{universal quantification} (\emph{R-91}) contains all those individuals that are connected by a property only to individuals/literals of particular classes  or data ranges.
 %Only \emph{dcat:Catalogs}, e.g., can have \emph{dcat:dataset} relationships to \emph{dcat:Datasets}:
 %\begin{DL}
