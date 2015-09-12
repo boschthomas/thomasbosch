@@ -1001,7 +1001,7 @@ We further distinguish \emph{Constraint Language Based} as the set of constraint
 %RDFS, and OWL as we consider RDFS and OWL as constraint languages when assuming CWA/UNA semantics without reasoning. 
 There is a strong overlap between \emph{RDFS/OWL} and \emph{Constraint Language Based} constraint types as in many cases constraint types are expressible by both classical constraint languages and OWL. SPARQL, however, is considered as a low-level implementation language in this context. In contrast to SPARQL, high-level constraint languages are comparatively easy to understand and constraints can be formulated more concisely. Declarative languages may be placed on top of SPARQL when using it as an implementation language. For these \emph{Constraint Language Based} constraints, we expect a straight-forward support in future constraint languages.
 
-\emph{Context-specific exclusive or of property groups} (\emph{R-11}) is a constraint type which can be formulated by a high-level constraint language. Constraints of this type restrict individuals of given classes to have properties defined within exactly one of multiple mutually exclusive property groups. \emph{skos:Concept}s, e.g., can have either \emph{skos:definition} (when interpreted as theo\-reti\-cal concepts) or \emph{skos:notation} and \emph{skos:prefLabel} properties (when interpreted as codes), but not both:\ke{Wo kommt das constraint her? In SKOS gilt das nicht generell.}\bz{Wenn das Constraint keinen SKOS-Ursprung hat, sollten wir ein anderes Beispiel in dem Satz nennen.}
+\emph{Context-specific exclusive or of property groups} (\emph{R-11}) is a constraint type which can be formulated by a high-level constraint language. Constraints of this type restrict individuals of given classes to have properties defined within exactly one of multiple mutually exclusive property groups. Within the context of DDI-RDF, \emph{skos:Concept}s can have either \emph{skos:definition} (when interpreted as theo\-reti\-cal concepts) or \emph{skos:notation} and \emph{skos:prefLabel} properties (when interpreted as codes), but not both:
 %(\emph{error}).
 
 \begin{ex}[commandchars=\\\{\}]
@@ -1079,8 +1079,11 @@ Note that there is a correlation between the severity of a constraint and the cl
 %use-case specific constraints, e.g., DCAT: searching for metadata
 %\tb{Thomas: ToDo}
 
-\subsection{Examples}\ke{die examples finde ich sehr schwer zu lesen, es fehlt auch eine einleitung aus der hervorgeht, wieso die beispiele hier eigentlich aufgeführt werden.}
+\subsection{Examples}
+%\ke{die examples finde ich sehr schwer zu lesen, es fehlt auch eine einleitung aus der hervorgeht, wieso die beispiele hier eigentlich aufgeführt werden.}
 \label{vocabulary-constraint-types}
+
+To get an overview on the constraint types, we delineate concrete constraints on the three vocabularies for each set of constraint type and classify them according to their severity.
 
 %The constraint type \emph{vocabulary} guarantees that users do not invent new or use deprecated terms of vocabularies.
 %Out-dated classes and properties of previous vocabulary versions can be marked as deprecated.
@@ -1603,7 +1606,14 @@ as language coverage incompleteness for some concepts may indicate shortcomings 
 \section{Evaluation}
 \label{evaluation}
 
-In this section, we describe our findings based on an automatic constraint checking of a large data set. Despite the large volume of the data set in general, this study only uses data for three vocabularies. As described in Section~\ref{sbe-vocabularies}, for other vocabularies there is often not (yet) enough data openly available to draw general conclusions. The three vocabularies, however, are representative, cover different aspects of SBE data, and are also a mixture of widely adopted and accepted well-established vocabularies (QB, SKOS) and a vocabulary under development (DDI-RDF\footnote{Expected publication end of 2015.}). If our findings hold generally is still to be determined, nevertheless they provide valuable insights for future developments of constraint languages.
+In this section, we describe our findings based on an automatic constraint checking of a large data set. Despite the large volume of the data set in general, this study only uses data for three vocabularies. As described in Section~\ref{sbe-vocabularies}, for other vocabularies there is often not (yet) enough data openly available to draw general conclusions. The three vocabularies, however, are representative, cover different aspects of SBE data, and are also a mixture of widely adopted and accepted well-established vocabularies (QB, SKOS) and a vocabulary under development (DDI-RDF\footnote{Expected publication end of 2015.}). 
+%If our findings hold generally is still to be determined, nevertheless they provide valuable insights for future developments of constraint languages.
+As the evaluation is based on three vocabularies, 
+we cannot make valid general statements for all vocabularies,
+but we can formulate several findings to direct the further development of constraint languages.
+As these findings cannot be proved yet, 
+they still have to be verified or falsified
+by evaluating the quality of data represented by further well-established and newly developed vocabularies.
 
 \subsection{Experimental Setup}
 \label{implementation}
@@ -1612,7 +1622,8 @@ In this section, we describe our findings based on an automatic constraint check
 
 	%\item First, we assigned each constraint type to exactly one of the disjoint sets of constraint types 
 %in order to get an overview how many constraint types in relation to the total amount of constraint types are extractable from vocabularies ($\mathcal{CT}_{B}$), are easily definable ($\mathcal{CT}_{S}$), and are rather difficult to specify ($\mathcal{CT}_{C}$). 
-On the three vocabularies (DDI-RDF, QB, SKOS), we identified and classified 115 constraints\footnote{All 115 implemented constraints are online available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}} which we implemented for data validation. We ensured that the implementation of the constraints is equally distributed over the classes and vocabularies we have. We then evaluated the data quality of 15,694 data sets (4.26 billion triples) of SBE research data using these 115 constraints, obtained from 33 SPARQL endpoints.\ke{Das ist eine Wiederholung, ggf. streichen, falls Platz knapp}
+On the three vocabularies (DDI-RDF, QB, SKOS), we identified and classified 115 constraints\footnote{All 115 implemented constraints are online available at: \url{https://github.com/boschthomas/rdf-validation/tree/master/constraints}} which we implemented for data validation. We ensured that the implementation of the constraints is equally distributed over the classes and vocabularies we have. We then evaluated the data quality of 15,694 data sets (4.26 billion triples) of SBE research data using these 115 constraints, obtained from 33 SPARQL endpoints.
+%\ke{Das ist eine Wiederholung, ggf. streichen, falls Platz knapp}
 
 %QB and SKOS are well-established vocabularies which are widely adopted and accepted. DDI-RDF is a newly developed vocabulary which will be published in 2015.
 
@@ -1718,7 +1729,7 @@ we only use normalized relative values representing the percentage of constraint
 
 There is a strong overlap between \emph{RDFS/OWL} and \emph{Constraint Language Based} constraint types as in many cases constraint types are expressible by RDFS/OWL and classical constraint languages. This is the reason why the percentage values of constraints and violations grouped by the classification of constraint types according to the expressivity of constraint languages do not accumulate to 100\%. 
 
-\ke{da kam noch mal der limitations disclaimer, ich denke, einmal reicht... habs auskommentiert}
+%\ke{da kam noch mal der limitations disclaimer, ich denke, einmal reicht... habs auskommentiert}
 %As the evaluation is based on three vocabularies, 
 %we cannot make valid general statements for all vocabularies,
 %but we can formulate several findings to direct the further development of constraint languages.
@@ -2078,11 +2089,13 @@ almost all QB violations and 59\% of the SKOS violations are caused by \emph{war
 %Constraints are serious when they violate the integrity of vocabularies.
 %For well-established vocabularies, it is well documented and the experience is high how to guarantee this integrity
 %which is not the case or newly-developed vocabularies.
-\begin{hyp}\ke{das ist doch das gleiche wie 4, oder?}\bz{Stimme Kai zu. Finding 4 und 6 koennte man zusammenfassen oder falls es doch Unterschiede gibt, muessen die staerker hervorgehoben werden.}
+\begin{hyp}
+%\ke{das ist doch das gleiche wie 4, oder?}\bz{Stimme Kai zu. Finding 4 und 6 koennte man zusammenfassen oder falls es doch Unterschiede gibt, muessen die staerker hervorgehoben werden.}
 For well-established vocabularies, data quality is high as serious violations rarely appear. For newly developed vocabularies, however, data quality is worse as serious violations occur partially.   
 \end{hyp} 
 
-Especially for newly developed vocabularies, constraint languages should be used to a larger extend to define appropriate constraints in order to detect and solve severe violations.\ke{aber das wird doch gemacht, halt mit RDFS und OWL, weswegen die etablierten ja besser sind.}
+Especially for newly developed vocabularies, constraint languages should be used to a larger extend in addition to RDFS/OWL in order to define appropriate constraints to detect and solve severe violations.
+%\ke{aber das wird doch gemacht, halt mit RDFS und OWL, weswegen die etablierten ja besser sind.}
 %to reduce severe violations by checking and solving them.
 
 %For the vocabularies DDI-RDF, QB, and SKOS, we defined 213 constraints of 53 constraint types .
@@ -2269,11 +2282,24 @@ Especially for newly developed vocabularies, constraint languages should be used
 \begin{hyp}
 Whatever language is used to formulate constraints, 1/2 of all constraints are informational, 1/3 are error, and 1/5 are warning constraints. 
 %Thereby, it does not matter which language is used to formulate constraints.
-Violations caused by constraints expressed by RDFS/OWL or high-level constraint languages are of low severity, whereas the violation of constraints formulated by SPARQL is more serious.
-There is a significant demand for languages that support the expression of SPARQL Based constraints as 94\% of all violations are caused by these constraints whose severity level is warning.
 \end{hyp}
 
-SPARQL seems to be used to formulate constraints whose violation is of higher severity than the violation of constraints expressed by either RDFS/OWL or high-level constraint languages. This is a surprising finding as the violation of \emph{RDFS/OWL Based} constraints should be of higher severity than \emph{informational} constraints since \emph{RDFS/OWL Based} constraints are expected to be basic constraints as they are in many cases part of vocabularies' formal specifications. \ke{das letzte finding und die erläuterung finde ich konfus. violations gibts doch bei rdfs/owl hauptsächlich informational, weil die wirklich wichtigen eingehalten werden. sparql based kann man ja bis jetzt nicht anders formulieren, insofern ist zu erwarten, dass da auch warning constraints weniger eingehalten werden, wenn man welche auf warning level formuliert. Ist das nicht eh ein Artefakt basierend auf letztlich 1 oder 2 constraints die ihr formuliert habt?}
+The fact that regardless of the language 1/2 of all constraints are \emph{informational} indicates that the purpose of constraints for users is mostly just to point to desirable but not necessary data improvements in terms of syntax and semantics of vocabularies. 
+
+\begin{hyp}
+Regardless of the type of the used language, there are only a few violations raised by important constraints which stands for good data quality in general.
+In contrast, constraints of low severity, expressed by RDFS/OWL or high-level constraint languages, are violated to a large extent (80\%), whereas more serious constraints, expressed by SPARQL, are violated to an even larger extend (94\%).
+%Violations caused by constraints expressed by RDFS/OWL or high-level constraint languages are of low severity (as the important constraints are satisfied), whereas the violation of constraints formulated by SPARQL is more serious. There is a significant demand for languages that support the expression of SPARQL Based constraints.
+\end{hyp}
+
+The reason why there is a significant demand for languages supporting \emph{SPARQL Based} constraints is that 94\% of all violations, which are caused by \emph{SPARQL Based} constraints, are also raised by \emph{warning} constraints. This means that data quality may be improved in case these \emph{warning} constraints are adequately tackled which is more likely when these constraints are expressible not only by SPARQL but also by high-level constraint languages enabling to formulate constraints more intuitively and concisely. 
+
+%SPARQL seems to be used to formulate constraints whose violation is of higher severity than the violation of constraints expressed by either RDFS/OWL or high-level constraint languages. This is a surprising finding as the violation of \emph{RDFS/OWL Based} constraints should be of higher severity than \emph{informational} constraints since \emph{RDFS/OWL Based} constraints are expected to be basic constraints as they are in many cases part of vocabularies' formal specifications. 
+
+%\textcolor{red}{
+%das letzte finding und die erläuterung finde ich konfus. violations gibts doch bei rdfs/owl hauptsächlich informational, weil die% wirklich wichtigen eingehalten werden. sparql based kann man ja bis jetzt nicht anders formulieren, insofern ist zu erwarten, dass da% auch warning constraints weniger eingehalten werden, wenn man welche auf warning level formuliert. Ist das nicht eh ein Artefakt %basierend auf letztlich 1 oder 2 constraints die ihr formuliert habt?
+%}
+
 %and (2)
 %the purpose of high-level constraint languages should be to enable to define constraints of higher severity than \emph{informational}.
 
