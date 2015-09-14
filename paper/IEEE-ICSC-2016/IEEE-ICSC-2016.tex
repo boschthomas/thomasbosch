@@ -757,7 +757,8 @@ We took all well-established and newly developed SBE vocabularies into account a
 SBE sciences require high-quality data for their empirical research. For more than a decade, members of the SBE community have been developing and using a
 metadata standard, composed of almost twelve hundred metadata fields, known as the \emph{Data Documentation Initiative (DDI)}, \footnote{\url{http://www.ddialliance.org/Specification/}}
 an XML format to disseminate, manage,
-and reuse data collected and archived for research \cite{Vardigan2008}. 
+and reuse data collected and archived for research. 
+%\cite{Vardigan-2008}. 
 In XML, the definition of schemas containing constraints and the validation of data according to these constraints is commonly used to ensure a certain level of data quality.
 With the rise of the Web of Data, data professionals and institutions are very interested in publishing their data directly in RDF or at least publish accurate metadata about their data to facilitate discovery and reuse. Therefore, not only established vocabularies like SKOS are used; 
 recently, members of the SBE and Linked Data community developed with the \emph{DDI-RDF Discovery Vocabulary (DDI-RDF)}\footnote{\url{http://rdf-vocabulary.ddialliance.org/discovery.html}} a means to expose \emph{DDI} metadata as Linked Data. 
@@ -1055,7 +1056,7 @@ Violations of \emph{informational} constraints point to desirable but not necess
 %Data not conforming to \emph{warning constraints} but to \emph{error constraints} could be processed further.
 %Data not corresponding to \emph{error constraints}, however, cannot be processed further after validation. 
 
-Note that there is a correlation between the severity of a constraint and the classification according to the expressivity of constraint languages of its type: \emph{RDFS/OWL Based} constraints are in many cases classified with an \emph{error} level as they typically represent basic and important constraints; there is a reason why they have been included in the vocabulary specification. Although we provide default severity levels for each constraint, validation environments should enable users to adapt the severity levels of constraints according to their individual needs.
+Note that there is a correlation between the severity of a constraint and the classification according to the expressivity of constraint languages of its type: \emph{RDFS/OWL Based} constraints are in many cases classified with an \emph{error} level as they typically represent basic constraints; there is a reason why they have been included in the vocabulary specification. Although we provide default severity levels for each constraint, validation environments should enable users to adapt the severity levels of constraints according to their individual needs.
 % Validation environments should enable users to select which constraints to validate against depending on their individual use cases.
 % For some use cases, 
 % validating \emph{vocabulary constraints} may be more important than validating \emph{simple} or \emph{complex constraints}.
@@ -2082,16 +2083,19 @@ Almost 40\% of all constraints are \emph{error}, more than 40\% are \emph{inform
 Although 40\% of all constraints are error constraints, the percentage of severe violations is very low, compared to about 2/3 of warning and 1/3 of informational violations. This implies that data quality is high with regard to the severity level of constraints and that proper constraint languages can significantly improve data quality beyond fundamental requirements.
 \end{hyp} 
 
-85\% of the QB constraints are \emph{error} constraints.
-More than 50\% of the DDI-RDF and SKOS constraints, however, are \emph{informational} constraints.
+We did not detect violations of \emph{error} constraints for well-established vocabularies, even though 85\% of the QB constraints are \emph{error} constraints. 
+%85\% of the QB constraints are \emph{error} constraints.
+More than 50\% of the DDI-RDF and SKOS constraints are \emph{informational} constraints.
 1/6 of the DDI-RDF violations are caused by \emph{error} constraints and
-almost all QB violations and 59\% of the SKOS violations are caused by \emph{warning} constraints.  
+almost all QB and 59\% of the SKOS violations are caused by \emph{warning} constraints. 
+%For well-established vocabularies, we detected no violations of \emph{error} constraints.  
 %Constraints are serious when they violate the integrity of vocabularies.
 %For well-established vocabularies, it is well documented and the experience is high how to guarantee this integrity
 %which is not the case or newly-developed vocabularies.
+
 \begin{hyp}
 %\ke{das ist doch das gleiche wie 4, oder?}\bz{Stimme Kai zu. Finding 4 und 6 koennte man zusammenfassen oder falls es doch Unterschiede gibt, muessen die staerker hervorgehoben werden.}
-For well-established vocabularies, data quality is high as serious violations rarely appear. For newly developed vocabularies, however, data quality is worse as serious violations occur partially.   
+For well-established vocabularies, data quality is high as serious violations rarely appear (0.3\% for QB). For newly developed vocabularies, however, data quality is worse as serious violations occur partially (1/6 for DDI-RDF).   
 \end{hyp} 
 
 Especially for newly developed vocabularies, constraint languages should be used to a larger extend in addition to RDFS/OWL in order to define appropriate constraints to detect and solve severe violations.
@@ -2284,15 +2288,27 @@ Whatever language is used to formulate constraints, 1/2 of all constraints are i
 %Thereby, it does not matter which language is used to formulate constraints.
 \end{hyp}
 
-The fact that regardless of the language 1/2 of all constraints are \emph{informational} indicates that the purpose of constraints for users is mostly just to point to desirable but not necessary data improvements in terms of syntax and semantics of vocabularies. 
+The fact that regardless of the language 1/2 of all constraints are \emph{informational} 
+%indicates that the purpose of constraints for users is mostly just to point to desirable but not necessary data improvements in terms of syntax and semantics of vocabularies. 
+indicates the importance that constraint languages support
+constraints on several levels. Constraints are by far not only to
+prevent certain usages of a vocabulary, they are rather needed to
+provide better guidance for improved interoperability.
 
 \begin{hyp}
-Regardless of the type of the used language, there are only a few violations raised by important constraints which stands for good data quality in general.
+Regardless of the type of the used language, there are only a few violations raised by \emph{error} constraints which stands for good data quality in general.
 In contrast, constraints of low severity, expressed by RDFS/OWL or high-level constraint languages, are violated to a large extent (80\%), whereas more serious constraints, expressed by SPARQL, are violated to an even larger extend (94\%).
 %Violations caused by constraints expressed by RDFS/OWL or high-level constraint languages are of low severity (as the important constraints are satisfied), whereas the violation of constraints formulated by SPARQL is more serious. There is a significant demand for languages that support the expression of SPARQL Based constraints.
 \end{hyp}
 
-The reason why there is a significant demand for languages supporting \emph{SPARQL Based} constraints is that 94\% of all violations, which are caused by \emph{SPARQL Based} constraints, are also raised by \emph{warning} constraints. This means that data quality may be improved in case these \emph{warning} constraints are adequately tackled which is more likely when these constraints are expressible not only by SPARQL but also by high-level constraint languages enabling to formulate constraints more intuitively and concisely. 
+%The reason why there is a significant demand for languages supporting \emph{SPARQL Based} constraints is that 94\% of all violations, which are caused by \emph{SPARQL Based} constraints, are also raised by \emph{warning} constraints. This means that data quality may be improved in case these \emph{warning} constraints are adequately tackled which is more likely when these constraints are expressible not only by SPARQL but also by high-level constraint languages enabling to formulate constraints more intuitively and concisely. 
+
+94\% of the violations of SPARQL-based constraints are warnings. This
+means that data quality could be improved significantly, if these
+constraints are met. This is more likely when these constraints
+are expressible not only by SPARQL but also by high-level
+constraint languages enabling to formulate constraints more
+intuitively and concisely.
 
 %SPARQL seems to be used to formulate constraints whose violation is of higher severity than the violation of constraints expressed by either RDFS/OWL or high-level constraint languages. This is a surprising finding as the violation of \emph{RDFS/OWL Based} constraints should be of higher severity than \emph{informational} constraints since \emph{RDFS/OWL Based} constraints are expected to be basic constraints as they are in many cases part of vocabularies' formal specifications. 
 
