@@ -1000,7 +1000,7 @@ Constraints of the type \emph{minimum qualified cardinality restrictions} (\emph
 \textbf{\emph{Constraint Language Based}.}
 We further distinguish \emph{Constraint Language Based} as the set of constraint types that can be expressed by common classical declarative high-level constraint languages like ShEx, ReSh, and DSP. 
 %RDFS, and OWL as we consider RDFS and OWL as constraint languages when assuming CWA/UNA semantics without reasoning. 
-There is a strong overlap between \emph{RDFS/OWL} and \emph{Constraint Language Based} constraint types as in many cases constraint types are expressible by both classical constraint languages and OWL. SPARQL, however, is considered as a low-level implementation language in this context. In contrast to SPARQL, high-level constraint languages are comparatively easy to understand and constraints can be formulated more concisely. Declarative languages may be placed on top of SPARQL when using it as an implementation language. For these \emph{Constraint Language Based} constraints, we expect a straight-forward support in future constraint languages.
+There is a strong overlap between \emph{RDFS/OWL} and \emph{Constraint Language Based} constraint types as in many cases constraint types are expressible by both classical constraint languages and RDFS/OWL. SPARQL, however, is considered as a low-level implementation language in this context. In contrast to SPARQL, high-level constraint languages are comparatively easy to understand and constraints can be formulated more concisely. Declarative languages may be placed on top of SPARQL when using it as an implementation language. For these \emph{Constraint Language Based} constraint types, we expect a straight-forward support in future constraint languages.
 
 \emph{Context-specific exclusive or of property groups} (\emph{R-11}) is a constraint type which can be formulated by a high-level constraint language. Constraints of this type restrict individuals of given classes to have properties defined within exactly one of multiple mutually exclusive property groups. Within the context of DDI-RDF, \emph{skos:Concept}s can have either \emph{skos:definition} (when interpreted as theo\-reti\-cal concepts) or \emph{skos:notation} and \emph{skos:prefLabel} properties (when interpreted as codes), but not both:
 %(\emph{error}).
@@ -1084,7 +1084,7 @@ Note that there is a correlation between the severity of a constraint and the cl
 %\ke{die examples finde ich sehr schwer zu lesen, es fehlt auch eine einleitung aus der hervorgeht, wieso die beispiele hier eigentlich aufgeführt werden.}
 \label{vocabulary-constraint-types}
 
-To get an overview on the constraint types, we delineate concrete constraints on the three vocabularies for each set of constraint type and classify them according to their severity.
+To get an overview on the sets of constraint types, we delineate concrete constraints on the three vocabularies for each set of constraint type and classify them according to their severity.
 
 %The constraint type \emph{vocabulary} guarantees that users do not invent new or use deprecated terms of vocabularies.
 %Out-dated classes and properties of previous vocabulary versions can be marked as deprecated.
@@ -1116,9 +1116,9 @@ $\mathcal{K}=\{$
 &{\small\ms{CategoryStatistics $\equiv$ $\forall$ computationBase.}} \\
 	&{\small\ms{\{valid,invalid\} $\sqcap$ langString,}} \\
   &{\small\ms{Variable $\equiv$ $\exists$ concept.Concept,}} \\
-	&{\small\ms{Catalog $\sqsubseteq$ $\forall$ dataset.Dataset,}} \\
-  &{\small\ms{$\exists$ isStructuredBy.$\top$ $\sqsubseteq$ Table,}} \\
-	&{\small\ms{$\top$ $\sqsubseteq$ $\forall$ belongsTo.Concept}}
+	&{\small\ms{DataSet $\sqsubseteq$ $\forall$ structure.DataStructureDef,}} \\
+  &{\small\ms{$\exists$ hasTopConcept.$\top$ $\sqsubseteq$ ConceptScheme,}} \\
+	&{\small\ms{$\top$ $\sqsubseteq$ $\forall$ variable.Variable}}
 \}\\ 
 \end{DL}
 \end{center}
@@ -1139,7 +1139,7 @@ A \emph{universal quantification} (\emph{R-91}) contains all those individuals t
 Only \emph{qb:DataSets}, e.g., can have \emph{qb:structure} relationships to \emph{qb:DataStructureDefinitions} (\emph{error}).
 \emph{Property domains} (\emph{R-25, R-26}) and \emph{property ranges} (\emph{R-28, R-35}) constraints restrict domains and ranges of properties:
 %Only \emph{phdd:Tables}, e.g., can have \emph{\textcolor{red}{phdd}:isStructuredBy} relationships (\emph{error}) and \emph{\textcolor{red}{xkos}:belongsTo} relations can only point to \emph{skos:Concepts} (\emph{error}).
-Only \emph{skos:ConceptSchemes}, e.g., can have \emph{skos:hasTopConcept} relationships (\emph{error}) and \emph{disco:variable} relations can only point to \emph{disco:Variables} (\emph{error}).
+only \emph{skos:ConceptSchemes}, e.g., can have \emph{skos:hasTopConcept} relationships (\emph{error}) and \emph{disco:variable} relations can only point to \emph{disco:Variables} (\emph{error}).
 
 It is often useful to declare a given (data) property as the \emph{primary key} (\emph{R-226}) of a class, so that a system can enforce uniqueness and build URIs from user inputs and imported data. 
 In DDI-RDF, resources are uniquely identified by the property \emph{adms:identifier},
@@ -1453,11 +1453,11 @@ If codes (\emph{skos:Concept}) should be ordered, they must be members (\emph{sk
 
 %\textbf{Constraints on Properties.}
 It is useful to declare properties to be \emph{conditional} (\emph{R-71}), i.e., if particular properties exist (or do not exist), then other properties must also be present (or absent).
-To get an overview over a study either an abstract, a title, an alternative title, or links to external descriptions should be provided. 
+To get an overview on a study either an abstract, a title, an alternative title, or links to external descriptions should be provided. 
 If an abstract and an external description are absent, however,  
 a title or an alternative title should be given (\emph{warning}).
 In case a variable is represented in form of a code list, codes may be associated with categories, i.e., human-readable labels (\emph{informational}).
-The variable \emph{Education at pre-school}, e.g., is represented as ordered code list without any categories.
+The variable \emph{Education at pre-school}, e.g., is represented as an ordered code list without any categories.
 
 For data properties, it may be desirable to restrict that values of predefined languages must be present for determined number of times (\emph{R-48/49: language tag cardinality}):
 (1) It is checked if literal language tags are set. Some controlled vocabularies, e.g., contain literals in natural language, but without information what language has actually been used (\emph{warning}). 
@@ -1607,7 +1607,7 @@ as language coverage incompleteness for some concepts may indicate shortcomings 
 \section{Evaluation}
 \label{evaluation}
 
-In this section, we describe our findings based on an automatic constraint checking of a large data set. Despite the large volume of the data set in general, this study only uses data for three vocabularies. As described in Section~\ref{sbe-vocabularies}, for other vocabularies there is often not (yet) enough data openly available to draw general conclusions. The three vocabularies, however, are representative, cover different aspects of SBE data, and are also a mixture of widely adopted and accepted well-established vocabularies (QB, SKOS) and a vocabulary under development (DDI-RDF\footnote{Expected publication end of 2015.}). 
+In this section, we describe our findings based on an automatic constraint checking of a large data set. Despite the large volume of the data sets in general, this study only uses data for three vocabularies. As described in Section~\ref{sbe-vocabularies}, for other vocabularies there is often not (yet) enough data openly available to draw general conclusions. The three vocabularies, however, are representative, cover different aspects of SBE data, and are also a mixture of widely adopted and accepted well-established vocabularies (QB, SKOS) and a vocabulary under development (DDI-RDF\footnote{Expected publication end of 2015.}). 
 %If our findings hold generally is still to be determined, nevertheless they provide valuable insights for future developments of constraint languages.
 As the evaluation is based on three vocabularies, 
 we cannot make valid general statements for all vocabularies,
@@ -2334,7 +2334,7 @@ intuitively and concisely.
 %We exhaustively evaluated the metadata quality of large real world aggregated (QB), unit-record (DDI-RDF), and thesauri (SKOS) data sets (more than 4.2 billion triples and 15 thousand data sets) by means of 213  constraints of the majority of the constraint types\footnote{The second appendix of this paper describing the evaluation in detail is available at: \url{http://arxiv.org/abs/1504.04478} \cite{BoschZapilkoWackerowEckert2015-2}.} (section \ref{evaluation}).
 
 We published by today 81 constraint types that are required by various stakeholders for data applications.
-In close collaboration with several domain experts for the social, behavioral, and economic sciences (SBE), we formulated 115 constraints on three different vocabularies (DDI-RDF, QB, SKOS) and classified them according to their severity level and  whether their type is expressible by different types of constraint languages - RDFS/OWL, high-level constraint languages, and SPARQL. 
+In close collaboration with several domain experts for the social, behavioral, and economic (SBE) sciences, we formulated 115 constraints on three different vocabularies (DDI-RDF, QB, SKOS) and classified them according to their severity level and  whether their type is expressible by different types of constraint languages - RDFS/OWL, high-level constraint languages, and SPARQL. 
 Using these constraints, we evaluated  the data quality of 15,694 data sets (4.26 billion triples) of research data for the SBE sciences obtained from 33 SPARQL endpoints.
 
 Based on the evaluation results, we formulated several findings to direct the further development of constraint languages. The general applicability of these findings, however, is still to be confirmed beyond the examined vocabularies and for other domains.
